@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
     branches:
-      - develop # Target branch, we cannot check develop to main.
+      - develop
 
 jobs:
   pr-checks:
@@ -20,11 +20,17 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+        env:
+          ROLLUP_NO_NATIVE: true
 
       - name: Run build
         run: npm run build
+        env:
+          ROLLUP_NO_NATIVE: true
 
       - name: Run lint
         run: npm run lint
