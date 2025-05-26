@@ -1,0 +1,36 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    branches:
+      - develop
+
+jobs:
+  pr-checks:
+    name: Build and Lint check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+        env:
+          ROLLUP_NO_NATIVE: true
+
+      - name: Run build
+        run: npm run build
+        env:
+          ROLLUP_NO_NATIVE: true
+
+      - name: Run lint
+        run: npm run lint
