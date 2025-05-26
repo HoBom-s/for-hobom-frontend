@@ -2,7 +2,7 @@ export interface MiddlewareContext {
   input: RequestInfo;
   init: RequestInit;
   response?: Response;
-  error?: any;
+  error?: unknown;
 }
 
 export type Middleware = {

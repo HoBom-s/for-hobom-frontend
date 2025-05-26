@@ -24,7 +24,7 @@ export class HttpClient {
 
   public async post<T>(
     url: string,
-    body: any,
+    body: unknown,
     options?: Omit<RequestOptions, "json">,
   ): Promise<T> {
     return this.request("POST", url, { ...options, json: body }).then((r) =>
@@ -34,7 +34,7 @@ export class HttpClient {
 
   public async put<T>(
     url: string,
-    body: any,
+    body: unknown,
     options?: Omit<RequestOptions, "json">,
   ): Promise<T> {
     return this.request("PUT", url, { ...options, json: body }).then((r) =>
