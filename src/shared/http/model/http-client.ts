@@ -19,7 +19,7 @@ export class HttpClient {
 
   public async get<T>(url: string, options?: RequestOptions): Promise<T> {
     const res = await this.request("GET", url, options);
-    return res.json();ㅇ
+    return res.json();
   }
 
   public async post<T>(
