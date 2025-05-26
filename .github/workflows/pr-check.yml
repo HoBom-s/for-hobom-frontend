@@ -9,7 +9,7 @@ on:
 jobs:
   pr-checks:
     name: Build and Lint check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
