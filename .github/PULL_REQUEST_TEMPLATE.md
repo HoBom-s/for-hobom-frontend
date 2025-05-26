@@ -12,14 +12,6 @@
 
 ---
 
-## 🚦 Deployment & Rollback Plan
-
-- DB 마이그레이션 필요: (Y/N)
-- 환경 변수 추가/변경: (Y/N)
-- 롤백 전략: 트랜잭션 기반 롤백 / DB snapshot 복구 등
-
----
-
 ## 🙋 Reviewer Notes
 
 - (예: 트랜잭션 처리 부분 검토 부탁드립니다.)
