@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Bounce, ToastContainer } from "react-toastify";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -11,9 +12,10 @@ const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <Fragment>
       <CssBaseline />
       <ToastContainer
+        style={{ maxWidth: "100vw", boxSizing: "border-box" }}
         position="bottom-center"
         hideProgressBar
         newestOnTop
@@ -23,8 +25,10 @@ export default function App() {
         autoClose={TOAST_AUTO_CLOSE_MS}
       />
       <QueryClientProvider client={queryClient}>
-        <HoBomRouter />
+        <ThemeProvider theme={theme}>
+          <HoBomRouter />
+        </ThemeProvider>
       </QueryClientProvider>
-    </ThemeProvider>
+    </Fragment>
   );
 }
