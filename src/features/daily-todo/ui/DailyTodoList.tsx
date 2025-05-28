@@ -12,7 +12,11 @@ export const DailyTodoList = () => {
         overflowY: "auto",
         m: "0 auto",
       }}
-      subheader={<ListSubheader component="div">Category Title</ListSubheader>}
+      subheader={
+        <ListSubheader disableSticky disableGutters component="div">
+          Category Title
+        </ListSubheader>
+      }
     >
       {[1, 2, 3, 4, 5].map((item) => (
         <DailyTodoListItem key={item} />
