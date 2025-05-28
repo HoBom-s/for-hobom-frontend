@@ -22,5 +22,4 @@ export const theme = createTheme({
       textTransform: "none",
     },
   },
-  spacing: 8,
 });
