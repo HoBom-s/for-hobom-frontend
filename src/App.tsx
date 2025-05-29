@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HoBomRouter } from "@/apps/router";
 import { theme } from "@/shared/style/config";
+import { ErrorBoundary } from "@/shared/errors/ui";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,7 +27,9 @@ export default function App() {
       />
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <HoBomRouter />
+          <ErrorBoundary>
+            <HoBomRouter />
+          </ErrorBoundary>
         </ThemeProvider>
       </QueryClientProvider>
     </Fragment>
