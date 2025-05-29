@@ -1,3 +1,3 @@
-import { HoBomRouter } from "@/apps/router/ui/HoBomRouter.tsx";
+import { HoBomRouter } from "../ui/HoBomRouter.tsx";
 
 export { HoBomRouter };
