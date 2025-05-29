@@ -3,6 +3,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HoBomRouter } from "@/apps/router";
+import { BottomSheetCTAProvider } from "@/features/bottom-sheet-cta/model";
 import { theme } from "@/shared/style/config";
 import { ErrorBoundary } from "@/shared/errors/ui";
 
@@ -28,7 +29,9 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <ErrorBoundary>
-            <HoBomRouter />
+            <BottomSheetCTAProvider>
+              <HoBomRouter />
+            </BottomSheetCTAProvider>
           </ErrorBoundary>
         </ThemeProvider>
       </QueryClientProvider>
