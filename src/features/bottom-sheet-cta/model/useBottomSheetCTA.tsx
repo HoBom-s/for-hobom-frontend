@@ -11,6 +11,7 @@ import { BottomSheetCTA } from "@/features/bottom-sheet-cta/ui";
 interface SheetOptions {
   title?: ReactNode;
   content?: ReactNode;
+  footer?: ReactNode;
 }
 
 interface BottomSheetContextType {
@@ -73,6 +74,9 @@ export const BottomSheetCTAProvider = ({
         ) : null}
         {sheet?.content != null ? (
           <BottomSheetCTA.Body>{sheet.content}</BottomSheetCTA.Body>
+        ) : null}
+        {sheet?.footer != null ? (
+          <BottomSheetCTA.Footer>{sheet.footer}</BottomSheetCTA.Footer>
         ) : null}
       </BottomSheetCTA>
     </BottomSheetCTAContext.Provider>
