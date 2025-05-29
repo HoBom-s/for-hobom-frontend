@@ -71,6 +71,7 @@ export class HttpClient {
         ...(options.headers || {}),
       },
       ...options,
+      credentials: "include",
     };
 
     if (options.json !== undefined) {
