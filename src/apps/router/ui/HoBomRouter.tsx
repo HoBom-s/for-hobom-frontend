@@ -1,10 +1,11 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import { RoutesConfig } from "@/shared/routes/config/routes.config.ts";
+import { RoutesConfig } from "@/apps/router/config/routes.config.ts";
 
 const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
+const AuthLoginPage = lazy(() => import("@/pages/auth-login"));
 
 export const HoBomRouter = () => {
   return (
@@ -15,6 +16,7 @@ export const HoBomRouter = () => {
           element={<DailyTodoPage />}
         />
         <Route path={RoutesConfig.NOT_FOUND.ALL} element={<NotFoundPage />} />
+        <Route path={RoutesConfig.AUTH.LOGIN} element={<AuthLoginPage />} />
       </Routes>
     </Suspense>
   );

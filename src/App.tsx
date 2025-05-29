@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Bounce, ToastContainer } from "react-toastify";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HoBomRouter } from "@/apps/router";
+import { HoBomRouter } from "@/apps/router/ui";
 import { BottomSheetCTAProvider } from "@/features/bottom-sheet-cta/model";
 import { theme } from "@/shared/style/config";
 import { ErrorBoundary } from "@/shared/errors/ui";
