@@ -25,10 +25,6 @@ export class ErrorBoundary extends Component<Props, State> {
     console.error(errorInfo);
   }
 
-  handleRetry = () => {
-    this.setState({ hasError: false, error: null });
-  };
-
   render() {
     const { hasError, error } = this.state;
     const { fallback } = this.props;
