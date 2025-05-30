@@ -14,7 +14,9 @@ export default function DailyTodoPage() {
       }}
     >
       <div>
-        <Calendar />
+        <Calendar.WithSuspense>
+          <Calendar />
+        </Calendar.WithSuspense>
         <div style={{ maxHeight: 540, height: "100%", overflowY: "auto" }}>
           <DailyTodoList />
           <DailyTodoList />

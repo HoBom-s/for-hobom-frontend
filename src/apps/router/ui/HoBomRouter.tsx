@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import { RoutesConfig } from "@/apps/router/config/routes.config.ts";
+import { RoutesConfig } from "@/apps/router/config/routes.config";
 
 const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
