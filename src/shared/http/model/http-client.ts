@@ -62,15 +62,17 @@ export class HttpClient {
     url: string,
     options: RequestOptions = {},
   ) {
+    const API_KEY = "X-Hobom-Api-Key";
     const fullUrl = this.baseUrl + url;
 
     const init: RequestInit = {
+      ...options,
       method,
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
+        [API_KEY]: import.meta.env.VITE_APP_HOBOM_API_KEY,
       },
-      ...options,
       credentials: "include",
     };
 
