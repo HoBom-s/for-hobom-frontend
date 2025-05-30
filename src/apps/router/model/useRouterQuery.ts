@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { Bom } from "@/packages/bom";
 
 type UpdateQueryOptions = {
   replace?: boolean;
@@ -17,13 +18,17 @@ export const useRouterQuery = () => {
     ) => {
       const currentParams = new URLSearchParams(location.search);
 
-      Object.entries(newParams).forEach(([key, value]) => {
-        if (value === undefined) {
-          currentParams.delete(key);
-        } else {
-          currentParams.set(key, value);
-        }
-      });
+      Bom.pipe(
+        newParams,
+        Object.entries,
+        Bom.forEach(([key, value]) => {
+          if (value === undefined) {
+            currentParams.delete(key);
+          } else {
+            currentParams.set(key, value);
+          }
+        }),
+      );
 
       const newUrl = `${location.pathname}?${currentParams.toString()}`;
 
