@@ -17,8 +17,8 @@ export const CalendarBadge = ({ day, selected, days }: Props) => {
   return (
     <Badge
       overlap="circular"
+      color="secondary"
       badgeContent={shouldShow ? "✔" : undefined}
-      color="primary"
     >
       <PickersDay
         day={day}
