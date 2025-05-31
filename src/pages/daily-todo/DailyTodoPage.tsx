@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { FixedBottomSheet } from "@/features/fixed-bottom-sheet/ui";
-import { Calendar } from "@/features/calendar/ui";
-import { DailyTodoList } from "@/features/daily-todo/ui";
+import { DailyTodoList, Calendar } from "@/features/daily-todo/ui";
 
 export default function DailyTodoPage() {
   return (
@@ -10,19 +9,29 @@ export default function DailyTodoPage() {
         display: "flex",
         justifyContent: "center",
         width: "100%",
-        height: "100%",
+        height: "100dvh",
       }}
     >
-      <div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          pb: 56,
+        }}
+      >
         <Calendar.WithSuspense>
           <Calendar />
         </Calendar.WithSuspense>
-        <div style={{ maxHeight: 540, height: "100%", overflowY: "auto" }}>
+        <Box
+          sx={{
+            minHeight: 150,
+            overflowY: "auto",
+            mb: 2,
+          }}
+        >
           <DailyTodoList />
-          <DailyTodoList />
-          <DailyTodoList />
-        </div>
-      </div>
+        </Box>
+      </Box>
       <FixedBottomSheet />
     </Box>
   );

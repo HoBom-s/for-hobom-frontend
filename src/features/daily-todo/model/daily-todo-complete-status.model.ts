@@ -1,6 +1,5 @@
 // @ts-ignore
-export enum DailyTodoCompleteStatusModel {
-  COMPLETED = "COMPLETED",
-
-  PROGRESS = "PROGRESS",
-}
+export const DailyTodoCompleteStatusModel = {
+  COMPLETED: "COMPLETED",
+  PROGRESS: "PROGRESS",
+} as const;

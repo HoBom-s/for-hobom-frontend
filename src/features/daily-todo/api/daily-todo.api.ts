@@ -8,3 +8,9 @@ export const fetchDailyTodos = async ({ date }: { date: string }) => {
     `/daily-todos?date=${date}`,
   );
 };
+
+export const fetchDailyTodosByDate = async ({ date }: { date: string }) => {
+  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(
+    `/daily-todos/by-date/${date}`,
+  );
+};

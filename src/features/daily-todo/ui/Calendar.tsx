@@ -1,5 +1,5 @@
 import { type ReactNode, Suspense } from "react";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   DayCalendarSkeleton,
@@ -8,50 +8,57 @@ import {
 } from "@mui/x-date-pickers";
 import { Box } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import type { PickersDayProps } from "@mui/x-date-pickers/PickersDay";
-import { CalendarToolbar } from "@/features/calendar/ui";
-import { HoBomSkeleton } from "@/shared/skeleton";
+import { CalendarDay, CalendarToolbar } from "@/features/daily-todo/ui/";
 import { fetchDailyTodosQueryOption } from "@/features/daily-todo/api";
-import { CalendarBadge } from "@/features/daily-todo/ui";
+import {
+  getDatePickerToolbarTitle,
+  getNow,
+  getSelectedDate,
+  normalizeTodoDateToUtcMidnight,
+} from "@/features/daily-todo/lib";
+import { HoBomSkeleton } from "@/shared/skeleton";
 import { useRouterQuery } from "@/apps/router/model";
 import { Bom } from "@/packages/bom";
 
 export const Calendar = () => {
   const { query } = useRouterQuery();
 
-  const now = new Date();
-  const date = format(now, "yyyy-MM-dd");
-  const selectedDate = query.get("selectedDate") || now;
+  const now = getNow();
 
   const { data: todos } = useSuspenseQuery(
-    fetchDailyTodosQueryOption({ date }),
+    Bom.pipe(
+      now,
+      (now) => format(now, "yyyy-MM-dd"),
+      (date) => fetchDailyTodosQueryOption({ date }),
+    ),
   );
-
-  const days = Bom.pipe(
+  const days: Date[] = Bom.pipe(
     todos.items,
-    Bom.map((item) => item.date),
+    Bom.map(Bom.prop("date")),
+    Bom.map(normalizeTodoDateToUtcMidnight),
   );
 
   return (
     <Box boxShadow={1} my={2}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider
+        dateAdapter={AdapterDateFns}
+        localeText={{
+          datePickerToolbarTitle: getDatePickerToolbarTitle(query, now),
+        }}
+      >
         <StaticDatePicker
           displayStaticWrapperAs="mobile"
-          value={
-            typeof selectedDate === "string"
-              ? parseISO(selectedDate)
-              : selectedDate
-          }
+          value={getSelectedDate(query, now)}
           slots={{
             toolbar: CalendarToolbar,
-            day: CalendarBadge as any,
+            day: CalendarDay as any,
           }}
           slotProps={{
-            toolbar: { toolbarFormat: "yyyy" },
+            toolbar: { toolbarFormat: "yyyy-MM" },
             actionBar: { actions: undefined },
             day: {
               days,
-            } as PickersDayProps & { days: Date[] },
+            } as any,
           }}
           renderLoading={() => <DayCalendarSkeleton />}
         />
@@ -64,7 +71,7 @@ Calendar.WithSuspense = ({ children }: { children: ReactNode }) => {
   return (
     <Suspense
       fallback={
-        <div style={{ width: 380, margin: 4 }}>
+        <div style={{ width: 380, margin: 4, height: 500 }}>
           <HoBomSkeleton.Card />
         </div>
       }

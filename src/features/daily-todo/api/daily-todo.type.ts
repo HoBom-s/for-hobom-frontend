@@ -1,4 +1,10 @@
-import type { DailyTodoCompleteStatusModel } from "@/features/daily-todo/model";
+import {
+  DailyTodoCompleteStatusModel,
+  DailyTodoCycleModel,
+} from "@/features/daily-todo/model";
+
+type ProgressType = keyof typeof DailyTodoCompleteStatusModel;
+type CycleType = keyof typeof DailyTodoCycleModel;
 
 interface OwnerType {
   id: string;
@@ -14,9 +20,10 @@ interface CategoryType {
 export interface DailyTodoType {
   id: string;
   title: string;
-  date: Date;
+  date: string;
   reaction: string | null;
-  progress: DailyTodoCompleteStatusModel;
+  progress: ProgressType;
+  cycle: CycleType;
   owner: OwnerType;
   category: CategoryType;
 }

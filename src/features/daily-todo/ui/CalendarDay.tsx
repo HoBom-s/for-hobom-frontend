@@ -6,20 +6,16 @@ import { useRouterQuery } from "@/apps/router/model";
 interface Props {
   day: Date;
   selected: boolean;
-  days: Date[];
+  days: string[];
 }
 
-export const CalendarBadge = ({ day, selected, days }: Props) => {
+export const CalendarDay = ({ day, selected, days }: Props) => {
   const { updateQuery } = useRouterQuery();
 
   const shouldShow = days.some((d) => isSameDay(d, day));
 
   return (
-    <Badge
-      overlap="circular"
-      color="secondary"
-      badgeContent={shouldShow ? "✔" : undefined}
-    >
+    <Badge overlap="circular" badgeContent={shouldShow ? "✔" : undefined}>
       <PickersDay
         day={day}
         selected={selected}

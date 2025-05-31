@@ -1,26 +1,51 @@
-import { List, ListSubheader } from "@mui/material";
-import { DailyTodoListItem } from "@/features/daily-todo/ui/DailyTodoListItem.tsx";
+import { type ReactNode, Suspense } from "react";
+import { Box, Typography } from "@mui/material";
+import { ContentPasteTwoTone } from "@mui/icons-material";
+import { useDailyTodoList } from "../model";
+import { DailyTodoListContentSection } from "./DailyTodoListContentSection";
 
 export const DailyTodoList = () => {
+  const {
+    todosWithNoCategory,
+    todosWithCategory,
+    groupedTodosWithCategory,
+    shouldShowEmptyFallback,
+  } = useDailyTodoList();
+
+  if (shouldShowEmptyFallback) {
+    return <DailyTodoList.Fallback />;
+  }
+
   return (
-    <List
-      sx={{
-        width: "100%",
-        maxWidth: 350,
-        height: "100%",
-        maxHeight: 160,
-        overflowY: "auto",
-        m: "0 auto",
-      }}
-      subheader={
-        <ListSubheader disableSticky disableGutters component="div">
-          Category Title
-        </ListSubheader>
-      }
-    >
-      {[1, 2, 3, 4, 5].map((item) => (
-        <DailyTodoListItem key={item} />
-      ))}
-    </List>
+    <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <DailyTodoListContentSection.WithCategory
+        groupedTodos={groupedTodosWithCategory}
+        todos={todosWithCategory}
+      />
+      <DailyTodoListContentSection.WithNoCategory todos={todosWithNoCategory} />
+    </Box>
   );
+};
+
+DailyTodoList.Fallback = () => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      height={105}
+    >
+      <Box>
+        <ContentPasteTwoTone fontSize="medium" />
+      </Box>
+      <Box>
+        <Typography variant="caption">There is no todos..</Typography>
+      </Box>
+    </Box>
+  );
+};
+
+DailyTodoList.WithSuspense = ({ children }: { children: ReactNode }) => {
+  return <Suspense>{children}</Suspense>;
 };
