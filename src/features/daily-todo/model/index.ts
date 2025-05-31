@@ -1,4 +1,11 @@
-import type { DailyTodoCycleModel } from "./daily-todo-cycle.model";
-import type { DailyTodoCompleteStatusModel } from "./daily-todo-complete-status.model";
+import { DailyTodoCycleModel } from "./daily-todo-cycle.model";
+import { DailyTodoCompleteStatusModel } from "./daily-todo-complete-status.model";
+import { splitTodosByCategory } from "./split-todo-by-category.model";
+import { useDailyTodoList } from "./useDailyTodoList";
 
-export type { DailyTodoCycleModel, DailyTodoCompleteStatusModel };
+export {
+  DailyTodoCycleModel,
+  DailyTodoCompleteStatusModel,
+  splitTodosByCategory,
+  useDailyTodoList,
+};

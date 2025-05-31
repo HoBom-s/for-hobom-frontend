@@ -7,10 +7,17 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import type { DailyTodoType } from "@/features/daily-todo/api";
+import { DailyTodoCompleteStatusModel } from "@/features/daily-todo/model";
 
-export const DailyTodoListItem = () => {
+interface Props {
+  item: DailyTodoType;
+}
+
+export const DailyTodoListItem = ({ item }: Props) => {
   return (
     <ListItem
+      sx={{ height: 40 }}
       disablePadding
       secondaryAction={
         <IconButton edge="end" aria-label="comments">
@@ -20,9 +27,14 @@ export const DailyTodoListItem = () => {
     >
       <ListItemButton dense>
         <ListItemIcon>
-          <Checkbox edge="start" tabIndex={-1} disableRipple />
+          <Checkbox
+            edge="start"
+            tabIndex={-1}
+            disableRipple
+            checked={item.progress === DailyTodoCompleteStatusModel.COMPLETED}
+          />
         </ListItemIcon>
-        <ListItemText primary="Netflix" />
+        <ListItemText primary={item.title} />
       </ListItemButton>
     </ListItem>
   );
