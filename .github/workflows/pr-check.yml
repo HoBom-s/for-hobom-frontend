@@ -27,6 +27,9 @@ jobs:
         env:
           ROLLUP_NO_NATIVE: true
 
+      - name: Run test
+        run: npm run test
+
       - name: Run build
         run: npm run build
         env:

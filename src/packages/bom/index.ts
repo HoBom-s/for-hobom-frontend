@@ -21,6 +21,8 @@ import * as sum from "./sum/sum";
 import * as prop from "./prop/prop";
 import * as reduce from "./reduce/reduce";
 import * as pipe from "./pipe/pipe";
+import * as groupBy from "./groupBy/groupBy";
+import * as entries from "./entries/entries";
 
 export const Bom = {
   ...curry,
@@ -46,4 +48,6 @@ export const Bom = {
   ...prop,
   ...reduce,
   ...pipe,
+  ...groupBy,
+  ...entries,
 } as const;
