@@ -1,5 +1,5 @@
 import { type ReactNode, Suspense } from "react";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   DayCalendarSkeleton,
@@ -9,10 +9,13 @@ import {
 import { Box } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { CalendarDay, CalendarToolbar } from "@/features/daily-todo/ui/";
+import { fetchDailyTodosQueryOption } from "@/features/daily-todo/api";
 import {
-  type DailyTodoType,
-  fetchDailyTodosQueryOption,
-} from "@/features/daily-todo/api";
+  getDatePickerToolbarTitle,
+  getNow,
+  getSelectedDate,
+  normalizeTodoDateToUtcMidnight,
+} from "@/features/daily-todo/lib";
 import { HoBomSkeleton } from "@/shared/skeleton";
 import { useRouterQuery } from "@/apps/router/model";
 import { Bom } from "@/packages/bom";
@@ -20,35 +23,32 @@ import { Bom } from "@/packages/bom";
 export const Calendar = () => {
   const { query } = useRouterQuery();
 
-  const now = new Date();
-  const date = format(now, "yyyy-MM-dd");
-  const dateFromQuery = query.get("selectedDate");
-  const selectedDate = dateFromQuery ?? now;
+  const now = getNow();
 
   const { data: todos } = useSuspenseQuery(
-    fetchDailyTodosQueryOption({ date }),
+    Bom.pipe(
+      now,
+      (now) => format(now, "yyyy-MM-dd"),
+      (date) => fetchDailyTodosQueryOption({ date }),
+    ),
   );
-
-  const toUtcMidnightDate = (item: DailyTodoType): Date => {
-    const date = new Date(item.date);
-    return new Date(
-      Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
-    );
-  };
-
-  const days = Bom.pipe(todos.items, Bom.map(toUtcMidnightDate));
+  const days: Date[] = Bom.pipe(
+    todos.items,
+    Bom.map(Bom.prop("date")),
+    Bom.map(normalizeTodoDateToUtcMidnight),
+  );
 
   return (
     <Box boxShadow={1} my={2}>
       <LocalizationProvider
         dateAdapter={AdapterDateFns}
-        localeText={{ datePickerToolbarTitle: dateFromQuery ?? date }}
+        localeText={{
+          datePickerToolbarTitle: getDatePickerToolbarTitle(query, now),
+        }}
       >
         <StaticDatePicker
           displayStaticWrapperAs="mobile"
-          value={
-            Bom.isString(selectedDate) ? parseISO(selectedDate) : selectedDate
-          }
+          value={getSelectedDate(query, now)}
           slots={{
             toolbar: CalendarToolbar,
             day: CalendarDay as any,
