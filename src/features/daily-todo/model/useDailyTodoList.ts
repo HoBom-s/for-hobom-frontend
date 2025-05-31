@@ -7,38 +7,26 @@ import {
 import { getNow, getSelectedDate, formatDate } from "@/features/daily-todo/lib";
 import { useRouterQuery } from "@/apps/router/model";
 import { Bom } from "@/packages/bom";
-import { splitTodosByCategory } from "./split-todo-by-category.model";
+import {
+  createGroupedTodosByCategoryId,
+  splitTodosByCategory,
+} from "./split-todo-by-category.model";
 
 export const useDailyTodoList = () => {
   const { query } = useRouterQuery();
   const now = getNow();
   const date = Bom.pipe(getSelectedDate(query, now), formatDate);
   const { data: todos } = useSuspenseQuery(
-    Bom.pipe(date, (date) => fetchDailyTodosByDateQueryOption({ date })),
+    Bom.pipe(date, fetchDailyTodosByDateQueryOption),
   );
 
   const [todosWithNoCategory, todosWithCategory] = Bom.pipe(
     todos.items,
     splitTodosByCategory,
   );
-  const groupedTodosWithCategory = useMemo(
-    () =>
-      Bom.pipe(
-        todosWithCategory,
-        Bom.reduce(
-          (acc, todo) => {
-            const categoryId = todo.category.id;
-            if (acc[categoryId] == null) {
-              acc[categoryId] = [];
-            }
-
-            acc[categoryId].push(todo);
-
-            return acc;
-          },
-          {} as Record<string, DailyTodoType[]>,
-        ),
-      ),
+  const groupedTodosWithCategory: Record<string, DailyTodoType[]> = useMemo(
+    (): Record<string, DailyTodoType[]> =>
+      Bom.pipe(todosWithCategory, createGroupedTodosByCategoryId),
     [todosWithCategory],
   );
   const shouldShowEmptyFallback = Bom.isTruthy(

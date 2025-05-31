@@ -1,5 +1,4 @@
 import { type ReactNode, Suspense } from "react";
-import { format } from "date-fns";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   DayCalendarSkeleton,
@@ -11,6 +10,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { CalendarDay, CalendarToolbar } from "@/features/daily-todo/ui/";
 import { fetchDailyTodosQueryOption } from "@/features/daily-todo/api";
 import {
+  formatDate,
   getDatePickerToolbarTitle,
   getNow,
   getSelectedDate,
@@ -26,11 +26,7 @@ export const Calendar = () => {
   const now = getNow();
 
   const { data: todos } = useSuspenseQuery(
-    Bom.pipe(
-      now,
-      (now) => format(now, "yyyy-MM-dd"),
-      (date) => fetchDailyTodosQueryOption({ date }),
-    ),
+    Bom.pipe(now, formatDate, fetchDailyTodosQueryOption),
   );
   const days: Date[] = Bom.pipe(
     todos.items,

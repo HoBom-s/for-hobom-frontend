@@ -1,4 +1,3 @@
-// @ts-ignore
 export const DailyTodoCycleModel = {
   EVERYDAY: "EVERYDAY",
   EVERY_WEEKDAY: "EVERY_WEEKDAY",

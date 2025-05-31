@@ -1,9 +1,9 @@
 import { format, isValid, parseISO } from "date-fns";
 import { Bom } from "@/packages/bom";
 
-export const formatDate = (date: Date) => format(date, "yyyy-MM-dd");
+export const formatDate = (date: Date): string => format(date, "yyyy-MM-dd");
 
-export const getNow = () => new Date();
+export const getNow = (): Date => new Date();
 
 export const getDatePickerToolbarTitle = (
   query: URLSearchParams,
