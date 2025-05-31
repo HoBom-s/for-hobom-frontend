@@ -4,10 +4,11 @@ import { Drawer, Box } from "@mui/material";
 interface Props {
   children: ReactNode;
   open: boolean;
+  height?: string;
   onClose: () => void;
 }
 
-export const BottomSheetCTA = ({ children, open, onClose }: Props) => {
+export const BottomSheetCTA = ({ children, open, height, onClose }: Props) => {
   return (
     <Drawer
       anchor="bottom"
@@ -21,7 +22,7 @@ export const BottomSheetCTA = ({ children, open, onClose }: Props) => {
       slotProps={{
         paper: {
           sx: {
-            height: "50vh",
+            height: height == null ? "50vh" : height,
             borderTopLeftRadius: 16,
             borderTopRightRadius: 16,
             p: 0,
@@ -56,7 +57,6 @@ BottomSheetCTA.Body = ({ children }: Pick<Props, "children">) => {
         flex: 1,
         overflowY: "auto",
         px: 2,
-        py: 2,
       }}
     >
       {children}

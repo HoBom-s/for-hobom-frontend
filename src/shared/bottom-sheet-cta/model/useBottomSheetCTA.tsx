@@ -6,12 +6,13 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-import { BottomSheetCTA } from "@/features/bottom-sheet-cta/ui";
+import { BottomSheetCTA } from "@/shared/bottom-sheet-cta/ui";
 
 interface SheetOptions {
   title?: ReactNode;
   content?: ReactNode;
   footer?: ReactNode;
+  height?: string;
 }
 
 interface BottomSheetContextType {
@@ -68,7 +69,7 @@ export const BottomSheetCTAProvider = ({
   return (
     <BottomSheetCTAContext.Provider value={{ onOpen, onClose }}>
       {children}
-      <BottomSheetCTA open={open} onClose={onClose}>
+      <BottomSheetCTA open={open} onClose={onClose} height={sheet?.height}>
         {sheet?.title != null ? (
           <BottomSheetCTA.Title>{sheet.title}</BottomSheetCTA.Title>
         ) : null}

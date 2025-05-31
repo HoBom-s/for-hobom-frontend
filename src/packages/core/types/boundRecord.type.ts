@@ -32,3 +32,14 @@ export type BoundedRecord<
   IsBoundedKey<KeysOfUnion<T>> extends true
     ? TypeIfBoundedRecord
     : TypeIfUnboundedRecord;
+
+export type IfBoundedRecord<
+  T,
+  TypeIfBoundedRecord = true,
+  TypeIfUnboundedRecord = false,
+> =
+  IsBoundedKey<KeysOfUnion<T>> extends true
+    ? TypeIfBoundedRecord
+    : TypeIfUnboundedRecord;
+
+export type BoundedPartial<T> = IfBoundedRecord<T, Partial<T>, T>;

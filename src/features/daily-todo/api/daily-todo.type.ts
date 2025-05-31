@@ -3,8 +3,8 @@ import {
   DailyTodoCycleModel,
 } from "@/features/daily-todo/model";
 
-type ProgressType = keyof typeof DailyTodoCompleteStatusModel;
-type CycleType = keyof typeof DailyTodoCycleModel;
+export type ProgressType = keyof typeof DailyTodoCompleteStatusModel;
+export type CycleType = keyof typeof DailyTodoCycleModel;
 
 interface OwnerType {
   id: string;

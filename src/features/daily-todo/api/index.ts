@@ -1,16 +1,21 @@
-import { fetchDailyTodos, fetchDailyTodosByDate } from "./daily-todo.api";
+import {
+  fetchDailyTodos,
+  fetchDailyTodosByDate,
+  patchDailyTodoCompleteStatusChange,
+} from "./daily-todo.api";
 import {
   fetchDailyTodosQueryOption,
   fetchDailyTodosByDateQueryOption,
 } from "./daily-todo.queries";
 
-import type { DailyTodoType } from "./daily-todo.type";
+import type { DailyTodoType, ProgressType, CycleType } from "./daily-todo.type";
 
 export {
   fetchDailyTodos,
   fetchDailyTodosByDate,
+  patchDailyTodoCompleteStatusChange,
   fetchDailyTodosQueryOption,
   fetchDailyTodosByDateQueryOption,
 };
 
-export type { DailyTodoType };
+export type { DailyTodoType, ProgressType, CycleType };
