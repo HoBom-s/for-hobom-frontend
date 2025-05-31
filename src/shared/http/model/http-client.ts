@@ -42,6 +42,16 @@ export class HttpClient {
     );
   }
 
+  public async patch<T>(
+    url: string,
+    body: unknown,
+    options?: Omit<RequestOptions, "json">,
+  ): Promise<T> {
+    return this.request("PATCH", url, { ...options, json: body }).then((r) =>
+      r.json(),
+    );
+  }
+
   public async delete<T>(url: string, options?: RequestOptions): Promise<T> {
     const res = await this.request("DELETE", url, options);
     return res.json();

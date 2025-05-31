@@ -21,12 +21,16 @@ import { useRouterQuery } from "@/apps/router/model";
 import { Bom } from "@/packages/bom";
 
 export const Calendar = () => {
-  const { query } = useRouterQuery();
+  const { query, updateQuery } = useRouterQuery();
 
   const now = getNow();
-
   const { data: todos } = useSuspenseQuery(
-    Bom.pipe(now, formatDate, fetchDailyTodosQueryOption),
+    Bom.pipe(
+      now,
+      (month) => getSelectedDate(query, month),
+      formatDate,
+      fetchDailyTodosQueryOption,
+    ),
   );
   const days: Date[] = Bom.pipe(
     todos.items,
@@ -55,6 +59,10 @@ export const Calendar = () => {
             day: {
               days,
             } as any,
+          }}
+          onMonthChange={(month) => {
+            const date = Bom.pipe(month, formatDate);
+            updateQuery({ selectedDate: date }, { replace: true });
           }}
           renderLoading={() => <DayCalendarSkeleton />}
         />
