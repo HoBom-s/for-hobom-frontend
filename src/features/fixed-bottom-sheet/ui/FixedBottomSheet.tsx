@@ -1,5 +1,10 @@
 import { type ReactNode, useState } from "react";
-import { Code, CreditCard, ListAlt, MenuBook } from "@mui/icons-material";
+import {
+  CreditCard,
+  ListAlt,
+  MenuBook,
+  RiceBowlTwoTone,
+} from "@mui/icons-material";
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -20,9 +25,9 @@ const BOTTOM_SHEET_MENUS: MenuItem[] = [
     icon: <ListAlt />,
   },
   {
-    value: "HOBOM_TECH",
-    label: "HoBom Tech",
-    icon: <Code />,
+    value: "HOBOM_MENU",
+    label: "Today Menu",
+    icon: <RiceBowlTwoTone />,
   },
   {
     value: "HOBOM_FUNDS",
@@ -41,7 +46,7 @@ export const FixedBottomSheet = () => {
 
   return (
     <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+      sx={{ position: "fixed", bottom: 0, left: 0, right: 0, height: 56 }}
       elevation={3}
     >
       <BottomNavigation

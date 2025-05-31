@@ -1,8 +1,16 @@
-import { fetchDailyTodos } from "./daily-todo.api";
-import { fetchDailyTodosQueryOption } from "./daily-todo.queries";
+import { fetchDailyTodos, fetchDailyTodosByDate } from "./daily-todo.api";
+import {
+  fetchDailyTodosQueryOption,
+  fetchDailyTodosByDateQueryOption,
+} from "./daily-todo.queries";
 
 import type { DailyTodoType } from "./daily-todo.type";
 
-export { fetchDailyTodos, fetchDailyTodosQueryOption };
+export {
+  fetchDailyTodos,
+  fetchDailyTodosByDate,
+  fetchDailyTodosQueryOption,
+  fetchDailyTodosByDateQueryOption,
+};
 
 export type { DailyTodoType };

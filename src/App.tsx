@@ -9,8 +9,15 @@ import { ErrorBoundary } from "@/shared/errors/ui";
 
 import "react-toastify/dist/ReactToastify.css";
 
-const TOAST_AUTO_CLOSE_MS = 3000;
-const queryClient = new QueryClient();
+const TOAST_AUTO_CLOSE_MS = 1000;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export default function App() {
   return (
