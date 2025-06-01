@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { ErrorOutline } from "@mui/icons-material";
-import { AuthLoginForm } from "src/features/submit-auth-login";
+import { AuthLoginForm } from "@/features/submit-auth-login";
 import { ErrorBoundary } from "@/shared/errors";
 
 export default function AuthLoginPage() {

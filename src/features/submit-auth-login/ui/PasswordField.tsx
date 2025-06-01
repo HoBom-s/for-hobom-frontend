@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { TextField } from "@mui/material";
-import type { AuthLoginType } from "src/entities/auth/model";
+import type { AuthLoginType } from "@/entities/auth";
 
 export const PasswordField = () => {
   const { control } = useFormContext<AuthLoginType>();

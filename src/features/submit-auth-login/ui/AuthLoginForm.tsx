@@ -2,7 +2,7 @@ import { type FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { Box, Button, Typography } from "@mui/material";
-import { NicknameField, PasswordField } from "src/features/submit-auth-login";
+import { NicknameField, PasswordField } from "@/features/submit-auth-login";
 import { useToast } from "@/shared/toast";
 import { RoutesConfig } from "@/apps/router/config/routes.config";
 import { postAuthLogin, type AuthLoginType } from "@/entities/auth";
