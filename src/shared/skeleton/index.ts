@@ -1,4 +1,4 @@
-import { SkeletonCard } from "./SkeletonCard";
+import { SkeletonCard } from "./ui/SkeletonCard.tsx";
 
 const HoBomSkeleton = {
   Card: SkeletonCard,

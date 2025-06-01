@@ -6,7 +6,7 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-import { BottomSheetCTA } from "@/shared/bottom-sheet-cta/ui";
+import { BottomSheetCTA } from "../ui/BottomSheetCTA";
 
 interface SheetOptions {
   title?: ReactNode;
