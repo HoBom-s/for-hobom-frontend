@@ -25,7 +25,12 @@ const CategoryListSection = ({
             key={categoryId}
             sx={ListStyle}
             subheader={
-              <ListSubheader disableSticky disableGutters component="div">
+              <ListSubheader
+                disableSticky
+                disableGutters
+                component="div"
+                sx={{ fontWeight: "bold" }}
+              >
                 {categoryTitle}
               </ListSubheader>
             }
@@ -68,5 +73,4 @@ const ListStyle = {
   width: "100%",
   maxWidth: 350,
   m: "0 auto",
-  my: 1,
 };
