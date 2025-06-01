@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import { List, ListSubheader } from "@mui/material";
-import { DailyTodoListItem } from "@/features/daily-todo/ui/DailyTodoListItem.tsx";
-import type { DailyTodoType } from "../api";
+import { DailyTodoListItem, type DailyTodoType } from "@/entities/daily-todo";
 
 const CategoryListSection = ({
   groupedTodos,

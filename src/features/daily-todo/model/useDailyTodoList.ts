@@ -3,14 +3,14 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   type DailyTodoType,
   fetchDailyTodosByDateQueryOption,
-} from "@/features/daily-todo/api";
-import { getNow, getSelectedDate, formatDate } from "@/features/daily-todo/lib";
-import { useRouterQuery } from "@/apps/router/model";
-import { Bom } from "@/packages/bom";
-import {
+  getNow,
+  getSelectedDate,
+  formatDate,
   createGroupedTodosByCategoryId,
   splitTodosByCategory,
-} from "./split-todo-by-category.model";
+} from "@/entities/daily-todo";
+import { useRouterQuery } from "@/apps/router/model";
+import { Bom } from "@/packages/bom";
 
 export const useDailyTodoList = () => {
   const { query } = useRouterQuery();
