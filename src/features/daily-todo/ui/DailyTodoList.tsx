@@ -1,8 +1,9 @@
 import { type ReactNode, Suspense } from "react";
 import { Box, Typography } from "@mui/material";
 import { ContentPasteTwoTone } from "@mui/icons-material";
-import { useDailyTodoList } from "../model";
+
 import { DailyTodoListContentSection } from "./DailyTodoListContentSection";
+import { useDailyTodoList } from "../model/useDailyTodoList";
 
 export const DailyTodoList = () => {
   const {
