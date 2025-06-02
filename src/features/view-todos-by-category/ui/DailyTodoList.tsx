@@ -1,17 +1,14 @@
 import { type ReactNode, Suspense } from "react";
 import { Box, Typography } from "@mui/material";
 import { ContentPasteTwoTone } from "@mui/icons-material";
+import { DailyTodoListItem } from "@/entities/daily-todo";
 
 import { DailyTodoListContentSection } from "./DailyTodoListContentSection";
 import { useDailyTodoList } from "../model/useDailyTodoList";
 
 export const DailyTodoList = () => {
-  const {
-    todosWithNoCategory,
-    todosWithCategory,
-    groupedTodosWithCategory,
-    shouldShowEmptyFallback,
-  } = useDailyTodoList();
+  const { groupedTodosWithCategory, shouldShowEmptyFallback } =
+    useDailyTodoList();
 
   if (shouldShowEmptyFallback) {
     return <DailyTodoList.Fallback />;
@@ -19,11 +16,10 @@ export const DailyTodoList = () => {
 
   return (
     <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <DailyTodoListContentSection.WithCategory
+      <DailyTodoListContentSection
         groupedTodos={groupedTodosWithCategory}
-        todos={todosWithCategory}
+        renderItem={(todo) => <DailyTodoListItem key={todo.id} item={todo} />}
       />
-      <DailyTodoListContentSection.WithNoCategory todos={todosWithNoCategory} />
     </Box>
   );
 };

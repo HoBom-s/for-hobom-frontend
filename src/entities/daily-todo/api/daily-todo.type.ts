@@ -13,6 +13,7 @@ interface OwnerType {
 interface CategoryType {
   id: string;
   title: string;
+  ownerId: string;
 }
 
 export interface DailyTodoType {
@@ -24,4 +25,11 @@ export interface DailyTodoType {
   cycle: CycleType;
   owner: OwnerType;
   category: CategoryType;
+}
+
+export interface DailyTodoWithCategoryType {
+  categoryId: string;
+  categoryTitle: string;
+  categoryOwnerId: string;
+  todoItems: DailyTodoType[];
 }
