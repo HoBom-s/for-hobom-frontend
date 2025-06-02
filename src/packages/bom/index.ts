@@ -23,6 +23,10 @@ import * as reduce from "./reduce/reduce";
 import * as pipe from "./pipe/pipe";
 import * as groupBy from "./groupBy/groupBy";
 import * as entries from "./entries/entries";
+import * as isNot from "./isNot/isNot";
+import * as isNotNull from "./isNotNull/isNotNull";
+import * as isEmpty from "./isEmpty/isEmpty";
+import * as partition from "./partition/partition";
 
 export const Bom = {
   ...curry,
@@ -50,4 +54,8 @@ export const Bom = {
   ...pipe,
   ...groupBy,
   ...entries,
+  ...isNot,
+  ...isNotNull,
+  ...isEmpty,
+  ...partition,
 } as const;

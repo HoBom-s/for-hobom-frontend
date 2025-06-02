@@ -1,7 +1,7 @@
 import { format, isSameDay } from "date-fns";
 import { Badge } from "@mui/material";
 import { PickersDay } from "@mui/x-date-pickers";
-import { useRouterQuery } from "@/apps/router/model";
+import { useRouterQuery } from "@/shared/router/model";
 
 interface Props {
   day: Date;

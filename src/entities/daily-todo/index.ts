@@ -21,18 +21,20 @@ import {
   isProgressStatus,
 } from "./model/daily-todo-complete-status.model";
 import { DailyTodoCycleModel } from "./model/daily-todo-cycle.model";
-import {
-  splitTodosByCategory,
-  createGroupedTodosByCategoryId,
-} from "./model/split-todo-by-category.model";
+import { createTodosWithCategory } from "./model/create-todo-with-category.model.ts";
 import { useChangeDailyTodoCompleteStatus } from "./model/useChangeDailyTodoCompleteStatus";
 import { DailyTodoListItem } from "./ui/DailyTodoListItem";
+import { fetchDailyTodoCategories } from "./api/daily-todo-category.api";
+import { fetchDailyTodoCategoriesOption } from "./api/daily-todo-category.queries";
+import { DailyTodoAddButton } from "./ui/DailyTodoAddButton";
 
 import type {
   DailyTodoType,
   ProgressType,
   CycleType,
+  DailyTodoWithCategoryType,
 } from "./api/daily-todo.type";
+import type { CategoryType } from "./api/daily-todo-category.type";
 
 export {
   fetchDailyTodos,
@@ -50,10 +52,18 @@ export {
   isCompleteStatus,
   isProgressStatus,
   DailyTodoCycleModel,
-  splitTodosByCategory,
-  createGroupedTodosByCategoryId,
+  createTodosWithCategory,
   useChangeDailyTodoCompleteStatus,
   DailyTodoListItem,
+  fetchDailyTodoCategories,
+  fetchDailyTodoCategoriesOption,
+  DailyTodoAddButton,
 };
 
-export type { DailyTodoType, ProgressType, CycleType };
+export type {
+  DailyTodoType,
+  ProgressType,
+  CycleType,
+  CategoryType,
+  DailyTodoWithCategoryType,
+};
