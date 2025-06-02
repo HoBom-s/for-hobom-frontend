@@ -16,7 +16,7 @@ import {
   fetchDailyTodosQueryOption,
 } from "@/entities/daily-todo";
 import { HoBomSkeleton } from "@/shared/skeleton";
-import { useRouterQuery } from "@/apps/router/model";
+import { useRouterQuery } from "@/shared/router/model";
 import { Bom } from "@/packages/bom";
 
 import { CalendarToolbar } from "./CalendarToolbar";

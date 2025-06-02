@@ -7,7 +7,7 @@ import {
   fetchDailyTodoCategoriesOption,
   createTodosWithCategory,
 } from "@/entities/daily-todo";
-import { useRouterQuery } from "@/apps/router/model";
+import { useRouterQuery } from "@/shared/router/model";
 import { Bom } from "@/packages/bom";
 
 export const useDailyTodoList = () => {
