@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { FixedBottomSheet } from "@/features/fixed-bottom-sheet";
 import { Calendar } from "@/features/calendar";
-import { DailyTodoList } from "@/features/daily-todo";
+import { DailyTodoList } from "@/features/view-todos-by-category";
+import { FixedBottomSheet } from "@/features/fixed-bottom-sheet";
 
 export default function DailyTodoPage() {
   return (

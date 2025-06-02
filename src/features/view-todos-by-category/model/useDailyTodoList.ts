@@ -1,13 +1,11 @@
-import { useMemo } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
-  type DailyTodoType,
   fetchDailyTodosByDateQueryOption,
   getNow,
   getSelectedDate,
   formatDate,
-  createGroupedTodosByCategoryId,
-  splitTodosByCategory,
+  fetchDailyTodoCategoriesOption,
+  createTodosWithCategory,
 } from "@/entities/daily-todo";
 import { useRouterQuery } from "@/apps/router/model";
 import { Bom } from "@/packages/bom";
@@ -16,26 +14,28 @@ export const useDailyTodoList = () => {
   const { query } = useRouterQuery();
   const now = getNow();
   const date = Bom.pipe(getSelectedDate(query, now), formatDate);
+  const { data: categories } = useSuspenseQuery(
+    fetchDailyTodoCategoriesOption(),
+  );
   const { data: todos } = useSuspenseQuery(
     Bom.pipe(date, fetchDailyTodosByDateQueryOption),
   );
 
-  const [todosWithNoCategory, todosWithCategory] = Bom.pipe(
-    todos.items,
-    splitTodosByCategory,
+  const todoItems = Bom.prop(todos, "items");
+  const categoryItems = Bom.prop(categories, "items");
+  const groupedTodosWithCategory = createTodosWithCategory(
+    categoryItems,
+    todoItems,
   );
-  const groupedTodosWithCategory: Record<string, DailyTodoType[]> = useMemo(
-    (): Record<string, DailyTodoType[]> =>
-      Bom.pipe(todosWithCategory, createGroupedTodosByCategoryId),
-    [todosWithCategory],
-  );
-  const shouldShowEmptyFallback = Bom.isTruthy(
-    todosWithNoCategory.length === 0 && todosWithCategory.length === 0,
+  const shouldShowEmptyFallback = Bom.pipe(
+    todoItems,
+    Bom.prop("length"),
+    (v) => !Bom.isTruthy(v),
   );
 
   return {
-    todosWithCategory,
-    todosWithNoCategory,
+    todoItems,
+    categories,
     groupedTodosWithCategory,
     shouldShowEmptyFallback,
   };
