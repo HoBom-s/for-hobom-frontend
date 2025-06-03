@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { HttpClient } from "./model/http-client.ts";
 import { HttpStatusModel } from "@/shared/http/model/http-status.model.ts";
 import type { Middleware } from "./model/middleware.type.ts";
@@ -9,8 +10,16 @@ const authMiddleware: Middleware = {
 
     if (response != null) {
       if (response.status === HttpStatusModel.UNAUTHORIZED) {
-        window.location.href = "/auth/login";
-        throw new Error("Unauthorized – redirecting to /auth/login");
+        const toastId = `Unauthorized-id-${HttpStatusModel.UNAUTHORIZED}`;
+        if (!toast.isActive(toastId)) {
+          toast.info("Unauthorized: redirecting to login page.", {
+            toastId,
+            autoClose: 300,
+            onClose: () => {
+              window.location.href = "/auth/login";
+            },
+          });
+        }
       }
     }
   },
