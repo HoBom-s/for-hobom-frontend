@@ -28,7 +28,6 @@ export const DailyTodoAddButton = ({ item }: Props) => {
   const { register, watch, reset } = useForm<{ title: string }>({
     mode: "onChange",
   });
-
   const { openWarnToast } = useToast();
   const { query } = useRouterQuery();
   const { onOpen } = useOverlay();
