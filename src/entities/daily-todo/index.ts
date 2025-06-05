@@ -1,7 +1,9 @@
 import {
+  deleteDailyTodoById,
   fetchDailyTodos,
   fetchDailyTodosByDate,
   patchDailyTodoCompleteStatusChange,
+  postDailyTodoCreate,
 } from "./api/daily-todo.api";
 import {
   fetchDailyTodosQueryOption,
@@ -27,6 +29,8 @@ import { DailyTodoListItem } from "./ui/DailyTodoListItem";
 import { fetchDailyTodoCategories } from "./api/daily-todo-category.api";
 import { fetchDailyTodoCategoriesOption } from "./api/daily-todo-category.queries";
 import { DailyTodoAddButton } from "./ui/DailyTodoAddButton";
+import { useCreateDailyTodo } from "./model/useCreateDailyTodo";
+import { useDeleteDailyTodo } from "./model/useDeleteDailyTodo.ts";
 
 import type {
   DailyTodoType,
@@ -42,6 +46,8 @@ export {
   patchDailyTodoCompleteStatusChange,
   fetchDailyTodosQueryOption,
   fetchDailyTodosByDateQueryOption,
+  postDailyTodoCreate,
+  deleteDailyTodoById,
   getNow,
   formatDate,
   getDatePickerToolbarTitle,
@@ -58,6 +64,8 @@ export {
   fetchDailyTodoCategories,
   fetchDailyTodoCategoriesOption,
   DailyTodoAddButton,
+  useCreateDailyTodo,
+  useDeleteDailyTodo,
 };
 
 export type {

@@ -20,6 +20,7 @@ import {
   useChangeDailyTodoCompleteStatus,
   type DailyTodoType,
   type ProgressType,
+  useDeleteDailyTodo,
 } from "@/entities/daily-todo";
 import { Bom } from "@/packages/bom";
 import { useBottomSheetCTA } from "@/shared/bottom-sheet-cta";
@@ -30,7 +31,9 @@ interface Props {
 
 export const DailyTodoListItem = ({ item }: Props) => {
   const { mutate, isPending } = useChangeDailyTodoCompleteStatus(item);
-  const { onOpen } = useBottomSheetCTA();
+  const { mutate: mutateDelete, isPending: isDeletePending } =
+    useDeleteDailyTodo();
+  const { onOpen, onClose } = useBottomSheetCTA();
 
   const handleChangeCompleteStatus = (id: string, status: ProgressType) => {
     Bom.pipe(status, changeCompleteStatus, (newStatus) =>
@@ -82,7 +85,18 @@ export const DailyTodoListItem = ({ item }: Props) => {
               ),
               footer: (
                 <Box display="flex" gap={2}>
-                  <Button fullWidth variant="contained" color="error">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="error"
+                    loading={isDeletePending}
+                    onClick={() => {
+                      Bom.pipe(Bom.prop("id")(item), (id) => {
+                        mutateDelete({ id });
+                        onClose();
+                      });
+                    }}
+                  >
                     Delete
                   </Button>
                   <Button fullWidth variant="contained" color="primary">
