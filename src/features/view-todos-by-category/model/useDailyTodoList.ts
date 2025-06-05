@@ -27,16 +27,10 @@ export const useDailyTodoList = () => {
     categoryItems,
     todoItems,
   );
-  const shouldShowEmptyFallback = Bom.pipe(
-    todoItems,
-    Bom.prop("length"),
-    (v) => !Bom.isTruthy(v),
-  );
 
   return {
     todoItems,
     categories,
     groupedTodosWithCategory,
-    shouldShowEmptyFallback,
   };
 };

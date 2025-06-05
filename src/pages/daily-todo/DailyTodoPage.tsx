@@ -25,7 +25,8 @@ export default function DailyTodoPage() {
         </Calendar.WithSuspense>
         <Box
           sx={{
-            minHeight: 150,
+            minHeight: 220,
+            height: "100%",
             overflowY: "auto",
             mb: 2,
           }}

@@ -6,6 +6,7 @@ import { HoBomRouter } from "@/shared/router/ui";
 import { BottomSheetCTAProvider } from "@/shared/bottom-sheet-cta";
 import { theme } from "@/shared/style";
 import { ErrorBoundary } from "@/shared/errors";
+import { OverlayProvider } from "@/shared/overlay";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -42,7 +43,9 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <ErrorBoundary>
             <BottomSheetCTAProvider>
-              <HoBomRouter />
+              <OverlayProvider>
+                <HoBomRouter />
+              </OverlayProvider>
             </BottomSheetCTAProvider>
           </ErrorBoundary>
         </ThemeProvider>

@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Box, List, ListSubheader } from "@mui/material";
 import {
   DailyTodoAddButton,
@@ -16,7 +16,7 @@ export const DailyTodoListContentSection = ({
   renderItem,
 }: Props) => {
   return (
-    <Fragment>
+    <div>
       {groupedTodos.map((item) => (
         <List
           key={item.categoryId}
@@ -30,7 +30,7 @@ export const DailyTodoListContentSection = ({
             >
               <Box display="flex" alignItems="center" gap={0.1}>
                 {item.categoryTitle}
-                <DailyTodoAddButton />
+                <DailyTodoAddButton item={item} />
               </Box>
             </ListSubheader>
           }
@@ -38,7 +38,7 @@ export const DailyTodoListContentSection = ({
           {item.todoItems.map((todo) => renderItem(todo))}
         </List>
       ))}
-    </Fragment>
+    </div>
   );
 };
 
