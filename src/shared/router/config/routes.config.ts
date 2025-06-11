@@ -5,6 +5,9 @@ export const RoutesConfig = {
   AUTH: {
     LOGIN: "/auth/login",
   },
+  MENU: {
+    RECOMMENDATION: "/menu/recommendation",
+  },
   NOT_FOUND: {
     ALL: "*",
   },
