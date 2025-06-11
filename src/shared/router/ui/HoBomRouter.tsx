@@ -6,6 +6,9 @@ import { RoutesConfig } from "@/shared/router/config/routes.config.ts";
 const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
 const AuthLoginPage = lazy(() => import("@/pages/auth-login"));
+const MenuRecommendationPage = lazy(
+  () => import("@/pages/menu-recommendation/MenuRecommendationPage"),
+);
 
 export const HoBomRouter = () => {
   return (
@@ -15,8 +18,12 @@ export const HoBomRouter = () => {
           path={RoutesConfig.MAIN.DAILY_TODO}
           element={<DailyTodoPage />}
         />
-        <Route path={RoutesConfig.NOT_FOUND.ALL} element={<NotFoundPage />} />
         <Route path={RoutesConfig.AUTH.LOGIN} element={<AuthLoginPage />} />
+        <Route
+          path={RoutesConfig.MENU.RECOMMENDATION}
+          element={<MenuRecommendationPage />}
+        />
+        <Route path={RoutesConfig.NOT_FOUND.ALL} element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );
