@@ -1,4 +1,5 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CreditCard,
   ListAlt,
@@ -11,10 +12,13 @@ import {
   colors,
   Paper,
 } from "@mui/material";
+import { RoutesConfig } from "@/shared/router/config/routes.config.ts";
+import { Bom } from "@/packages/bom";
 
 interface MenuItem {
   value: string;
   label: string;
+  path: string;
   icon: ReactNode;
 }
 
@@ -22,27 +26,38 @@ const BOTTOM_SHEET_MENUS: MenuItem[] = [
   {
     value: "DAILY_TODO",
     label: "Daily Todo",
+    path: RoutesConfig.MAIN.DAILY_TODO,
     icon: <ListAlt />,
   },
   {
     value: "HOBOM_MENU",
     label: "Today Menu",
+    path: RoutesConfig.MENU.RECOMMENDATION,
     icon: <RiceBowlTwoTone />,
   },
   {
     value: "HOBOM_FUNDS",
     label: "HoBom Funds",
+    path: RoutesConfig.NOT_FOUND.ALL,
     icon: <CreditCard />,
   },
   {
     value: "MORE",
     label: "More",
+    path: RoutesConfig.NOT_FOUND.ALL,
     icon: <MenuBook />,
   },
 ] as const;
 
 export const FixedBottomSheet = () => {
-  const [values, setValues] = useState<MenuItem>({ ...BOTTOM_SHEET_MENUS[0] });
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const currentMenuItem = Bom.pipe(
+    location.pathname,
+    (path) => BOTTOM_SHEET_MENUS.find((item) => item.path === path),
+    Bom.when(Bom.isNullish, () => BOTTOM_SHEET_MENUS[0]),
+  );
 
   return (
     <Paper
@@ -51,13 +66,13 @@ export const FixedBottomSheet = () => {
     >
       <BottomNavigation
         showLabels
-        value={values}
+        value={currentMenuItem.value}
         onChange={(_event, newValue: string) => {
           const foundMenu = BOTTOM_SHEET_MENUS.find(
             (item) => item.value === newValue,
           );
           if (foundMenu != null) {
-            setValues({ ...foundMenu });
+            navigate(foundMenu.path);
           }
         }}
       >
@@ -69,10 +84,11 @@ export const FixedBottomSheet = () => {
             value={item.value}
             sx={{
               color:
-                item.value === values.value
+                item.value === currentMenuItem.value
                   ? colors.blue.A700
                   : colors.grey.A700,
-              fontWeight: item.value === values.value ? "bold" : "default",
+              fontWeight:
+                item.value === currentMenuItem.value ? "bold" : "default",
             }}
           />
         ))}
