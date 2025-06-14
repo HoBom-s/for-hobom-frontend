@@ -7,6 +7,7 @@ export const RoutesConfig = {
   },
   MENU: {
     RECOMMENDATION: "/menu/recommendation",
+    PICK: "/menu/pick",
   },
   NOT_FOUND: {
     ALL: "*",

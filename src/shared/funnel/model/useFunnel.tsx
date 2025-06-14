@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import {
   type JSX,
   useCallback,
@@ -8,6 +7,9 @@ import {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+// eslint-disable-next-line fsd-boundaries/fsd-boundaries
+import { assertCondition } from "@/shared/assert";
+
 import { useFunnelState } from "./useFunnelState";
 import { Funnel, Step, type FunnelProps, type StepProps } from "../ui/Funnel";
 
@@ -46,9 +48,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
   FunnelComponent<Steps>,
   (step: Steps[number], options?: SetStepOptions) => void,
 ] & {
-  withState: <
-    StateExcludeStep extends Record<string, unknown> & { step?: never },
-  >(
+  withState: <StateExcludeStep extends Record<string, unknown>>(
     initialState: StateExcludeStep,
   ) => [
     FunnelComponent<Steps>,
@@ -67,7 +67,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
   const location = useLocation();
   const navigate = useNavigate();
 
-  assert(steps.length > 0, "The steps is empty !");
+  assertCondition(steps.length > 0, "The steps is empty !");
 
   const FunnelComponent = useMemo(
     () =>
@@ -77,8 +77,8 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
 
           const currentStep = qsValue ?? options?.initialStep;
 
-          assert(
-            currentStep,
+          assertCondition(
+            currentStep != null,
             `Cannot expression current step. Please check the current step value ${currentStep} again !`,
           );
 
@@ -92,26 +92,24 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
 
   const setStep = useCallback(
     (step: Steps[number], setStepOptions?: SetStepOptions) => {
-      const url = location.search;
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set(stepQueryKey, step);
+
+      const newSearch = searchParams.toString();
 
       options?.onStepChange?.(step);
 
-      switch (setStepOptions?.stepChangeType) {
-        case "replace":
-          navigate(url, {
-            replace: true,
-          });
-          return;
-
-        case "push":
-        default:
-          navigate(url, {
-            replace: false,
-          });
-          return;
-      }
+      navigate(
+        {
+          pathname: location.pathname,
+          search: `?${newSearch}`,
+        },
+        {
+          replace: setStepOptions?.stepChangeType === "replace",
+        },
+      );
     },
-    [location.search, options, navigate],
+    [location.search, location.pathname, stepQueryKey, options, navigate],
   );
 
   type FunnelState = Record<string, unknown>;
@@ -172,9 +170,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     FunnelComponent<Steps>,
     (step: Steps[number], options?: SetStepOptions) => Promise<void>,
   ] & {
-    withState: <
-      StateExcludeStep extends Record<string, unknown> & { step?: never },
-    >(
+    withState: <StateExcludeStep extends Record<string, unknown>>(
       initialState: StateExcludeStep,
     ) => [
       FunnelComponent<Steps>,
