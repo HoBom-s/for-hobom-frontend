@@ -22,3 +22,14 @@ export interface MenuRecommendationType {
 export interface TodayMenuResponse {
   todayMenuId: string;
 }
+
+export interface TodayRecommendedMenuType {
+  id: string;
+  recommendationDate: string;
+  recommendedMenu: MenuRecommendationType;
+  candidates: MenuRecommendationType[];
+}
+
+export interface SelectedTodayMenuResponse {
+  recommendedMenuId: string;
+}

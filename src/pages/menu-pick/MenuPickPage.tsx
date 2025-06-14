@@ -1,5 +1,9 @@
 import { Box } from "@mui/material";
-import { PickMenuContent, PickMenuHeader } from "@/features/pick-menu";
+import {
+  PickMenuContent,
+  PickMenuHeader,
+  SelectedMenuContent,
+} from "@/features/pick-menu";
 import { useFunnel } from "@/shared/funnel";
 
 const FUNNEL_STEPS = ["select-menu", "pick"] as const;
@@ -17,7 +21,7 @@ export default function MenuPickPage() {
           <PickMenuContent onNextCallback={() => setState({ step: "pick" })} />
         </Funnel.Step>
         <Funnel.Step name="pick">
-          <div>pp</div>
+          <SelectedMenuContent />
         </Funnel.Step>
       </Funnel>
     </Box>
