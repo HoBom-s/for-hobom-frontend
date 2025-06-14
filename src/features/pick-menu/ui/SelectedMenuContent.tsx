@@ -31,13 +31,13 @@ const Inner = () => {
   const todayMenuId = getTodayMenuId(query);
   const { handler, status } = useSelectTodayMenu();
   const { data } = useQuery({
-    ...fetchSelectedTodayMenuQueryOption({ id: todayMenuId }),
+    ...fetchSelectedTodayMenuQueryOption({ id: String(todayMenuId) }),
     enabled:
       todayMenuId != null && status == "done" && handler.status === "success",
   });
 
   useEffect(() => {
-    handler.mutate({ id: todayMenuId });
+    handler.mutate({ id: String(todayMenuId) });
   }, [todayMenuId]);
 
   return (
