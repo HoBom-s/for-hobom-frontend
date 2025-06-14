@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from "react";
 import { Box, Paper, Tab, Tabs } from "@mui/material";
-import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent.tsx";
-import { MenuRecommendationList } from "@/features/menu-recommendation-list/ui/MenuRecommendationList.tsx";
+import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent";
+import { MenuRecommendationList } from "@/features/select-menu-tab/ui/MenuRecommendationList";
 
 interface TabValue {
   value: string;
