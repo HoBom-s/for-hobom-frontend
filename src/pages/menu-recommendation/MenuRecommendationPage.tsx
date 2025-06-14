@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { FixedBottomSheet } from "@/features/fixed-bottom-sheet";
-import { MenuRecommendationHeader } from "@/features/menu-recommendation-list";
+import { MenuRecommendationHeader } from "@/features/menu-recommendation-header";
 import { MenuRecommendationTab } from "@/features/select-menu-tab";
 
 export default function MenuRecommendationPage() {

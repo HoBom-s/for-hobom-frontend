@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import {
   Children,
   Fragment,
@@ -7,6 +6,8 @@ import {
   type ReactNode,
   useEffect,
 } from "react";
+// eslint-disable-next-line fsd-boundaries/fsd-boundaries
+import { assertCondition } from "@/shared/assert";
 
 type NonEmptyArray<T> = readonly [T, ...T[]];
 
@@ -31,7 +32,7 @@ export const Funnel = <Steps extends NonEmptyArray<string>>({
 
   const targetStep = validChildren.find((child) => child.props.name === step);
 
-  assert(targetStep, `Cannot find valid step ${targetStep}`);
+  assertCondition(targetStep != null, `Cannot find valid step ${targetStep}`);
 
   return <Fragment>{targetStep}</Fragment>;
 };

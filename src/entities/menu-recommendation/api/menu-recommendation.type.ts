@@ -18,3 +18,7 @@ export interface MenuRecommendationType {
   foodType: FoodType;
   registerPerson: RegisterPersonType;
 }
+
+export interface TodayMenuResponse {
+  todayMenuId: string;
+}

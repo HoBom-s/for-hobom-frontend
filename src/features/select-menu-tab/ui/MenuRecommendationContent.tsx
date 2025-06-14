@@ -1,10 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
+import { RoutesConfig } from "@/shared/router/config/routes.config";
 
 export const MenuRecommendationContent = () => {
+  const navigate = useNavigate();
+
   return (
     <div style={{ width: "100%", height: "calc(100% - 20px)" }}>
       <Box width="100%" display="flex" justifyContent="flex-end" mt={2}>
-        <Button size="small" color="primary" variant="contained">
+        <Button
+          size="small"
+          color="primary"
+          variant="contained"
+          onClick={() => navigate(RoutesConfig.MENU.PICK)}
+        >
           Go to select
         </Button>
       </Box>
