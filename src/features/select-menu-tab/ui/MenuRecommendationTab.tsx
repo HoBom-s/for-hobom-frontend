@@ -1,6 +1,7 @@
 import { type ReactNode, useState } from "react";
 import { Box, Paper, Tab, Tabs } from "@mui/material";
 import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent.tsx";
+import { MenuRecommendationList } from "@/features/menu-recommendation-list/ui/MenuRecommendationList.tsx";
 
 interface TabValue {
   value: string;
@@ -45,7 +46,7 @@ export const MenuRecommendationTab = () => {
           <MenuRecommendationContent />
         </TabContent>
         <TabContent value={TAB_ITEMS[1]} tabValue={tabValue}>
-          <div>2</div>
+          <MenuRecommendationList />
         </TabContent>
       </Box>
     </Paper>
@@ -66,7 +67,10 @@ const TabContent = ({
   }
 
   return (
-    <div role="tabpanel" style={{ height: "100%", width: "100%" }}>
+    <div
+      role="tabpanel"
+      style={{ width: "100%", height: "calc(100% - 20px)", overflowY: "auto" }}
+    >
       {children}
     </div>
   );
