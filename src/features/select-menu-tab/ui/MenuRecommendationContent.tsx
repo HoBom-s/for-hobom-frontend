@@ -2,14 +2,13 @@ import { Box, Button, Typography } from "@mui/material";
 
 export const MenuRecommendationContent = () => {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div style={{ width: "100%", height: "calc(100% - 20px)" }}>
       <Box width="100%" display="flex" justifyContent="flex-end" mt={2}>
         <Button size="small" color="primary" variant="contained">
           Go to select
         </Button>
       </Box>
       <Box
-        mt={2}
         width="100%"
         height="calc(100% - 130px)"
         display="flex"
