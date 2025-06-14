@@ -9,7 +9,7 @@ export const MenuRecommendationHeader = () => {
           variant="h6"
           component="div"
         >
-          Today Menu
+          Today's Menu
           <br />
           What menu would you recommend?
         </Typography>
