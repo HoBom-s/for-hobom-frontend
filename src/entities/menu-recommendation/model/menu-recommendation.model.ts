@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Bom } from "@/packages/bom";
 
 export const MenuKindModel = {
   KOREAN: "KOREAN",
@@ -35,3 +36,13 @@ export const TodayMenuCandidateSchema = z.object({
   todayMenuId: z.string().optional(),
 });
 export type TodayMenuCandidateInput = z.infer<typeof TodayMenuCandidateSchema>;
+
+export const AddMenuRecommendationSchema = z.object({
+  name: z.string().min(1),
+  menuKind: z.enum(Bom.values(MenuKindModel) as [string, ...string[]]),
+  timeOfMeal: z.enum(Bom.values(TimeOfMealModel) as [string, ...string[]]),
+  foodType: z.enum(Bom.values(FoodTypeModel) as [string, ...string[]]),
+});
+export type AddMenuRecommendationInput = z.infer<
+  typeof AddMenuRecommendationSchema
+>;
