@@ -11,10 +11,9 @@ import {
 } from "@mui/material";
 import {
   fetchSelectedTodayMenuQueryOption,
-  getTodayMenuId,
   useSelectTodayMenu,
+  useTodayMenuId,
 } from "@/entities/menu-recommendation";
-import { useRouterQuery } from "@/shared/router/model";
 import { RoutesConfig } from "@/shared/router/config/routes.config.ts";
 
 export const SelectedMenuContent = () => {
@@ -27,8 +26,7 @@ export const SelectedMenuContent = () => {
 
 const Inner = () => {
   const navigate = useNavigate();
-  const { query } = useRouterQuery();
-  const todayMenuId = getTodayMenuId(query);
+  const { todayMenuId } = useTodayMenuId();
   const { handler, status } = useSelectTodayMenu();
   const { data } = useQuery({
     ...fetchSelectedTodayMenuQueryOption({ id: String(todayMenuId) }),
@@ -37,8 +35,17 @@ const Inner = () => {
   });
 
   useEffect(() => {
-    handler.mutate({ id: String(todayMenuId) });
+    if (todayMenuId == null) {
+      return;
+    }
+    handler.mutate({ id: todayMenuId });
   }, [todayMenuId]);
+
+  const showProgressCircle =
+    todayMenuId == null ||
+    status === "loading" ||
+    handler.isPending ||
+    data == null;
 
   return (
     <div>
@@ -50,7 +57,7 @@ const Inner = () => {
           width="100%"
           height="100%"
         >
-          {status === "loading" && handler.isPending && data != null ? (
+          {showProgressCircle ? (
             <Stack direction="column" alignItems="center">
               <CircularProgress size="48px" sx={{ mb: 3 }} />
               <Typography typography="caption">
@@ -62,7 +69,7 @@ const Inner = () => {
               <Typography variant="h6" sx={{ mb: 3 }}>
                 Today's Menu
               </Typography>
-              <Typography variant="subtitle2">
+              <Typography variant="subtitle2" fontWeight="bold">
                 {data?.items.recommendedMenu.name}
               </Typography>
               <Typography variant="caption">
@@ -85,6 +92,7 @@ const Inner = () => {
           fullWidth
           color="info"
           variant="contained"
+          disabled={showProgressCircle}
           onClick={() =>
             navigate(RoutesConfig.MENU.RECOMMENDATION, { replace: true })
           }

@@ -2,6 +2,7 @@ import { type ReactNode, useState } from "react";
 import { Box, Paper, Tab, Tabs } from "@mui/material";
 import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent";
 import { MenuRecommendationList } from "@/features/select-menu-tab/ui/MenuRecommendationList";
+import { MenuRecommendationSpeedDial } from "@/features/select-menu-tab/ui/MenuRecommendationSpeedDial";
 
 interface TabValue {
   value: string;
@@ -47,6 +48,7 @@ export const MenuRecommendationTab = () => {
         </TabContent>
         <TabContent value={TAB_ITEMS[1]} tabValue={tabValue}>
           <MenuRecommendationList />
+          <MenuRecommendationSpeedDial />
         </TabContent>
       </Box>
     </Paper>
