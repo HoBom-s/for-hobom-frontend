@@ -5,12 +5,29 @@ import type {
   TodayMenuResponse,
   TodayRecommendedMenuType,
 } from "./menu-recommendation.type";
-import type { TodayMenuCandidateInput } from "../model/menu-recommendation.model";
+import type {
+  AddMenuRecommendationInput,
+  TodayMenuCandidateInput,
+} from "../model/menu-recommendation.model";
 
 export const fetchMenuRecommendationList = async () => {
   return await httpClient.get<HttpResponseType<MenuRecommendationType[]>>(
     "/menu-recommendation",
   );
+};
+
+export const postMenuRecommendation = async ({
+  name,
+  menuKind,
+  timeOfMeal,
+  foodType,
+}: AddMenuRecommendationInput) => {
+  return await httpClient.post("/menu-recommendation", {
+    name,
+    menuKind,
+    timeOfMeal,
+    foodType,
+  });
 };
 
 export const putMenuRecommendationTodayMenu = async ({

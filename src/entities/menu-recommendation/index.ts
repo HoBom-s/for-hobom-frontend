@@ -8,6 +8,7 @@ import {
   putMenuRecommendationTodayMenu,
   fetchTodayRecommendedMenu,
   postSelectTodayMenu,
+  postMenuRecommendation,
 } from "./api/menu-recommendation.api";
 import {
   fetchMenuRecommendationListQueryOption,
@@ -21,10 +22,18 @@ import type {
   FoodType,
 } from "./model/menu-recommendation.model";
 import { useAddCandidatesTodayMenu } from "./model/useAddCandidatesTodayMenu";
-import { useUpdateTodayMenuCache } from "./model/useUpdateTodayMenuCache.ts";
-import { validateTodayMenuInput } from "./model/validate-menu-recommendation.model";
-import { getTodayMenuId } from "./lib/menu-recommendation.lib";
+import type { AddMenuRecommendationInput } from "./model/menu-recommendation.model";
+import { useUpdateTodayMenuCache } from "./model/useUpdateTodayMenuCache";
+import { useAddMenuRecommendation } from "./model/useAddMenuRecommendation";
+import {
+  validateTodayMenuInput,
+  validateMenuRecommendationInput,
+} from "./model/validate-menu-recommendation.model";
 import { MenuRecommendationListItem } from "./ui/MenuRecommendationListItem";
+import {
+  useTodayMenuId,
+  TodayMenuIdContextProvider,
+} from "./model/useTodayMenuIdContext";
 import type {
   MenuRecommendationType,
   TodayMenuResponse,
@@ -37,6 +46,7 @@ export {
   TimeOfMealModel,
   FoodTypeModel,
   fetchMenuRecommendationList,
+  postMenuRecommendation,
   putMenuRecommendationTodayMenu,
   fetchTodayRecommendedMenu,
   fetchMenuRecommendationListQueryOption,
@@ -44,11 +54,14 @@ export {
   MenuRecommendationListItem,
   useAddCandidatesTodayMenu,
   validateTodayMenuInput,
-  getTodayMenuId,
+  validateMenuRecommendationInput,
   postSelectTodayMenu,
   fetchSelectedTodayMenuQueryOption,
   useSelectTodayMenu,
   useUpdateTodayMenuCache,
+  useAddMenuRecommendation,
+  useTodayMenuId,
+  TodayMenuIdContextProvider,
 };
 export type {
   MenuKindType,
@@ -58,4 +71,5 @@ export type {
   TodayMenuResponse,
   TodayRecommendedMenuType,
   SelectedTodayMenuResponse,
+  AddMenuRecommendationInput,
 };
