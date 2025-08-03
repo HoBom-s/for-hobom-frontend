@@ -34,7 +34,7 @@ AuthLoginPage.Fallback = () => {
           Oops !
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          Something went wrong.
+          시스템에 문제가 생겼어요.
         </Typography>
         <Box mt={2}>
           <Button
@@ -45,7 +45,7 @@ AuthLoginPage.Fallback = () => {
               window.location.reload();
             }}
           >
-            Reload
+            다시 시도하기
           </Button>
         </Box>
       </Box>

@@ -27,11 +27,13 @@ export const useDeleteDailyTodo = () => {
           queryClient.invalidateQueries(
             Bom.pipe(date, fetchDailyTodosByDateQueryOption),
           ),
-        ]).then(() => openSuccessToast({ message: "Successfully deleted !" }));
+        ]).then(() =>
+          openSuccessToast({ message: "Daily TODO를 제거했어요." }),
+        );
       });
     },
     onError: () => {
-      openErrorToast({ message: "Cannot delete daily todo item !" });
+      openErrorToast({ message: "Daily TODO를 제거하지 못했어요." });
     },
   });
 };

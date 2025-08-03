@@ -41,15 +41,13 @@ export const DailyTodoAddButton = ({ item }: Props) => {
           <Modal open={isOpen} onClose={onClose}>
             <Box sx={BoxStyle}>
               <Typography variant="subtitle1" component="h2">
-                Create Daily Todo Item
+                Daily TODO를 생성할게요.
               </Typography>
-              <Typography variant="caption">
-                Please enter daily todo's title.
-              </Typography>
+              <Typography variant="caption">제목을 입력해주세요.</Typography>
               <TextField
                 fullWidth
                 variant="standard"
-                label="Title"
+                label="제목"
                 sx={{ mt: 2 }}
                 {...register("title")}
               />
@@ -70,7 +68,7 @@ export const DailyTodoAddButton = ({ item }: Props) => {
                     onClose();
                   }}
                 >
-                  Close
+                  취소하기
                 </Button>
                 <Button
                   variant="contained"
@@ -108,7 +106,7 @@ export const DailyTodoAddButton = ({ item }: Props) => {
                     );
                   }}
                 >
-                  Confirm
+                  생성하기
                 </Button>
               </Box>
             </Box>

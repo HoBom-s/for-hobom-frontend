@@ -10,10 +10,10 @@ export const NicknameField = () => {
       control={control}
       name="nickname"
       rules={{
-        required: "Please enter your nickname.",
+        required: "닉네임을 입력해주세요.",
         min: {
           value: 2,
-          message: "Nickname must be at least 2 character long.",
+          message: "닉네임은 최소 두글자 이상이에요.",
         },
       }}
       render={({ field, fieldState }) => (
@@ -24,9 +24,9 @@ export const NicknameField = () => {
               fontSize: 14,
             },
           }}
-          label="Nickname"
+          label="닉네임"
           size="small"
-          placeholder="Please enter your nickname."
+          placeholder="닉네임을 입력해주세요."
           fullWidth
           slotProps={{
             inputLabel: {

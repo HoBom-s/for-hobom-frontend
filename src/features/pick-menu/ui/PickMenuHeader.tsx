@@ -9,10 +9,10 @@ export const PickMenuHeader = () => {
           variant="h6"
           component="div"
         >
-          Please select a menu.
+          메뉴를 선택해 주세요.
         </Typography>
         <Typography variant="caption" sx={{ fontSize: 14 }}>
-          Which menu should I add to my list of recommendations?
+          어떤 메뉴를 추첨 목록에 추가할까요?
         </Typography>
       </Box>
     </Box>
