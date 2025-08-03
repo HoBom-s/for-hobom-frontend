@@ -76,10 +76,10 @@ export const useChangeDailyTodoCompleteStatus = (
       if (context?.previousData != null) {
         queryClient.setQueryData(queryKey, context.previousData);
       }
-      openErrorToast({ message: "Failed to change status." });
+      openErrorToast({ message: "상태를 변경하지 못했어요." });
     },
     onSuccess: () => {
-      openSuccessToast({ message: "Status changed successfully." });
+      openSuccessToast({ message: "상태를 변경했어요." });
     },
     onSettled: async () => {
       // clean up data regardless of success or failure
