@@ -9,12 +9,10 @@ export const MenuRecommendationHeader = () => {
           variant="h6"
           component="div"
         >
-          Today's Menu
-          <br />
-          What menu would you recommend?
+          오늘의 메뉴
         </Typography>
         <Typography variant="caption" sx={{ fontSize: 14 }}>
-          You can choose the food to recommend a menu for you.
+          추천받고 싶은 메뉴를 추가해 보세요.
         </Typography>
       </Box>
     </Box>

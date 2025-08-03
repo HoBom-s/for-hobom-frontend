@@ -16,7 +16,7 @@ export const useAddCandidatesTodayMenu = (callback: () => void) => {
       callback();
     },
     onError: () => {
-      openErrorToast({ message: "Something went wrong!" });
+      openErrorToast({ message: "오류가 발생했어요." });
     },
   });
 };

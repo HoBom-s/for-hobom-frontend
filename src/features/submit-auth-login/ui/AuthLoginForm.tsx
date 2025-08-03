@@ -28,11 +28,13 @@ export const AuthLoginForm = () => {
       },
       {
         onSuccess: () => {
-          openSuccessToast({ message: "Login Success !" });
+          openSuccessToast({ message: "호봄 시스템으로 이동할게요." });
           navigate(RoutesConfig.MAIN.DAILY_TODO);
         },
         onError: () => {
-          openErrorToast({ message: `Login failed.` });
+          openErrorToast({
+            message: "닉네임과 비밀번호를 다시 확인해 주세요.",
+          });
         },
       },
     );
@@ -66,7 +68,7 @@ export const AuthLoginForm = () => {
         )}
       >
         <Typography typography="h5" fontWeight="bold">
-          Sign in
+          로그인
         </Typography>
         <Typography
           typography="caption"
@@ -74,9 +76,9 @@ export const AuthLoginForm = () => {
           color="text.secondary"
           mb={1}
         >
-          Welcome to HoBom.
+          HoBom 시스템에 오신 것을 환영해요.
           <br />
-          Please sign in to continue.
+          로그인을 진행해 주세요.
         </Typography>
         <NicknameField />
         <PasswordField />
@@ -87,7 +89,7 @@ export const AuthLoginForm = () => {
           color="info"
           loading={isPending}
         >
-          Sign in with nickname and password
+          로그인
         </Button>
       </Box>
     </FormProvider>

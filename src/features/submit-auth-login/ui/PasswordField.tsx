@@ -10,7 +10,7 @@ export const PasswordField = () => {
       control={control}
       name="password"
       rules={{
-        required: "Please enter your password.",
+        required: "비밀번호를 입력해 주세요.",
       }}
       render={({ field, fieldState }) => (
         <TextField
@@ -20,8 +20,8 @@ export const PasswordField = () => {
               fontSize: 14,
             },
           }}
-          label="Password"
-          placeholder="Please enter your password."
+          label="비밀번호"
+          placeholder="비밀번호를 입력해 주세요."
           size="small"
           type="password"
           fullWidth

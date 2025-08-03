@@ -30,10 +30,10 @@ export const useCreateDailyTodo = () => {
         queryClient.invalidateQueries({ queryKey: key }),
       ]);
 
-      openSuccessToast({ message: "Successfully created !" });
+      openSuccessToast({ message: "Daily TODO를 생성했어요." });
     },
     onError: () => {
-      openErrorToast({ message: "Cannot create daily todo item !" });
+      openErrorToast({ message: "Daily TODO를 생성하지 못했어요." });
     },
   });
 };

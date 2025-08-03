@@ -78,7 +78,7 @@ const Inner = ({ onNextCallback }: Props) => {
           variant="contained"
           onClick={() => navigate(RoutesConfig.MAIN.DAILY_TODO)}
         >
-          Exit
+          나가기
         </Button>
         <Button
           fullWidth
@@ -103,7 +103,7 @@ const Inner = ({ onNextCallback }: Props) => {
             );
           }}
         >
-          Next
+          다음
         </Button>
       </Box>
     </div>

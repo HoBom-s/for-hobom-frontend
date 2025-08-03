@@ -14,7 +14,7 @@ export const MenuRecommendationContent = () => {
           variant="contained"
           onClick={() => navigate(RoutesConfig.MENU.PICK)}
         >
-          Go to select
+          오늘의 메뉴 추천하기
         </Button>
       </Box>
       <Box
@@ -26,12 +26,12 @@ export const MenuRecommendationContent = () => {
         textAlign="center"
       >
         <div>
-          <Typography typography="h6">Choice today's menu.</Typography>
+          <Typography typography="h6">오늘의 메뉴를 선택해 주세요.</Typography>
           <Typography typography="subtitle1">
-            What food should we eat today?
+            오늘은 어떤 음식을 먹어볼까요?
           </Typography>
           <Typography typography="caption">
-            You can make menu recommendations as many times as you want per day.
+            언제든지 원하는 메뉴를 추첨할 수 있어요.
           </Typography>
         </div>
       </Box>

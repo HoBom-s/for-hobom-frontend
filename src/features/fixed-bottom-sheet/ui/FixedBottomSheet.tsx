@@ -25,25 +25,25 @@ interface MenuItem {
 const BOTTOM_SHEET_MENUS: MenuItem[] = [
   {
     value: "DAILY_TODO",
-    label: "Daily Todo",
+    label: "할 일",
     path: RoutesConfig.MAIN.DAILY_TODO,
     icon: <ListAlt />,
   },
   {
     value: "HOBOM_MENU",
-    label: "Today Menu",
+    label: "오늘의 메뉴",
     path: RoutesConfig.MENU.RECOMMENDATION,
     icon: <RiceBowlTwoTone />,
   },
   {
     value: "HOBOM_FUNDS",
-    label: "HoBom Funds",
+    label: "HoBom 펀드",
     path: RoutesConfig.NOT_FOUND.ALL,
     icon: <CreditCard />,
   },
   {
     value: "MORE",
-    label: "More",
+    label: "더보기",
     path: RoutesConfig.NOT_FOUND.ALL,
     icon: <MenuBook />,
   },

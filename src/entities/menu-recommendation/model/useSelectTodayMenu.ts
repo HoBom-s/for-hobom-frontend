@@ -28,7 +28,7 @@ export const useSelectTodayMenu = () => {
       },
       onError: () => {
         setStatus("done");
-        openErrorToast({ message: "Something went wrong !" });
+        openErrorToast({ message: "오류가 발생했어요." });
       },
     }),
   };

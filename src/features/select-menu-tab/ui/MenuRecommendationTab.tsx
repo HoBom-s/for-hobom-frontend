@@ -10,8 +10,8 @@ interface TabValue {
 }
 
 const TAB_ITEMS: TabValue[] = [
-  { value: "menu-recommendation", label: "Recommendation" },
-  { value: "menu-list", label: "Menus" },
+  { value: "menu-recommendation", label: "메뉴 추천" },
+  { value: "menu-list", label: "메뉴 목록" },
 ] as const;
 
 export const MenuRecommendationTab = () => {

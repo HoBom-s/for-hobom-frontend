@@ -22,7 +22,7 @@ export default function NotFoundPage() {
             404
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            Cannot found this page.
+            해당 페이지를 찾을 수 없어요.
           </Typography>
         </Box>
         <Box
@@ -41,7 +41,7 @@ export default function NotFoundPage() {
               navigate(-1);
             }}
           >
-            Back
+            돌아가기
           </Button>
         </Box>
       </div>

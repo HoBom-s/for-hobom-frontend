@@ -61,13 +61,13 @@ const Inner = () => {
             <Stack direction="column" alignItems="center">
               <CircularProgress size="48px" sx={{ mb: 3 }} />
               <Typography typography="caption">
-                Please wait a moment..
+                메뉴를 추첨할 동안 잠시만 기다려 주세요.
               </Typography>
             </Stack>
           ) : (
             <Stack direction="column" alignItems="center">
               <Typography variant="h6" sx={{ mb: 3 }}>
-                Today's Menu
+                오늘의 메뉴
               </Typography>
               <Typography variant="subtitle2" fontWeight="bold">
                 {data?.items.recommendedMenu.name}
@@ -97,7 +97,7 @@ const Inner = () => {
             navigate(RoutesConfig.MENU.RECOMMENDATION, { replace: true })
           }
         >
-          Confirm
+          추첨하기
         </Button>
       </Box>
     </div>
