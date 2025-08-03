@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Skip check if Dependabot
+        if: github.actor == 'dependabot[bot]'
+        run: echo "🔁 Dependabot PR - JIRA 체크 생략!"
+
       - name: Validate JIRA ticket in PR title
         uses: actions/github-script@v7
         env:
