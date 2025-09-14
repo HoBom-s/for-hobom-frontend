@@ -73,7 +73,7 @@ export const MenuRecommendationSpeedDial = () => {
             onOpen({
               title: (
                 <Typography variant="subtitle1" mt={1}>
-                  Add Menu
+                  메뉴 추가하기
                 </Typography>
               ),
               content: (
@@ -135,7 +135,7 @@ export const MenuRecommendationSpeedDial = () => {
                     color="warning"
                     onClick={onClose}
                   >
-                    Exit
+                    취소하기
                   </Button>
                   <Button
                     fullWidth
@@ -159,7 +159,7 @@ export const MenuRecommendationSpeedDial = () => {
                       );
                     }}
                   >
-                    Confirm
+                    추가하기
                   </Button>
                 </Box>
               ),

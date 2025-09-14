@@ -36,9 +36,9 @@ const BOTTOM_SHEET_MENUS: MenuItem[] = [
     icon: <RiceBowlTwoTone />,
   },
   {
-    value: "HOBOM_FUNDS",
-    label: "HoBom 펀드",
-    path: RoutesConfig.NOT_FOUND.ALL,
+    value: "HOBOM MESSAGE",
+    label: "미래 메세지",
+    path: RoutesConfig.MESSAGE.RESERVATION,
     icon: <CreditCard />,
   },
   {

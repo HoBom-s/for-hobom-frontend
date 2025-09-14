@@ -10,6 +10,8 @@ const MenuRecommendationPage = lazy(
   () => import("@/pages/menu-recommendation"),
 );
 const MenuPickPage = lazy(() => import("@/pages/menu-pick"));
+const FutureMessagePage = lazy(() => import("@/pages/message"));
+const FutureMessageSendPage = lazy(() => import("@/pages/message-send"));
 
 export const HoBomRouter = () => {
   return (
@@ -25,6 +27,14 @@ export const HoBomRouter = () => {
           element={<MenuRecommendationPage />}
         />
         <Route path={RoutesConfig.MENU.PICK} element={<MenuPickPage />} />
+        <Route
+          path={RoutesConfig.MESSAGE.RESERVATION}
+          element={<FutureMessagePage />}
+        />
+        <Route
+          path={RoutesConfig.MESSAGE.SEND_FUNNEL}
+          element={<FutureMessageSendPage />}
+        />
         <Route path={RoutesConfig.NOT_FOUND.ALL} element={<NotFoundPage />} />
       </Routes>
     </Suspense>
