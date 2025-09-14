@@ -63,7 +63,7 @@ export const Calendar = () => {
             } as any,
           }}
           onMonthChange={(month) => {
-            const date = Bom.pipe(month, formatDate);
+            const date = Bom.pipe(month as Date, formatDate);
             updateQuery({ selectedDate: date }, { replace: true });
           }}
           renderLoading={() => <DayCalendarSkeleton />}
