@@ -9,6 +9,10 @@ export const RoutesConfig = {
     RECOMMENDATION: "/menu/recommendation",
     PICK: "/menu/pick",
   },
+  MESSAGE: {
+    RESERVATION: "/message/reservation",
+    SEND_FUNNEL: "/message/send",
+  },
   NOT_FOUND: {
     ALL: "*",
   },

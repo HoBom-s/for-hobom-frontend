@@ -1,10 +1,29 @@
 import { toast } from "react-toastify";
 import { HttpClient } from "./model/http-client.ts";
 import { HttpStatusModel } from "@/shared/http/model/http-status.model.ts";
+// eslint-disable-next-line fsd-boundaries/fsd-boundaries
+import { getHoBomAccessToken } from "@/shared/store/model/session.model.ts";
 import type { Middleware } from "./model/middleware.type.ts";
 import type { HttpResponseType } from "./api/http-response.type";
 
 const authMiddleware: Middleware = {
+  onRequest: async (ctx) => {
+    const url = new URL(
+      String(ctx.input),
+      typeof window !== "undefined"
+        ? window.location.origin
+        : "http://localhost",
+    );
+    const path = url.pathname.toLowerCase();
+    if (path.includes("/auth/login")) return;
+    const token = getHoBomAccessToken();
+    if (token == null) return;
+
+    const headers = new Headers(ctx.init.headers || {});
+    if (!headers.has("Authorization"))
+      headers.set("Authorization", `Bearer ${token}`);
+    ctx.init.headers = headers;
+  },
   onResponse: async (ctx) => {
     const { response } = ctx;
 

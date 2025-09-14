@@ -25,7 +25,7 @@ export const CalendarDay = ({ day, selected, days }: Props) => {
         onDaySelect={(selectedDate) => {
           updateQuery(
             {
-              selectedDate: format(selectedDate, "yyyy-MM-dd"),
+              selectedDate: format(selectedDate as Date, "yyyy-MM-dd"),
             },
             {
               replace: true,

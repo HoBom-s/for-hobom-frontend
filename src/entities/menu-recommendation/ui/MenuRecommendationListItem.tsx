@@ -29,7 +29,7 @@ export const MenuRecommendationListItem = ({
         }
       />
     </ListItem>
-    {showDivider && <Divider />}
+    {showDivider ? <Divider /> : null}
   </div>
 );
 
