@@ -115,7 +115,7 @@ PickMenuContent.Layout = ({ children }: { children: ReactNode }) => (
     elevation={2}
     sx={{
       width: "92%",
-      height: "calc(100vh - 180px)",
+      height: "calc(100vh - 124px)",
       m: "0 auto",
       mt: "6px",
       px: 3,

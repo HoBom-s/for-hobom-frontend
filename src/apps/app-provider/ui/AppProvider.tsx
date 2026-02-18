@@ -33,8 +33,7 @@ export const AppProvider = ({ children }: Props) => {
     <Fragment>
       <CssBaseline />
       <ToastContainer
-        style={{ maxWidth: "100vw", boxSizing: "border-box" }}
-        position="bottom-center"
+        position="top-right"
         hideProgressBar
         newestOnTop
         closeOnClick

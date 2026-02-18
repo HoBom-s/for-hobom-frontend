@@ -1,3 +1,3 @@
-import { theme } from "./config/theme.config.ts";
+import { theme, DRAWER_WIDTH } from "./config/theme.config.ts";
 
-export { theme };
+export { theme, DRAWER_WIDTH };

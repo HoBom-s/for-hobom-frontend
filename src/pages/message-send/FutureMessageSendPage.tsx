@@ -18,7 +18,7 @@ export default function FutureMessageSendPage() {
   });
 
   return (
-    <Box sx={{ width: "100%", height: "100vh", overflowY: "hidden" }}>
+    <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
       <FormProvider {...formMethods}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Layout>
@@ -35,7 +35,7 @@ const Layout = ({ children }: { children: ReactNode }) => (
     elevation={2}
     sx={{
       width: "92%",
-      height: "calc(100vh - 20px)",
+      height: "calc(100% - 12px)",
       m: "0 auto",
       mt: "6px",
       px: 3,

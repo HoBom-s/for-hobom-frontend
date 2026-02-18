@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { FixedBottomSheet } from "@/features/fixed-bottom-sheet";
 import {
   FutureMessageContent,
   FutureMessageHeader,
@@ -8,11 +7,10 @@ import { FutureMessageStatusTab } from "@/entities/future-message";
 
 export default function FutureMessagePage() {
   return (
-    <Box sx={{ width: "100%", height: "100vh", overflowY: "hidden" }}>
+    <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
       <FutureMessageHeader />
       <FutureMessageStatusTab />
       <FutureMessageContent />
-      <FixedBottomSheet />
     </Box>
   );
 }
