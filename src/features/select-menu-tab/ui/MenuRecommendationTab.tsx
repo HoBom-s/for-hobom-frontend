@@ -42,7 +42,7 @@ export const MenuRecommendationTab = () => {
           <Tab key={item.value} value={item.value} label={item.label} />
         ))}
       </Tabs>
-      <Box sx={{ mt: 1, height: "calc(100vh - 265px)" }}>
+      <Box sx={{ mt: 1, height: "calc(100vh - 209px)" }}>
         <TabContent value={TAB_ITEMS[0]} tabValue={tabValue}>
           <MenuRecommendationContent />
         </TabContent>

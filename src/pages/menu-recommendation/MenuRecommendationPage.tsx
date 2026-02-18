@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { FixedBottomSheet } from "@/features/fixed-bottom-sheet";
 import { MenuRecommendationHeader } from "@/features/menu-recommendation-header";
 import { MenuRecommendationTab } from "@/features/select-menu-tab";
 
@@ -8,13 +7,12 @@ export default function MenuRecommendationPage() {
     <Box
       sx={{
         width: "100%",
-        height: "100dvh",
+        height: "100%",
         overflowY: "hidden",
       }}
     >
       <MenuRecommendationHeader />
       <MenuRecommendationTab />
-      <FixedBottomSheet />
     </Box>
   );
 }

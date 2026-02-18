@@ -4,7 +4,7 @@ import { TodayMenuIdContextProvider } from "@/entities/menu-recommendation";
 
 export default function MenuPickPage() {
   return (
-    <Box sx={{ width: "100%", height: "100dvh", overflowY: "hidden" }}>
+    <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
       <TodayMenuIdContextProvider>
         <PickMenuFunnel />
       </TodayMenuIdContextProvider>

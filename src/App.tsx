@@ -1,10 +1,10 @@
 import { AppProvider } from "@/apps/app-provider/ui";
-import { HoBomRouter } from "@/shared/router/ui";
+import { AppRouter } from "@/apps/app-router";
 
 export default function App() {
   return (
     <AppProvider>
-      <HoBomRouter />
+      <AppRouter />
     </AppProvider>
   );
 }

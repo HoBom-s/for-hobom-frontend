@@ -14,7 +14,7 @@ export const FutureMessageSpeedDial = () => {
       open={open}
       sx={{
         position: "absolute",
-        bottom: 100,
+        bottom: 32,
         right: 28,
       }}
       icon={<SpeedDialIcon />}

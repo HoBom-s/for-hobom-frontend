@@ -1,5 +1,11 @@
 import type { ReactNode } from "react";
-import { Drawer, Box } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 
 interface Props {
   children: ReactNode;
@@ -10,69 +16,38 @@ interface Props {
 
 export const BottomSheetCTA = ({ children, open, height, onClose }: Props) => {
   return (
-    <Drawer
-      anchor="bottom"
+    <Dialog
       open={open}
       onClose={onClose}
+      maxWidth="sm"
+      fullWidth
       disableEscapeKeyDown={false}
-      ModalProps={{
-        keepMounted: true,
-        onClose,
-      }}
-      slotProps={{
-        paper: {
-          sx: {
-            height: height == null ? "50vh" : height,
-            borderTopLeftRadius: 16,
-            borderTopRightRadius: 16,
-            p: 0,
-            flexDirection: "column",
-          },
-        },
-      }}
     >
-      <Box display="flex" flexDirection="column" gap={2} height="100%">
+      <Box display="flex" flexDirection="column" height={height ?? "auto"}>
         {children}
       </Box>
-    </Drawer>
+    </Dialog>
   );
 };
 
 BottomSheetCTA.Title = ({ children }: Pick<Props, "children">) => {
   return (
-    <Box
-      px={2}
-      pt={2}
-      sx={{ display: "flex", width: "100%", justifyContent: "center" }}
+    <DialogTitle
+      sx={{ display: "flex", width: "100%", justifyContent: "center", pb: 1 }}
     >
       {children}
-    </Box>
+    </DialogTitle>
   );
 };
 
 BottomSheetCTA.Body = ({ children }: Pick<Props, "children">) => {
   return (
-    <Box
-      sx={{
-        flex: 1,
-        overflowY: "auto",
-        px: 2,
-      }}
-    >
+    <DialogContent sx={{ flex: 1, overflowY: "auto" }}>
       {children}
-    </Box>
+    </DialogContent>
   );
 };
 
 BottomSheetCTA.Footer = ({ children }: Pick<Props, "children">) => {
-  return (
-    <Box
-      sx={{
-        px: 2,
-        py: 2,
-      }}
-    >
-      {children}
-    </Box>
-  );
+  return <DialogActions sx={{ px: 3, py: 2 }}>{children}</DialogActions>;
 };

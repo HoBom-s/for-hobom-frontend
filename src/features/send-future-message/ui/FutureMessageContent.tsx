@@ -56,7 +56,7 @@ FutureMessageContent.Layout = ({ children }: { children: ReactNode }) => (
     elevation={2}
     sx={{
       width: "92%",
-      height: "calc(100vh - 230px)",
+      height: "calc(100vh - 174px)",
       m: "0 auto",
       mt: "6px",
       px: 3,
