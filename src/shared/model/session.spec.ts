@@ -33,9 +33,9 @@ describe("session", () => {
     });
 
     it("throws when null is passed", () => {
-      expect(() =>
-        saveHoBomAccessToken(null as unknown as string),
-      ).toThrow("Token must be exist");
+      expect(() => saveHoBomAccessToken(null as unknown as string)).toThrow(
+        "Token must be exist",
+      );
     });
   });
 

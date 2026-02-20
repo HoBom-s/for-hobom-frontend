@@ -2,9 +2,7 @@ import { createFunnelStateId, createFunnelStorage } from "./funnel";
 
 describe("createFunnelStateId", () => {
   it("prefixes the id with funnel-state-id__", () => {
-    expect(createFunnelStateId("my-funnel")).toBe(
-      "funnel-state-id__my-funnel",
-    );
+    expect(createFunnelStateId("my-funnel")).toBe("funnel-state-id__my-funnel");
   });
 
   it("appends the full id string including slashes", () => {
