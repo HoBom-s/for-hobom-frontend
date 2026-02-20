@@ -13,8 +13,9 @@ import { DatePicker } from "@mui/x-date-pickers";
 import {
   type FutureMessageSendSchemaType,
   validateFutureMessageSendInput,
+  postFutureMessage,
+  FUTURE_MESSAGE_STATUS_QUERY_KEY,
 } from "@/entities/future-message";
-import { postFutureMessage } from "@/entities/future-message";
 import { handleValidationResult } from "@/shared/lib";
 import { useToast } from "@/shared/model";
 import { Bom } from "@/packages/bom";
@@ -86,7 +87,7 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
                     sendFutureMessageMutationHandler.mutate(payload, {
                       onSuccess: () => {
                         queryClient.invalidateQueries({
-                          queryKey: ["future-message", "status"],
+                          queryKey: FUTURE_MESSAGE_STATUS_QUERY_KEY,
                         });
                         openSuccessToast({
                           message: "미래 메시지를 잘 예약했어요.",

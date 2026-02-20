@@ -3,6 +3,10 @@ import { Box, Paper, Tab, Tabs } from "@mui/material";
 import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent";
 import { MenuRecommendationList } from "@/features/select-menu-tab/ui/MenuRecommendationList";
 import { MenuRecommendationSpeedDial } from "@/features/select-menu-tab/ui/MenuRecommendationSpeedDial";
+import { APPBAR_HEIGHT } from "@/shared/config";
+
+// APPBAR_HEIGHT(56) + paper margins(~80) + MUI Tabs(48) + borders(~49)
+const CONTENT_OFFSET = APPBAR_HEIGHT + 177;
 
 interface TabValue {
   value: string;
@@ -43,7 +47,7 @@ export const MenuRecommendationTab = () => {
           <Tab key={item.value} value={item.value} label={item.label} />
         ))}
       </Tabs>
-      <Box sx={{ mt: 1, height: "calc(100vh - 233px)" }}>
+      <Box sx={{ mt: 1, height: `calc(100vh - ${CONTENT_OFFSET}px)` }}>
         <TabContent value={TAB_ITEMS[0]} tabValue={tabValue}>
           <MenuRecommendationContent />
         </TabContent>

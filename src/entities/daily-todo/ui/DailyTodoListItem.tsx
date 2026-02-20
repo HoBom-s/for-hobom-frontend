@@ -98,7 +98,12 @@ export const DailyTodoListItem = ({ item }: Props) => {
                   >
                     삭제하기
                   </Button>
-                  <Button fullWidth variant="contained" color="primary">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    disabled
+                  >
                     수정하기
                   </Button>
                 </Box>

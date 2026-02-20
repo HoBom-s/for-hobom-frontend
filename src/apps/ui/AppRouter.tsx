@@ -1,9 +1,11 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import { ListAlt, Mail, MenuBook, RiceBowlTwoTone } from "@mui/icons-material";
+import { ListAlt, Mail, RiceBowlTwoTone } from "@mui/icons-material";
 import { RoutesConfig } from "@/shared/config";
 import { AppShell, type AppShellNavItem } from "@/shared/ui";
+import { UNAUTHORIZED_EVENT } from "@/shared/api";
+import { useToast } from "@/shared/model";
 
 const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
@@ -34,12 +36,6 @@ const NAV_ITEMS: AppShellNavItem[] = [
     path: RoutesConfig.MESSAGE.RESERVATION,
     icon: <Mail fontSize="small" />,
   },
-  {
-    value: "MORE",
-    label: "더보기",
-    path: RoutesConfig.MAIN.DAILY_TODO,
-    icon: <MenuBook fontSize="small" />,
-  },
 ];
 
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -47,6 +43,20 @@ const Shell = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const AppRouter = () => {
+  const navigate = useNavigate();
+  const { openWarnToast } = useToast();
+
+  useEffect(() => {
+    const handler = () => {
+      openWarnToast({
+        message: "인증이 필요해요. 로그인 페이지로 이동합니다.",
+      });
+      navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
+    };
+    window.addEventListener(UNAUTHORIZED_EVENT, handler);
+    return () => window.removeEventListener(UNAUTHORIZED_EVENT, handler);
+  }, [navigate, openWarnToast]);
+
   return (
     <Suspense fallback={<AppRouter.Loader />}>
       <Routes>

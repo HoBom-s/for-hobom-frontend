@@ -59,7 +59,7 @@ export const Calendar = () => {
           slotProps={{
             toolbar: { toolbarFormat: "yyyy-MM" },
             actionBar: { actions: undefined },
-            day: { days } as unknown as PickersDayProps<Date>,
+            day: { days } as unknown as PickersDayProps,
           }}
           onMonthChange={(month) => {
             const date = Bom.pipe(month as Date, formatDate);

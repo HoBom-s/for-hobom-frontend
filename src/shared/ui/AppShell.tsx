@@ -13,9 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Bom } from "@/packages/bom";
-
-const DRAWER_WIDTH = 240;
-const APPBAR_HEIGHT = 56;
+import { DRAWER_WIDTH, APPBAR_HEIGHT } from "@/shared/config";
 
 export interface AppShellNavItem {
   value: string;

@@ -19,18 +19,13 @@ export const useDeleteDailyTodo = () => {
 
   return useMutation({
     mutationFn: deleteDailyTodoById,
-    onSuccess: () => {
+    onSuccess: async () => {
       const date = Bom.pipe(getSelectedDate(query, now), formatDate);
-      Bom.pipe(date, (date) => {
-        Promise.all([
-          queryClient.invalidateQueries(fetchDailyTodoCategoriesOption()),
-          queryClient.invalidateQueries(
-            Bom.pipe(date, fetchDailyTodosByDateQueryOption),
-          ),
-        ]).then(() =>
-          openSuccessToast({ message: "Daily TODO를 제거했어요." }),
-        );
-      });
+      await Promise.all([
+        queryClient.invalidateQueries(fetchDailyTodoCategoriesOption()),
+        queryClient.invalidateQueries(fetchDailyTodosByDateQueryOption(date)),
+      ]);
+      openSuccessToast({ message: "Daily TODO를 제거했어요." });
     },
     onError: () => {
       openErrorToast({ message: "Daily TODO를 제거하지 못했어요." });
