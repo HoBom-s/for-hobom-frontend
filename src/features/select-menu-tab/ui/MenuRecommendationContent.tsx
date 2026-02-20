@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
-import { RoutesConfig } from "@/shared/router/config/routes.config";
+import { RoutesConfig } from "@/shared/config";
 
 export const MenuRecommendationContent = () => {
   const navigate = useNavigate();

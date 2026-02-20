@@ -1,1 +1,1 @@
-export { default } from "./DailyTodoPage";
+export { default } from "./ui/DailyTodoPage";

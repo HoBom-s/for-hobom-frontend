@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import {
-  Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   IconButton,
-  Modal,
   TextField,
   Typography,
 } from "@mui/material";
@@ -15,10 +17,10 @@ import {
   getSelectedDate,
   useCreateDailyTodo,
 } from "@/entities/daily-todo";
-import { useOverlay } from "@/shared/overlay";
+import { useOverlay } from "@/shared/model";
 import { Bom } from "@/packages/bom";
-import { useRouterQuery } from "@/shared/router/model";
-import { useToast } from "@/shared/toast";
+import { useRouterQuery } from "@/shared/model";
+import { useToast } from "@/shared/model";
 
 interface Props {
   item: DailyTodoWithCategoryType;
@@ -38,79 +40,81 @@ export const DailyTodoAddButton = ({ item }: Props) => {
       size="small"
       onClick={() => {
         onOpen(({ isOpen, onClose }) => (
-          <Modal open={isOpen} onClose={onClose}>
-            <Box sx={BoxStyle}>
-              <Typography variant="subtitle1" component="h2">
-                Daily TODO를 생성할게요.
+          <Dialog
+            open={isOpen}
+            onClose={() => {
+              reset();
+              onClose();
+            }}
+            maxWidth="xs"
+            fullWidth
+          >
+            <DialogTitle sx={{ pb: 1 }}>
+              할 일 추가
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ mt: 0.5 }}
+              >
+                {item.categoryTitle}
               </Typography>
-              <Typography variant="caption">제목을 입력해주세요.</Typography>
+            </DialogTitle>
+            <DialogContent sx={{ pt: "12px !important" }}>
               <TextField
                 fullWidth
-                variant="standard"
+                autoFocus
+                variant="outlined"
                 label="제목"
-                sx={{ mt: 2 }}
+                size="small"
                 {...register("title")}
               />
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                width="100%"
-                gap={1}
-                mt={4}
+            </DialogContent>
+            <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
+              <Button
+                fullWidth
+                variant="outlined"
+                color="inherit"
+                onClick={() => {
+                  reset();
+                  onClose();
+                }}
               >
-                <Button
-                  variant="contained"
-                  type="button"
-                  color="error"
-                  size="small"
-                  onClick={() => {
-                    reset();
-                    onClose();
-                  }}
-                >
-                  취소하기
-                </Button>
-                <Button
-                  variant="contained"
-                  type="button"
-                  size="small"
-                  color="primary"
-                  loading={isPending}
-                  onClick={() => {
-                    const title = watch("title");
-                    Bom.pipe(
-                      title.trim(),
-                      (t) => {
-                        if (Bom.isEmpty(t)) {
-                          openWarnToast({ message: "Title is empty !" });
-                          return null;
-                        }
-
-                        return t;
-                      },
-                      (t) => {
-                        if (t == null) {
-                          return;
-                        }
-                        const now = getNow();
-                        const date = Bom.pipe(
-                          getSelectedDate(query, now),
-                          formatDate,
-                        );
-                        const categoryId = Bom.prop("categoryId")(item);
-
-                        mutate({ title: t, category: categoryId, date });
-                        reset();
-                        onClose();
-                      },
-                    );
-                  }}
-                >
-                  생성하기
-                </Button>
-              </Box>
-            </Box>
-          </Modal>
+                취소
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                loading={isPending}
+                onClick={() => {
+                  const title = watch("title");
+                  Bom.pipe(
+                    title.trim(),
+                    (t) => {
+                      if (Bom.isEmpty(t)) {
+                        openWarnToast({ message: "제목을 입력해주세요." });
+                        return null;
+                      }
+                      return t;
+                    },
+                    (t) => {
+                      if (t == null) return;
+                      const now = getNow();
+                      const date = Bom.pipe(
+                        getSelectedDate(query, now),
+                        formatDate,
+                      );
+                      const categoryId = Bom.prop("categoryId")(item);
+                      mutate({ title: t, category: categoryId, date });
+                      reset();
+                      onClose();
+                    },
+                  );
+                }}
+              >
+                추가
+              </Button>
+            </DialogActions>
+          </Dialog>
         ));
       }}
     >
@@ -118,14 +122,3 @@ export const DailyTodoAddButton = ({ item }: Props) => {
     </IconButton>
   );
 };
-
-const BoxStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 2,
-} as const;

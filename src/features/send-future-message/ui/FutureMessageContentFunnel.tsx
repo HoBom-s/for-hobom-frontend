@@ -3,7 +3,7 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  TextareaAutosize,
+  TextField,
   Typography,
 } from "@mui/material";
 import { useFormContext } from "react-hook-form";
@@ -21,56 +21,48 @@ export const FutureMessageContentFunnel = ({
   const { setValue, watch } = useFormContext<FutureMessageSendSchemaType>();
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          maxHeight: "calc(100vh - 80px)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ width: "100%" }}>
-          <Typography fontWeight="bold" sx={{ mb: 3, fontSize: 24 }}>
-            내용을 입력해 주세요
-          </Typography>
-          <FormControl sx={{ width: "100%" }}>
-            <TextareaAutosize
-              minRows={3}
-              placeholder="내용을 입력해 주세요."
-              style={{ width: "100%" }}
-              value={watch("content")}
-              onChange={(evt) => {
-                setValue("content", evt.target.value);
-              }}
-            />
-            <FormHelperText>어떤 내용으로 보낼까요?</FormHelperText>
-          </FormControl>
-        </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Box>
+        <Typography fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+          내용을 입력해 주세요
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          어떤 내용으로 보낼까요?
+        </Typography>
       </Box>
-      <div>
-        <Box display="flex" gap={1} width="100%" height="100%">
-          <Button
-            fullWidth
-            color="warning"
-            variant="contained"
-            onClick={onPrevStep}
-          >
-            제목 입력하기
-          </Button>
-          <Button
-            fullWidth
-            color="info"
-            variant="contained"
-            disabled={watch("title") === ""}
-            onClick={onNextStep}
-          >
-            날짜 선택하기
-          </Button>
-        </Box>
-      </div>
-    </div>
+
+      <FormControl fullWidth>
+        <TextField
+          fullWidth
+          multiline
+          minRows={4}
+          label="내용"
+          value={watch("content")}
+          onChange={(evt) => setValue("content", evt.target.value)}
+        />
+        <FormHelperText>
+          전하고 싶은 말을 자유롭게 작성해 주세요.
+        </FormHelperText>
+      </FormControl>
+
+      <Box display="flex" gap={1.5}>
+        <Button
+          fullWidth
+          variant="outlined"
+          color="inherit"
+          onClick={onPrevStep}
+        >
+          이전
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          disabled={watch("content") === ""}
+          onClick={onNextStep}
+        >
+          다음
+        </Button>
+      </Box>
+    </Box>
   );
 };

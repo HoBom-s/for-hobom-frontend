@@ -1,9 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import {
-  putMenuRecommendationTodayMenu,
-  useTodayMenuId,
-} from "@/entities/menu-recommendation";
-import { useToast } from "@/shared/toast";
+import { putMenuRecommendationTodayMenu } from "../api/menu-recommendation.api";
+import { useTodayMenuId } from "./useTodayMenuIdContext";
+import { useToast } from "@/shared/model";
 
 export const useAddCandidatesTodayMenu = (callback: () => void) => {
   const { openErrorToast } = useToast();

@@ -23,7 +23,7 @@ import {
   useDeleteDailyTodo,
 } from "@/entities/daily-todo";
 import { Bom } from "@/packages/bom";
-import { useBottomSheetCTA } from "@/shared/bottom-sheet-cta";
+import { useBottomSheetCTA } from "@/shared/model";
 
 interface Props {
   item: DailyTodoType;
@@ -43,7 +43,6 @@ export const DailyTodoListItem = ({ item }: Props) => {
 
   return (
     <ListItem
-      sx={{ height: 40 }}
       disablePadding
       secondaryAction={
         <IconButton
@@ -112,10 +111,11 @@ export const DailyTodoListItem = ({ item }: Props) => {
         </IconButton>
       }
     >
-      <ListItemButton dense>
-        <ListItemIcon>
+      <ListItemButton sx={{ px: 2.5, py: 0.75 }}>
+        <ListItemIcon sx={{ minWidth: 36 }}>
           <Checkbox
             edge="start"
+            size="small"
             tabIndex={-1}
             disableRipple
             disabled={isPending}
@@ -123,7 +123,22 @@ export const DailyTodoListItem = ({ item }: Props) => {
             onChange={() => handleChangeCompleteStatus(item.id, item.progress)}
           />
         </ListItemIcon>
-        <ListItemText primary={item.title} />
+        <ListItemText
+          primary={item.title}
+          slotProps={{
+            primary: {
+              sx: {
+                fontSize: "0.925rem",
+                textDecoration: isCompleteStatus(item.progress)
+                  ? "line-through"
+                  : "none",
+                color: isCompleteStatus(item.progress)
+                  ? "text.disabled"
+                  : "text.primary",
+              },
+            },
+          }}
+        />
       </ListItemButton>
     </ListItem>
   );

@@ -1,1 +1,1 @@
-export { default } from "./FutureMessagePage";
+export { default } from "./ui/FutureMessagePage";

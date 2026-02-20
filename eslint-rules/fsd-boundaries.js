@@ -21,7 +21,9 @@ function getSlice(filePath) {
 
 // excepts packages/*
 const ALLOWED_IMPORTS = {
-  apps: ["features", "entities", "shared", "packages"],
+  apps: ["pages", "widgets", "features", "entities", "shared", "packages"],
+  pages: ["widgets", "features", "entities", "shared", "packages"],
+  widgets: ["features", "entities", "shared", "packages"],
   features: ["entities", "shared", "packages"],
   entities: ["shared", "packages"],
   shared: ["shared", "packages"],
@@ -63,18 +65,20 @@ export const rule = {
           const importedSlice = parts[1] || null;
 
           if (importedLayer === currentLayer) {
-            // slice check
-            if (importedSlice && importedSlice !== currentSlice) {
-              context.report({
-                node,
-                messageId: "forbiddenImport",
-                data: {
-                  importLayer: currentLayer,
-                  importSlice: currentSlice,
-                  importedLayer,
-                  importedSlice,
-                },
-              });
+            // apps/shared have no slices — cross-segment imports are allowed
+            if (currentLayer !== "shared" && currentLayer !== "apps") {
+              if (importedSlice && importedSlice !== currentSlice) {
+                context.report({
+                  node,
+                  messageId: "forbiddenImport",
+                  data: {
+                    importLayer: currentLayer,
+                    importSlice: currentSlice,
+                    importedLayer,
+                    importedSlice,
+                  },
+                });
+              }
             }
             return;
           }
@@ -102,17 +106,20 @@ export const rule = {
           const importedSlice = getSlice(resolvedPath);
 
           if (importedLayer === currentLayer) {
-            if (importedSlice && importedSlice !== currentSlice) {
-              context.report({
-                node,
-                messageId: "forbiddenImport",
-                data: {
-                  importLayer: currentLayer,
-                  importSlice: currentSlice,
-                  importedLayer,
-                  importedSlice,
-                },
-              });
+            // apps/shared have no slices — cross-segment imports are allowed
+            if (currentLayer !== "shared" && currentLayer !== "apps") {
+              if (importedSlice && importedSlice !== currentSlice) {
+                context.report({
+                  node,
+                  messageId: "forbiddenImport",
+                  data: {
+                    importLayer: currentLayer,
+                    importSlice: currentSlice,
+                    importedLayer,
+                    importedSlice,
+                  },
+                });
+              }
             }
             return;
           }

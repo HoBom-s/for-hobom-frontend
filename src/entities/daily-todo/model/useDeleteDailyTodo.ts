@@ -7,9 +7,9 @@ import {
   getNow,
   getSelectedDate,
 } from "@/entities/daily-todo";
-import { useToast } from "@/shared/toast";
+import { useToast } from "@/shared/model";
 import { Bom } from "@/packages/bom";
-import { useRouterQuery } from "@/shared/router/model";
+import { useRouterQuery } from "@/shared/model";
 
 export const useDeleteDailyTodo = () => {
   const { query } = useRouterQuery();

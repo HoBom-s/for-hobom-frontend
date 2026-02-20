@@ -1,8 +1,6 @@
-import {
-  fetchSelectedTodayMenuQueryOption,
-  fetchTodayRecommendedMenu,
-  useTodayMenuId,
-} from "@/entities/menu-recommendation";
+import { fetchSelectedTodayMenuQueryOption } from "../api/menu-recommendation.queries";
+import { fetchTodayRecommendedMenu } from "../api/menu-recommendation.api";
+import { useTodayMenuId } from "./useTodayMenuIdContext";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const useUpdateTodayMenuCache = () => {

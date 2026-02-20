@@ -1,17 +1,13 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Box,
   Button,
   MenuItem,
   Select,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
   TextField,
   Typography,
 } from "@mui/material";
-import { DinnerDiningTwoTone } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import {
   type AddMenuRecommendationInput,
   FoodTypeModel,
@@ -20,20 +16,16 @@ import {
   useAddMenuRecommendation,
   validateMenuRecommendationInput,
 } from "@/entities/menu-recommendation";
-import { useBottomSheetCTA } from "@/shared/bottom-sheet-cta";
-import { handleValidationResult } from "@/shared/assert";
-import { useToast } from "@/shared/toast";
+import { useBottomSheetCTA } from "@/shared/model";
+import { handleValidationResult } from "@/shared/lib";
+import { useToast } from "@/shared/model";
 import { Bom } from "@/packages/bom";
 
-const DIAL_MENUS = [{ icon: <DinnerDiningTwoTone />, name: "Menu" }] as const;
-
 export const MenuRecommendationSpeedDial = () => {
-  const [open, setOpen] = useState<boolean>(false);
-
   const menuRecommendationHandler = useAddMenuRecommendation();
   const { onOpen, onClose } = useBottomSheetCTA();
   const { openWarnToast } = useToast();
-  const formMethods = useForm<AddMenuRecommendationInput>({
+  const { register, getValues, reset } = useForm<AddMenuRecommendationInput>({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -42,132 +34,106 @@ export const MenuRecommendationSpeedDial = () => {
       foodType: FoodTypeModel.MEAL,
     },
   });
-  const { register, getValues, reset } = formMethods;
+
+  const handleOpen = () => {
+    onOpen({
+      title: (
+        <Typography variant="subtitle1" mt={1}>
+          메뉴 추가하기
+        </Typography>
+      ),
+      content: (
+        <Box sx={{ px: 2 }}>
+          <TextField
+            fullWidth
+            size="small"
+            variant="standard"
+            label="Menu name"
+            sx={{ mt: 2 }}
+            {...register("name")}
+          />
+          <Select
+            fullWidth
+            size="small"
+            sx={{ mt: 2 }}
+            defaultValue={MenuKindModel.KOREAN}
+            {...register("menuKind")}
+          >
+            {Bom.values(MenuKindModel).map((item) => (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            fullWidth
+            size="small"
+            sx={{ mt: 2 }}
+            defaultValue={TimeOfMealModel.LUNCH}
+            {...register("timeOfMeal")}
+          >
+            {Bom.values(TimeOfMealModel).map((item) => (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            fullWidth
+            size="small"
+            sx={{ mt: 2 }}
+            defaultValue={FoodTypeModel.MEAL}
+            {...register("foodType")}
+          >
+            {Bom.values(FoodTypeModel).map((item) => (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+      ),
+      footer: (
+        <Box display="flex" gap={2} px={2}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="inherit"
+            onClick={onClose}
+          >
+            취소
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            loading={menuRecommendationHandler.isPending}
+            onClick={() => {
+              Bom.pipe(
+                getValues(),
+                validateMenuRecommendationInput,
+                (validationResult) =>
+                  handleValidationResult(
+                    validationResult,
+                    (err) => openWarnToast({ message: err.message }),
+                    (requestBody) => {
+                      menuRecommendationHandler.mutate(requestBody);
+                      reset();
+                      onClose();
+                    },
+                  ),
+              );
+            }}
+          >
+            추가하기
+          </Button>
+        </Box>
+      ),
+    });
+  };
 
   return (
-    <SpeedDial
-      open={open}
-      ariaLabel="menu-recommendation-speed-dial"
-      sx={{
-        position: "absolute",
-        bottom: 100,
-        right: 28,
-      }}
-      icon={<SpeedDialIcon />}
-      onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
-    >
-      {DIAL_MENUS.map((item) => (
-        <SpeedDialAction
-          key={item.name}
-          icon={item.icon}
-          slotProps={{
-            tooltip: {
-              title: item.name,
-            },
-            fab: {
-              size: "small",
-            },
-          }}
-          onClick={() => {
-            onOpen({
-              title: (
-                <Typography variant="subtitle1" mt={1}>
-                  메뉴 추가하기
-                </Typography>
-              ),
-              content: (
-                <Box sx={{ px: 2 }}>
-                  <TextField
-                    fullWidth
-                    size="small"
-                    variant="standard"
-                    label="Menu name"
-                    sx={{ mt: 2 }}
-                    {...register("name")}
-                  />
-                  <Select
-                    fullWidth
-                    size="small"
-                    sx={{ mt: 2 }}
-                    defaultValue={MenuKindModel.KOREAN}
-                    {...register("menuKind")}
-                  >
-                    {Bom.values(MenuKindModel).map((item) => (
-                      <MenuItem key={item} value={item}>
-                        {item}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <Select
-                    fullWidth
-                    size="small"
-                    sx={{ mt: 2 }}
-                    defaultValue={TimeOfMealModel.LUNCH}
-                    {...register("timeOfMeal")}
-                  >
-                    {Bom.values(TimeOfMealModel).map((item) => (
-                      <MenuItem key={item} value={item}>
-                        {item}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <Select
-                    fullWidth
-                    size="small"
-                    sx={{ mt: 2 }}
-                    defaultValue={FoodTypeModel.MEAL}
-                    {...register("foodType")}
-                  >
-                    {Bom.values(FoodTypeModel).map((item) => (
-                      <MenuItem key={item} value={item}>
-                        {item}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
-              ),
-              footer: (
-                <Box display="flex" gap={2} px={2}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="warning"
-                    onClick={onClose}
-                  >
-                    취소하기
-                  </Button>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="info"
-                    loading={menuRecommendationHandler.isPending}
-                    onClick={() => {
-                      Bom.pipe(
-                        getValues(),
-                        validateMenuRecommendationInput,
-                        (validationResult) =>
-                          handleValidationResult(
-                            validationResult,
-                            (err) => openWarnToast({ message: err.message }),
-                            (requestBody) => {
-                              menuRecommendationHandler.mutate(requestBody);
-                              reset();
-                              onClose();
-                            },
-                          ),
-                      );
-                    }}
-                  >
-                    추가하기
-                  </Button>
-                </Box>
-              ),
-            });
-            setOpen(false);
-          }}
-        />
-      ))}
-    </SpeedDial>
+    <Button variant="contained" startIcon={<Add />} onClick={handleOpen}>
+      메뉴 추가하기
+    </Button>
   );
 };

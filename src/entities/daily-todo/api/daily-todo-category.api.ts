@@ -1,4 +1,4 @@
-import { httpClient, type HttpResponseType } from "@/shared/http";
+import { httpClient, type HttpResponseType } from "@/shared/api";
 import type { CategoryType } from "@/entities/daily-todo";
 
 export const fetchDailyTodoCategories = async () => {

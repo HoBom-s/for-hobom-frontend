@@ -1,1 +1,1 @@
-export { default } from "./MenuRecommendationPage";
+export { default } from "./ui/MenuRecommendationPage";

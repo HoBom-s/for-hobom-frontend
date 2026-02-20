@@ -3,7 +3,7 @@ import {
   fetchMenuRecommendationListQueryOption,
   postMenuRecommendation,
 } from "@/entities/menu-recommendation";
-import { useToast } from "@/shared/toast";
+import { useToast } from "@/shared/model";
 
 export const useAddMenuRecommendation = () => {
   const queryClient = useQueryClient();

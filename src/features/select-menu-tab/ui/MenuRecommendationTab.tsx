@@ -24,6 +24,7 @@ export const MenuRecommendationTab = () => {
         width: "95%",
         m: "0 auto",
         mt: "6px",
+        mb: 3,
         px: 4,
         bgcolor: "background.paper",
       }}
@@ -42,13 +43,15 @@ export const MenuRecommendationTab = () => {
           <Tab key={item.value} value={item.value} label={item.label} />
         ))}
       </Tabs>
-      <Box sx={{ mt: 1, height: "calc(100vh - 209px)" }}>
+      <Box sx={{ mt: 1, height: "calc(100vh - 233px)" }}>
         <TabContent value={TAB_ITEMS[0]} tabValue={tabValue}>
           <MenuRecommendationContent />
         </TabContent>
         <TabContent value={TAB_ITEMS[1]} tabValue={tabValue}>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 1.5 }}>
+            <MenuRecommendationSpeedDial />
+          </Box>
           <MenuRecommendationList />
-          <MenuRecommendationSpeedDial />
         </TabContent>
       </Box>
     </Paper>
