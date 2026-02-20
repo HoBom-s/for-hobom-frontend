@@ -1,8 +1,9 @@
-import { toast } from "react-toastify";
 import { HttpClient } from "./http-client";
 import { HttpStatusModel } from "./http-status";
 import { getHoBomAccessToken } from "@/shared/model";
 import type { Middleware } from "./middleware.type";
+
+export const UNAUTHORIZED_EVENT = "hobom:unauthorized";
 
 const authMiddleware: Middleware = {
   onRequest: async (ctx) => {
@@ -23,21 +24,8 @@ const authMiddleware: Middleware = {
     ctx.init.headers = headers;
   },
   onResponse: async (ctx) => {
-    const { response } = ctx;
-
-    if (response != null) {
-      if (response.status === HttpStatusModel.UNAUTHORIZED) {
-        const toastId = `Unauthorized-id-${HttpStatusModel.UNAUTHORIZED}`;
-        if (!toast.isActive(toastId)) {
-          toast.info("Unauthorized: redirecting to login page.", {
-            toastId,
-            autoClose: 300,
-            onClose: () => {
-              window.location.href = "/auth/login";
-            },
-          });
-        }
-      }
+    if (ctx.response?.status === HttpStatusModel.UNAUTHORIZED) {
+      window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
     }
   },
 };

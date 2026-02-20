@@ -4,6 +4,10 @@ import {
   FutureMessageHeader,
 } from "@/features/send-future-message";
 import { FutureMessageStatusTab } from "@/features/send-future-message";
+import { APPBAR_HEIGHT } from "@/shared/config";
+
+// APPBAR_HEIGHT(56) + paper margins(~80) + header(~49) + status-tab(48)
+const CONTENT_OFFSET = APPBAR_HEIGHT + 177;
 
 export const FutureMessageWorkspace = () => {
   return (
@@ -20,7 +24,13 @@ export const FutureMessageWorkspace = () => {
         }}
       >
         <FutureMessageStatusTab />
-        <Box sx={{ mt: 1, height: "calc(100vh - 233px)", overflow: "hidden" }}>
+        <Box
+          sx={{
+            mt: 1,
+            height: `calc(100vh - ${CONTENT_OFFSET}px)`,
+            overflow: "hidden",
+          }}
+        >
           <FutureMessageContent />
         </Box>
       </Paper>

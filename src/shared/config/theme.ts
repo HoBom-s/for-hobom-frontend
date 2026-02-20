@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
 
-const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 240;
+export const APPBAR_HEIGHT = 56;
 
 export const theme = createTheme({
   palette: {
