@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 import * as fsdBoundariesRule from "./eslint-rules/fsd-boundaries.js";
 
 export default tseslint.config(
-  { ignores: ["dist"] },
+  { ignores: ["dist", "packages/noname"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
@@ -32,7 +32,7 @@ export default tseslint.config(
       ],
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-unsafe-function-type": "off",
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {

@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import {
   fetchSelectedTodayMenuQueryOption,
-  useSelectTodayMenu,
   useTodayMenuId,
 } from "@/entities/menu-recommendation";
-import { RoutesConfig } from "@/shared/router/config/routes.config.ts";
+import { useSelectTodayMenu } from "../model/useSelectTodayMenu";
+import { RoutesConfig } from "@/shared/config";
 
 export const SelectedMenuContent = () => {
   return (
@@ -48,7 +48,15 @@ const Inner = () => {
     data == null;
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        gap: 2,
+        p: 3,
+      }}
+    >
       <SelectedMenuContent.Layout>
         <Box
           display="flex"
@@ -79,18 +87,9 @@ const Inner = () => {
           )}
         </Box>
       </SelectedMenuContent.Layout>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap={1}
-        mt={2}
-        px={2}
-        width="100%"
-      >
+      <Box display="flex" width="100%">
         <Button
           fullWidth
-          color="info"
           variant="contained"
           disabled={showProgressCircle}
           onClick={() =>
@@ -100,7 +99,7 @@ const Inner = () => {
           추첨하기
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 };
 
@@ -108,14 +107,11 @@ SelectedMenuContent.Layout = ({ children }: { children: ReactNode }) => (
   <Paper
     elevation={2}
     sx={{
-      width: "92%",
-      height: "calc(100vh - 80px)",
-      m: "0 auto",
-      mt: "6px",
+      flexGrow: 1,
+      overflowY: "auto",
       px: 3,
       py: 1,
       bgcolor: "background.paper",
-      overflowY: "auto",
     }}
   >
     {children}

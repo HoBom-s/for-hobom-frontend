@@ -1,1 +1,1 @@
-export { default } from "./FutureMessageSendPage";
+export { default } from "./ui/FutureMessageSendPage";

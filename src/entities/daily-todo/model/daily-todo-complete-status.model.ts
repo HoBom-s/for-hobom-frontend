@@ -9,7 +9,7 @@ type StatusType = keyof typeof DailyTodoCompleteStatusModel;
 
 export const isCompleteStatus = (status: StatusType): boolean =>
   status === DailyTodoCompleteStatusModel.COMPLETED;
-export const isProgressStatus = (status: StatusType): boolean =>
+const isProgressStatus = (status: StatusType): boolean =>
   status === DailyTodoCompleteStatusModel.PROGRESS;
 
 export const changeCompleteStatus = (status: StatusType): StatusType => {

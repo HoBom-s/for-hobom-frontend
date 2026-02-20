@@ -4,6 +4,7 @@ import {
   DayCalendarSkeleton,
   LocalizationProvider,
   StaticDatePicker,
+  type PickersDayProps,
 } from "@mui/x-date-pickers";
 import { Box } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -15,8 +16,8 @@ import {
   normalizeTodoDateToUtcMidnight,
   fetchDailyTodosQueryOption,
 } from "@/entities/daily-todo";
-import { HoBomSkeleton } from "@/shared/skeleton";
-import { useRouterQuery } from "@/shared/router/model";
+import { HoBomSkeleton } from "@/shared/ui";
+import { useRouterQuery } from "@/shared/model";
 import { Bom } from "@/packages/bom";
 
 import { CalendarToolbar } from "./CalendarToolbar";
@@ -41,7 +42,7 @@ export const Calendar = () => {
   );
 
   return (
-    <Box boxShadow={1} my={2}>
+    <Box>
       <LocalizationProvider
         dateAdapter={AdapterDateFns}
         localeText={{
@@ -53,14 +54,12 @@ export const Calendar = () => {
           value={getSelectedDate(query, now)}
           slots={{
             toolbar: CalendarToolbar,
-            day: CalendarDay as any,
+            day: CalendarDay,
           }}
           slotProps={{
             toolbar: { toolbarFormat: "yyyy-MM" },
             actionBar: { actions: undefined },
-            day: {
-              days,
-            } as any,
+            day: { days } as unknown as PickersDayProps<Date>,
           }}
           onMonthChange={(month) => {
             const date = Bom.pipe(month as Date, formatDate);

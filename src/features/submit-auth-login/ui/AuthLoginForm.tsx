@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { Box, Button, Typography } from "@mui/material";
 import { NicknameField, PasswordField } from "@/features/submit-auth-login";
-import { useToast } from "@/shared/toast";
-import { RoutesConfig } from "@/shared/router/config/routes.config";
-import { postAuthLogin, type AuthLoginType } from "@/entities/auth";
-import type { AuthTokenType } from "@/entities/auth/model/auth-login.type.ts";
-import { saveHoBomAccessToken } from "@/shared/store/model/session.model.ts";
+import { useToast } from "@/shared/model";
+import { RoutesConfig } from "@/shared/config";
+import {
+  postAuthLogin,
+  type AuthLoginType,
+  type AuthTokenType,
+} from "@/entities/auth";
+import { saveHoBomAccessToken } from "@/shared/model";
 
 export const AuthLoginForm = () => {
   const navigate = useNavigate();
@@ -56,30 +59,19 @@ export const AuthLoginForm = () => {
         component="form"
         noValidate
         autoComplete="off"
-        width="90%"
-        px={4}
-        py={3}
+        width="100%"
         display="flex"
         flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
         gap={2}
-        boxShadow={2}
-        borderRadius={2}
         onSubmit={formMethods.handleSubmit(
           handleValidFormSubmit,
           handleInvalidFormSubmit,
         )}
       >
-        <Typography typography="h5" fontWeight="bold">
+        <Typography variant="h6" fontWeight={700} mb={0.5}>
           로그인
         </Typography>
-        <Typography
-          typography="caption"
-          textAlign="center"
-          color="text.secondary"
-          mb={1}
-        >
+        <Typography variant="body2" color="text.secondary" mb={1}>
           HoBom 시스템에 오신 것을 환영해요.
           <br />
           로그인을 진행해 주세요.
@@ -90,8 +82,9 @@ export const AuthLoginForm = () => {
           fullWidth
           variant="contained"
           type="submit"
-          color="info"
+          color="primary"
           loading={isPending}
+          sx={{ mt: 1, py: 1.2 }}
         >
           로그인
         </Button>

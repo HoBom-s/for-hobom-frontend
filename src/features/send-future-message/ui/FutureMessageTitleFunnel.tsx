@@ -18,55 +18,44 @@ export const FutureMessageTitleFunnel = ({ onPrevStep, onNextStep }: Props) => {
   const { setValue, watch } = useFormContext<FutureMessageSendSchemaType>();
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          maxHeight: "calc(100vh - 80px)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ width: "100%" }}>
-          <Typography fontWeight="bold" sx={{ mb: 3, fontSize: 24 }}>
-            제목을 입력해 주세요
-          </Typography>
-          <FormControl sx={{ width: "100%" }}>
-            <TextField
-              fullWidth
-              label="제목"
-              value={watch("title")}
-              onChange={(evt) => {
-                setValue("title", evt.target.value);
-              }}
-            />
-            <FormHelperText>어떤 제목으로 보낼까요?</FormHelperText>
-          </FormControl>
-        </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Box>
+        <Typography fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+          제목을 입력해 주세요
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          어떤 제목으로 보낼까요?
+        </Typography>
       </Box>
-      <div>
-        <Box display="flex" gap={1} width="100%" height="100%">
-          <Button
-            fullWidth
-            color="warning"
-            variant="contained"
-            onClick={onPrevStep}
-          >
-            받는 사람 선택하기
-          </Button>
-          <Button
-            fullWidth
-            color="info"
-            variant="contained"
-            disabled={watch("title") === ""}
-            onClick={onNextStep}
-          >
-            내용 입력하기
-          </Button>
-        </Box>
-      </div>
-    </div>
+
+      <FormControl fullWidth>
+        <TextField
+          fullWidth
+          label="제목"
+          value={watch("title")}
+          onChange={(evt) => setValue("title", evt.target.value)}
+        />
+        <FormHelperText>메시지 제목을 입력해 주세요.</FormHelperText>
+      </FormControl>
+
+      <Box display="flex" gap={1.5}>
+        <Button
+          fullWidth
+          variant="outlined"
+          color="inherit"
+          onClick={onPrevStep}
+        >
+          이전
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          disabled={watch("title") === ""}
+          onClick={onNextStep}
+        >
+          다음
+        </Button>
+      </Box>
+    </Box>
   );
 };

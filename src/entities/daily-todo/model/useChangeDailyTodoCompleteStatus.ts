@@ -1,4 +1,4 @@
-import { useToast } from "@/shared/toast";
+import { useToast } from "@/shared/model";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   type DailyTodoType,
@@ -8,7 +8,7 @@ import {
   formatDate,
 } from "@/entities/daily-todo";
 import { Bom } from "@/packages/bom";
-import type { HttpResponseType } from "@/shared/http";
+import type { HttpResponseType } from "@/shared/api";
 
 /**
  * `useChangeDailyTodoCompleteStatus.ts`

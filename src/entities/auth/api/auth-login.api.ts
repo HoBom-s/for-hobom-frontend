@@ -1,4 +1,4 @@
-import { httpClient, type HttpResponseType } from "@/shared/http";
+import { httpClient, type HttpResponseType } from "@/shared/api";
 import type {
   AuthTokenType,
   UserType,

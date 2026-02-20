@@ -13,9 +13,9 @@ import {
   type SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import { fetchUserQueryOptions } from "@/entities/auth/api/auth.queries";
-import type { FutureMessageSendSchemaType } from "@/entities/future-message/model/future-message-send.model";
-import { RoutesConfig } from "@/shared/router/config/routes.config";
+import { fetchUserQueryOptions } from "@/entities/auth";
+import type { FutureMessageSendSchemaType } from "@/entities/future-message";
+import { RoutesConfig } from "@/shared/config";
 
 interface Props {
   onNextStep: () => void;
@@ -36,65 +36,55 @@ const Inner = ({ onNextStep }: Props) => {
   const { data: users } = useSuspenseQuery(fetchUserQueryOptions());
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          maxHeight: "calc(100vh - 80px)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ width: "100%" }}>
-          <Typography fontWeight="bold" sx={{ mb: 3, fontSize: 24 }}>
-            받는 사람을 선택해 주세요
-          </Typography>
-          <FormControl sx={{ width: "100%" }}>
-            <InputLabel>받는 사람</InputLabel>
-            <Select
-              label="받는 사람"
-              fullWidth
-              value={watch("recipientId")}
-              onChange={(evt: SelectChangeEvent) => {
-                setValue("recipientId", evt.target.value);
-              }}
-            >
-              {users.items.map((user) => (
-                <MenuItem key={user.id} value={user.id}>
-                  {user.nickname}
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>누구에게 보낼까요?</FormHelperText>
-          </FormControl>
-        </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Box>
+        <Typography fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+          받는 사람을 선택해 주세요
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          누구에게 메시지를 보낼까요?
+        </Typography>
       </Box>
-      <div>
-        <Box display="flex" gap={1} width="100%" height="100%">
-          <Button
-            fullWidth
-            color="warning"
-            variant="contained"
-            onClick={() => {
-              reset();
-              navigate(RoutesConfig.MESSAGE.RESERVATION);
-            }}
-          >
-            나가기
-          </Button>
-          <Button
-            fullWidth
-            color="info"
-            variant="contained"
-            disabled={watch("recipientId") === ""}
-            onClick={onNextStep}
-          >
-            제목 입력하기
-          </Button>
-        </Box>
-      </div>
-    </div>
+
+      <FormControl fullWidth>
+        <InputLabel>받는 사람</InputLabel>
+        <Select
+          label="받는 사람"
+          value={watch("recipientId")}
+          onChange={(evt: SelectChangeEvent) => {
+            setValue("recipientId", evt.target.value);
+          }}
+        >
+          {users.items.map((user) => (
+            <MenuItem key={user.id} value={user.id}>
+              {user.nickname}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText>목록에서 선택해 주세요.</FormHelperText>
+      </FormControl>
+
+      <Box display="flex" gap={1.5}>
+        <Button
+          fullWidth
+          variant="outlined"
+          color="inherit"
+          onClick={() => {
+            reset();
+            navigate(RoutesConfig.MESSAGE.RESERVATION);
+          }}
+        >
+          취소
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          disabled={watch("recipientId") === ""}
+          onClick={onNextStep}
+        >
+          다음
+        </Button>
+      </Box>
+    </Box>
   );
 };

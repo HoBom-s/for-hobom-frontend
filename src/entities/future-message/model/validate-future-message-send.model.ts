@@ -1,4 +1,4 @@
-import { validateWithZod } from "@/shared/assert";
+import { validateWithZod } from "@/shared/lib";
 import {
   FutureMessageSendSchema,
   type FutureMessageSendSchemaType,

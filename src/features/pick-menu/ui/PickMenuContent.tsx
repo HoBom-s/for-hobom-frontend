@@ -7,10 +7,10 @@ import {
   useAddCandidatesTodayMenu,
   validateTodayMenuInput,
 } from "@/entities/menu-recommendation";
-import { HoBomSkeleton } from "@/shared/skeleton";
-import { useToast } from "@/shared/toast";
-import { RoutesConfig } from "@/shared/router/config/routes.config";
-import { handleValidationResult } from "@/shared/assert";
+import { HoBomSkeleton } from "@/shared/ui";
+import { useToast } from "@/shared/model";
+import { RoutesConfig } from "@/shared/config";
+import { handleValidationResult } from "@/shared/lib";
 import { Bom } from "@/packages/bom";
 
 import { usePickMenuContentList } from "../model/usePickMenuContentList";
@@ -23,11 +23,20 @@ export const PickMenuContent = ({ onNextCallback }: Props) => {
   return (
     <Suspense
       fallback={
-        <PickMenuContent.Layout>
-          {Array.from({ length: 25 }).map((_, i) => (
-            <HoBomSkeleton.List key={i} />
-          ))}
-        </PickMenuContent.Layout>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            p: 3,
+          }}
+        >
+          <PickMenuContent.Layout>
+            {Array.from({ length: 25 }).map((_, i) => (
+              <HoBomSkeleton.List key={i} />
+            ))}
+          </PickMenuContent.Layout>
+        </Box>
       }
     >
       <Inner onNextCallback={onNextCallback} />
@@ -43,7 +52,15 @@ const Inner = ({ onNextCallback }: Props) => {
   const addCandidatesTodayMenu = useAddCandidatesTodayMenu(onNextCallback);
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        gap: 2,
+        p: 3,
+      }}
+    >
       <PickMenuContent.Layout>
         <List dense>
           {itemList.map((item, index) => (
@@ -63,31 +80,22 @@ const Inner = ({ onNextCallback }: Props) => {
           ))}
         </List>
       </PickMenuContent.Layout>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap={1}
-        mt={2}
-        px={2}
-        width="100%"
-      >
+      <Box display="flex" gap={1} width="100%">
         <Button
           fullWidth
-          color="warning"
-          variant="contained"
+          variant="outlined"
+          color="inherit"
           onClick={() => navigate(RoutesConfig.MAIN.DAILY_TODO)}
         >
           나가기
         </Button>
         <Button
           fullWidth
-          color="info"
           variant="contained"
           loading={addCandidatesTodayMenu.isPending}
           onClick={() => {
             if (Bom.pipe(selectedItems, Bom.isEmpty)) {
-              openWarnToast({ message: "Please select menu items !" });
+              openWarnToast({ message: "메뉴를 선택해 주세요." });
               return;
             }
             const request = {
@@ -106,7 +114,7 @@ const Inner = ({ onNextCallback }: Props) => {
           다음
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 };
 
@@ -114,14 +122,11 @@ PickMenuContent.Layout = ({ children }: { children: ReactNode }) => (
   <Paper
     elevation={2}
     sx={{
-      width: "92%",
-      height: "calc(100vh - 124px)",
-      m: "0 auto",
-      mt: "6px",
+      flexGrow: 1,
+      overflowY: "auto",
       px: 3,
       py: 1,
       bgcolor: "background.paper",
-      overflowY: "auto",
     }}
   >
     {children}

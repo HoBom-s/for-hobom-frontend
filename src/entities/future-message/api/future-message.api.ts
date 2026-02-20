@@ -1,5 +1,5 @@
 import type { FutureMessageSendStatusType } from "@/entities/future-message/model/future-message-send-status.model.ts";
-import { httpClient, type HttpResponseType } from "@/shared/http";
+import { httpClient, type HttpResponseType } from "@/shared/api";
 import type { FutureMessageType } from "@/entities/future-message/api/future-message.type.ts";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
 

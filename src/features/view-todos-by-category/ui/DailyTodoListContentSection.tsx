@@ -16,34 +16,39 @@ export const DailyTodoListContentSection = ({
   renderItem,
 }: Props) => {
   return (
-    <div>
+    <Box sx={{ width: "100%", py: 1 }}>
       {groupedTodos.map((item) => (
         <List
           key={item.categoryId}
-          sx={ListStyle}
+          disablePadding
+          sx={{ width: "100%", mb: 1 }}
           subheader={
             <ListSubheader
               disableSticky
               disableGutters
               component="div"
-              sx={{ fontWeight: "bold" }}
+              sx={{
+                px: 2.5,
+                py: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                color: "text.secondary",
+                bgcolor: "transparent",
+                borderBottom: "1px solid",
+                borderColor: "divider",
+              }}
             >
-              <Box display="flex" alignItems="center" gap={0.1}>
-                {item.categoryTitle}
-                <DailyTodoAddButton item={item} />
-              </Box>
+              {item.categoryTitle}
+              <DailyTodoAddButton item={item} />
             </ListSubheader>
           }
         >
           {item.todoItems.map((todo) => renderItem(todo))}
         </List>
       ))}
-    </div>
+    </Box>
   );
-};
-
-const ListStyle = {
-  width: "100%",
-  maxWidth: 350,
-  m: "0 auto",
 };

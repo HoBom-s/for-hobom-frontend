@@ -1,5 +1,4 @@
-import { AppProvider } from "@/apps/app-provider/ui";
-import { AppRouter } from "@/apps/app-router";
+import { AppProvider, AppRouter } from "@/apps/ui";
 
 export default function App() {
   return (

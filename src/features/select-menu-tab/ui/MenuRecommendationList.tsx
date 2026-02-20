@@ -5,7 +5,7 @@ import {
   fetchMenuRecommendationListQueryOption,
   MenuRecommendationListItem,
 } from "@/entities/menu-recommendation";
-import { HoBomSkeleton } from "@/shared/skeleton";
+import { HoBomSkeleton } from "@/shared/ui";
 import { Bom } from "@/packages/bom";
 
 export const MenuRecommendationList = () => (

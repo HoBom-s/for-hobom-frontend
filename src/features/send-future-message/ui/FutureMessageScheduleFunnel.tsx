@@ -9,17 +9,16 @@ import {
   FormHelperText,
   Typography,
 } from "@mui/material";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { DatePicker } from "@mui/x-date-pickers";
 import {
   type FutureMessageSendSchemaType,
   validateFutureMessageSendInput,
 } from "@/entities/future-message";
 import { postFutureMessage } from "@/entities/future-message";
-import { handleValidationResult } from "@/shared/assert";
-import { useToast } from "@/shared/toast";
+import { handleValidationResult } from "@/shared/lib";
+import { useToast } from "@/shared/model";
 import { Bom } from "@/packages/bom";
-import { RoutesConfig } from "@/shared/router/config/routes.config.ts";
+import { RoutesConfig } from "@/shared/config";
 
 interface Props {
   onPrevStep: () => void;
@@ -36,90 +35,80 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          maxHeight: "calc(100vh - 80px)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ width: "100%" }}>
-          <Typography fontWeight="bold" sx={{ mb: 3, fontSize: 24 }}>
-            날짜를 선택해주세요
-          </Typography>
-          <FormControl sx={{ width: "100%" }}>
-            <DemoContainer components={["DatePicker"]}>
-              <DatePicker
-                label="보낼 날짜"
-                onChange={(evt: any) => {
-                  const formattedDate = format(evt.$d, "yyyy-MM-dd");
-                  setValue("scheduledAt", formattedDate);
-                }}
-              />
-            </DemoContainer>
-            <FormHelperText>언제 메시지를 보낼까요??</FormHelperText>
-          </FormControl>
-        </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Box>
+        <Typography fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+          날짜를 선택해 주세요
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          언제 메시지를 보낼까요?
+        </Typography>
       </Box>
-      <div>
-        <Box display="flex" gap={1} width="100%" height="100%">
-          <Button
-            fullWidth
-            color="warning"
-            variant="contained"
-            onClick={onPrevStep}
-          >
-            내용 입력하기
-          </Button>
-          <Button
-            fullWidth
-            color="info"
-            variant="contained"
-            disabled={watch("title") === ""}
-            loading={sendFutureMessageMutationHandler.isPending}
-            onClick={() => {
-              const futureMessageRequest = getValues();
-              Bom.pipe(
-                futureMessageRequest,
-                validateFutureMessageSendInput,
-                (validated) =>
-                  handleValidationResult(
-                    validated,
-                    (error) => {
-                      openWarnToast({ message: error.message });
-                    },
-                    (payload) => {
-                      sendFutureMessageMutationHandler.mutate(payload, {
-                        onSuccess: () => {
-                          queryClient.invalidateQueries({
-                            queryKey: ["future-message", "status"],
-                          });
-                          openSuccessToast({
-                            message: "미래 메시지를 잘 예약했어요.",
-                          });
-                          navigate(RoutesConfig.MESSAGE.RESERVATION, {
-                            replace: true,
-                          });
-                        },
-                        onError: () => {
-                          openErrorToast({
-                            message: "미래 메시지를 예약하지 못했어요.",
-                          });
-                        },
-                      });
-                    },
-                  ),
-              );
-            }}
-          >
-            보내기
-          </Button>
-        </Box>
-      </div>
-    </div>
+
+      <FormControl fullWidth>
+        <DatePicker
+          label="보낼 날짜"
+          sx={{ width: "100%" }}
+          onChange={(evt: Date | null) => {
+            if (!evt) return;
+            setValue("scheduledAt", format(evt, "yyyy-MM-dd"));
+          }}
+        />
+        <FormHelperText>발송 예정일을 선택해 주세요.</FormHelperText>
+      </FormControl>
+
+      <Box display="flex" gap={1.5}>
+        <Button
+          fullWidth
+          variant="outlined"
+          color="inherit"
+          onClick={onPrevStep}
+        >
+          이전
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          disabled={watch("scheduledAt") === ""}
+          loading={sendFutureMessageMutationHandler.isPending}
+          onClick={() => {
+            const futureMessageRequest = getValues();
+            Bom.pipe(
+              futureMessageRequest,
+              validateFutureMessageSendInput,
+              (validated) =>
+                handleValidationResult(
+                  validated,
+                  (error) => {
+                    openWarnToast({ message: error.message });
+                  },
+                  (payload) => {
+                    sendFutureMessageMutationHandler.mutate(payload, {
+                      onSuccess: () => {
+                        queryClient.invalidateQueries({
+                          queryKey: ["future-message", "status"],
+                        });
+                        openSuccessToast({
+                          message: "미래 메시지를 잘 예약했어요.",
+                        });
+                        navigate(RoutesConfig.MESSAGE.RESERVATION, {
+                          replace: true,
+                        });
+                      },
+                      onError: () => {
+                        openErrorToast({
+                          message: "미래 메시지를 예약하지 못했어요.",
+                        });
+                      },
+                    });
+                  },
+                ),
+            );
+          }}
+        >
+          예약 완료
+        </Button>
+      </Box>
+    </Box>
   );
 };

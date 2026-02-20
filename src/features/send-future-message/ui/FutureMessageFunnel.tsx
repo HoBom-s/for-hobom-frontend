@@ -1,4 +1,4 @@
-import { useFunnel } from "@/shared/funnel";
+import { useFunnel } from "@/shared/model";
 import {
   FutureMessageContentFunnel,
   FutureMessageRecipientFunnel,
