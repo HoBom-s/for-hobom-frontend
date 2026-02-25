@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { noteQueries } from "../api/note.queries";
 import { noteMutations } from "../api/note.mutations";
+import { patchReorderNote } from "../api/note.api";
 import type { HttpResponseType } from "@/shared/api";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "./note.model";
@@ -10,7 +11,7 @@ export const useReorderNote = (status?: NoteStatus) => {
   const queryOption = noteQueries.list(status);
 
   return useMutation({
-    ...noteMutations.reorder(),
+    mutationKey: noteMutations.reorder().mutationKey,
     mutationFn: ({
       id,
       order,
@@ -18,7 +19,7 @@ export const useReorderNote = (status?: NoteStatus) => {
       id: string;
       order: number;
       reorderedItems: NoteItemType[];
-    }) => noteMutations.reorder().mutationFn({ id, order }),
+    }) => patchReorderNote({ id, order }),
     onMutate: async ({ reorderedItems }) => {
       await queryClient.cancelQueries(queryOption);
       const previous = queryClient.getQueryData<
