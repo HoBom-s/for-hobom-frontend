@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/shared/model";
+import { useRouterQuery } from "@/shared/model";
+import { Bom } from "@/packages/bom";
 import {
-  deleteDailyTodoById,
-  fetchDailyTodoCategoriesOption,
-  fetchDailyTodosByDateQueryOption,
+  todoQueries,
   formatDate,
   getNow,
   getSelectedDate,
 } from "@/entities/daily-todo";
-import { useToast } from "@/shared/model";
-import { Bom } from "@/packages/bom";
-import { useRouterQuery } from "@/shared/model";
+import { todoMutations } from "../api/daily-todo.mutations";
 
 export const useDeleteDailyTodo = () => {
   const { query } = useRouterQuery();
@@ -18,12 +17,12 @@ export const useDeleteDailyTodo = () => {
   const { openSuccessToast, openErrorToast } = useToast();
 
   return useMutation({
-    mutationFn: deleteDailyTodoById,
+    ...todoMutations.delete(),
     onSuccess: async () => {
       const date = Bom.pipe(getSelectedDate(query, now), formatDate);
       await Promise.all([
-        queryClient.invalidateQueries(fetchDailyTodoCategoriesOption()),
-        queryClient.invalidateQueries(fetchDailyTodosByDateQueryOption(date)),
+        queryClient.invalidateQueries(todoQueries.categories()),
+        queryClient.invalidateQueries(todoQueries.byDate(date)),
       ]);
       openSuccessToast({ message: "Daily TODO를 제거했어요." });
     },

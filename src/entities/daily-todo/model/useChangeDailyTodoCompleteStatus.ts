@@ -1,20 +1,17 @@
-import { useToast } from "@/shared/model";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/shared/model";
+import { Bom } from "@/packages/bom";
+import type { HttpResponseType } from "@/shared/api";
 import {
   type DailyTodoType,
-  fetchDailyTodosByDateQueryOption,
-  patchDailyTodoCompleteStatusChange,
+  todoQueries,
   normalizeTodoDateToUtcMidnight,
   formatDate,
 } from "@/entities/daily-todo";
-import { Bom } from "@/packages/bom";
-import type { HttpResponseType } from "@/shared/api";
+import { todoMutations } from "../api/daily-todo.mutations";
 
 /**
- * `useChangeDailyTodoCompleteStatus.ts`
  * Update item's complete status by optimistic update
- *
- * @param {string} dailyTodoItemDate
  */
 export const useChangeDailyTodoCompleteStatus = (
   dailyTodoItem: DailyTodoType,
@@ -26,43 +23,32 @@ export const useChangeDailyTodoCompleteStatus = (
     Bom.prop(dailyTodoItem, "date"),
     normalizeTodoDateToUtcMidnight,
     formatDate,
-    fetchDailyTodosByDateQueryOption,
+    todoQueries.byDate,
   );
   const queryKey = Bom.prop(queryOption, "queryKey");
 
   return useMutation({
-    mutationFn: patchDailyTodoCompleteStatusChange,
+    ...todoMutations.changeCompleteStatus(),
     onMutate: async ({ status }) => {
       await queryClient.cancelQueries(queryOption);
-      // get old data for rollback.
       const previousData = queryClient.getQueryData(queryKey);
 
-      // set new data for client state
       queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(
         queryKey,
         (old) => {
-          if (old == null) {
-            return;
-          }
+          if (old == null) return;
 
           const items = Bom.prop(old, "items");
-          if (!Array.isArray(items)) {
-            return;
-          }
+          if (!Array.isArray(items)) return;
 
           const foundItem = items.find((item) => item.id === dailyTodoItem.id);
-          if (Bom.isNullish(foundItem)) {
-            return;
-          }
+          if (Bom.isNullish(foundItem)) return;
 
           return {
             ...old,
             items: items.map((item) =>
               item.id === foundItem.id
-                ? {
-                    ...foundItem,
-                    progress: status,
-                  }
+                ? { ...foundItem, progress: status }
                 : item,
             ),
           };
@@ -72,7 +58,6 @@ export const useChangeDailyTodoCompleteStatus = (
       return { previousData };
     },
     onError: (_err, _variables, context) => {
-      // rollback data
       if (context?.previousData != null) {
         queryClient.setQueryData(queryKey, context.previousData);
       }
@@ -82,7 +67,6 @@ export const useChangeDailyTodoCompleteStatus = (
       openSuccessToast({ message: "상태를 변경했어요." });
     },
     onSettled: async () => {
-      // clean up data regardless of success or failure
       await queryClient.invalidateQueries(queryOption);
     },
   });

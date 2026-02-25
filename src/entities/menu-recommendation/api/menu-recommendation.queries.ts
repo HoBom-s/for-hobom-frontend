@@ -4,14 +4,18 @@ import {
   fetchTodayRecommendedMenu,
 } from "./menu-recommendation.api";
 
-export const fetchMenuRecommendationListQueryOption = () =>
-  queryOptions({
-    queryKey: ["menu", "recommendation", "list"],
-    queryFn: () => fetchMenuRecommendationList(),
-  });
+export const menuQueries = {
+  menus: () => ["menus"],
 
-export const fetchSelectedTodayMenuQueryOption = ({ id }: { id: string }) =>
-  queryOptions({
-    queryKey: ["today", "selected-menu", id],
-    queryFn: () => fetchTodayRecommendedMenu({ id }),
-  });
+  recommendationList: () =>
+    queryOptions({
+      queryKey: ["menus", "recommendation", "list"],
+      queryFn: () => fetchMenuRecommendationList(),
+    }),
+
+  selectedTodayMenu: ({ id }: { id: string }) =>
+    queryOptions({
+      queryKey: ["menus", "today", "selected-menu", id],
+      queryFn: () => fetchTodayRecommendedMenu({ id }),
+    }),
+} as const;

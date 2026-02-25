@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { List } from "@mui/material";
 import {
-  fetchMenuRecommendationListQueryOption,
+  menuQueries,
   MenuRecommendationListItem,
 } from "@/entities/menu-recommendation";
 import { HoBomSkeleton } from "@/shared/ui";
@@ -19,7 +19,7 @@ export const MenuRecommendationList = () => (
 );
 
 const Inner = () => {
-  const { data } = useSuspenseQuery(fetchMenuRecommendationListQueryOption());
+  const { data } = useSuspenseQuery(menuQueries.recommendationList());
 
   const itemList = Bom.prop(data, "items");
 

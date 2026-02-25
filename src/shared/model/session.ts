@@ -10,3 +10,7 @@ export const saveHoBomAccessToken = (token: string) => {
 export const getHoBomAccessToken = () => {
   return sessionStorage.getItem(getHoBomAccessTokenKey());
 };
+
+export const removeHoBomAccessToken = () => {
+  sessionStorage.removeItem(getHoBomAccessTokenKey());
+};

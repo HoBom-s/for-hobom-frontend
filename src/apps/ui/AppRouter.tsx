@@ -1,11 +1,17 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { CircularProgress } from "@mui/material";
-import { ListAlt, Mail, RiceBowlTwoTone } from "@mui/icons-material";
+import {
+  ListAlt,
+  Mail,
+  RiceBowlTwoTone,
+  StickyNote2Outlined,
+} from "@mui/icons-material";
 import { RoutesConfig } from "@/shared/config";
 import { AppShell, type AppShellNavItem } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
-import { useToast } from "@/shared/model";
+import { useToast, removeHoBomAccessToken } from "@/shared/model";
 
 const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
@@ -16,6 +22,7 @@ const MenuRecommendationPage = lazy(
 const MenuPickPage = lazy(() => import("@/pages/menu-pick"));
 const FutureMessagePage = lazy(() => import("@/pages/message"));
 const FutureMessageSendPage = lazy(() => import("@/pages/message-send"));
+const NotePage = lazy(() => import("@/pages/note"));
 
 const NAV_ITEMS: AppShellNavItem[] = [
   {
@@ -36,6 +43,12 @@ const NAV_ITEMS: AppShellNavItem[] = [
     path: RoutesConfig.MESSAGE.RESERVATION,
     icon: <Mail fontSize="small" />,
   },
+  {
+    value: "HOBOM_NOTES",
+    label: "노트",
+    path: RoutesConfig.NOTES.LIST,
+    icon: <StickyNote2Outlined fontSize="small" />,
+  },
 ];
 
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -44,10 +57,13 @@ const Shell = ({ children }: { children: React.ReactNode }) => (
 
 export const AppRouter = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { openWarnToast } = useToast();
 
   useEffect(() => {
     const handler = () => {
+      removeHoBomAccessToken();
+      queryClient.clear();
       openWarnToast({
         message: "인증이 필요해요. 로그인 페이지로 이동합니다.",
       });
@@ -55,7 +71,7 @@ export const AppRouter = () => {
     };
     window.addEventListener(UNAUTHORIZED_EVENT, handler);
     return () => window.removeEventListener(UNAUTHORIZED_EVENT, handler);
-  }, [navigate, openWarnToast]);
+  }, [navigate, queryClient, openWarnToast]);
 
   return (
     <Suspense fallback={<AppRouter.Loader />}>
@@ -102,6 +118,14 @@ export const AppRouter = () => {
           element={
             <Shell>
               <FutureMessageSendPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.NOTES.LIST}
+          element={
+            <Shell>
+              <NotePage />
             </Shell>
           }
         />

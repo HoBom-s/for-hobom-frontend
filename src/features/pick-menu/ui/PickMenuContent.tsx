@@ -94,7 +94,7 @@ const Inner = ({ onNextCallback }: Props) => {
           variant="contained"
           loading={addCandidatesTodayMenu.isPending}
           onClick={() => {
-            if (Bom.pipe(selectedItems, Bom.isEmpty)) {
+            if (selectedItems.length === 0) {
               openWarnToast({ message: "메뉴를 선택해 주세요." });
               return;
             }
