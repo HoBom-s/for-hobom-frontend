@@ -1,5 +1,6 @@
 {
-  "include": ["src", "packages/noname/src"],
+  "include": ["src"],
+  "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ESNext",
@@ -12,7 +13,7 @@
     /* Bundler mode */
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",

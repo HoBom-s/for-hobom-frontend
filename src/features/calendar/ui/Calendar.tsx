@@ -9,12 +9,12 @@ import {
 import { Box } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import {
+  todoQueries,
   formatDate,
   getDatePickerToolbarTitle,
   getNow,
   getSelectedDate,
   normalizeTodoDateToUtcMidnight,
-  fetchDailyTodosQueryOption,
 } from "@/entities/daily-todo";
 import { HoBomSkeleton } from "@/shared/ui";
 import { useRouterQuery } from "@/shared/model";
@@ -32,7 +32,7 @@ export const Calendar = () => {
       now,
       (month) => getSelectedDate(query, month),
       formatDate,
-      fetchDailyTodosQueryOption,
+      todoQueries.list,
     ),
   );
   const days: Date[] = Bom.pipe(

@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { fetchMenuRecommendationListQueryOption } from "@/entities/menu-recommendation";
+import { menuQueries } from "@/entities/menu-recommendation";
 import { Bom } from "@/packages/bom";
 
 export const usePickMenuContentList = () => {
@@ -8,7 +8,7 @@ export const usePickMenuContentList = () => {
     new Set(),
   );
 
-  const { data } = useSuspenseQuery(fetchMenuRecommendationListQueryOption());
+  const { data } = useSuspenseQuery(menuQueries.recommendationList());
   const itemList = Bom.prop(data, "items");
 
   return {

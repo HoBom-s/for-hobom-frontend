@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import { putMenuRecommendationTodayMenu } from "../api/menu-recommendation.api";
-import { useTodayMenuId } from "./useTodayMenuIdContext";
 import { useToast } from "@/shared/model";
+import { useTodayMenuId } from "./useTodayMenuIdContext";
+import { menuMutations } from "../api/menu-recommendation.mutations";
 
 export const useAddCandidatesTodayMenu = (callback: () => void) => {
   const { openErrorToast } = useToast();
   const { setTodayMenuId } = useTodayMenuId();
 
   return useMutation({
-    mutationFn: putMenuRecommendationTodayMenu,
+    ...menuMutations.addCandidatesTodayMenu(),
     onSuccess: (data) => {
       setTodayMenuId(data.items.todayMenuId);
       callback();

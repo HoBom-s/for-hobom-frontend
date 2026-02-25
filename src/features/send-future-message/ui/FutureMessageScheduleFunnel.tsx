@@ -14,7 +14,7 @@ import {
   type FutureMessageSendSchemaType,
   validateFutureMessageSendInput,
   postFutureMessage,
-  FUTURE_MESSAGE_STATUS_QUERY_KEY,
+  futureMessageQueries,
 } from "@/entities/future-message";
 import { handleValidationResult } from "@/shared/lib";
 import { useToast } from "@/shared/model";
@@ -50,9 +50,9 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
         <DatePicker
           label="보낼 날짜"
           sx={{ width: "100%" }}
-          onChange={(evt: Date | null) => {
+          onChange={(evt) => {
             if (!evt) return;
-            setValue("scheduledAt", format(evt, "yyyy-MM-dd"));
+            setValue("scheduledAt", format(evt as Date, "yyyy-MM-dd"));
           }}
         />
         <FormHelperText>발송 예정일을 선택해 주세요.</FormHelperText>
@@ -87,7 +87,7 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
                     sendFutureMessageMutationHandler.mutate(payload, {
                       onSuccess: () => {
                         queryClient.invalidateQueries({
-                          queryKey: FUTURE_MESSAGE_STATUS_QUERY_KEY,
+                          queryKey: futureMessageQueries.futureMessages(),
                         });
                         openSuccessToast({
                           message: "미래 메시지를 잘 예약했어요.",

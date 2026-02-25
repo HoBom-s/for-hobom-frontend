@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Box } from "@mui/material";
 import { FutureMessageGrid } from "@/features/send-future-message/ui/FutureMessageGrid";
 import {
-  fetchFutureMessagesBySendStatusOptions,
+  futureMessageQueries,
   type FutureMessageSendStatusType,
 } from "@/entities/future-message";
 import { useRouterQuery } from "@/shared/model";
@@ -31,7 +31,7 @@ const Inner = () => {
   const { query } = useRouterQuery();
   const status = query.get("status") ?? "PENDING";
   const { data: messages } = useSuspenseQuery(
-    fetchFutureMessagesBySendStatusOptions({
+    futureMessageQueries.byStatus({
       status: status as FutureMessageSendStatusType,
     }),
   );

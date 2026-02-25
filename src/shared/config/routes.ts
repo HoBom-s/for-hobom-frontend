@@ -13,6 +13,9 @@ export const RoutesConfig = {
     RESERVATION: "/message/reservation",
     SEND_FUNNEL: "/message/send",
   },
+  NOTES: {
+    LIST: "/notes",
+  },
   NOT_FOUND: {
     ALL: "*",
   },

@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/shared/model";
+import { useRouterQuery } from "@/shared/model";
+import { Bom } from "@/packages/bom";
 import {
-  fetchDailyTodoCategoriesOption,
-  fetchDailyTodosByDateQueryOption,
+  todoQueries,
   formatDate,
   getNow,
   getSelectedDate,
-  postDailyTodoCreate,
 } from "@/entities/daily-todo";
-import { useToast } from "@/shared/model";
-import { Bom } from "@/packages/bom";
-import { useRouterQuery } from "@/shared/model";
+import { todoMutations } from "../api/daily-todo.mutations";
 
 export const useCreateDailyTodo = () => {
   const { query } = useRouterQuery();
@@ -18,16 +17,17 @@ export const useCreateDailyTodo = () => {
   const { openSuccessToast, openErrorToast } = useToast();
 
   return useMutation({
-    mutationFn: postDailyTodoCreate,
+    ...todoMutations.create(),
     onSuccess: async () => {
       const date = Bom.pipe(getSelectedDate(query, now), formatDate);
-      const key = fetchDailyTodosByDateQueryOption(date).queryKey;
 
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: fetchDailyTodoCategoriesOption().queryKey,
+          queryKey: todoQueries.categories().queryKey,
         }),
-        queryClient.invalidateQueries({ queryKey: key }),
+        queryClient.invalidateQueries({
+          queryKey: todoQueries.byDate(date).queryKey,
+        }),
       ]);
 
       openSuccessToast({ message: "Daily TODO를 생성했어요." });
