@@ -1,16 +1,16 @@
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Typography } from "@mui/material";
 import { NicknameField, PasswordField } from "@/features/submit-auth-login";
-import { useToast } from "@/shared/model";
+import { useToast, saveHoBomAccessToken } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
+import { resetUnauthorizedState } from "@/shared/api";
 import {
   postAuthLogin,
   type AuthLoginType,
   type AuthTokenType,
 } from "@/entities/auth";
-import { saveHoBomAccessToken } from "@/shared/model";
 
 export const AuthLoginForm = () => {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ export const AuthLoginForm = () => {
       password: "",
     },
   });
+  const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useMutation({ mutationFn: postAuthLogin });
   const { openSuccessToast, openWarnToast, openErrorToast } = useToast();
 
@@ -35,6 +36,8 @@ export const AuthLoginForm = () => {
         onSuccess: (token: AuthTokenType) => {
           const { accessToken } = token;
           saveHoBomAccessToken(accessToken);
+          resetUnauthorizedState();
+          queryClient.clear();
           openSuccessToast({ message: "호봄 시스템으로 이동할게요." });
           navigate(RoutesConfig.MAIN.DAILY_TODO);
         },

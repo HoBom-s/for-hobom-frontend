@@ -13,7 +13,7 @@ import {
   type SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import { fetchUserQueryOptions } from "@/entities/auth";
+import { authQueries } from "@/entities/auth";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
 import { RoutesConfig } from "@/shared/config";
 
@@ -33,7 +33,7 @@ const Inner = ({ onNextStep }: Props) => {
   const navigate = useNavigate();
   const { reset, setValue, watch } =
     useFormContext<FutureMessageSendSchemaType>();
-  const { data: users } = useSuspenseQuery(fetchUserQueryOptions());
+  const { data: users } = useSuspenseQuery(authQueries.users());
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>

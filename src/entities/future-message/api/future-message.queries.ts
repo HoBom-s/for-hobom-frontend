@@ -1,18 +1,13 @@
 import { queryOptions } from "@tanstack/react-query";
-import type { FutureMessageSendStatusType } from "@/entities/future-message/model/future-message-send-status.model.ts";
-import { fetchFutureMessageByStatus } from "@/entities/future-message/api/future-message.api.ts";
+import type { FutureMessageSendStatusType } from "@/entities/future-message/model/future-message-send-status.model";
+import { fetchFutureMessageByStatus } from "@/entities/future-message/api/future-message.api";
 
-export const FUTURE_MESSAGE_STATUS_QUERY_KEY = [
-  "future-message",
-  "status",
-] as const;
+export const futureMessageQueries = {
+  futureMessages: () => ["future-messages"],
 
-export const fetchFutureMessagesBySendStatusOptions = ({
-  status,
-}: {
-  status: FutureMessageSendStatusType;
-}) =>
-  queryOptions({
-    queryKey: [...FUTURE_MESSAGE_STATUS_QUERY_KEY, status],
-    queryFn: () => fetchFutureMessageByStatus({ status }),
-  });
+  byStatus: ({ status }: { status: FutureMessageSendStatusType }) =>
+    queryOptions({
+      queryKey: ["future-messages", "status", status],
+      queryFn: () => fetchFutureMessageByStatus({ status }),
+    }),
+} as const;

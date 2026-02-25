@@ -5,6 +5,12 @@ import type { Middleware } from "./middleware.type";
 
 export const UNAUTHORIZED_EVENT = "hobom:unauthorized";
 
+let unauthorizedDispatched = false;
+
+export const resetUnauthorizedState = () => {
+  unauthorizedDispatched = false;
+};
+
 const authMiddleware: Middleware = {
   onRequest: async (ctx) => {
     const url = new URL(
@@ -24,7 +30,11 @@ const authMiddleware: Middleware = {
     ctx.init.headers = headers;
   },
   onResponse: async (ctx) => {
-    if (ctx.response?.status === HttpStatusModel.UNAUTHORIZED) {
+    if (
+      ctx.response?.status === HttpStatusModel.UNAUTHORIZED &&
+      !unauthorizedDispatched
+    ) {
+      unauthorizedDispatched = true;
       window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
     }
   },

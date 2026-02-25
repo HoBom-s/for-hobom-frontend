@@ -9,3 +9,6 @@ export { OverlayProvider, OverlayContext } from "./OverlayProvider";
 import { SkeletonCard } from "./SkeletonCard";
 import { SkeletonList } from "./SkeletonList";
 export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };
+
+export { Sortable, arrayMove } from "./Sortable";
+export type { DragEndEvent } from "./Sortable";

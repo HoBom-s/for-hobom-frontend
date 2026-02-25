@@ -9,10 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import {
-  fetchSelectedTodayMenuQueryOption,
-  useTodayMenuId,
-} from "@/entities/menu-recommendation";
+import { menuQueries, useTodayMenuId } from "@/entities/menu-recommendation";
 import { useSelectTodayMenu } from "../model/useSelectTodayMenu";
 import { RoutesConfig } from "@/shared/config";
 
@@ -29,7 +26,7 @@ const Inner = () => {
   const { todayMenuId } = useTodayMenuId();
   const { handler, status } = useSelectTodayMenu();
   const { data } = useQuery({
-    ...fetchSelectedTodayMenuQueryOption({ id: String(todayMenuId) }),
+    ...menuQueries.selectedTodayMenu({ id: String(todayMenuId) }),
     enabled:
       todayMenuId != null && status == "done" && handler.status === "success",
   });
