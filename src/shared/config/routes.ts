@@ -16,6 +16,9 @@ export const RoutesConfig = {
   NOTES: {
     LIST: "/notes",
   },
+  NOTIFICATION: {
+    LIST: "/notifications",
+  },
   NOT_FOUND: {
     ALL: "*",
   },

@@ -1,5 +1,5 @@
 export { noteQueries } from "./api/note.queries";
-export { NOTE_COLORS } from "./lib/note-colors";
+export { NOTE_COLORS } from "./lib/note-colors.lib.ts";
 export {
   type NoteType,
   type NoteStatus,

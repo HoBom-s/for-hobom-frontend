@@ -19,7 +19,7 @@ import {
   RestoreFromTrashOutlined,
   NotificationsActiveOutlined,
 } from "@mui/icons-material";
-import { unwrapVO } from "../lib/unwrap-vo";
+import { unwrapVO } from "../lib/unwrap-vo.lib.ts";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
 
