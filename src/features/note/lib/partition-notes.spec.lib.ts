@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { partitionNotes } from "./partition-notes";
+import { partitionNotesLib } from "./partition-notes.lib.ts";
 import type { NoteItemType } from "@/entities/note";
 
 const makeNote = (
@@ -22,7 +22,7 @@ const makeNote = (
 
 describe("partitionNotes", () => {
   it("빈 배열이면 빈 결과를 반환한다", () => {
-    const { pinnedNotes, otherNotes } = partitionNotes([]);
+    const { pinnedNotes, otherNotes } = partitionNotesLib([]);
 
     expect(pinnedNotes).toEqual([]);
     expect(otherNotes).toEqual([]);
@@ -35,7 +35,7 @@ describe("partitionNotes", () => {
       makeNote({ id: { value: "3" }, isPinned: true, order: 2 }),
     ];
 
-    const { pinnedNotes, otherNotes } = partitionNotes(notes);
+    const { pinnedNotes, otherNotes } = partitionNotesLib(notes);
 
     expect(pinnedNotes).toHaveLength(2);
     expect(otherNotes).toHaveLength(1);
@@ -50,7 +50,7 @@ describe("partitionNotes", () => {
       makeNote({ id: { value: "c" }, isPinned: false, order: 2 }),
     ];
 
-    const { otherNotes } = partitionNotes(notes);
+    const { otherNotes } = partitionNotesLib(notes);
 
     expect(otherNotes.map((n) => n.id.value)).toEqual(["b", "c", "a"]);
   });
@@ -62,7 +62,7 @@ describe("partitionNotes", () => {
       makeNote({ id: { value: "p3" }, isPinned: true, order: 8 }),
     ];
 
-    const { pinnedNotes } = partitionNotes(notes);
+    const { pinnedNotes } = partitionNotesLib(notes);
 
     expect(pinnedNotes.map((n) => n.id.value)).toEqual(["p1", "p2", "p3"]);
   });
@@ -73,7 +73,7 @@ describe("partitionNotes", () => {
       makeNote({ id: { value: "y" }, isPinned: false, order: 0 }),
     ];
 
-    const { otherNotes } = partitionNotes(notes);
+    const { otherNotes } = partitionNotesLib(notes);
 
     expect(otherNotes.map((n) => n.id.value)).toEqual(["x", "y"]);
   });
@@ -85,7 +85,7 @@ describe("partitionNotes", () => {
     ];
     const original = [...notes];
 
-    partitionNotes(notes);
+    partitionNotesLib(notes);
 
     expect(notes[0]!.id.value).toBe(original[0]!.id.value);
     expect(notes[1]!.id.value).toBe(original[1]!.id.value);

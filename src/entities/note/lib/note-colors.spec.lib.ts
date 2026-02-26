@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { NOTE_COLORS } from "./note-colors";
+import { NOTE_COLORS } from "./note-colors.lib.ts";
 
 describe("NOTE_COLORS", () => {
   it("has 12 color entries", () => {

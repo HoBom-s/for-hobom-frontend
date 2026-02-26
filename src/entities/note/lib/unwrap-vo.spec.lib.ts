@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { unwrapVO } from "./unwrap-vo";
+import { unwrapVO } from "./unwrap-vo.lib.ts";
 
 describe("unwrapVO", () => {
   it("returns empty string for null", () => {

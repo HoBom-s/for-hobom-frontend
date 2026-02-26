@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material";
 import {
   ListAlt,
   Mail,
+  NotificationsNoneOutlined,
   RiceBowlTwoTone,
   StickyNote2Outlined,
 } from "@mui/icons-material";
@@ -12,6 +13,7 @@ import { RoutesConfig } from "@/shared/config";
 import { AppShell, type AppShellNavItem } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { useToast, removeHoBomAccessToken } from "@/shared/model";
+import { NotificationBell } from "@/features/notification";
 
 const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
@@ -23,6 +25,7 @@ const MenuPickPage = lazy(() => import("@/pages/menu-pick"));
 const FutureMessagePage = lazy(() => import("@/pages/message"));
 const FutureMessageSendPage = lazy(() => import("@/pages/message-send"));
 const NotePage = lazy(() => import("@/pages/note"));
+const NotificationPage = lazy(() => import("@/pages/notification"));
 
 const NAV_ITEMS: AppShellNavItem[] = [
   {
@@ -51,8 +54,23 @@ const NAV_ITEMS: AppShellNavItem[] = [
   },
 ];
 
+const BOTTOM_NAV_ITEMS: AppShellNavItem[] = [
+  {
+    value: "HOBOM_NOTIFICATION",
+    label: "알림",
+    path: RoutesConfig.NOTIFICATION.LIST,
+    icon: <NotificationsNoneOutlined fontSize="small" />,
+  },
+];
+
 const Shell = ({ children }: { children: React.ReactNode }) => (
-  <AppShell navItems={NAV_ITEMS}>{children}</AppShell>
+  <AppShell
+    navItems={NAV_ITEMS}
+    bottomNavItems={BOTTOM_NAV_ITEMS}
+    appBarAction={<NotificationBell />}
+  >
+    {children}
+  </AppShell>
 );
 
 export const AppRouter = () => {
@@ -126,6 +144,14 @@ export const AppRouter = () => {
           element={
             <Shell>
               <NotePage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.NOTIFICATION.LIST}
+          element={
+            <Shell>
+              <NotificationPage />
             </Shell>
           }
         />
