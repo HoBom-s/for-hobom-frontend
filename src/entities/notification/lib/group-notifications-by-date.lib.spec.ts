@@ -85,9 +85,9 @@ describe("groupNotificationsByDate", () => {
 
   it("같은 그룹에 여러 알림을 포함한다", () => {
     const items = [
-      makeNotification("1", "2026-02-27T10:00:00+09:00"),
+      makeNotification("1", "2026-02-27T13:00:00+09:00"),
       makeNotification("2", "2026-02-27T12:00:00+09:00"),
-      makeNotification("3", "2026-02-27T08:00:00+09:00"),
+      makeNotification("3", "2026-02-27T11:00:00+09:00"),
     ];
 
     const groups = groupNotificationsByDate(items, NOW);
