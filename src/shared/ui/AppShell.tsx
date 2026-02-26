@@ -25,19 +25,63 @@ export interface AppShellNavItem {
 interface Props {
   children: ReactNode;
   navItems: AppShellNavItem[];
+  bottomNavItems?: AppShellNavItem[];
+  appBarAction?: ReactNode;
 }
 
-export const AppShell = ({ children, navItems }: Props) => {
+const NavList = ({
+  items,
+  activeValue,
+  onNavigate,
+}: {
+  items: AppShellNavItem[];
+  activeValue: string;
+  onNavigate: (path: string) => void;
+}) => (
+  <List disablePadding>
+    {items.map((item) => {
+      const isActive = item.value === activeValue;
+      return (
+        <ListItemButton
+          key={item.value}
+          selected={isActive}
+          onClick={() => onNavigate(item.path)}
+        >
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText
+            primary={item.label}
+            slotProps={{
+              primary: {
+                sx: {
+                  fontSize: "0.875rem",
+                  fontWeight: isActive ? 600 : 400,
+                },
+              },
+            }}
+          />
+        </ListItemButton>
+      );
+    })}
+  </List>
+);
+
+export const AppShell = ({
+  children,
+  navItems,
+  bottomNavItems,
+  appBarAction,
+}: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const getSegment = (path: string) => "/" + path.split("/")[1];
 
+  const allItems = [...navItems, ...(bottomNavItems ?? [])];
   const activeItem = Bom.pipe(
     location.pathname,
     (currentPath) => {
       const currentSegment = getSegment(currentPath);
-      return navItems.find((item) => getSegment(item.path) === currentSegment);
+      return allItems.find((item) => getSegment(item.path) === currentSegment);
     },
     Bom.when(Bom.isNullish, () => navItems[0]),
   );
@@ -84,6 +128,13 @@ export const AppShell = ({ children, navItems }: Props) => {
           >
             {activeItem.label}
           </Typography>
+
+          {appBarAction && (
+            <>
+              <Box sx={{ flex: 1 }} />
+              {appBarAction}
+            </>
+          )}
         </Toolbar>
       </AppBar>
 
@@ -129,32 +180,23 @@ export const AppShell = ({ children, navItems }: Props) => {
           >
             메뉴
           </Typography>
-          <List disablePadding>
-            {navItems.map((item) => {
-              const isActive = item.value === activeItem.value;
-              return (
-                <ListItemButton
-                  key={item.value}
-                  selected={isActive}
-                  onClick={() => navigate(item.path)}
-                >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText
-                    primary={item.label}
-                    slotProps={{
-                      primary: {
-                        sx: {
-                          fontSize: "0.875rem",
-                          fontWeight: isActive ? 600 : 400,
-                        },
-                      },
-                    }}
-                  />
-                </ListItemButton>
-              );
-            })}
-          </List>
+          <NavList
+            items={navItems}
+            activeValue={activeItem.value}
+            onNavigate={navigate}
+          />
         </Box>
+
+        {bottomNavItems && bottomNavItems.length > 0 && (
+          <Box sx={{ px: 1.5, pb: 2 }}>
+            <Divider sx={{ borderColor: "rgba(255,255,255,0.08)", mb: 1.5 }} />
+            <NavList
+              items={bottomNavItems}
+              activeValue={activeItem.value}
+              onNavigate={navigate}
+            />
+          </Box>
+        )}
       </Drawer>
 
       <Box
