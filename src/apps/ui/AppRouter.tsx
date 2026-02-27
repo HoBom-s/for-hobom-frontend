@@ -13,9 +13,11 @@ import {
   Tooltip,
 } from "@mui/material";
 import {
+  DashboardOutlined,
   ListAlt,
   Logout,
   Mail,
+  MonitorHeartOutlined,
   NotificationsNoneOutlined,
   RiceBowlTwoTone,
   StickyNote2Outlined,
@@ -38,8 +40,16 @@ const FutureMessagePage = lazy(() => import("@/pages/message"));
 const FutureMessageSendPage = lazy(() => import("@/pages/message-send"));
 const NotePage = lazy(() => import("@/pages/note"));
 const NotificationPage = lazy(() => import("@/pages/notification"));
+const DashboardPage = lazy(() => import("@/pages/dashboard"));
+const DashboardSystemPage = lazy(() => import("@/pages/dashboard-system"));
 
 const NAV_ITEMS: AppShellNavItem[] = [
+  {
+    value: "DASHBOARD",
+    label: "대시보드",
+    path: RoutesConfig.DASHBOARD.HOME,
+    icon: <DashboardOutlined fontSize="small" />,
+  },
   {
     value: "DAILY_TODO",
     label: "할 일",
@@ -72,6 +82,12 @@ const BOTTOM_NAV_ITEMS: AppShellNavItem[] = [
     label: "알림",
     path: RoutesConfig.NOTIFICATION.LIST,
     icon: <NotificationsNoneOutlined fontSize="small" />,
+  },
+  {
+    value: "SYSTEM",
+    label: "시스템",
+    path: RoutesConfig.DASHBOARD.SYSTEM,
+    icon: <MonitorHeartOutlined fontSize="small" />,
   },
 ];
 
@@ -224,6 +240,22 @@ export const AppRouter = () => {
           element={
             <Shell>
               <NotificationPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.DASHBOARD.HOME}
+          element={
+            <Shell>
+              <DashboardPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.DASHBOARD.SYSTEM}
+          element={
+            <Shell>
+              <DashboardSystemPage />
             </Shell>
           }
         />

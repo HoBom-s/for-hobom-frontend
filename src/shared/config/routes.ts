@@ -19,6 +19,10 @@ export const RoutesConfig = {
   NOTIFICATION: {
     LIST: "/notifications",
   },
+  DASHBOARD: {
+    HOME: "/dashboard",
+    SYSTEM: "/dashboard/system",
+  },
   NOT_FOUND: {
     ALL: "*",
   },
