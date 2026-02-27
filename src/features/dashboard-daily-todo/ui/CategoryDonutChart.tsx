@@ -7,6 +7,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { CHART_COLORS } from "@/entities/dashboard";
 
 interface CategoryDonutChartProps {
   data: {
@@ -16,15 +17,6 @@ interface CategoryDonutChartProps {
     completed: number;
   }[];
 }
-
-const COLORS = [
-  "#4680ff",
-  "#2ca87f",
-  "#e58a00",
-  "#dc2626",
-  "#5b6a98",
-  "#94baff",
-];
 
 export const CategoryDonutChart = ({ data }: CategoryDonutChartProps) => {
   return (
@@ -44,7 +36,7 @@ export const CategoryDonutChart = ({ data }: CategoryDonutChartProps) => {
             outerRadius={90}
           >
             {data.map((_, i) => (
-              <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
             ))}
           </Pie>
           <Tooltip />

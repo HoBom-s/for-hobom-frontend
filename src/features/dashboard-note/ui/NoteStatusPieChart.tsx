@@ -7,12 +7,11 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { CHART_COLORS } from "@/entities/dashboard";
 
 interface NoteStatusPieChartProps {
   data: { status: string; count: number }[];
 }
-
-const COLORS = ["#4680ff", "#2ca87f", "#e58a00", "#dc2626"];
 
 export const NoteStatusPieChart = ({ data }: NoteStatusPieChartProps) => {
   return (
@@ -31,7 +30,7 @@ export const NoteStatusPieChart = ({ data }: NoteStatusPieChartProps) => {
             outerRadius={90}
           >
             {data.map((_, i) => (
-              <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
             ))}
           </Pie>
           <Tooltip />
