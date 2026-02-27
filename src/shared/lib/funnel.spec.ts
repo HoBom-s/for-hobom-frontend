@@ -1,4 +1,4 @@
-import { createFunnelStateId, createFunnelStorage } from "./funnel";
+import { createFunnelStateId, createFunnelStorage } from "./funnel.lib";
 
 describe("createFunnelStateId", () => {
   it("prefixes the id with funnel-state-id__", () => {

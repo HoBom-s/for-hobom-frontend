@@ -28,7 +28,6 @@ export const PickMenuContent = ({ onNextCallback }: Props) => {
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            p: 3,
           }}
         >
           <PickMenuContent.Layout>
@@ -57,8 +56,6 @@ const Inner = ({ onNextCallback }: Props) => {
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        gap: 2,
-        p: 3,
       }}
     >
       <PickMenuContent.Layout>
@@ -80,11 +77,22 @@ const Inner = ({ onNextCallback }: Props) => {
           ))}
         </List>
       </PickMenuContent.Layout>
-      <Box display="flex" gap={1} width="100%">
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1.5,
+          px: 3,
+          py: 2,
+          borderTop: "1px solid",
+          borderColor: "divider",
+          flexShrink: 0,
+        }}
+      >
         <Button
           fullWidth
           variant="outlined"
           color="inherit"
+          sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
           onClick={() => navigate(RoutesConfig.MAIN.DAILY_TODO)}
         >
           나가기
@@ -92,7 +100,9 @@ const Inner = ({ onNextCallback }: Props) => {
         <Button
           fullWidth
           variant="contained"
+          disableElevation
           loading={addCandidatesTodayMenu.isPending}
+          sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
           onClick={() => {
             if (selectedItems.length === 0) {
               openWarnToast({ message: "메뉴를 선택해 주세요." });
@@ -120,13 +130,12 @@ const Inner = ({ onNextCallback }: Props) => {
 
 PickMenuContent.Layout = ({ children }: { children: ReactNode }) => (
   <Paper
-    elevation={2}
+    elevation={0}
     sx={{
       flexGrow: 1,
       overflowY: "auto",
       px: 3,
       py: 1,
-      bgcolor: "background.paper",
     }}
   >
     {children}

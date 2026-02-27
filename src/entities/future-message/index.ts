@@ -5,12 +5,16 @@ import { futureMessageQueries } from "@/entities/future-message/api/future-messa
 import { isPendingMessageSendStatus } from "@/entities/future-message/model/future-message-send-status.model";
 import type { FutureMessageSendStatusType } from "@/entities/future-message/model/future-message-send-status.model";
 import type { FutureMessageType } from "@/entities/future-message/api/future-message.type";
+import { useUpdateFutureMessage } from "./model/useUpdateFutureMessage";
+import { useDeleteFutureMessage } from "./model/useDeleteFutureMessage";
 
 export {
   futureMessageQueries,
   postFutureMessage,
   validateFutureMessageSendInput,
   isPendingMessageSendStatus,
+  useUpdateFutureMessage,
+  useDeleteFutureMessage,
 };
 export type {
   FutureMessageSendSchemaType,

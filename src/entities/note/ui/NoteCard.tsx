@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import {
   Card,
   CardContent,
@@ -30,6 +30,7 @@ interface NoteCardProps {
   onTogglePin: (id: string) => void;
   onStatusChange: (id: string, status: NoteStatus) => void;
   onDelete: (id: string) => void;
+  dragHandle?: ReactNode;
 }
 
 export const NoteCard = ({
@@ -39,6 +40,7 @@ export const NoteCard = ({
   onTogglePin,
   onStatusChange,
   onDelete,
+  dragHandle,
 }: NoteCardProps) => {
   const [hovered, setHovered] = useState(false);
   const isTrash = note.status === "TRASHED";
@@ -77,6 +79,24 @@ export const NoteCard = ({
       elevation={0}
     >
       <CardContent sx={{ p: "12px 12px 8px", "&:last-child": { pb: 1 } }}>
+        {/* 드래그 핸들 — top-left */}
+        {dragHandle && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 2,
+              left: 2,
+              opacity: hovered ? 1 : 0,
+              transition: "opacity 0.15s ease",
+              pointerEvents: hovered ? "auto" : "none",
+              color: "text.secondary",
+              zIndex: 1,
+            }}
+          >
+            {dragHandle}
+          </Box>
+        )}
+
         {/* 핀 아이콘 — CSS transition */}
         {!isTrash && (
           <IconButton

@@ -50,8 +50,6 @@ const Inner = () => {
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        gap: 2,
-        p: 3,
       }}
     >
       <SelectedMenuContent.Layout>
@@ -63,37 +61,51 @@ const Inner = () => {
           height="100%"
         >
           {showProgressCircle ? (
-            <Stack direction="column" alignItems="center">
-              <CircularProgress size="48px" sx={{ mb: 3 }} />
-              <Typography typography="caption">
+            <Stack direction="column" alignItems="center" spacing={1.5}>
+              <CircularProgress size="48px" />
+              <Typography variant="body2" color="text.secondary">
                 메뉴를 추첨할 동안 잠시만 기다려 주세요.
               </Typography>
             </Stack>
           ) : (
-            <Stack direction="column" alignItems="center">
-              <Typography variant="h6" sx={{ mb: 3 }}>
-                오늘의 메뉴
+            <Stack direction="column" alignItems="center" spacing={1}>
+              <Typography
+                variant="body2"
+                sx={{ color: "text.secondary", mb: 0.5 }}
+              >
+                오늘의 메뉴는
               </Typography>
-              <Typography variant="subtitle2" fontWeight="bold">
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 {data?.items.recommendedMenu.name}
               </Typography>
-              <Typography variant="caption">
-                {data?.items.recommendedMenu.registerPerson.username}'s Food.
+              <Typography variant="body2" color="text.secondary">
+                {data?.items.recommendedMenu.registerPerson.username} 님이
+                등록한 메뉴
               </Typography>
             </Stack>
           )}
         </Box>
       </SelectedMenuContent.Layout>
-      <Box display="flex" width="100%">
+      <Box
+        sx={{
+          px: 3,
+          py: 2,
+          borderTop: "1px solid",
+          borderColor: "divider",
+          flexShrink: 0,
+        }}
+      >
         <Button
           fullWidth
           variant="contained"
+          disableElevation
           disabled={showProgressCircle}
+          sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
           onClick={() =>
             navigate(RoutesConfig.MENU.RECOMMENDATION, { replace: true })
           }
         >
-          추첨하기
+          확인
         </Button>
       </Box>
     </Box>
@@ -102,13 +114,12 @@ const Inner = () => {
 
 SelectedMenuContent.Layout = ({ children }: { children: ReactNode }) => (
   <Paper
-    elevation={2}
+    elevation={0}
     sx={{
       flexGrow: 1,
       overflowY: "auto",
       px: 3,
       py: 1,
-      bgcolor: "background.paper",
     }}
   >
     {children}

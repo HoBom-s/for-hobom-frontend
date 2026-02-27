@@ -2,7 +2,7 @@ import { startOfDay, subDays } from "date-fns";
 import { Bom } from "@/packages/bom";
 import type { NotificationItemType } from "../api/notification.type";
 
-export type DateGroup = { label: string; items: NotificationItemType[] };
+type DateGroup = { label: string; items: NotificationItemType[] };
 
 const DATE_LABELS = ["오늘", "어제", "이번 주", "이전"] as const;
 type DateLabel = (typeof DATE_LABELS)[number];

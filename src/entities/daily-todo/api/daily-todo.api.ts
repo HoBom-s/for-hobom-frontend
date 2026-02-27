@@ -31,15 +31,55 @@ export const postDailyTodoCreate = async ({
   title,
   date,
   category,
+  cycle,
 }: {
   title: string;
   date: string;
   category: string;
+  cycle?: string;
 }) => {
   await httpClient.post(`/daily-todos`, {
     title,
     date,
     category,
+    ...(cycle && { cycle }),
+  });
+};
+
+export const patchDailyTodo = async ({
+  id,
+  ...body
+}: {
+  id: string;
+  title?: string;
+  date?: string;
+  category?: string;
+}) => {
+  return await httpClient.patch(`/daily-todos/${id}`, body);
+};
+
+export const patchDailyTodoCycle = async ({
+  id,
+  cycle,
+}: {
+  id: string;
+  cycle: string;
+}) => {
+  return await httpClient.patch(`/daily-todos/${id}/cycle-status`, { cycle });
+};
+
+export const patchDailyTodoReaction = async ({
+  id,
+  reaction,
+  reactionUserId,
+}: {
+  id: string;
+  reaction: string;
+  reactionUserId: string;
+}) => {
+  return await httpClient.patch(`/daily-todos/${id}/reaction`, {
+    reaction,
+    reactionUserId,
   });
 };
 

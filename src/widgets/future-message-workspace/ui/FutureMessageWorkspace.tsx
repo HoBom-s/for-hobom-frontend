@@ -2,33 +2,41 @@ import { Box, Paper } from "@mui/material";
 import {
   FutureMessageContent,
   FutureMessageHeader,
+  FutureMessageStatusTab,
 } from "@/features/send-future-message";
-import { FutureMessageStatusTab } from "@/features/send-future-message";
-import { APPBAR_HEIGHT } from "@/shared/config";
-
-// APPBAR_HEIGHT(56) + paper margins(~80) + header(~49) + status-tab(48)
-const CONTENT_OFFSET = APPBAR_HEIGHT + 177;
 
 export const FutureMessageWorkspace = () => {
   return (
-    <Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        p: 3,
+        gap: 2,
+      }}
+    >
       <FutureMessageHeader />
+
       <Paper
-        elevation={2}
+        elevation={0}
         sx={{
-          width: "95%",
-          m: "0 auto",
-          mt: "6px",
-          mb: 3,
-          bgcolor: "background.paper",
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: 2,
         }}
       >
         <FutureMessageStatusTab />
         <Box
           sx={{
-            mt: 1,
-            height: `calc(100vh - ${CONTENT_OFFSET}px)`,
+            flex: 1,
             overflow: "hidden",
+            minHeight: 0,
           }}
         >
           <FutureMessageContent />

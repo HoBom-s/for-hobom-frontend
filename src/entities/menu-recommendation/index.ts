@@ -5,11 +5,6 @@ import {
 } from "./model/menu-recommendation.model";
 import { postSelectTodayMenu } from "./api/menu-recommendation.api";
 import { menuQueries } from "./api/menu-recommendation.queries";
-import type {
-  MenuKindType,
-  TimeOfMealType,
-  FoodType,
-} from "./model/menu-recommendation.model";
 import { useAddMenuRecommendation } from "./model/useAddMenuRecommendation";
 import { useAddCandidatesTodayMenu } from "./model/useAddCandidatesTodayMenu";
 import { useUpdateTodayMenuCache } from "./model/useUpdateTodayMenuCache";
@@ -40,10 +35,4 @@ export {
   useTodayMenuId,
   TodayMenuIdContextProvider,
 };
-export type {
-  MenuKindType,
-  TimeOfMealType,
-  FoodType,
-  MenuRecommendationType,
-  AddMenuRecommendationInput,
-};
+export type { MenuRecommendationType, AddMenuRecommendationInput };

@@ -3,6 +3,9 @@ import {
   postDailyTodoCreate,
   deleteDailyTodoById,
   patchDailyTodoCompleteStatusChange,
+  patchDailyTodo,
+  patchDailyTodoCycle,
+  patchDailyTodoReaction,
 } from "../api/daily-todo.api";
 
 export const todoMutations = {
@@ -13,6 +16,11 @@ export const todoMutations = {
       mutationKey: [...todoMutations.todos(), "create"] as const,
       mutationFn: postDailyTodoCreate,
     }),
+  update: () =>
+    mutationOptions({
+      mutationKey: [...todoMutations.todos(), "update"] as const,
+      mutationFn: patchDailyTodo,
+    }),
   delete: () =>
     mutationOptions({
       mutationKey: [...todoMutations.todos(), "delete"] as const,
@@ -22,5 +30,15 @@ export const todoMutations = {
     mutationOptions({
       mutationKey: [...todoMutations.todos(), "changeCompleteStatus"] as const,
       mutationFn: patchDailyTodoCompleteStatusChange,
+    }),
+  changeCycle: () =>
+    mutationOptions({
+      mutationKey: [...todoMutations.todos(), "changeCycle"] as const,
+      mutationFn: patchDailyTodoCycle,
+    }),
+  changeReaction: () =>
+    mutationOptions({
+      mutationKey: [...todoMutations.todos(), "changeReaction"] as const,
+      mutationFn: patchDailyTodoReaction,
     }),
 } as const;

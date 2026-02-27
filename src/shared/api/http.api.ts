@@ -1,5 +1,5 @@
-import { HttpClient } from "./http-client";
-import { HttpStatusModel } from "./http-status";
+import { HttpClient } from "./http-client.api";
+import { HttpStatusModel } from "./http-status.api";
 import { getHoBomAccessToken } from "@/shared/model";
 import type { Middleware } from "./middleware.type";
 

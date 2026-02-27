@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { handleValidationResult, validateWithZod } from "./validate";
+import { handleValidationResult, validateWithZod } from "./validate.lib";
 
 const TestSchema = z.object({
   name: z.string().min(1),
