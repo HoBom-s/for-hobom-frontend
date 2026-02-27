@@ -6,5 +6,5 @@ export {
   saveHoBomAccessToken,
   getHoBomAccessToken,
   removeHoBomAccessToken,
-} from "./session";
+} from "./session.model";
 export { useToast } from "./useToast";

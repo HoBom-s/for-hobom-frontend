@@ -3,83 +3,85 @@ import { Box, Paper, Tab, Tabs } from "@mui/material";
 import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent";
 import { MenuRecommendationList } from "@/features/select-menu-tab/ui/MenuRecommendationList";
 import { MenuRecommendationSpeedDial } from "@/features/select-menu-tab/ui/MenuRecommendationSpeedDial";
-import { APPBAR_HEIGHT } from "@/shared/config";
 
-// APPBAR_HEIGHT(56) + paper margins(~80) + MUI Tabs(48) + borders(~49)
-const CONTENT_OFFSET = APPBAR_HEIGHT + 177;
+const TAB_VALUES = ["recommendation", "list"] as const;
+type TabValue = (typeof TAB_VALUES)[number];
 
-interface TabValue {
-  value: string;
-  label: string;
-}
-
-const TAB_ITEMS: TabValue[] = [
-  { value: "menu-recommendation", label: "메뉴 추천" },
-  { value: "menu-list", label: "메뉴 목록" },
-] as const;
+const TAB_LABELS: Record<TabValue, string> = {
+  recommendation: "메뉴 추천",
+  list: "메뉴 목록",
+};
 
 export const MenuRecommendationTab = () => {
-  const [tabValue, setTabValue] = useState<TabValue>(TAB_ITEMS[0]);
+  const [tab, setTab] = useState<TabValue>("recommendation");
 
   return (
     <Paper
-      elevation={2}
+      elevation={0}
       sx={{
-        width: "95%",
-        m: "0 auto",
-        mt: "6px",
+        flex: 1,
+        mx: 3,
         mb: 3,
-        px: 4,
-        bgcolor: "background.paper",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: 2,
       }}
     >
-      <Tabs
-        centered
-        variant="fullWidth"
-        value={tabValue.value}
-        onChange={(_, value) => {
-          const found: TabValue =
-            TAB_ITEMS.find((item) => item.value === value) ?? TAB_ITEMS[0];
-          setTabValue(found);
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          borderBottom: "1px solid",
+          borderColor: "divider",
+          pr: 2,
         }}
       >
-        {TAB_ITEMS.map((item) => (
-          <Tab key={item.value} value={item.value} label={item.label} />
-        ))}
-      </Tabs>
-      <Box sx={{ mt: 1, height: `calc(100vh - ${CONTENT_OFFSET}px)` }}>
-        <TabContent value={TAB_ITEMS[0]} tabValue={tabValue}>
+        <Tabs
+          value={tab}
+          onChange={(_, v) => setTab(v)}
+          sx={{
+            minHeight: 44,
+            "& .MuiTab-root": {
+              minHeight: 44,
+              textTransform: "none",
+              fontWeight: 600,
+              fontSize: 13,
+            },
+          }}
+        >
+          {TAB_VALUES.map((v) => (
+            <Tab key={v} value={v} label={TAB_LABELS[v]} />
+          ))}
+        </Tabs>
+        {tab === "list" && <MenuRecommendationSpeedDial />}
+      </Box>
+
+      <Box sx={{ flex: 1, overflow: "auto" }}>
+        <TabPanel visible={tab === "recommendation"}>
           <MenuRecommendationContent />
-        </TabContent>
-        <TabContent value={TAB_ITEMS[1]} tabValue={tabValue}>
-          <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 1.5 }}>
-            <MenuRecommendationSpeedDial />
-          </Box>
+        </TabPanel>
+        <TabPanel visible={tab === "list"}>
           <MenuRecommendationList />
-        </TabContent>
+        </TabPanel>
       </Box>
     </Paper>
   );
 };
 
-const TabContent = ({
-  value,
-  tabValue,
+const TabPanel = ({
+  visible,
   children,
 }: {
-  value: TabValue;
-  tabValue: TabValue;
+  visible: boolean;
   children: ReactNode;
 }) => {
-  if (tabValue.value !== value.value) {
-    return null;
-  }
-
+  if (!visible) return null;
   return (
-    <div
-      role="tabpanel"
-      style={{ width: "100%", height: "calc(100% - 20px)", overflowY: "auto" }}
-    >
+    <div role="tabpanel" style={{ height: "100%" }}>
       {children}
     </div>
   );

@@ -1,9 +1,20 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { CircularProgress } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import {
   ListAlt,
+  Logout,
   Mail,
   NotificationsNoneOutlined,
   RiceBowlTwoTone,
@@ -13,6 +24,7 @@ import { RoutesConfig } from "@/shared/config";
 import { AppShell, type AppShellNavItem } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { useToast, removeHoBomAccessToken } from "@/shared/model";
+import { postAuthLogout } from "@/entities/auth";
 import { NotificationBell } from "@/features/notification";
 
 const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
@@ -63,11 +75,71 @@ const BOTTOM_NAV_ITEMS: AppShellNavItem[] = [
   },
 ];
 
+const AppBarActions = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await postAuthLogout();
+    } finally {
+      removeHoBomAccessToken();
+      queryClient.clear();
+      navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
+    }
+  };
+
+  return (
+    <>
+      <NotificationBell />
+      <Tooltip title="로그아웃">
+        <IconButton
+          size="small"
+          onClick={() => setLogoutOpen(true)}
+          sx={{ ml: 0.5 }}
+        >
+          <Logout fontSize="small" />
+        </IconButton>
+      </Tooltip>
+      <Dialog
+        open={logoutOpen}
+        onClose={() => setLogoutOpen(false)}
+        maxWidth="xs"
+      >
+        <DialogTitle>로그아웃</DialogTitle>
+        <DialogContent>
+          <DialogContentText>정말 로그아웃 하시겠어요?</DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={() => setLogoutOpen(false)}
+          >
+            취소
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            loading={isLoggingOut}
+            onClick={handleLogout}
+          >
+            로그아웃
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
+
 const Shell = ({ children }: { children: React.ReactNode }) => (
   <AppShell
     navItems={NAV_ITEMS}
     bottomNavItems={BOTTOM_NAV_ITEMS}
-    appBarAction={<NotificationBell />}
+    appBarAction={<AppBarActions />}
   >
     {children}
   </AppShell>

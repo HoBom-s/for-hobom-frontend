@@ -6,4 +6,6 @@ export interface FutureMessageType {
   content: string;
   scheduledAt: string;
   sendStatus: FutureMessageSendStatusType;
+  createdAt: string;
+  updatedAt: string;
 }

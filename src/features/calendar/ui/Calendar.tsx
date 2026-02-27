@@ -8,10 +8,11 @@ import {
 } from "@mui/x-date-pickers";
 import { Box } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { startOfMonth } from "date-fns";
+import { ko } from "date-fns/locale";
 import {
   todoQueries,
   formatDate,
-  getDatePickerToolbarTitle,
   getNow,
   getSelectedDate,
   normalizeTodoDateToUtcMidnight,
@@ -20,21 +21,15 @@ import { HoBomSkeleton } from "@/shared/ui";
 import { useRouterQuery } from "@/shared/model";
 import { Bom } from "@/packages/bom";
 
-import { CalendarToolbar } from "./CalendarToolbar";
 import { CalendarDay } from "./CalendarDay";
 
 export const Calendar = () => {
   const { query, updateQuery } = useRouterQuery();
 
   const now = getNow();
-  const { data: todos } = useSuspenseQuery(
-    Bom.pipe(
-      now,
-      (month) => getSelectedDate(query, month),
-      formatDate,
-      todoQueries.list,
-    ),
-  );
+  const selectedDate = getSelectedDate(query, now);
+  const monthDate = formatDate(startOfMonth(selectedDate));
+  const { data: todos } = useSuspenseQuery(todoQueries.list(monthDate));
   const days: Date[] = Bom.pipe(
     todos.items,
     Bom.map(Bom.prop("date")),
@@ -43,22 +38,16 @@ export const Calendar = () => {
 
   return (
     <Box>
-      <LocalizationProvider
-        dateAdapter={AdapterDateFns}
-        localeText={{
-          datePickerToolbarTitle: getDatePickerToolbarTitle(query, now),
-        }}
-      >
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
         <StaticDatePicker
-          displayStaticWrapperAs="mobile"
-          value={getSelectedDate(query, now)}
+          displayStaticWrapperAs="desktop"
+          value={selectedDate}
           slots={{
-            toolbar: CalendarToolbar,
+            toolbar: () => null,
             day: CalendarDay,
           }}
           slotProps={{
-            toolbar: { toolbarFormat: "yyyy-MM" },
-            actionBar: { actions: undefined },
+            actionBar: { actions: [] },
             day: { days } as unknown as PickersDayProps,
           }}
           onMonthChange={(month) => {
@@ -66,6 +55,27 @@ export const Calendar = () => {
             updateQuery({ selectedDate: date }, { replace: true });
           }}
           renderLoading={() => <DayCalendarSkeleton />}
+          sx={{
+            "& .MuiPickersLayout-root": {
+              minWidth: "unset",
+            },
+            "& .MuiPickersCalendarHeader-root": {
+              px: 1.5,
+              mt: 1,
+            },
+            "& .MuiPickersCalendarHeader-label": {
+              fontSize: "0.9375rem",
+              fontWeight: 700,
+            },
+            "& .MuiDayCalendar-weekDayLabel": {
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              color: "text.secondary",
+            },
+            "& .MuiDayCalendar-slideTransition": {
+              minHeight: 240,
+            },
+          }}
         />
       </LocalizationProvider>
     </Box>
@@ -76,7 +86,7 @@ Calendar.WithSuspense = ({ children }: { children: ReactNode }) => {
   return (
     <Suspense
       fallback={
-        <div style={{ width: 380, margin: 4, height: 500 }}>
+        <div style={{ width: 320, margin: 4, height: 400 }}>
           <HoBomSkeleton.Card />
         </div>
       }

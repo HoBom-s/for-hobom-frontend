@@ -1,4 +1,4 @@
-import { getHoBomAccessToken, saveHoBomAccessToken } from "./session";
+import { getHoBomAccessToken, saveHoBomAccessToken } from "./session.model";
 
 describe("session", () => {
   let storageData: Record<string, string>;

@@ -3,28 +3,30 @@ import { useRouterQuery } from "@/shared/model";
 
 export const FutureMessageStatusTab = () => {
   const { query, updateQuery } = useRouterQuery();
-  const tabValue = query.get("status") || "PENDING";
+  const tabValue = query.get("status") || "SENT";
+
   return (
     <Tabs
-      sx={{ px: 3 }}
+      sx={{
+        px: 2,
+        borderBottom: "1px solid",
+        borderColor: "divider",
+        "& .MuiTabs-indicator": { height: 2.5, borderRadius: 1 },
+      }}
       textColor="primary"
       indicatorColor="primary"
-      variant="fullWidth"
       value={tabValue}
-      onChange={() => {
-        updateQuery({ status: tabValue === "PENDING" ? "SENT" : "PENDING" });
-      }}
-      aria-label="미래 메시지 발송 상태 탭"
+      onChange={(_, value) => updateQuery({ status: value })}
     >
-      <Tab
-        label="발송 대기"
-        value="PENDING"
-        sx={{ fontWeight: tabValue === "PENDING" ? "bold" : "normal" }}
-      />
       <Tab
         label="발송 완료"
         value="SENT"
-        sx={{ fontWeight: tabValue === "SENT" ? "bold" : "normal" }}
+        sx={{ fontWeight: tabValue === "SENT" ? 700 : 500 }}
+      />
+      <Tab
+        label="발송 대기"
+        value="PENDING"
+        sx={{ fontWeight: tabValue === "PENDING" ? 700 : 500 }}
       />
     </Tabs>
   );

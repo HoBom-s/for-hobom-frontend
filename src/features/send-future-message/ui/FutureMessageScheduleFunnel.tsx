@@ -92,9 +92,10 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
                         openSuccessToast({
                           message: "미래 메시지를 잘 예약했어요.",
                         });
-                        navigate(RoutesConfig.MESSAGE.RESERVATION, {
-                          replace: true,
-                        });
+                        navigate(
+                          `${RoutesConfig.MESSAGE.RESERVATION}?status=PENDING`,
+                          { replace: true },
+                        );
                       },
                       onError: () => {
                         openErrorToast({

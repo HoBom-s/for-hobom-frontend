@@ -1,4 +1,4 @@
-import { delayThen } from "./delay";
+import { delayThen } from "./delay.lib";
 
 describe("delayThen", () => {
   beforeEach(() => {

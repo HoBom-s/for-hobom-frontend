@@ -9,23 +9,17 @@ export const FutureMessageHeader = () => {
   return (
     <Box
       sx={{
-        p: 2,
-        mt: 3,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
       }}
     >
       <Box>
-        <Typography
-          sx={{ lineHeight: 1, fontSize: 20 }}
-          variant="h6"
-          component="div"
-        >
-          상대에게 전하고 싶은 말을 작성해보세요.
+        <Typography variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+          미래 메시지
         </Typography>
-        <Typography variant="caption" sx={{ fontSize: 14 }}>
-          어떤 마음을 담고 싶으신가요?
+        <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+          상대에게 전하고 싶은 말을 예약해보세요
         </Typography>
       </Box>
 
@@ -35,7 +29,7 @@ export const FutureMessageHeader = () => {
         onClick={() => navigate(RoutesConfig.MESSAGE.SEND_FUNNEL)}
         sx={{ flexShrink: 0 }}
       >
-        예약 메시지 등록
+        메시지 예약
       </Button>
     </Box>
   );
