@@ -10,8 +10,12 @@ import { useRouterQuery } from "@/shared/model";
 import { HoBomSkeleton } from "@/shared/ui";
 
 export const FutureMessageContent = () => {
+  const { query } = useRouterQuery();
+  const status = query.get("status") ?? "SENT";
+
   return (
     <Suspense
+      key={status}
       fallback={
         <FutureMessageContent.Layout>
           <Box sx={{ p: 2 }}>
@@ -29,7 +33,7 @@ export const FutureMessageContent = () => {
 
 const Inner = () => {
   const { query } = useRouterQuery();
-  const status = query.get("status") ?? "PENDING";
+  const status = query.get("status") ?? "SENT";
   const { data: messages } = useSuspenseQuery(
     futureMessageQueries.byStatus({
       status: status as FutureMessageSendStatusType,

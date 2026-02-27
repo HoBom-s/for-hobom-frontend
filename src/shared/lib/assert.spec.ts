@@ -1,4 +1,4 @@
-import { assertCondition } from "./assert";
+import { assertCondition } from "./assert.lib";
 
 describe("assertCondition", () => {
   it("throws for undefined", () => {

@@ -16,11 +16,16 @@ interface CategoryType {
   ownerId: string;
 }
 
+interface ReactionType {
+  value: string;
+  reactionUserId: string;
+}
+
 export interface DailyTodoType {
   id: string;
   title: string;
   date: string;
-  reaction: string | null;
+  reaction: ReactionType | null;
   progress: ProgressType;
   cycle: CycleType;
   owner: OwnerType;

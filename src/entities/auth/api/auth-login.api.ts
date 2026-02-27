@@ -22,5 +22,9 @@ export const postAuthLogin = async ({
   return response.items;
 };
 
+export const postAuthLogout = async () => {
+  await httpClient.post("/auth/logout", {});
+};
+
 export const fetchUsers = async () =>
   await httpClient.get<HttpResponseType<UserType[]>>("/users");

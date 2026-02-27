@@ -2,10 +2,28 @@ import { useEffect, useRef, useState } from "react";
 import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
 import {
   isPendingMessageSendStatus,
+  useUpdateFutureMessage,
+  useDeleteFutureMessage,
   type FutureMessageType,
 } from "@/entities/future-message";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
+import {
+  Schedule as ScheduleIcon,
+  CheckCircle as CheckCircleIcon,
+  EditOutlined,
+  DeleteOutlined,
+  MailOutline,
+} from "@mui/icons-material";
 
 const HEADER_ROW_COUNT = 1;
 const MIN_COL_WIDTH = 60;
@@ -16,6 +34,7 @@ const COLUMNS = [
   { key: "title" as const, label: "제목 / 내용" },
   { key: "scheduledAt" as const, label: "발송 시간" },
   { key: "sendStatus" as const, label: "상태" },
+  { key: "actions" as const, label: "" },
 ];
 
 type ColKey = (typeof COLUMNS)[number]["key"];
@@ -25,6 +44,7 @@ const HEADER_TEXT = "#6b7280";
 const ROW_EVEN = "#ffffff";
 const ROW_ODD = "#fafbfc";
 const BORDER_COLOR = "#f0f2f5";
+const ACTIONS_WIDTH = 80;
 
 const formatDate = (raw: string) => {
   try {
@@ -51,6 +71,111 @@ const formatTime = (raw: string) => {
   }
 };
 
+const EditDialog = ({
+  message,
+  open,
+  onClose,
+}: {
+  message: FutureMessageType;
+  open: boolean;
+  onClose: () => void;
+}) => {
+  const [title, setTitle] = useState(message.title);
+  const [content, setContent] = useState(message.content);
+  const { mutate, isPending } = useUpdateFutureMessage();
+
+  const handleSubmit = () => {
+    if (!title.trim()) return;
+    mutate(
+      { id: message.id, title: title.trim(), content: content.trim() },
+      { onSuccess: onClose },
+    );
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <DialogTitle sx={{ pb: 1 }}>메시지 수정</DialogTitle>
+      <DialogContent sx={{ pt: "12px !important" }}>
+        <TextField
+          fullWidth
+          autoFocus
+          label="제목"
+          size="small"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          sx={{ mb: 2 }}
+        />
+        <TextField
+          fullWidth
+          label="내용"
+          size="small"
+          multiline
+          rows={4}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+      </DialogContent>
+      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
+        <Button fullWidth variant="outlined" color="inherit" onClick={onClose}>
+          취소
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          loading={isPending}
+          onClick={handleSubmit}
+        >
+          저장
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+const RowActions = ({
+  row,
+  onEdit,
+  onDelete,
+}: {
+  row: FutureMessageType;
+  onEdit: (message: FutureMessageType) => void;
+  onDelete: (id: string) => void;
+}) => {
+  const isPending = isPendingMessageSendStatus(row.sendStatus);
+
+  if (!isPending) return null;
+
+  return (
+    <div
+      style={{ display: "flex", gap: 2 }}
+      onPointerDown={(e) => e.stopPropagation()}
+    >
+      <IconButton
+        size="small"
+        onPointerDown={(e) => e.stopPropagation()}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          onEdit(row);
+        }}
+        sx={{ color: "text.secondary", "&:hover": { color: "primary.main" } }}
+      >
+        <EditOutlined sx={{ fontSize: 16 }} />
+      </IconButton>
+      <IconButton
+        size="small"
+        onPointerDown={(e) => e.stopPropagation()}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          onDelete(row.id);
+        }}
+        sx={{ color: "text.secondary", "&:hover": { color: "error.main" } }}
+      >
+        <DeleteOutlined sx={{ fontSize: 16 }} />
+      </IconButton>
+    </div>
+  );
+};
+
 export const FutureMessageGrid = ({
   messages,
 }: {
@@ -58,6 +183,9 @@ export const FutureMessageGrid = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [editingMessage, setEditingMessage] =
+    useState<FutureMessageType | null>(null);
+  const { mutate: mutateDelete } = useDeleteFutureMessage();
 
   useEffect(() => {
     const el = containerRef.current;
@@ -69,10 +197,45 @@ export const FutureMessageGrid = ({
     return () => observer.disconnect();
   }, []);
 
+  if (messages.length === 0) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          py: 10,
+          gap: 1.5,
+        }}
+      >
+        <MailOutline sx={{ fontSize: 64, color: "#dadce0" }} />
+        <Typography
+          variant="body1"
+          sx={{ color: "text.disabled", fontSize: "0.95rem" }}
+        >
+          메시지가 없어요
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <div ref={containerRef} style={{ width: "100%", height: "100%" }}>
       {containerWidth > 0 && (
-        <GridInner messages={messages} containerWidth={containerWidth} />
+        <GridInner
+          messages={messages}
+          containerWidth={containerWidth}
+          onEdit={setEditingMessage}
+          onDelete={(id) => mutateDelete({ id })}
+        />
+      )}
+      {editingMessage && (
+        <EditDialog
+          message={editingMessage}
+          open={true}
+          onClose={() => setEditingMessage(null)}
+        />
       )}
     </div>
   );
@@ -81,18 +244,23 @@ export const FutureMessageGrid = ({
 const GridInner = ({
   messages,
   containerWidth,
+  onEdit,
+  onDelete,
 }: {
   messages: FutureMessageType[];
   containerWidth: number;
+  onEdit: (message: FutureMessageType) => void;
+  onDelete: (id: string) => void;
 }) => {
   const rowModel = useClientRowModel(messages, { getId: (r) => r.id });
 
-  const remaining = containerWidth - ROW_NUM_WIDTH;
+  const remaining = containerWidth - ROW_NUM_WIDTH - ACTIONS_WIDTH;
   const initialWidths: Record<number, number> = {
     0: ROW_NUM_WIDTH,
     1: Math.floor(remaining * 0.45),
     2: Math.floor(remaining * 0.3),
     3: Math.floor(remaining * 0.25),
+    4: ACTIONS_WIDTH,
   };
 
   const colResize = useColumnResize(initialWidths, MIN_COL_WIDTH);
@@ -128,32 +296,34 @@ const GridInner = ({
               }}
             >
               <span>{col.label}</span>
-              <div
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  top: "20%",
-                  bottom: "20%",
-                  width: 4,
-                  cursor: "col-resize",
-                  borderRadius: 2,
-                  backgroundColor: "transparent",
-                  transition: "background-color 0.15s",
-                }}
-                onPointerEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.backgroundColor =
-                    "#4680ff";
-                }}
-                onPointerLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.backgroundColor =
-                    "transparent";
-                }}
-                onPointerDown={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  colResize.startResize(cell.colIndex, e);
-                }}
-              />
+              {col.key !== "actions" && (
+                <div
+                  style={{
+                    position: "absolute",
+                    right: 0,
+                    top: "20%",
+                    bottom: "20%",
+                    width: 4,
+                    cursor: "col-resize",
+                    borderRadius: 2,
+                    backgroundColor: "transparent",
+                    transition: "background-color 0.15s",
+                  }}
+                  onPointerEnter={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.backgroundColor =
+                      "#4680ff";
+                  }}
+                  onPointerLeave={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.backgroundColor =
+                      "transparent";
+                  }}
+                  onPointerDown={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    colResize.startResize(cell.colIndex, e);
+                  }}
+                />
+              )}
             </div>
           );
         }
@@ -170,10 +340,16 @@ const GridInner = ({
               height: "100%",
               display: "flex",
               alignItems: "center",
-              padding: colKey === "rowNum" ? "0 0 0 16px" : "0 16px",
+              padding:
+                colKey === "rowNum"
+                  ? "0 0 0 16px"
+                  : colKey === "actions"
+                    ? "0 8px"
+                    : "0 16px",
               backgroundColor: bg,
               borderBottom: `1px solid ${BORDER_COLOR}`,
               boxSizing: "border-box",
+              justifyContent: colKey === "actions" ? "center" : "flex-start",
             }}
           >
             {colKey === "rowNum" ? (
@@ -251,6 +427,8 @@ const GridInner = ({
                   {formatTime(row.scheduledAt)}
                 </span>
               </div>
+            ) : colKey === "actions" ? (
+              <RowActions row={row} onEdit={onEdit} onDelete={onDelete} />
             ) : (
               <span
                 style={{

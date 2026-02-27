@@ -6,9 +6,10 @@ export const MenuRecommendationWorkspace = () => {
   return (
     <Box
       sx={{
-        width: "100%",
+        display: "flex",
+        flexDirection: "column",
         height: "100%",
-        overflowY: "hidden",
+        overflow: "hidden",
       }}
     >
       <MenuRecommendationHeader />

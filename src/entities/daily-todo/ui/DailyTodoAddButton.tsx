@@ -6,12 +6,16 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
 import {
   type DailyTodoWithCategoryType,
+  type CycleType,
+  DailyTodoCycleModel,
+  CYCLE_LABELS,
   formatDate,
   getNow,
   getSelectedDate,
@@ -26,9 +30,15 @@ interface Props {
   item: DailyTodoWithCategoryType;
 }
 
+const CYCLE_OPTIONS = Object.keys(DailyTodoCycleModel) as CycleType[];
+
 export const DailyTodoAddButton = ({ item }: Props) => {
-  const { register, watch, reset } = useForm<{ title: string }>({
+  const { register, watch, reset, setValue } = useForm<{
+    title: string;
+    cycle: CycleType;
+  }>({
     mode: "onChange",
+    defaultValues: { cycle: "EVERYDAY" },
   });
   const { openWarnToast } = useToast();
   const { query } = useRouterQuery();
@@ -66,8 +76,24 @@ export const DailyTodoAddButton = ({ item }: Props) => {
                 variant="outlined"
                 label="제목"
                 size="small"
+                sx={{ mb: 2 }}
                 {...register("title")}
               />
+              <TextField
+                fullWidth
+                select
+                variant="outlined"
+                label="반복 주기"
+                size="small"
+                value={watch("cycle")}
+                onChange={(e) => setValue("cycle", e.target.value as CycleType)}
+              >
+                {CYCLE_OPTIONS.map((key) => (
+                  <MenuItem key={key} value={key}>
+                    {CYCLE_LABELS[key]}
+                  </MenuItem>
+                ))}
+              </TextField>
             </DialogContent>
             <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
               <Button
@@ -104,7 +130,13 @@ export const DailyTodoAddButton = ({ item }: Props) => {
                         formatDate,
                       );
                       const categoryId = Bom.prop("categoryId")(item);
-                      mutate({ title: t, category: categoryId, date });
+                      const cycle = watch("cycle");
+                      mutate({
+                        title: t,
+                        category: categoryId,
+                        date,
+                        ...(cycle !== "EVERYDAY" && { cycle }),
+                      });
                       reset();
                       onClose();
                     },
