@@ -19,8 +19,8 @@ pipeline {
     REGISTRY_CRED  = 'dockerhub-cred'
     READ_CRED_ID   = 'dockerhub-readonly'
 
-    // 빌드 타임 .env (Jenkins Secret File credential)
-    BUILD_ENV_CRED = 'frontend-build-env'
+    // 빌드 타임 .env (Jenkins 서버 파일시스템)
+    BUILD_ENV_PATH = '/etc/hobom-dev/dev-for-hobom-frontend/.env'
 
     // Remote server
     APP_NAME       = 'dev-for-hobom-frontend'
@@ -53,30 +53,34 @@ pipeline {
     stage('Build (Node)') {
       steps {
         dir(env.WORKDIR) {
-          withCredentials([file(credentialsId: env.BUILD_ENV_CRED, variable: 'FRONTEND_ENV')]) {
-            sh '''
-              set -eux
+          sh '''
+            set -eux
 
-              # Vite 빌드 타임에 VITE_* 환경변수를 번들에 포함
-              cp "$FRONTEND_ENV" .env
+            # .env 존재 확인
+            if [ ! -f "$BUILD_ENV_PATH" ]; then
+              echo "[ERROR] $BUILD_ENV_PATH not found. Create it first."
+              exit 1
+            fi
 
-              UID=$(id -u)
-              GID=$(id -g)
+            # Vite 빌드 타임에 VITE_* 환경변수를 번들에 포함
+            cp "$BUILD_ENV_PATH" .env
 
-              docker run --rm \
-                --user "$UID:$GID" \
-                -e HOME=/tmp \
-                -v "$PWD":/app \
-                -w /app \
-                node:20 sh -lc '
-                  set -eux
-                  yarn install --frozen-lockfile
-                  yarn build
-                '
+            UID=$(id -u)
+            GID=$(id -g)
 
-              rm -f .env
-            '''
-          }
+            docker run --rm \
+              --user "$UID:$GID" \
+              -e HOME=/tmp \
+              -v "$PWD":/app \
+              -w /app \
+              node:20 sh -lc '
+                set -eux
+                yarn install --frozen-lockfile
+                yarn build
+              '
+
+            rm -f .env
+          '''
         }
       }
     }
