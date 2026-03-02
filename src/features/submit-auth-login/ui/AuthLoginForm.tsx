@@ -87,7 +87,11 @@ export const AuthLoginForm = () => {
         </Button>
         <Typography variant="body2" color="text.secondary" textAlign="center">
           계정이 없으신가요?{" "}
-          <Link component={RouterLink} to={RoutesConfig.AUTH.SIGN_UP} underline="hover">
+          <Link
+            component={RouterLink}
+            to={RoutesConfig.AUTH.SIGN_UP}
+            underline="hover"
+          >
             회원가입
           </Link>
         </Typography>

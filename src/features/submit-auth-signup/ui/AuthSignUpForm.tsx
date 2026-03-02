@@ -32,7 +32,9 @@ export const AuthSignUpForm = () => {
         navigate(RoutesConfig.AUTH.LOGIN);
       },
       onError: () => {
-        openErrorToast({ message: "가입에 실패했어요. 입력 정보를 확인해 주세요." });
+        openErrorToast({
+          message: "가입에 실패했어요. 입력 정보를 확인해 주세요.",
+        });
       },
     });
   };
@@ -183,7 +185,11 @@ export const AuthSignUpForm = () => {
 
         <Typography variant="body2" color="text.secondary" textAlign="center">
           이미 계정이 있으신가요?{" "}
-          <Link component={RouterLink} to={RoutesConfig.AUTH.LOGIN} underline="hover">
+          <Link
+            component={RouterLink}
+            to={RoutesConfig.AUTH.LOGIN}
+            underline="hover"
+          >
             로그인
           </Link>
         </Typography>
