@@ -31,7 +31,7 @@ pipeline {
 
     // Runtime
     HOST_PORT      = '3000'
-    CONTAINER_PORT = '80'
+    CONTAINER_PORT = '8080'
   }
 
   stages {
@@ -99,6 +99,7 @@ pipeline {
               docker build -t "${IMAGE_TAG}" -t "${IMAGE_LATEST}" .
               docker push "${IMAGE_TAG}"
               docker push "${IMAGE_LATEST}"
+              docker logout "$REGISTRY" || true
             '''
           }
         }
@@ -113,7 +114,7 @@ pipeline {
             sh '''
 set -eux
 
-ssh -o StrictHostKeyChecking=no -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
+ssh -o StrictHostKeyChecking=yes -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
   APP_NAME="$APP_NAME" \
   IMAGE="$IMAGE_LATEST" \
   CONTAINER="$APP_NAME" \
@@ -146,6 +147,8 @@ docker run -d --name "$CONTAINER" \
   -p "${HOST_PORT}:${CONTAINER_PORT}" \
   "$IMAGE"
 
+docker logout docker.io || true
+
 docker ps --filter "name=$CONTAINER" --format "table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}"
 EOS
             '''
@@ -159,7 +162,7 @@ EOS
       steps {
         sshagent (credentials: [env.SSH_CRED_ID]) {
           sh """
-            ssh -o StrictHostKeyChecking=no -p ${env.DEPLOY_PORT} ${env.DEPLOY_USER}@${env.DEPLOY_HOST} '
+            ssh -o StrictHostKeyChecking=yes -p ${env.DEPLOY_PORT} ${env.DEPLOY_USER}@${env.DEPLOY_HOST} '
               curl -fsS http://localhost:${env.HOST_PORT}/healthz || true
             '
           """
