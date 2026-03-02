@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Button,
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import {
   DashboardOutlined,
+  FolderOutlined,
   ListAlt,
   Logout,
   Mail,
@@ -42,6 +43,9 @@ const NotePage = lazy(() => import("@/pages/note"));
 const NotificationPage = lazy(() => import("@/pages/notification"));
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
 const DashboardSystemPage = lazy(() => import("@/pages/dashboard-system"));
+const ProjectListPage = lazy(() => import("@/pages/project-list"));
+const ProjectLayoutPage = lazy(() => import("@/pages/project-layout"));
+const ProjectBoardPage = lazy(() => import("@/pages/project-board"));
 
 const NAV_ITEMS: AppShellNavItem[] = [
   {
@@ -73,6 +77,12 @@ const NAV_ITEMS: AppShellNavItem[] = [
     label: "노트",
     path: RoutesConfig.NOTES.LIST,
     icon: <StickyNote2Outlined fontSize="small" />,
+  },
+  {
+    value: "PROJECTS",
+    label: "프로젝트",
+    path: RoutesConfig.PROJECTS.LIST,
+    icon: <FolderOutlined fontSize="small" />,
   },
 ];
 
@@ -259,6 +269,25 @@ export const AppRouter = () => {
             </Shell>
           }
         />
+        <Route
+          path={RoutesConfig.PROJECTS.LIST}
+          element={
+            <Shell>
+              <ProjectListPage />
+            </Shell>
+          }
+        />
+        <Route
+          path="/projects/:projectId"
+          element={
+            <Shell>
+              <ProjectLayoutPage />
+            </Shell>
+          }
+        >
+          <Route index element={<Navigate to="board" replace />} />
+          <Route path="board" element={<ProjectBoardPage />} />
+        </Route>
       </Routes>
     </Suspense>
   );

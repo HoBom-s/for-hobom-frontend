@@ -35,7 +35,7 @@ export const CompletionRateLineChart = ({
             tickFormatter={(v: number) => `${Math.round(v * 100)}%`}
           />
           <Tooltip
-            formatter={(v: number) => [`${Math.round(v * 100)}%`, "완료율"]}
+            formatter={(v) => [`${Math.round(Number(v) * 100)}%`, "완료율"]}
           />
           <Line
             type="monotone"
