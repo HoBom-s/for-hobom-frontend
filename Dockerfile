@@ -1,21 +1,7 @@
-# ── Stage 1: Build ──
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-# 소스 + packages/noname 서브모듈 복사
-COPY . .
-
-# .env 는 Jenkins credential → workspace 복사로 빌드 컨텍스트에 포함됨
-# Vite가 자동으로 .env 의 VITE_* 변수를 번들에 포함
-RUN yarn build
-
-# ── Stage 2: Serve ──
+# ── Build 결과물만 패키징 (Jenkins에서 yarn build 완료 후) ──
 FROM nginx:1.27-alpine
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY dist /usr/share/nginx/html
 
 RUN cat <<'EOF' > /etc/nginx/conf.d/default.conf
 server {
@@ -45,5 +31,20 @@ server {
 }
 EOF
 
+# 런타임 env 주입 entrypoint
+RUN cat <<'ENTRY' > /docker-entrypoint.sh
+#!/bin/sh
+set -e
+cat > /usr/share/nginx/html/env-config.js <<ENVJS
+window.__ENV__ = {
+  VITE_APP_HOBOM_API_GATEWAY_URL: "${VITE_APP_HOBOM_API_GATEWAY_URL:-}",
+  VITE_APP_HOBOM_API_KEY: "${VITE_APP_HOBOM_API_KEY:-}",
+};
+ENVJS
+exec "$@"
+ENTRY
+RUN chmod +x /docker-entrypoint.sh
+
 EXPOSE 80
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

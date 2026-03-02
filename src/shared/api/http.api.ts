@@ -1,3 +1,4 @@
+import { env } from "@/shared/config";
 import { HttpClient } from "./http-client.api";
 import { HttpStatusModel } from "./http-status.api";
 import { getHoBomAccessToken } from "@/shared/model";
@@ -40,9 +41,7 @@ const authMiddleware: Middleware = {
   },
 };
 
-const httpClient = HttpClient.of(
-  import.meta.env.VITE_APP_HOBOM_API_GATEWAY_URL,
-);
+const httpClient = HttpClient.of(env.VITE_APP_HOBOM_API_GATEWAY_URL);
 httpClient.use(authMiddleware);
 
 export { httpClient };

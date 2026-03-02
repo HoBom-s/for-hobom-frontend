@@ -1,3 +1,4 @@
+import { env } from "@/shared/config";
 import type { Middleware, MiddlewareContext } from "./middleware.type";
 import type { HttpMethod, RequestOptions } from "./http-options.type";
 
@@ -81,7 +82,7 @@ export class HttpClient {
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
-        [API_KEY]: import.meta.env.VITE_APP_HOBOM_API_KEY,
+        [API_KEY]: env.VITE_APP_HOBOM_API_KEY,
       },
       credentials: "include",
     };
