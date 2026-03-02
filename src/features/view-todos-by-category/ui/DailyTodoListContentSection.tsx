@@ -98,7 +98,10 @@ const CategoryCreateDialog = ({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleSubmit();
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit();
+            }
           }}
         />
       </DialogContent>
@@ -203,7 +206,10 @@ const CategoryMenu = ({
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") handleEdit();
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleEdit();
+              }
             }}
           />
         </DialogContent>
@@ -235,11 +241,10 @@ export const DailyTodoListContentSection = ({
   renderItem,
 }: Props) => {
   const [createOpen, setCreateOpen] = useState(false);
-  const allEmpty = groupedTodos.every((g) => g.todoItems.length === 0);
 
   return (
     <>
-      {allEmpty ? (
+      {groupedTodos.length === 0 ? (
         <Box
           sx={{
             display: "flex",

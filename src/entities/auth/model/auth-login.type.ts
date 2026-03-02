@@ -3,6 +3,13 @@ export interface AuthLoginType {
   password: string;
 }
 
+export interface AuthSignUpType {
+  username: string;
+  nickname: string;
+  email: string;
+  password: string;
+}
+
 export interface AuthTokenType {
   accessToken: string;
   refreshToken: string;
