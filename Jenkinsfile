@@ -4,9 +4,12 @@ pipeline {
   options {
     timestamps()
     disableConcurrentBuilds()
+    skipDefaultCheckout(true)
   }
 
   environment {
+    WORKDIR        = '/var/lib/jenkins/workspace-clean/dev-for-hobom-frontend'
+
     // Docker Hub
     REGISTRY       = 'docker.io'
     IMAGE_REPO     = 'jjockrod/hobom-system'
@@ -16,9 +19,6 @@ pipeline {
     REGISTRY_CRED  = 'dockerhub-cred'
     READ_CRED_ID   = 'dockerhub-readonly'
 
-    // 빌드 타임 .env (Vite VITE_* 변수 — Jenkins Secret File credential)
-    BUILD_ENV_CRED = 'frontend-build-env'
-
     // Remote server
     APP_NAME       = 'dev-for-hobom-frontend'
     DEPLOY_HOST    = 'ishisha.iptime.org'
@@ -26,51 +26,67 @@ pipeline {
     DEPLOY_USER    = 'infra-admin'
     SSH_CRED_ID    = 'deploy-ssh-key'
 
-    // Runtime
+    // App runtime (VITE_* 는 런타임 env 주입 — 서버 .env에서 로드)
+    ENV_PATH       = '/etc/hobom-dev/dev-for-hobom-frontend/.env'
     HOST_PORT      = '3000'
     CONTAINER_PORT = '80'
   }
 
   stages {
-
     stage('Checkout') {
       steps {
-        checkout scm
-        sh '''
+        dir(env.WORKDIR) {
+          deleteDir()
+          checkout scm
+          sh '''
             set -eux
             git config --global --add safe.directory "$WORKSPACE" || true
             git submodule sync --recursive
             git submodule update --init --recursive
-        '''
+          '''
+        }
+      }
+    }
+
+    stage('Build (Node)') {
+      steps {
+        dir(env.WORKDIR) {
+          sh '''
+            set -eux
+            UID=$(id -u)
+            GID=$(id -g)
+
+            docker run --rm \
+              --user "$UID:$GID" \
+              -e HOME=/tmp \
+              -v "$PWD":/app \
+              -w /app \
+              node:20 sh -lc '
+                set -eux
+                yarn install --frozen-lockfile
+                yarn build
+              '
+          '''
+        }
       }
     }
 
     stage('Build & Push Image (Docker)') {
       steps {
-        withCredentials([
-          usernamePassword(credentialsId: env.REGISTRY_CRED, usernameVariable: 'REG_USER', passwordVariable: 'REG_PASS'),
-          file(credentialsId: env.BUILD_ENV_CRED, variable: 'FRONTEND_ENV')
-        ]) {
-          sh '''
-            set -eu
-            export DOCKER_BUILDKIT=1
+        dir(env.WORKDIR) {
+          withCredentials([usernamePassword(credentialsId: env.REGISTRY_CRED, usernameVariable: 'REG_USER', passwordVariable: 'REG_PASS')]) {
+            sh '''
+              set -eu
+              export DOCKER_BUILDKIT=1
+              set +x
+              echo "$REG_PASS" | docker login "$REGISTRY" -u "$REG_USER" --password-stdin
+              set -x
 
-            # Vite는 빌드 시점에 VITE_* 환경변수를 번들에 포함하므로
-            # Jenkins credential(.env)을 워크스페이스에 복사하여 빌드 컨텍스트로 전달
-            cp "$FRONTEND_ENV" .env
-
-            # Docker Hub 로그인
-            set +x
-            echo "$REG_PASS" | docker login "$REGISTRY" -u "$REG_USER" --password-stdin
-            set -x
-
-            docker build -t "${IMAGE_TAG}" -t "${IMAGE_LATEST}" .
-            docker push "${IMAGE_TAG}"
-            docker push "${IMAGE_LATEST}"
-
-            # .env 정리
-            rm -f .env
-          '''
+              docker build -t "${IMAGE_TAG}" -t "${IMAGE_LATEST}" .
+              docker push "${IMAGE_TAG}"
+              docker push "${IMAGE_LATEST}"
+            '''
+          }
         }
       }
     }
@@ -87,6 +103,7 @@ ssh -o StrictHostKeyChecking=no -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
   APP_NAME="$APP_NAME" \
   IMAGE="$IMAGE_LATEST" \
   CONTAINER="$APP_NAME" \
+  ENV_PATH="$ENV_PATH" \
   HOST_PORT="$HOST_PORT" \
   CONTAINER_PORT="$CONTAINER_PORT" \
   PULL_USER="$PULL_USER" \
@@ -96,11 +113,16 @@ set -euo pipefail
 echo "[REMOTE] Deploying $APP_NAME with image $IMAGE"
 
 if ! command -v docker >/dev/null 2>&1; then
-  echo "[REMOTE][ERROR] docker not found. Install docker and add $USER to docker group."
+  echo "[REMOTE][ERROR] docker not found."
   exit 1
 fi
 
 echo "$PULL_PASS" | docker login docker.io -u "$PULL_USER" --password-stdin
+
+if [ ! -f "$ENV_PATH" ]; then
+  echo "[REMOTE][ERROR] $ENV_PATH not found."
+  exit 1
+fi
 
 docker pull "$IMAGE" || (echo "[REMOTE][ERROR] docker pull failed" && exit 1)
 
@@ -113,6 +135,7 @@ docker network create hobom-net || true
 docker run -d --name "$CONTAINER" \
   --network hobom-net \
   --restart unless-stopped \
+  --env-file "$ENV_PATH" \
   -p "${HOST_PORT}:${CONTAINER_PORT}" \
   "$IMAGE"
 
