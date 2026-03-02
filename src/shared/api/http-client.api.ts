@@ -2,79 +2,46 @@ import { env } from "@/shared/config";
 import type { Middleware, MiddlewareContext } from "./middleware.type";
 import type { HttpMethod, RequestOptions } from "./http-options.type";
 
-export class HttpClient {
-  private middlewares: Middleware[] = [];
-  private readonly baseUrl: string = "";
-
-  constructor(baseUrl: string = "") {
-    this.baseUrl = baseUrl;
-  }
-
-  public static of(baseUrl: string): HttpClient {
-    return new HttpClient(baseUrl);
-  }
-
-  public use(middleware: Middleware) {
-    this.middlewares.push(middleware);
-  }
-
-  public async get<T>(url: string, options?: RequestOptions): Promise<T> {
-    const res = await this.request("GET", url, options);
-    return res.json();
-  }
-
-  public async post<T>(
+export interface HttpClient {
+  use: (middleware: Middleware) => void;
+  get: <T>(url: string, options?: RequestOptions) => Promise<T>;
+  post: <T>(
     url: string,
     body: unknown,
     options?: Omit<RequestOptions, "json">,
-  ): Promise<T> {
-    return this.request("POST", url, { ...options, json: body }).then((r) =>
-      r.json(),
-    );
-  }
-
-  public async put<T>(
+  ) => Promise<T>;
+  put: <T>(
     url: string,
     body: unknown,
     options?: Omit<RequestOptions, "json">,
-  ): Promise<T> {
-    return this.request("PUT", url, { ...options, json: body }).then((r) =>
-      r.json(),
-    );
-  }
-
-  public async patch<T>(
+  ) => Promise<T>;
+  patch: <T>(
     url: string,
     body: unknown,
     options?: Omit<RequestOptions, "json">,
-  ): Promise<T> {
-    return this.request("PATCH", url, { ...options, json: body }).then((r) =>
-      r.json(),
-    );
-  }
+  ) => Promise<T>;
+  delete: <T>(url: string, options?: RequestOptions) => Promise<T>;
+}
 
-  public async delete<T>(url: string, options?: RequestOptions): Promise<T> {
-    const res = await this.request("DELETE", url, options);
-    return res.json();
-  }
+export const createHttpClient = (baseUrl: string = ""): HttpClient => {
+  const middlewares: Middleware[] = [];
 
-  private async runMiddlewareHook(
+  const runMiddlewareHook = async (
     hookName: keyof Middleware,
     ctx: MiddlewareContext,
-  ) {
-    for (const m of this.middlewares) {
+  ) => {
+    for (const m of middlewares) {
       const fn = m[hookName];
       if (fn) await fn(ctx);
     }
-  }
+  };
 
-  private async request(
+  const request = async (
     method: HttpMethod,
     url: string,
     options: RequestOptions = {},
-  ) {
-    const API_KEY = "X-Hobom-Api-Key";
-    const fullUrl = this.baseUrl + url;
+  ) => {
+    const fullUrl = baseUrl + url;
 
     const init: RequestInit = {
       ...options,
@@ -82,7 +49,7 @@ export class HttpClient {
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
-        [API_KEY]: env.VITE_APP_HOBOM_API_KEY,
+        "X-Hobom-Api-Key": env.VITE_APP_HOBOM_API_KEY,
       },
       credentials: "include",
     };
@@ -92,8 +59,7 @@ export class HttpClient {
     }
 
     const ctx: MiddlewareContext = { input: fullUrl, init };
-
-    await this.runMiddlewareHook("onRequest", ctx);
+    await runMiddlewareHook("onRequest", ctx);
 
     let attempt = 0;
     const maxRetry = options.retry ?? 0;
@@ -101,7 +67,7 @@ export class HttpClient {
     while (true) {
       try {
         ctx.response = await fetch(ctx.input, ctx.init);
-        await this.runMiddlewareHook("onResponse", ctx);
+        await runMiddlewareHook("onResponse", ctx);
 
         if (!ctx.response.ok) {
           const error = new Error(`HTTP error! status: ${ctx.response.status}`);
@@ -112,7 +78,7 @@ export class HttpClient {
         return ctx.response;
       } catch (error) {
         ctx.error = error;
-        await this.runMiddlewareHook("onError", ctx);
+        await runMiddlewareHook("onError", ctx);
 
         if (attempt < maxRetry) {
           attempt++;
@@ -121,5 +87,43 @@ export class HttpClient {
         throw error;
       }
     }
-  }
-}
+  };
+
+  return {
+    use: (middleware) => {
+      middlewares.push(middleware);
+    },
+    get: async <T>(url: string, options?: RequestOptions): Promise<T> => {
+      const res = await request("GET", url, options);
+      return res.json();
+    },
+    post: async <T>(
+      url: string,
+      body: unknown,
+      options?: Omit<RequestOptions, "json">,
+    ): Promise<T> => {
+      const res = await request("POST", url, { ...options, json: body });
+      return res.json();
+    },
+    put: async <T>(
+      url: string,
+      body: unknown,
+      options?: Omit<RequestOptions, "json">,
+    ): Promise<T> => {
+      const res = await request("PUT", url, { ...options, json: body });
+      return res.json();
+    },
+    patch: async <T>(
+      url: string,
+      body: unknown,
+      options?: Omit<RequestOptions, "json">,
+    ): Promise<T> => {
+      const res = await request("PATCH", url, { ...options, json: body });
+      return res.json();
+    },
+    delete: async <T>(url: string, options?: RequestOptions): Promise<T> => {
+      const res = await request("DELETE", url, options);
+      return res.json();
+    },
+  };
+};

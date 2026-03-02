@@ -1,7 +1,7 @@
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Link, Typography } from "@mui/material";
 import { NicknameField, PasswordField } from "@/features/submit-auth-login";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
@@ -85,6 +85,16 @@ export const AuthLoginForm = () => {
         >
           로그인
         </Button>
+        <Typography variant="body2" color="text.secondary" textAlign="center">
+          계정이 없으신가요?{" "}
+          <Link
+            component={RouterLink}
+            to={RoutesConfig.AUTH.SIGN_UP}
+            underline="hover"
+          >
+            회원가입
+          </Link>
+        </Typography>
       </Box>
     </FormProvider>
   );

@@ -1,5 +1,8 @@
 import { httpClient, type HttpResponseType } from "@/shared/api";
-import type { UserType } from "@/entities/auth/model/auth-login.type.ts";
+import type {
+  UserType,
+  AuthSignUpType,
+} from "@/entities/auth/model/auth-login.type.ts";
 
 export const postAuthLogin = async ({
   nickname,
@@ -9,6 +12,10 @@ export const postAuthLogin = async ({
   password: string;
 }) => {
   await httpClient.post(`/auth/login`, { nickname, password });
+};
+
+export const postAuthSignUp = async (data: AuthSignUpType) => {
+  await httpClient.post(`/users`, data);
 };
 
 export const postAuthLogout = async () => {
