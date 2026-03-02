@@ -6,6 +6,6 @@ hobomPipeline(
   memory:         '256m',
   cpus:           '0.5',
   submodules:     true,
-  buildEnvCredId: 'frontend-build-env',
+  buildEnvPath:   '/etc/hobom-dev/dev-for-hobom-frontend/.env',
   smokeCheckPath: '/healthz'
 )
