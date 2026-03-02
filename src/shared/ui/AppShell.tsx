@@ -74,14 +74,15 @@ export const AppShell = ({
   const location = useLocation();
   const navigate = useNavigate();
 
-  const getSegment = (path: string) => "/" + path.split("/")[1];
-
   const allItems = [...navItems, ...(bottomNavItems ?? [])];
   const activeItem = Bom.pipe(
     location.pathname,
     (currentPath) => {
-      const currentSegment = getSegment(currentPath);
-      return allItems.find((item) => getSegment(item.path) === currentSegment);
+      // 가장 긴 경로부터 매칭하여 /dashboard/system이 /dashboard보다 우선되도록
+      const sorted = [...allItems].sort(
+        (a, b) => b.path.length - a.path.length,
+      );
+      return sorted.find((item) => currentPath.startsWith(item.path));
     },
     Bom.when(Bom.isNullish, () => navItems[0]),
   );
