@@ -19,6 +19,9 @@ pipeline {
     REGISTRY_CRED  = 'dockerhub-cred'
     READ_CRED_ID   = 'dockerhub-readonly'
 
+    // 빌드 타임 .env (Jenkins Secret File credential)
+    BUILD_ENV_CRED = 'frontend-build-env'
+
     // Remote server
     APP_NAME       = 'dev-for-hobom-frontend'
     DEPLOY_HOST    = 'ishisha.iptime.org'
@@ -26,8 +29,7 @@ pipeline {
     DEPLOY_USER    = 'infra-admin'
     SSH_CRED_ID    = 'deploy-ssh-key'
 
-    // App runtime (VITE_* 는 런타임 env 주입 — 서버 .env에서 로드)
-    ENV_PATH       = '/etc/hobom-dev/dev-for-hobom-frontend/.env'
+    // Runtime
     HOST_PORT      = '3000'
     CONTAINER_PORT = '80'
   }
@@ -51,22 +53,30 @@ pipeline {
     stage('Build (Node)') {
       steps {
         dir(env.WORKDIR) {
-          sh '''
-            set -eux
-            UID=$(id -u)
-            GID=$(id -g)
+          withCredentials([file(credentialsId: env.BUILD_ENV_CRED, variable: 'FRONTEND_ENV')]) {
+            sh '''
+              set -eux
 
-            docker run --rm \
-              --user "$UID:$GID" \
-              -e HOME=/tmp \
-              -v "$PWD":/app \
-              -w /app \
-              node:20 sh -lc '
-                set -eux
-                yarn install --frozen-lockfile
-                yarn build
-              '
-          '''
+              # Vite 빌드 타임에 VITE_* 환경변수를 번들에 포함
+              cp "$FRONTEND_ENV" .env
+
+              UID=$(id -u)
+              GID=$(id -g)
+
+              docker run --rm \
+                --user "$UID:$GID" \
+                -e HOME=/tmp \
+                -v "$PWD":/app \
+                -w /app \
+                node:20 sh -lc '
+                  set -eux
+                  yarn install --frozen-lockfile
+                  yarn build
+                '
+
+              rm -f .env
+            '''
+          }
         }
       }
     }
@@ -103,7 +113,6 @@ ssh -o StrictHostKeyChecking=no -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
   APP_NAME="$APP_NAME" \
   IMAGE="$IMAGE_LATEST" \
   CONTAINER="$APP_NAME" \
-  ENV_PATH="$ENV_PATH" \
   HOST_PORT="$HOST_PORT" \
   CONTAINER_PORT="$CONTAINER_PORT" \
   PULL_USER="$PULL_USER" \
@@ -119,11 +128,6 @@ fi
 
 echo "$PULL_PASS" | docker login docker.io -u "$PULL_USER" --password-stdin
 
-if [ ! -f "$ENV_PATH" ]; then
-  echo "[REMOTE][ERROR] $ENV_PATH not found."
-  exit 1
-fi
-
 docker pull "$IMAGE" || (echo "[REMOTE][ERROR] docker pull failed" && exit 1)
 
 if docker ps -a --format '{{.Names}}' | grep -w "$CONTAINER" >/dev/null 2>&1; then
@@ -135,7 +139,6 @@ docker network create hobom-net || true
 docker run -d --name "$CONTAINER" \
   --network hobom-net \
   --restart unless-stopped \
-  --env-file "$ENV_PATH" \
   -p "${HOST_PORT}:${CONTAINER_PORT}" \
   "$IMAGE"
 
