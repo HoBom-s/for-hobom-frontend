@@ -135,8 +135,8 @@ export const MenuRecommendationSpeedDial = () => {
                 (validationResult) =>
                   handleValidationResult(
                     validationResult,
-                    (err) => openWarnToast({ message: err.message }),
-                    (requestBody) => {
+                    (err: Error) => openWarnToast({ message: err.message }),
+                    (requestBody: AddMenuRecommendationInput) => {
                       menuRecommendationHandler.mutate(requestBody);
                       reset();
                       onClose();
