@@ -1,15 +1,31 @@
 # ── Build 결과물만 패키징 (Jenkins에서 yarn build 완료 후) ──
 FROM nginx:1.27-alpine
 
-COPY dist /usr/share/nginx/html
+# non-root 실행을 위한 디렉터리 권한 설정
+RUN chown -R nginx:nginx /usr/share/nginx/html \
+ && chown -R nginx:nginx /var/cache/nginx \
+ && chown -R nginx:nginx /var/log/nginx \
+ && touch /var/run/nginx.pid \
+ && chown nginx:nginx /var/run/nginx.pid
+
+COPY --chown=nginx:nginx dist /usr/share/nginx/html
 
 RUN cat <<'EOF' > /etc/nginx/conf.d/default.conf
+server_tokens off;
+
 server {
-    listen       80;
+    listen       8080;
     server_name  _;
     root         /usr/share/nginx/html;
     index        index.html;
 
+    # ── Security Headers ──
+    add_header X-Frame-Options        "SAMEORIGIN"       always;
+    add_header X-Content-Type-Options "nosniff"           always;
+    add_header Referrer-Policy        "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy     "camera=(), microphone=(), geolocation=()" always;
+
+    # ── Compression ──
     gzip             on;
     gzip_types       text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
     gzip_min_length  256;
@@ -31,5 +47,6 @@ server {
 }
 EOF
 
-EXPOSE 80
+USER nginx
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
