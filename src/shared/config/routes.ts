@@ -4,6 +4,7 @@ export const RoutesConfig = {
   },
   AUTH: {
     LOGIN: "/auth/login",
+    SIGN_UP: "/auth/signup",
   },
   MENU: {
     RECOMMENDATION: "/menu/recommendation",
@@ -26,6 +27,9 @@ export const RoutesConfig = {
     ISSUES: "/projects/:projectId/issues",
     ISSUE_DETAIL: "/projects/:projectId/issues/:issueKey",
     SETTINGS: "/projects/:projectId/settings",
+  },
+  ADMIN: {
+    USERS: "/admin/users",
   },
   DASHBOARD: {
     HOME: "/dashboard",

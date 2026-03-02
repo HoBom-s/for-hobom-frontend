@@ -1,38 +1,18 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
-import {
-  DashboardOutlined,
-  FolderOutlined,
-  ListAlt,
-  Logout,
-  Mail,
-  MonitorHeartOutlined,
-  NotificationsNoneOutlined,
-  RiceBowlTwoTone,
-  StickyNote2Outlined,
-} from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
 import { RoutesConfig } from "@/shared/config";
-import { AppShell, type AppShellNavItem } from "@/shared/ui";
+import { AppShell } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { useToast } from "@/shared/model";
-import { postAuthLogout } from "@/entities/auth";
-import { NotificationBell } from "@/features/notification";
+import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "./nav-items";
+import { AppBarActions } from "./AppBarActions";
 
-const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
-const NotFoundPage = lazy(() => import("@/pages/not-found"));
 const AuthLoginPage = lazy(() => import("@/pages/auth-login"));
+const AuthSignUpPage = lazy(() => import("@/pages/auth-signup"));
+const NotFoundPage = lazy(() => import("@/pages/not-found"));
+const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
 const MenuRecommendationPage = lazy(
   () => import("@/pages/menu-recommendation"),
 );
@@ -46,119 +26,7 @@ const DashboardSystemPage = lazy(() => import("@/pages/dashboard-system"));
 const ProjectListPage = lazy(() => import("@/pages/project-list"));
 const ProjectLayoutPage = lazy(() => import("@/pages/project-layout"));
 const ProjectBoardPage = lazy(() => import("@/pages/project-board"));
-
-const NAV_ITEMS: AppShellNavItem[] = [
-  {
-    value: "DASHBOARD",
-    label: "대시보드",
-    path: RoutesConfig.DASHBOARD.HOME,
-    icon: <DashboardOutlined fontSize="small" />,
-  },
-  {
-    value: "DAILY_TODO",
-    label: "할 일",
-    path: RoutesConfig.MAIN.DAILY_TODO,
-    icon: <ListAlt fontSize="small" />,
-  },
-  {
-    value: "HOBOM_MENU",
-    label: "오늘의 메뉴",
-    path: RoutesConfig.MENU.RECOMMENDATION,
-    icon: <RiceBowlTwoTone fontSize="small" />,
-  },
-  {
-    value: "HOBOM_MESSAGE",
-    label: "미래 메시지",
-    path: RoutesConfig.MESSAGE.RESERVATION,
-    icon: <Mail fontSize="small" />,
-  },
-  {
-    value: "HOBOM_NOTES",
-    label: "노트",
-    path: RoutesConfig.NOTES.LIST,
-    icon: <StickyNote2Outlined fontSize="small" />,
-  },
-  {
-    value: "PROJECTS",
-    label: "프로젝트",
-    path: RoutesConfig.PROJECTS.LIST,
-    icon: <FolderOutlined fontSize="small" />,
-  },
-];
-
-const BOTTOM_NAV_ITEMS: AppShellNavItem[] = [
-  {
-    value: "HOBOM_NOTIFICATION",
-    label: "알림",
-    path: RoutesConfig.NOTIFICATION.LIST,
-    icon: <NotificationsNoneOutlined fontSize="small" />,
-  },
-  {
-    value: "SYSTEM",
-    label: "시스템",
-    path: RoutesConfig.DASHBOARD.SYSTEM,
-    icon: <MonitorHeartOutlined fontSize="small" />,
-  },
-];
-
-const AppBarActions = () => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const [logoutOpen, setLogoutOpen] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-
-  const handleLogout = async () => {
-    setIsLoggingOut(true);
-    try {
-      await postAuthLogout();
-    } finally {
-      queryClient.clear();
-      navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
-    }
-  };
-
-  return (
-    <>
-      <NotificationBell />
-      <Tooltip title="로그아웃">
-        <IconButton
-          size="small"
-          onClick={() => setLogoutOpen(true)}
-          sx={{ ml: 0.5 }}
-        >
-          <Logout fontSize="small" />
-        </IconButton>
-      </Tooltip>
-      <Dialog
-        open={logoutOpen}
-        onClose={() => setLogoutOpen(false)}
-        maxWidth="xs"
-      >
-        <DialogTitle>로그아웃</DialogTitle>
-        <DialogContent>
-          <DialogContentText>정말 로그아웃 하시겠어요?</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-          <Button
-            variant="outlined"
-            color="inherit"
-            onClick={() => setLogoutOpen(false)}
-          >
-            취소
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            loading={isLoggingOut}
-            onClick={handleLogout}
-          >
-            로그아웃
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
-};
+const AdminUsersPage = lazy(() => import("@/pages/admin-users"));
 
 const Shell = ({ children }: { children: React.ReactNode }) => (
   <AppShell
@@ -192,6 +60,7 @@ export const AppRouter = () => {
       <Routes>
         {/* 사이드바 없이 단독 렌더 */}
         <Route path={RoutesConfig.AUTH.LOGIN} element={<AuthLoginPage />} />
+        <Route path={RoutesConfig.AUTH.SIGN_UP} element={<AuthSignUpPage />} />
         <Route path={RoutesConfig.NOT_FOUND.ALL} element={<NotFoundPage />} />
 
         {/* AppShell 사이드바 레이아웃 */}
@@ -268,6 +137,14 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path={RoutesConfig.ADMIN.USERS}
+          element={
+            <Shell>
+              <AdminUsersPage />
+            </Shell>
+          }
+        />
+        <Route
           path={RoutesConfig.PROJECTS.LIST}
           element={
             <Shell>
@@ -291,18 +168,16 @@ export const AppRouter = () => {
   );
 };
 
-AppRouter.Loader = () => {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <CircularProgress />
-    </div>
-  );
-};
+AppRouter.Loader = () => (
+  <div
+    style={{
+      width: "100%",
+      height: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <CircularProgress />
+  </div>
+);
