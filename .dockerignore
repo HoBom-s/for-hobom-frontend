@@ -1,6 +1,5 @@
 node_modules
 **/node_modules
-dist
 dist-ssr
 .git
 .gitignore
@@ -11,3 +10,4 @@ dist-ssr
 .DS_Store
 .env
 .env.*
+src
