@@ -41,7 +41,7 @@ export const ThroughputLineChart = ({ data }: ThroughputLineChartProps) => {
             tickLine={false}
           />
           <Tooltip
-            labelFormatter={(v: number) => `${v}시`}
+            labelFormatter={(v) => `${v}시`}
             cursor={{ fill: "rgba(70,128,255,0.06)" }}
             contentStyle={{
               borderRadius: 8,

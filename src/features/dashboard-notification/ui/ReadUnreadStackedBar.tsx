@@ -42,7 +42,7 @@ export const ReadUnreadStackedBar = ({ data }: ReadUnreadStackedBarProps) => {
           />
           <Tooltip
             cursor={{ fill: "rgba(70,128,255,0.06)" }}
-            labelFormatter={(v: string) => v.slice(5)}
+            labelFormatter={(v) => String(v).slice(5)}
             contentStyle={{
               borderRadius: 8,
               border: "none",

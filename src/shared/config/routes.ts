@@ -19,6 +19,14 @@ export const RoutesConfig = {
   NOTIFICATION: {
     LIST: "/notifications",
   },
+  PROJECTS: {
+    LIST: "/projects",
+    BOARD: "/projects/:projectId/board",
+    BACKLOG: "/projects/:projectId/backlog",
+    ISSUES: "/projects/:projectId/issues",
+    ISSUE_DETAIL: "/projects/:projectId/issues/:issueKey",
+    SETTINGS: "/projects/:projectId/settings",
+  },
   DASHBOARD: {
     HOME: "/dashboard",
     SYSTEM: "/dashboard/system",
