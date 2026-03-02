@@ -2,7 +2,7 @@
 hobomPipeline(
   serviceName:    'dev-for-hobom-frontend',
   hostPort:       '3000',
-  containerPort:  '80',
+  containerPort:  '8080',
   memory:         '256m',
   cpus:           '0.5',
   submodules:     true,
