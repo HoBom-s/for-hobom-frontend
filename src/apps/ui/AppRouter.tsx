@@ -26,7 +26,7 @@ import {
 import { RoutesConfig } from "@/shared/config";
 import { AppShell, type AppShellNavItem } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
-import { useToast, removeHoBomAccessToken } from "@/shared/model";
+import { useToast } from "@/shared/model";
 import { postAuthLogout } from "@/entities/auth";
 import { NotificationBell } from "@/features/notification";
 
@@ -112,7 +112,6 @@ const AppBarActions = () => {
     try {
       await postAuthLogout();
     } finally {
-      removeHoBomAccessToken();
       queryClient.clear();
       navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
     }
@@ -178,7 +177,6 @@ export const AppRouter = () => {
 
   useEffect(() => {
     const handler = () => {
-      removeHoBomAccessToken();
       queryClient.clear();
       openWarnToast({
         message: "인증이 필요해요. 로그인 페이지로 이동합니다.",

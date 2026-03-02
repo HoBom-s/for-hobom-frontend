@@ -15,5 +15,14 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    proxy: {
+      "/api": {
+        target:
+          "https://hobom-system.com/hobom-api-gateway/hobom-system-backend",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) => p.replace(/^\/api/, ""),
+      },
+    },
   },
 });

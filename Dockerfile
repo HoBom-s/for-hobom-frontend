@@ -31,20 +31,5 @@ server {
 }
 EOF
 
-# 런타임 env 주입 entrypoint
-RUN cat <<'ENTRY' > /docker-entrypoint.sh
-#!/bin/sh
-set -e
-cat > /usr/share/nginx/html/env-config.js <<ENVJS
-window.__ENV__ = {
-  VITE_APP_HOBOM_API_GATEWAY_URL: "${VITE_APP_HOBOM_API_GATEWAY_URL:-}",
-  VITE_APP_HOBOM_API_KEY: "${VITE_APP_HOBOM_API_KEY:-}",
-};
-ENVJS
-exec "$@"
-ENTRY
-RUN chmod +x /docker-entrypoint.sh
-
 EXPOSE 80
-ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

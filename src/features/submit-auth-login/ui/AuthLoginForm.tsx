@@ -3,14 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Typography } from "@mui/material";
 import { NicknameField, PasswordField } from "@/features/submit-auth-login";
-import { useToast, saveHoBomAccessToken } from "@/shared/model";
+import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { resetUnauthorizedState } from "@/shared/api";
-import {
-  postAuthLogin,
-  type AuthLoginType,
-  type AuthTokenType,
-} from "@/entities/auth";
+import { postAuthLogin, type AuthLoginType } from "@/entities/auth";
 
 export const AuthLoginForm = () => {
   const navigate = useNavigate();
@@ -33,9 +29,7 @@ export const AuthLoginForm = () => {
         password,
       },
       {
-        onSuccess: (token: AuthTokenType) => {
-          const { accessToken } = token;
-          saveHoBomAccessToken(accessToken);
+        onSuccess: () => {
           resetUnauthorizedState();
           queryClient.clear();
           openSuccessToast({ message: "호봄 시스템으로 이동할게요." });
