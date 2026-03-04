@@ -32,7 +32,9 @@ export const groupNotificationsByDate = (
     classifyDate(item.createdAt, today, yesterday, weekAgo),
   );
 
-  return DATE_LABELS.filter((label) => (grouped[label]?.length ?? 0) > 0).map(
-    (label) => ({ label, items: grouped[label] }),
+  return Bom.pipe(
+    DATE_LABELS as unknown as DateLabel[],
+    Bom.filter((label) => (grouped[label]?.length ?? 0) > 0),
+    Bom.map((label) => ({ label, items: grouped[label] })),
   );
 };

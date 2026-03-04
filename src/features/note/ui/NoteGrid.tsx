@@ -14,6 +14,16 @@ import type { NoteItemType, NoteStatus } from "@/entities/note";
 const CARD_WIDTH = 240;
 const GAP = 12;
 
+const SECTION_HEADER_SX = {
+  color: "text.secondary",
+  fontWeight: 500,
+  fontSize: "0.6875rem",
+  letterSpacing: "0.05em",
+  textTransform: "uppercase",
+  mb: 1,
+  display: "block",
+} as const;
+
 const PLACEHOLDER_STYLE: React.CSSProperties = {
   border: "2px dashed #e0e0e0",
   borderRadius: 8,
@@ -208,18 +218,7 @@ export const NoteGrid = ({
       <Box>
         {!Bom.isEmpty(pinnedNotes) && (
           <Box sx={{ mb: 3 }}>
-            <Typography
-              variant="caption"
-              sx={{
-                color: "text.secondary",
-                fontWeight: 500,
-                fontSize: "0.6875rem",
-                letterSpacing: "0.05em",
-                textTransform: "uppercase",
-                mb: 1,
-                display: "block",
-              }}
-            >
+            <Typography variant="caption" sx={SECTION_HEADER_SX}>
               고정됨
             </Typography>
             <Sortable.List items={pinnedNotes.map((n) => n.id.value)}>
@@ -237,16 +236,7 @@ export const NoteGrid = ({
             {!Bom.isEmpty(pinnedNotes) && (
               <Typography
                 variant="caption"
-                sx={{
-                  color: "text.secondary",
-                  fontWeight: 500,
-                  fontSize: "0.6875rem",
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  mb: 1,
-                  mt: 1,
-                  display: "block",
-                }}
+                sx={{ ...SECTION_HEADER_SX, mt: 1 }}
               >
                 기타
               </Typography>

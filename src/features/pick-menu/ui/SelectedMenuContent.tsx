@@ -28,7 +28,7 @@ const Inner = () => {
   const { data } = useQuery({
     ...menuQueries.selectedTodayMenu({ id: String(todayMenuId) }),
     enabled:
-      todayMenuId != null && status == "done" && handler.status === "success",
+      todayMenuId != null && status === "done" && handler.status === "success",
   });
 
   useEffect(() => {

@@ -85,8 +85,8 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
                   },
                   (payload) => {
                     sendFutureMessageMutationHandler.mutate(payload, {
-                      onSuccess: () => {
-                        queryClient.invalidateQueries({
+                      onSuccess: async () => {
+                        await queryClient.invalidateQueries({
                           queryKey: futureMessageQueries.futureMessages(),
                         });
                         openSuccessToast({

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
   Button,
   Dialog,
@@ -8,26 +9,30 @@ import {
 } from "@mui/material";
 
 interface ConfirmDialogProps {
-  isOpen: boolean;
+  open: boolean;
   onClose: () => void;
   title: string;
-  description: string;
+  description: ReactNode;
+  confirmLabel?: string;
+  confirmColor?: "primary" | "success" | "error";
   onConfirm: () => void;
-  isPending: boolean;
+  isPending?: boolean;
 }
 
 export const ConfirmDialog = ({
-  isOpen,
+  open,
   onClose,
   title,
   description,
+  confirmLabel = "확인",
+  confirmColor = "primary",
   onConfirm,
-  isPending,
+  isPending = false,
 }: ConfirmDialogProps) => (
-  <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
+  <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
     <DialogTitle>{title}</DialogTitle>
     <DialogContent>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" color="text.secondary" component="div">
         {description}
       </Typography>
     </DialogContent>
@@ -35,8 +40,13 @@ export const ConfirmDialog = ({
       <Button variant="outlined" color="inherit" onClick={onClose}>
         취소
       </Button>
-      <Button variant="contained" onClick={onConfirm} loading={isPending}>
-        확인
+      <Button
+        variant="contained"
+        color={confirmColor}
+        onClick={onConfirm}
+        loading={isPending}
+      >
+        {confirmLabel}
       </Button>
     </DialogActions>
   </Dialog>

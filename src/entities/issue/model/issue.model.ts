@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Bom } from "@/packages/bom";
 
 export const IssueKindModel = z.enum([
   "EPIC",
@@ -77,7 +78,8 @@ const TRANSITIONS: { from: string; to: string; name: string }[] = [
 export const getAvailableTransitions = (
   currentStatusId: string,
 ): IssueTransition[] =>
-  TRANSITIONS.filter((t) => t.from === currentStatusId).map((t) => ({
-    ...t,
-    toCategory: STATUS_ID_TO_CATEGORY[t.to],
-  }));
+  Bom.pipe(
+    TRANSITIONS,
+    Bom.filter((t) => t.from === currentStatusId),
+    Bom.map((t) => ({ ...t, toCategory: STATUS_ID_TO_CATEGORY[t.to] })),
+  );

@@ -1,4 +1,5 @@
 export { AppShell } from "./AppShell";
+export { ConfirmDialog } from "./ConfirmDialog";
 export type { AppShellNavItem } from "./AppShell";
 export { BottomSheetCTA } from "./BottomSheetCTA";
 export { ErrorBoundary } from "./ErrorBoundary";

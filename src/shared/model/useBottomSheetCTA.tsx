@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
   useCallback,
   useRef,
@@ -34,6 +35,13 @@ export const BottomSheetCTAProvider = ({
 
   const queue = useRef<SheetOptions[]>([]);
   const isShowing = useRef(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const processNext = () => {
     if (queue.current.length > 0) {
@@ -60,7 +68,8 @@ export const BottomSheetCTAProvider = ({
     const TIMEOUT_MS = 300;
 
     setOpen(false);
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = null;
       setSheet(null);
       processNext();
     }, TIMEOUT_MS);

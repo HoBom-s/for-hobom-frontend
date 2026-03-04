@@ -1,4 +1,4 @@
-import { type UIEvent, useCallback, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Popover,
@@ -15,7 +15,8 @@ import {
   NotificationItem,
   type NotificationItemType,
 } from "@/entities/notification";
-import { RoutesConfig } from "@/shared/config";
+import { RoutesConfig, SUBTLE_SCROLLBAR_SX } from "@/shared/config";
+import { useInfiniteScroll } from "@/shared/model";
 import { useNotificationList } from "../model/useNotificationList";
 import { useMarkNotificationRead } from "../model/useMarkNotificationRead";
 import { TAB_FILTERS, EMPTY_MESSAGES } from "../lib/notification-filter.lib";
@@ -27,7 +28,6 @@ interface Props {
 
 export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
   const [tab, setTab] = useState(0);
-
   const filter = TAB_FILTERS[tab];
 
   const {
@@ -40,16 +40,12 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
   const markRead = useMarkNotificationRead();
   const navigate = useNavigate();
 
-  const handleScroll = useCallback(
-    (e: UIEvent<HTMLDivElement>) => {
-      if (!hasNextPage || isFetchingNextPage) return;
-      const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-      if (scrollHeight - scrollTop - clientHeight < 100) {
-        fetchNextPage();
-      }
-    },
-    [hasNextPage, isFetchingNextPage, fetchNextPage],
-  );
+  const handleScroll = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+    threshold: 100,
+  });
 
   return (
     <Popover
@@ -102,25 +98,7 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
         sx={{
           maxHeight: 380,
           overflowY: "auto",
-          scrollbarGutter: "stable",
-          scrollbarWidth: "thin",
-          scrollbarColor: "transparent transparent",
-          "&:hover": {
-            scrollbarColor: "rgba(0,0,0,0.15) transparent",
-          },
-          "&::-webkit-scrollbar": { width: 6 },
-          "&::-webkit-scrollbar-track": { bgcolor: "transparent" },
-          "&::-webkit-scrollbar-thumb": {
-            bgcolor: "transparent",
-            borderRadius: 3,
-            transition: "background-color 0.2s ease",
-          },
-          "&:hover::-webkit-scrollbar-thumb": {
-            bgcolor: "rgba(0,0,0,0.15)",
-          },
-          "&:hover::-webkit-scrollbar-thumb:hover": {
-            bgcolor: "rgba(0,0,0,0.25)",
-          },
+          ...SUBTLE_SCROLLBAR_SX,
           maskImage:
             "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
           WebkitMaskImage:

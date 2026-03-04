@@ -1,25 +1,16 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
 import { MoreVert } from "@mui/icons-material";
 import {
   Box,
   Button,
   Checkbox,
   Chip,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   IconButton,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  MenuItem,
-  Popover,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import {
@@ -28,19 +19,17 @@ import {
   changeCompleteStatus,
   isCompleteStatus,
   useChangeDailyTodoCompleteStatus,
-  useUpdateDailyTodo,
+  useDeleteDailyTodo,
   useUpdateDailyTodoReaction,
-  todoQueries,
   CYCLE_LABELS,
   type DailyTodoType,
   type ProgressType,
   type CycleType,
-  useDeleteDailyTodo,
 } from "@/entities/daily-todo";
 import { Bom } from "@/packages/bom";
 import { useBottomSheetCTA } from "@/shared/model";
-
-const REACTION_OPTIONS = ["👍", "❤️", "🎉", "😊", "💪", "🔥"];
+import { DailyTodoReactionPopover } from "./DailyTodoReactionPopover";
+import { DailyTodoEditDialog } from "./DailyTodoEditDialog";
 
 interface Props {
   item: DailyTodoType;
@@ -50,8 +39,6 @@ export const DailyTodoListItem = ({ item }: Props) => {
   const { mutate, isPending } = useChangeDailyTodoCompleteStatus(item);
   const { mutate: mutateDelete, isPending: isDeletePending } =
     useDeleteDailyTodo();
-  const { mutate: mutateUpdate, isPending: isUpdatePending } =
-    useUpdateDailyTodo();
   const { mutate: mutateReaction } = useUpdateDailyTodoReaction();
   const { onOpen, onClose } = useBottomSheetCTA();
 
@@ -60,38 +47,9 @@ export const DailyTodoListItem = ({ item }: Props) => {
     null,
   );
 
-  const {
-    register,
-    watch,
-    reset: resetForm,
-  } = useForm<{ title: string }>({
-    defaultValues: { title: item.title },
-  });
-
-  const { data: categoriesData } = useQuery({
-    ...todoQueries.categories(),
-    enabled: editOpen,
-  });
-  const [editCategory, setEditCategory] = useState(item.category.id);
-
   const handleChangeCompleteStatus = (id: string, status: ProgressType) => {
     Bom.pipe(status, changeCompleteStatus, (newStatus) =>
       mutate({ id, status: newStatus }),
-    );
-  };
-
-  const handleEditSubmit = () => {
-    const title = watch("title").trim();
-    if (Bom.isEmpty(title)) return;
-
-    mutateUpdate(
-      { id: item.id, title, category: editCategory },
-      {
-        onSuccess: () => {
-          setEditOpen(false);
-          onClose();
-        },
-      },
     );
   };
 
@@ -168,10 +126,8 @@ export const DailyTodoListItem = ({ item }: Props) => {
                         color="error"
                         loading={isDeletePending}
                         onClick={() => {
-                          Bom.pipe(Bom.prop("id")(item), (id) => {
-                            mutateDelete({ id });
-                            onClose();
-                          });
+                          mutateDelete({ id: item.id });
+                          onClose();
                         }}
                       >
                         삭제하기
@@ -180,11 +136,7 @@ export const DailyTodoListItem = ({ item }: Props) => {
                         fullWidth
                         variant="contained"
                         color="primary"
-                        onClick={() => {
-                          resetForm({ title: item.title });
-                          setEditCategory(item.category.id);
-                          setEditOpen(true);
-                        }}
+                        onClick={() => setEditOpen(true)}
                       >
                         수정하기
                       </Button>
@@ -274,86 +226,20 @@ export const DailyTodoListItem = ({ item }: Props) => {
         </ListItemButton>
       </ListItem>
 
-      {/* 리액션 선택 Popover */}
-      <Popover
-        open={Boolean(reactionAnchor)}
+      <DailyTodoReactionPopover
         anchorEl={reactionAnchor}
         onClose={() => setReactionAnchor(null)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        transformOrigin={{ vertical: "top", horizontal: "center" }}
-        slotProps={{ paper: { sx: { p: 0.5, borderRadius: 2 } } }}
-      >
-        <Stack direction="row" spacing={0.25}>
-          {REACTION_OPTIONS.map((emoji) => (
-            <IconButton
-              key={emoji}
-              size="small"
-              onClick={() => handleReaction(emoji)}
-              sx={{
-                fontSize: "1.25rem",
-                "&:hover": { transform: "scale(1.2)" },
-                transition: "transform 0.1s ease",
-              }}
-            >
-              {emoji}
-            </IconButton>
-          ))}
-        </Stack>
-      </Popover>
+        onSelect={handleReaction}
+      />
 
-      {/* 수정 Dialog */}
-      <Dialog
+      <DailyTodoEditDialog
+        item={item}
         open={editOpen}
-        onClose={() => setEditOpen(false)}
-        maxWidth="xs"
-        fullWidth
-      >
-        <DialogTitle sx={{ pb: 1 }}>할 일 수정</DialogTitle>
-        <DialogContent sx={{ pt: "12px !important" }}>
-          <TextField
-            fullWidth
-            autoFocus
-            variant="outlined"
-            label="제목"
-            size="small"
-            sx={{ mb: 2 }}
-            {...register("title")}
-          />
-          <TextField
-            fullWidth
-            select
-            variant="outlined"
-            label="카테고리"
-            size="small"
-            value={editCategory}
-            onChange={(e) => setEditCategory(e.target.value)}
-          >
-            {(categoriesData?.items ?? []).map((cat) => (
-              <MenuItem key={cat.id} value={cat.id}>
-                {cat.title}
-              </MenuItem>
-            ))}
-          </TextField>
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="inherit"
-            onClick={() => setEditOpen(false)}
-          >
-            취소
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            loading={isUpdatePending}
-            onClick={handleEditSubmit}
-          >
-            저장
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onClose={() => {
+          setEditOpen(false);
+          onClose();
+        }}
+      />
     </>
   );
 };

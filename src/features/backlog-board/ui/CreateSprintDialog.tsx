@@ -26,8 +26,10 @@ export const CreateSprintDialog = ({
   const [endDate, setEndDate] = useState("");
   const { mutate, isPending } = useCreateSprint();
 
+  const isDateInvalid = startDate && endDate && endDate < startDate;
+
   const handleSubmit = () => {
-    if (!name.trim() || !startDate || !endDate) return;
+    if (!name.trim() || !startDate || !endDate || isDateInvalid) return;
     mutate(
       { projectId, name: name.trim(), startDate, endDate },
       {
@@ -71,6 +73,10 @@ export const CreateSprintDialog = ({
             fullWidth
             size="small"
             slotProps={{ inputLabel: { shrink: true } }}
+            error={!!isDateInvalid}
+            helperText={
+              isDateInvalid ? "종료일은 시작일 이후여야 해요" : undefined
+            }
           />
         </Box>
       </DialogContent>
@@ -81,7 +87,7 @@ export const CreateSprintDialog = ({
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={!name.trim() || !startDate || !endDate}
+          disabled={!name.trim() || !startDate || !endDate || !!isDateInvalid}
           loading={isPending}
         >
           만들기

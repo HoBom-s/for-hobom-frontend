@@ -12,11 +12,6 @@ import {
   TableRow,
   Typography,
   Avatar,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
 } from "@mui/material";
 import {
   CheckCircleOutline,
@@ -30,6 +25,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useToast, useOverlay } from "@/shared/model";
+import { ConfirmDialog } from "@/shared/ui";
 import {
   adminUserQueries,
   adminUserMutations,
@@ -45,18 +41,18 @@ export const PendingUsersTable = () => {
 
   const approveMutation = useMutation({
     ...adminUserMutations.approve(),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(adminUserQueries.pending());
       openSuccessToast({ message: "사용자를 승인했어요." });
-      queryClient.invalidateQueries(adminUserQueries.pending());
     },
     onError: () => openErrorToast({ message: "승인에 실패했어요." }),
   });
 
   const rejectMutation = useMutation({
     ...adminUserMutations.reject(),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(adminUserQueries.pending());
       openSuccessToast({ message: "사용자를 거절했어요." });
-      queryClient.invalidateQueries(adminUserQueries.pending());
     },
     onError: () => openErrorToast({ message: "거절에 실패했어요." }),
   });
@@ -65,15 +61,22 @@ export const PendingUsersTable = () => {
     type: "approve" | "reject",
     user: PendingUserType,
   ) => {
+    const isApprove = type === "approve";
     onOpen(({ isOpen, onClose }) => (
       <ConfirmDialog
-        isOpen={isOpen}
+        open={isOpen}
         onClose={onClose}
-        type={type}
-        user={user}
+        title={isApprove ? "사용자 승인" : "사용자 거절"}
+        description={
+          <>
+            <strong>{user.nickname}</strong> ({user.username})님을{" "}
+            {isApprove ? "승인" : "거절"}하시겠어요?
+          </>
+        }
+        confirmLabel={isApprove ? "승인" : "거절"}
+        confirmColor={isApprove ? "success" : "error"}
         onConfirm={() => {
-          const mutation =
-            type === "approve" ? approveMutation : rejectMutation;
+          const mutation = isApprove ? approveMutation : rejectMutation;
           mutation.mutate({ id: user.id }, { onSettled: onClose });
         }}
       />
@@ -192,45 +195,5 @@ export const PendingUsersTable = () => {
         </TableContainer>
       )}
     </Box>
-  );
-};
-
-const ConfirmDialog = ({
-  isOpen,
-  onClose,
-  type,
-  user,
-  onConfirm,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  type: "approve" | "reject";
-  user: PendingUserType;
-  onConfirm: () => void;
-}) => {
-  const isApprove = type === "approve";
-
-  return (
-    <Dialog open={isOpen} onClose={onClose} maxWidth="xs">
-      <DialogTitle>{isApprove ? "사용자 승인" : "사용자 거절"}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <strong>{user.nickname}</strong> ({user.username})님을{" "}
-          {isApprove ? "승인" : "거절"}하시겠어요?
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-        <Button variant="outlined" color="inherit" onClick={onClose}>
-          취소
-        </Button>
-        <Button
-          variant="outlined"
-          color={isApprove ? "success" : "error"}
-          onClick={onConfirm}
-        >
-          {isApprove ? "승인" : "거절"}
-        </Button>
-      </DialogActions>
-    </Dialog>
   );
 };

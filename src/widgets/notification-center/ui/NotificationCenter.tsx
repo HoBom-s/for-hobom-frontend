@@ -1,4 +1,4 @@
-import { type UIEvent, useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   CircularProgress,
@@ -20,6 +20,8 @@ import {
   TAB_FILTERS,
   EMPTY_MESSAGES,
 } from "@/features/notification";
+import { SUBTLE_SCROLLBAR_SX } from "@/shared/config";
+import { useInfiniteScroll } from "@/shared/model";
 
 export const NotificationCenter = () => {
   const [tab, setTab] = useState(0);
@@ -38,16 +40,11 @@ export const NotificationCenter = () => {
     [notifications],
   );
 
-  const handleScroll = useCallback(
-    (e: UIEvent<HTMLDivElement>) => {
-      if (!hasNextPage || isFetchingNextPage) return;
-      const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-      if (scrollHeight - scrollTop - clientHeight < 200) {
-        fetchNextPage();
-      }
-    },
-    [hasNextPage, isFetchingNextPage, fetchNextPage],
-  );
+  const handleScroll = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
   return (
     <Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
@@ -87,25 +84,7 @@ export const NotificationCenter = () => {
           sx={{
             maxHeight: "calc(100vh - 200px)",
             overflowY: "auto",
-            scrollbarGutter: "stable",
-            scrollbarWidth: "thin",
-            scrollbarColor: "transparent transparent",
-            "&:hover": {
-              scrollbarColor: "rgba(0,0,0,0.15) transparent",
-            },
-            "&::-webkit-scrollbar": { width: 6 },
-            "&::-webkit-scrollbar-track": { background: "transparent" },
-            "&::-webkit-scrollbar-thumb": {
-              background: "transparent",
-              borderRadius: 3,
-              transition: "background-color 0.2s ease",
-            },
-            "&:hover::-webkit-scrollbar-thumb": {
-              background: "rgba(0,0,0,0.15)",
-            },
-            "&::-webkit-scrollbar-thumb:hover": {
-              background: "rgba(0,0,0,0.25)",
-            },
+            ...SUBTLE_SCROLLBAR_SX,
           }}
         >
           {isPending ? (

@@ -1,4 +1,4 @@
-import type { ReadFilter } from "@/entities/notification";
+import type { ReadFilter, NotificationItemType } from "@/entities/notification";
 
 export const TAB_FILTERS: ReadFilter[] = ["all", "unread", "read"];
 
@@ -6,4 +6,13 @@ export const EMPTY_MESSAGES: Record<ReadFilter, string> = {
   all: "알림이 없어요.",
   unread: "읽지 않은 알림이 없어요.",
   read: "읽은 알림이 없어요.",
+};
+
+export const FILTER_PREDICATES: Record<
+  ReadFilter,
+  (n: NotificationItemType) => boolean
+> = {
+  all: () => true,
+  unread: (n) => !n.isRead,
+  read: (n) => n.isRead,
 };

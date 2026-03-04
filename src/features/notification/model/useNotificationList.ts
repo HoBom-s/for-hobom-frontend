@@ -1,26 +1,27 @@
 import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Bom } from "@/packages/bom";
 import { notificationQueries, type ReadFilter } from "@/entities/notification";
+import { FILTER_PREDICATES } from "../lib/notification-filter.lib";
 
 export const useNotificationList = (filter: ReadFilter = "all") => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
     useInfiniteQuery(notificationQueries.pages());
 
   const allItems = useMemo(
-    () => data?.pages.flatMap((page) => page.data) ?? [],
+    () => Bom.pipe(data?.pages ?? [], Bom.flatMap(Bom.prop("data"))),
     [data?.pages],
   );
 
   const unreadCount = useMemo(
-    () => allItems.filter((n) => !n.isRead).length,
+    () => Bom.pipe(allItems, Bom.filter(FILTER_PREDICATES.unread)).length,
     [allItems],
   );
 
-  const notifications = useMemo(() => {
-    if (filter === "unread") return allItems.filter((n) => !n.isRead);
-    if (filter === "read") return allItems.filter((n) => n.isRead);
-    return allItems;
-  }, [allItems, filter]);
+  const notifications = useMemo(
+    () => Bom.pipe(allItems, Bom.filter(FILTER_PREDICATES[filter])),
+    [allItems, filter],
+  );
 
   return {
     notifications,

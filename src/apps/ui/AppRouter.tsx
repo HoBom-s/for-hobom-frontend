@@ -9,33 +9,77 @@ import { useToast } from "@/shared/model";
 import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "./nav-items";
 import { AppBarActions } from "./AppBarActions";
 
-const AuthLoginPage = lazy(() => import("@/pages/auth-login"));
-const AuthSignUpPage = lazy(() => import("@/pages/auth-signup"));
-const NotFoundPage = lazy(() => import("@/pages/not-found"));
-const DailyTodoPage = lazy(() => import("@/pages/daily-todo"));
-const MenuRecommendationPage = lazy(
-  () => import("@/pages/menu-recommendation"),
-);
-const MenuPickPage = lazy(() => import("@/pages/menu-pick"));
-const FutureMessagePage = lazy(() => import("@/pages/message"));
-const FutureMessageSendPage = lazy(() => import("@/pages/message-send"));
-const NotePage = lazy(() => import("@/pages/note"));
-const NotificationPage = lazy(() => import("@/pages/notification"));
-const DashboardPage = lazy(() => import("@/pages/dashboard"));
-const DashboardSystemPage = lazy(() => import("@/pages/dashboard-system"));
-const ProjectListPage = lazy(() => import("@/pages/project-list"));
-const ProjectLayoutPage = lazy(() => import("@/pages/project-layout"));
-const ProjectBoardPage = lazy(() => import("@/pages/project-board"));
-const ProjectBacklogPage = lazy(() => import("@/pages/project-backlog"));
-const ProjectIssuesPage = lazy(() => import("@/pages/project-issues"));
-const ProjectSettingsPage = lazy(() => import("@/pages/project-settings"));
-const AdminUsersPage = lazy(() => import("@/pages/admin-users"));
+const pageImports = {
+  authLogin: () => import("@/pages/auth-login"),
+  authSignUp: () => import("@/pages/auth-signup"),
+  notFound: () => import("@/pages/not-found"),
+  dailyTodo: () => import("@/pages/daily-todo"),
+  menuRecommendation: () => import("@/pages/menu-recommendation"),
+  menuPick: () => import("@/pages/menu-pick"),
+  futureMessage: () => import("@/pages/message"),
+  futureMessageSend: () => import("@/pages/message-send"),
+  note: () => import("@/pages/note"),
+  notification: () => import("@/pages/notification"),
+  dashboard: () => import("@/pages/dashboard"),
+  dashboardSystem: () => import("@/pages/dashboard-system"),
+  projectList: () => import("@/pages/project-list"),
+  projectLayout: () => import("@/pages/project-layout"),
+  projectBoard: () => import("@/pages/project-board"),
+  projectBacklog: () => import("@/pages/project-backlog"),
+  projectIssues: () => import("@/pages/project-issues"),
+  projectSettings: () => import("@/pages/project-settings"),
+  adminUsers: () => import("@/pages/admin-users"),
+};
+
+const AuthLoginPage = lazy(pageImports.authLogin);
+const AuthSignUpPage = lazy(pageImports.authSignUp);
+const NotFoundPage = lazy(pageImports.notFound);
+const DailyTodoPage = lazy(pageImports.dailyTodo);
+const MenuRecommendationPage = lazy(pageImports.menuRecommendation);
+const MenuPickPage = lazy(pageImports.menuPick);
+const FutureMessagePage = lazy(pageImports.futureMessage);
+const FutureMessageSendPage = lazy(pageImports.futureMessageSend);
+const NotePage = lazy(pageImports.note);
+const NotificationPage = lazy(pageImports.notification);
+const DashboardPage = lazy(pageImports.dashboard);
+const DashboardSystemPage = lazy(pageImports.dashboardSystem);
+const ProjectListPage = lazy(pageImports.projectList);
+const ProjectLayoutPage = lazy(pageImports.projectLayout);
+const ProjectBoardPage = lazy(pageImports.projectBoard);
+const ProjectBacklogPage = lazy(pageImports.projectBacklog);
+const ProjectIssuesPage = lazy(pageImports.projectIssues);
+const ProjectSettingsPage = lazy(pageImports.projectSettings);
+const AdminUsersPage = lazy(pageImports.adminUsers);
+
+const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
+  [RoutesConfig.MAIN.DAILY_TODO]: [pageImports.dailyTodo],
+  [RoutesConfig.MENU.RECOMMENDATION]: [
+    pageImports.menuRecommendation,
+    pageImports.menuPick,
+  ],
+  [RoutesConfig.MESSAGE.RESERVATION]: [pageImports.futureMessage],
+  [RoutesConfig.NOTES.LIST]: [pageImports.note],
+  [RoutesConfig.PROJECTS.LIST]: [
+    pageImports.projectList,
+    pageImports.projectLayout,
+    pageImports.projectBoard,
+  ],
+  [RoutesConfig.NOTIFICATION.LIST]: [pageImports.notification],
+  [RoutesConfig.ADMIN.USERS]: [pageImports.adminUsers],
+  [RoutesConfig.DASHBOARD.HOME]: [pageImports.dashboard],
+  [RoutesConfig.DASHBOARD.SYSTEM]: [pageImports.dashboardSystem],
+};
+
+const prefetchRoute = (path: string) => {
+  PREFETCH_MAP[path]?.forEach((fn) => fn());
+};
 
 const Shell = ({ children }: { children: React.ReactNode }) => (
   <AppShell
     navItems={NAV_ITEMS}
     bottomNavItems={BOTTOM_NAV_ITEMS}
     appBarAction={<AppBarActions />}
+    onPrefetch={prefetchRoute}
   >
     {children}
   </AppShell>
@@ -57,6 +101,14 @@ export const AppRouter = () => {
     window.addEventListener(UNAUTHORIZED_EVENT, handler);
     return () => window.removeEventListener(UNAUTHORIZED_EVENT, handler);
   }, [navigate, queryClient, openWarnToast]);
+
+  // 유휴 시간에 모든 페이지 청크 백그라운드 프리페치
+  useEffect(() => {
+    const id = requestIdleCallback(() => {
+      Object.values(pageImports).forEach((fn) => fn());
+    });
+    return () => cancelIdleCallback(id);
+  }, []);
 
   return (
     <Suspense fallback={<AppRouter.Loader />}>

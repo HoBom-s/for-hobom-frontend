@@ -39,7 +39,7 @@ import {
   getAvatarColor,
   formatDate,
 } from "./project-settings-constants";
-import { DeleteConfirmDialog } from "./DeleteConfirmDialog";
+import { ConfirmDialog } from "@/shared/ui";
 import { AddMemberDialog } from "./AddMemberDialog";
 import { RemoveMemberDialog } from "./RemoveMemberDialog";
 
@@ -83,10 +83,18 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
 
   const handleDelete = () => {
     onOpen(({ isOpen, onClose }) => (
-      <DeleteConfirmDialog
-        isOpen={isOpen}
+      <ConfirmDialog
+        open={isOpen}
         onClose={onClose}
-        projectName={project.name}
+        title="프로젝트 삭제"
+        description={
+          <>
+            <strong>"{project.name}"</strong> 프로젝트를 삭제하시겠어요?
+            <br />이 작업은 되돌릴 수 없으며, 모든 이슈와 스프린트가 삭제돼요.
+          </>
+        }
+        confirmLabel="삭제"
+        confirmColor="error"
         isPending={isDeleting}
         onConfirm={() => {
           deleteProject(

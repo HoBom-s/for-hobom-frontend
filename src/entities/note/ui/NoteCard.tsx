@@ -23,6 +23,13 @@ import { unwrapVO } from "../lib/unwrap-vo.lib.ts";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
 
+const META_CHIP_SX = {
+  height: 24,
+  fontSize: "0.6875rem",
+  bgcolor: "rgba(0,0,0,0.06)",
+  border: "none",
+} as const;
+
 interface NoteCardProps {
   note: NoteItemType;
   labelMap?: Record<string, string>;
@@ -219,12 +226,7 @@ export const NoteCard = ({
                 icon={<NotificationsActiveOutlined sx={{ fontSize: 14 }} />}
                 label={new Date(note.reminder.date).toLocaleDateString("ko-KR")}
                 size="small"
-                sx={{
-                  height: 24,
-                  fontSize: "0.6875rem",
-                  bgcolor: "rgba(0,0,0,0.06)",
-                  border: "none",
-                }}
+                sx={META_CHIP_SX}
               />
             )}
             {note.labels?.map((label) => (
@@ -232,12 +234,7 @@ export const NoteCard = ({
                 key={label.value}
                 label={labelMap?.[label.value] ?? label.value}
                 size="small"
-                sx={{
-                  height: 24,
-                  fontSize: "0.6875rem",
-                  bgcolor: "rgba(0,0,0,0.06)",
-                  border: "none",
-                }}
+                sx={META_CHIP_SX}
               />
             ))}
           </Box>

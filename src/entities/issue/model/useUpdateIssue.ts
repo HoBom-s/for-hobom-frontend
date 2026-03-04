@@ -9,8 +9,8 @@ export const useUpdateIssue = () => {
 
   return useMutation({
     ...issueMutations.update(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: issueQueries.issues() });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: issueQueries.issues() });
       openSuccessToast({ message: "이슈를 수정했어요." });
     },
     onError: () => {

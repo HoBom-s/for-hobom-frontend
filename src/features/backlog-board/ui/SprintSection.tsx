@@ -30,7 +30,7 @@ import {
   type SprintType,
 } from "@/entities/sprint";
 import { STATUS_COLOR } from "./backlog-constants";
-import { ConfirmDialog } from "./ConfirmDialog";
+import { ConfirmDialog } from "@/shared/ui";
 import { IssueRow } from "./IssueRow";
 
 export const SprintSection = ({
@@ -95,7 +95,7 @@ export const SprintSection = ({
   const handleStart = () => {
     onOpen(({ isOpen, onClose }) => (
       <ConfirmDialog
-        isOpen={isOpen}
+        open={isOpen}
         onClose={onClose}
         title="스프린트 시작"
         description={`"${sprint.name}" 스프린트를 시작하시겠어요?`}
@@ -113,7 +113,7 @@ export const SprintSection = ({
   const handleComplete = () => {
     onOpen(({ isOpen, onClose }) => (
       <ConfirmDialog
-        isOpen={isOpen}
+        open={isOpen}
         onClose={onClose}
         title="스프린트 완료"
         description={`"${sprint.name}" 스프린트를 완료하시겠어요? 완료되지 않은 이슈는 백로그로 이동합니다.`}

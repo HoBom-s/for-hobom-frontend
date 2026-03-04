@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Paper } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import {
+  DashboardPaper,
   dashboardQueries,
   KpiCard,
   type PeriodType,
@@ -50,20 +50,14 @@ export const MessageDashboardContent = ({
       </Grid>
 
       <Grid size={{ xs: 12, md: 8 }}>
-        <Paper
-          elevation={0}
-          sx={{ p: 2.5, border: "1px solid", borderColor: "divider" }}
-        >
+        <DashboardPaper>
           <MonthlySentBarChart data={d.monthlyTrend} />
-        </Paper>
+        </DashboardPaper>
       </Grid>
       <Grid size={{ xs: 12, md: 4 }}>
-        <Paper
-          elevation={0}
-          sx={{ p: 2.5, border: "1px solid", borderColor: "divider" }}
-        >
+        <DashboardPaper>
           <UpcomingMessageTimeline data={d.upcoming} />
-        </Paper>
+        </DashboardPaper>
       </Grid>
     </Grid>
   );

@@ -1,55 +1,6 @@
 import { Avatar, Box, Chip, Typography } from "@mui/material";
-import {
-  BugReportOutlined,
-  BookmarkOutlined,
-  CheckBoxOutlined,
-  BoltOutlined,
-  AccountTreeOutlined,
-  KeyboardArrowUp,
-  KeyboardDoubleArrowUp,
-  Remove,
-  KeyboardArrowDown,
-} from "@mui/icons-material";
-import type { IssueKind, IssuePriority } from "../model/issue.model";
+import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "./issue-registry";
 import type { IssueType } from "../api/issue.type";
-
-const KIND_CONFIG: Record<
-  IssueKind,
-  { icon: React.ReactNode; color: string; bg: string }
-> = {
-  STORY: {
-    icon: <BookmarkOutlined sx={{ fontSize: 14 }} />,
-    color: "#2ca87f",
-    bg: "#e8f5e9",
-  },
-  TASK: {
-    icon: <CheckBoxOutlined sx={{ fontSize: 14 }} />,
-    color: "#4680ff",
-    bg: "#e3f2fd",
-  },
-  BUG: {
-    icon: <BugReportOutlined sx={{ fontSize: 14 }} />,
-    color: "#dc2626",
-    bg: "#ffeef0",
-  },
-  EPIC: {
-    icon: <BoltOutlined sx={{ fontSize: 14 }} />,
-    color: "#7c3aed",
-    bg: "#f3e8ff",
-  },
-  SUBTASK: {
-    icon: <AccountTreeOutlined sx={{ fontSize: 14 }} />,
-    color: "#0891b2",
-    bg: "#e0f7fa",
-  },
-};
-
-const PRIORITY_ICON: Record<IssuePriority, React.ReactNode> = {
-  CRITICAL: <KeyboardDoubleArrowUp sx={{ fontSize: 16, color: "#dc2626" }} />,
-  HIGH: <KeyboardArrowUp sx={{ fontSize: 16, color: "#e58a00" }} />,
-  MEDIUM: <Remove sx={{ fontSize: 16, color: "#9ca3af" }} />,
-  LOW: <KeyboardArrowDown sx={{ fontSize: 16, color: "#4680ff" }} />,
-};
 
 interface IssueCardProps {
   issue: IssueType;
@@ -66,7 +17,8 @@ export const IssueCard = ({
   childCount = 0,
   progress,
 }: IssueCardProps) => {
-  const kind = KIND_CONFIG[issue.type];
+  const kind = ISSUE_KIND_REGISTRY[issue.type];
+  const priority = ISSUE_PRIORITY_REGISTRY[issue.priority];
 
   return (
     <Box
@@ -124,7 +76,7 @@ export const IssueCard = ({
               color: kind.color,
             }}
           >
-            {kind.icon}
+            <kind.Icon sx={{ fontSize: 14 }} />
           </Box>
           <Typography
             variant="caption"
@@ -179,7 +131,7 @@ export const IssueCard = ({
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          {PRIORITY_ICON[issue.priority]}
+          <priority.Icon sx={{ fontSize: 16, color: priority.color }} />
           {issue.assignee && (
             <Avatar
               sx={{

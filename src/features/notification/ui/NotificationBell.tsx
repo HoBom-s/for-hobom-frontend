@@ -34,7 +34,7 @@ export const NotificationBell = () => {
           <NotificationsNoneOutlined sx={{ fontSize: 22 }} />
         </Badge>
       </IconButton>
-      {anchorEl == null ? null : (
+      {anchorEl != null && (
         <NotificationPanel
           anchorEl={anchorEl}
           onClose={() => setAnchorEl(null)}

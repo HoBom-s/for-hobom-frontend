@@ -9,7 +9,7 @@ import {
   getDescendantProgress,
   type IssueType,
 } from "@/entities/issue";
-import { sprintQueries, type SprintType } from "@/entities/sprint";
+import { sprintQueries } from "@/entities/sprint";
 import { SprintSection } from "./SprintSection";
 import { IssueRow } from "./IssueRow";
 
@@ -35,16 +35,23 @@ export const BacklogBoard = ({
 
   const { sprintGroups, backlogIssues } = useMemo(() => {
     const sprintIds = new Set(sprints.map((s) => s.id));
-    const groups: { sprint: SprintType; issues: IssueType[] }[] = [];
+    const issuesBySprint = new Map<string, IssueType[]>();
+    const backlog: IssueType[] = [];
 
-    for (const sprint of sprints) {
-      groups.push({
-        sprint,
-        issues: issues.filter((i) => i.sprint === sprint.id),
-      });
+    for (const issue of issues) {
+      if (issue.sprint && sprintIds.has(issue.sprint)) {
+        const list = issuesBySprint.get(issue.sprint);
+        if (list) list.push(issue);
+        else issuesBySprint.set(issue.sprint, [issue]);
+      } else {
+        backlog.push(issue);
+      }
     }
 
-    const backlog = issues.filter((i) => !i.sprint || !sprintIds.has(i.sprint));
+    const groups = sprints.map((sprint) => ({
+      sprint,
+      issues: issuesBySprint.get(sprint.id) ?? [],
+    }));
 
     return { sprintGroups: groups, backlogIssues: backlog };
   }, [sprints, issues]);

@@ -30,7 +30,15 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
-      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-ignore": true,
+          "ts-expect-error": "allow-with-description",
+          "ts-nocheck": true,
+          "ts-check": false,
+        },
+      ],
       "@typescript-eslint/no-unsafe-function-type": "off",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": [

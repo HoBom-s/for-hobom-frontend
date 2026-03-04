@@ -23,10 +23,11 @@ import {
 import {
   useUpdateIssue,
   PARENT_ISSUE_KINDS,
+  ISSUE_KIND_REGISTRY,
+  ISSUE_PRIORITY_REGISTRY,
   type IssueType,
 } from "@/entities/issue";
 import type { SprintType } from "@/entities/sprint";
-import { KIND_ICON, PRIORITY_ICON } from "./backlog-constants";
 
 export const IssueRow = ({
   issue,
@@ -53,6 +54,8 @@ export const IssueRow = ({
 }) => {
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { mutate: updateIssue } = useUpdateIssue();
+  const kind = ISSUE_KIND_REGISTRY[issue.type];
+  const priority = ISSUE_PRIORITY_REGISTRY[issue.priority];
 
   const handleMove = (sprintId: string | undefined) => {
     updateIssue({
@@ -88,7 +91,7 @@ export const IssueRow = ({
           borderBottom: "1px solid",
           borderColor: "divider",
           "&:hover": { bgcolor: "#f8f9fb" },
-          "&:hover .move-btn": { opacity: 1 },
+          "&:hover .move-btn, &:focus-within .move-btn": { opacity: 1 },
           transition: "background 0.1s",
           cursor: onIssueClick ? "pointer" : undefined,
         }}
@@ -114,7 +117,7 @@ export const IssueRow = ({
             sx={{ fontSize: 14, color: "text.disabled", ml: -1.5 }}
           />
         ) : null}
-        {KIND_ICON[issue.type]}
+        <kind.Icon sx={{ fontSize: 16, color: kind.color }} />
         <Typography
           variant="caption"
           sx={{
@@ -157,7 +160,7 @@ export const IssueRow = ({
             }}
           />
         )}
-        {PRIORITY_ICON[issue.priority]}
+        <priority.Icon sx={{ fontSize: 16, color: priority.color }} />
         {issue.assignee && (
           <Avatar
             sx={{

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { TrendingUp, TrendingDown } from "@mui/icons-material";
+import { DashboardPaper } from "./DashboardPaper";
 
 interface KpiCardProps {
   label: string;
@@ -18,15 +19,7 @@ export const KpiCard = ({
   icon,
 }: KpiCardProps) => {
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 2.5,
-        border: "1px solid",
-        borderColor: "divider",
-        height: "100%",
-      }}
-    >
+    <DashboardPaper sx={{ height: "100%" }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
         <Typography variant="body2" color="text.secondary">
           {label}
@@ -66,6 +59,6 @@ export const KpiCard = ({
           </Typography>
         </Box>
       )}
-    </Paper>
+    </DashboardPaper>
   );
 };

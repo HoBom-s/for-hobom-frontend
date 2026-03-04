@@ -1,3 +1,4 @@
+import { Bom } from "@/packages/bom";
 import type { IssueType } from "../api/issue.type";
 import type { IssueKind } from "../model/issue.model";
 
@@ -11,25 +12,24 @@ export interface IssueTreeResult {
 
 export const buildIssueTree = (issues: IssueType[]): IssueTreeResult => {
   const issueById = new Map(issues.map((i) => [i.id, i]));
-  const childrenMap = new Map<string, IssueType[]>();
-  const parentMap = new Map<string, IssueType>();
-  const roots: IssueType[] = [];
+  const hasParent = (i: IssueType) => !!i.parent && issueById.has(i.parent);
 
-  for (const issue of issues) {
-    if (issue.parent && issueById.has(issue.parent)) {
-      const parent = issueById.get(issue.parent)!;
-      parentMap.set(issue.id, parent);
+  const [children, roots] = Bom.pipe(issues, Bom.partition(hasParent));
 
-      const siblings = childrenMap.get(issue.parent);
-      if (siblings) {
-        siblings.push(issue);
-      } else {
-        childrenMap.set(issue.parent, [issue]);
-      }
-    } else {
-      roots.push(issue);
-    }
-  }
+  const childrenMap = new Map(
+    Bom.pipe(
+      children,
+      Bom.groupBy((i) => i.parent!),
+      Object.entries,
+    ),
+  );
+
+  const parentMap = new Map(
+    Bom.pipe(
+      children,
+      Bom.map((i) => [i.id, issueById.get(i.parent!)!] as const),
+    ),
+  );
 
   return { roots, childrenMap, parentMap };
 };

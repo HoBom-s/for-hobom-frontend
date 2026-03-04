@@ -267,7 +267,11 @@ export const NoteEditDialog = ({
           </Tooltip>
         </Box>
 
-        <Button onClick={handleSave} sx={{ textTransform: "none" }}>
+        <Button
+          onClick={handleSave}
+          loading={createNote.isPending || updateNote.isPending}
+          sx={{ textTransform: "none" }}
+        >
           닫기
         </Button>
       </DialogActions>

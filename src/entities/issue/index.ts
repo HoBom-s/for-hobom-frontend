@@ -10,6 +10,11 @@ export {
   STATUS_CATEGORY_TO_ID,
   getAvailableTransitions,
 } from "./model/issue.model";
+export {
+  ISSUE_KIND_REGISTRY,
+  ISSUE_PRIORITY_REGISTRY,
+  ISSUE_STATUS_CATEGORY_REGISTRY,
+} from "./ui/issue-registry";
 export { issueQueries } from "./api/issue.queries";
 export { useCreateIssue } from "./model/useCreateIssue";
 export { useUpdateIssue } from "./model/useUpdateIssue";

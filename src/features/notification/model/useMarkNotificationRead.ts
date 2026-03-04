@@ -3,6 +3,7 @@ import {
   useQueryClient,
   type InfiniteData,
 } from "@tanstack/react-query";
+import { Bom } from "@/packages/bom";
 import {
   notificationQueries,
   notificationMutations,
@@ -25,12 +26,16 @@ export const useMarkNotificationRead = () => {
           if (!prev) return prev;
           return {
             ...prev,
-            pages: prev.pages.map((page) => ({
-              ...page,
-              data: page.data.map((n) =>
-                n.id === id ? { ...n, isRead: true } : n,
-              ),
-            })),
+            pages: Bom.pipe(
+              prev.pages,
+              Bom.map((page) => ({
+                ...page,
+                data: Bom.pipe(
+                  page.data,
+                  Bom.map((n) => (n.id === id ? { ...n, isRead: true } : n)),
+                ),
+              })),
+            ),
           };
         },
       );

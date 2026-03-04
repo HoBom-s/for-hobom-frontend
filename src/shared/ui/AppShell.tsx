@@ -27,16 +27,19 @@ interface Props {
   navItems: AppShellNavItem[];
   bottomNavItems?: AppShellNavItem[];
   appBarAction?: ReactNode;
+  onPrefetch?: (path: string) => void;
 }
 
 const NavList = ({
   items,
   activeValue,
   onNavigate,
+  onPrefetch,
 }: {
   items: AppShellNavItem[];
   activeValue: string;
   onNavigate: (path: string) => void;
+  onPrefetch?: (path: string) => void;
 }) => (
   <List disablePadding>
     {items.map((item) => {
@@ -46,6 +49,7 @@ const NavList = ({
           key={item.value}
           selected={isActive}
           onClick={() => onNavigate(item.path)}
+          onMouseEnter={() => onPrefetch?.(item.path)}
         >
           <ListItemIcon>{item.icon}</ListItemIcon>
           <ListItemText
@@ -70,6 +74,7 @@ export const AppShell = ({
   navItems,
   bottomNavItems,
   appBarAction,
+  onPrefetch,
 }: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -185,6 +190,7 @@ export const AppShell = ({
             items={navItems}
             activeValue={activeItem.value}
             onNavigate={navigate}
+            onPrefetch={onPrefetch}
           />
         </Box>
 
@@ -195,6 +201,7 @@ export const AppShell = ({
               items={bottomNavItems}
               activeValue={activeItem.value}
               onNavigate={navigate}
+              onPrefetch={onPrefetch}
             />
           </Box>
         )}
