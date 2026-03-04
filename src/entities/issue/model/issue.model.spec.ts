@@ -113,12 +113,13 @@ describe("STATUS_CATEGORY_TO_ID / STATUS_ID_TO_CATEGORY", () => {
 });
 
 describe("getAvailableTransitions", () => {
-  it("todo에서 in-progress로만 전환 가능하다", () => {
+  it("todo에서 in-progress, done으로 전환 가능하다", () => {
     const transitions = getAvailableTransitions("todo");
-    expect(transitions).toHaveLength(1);
-    expect(transitions[0].to).toBe("in-progress");
-    expect(transitions[0].name).toBe("작업 시작");
-    expect(transitions[0].toCategory).toBe("IN_PROGRESS");
+    expect(transitions).toHaveLength(2);
+
+    const targets = transitions.map((t) => t.to);
+    expect(targets).toContain("in-progress");
+    expect(targets).toContain("done");
   });
 
   it("in-progress에서 done, todo로 전환 가능하다", () => {
@@ -130,11 +131,13 @@ describe("getAvailableTransitions", () => {
     expect(targets).toContain("todo");
   });
 
-  it("done에서 in-progress로만 전환 가능하다", () => {
+  it("done에서 in-progress, todo로 전환 가능하다", () => {
     const transitions = getAvailableTransitions("done");
-    expect(transitions).toHaveLength(1);
-    expect(transitions[0].to).toBe("in-progress");
-    expect(transitions[0].name).toBe("재오픈");
+    expect(transitions).toHaveLength(2);
+
+    const targets = transitions.map((t) => t.to);
+    expect(targets).toContain("in-progress");
+    expect(targets).toContain("todo");
   });
 
   it("알 수 없는 상태는 빈 배열을 반환한다", () => {
