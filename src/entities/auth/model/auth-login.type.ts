@@ -10,11 +10,6 @@ export interface AuthSignUpType {
   password: string;
 }
 
-export interface AuthTokenType {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export interface UserType {
   id: string;
   username: string;

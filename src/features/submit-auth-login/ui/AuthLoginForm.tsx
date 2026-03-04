@@ -46,7 +46,7 @@ export const AuthLoginForm = () => {
 
   const handleInvalidFormSubmit = () => {
     openWarnToast({
-      message: `User information is incorrect.`,
+      message: "입력 정보가 올바르지 않아요.",
     });
   };
 

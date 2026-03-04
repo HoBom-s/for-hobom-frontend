@@ -52,12 +52,12 @@ export class ErrorBoundary extends Component<Props, State> {
           >
             <ErrorOutline color="info" sx={{ fontSize: 48 }} />
             <Typography variant="h5" gutterBottom>
-              Oops !
+              앗!
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              Something went wrong.
+              문제가 발생했어요.
               <br />
-              Please try again later.
+              잠시 후 다시 시도해 주세요.
             </Typography>
             {process.env.NODE_ENV === "development" && error ? (
               <Typography

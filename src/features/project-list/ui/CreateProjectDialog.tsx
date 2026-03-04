@@ -7,33 +7,39 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { useCreateProject } from "@/entities/project";
 
 interface CreateProjectDialogProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: { key: string; name: string; description?: string }) => void;
 }
 
 export const CreateProjectDialog = ({
   open,
   onClose,
-  onSubmit,
 }: CreateProjectDialogProps) => {
   const [key, setKey] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const { mutate, isPending } = useCreateProject();
 
   const handleSubmit = () => {
     if (!key.trim() || !name.trim()) return;
-    onSubmit({
-      key: key.trim().toUpperCase(),
-      name: name.trim(),
-      description: description || undefined,
-    });
-    onClose();
-    setKey("");
-    setName("");
-    setDescription("");
+    mutate(
+      {
+        key: key.trim().toUpperCase(),
+        name: name.trim(),
+        description: description || undefined,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+          setKey("");
+          setName("");
+          setDescription("");
+        },
+      },
+    );
   };
 
   return (
@@ -75,6 +81,7 @@ export const CreateProjectDialog = ({
           variant="contained"
           onClick={handleSubmit}
           disabled={!key.trim() || !name.trim()}
+          loading={isPending}
         >
           만들기
         </Button>

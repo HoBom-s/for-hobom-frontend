@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Suspense, useState } from "react";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
 import {
   useProjectList,
@@ -7,8 +7,12 @@ import {
   CreateProjectDialog,
 } from "@/features/project-list";
 
+const ProjectListContent = () => {
+  const { projects } = useProjectList();
+  return <ProjectGrid projects={projects} />;
+};
+
 export const ProjectListWorkspace = () => {
-  const { projects, addProject } = useProjectList();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
@@ -45,12 +49,19 @@ export const ProjectListWorkspace = () => {
         </Button>
       </Box>
 
-      <ProjectGrid projects={projects} />
+      <Suspense
+        fallback={
+          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+            <CircularProgress />
+          </Box>
+        }
+      >
+        <ProjectListContent />
+      </Suspense>
 
       <CreateProjectDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        onSubmit={addProject}
       />
     </Box>
   );

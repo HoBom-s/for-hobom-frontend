@@ -1,8 +1,26 @@
-export interface ProjectSummaryType {
-  id: { value: string };
+export interface ProjectMemberType {
+  userId: string;
+  role: string;
+  joinedAt: string;
+}
+
+export interface ProjectType {
+  id: string;
   key: string;
   name: string;
-  issueCount: number;
-  sprintCount: number;
-  lead: { id: string; name: string };
+  description?: string;
+  owner: string;
+  members: ProjectMemberType[];
+  issueSequence: number;
+}
+
+export interface CreateProjectRequest {
+  key: string;
+  name: string;
+  description?: string;
+}
+
+export interface UpdateProjectRequest {
+  name: string;
+  description?: string;
 }

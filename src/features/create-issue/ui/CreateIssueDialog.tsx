@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
+  Autocomplete,
   Box,
   Button,
   Dialog,
@@ -12,52 +13,90 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import {
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
+  issueQueries,
+  useCreateIssue,
   type IssueKind,
   type IssuePriority,
+  type IssueType,
 } from "@/entities/issue";
+
+const PARENT_ISSUE_KINDS: IssueKind[] = ["EPIC", "STORY"];
 
 interface CreateIssueDialogProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: {
-    title: string;
-    description?: string;
-    kind: IssueKind;
-    priority: IssuePriority;
-  }) => void;
+  projectId: string;
+  defaultParentId?: string;
 }
 
 export const CreateIssueDialog = ({
   open,
   onClose,
-  onSubmit,
+  projectId,
+  defaultParentId,
 }: CreateIssueDialogProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [kind, setKind] = useState<IssueKind>("TASK");
   const [priority, setPriority] = useState<IssuePriority>("MEDIUM");
+  const [parentIssue, setParentIssue] = useState<IssueType | null>(null);
+  const { mutate, isPending } = useCreateIssue();
 
-  const handleSubmit = () => {
-    if (!title.trim()) return;
-    onSubmit({
-      title: title.trim(),
-      description: description || undefined,
-      kind,
-      priority,
-    });
-    onClose();
+  const { data: issueData } = useQuery({
+    ...issueQueries.listByProject(projectId),
+    enabled: open,
+  });
+
+  const parentCandidates = (issueData?.items ?? []).filter((i) =>
+    PARENT_ISSUE_KINDS.includes(i.type),
+  );
+
+  useEffect(() => {
+    if (!open || !defaultParentId || !issueData) return;
+    const items = issueData.items ?? [];
+    const found = items.find(
+      (i) => i.id === defaultParentId && PARENT_ISSUE_KINDS.includes(i.type),
+    );
+    if (found) setParentIssue(found);
+  }, [open, defaultParentId, issueData]);
+
+  const reset = () => {
     setTitle("");
     setDescription("");
     setKind("TASK");
     setPriority("MEDIUM");
+    setParentIssue(null);
+  };
+
+  const handleSubmit = () => {
+    if (!title.trim()) return;
+    mutate(
+      {
+        projectId,
+        title: title.trim(),
+        description: description || undefined,
+        type: kind,
+        priority,
+        parent: parentIssue?.id,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+          reset();
+        },
+      },
+    );
   };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>이슈 만들기</DialogTitle>
+      <DialogTitle>
+        {defaultParentId ? "하위 이슈 만들기" : "이슈 만들기"}
+      </DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <TextField
           label="제목"
@@ -106,6 +145,22 @@ export const CreateIssueDialog = ({
             </Select>
           </FormControl>
         </Box>
+        <Autocomplete
+          size="small"
+          options={parentCandidates}
+          value={parentIssue}
+          onChange={(_, value) => setParentIssue(value)}
+          getOptionLabel={(option) => `${option.issueKey} ${option.title}`}
+          groupBy={(option) => ISSUE_KIND_LABEL[option.type]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="상위 이슈 (선택)"
+              placeholder="에픽 또는 스토리 검색"
+            />
+          )}
+          noOptionsText="상위 이슈가 없어요"
+        />
       </DialogContent>
       <DialogActions sx={{ px: 3, pb: 2 }}>
         <Button variant="outlined" color="inherit" onClick={onClose}>
@@ -115,6 +170,7 @@ export const CreateIssueDialog = ({
           variant="contained"
           onClick={handleSubmit}
           disabled={!title.trim()}
+          loading={isPending}
         >
           만들기
         </Button>

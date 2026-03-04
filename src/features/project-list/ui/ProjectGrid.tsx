@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { FolderOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { ProjectCard, type ProjectSummaryType } from "@/entities/project";
+import { ProjectCard, type ProjectType } from "@/entities/project";
 
 interface ProjectGridProps {
-  projects: ProjectSummaryType[];
+  projects: ProjectType[];
 }
 
 export const ProjectGrid = ({ projects }: ProjectGridProps) => {
@@ -45,9 +45,9 @@ export const ProjectGrid = ({ projects }: ProjectGridProps) => {
     >
       {projects.map((project) => (
         <ProjectCard
-          key={project.id.value}
+          key={project.id}
           project={project}
-          onClick={() => navigate(`/projects/${project.id.value}/board`)}
+          onClick={() => navigate(`/projects/${project.id}/board`)}
         />
       ))}
     </Box>
