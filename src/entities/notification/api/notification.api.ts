@@ -1,11 +1,24 @@
 import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
-import type { NotificationItemType } from "./notification.type";
+import type {
+  NotificationPageParams,
+  NotificationPageResponse,
+} from "./notification.type";
 
-export const fetchNotifications = async () => {
-  return await httpClient.get<HttpResponseType<NotificationItemType[]>>(
-    "/notifications",
+const DEFAULT_PAGE_SIZE = 10;
+
+export const fetchNotificationPage = async (
+  params: NotificationPageParams = {},
+) => {
+  const searchParams = new URLSearchParams();
+  if (params.cursor) searchParams.set("cursor", params.cursor);
+  searchParams.set("size", String(params.size ?? DEFAULT_PAGE_SIZE));
+
+  const qs = searchParams.toString();
+  const res = await httpClient.get<HttpResponseType<NotificationPageResponse>>(
+    `/notifications/scroll?${qs}`,
   );
+  return res.items;
 };
 
 export const patchNotificationRead = async (id: string) => {

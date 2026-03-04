@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { type UIEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Popover,
   Box,
+  CircularProgress,
   Typography,
   Button,
   Tabs,
@@ -29,9 +30,26 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
 
   const filter = TAB_FILTERS[tab];
 
-  const { notifications } = useNotificationList(filter);
+  const {
+    notifications,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+  } = useNotificationList(filter);
   const markRead = useMarkNotificationRead();
   const navigate = useNavigate();
+
+  const handleScroll = useCallback(
+    (e: UIEvent<HTMLDivElement>) => {
+      if (!hasNextPage || isFetchingNextPage) return;
+      const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+      if (scrollHeight - scrollTop - clientHeight < 100) {
+        fetchNextPage();
+      }
+    },
+    [hasNextPage, isFetchingNextPage, fetchNextPage],
+  );
 
   return (
     <Popover
@@ -80,19 +98,16 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
       </Tabs>
       <Divider />
       <Box
+        onScroll={handleScroll}
         sx={{
           maxHeight: 380,
           overflowY: "auto",
           scrollbarGutter: "stable",
-
-          // Firefox
           scrollbarWidth: "thin",
           scrollbarColor: "transparent transparent",
           "&:hover": {
             scrollbarColor: "rgba(0,0,0,0.15) transparent",
           },
-
-          // Webkit (Chrome, Safari, Edge)
           "&::-webkit-scrollbar": { width: 6 },
           "&::-webkit-scrollbar-track": { bgcolor: "transparent" },
           "&::-webkit-scrollbar-thumb": {
@@ -106,15 +121,17 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
           "&:hover::-webkit-scrollbar-thumb:hover": {
             bgcolor: "rgba(0,0,0,0.25)",
           },
-
-          // Fade gradient at top/bottom to hint at more content
           maskImage:
             "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
           WebkitMaskImage:
             "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
         }}
       >
-        {notifications.length === 0 ? (
+        {isPending ? (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+            <CircularProgress size={24} />
+          </Box>
+        ) : notifications.length === 0 ? (
           <Box
             sx={{
               py: 6,
@@ -132,18 +149,25 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
             </Typography>
           </Box>
         ) : (
-          notifications.map((notification) => (
-            <NotificationItem
-              key={notification.id}
-              notification={notification}
-              onClick={(notification: NotificationItemType) => {
-                if (!notification.isRead) {
-                  markRead.mutate(notification.id);
-                }
-                onClose();
-              }}
-            />
-          ))
+          <>
+            {notifications.map((notification) => (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+                onClick={(n: NotificationItemType) => {
+                  if (!n.isRead) {
+                    markRead.mutate(n.id);
+                  }
+                  onClose();
+                }}
+              />
+            ))}
+            {isFetchingNextPage && (
+              <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+                <CircularProgress size={20} />
+              </Box>
+            )}
+          </>
         )}
       </Box>
       <Divider />

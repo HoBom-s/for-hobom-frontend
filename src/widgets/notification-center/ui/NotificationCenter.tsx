@@ -1,5 +1,13 @@
-import { useMemo, useState } from "react";
-import { Box, Paper, Typography, Tabs, Tab, Divider } from "@mui/material";
+import { type UIEvent, useCallback, useMemo, useState } from "react";
+import {
+  Box,
+  CircularProgress,
+  Paper,
+  Typography,
+  Tabs,
+  Tab,
+  Divider,
+} from "@mui/material";
 import { NotificationsNoneOutlined } from "@mui/icons-material";
 import {
   NotificationItem,
@@ -16,41 +24,40 @@ import {
 export const NotificationCenter = () => {
   const [tab, setTab] = useState(0);
   const filter = TAB_FILTERS[tab];
-  const { notifications, unreadCount } = useNotificationList(filter);
+  const {
+    notifications,
+    unreadCount,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+  } = useNotificationList(filter);
   const markRead = useMarkNotificationRead();
   const dateGroups = useMemo(
     () => groupNotificationsByDate(notifications),
     [notifications],
   );
 
+  const handleScroll = useCallback(
+    (e: UIEvent<HTMLDivElement>) => {
+      if (!hasNextPage || isFetchingNextPage) return;
+      const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+      if (scrollHeight - scrollTop - clientHeight < 200) {
+        fetchNextPage();
+      }
+    },
+    [hasNextPage, isFetchingNextPage, fetchNextPage],
+  );
+
   return (
-    <Box
-      sx={{
-        p: 3,
-        maxWidth: 800,
-        mx: "auto",
-        height: "calc(100vh - 56px)",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <Box sx={{ mb: 2.5, flexShrink: 0 }}>
+    <Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
+      <Box sx={{ mb: 2.5 }}>
         <Typography variant="h6" sx={{ fontWeight: 700, fontSize: "1.125rem" }}>
           알림
         </Typography>
       </Box>
-      <Paper
-        elevation={1}
-        sx={{
-          borderRadius: 2,
-          overflow: "hidden",
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          minHeight: 0,
-        }}
-      >
-        <Box sx={{ px: 2, flexShrink: 0 }}>
+      <Paper elevation={1} sx={{ borderRadius: 2, overflow: "hidden" }}>
+        <Box sx={{ px: 2 }}>
           <Tabs
             value={tab}
             onChange={(_, v) => setTab(v)}
@@ -76,10 +83,10 @@ export const NotificationCenter = () => {
         </Box>
         <Divider />
         <Box
+          onScroll={handleScroll}
           sx={{
-            flex: 1,
+            maxHeight: "calc(100vh - 200px)",
             overflowY: "auto",
-            minHeight: 0,
             scrollbarGutter: "stable",
             scrollbarWidth: "thin",
             scrollbarColor: "transparent transparent",
@@ -101,7 +108,11 @@ export const NotificationCenter = () => {
             },
           }}
         >
-          {dateGroups.length === 0 ? (
+          {isPending ? (
+            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+              <CircularProgress size={28} />
+            </Box>
+          ) : dateGroups.length === 0 ? (
             <Box
               sx={{
                 py: 8,
@@ -122,35 +133,42 @@ export const NotificationCenter = () => {
               </Typography>
             </Box>
           ) : (
-            dateGroups.map((group) => (
-              <Box key={group.label}>
-                <Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      fontWeight: 600,
-                      fontSize: "0.6875rem",
-                      color: "text.secondary",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    {group.label}
-                  </Typography>
+            <>
+              {dateGroups.map((group) => (
+                <Box key={group.label}>
+                  <Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        fontWeight: 600,
+                        fontSize: "0.6875rem",
+                        color: "text.secondary",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      {group.label}
+                    </Typography>
+                  </Box>
+                  {group.items.map((notification) => (
+                    <NotificationItem
+                      key={notification.id}
+                      notification={notification}
+                      onClick={(n: NotificationItemType) => {
+                        if (!n.isRead) {
+                          markRead.mutate(n.id);
+                        }
+                      }}
+                    />
+                  ))}
                 </Box>
-                {group.items.map((notification) => (
-                  <NotificationItem
-                    key={notification.id}
-                    notification={notification}
-                    onClick={(notification: NotificationItemType) => {
-                      if (!notification.isRead) {
-                        markRead.mutate(notification.id);
-                      }
-                    }}
-                  />
-                ))}
-              </Box>
-            ))
+              ))}
+              {isFetchingNextPage && (
+                <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+                  <CircularProgress size={24} />
+                </Box>
+              )}
+            </>
           )}
         </Box>
       </Paper>

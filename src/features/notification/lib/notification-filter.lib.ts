@@ -1,4 +1,4 @@
-import type { ReadFilter } from "../model/useNotificationList";
+import type { ReadFilter } from "@/entities/notification";
 
 export const TAB_FILTERS: ReadFilter[] = ["all", "unread", "read"];
 

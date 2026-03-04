@@ -1,13 +1,16 @@
-import { queryOptions } from "@tanstack/react-query";
-import { fetchNotifications } from "./notification.api";
+import { infiniteQueryOptions } from "@tanstack/react-query";
+import { fetchNotificationPage } from "./notification.api";
 
 export const notificationQueries = {
   all: () => ["notifications"] as const,
 
-  list: () =>
-    queryOptions({
-      queryKey: notificationQueries.all(),
-      queryFn: fetchNotifications,
+  pages: () =>
+    infiniteQueryOptions({
+      queryKey: [...notificationQueries.all(), "scroll"] as const,
+      queryFn: ({ pageParam }) => fetchNotificationPage({ cursor: pageParam }),
+      getNextPageParam: (lastPage) =>
+        lastPage.hasNext ? (lastPage.nextCursor ?? undefined) : undefined,
+      initialPageParam: undefined as string | undefined,
       refetchInterval: 10_000,
     }),
 };

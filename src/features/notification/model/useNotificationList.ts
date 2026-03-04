@@ -1,21 +1,33 @@
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { notificationQueries } from "@/entities/notification";
-
-export type ReadFilter = "all" | "unread" | "read";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { notificationQueries, type ReadFilter } from "@/entities/notification";
 
 export const useNotificationList = (filter: ReadFilter = "all") => {
-  const { data } = useQuery(notificationQueries.list());
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
+    useInfiniteQuery(notificationQueries.pages());
 
-  return useMemo(() => {
-    const items = data?.items ?? [];
-    const unreadCount = items.filter((n) => !n.isRead).length;
+  const allItems = useMemo(
+    () => data?.pages.flatMap((page) => page.data) ?? [],
+    [data?.pages],
+  );
 
-    if (filter === "unread")
-      return { notifications: items.filter((n) => !n.isRead), unreadCount };
-    if (filter === "read")
-      return { notifications: items.filter((n) => n.isRead), unreadCount };
+  const unreadCount = useMemo(
+    () => allItems.filter((n) => !n.isRead).length,
+    [allItems],
+  );
 
-    return { notifications: items, unreadCount };
-  }, [data?.items, filter]);
+  const notifications = useMemo(() => {
+    if (filter === "unread") return allItems.filter((n) => !n.isRead);
+    if (filter === "read") return allItems.filter((n) => n.isRead);
+    return allItems;
+  }, [allItems, filter]);
+
+  return {
+    notifications,
+    unreadCount,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+  };
 };
