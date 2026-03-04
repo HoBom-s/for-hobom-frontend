@@ -83,11 +83,35 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
         sx={{
           maxHeight: 380,
           overflowY: "auto",
-          "&::-webkit-scrollbar": { width: 4 },
-          "&::-webkit-scrollbar-thumb": {
-            bgcolor: "rgba(0,0,0,0.1)",
-            borderRadius: 2,
+          scrollbarGutter: "stable",
+
+          // Firefox
+          scrollbarWidth: "thin",
+          scrollbarColor: "transparent transparent",
+          "&:hover": {
+            scrollbarColor: "rgba(0,0,0,0.15) transparent",
           },
+
+          // Webkit (Chrome, Safari, Edge)
+          "&::-webkit-scrollbar": { width: 6 },
+          "&::-webkit-scrollbar-track": { bgcolor: "transparent" },
+          "&::-webkit-scrollbar-thumb": {
+            bgcolor: "transparent",
+            borderRadius: 3,
+            transition: "background-color 0.2s ease",
+          },
+          "&:hover::-webkit-scrollbar-thumb": {
+            bgcolor: "rgba(0,0,0,0.15)",
+          },
+          "&:hover::-webkit-scrollbar-thumb:hover": {
+            bgcolor: "rgba(0,0,0,0.25)",
+          },
+
+          // Fade gradient at top/bottom to hint at more content
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
         }}
       >
         {notifications.length === 0 ? (

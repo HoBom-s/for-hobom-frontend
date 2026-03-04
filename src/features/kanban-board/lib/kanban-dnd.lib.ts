@@ -1,16 +1,16 @@
-import type { IssueType, IssueStatus } from "@/entities/issue";
+import type { IssueType, IssueStatusCategory } from "@/entities/issue";
 
-export type ColumnMap = Record<IssueStatus, IssueType[]>;
+export type ColumnMap = Record<IssueStatusCategory, IssueType[]>;
 
 const COLUMN_PREFIX = "column-";
 
 export const findColumnOfIssue = (
   columns: ColumnMap,
   issueId: string,
-): IssueStatus | null => {
+): IssueStatusCategory | null => {
   for (const [status, issues] of Object.entries(columns)) {
-    if (issues.some((i) => i.id.value === issueId)) {
-      return status as IssueStatus;
+    if (issues.some((i) => i.id === issueId)) {
+      return status as IssueStatusCategory;
     }
   }
   return null;
@@ -19,12 +19,12 @@ export const findColumnOfIssue = (
 export const resolveDropTarget = (
   columns: ColumnMap,
   overId: string,
-): IssueStatus | null => {
+): IssueStatusCategory | null => {
   if (overId.startsWith(COLUMN_PREFIX)) {
-    return overId.slice(COLUMN_PREFIX.length) as IssueStatus;
+    return overId.slice(COLUMN_PREFIX.length) as IssueStatusCategory;
   }
   return findColumnOfIssue(columns, overId);
 };
 
-export const columnDroppableId = (status: IssueStatus) =>
+export const columnDroppableId = (status: IssueStatusCategory) =>
   `${COLUMN_PREFIX}${status}`;

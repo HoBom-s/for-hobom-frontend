@@ -1,12 +1,19 @@
+import { useState } from "react";
 import { useParams, useNavigate, useLocation, Outlet } from "react-router-dom";
-import { Box, ButtonBase, Divider, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Divider, Typography } from "@mui/material";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   ViewKanbanOutlined,
   FormatListBulletedOutlined,
   BugReportOutlined,
   SettingsOutlined,
   ChevronRight,
+  AddOutlined,
 } from "@mui/icons-material";
+import { projectQueries } from "@/entities/project";
+import { CreateIssueDialog } from "@/features/create-issue";
+import { CreateSprintDialog } from "@/features/backlog-board";
+import { IssueDetailDialog } from "@/features/issue-detail";
 
 const TABS = [
   {
@@ -31,23 +38,37 @@ const TABS = [
   },
 ] as const;
 
-const MOCK_PROJECT_NAME: Record<string, string> = {
-  "proj-1": "HoBom 백오피스",
-  "proj-2": "HoBom 모바일",
-  "proj-3": "인프라 관리",
-};
+const TABS_WITH_ISSUE_BUTTON = new Set(["board", "backlog", "issues"]);
 
 export const ProjectLayout = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const [issueDialogOpen, setIssueDialogOpen] = useState(false);
+  const [sprintDialogOpen, setSprintDialogOpen] = useState(false);
+  const [defaultParentId, setDefaultParentId] = useState<string>();
+  const [detailIssueId, setDetailIssueId] = useState<string | null>(null);
+
+  const handleCreateChildIssue = (parentId: string) => {
+    setDefaultParentId(parentId);
+    setIssueDialogOpen(true);
+  };
+
+  const handleOpenIssueDetail = (issueId: string) => {
+    setDetailIssueId(issueId);
+  };
+
+  const { data } = useSuspenseQuery(projectQueries.detail(projectId!));
+  const project = data.items;
 
   if (!projectId) return null;
 
   const currentPath = TABS.find((t) =>
     location.pathname.includes(`/${t.path}`),
   )?.path;
-  const projectName = MOCK_PROJECT_NAME[projectId] ?? "프로젝트";
+
+  const showIssueButton = TABS_WITH_ISSUE_BUTTON.has(currentPath ?? "");
+  const showSprintButton = currentPath === "backlog";
 
   return (
     <Box sx={{ p: 3 }}>
@@ -73,19 +94,20 @@ export const ProjectLayout = () => {
         </Typography>
         <ChevronRight sx={{ fontSize: 14, color: "text.disabled" }} />
         <Typography variant="caption" fontWeight={600} color="text.secondary">
-          {projectName}
+          {project.name}
         </Typography>
       </Box>
 
       {/* Title */}
       <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
-        {projectName}
+        {project.name}
       </Typography>
 
-      {/* Tab Navigation */}
+      {/* Tab Navigation + Action Buttons */}
       <Box
         sx={{
           display: "flex",
+          alignItems: "center",
           gap: 0.5,
           mb: 0.5,
         }}
@@ -105,12 +127,8 @@ export const ProjectLayout = () => {
                 borderRadius: 1.5,
                 fontSize: 13,
                 fontWeight: isActive ? 600 : 500,
-                color: isActive ? "primary.main" : "text.secondary",
+                color: isActive ? "#fff" : "text.secondary",
                 bgcolor: isActive ? "primary.main" : "transparent",
-                ...(isActive && {
-                  color: "#fff",
-                  bgcolor: "primary.main",
-                }),
                 "&:hover": isActive ? undefined : { bgcolor: "action.hover" },
                 transition: "all 0.15s",
               }}
@@ -120,11 +138,76 @@ export const ProjectLayout = () => {
             </ButtonBase>
           );
         })}
+
+        <Box sx={{ flex: 1 }} />
+
+        {showSprintButton && (
+          <Button
+            size="small"
+            variant="outlined"
+            startIcon={<AddOutlined />}
+            onClick={() => setSprintDialogOpen(true)}
+            sx={{
+              textTransform: "none",
+              borderRadius: 2,
+              fontWeight: 600,
+              fontSize: 12,
+              boxShadow: "none",
+            }}
+          >
+            스프린트 만들기
+          </Button>
+        )}
+        {showIssueButton && (
+          <Button
+            size="small"
+            variant="contained"
+            startIcon={<AddOutlined />}
+            onClick={() => setIssueDialogOpen(true)}
+            sx={{
+              textTransform: "none",
+              borderRadius: 2,
+              fontWeight: 600,
+              fontSize: 12,
+              boxShadow: "none",
+              "&:hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+            }}
+          >
+            이슈 만들기
+          </Button>
+        )}
       </Box>
 
       <Divider sx={{ mb: 2.5 }} />
 
-      <Outlet />
+      <Outlet
+        context={{
+          onCreateChildIssue: handleCreateChildIssue,
+          onOpenIssueDetail: handleOpenIssueDetail,
+        }}
+      />
+
+      <CreateIssueDialog
+        open={issueDialogOpen}
+        onClose={() => {
+          setIssueDialogOpen(false);
+          setDefaultParentId(undefined);
+        }}
+        projectId={projectId}
+        defaultParentId={defaultParentId}
+      />
+      <CreateSprintDialog
+        open={sprintDialogOpen}
+        onClose={() => setSprintDialogOpen(false)}
+        projectId={projectId}
+      />
+      <IssueDetailDialog
+        open={!!detailIssueId}
+        onClose={() => setDetailIssueId(null)}
+        projectId={projectId}
+        issueId={detailIssueId}
+        onNavigateToIssue={setDetailIssueId}
+      />
     </Box>
   );
 };

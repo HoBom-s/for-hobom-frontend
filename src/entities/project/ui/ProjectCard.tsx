@@ -5,9 +5,10 @@ import {
   Avatar,
   Box,
   Typography,
-  LinearProgress,
+  Chip,
 } from "@mui/material";
-import type { ProjectSummaryType } from "../api/project.type";
+import { PeopleOutline } from "@mui/icons-material";
+import type { ProjectType } from "../api/project.type";
 
 const PROJECT_COLORS = [
   "#4680ff",
@@ -27,7 +28,7 @@ const getProjectColor = (key: string) => {
 };
 
 interface ProjectCardProps {
-  project: ProjectSummaryType;
+  project: ProjectType;
   onClick: () => void;
 }
 
@@ -56,7 +57,7 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
               display: "flex",
               alignItems: "center",
               gap: 1.5,
-              mb: 2,
+              mb: 1.5,
             }}
           >
             <Avatar
@@ -86,43 +87,22 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             </Box>
           </Box>
 
-          <Box sx={{ mb: 1.5 }}>
-            <Box
+          {project.description && (
+            <Typography
+              variant="body2"
+              color="text.secondary"
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                mb: 0.5,
+                mb: 1.5,
+                fontSize: 12,
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 2,
+                overflow: "hidden",
               }}
             >
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ fontSize: 11 }}
-              >
-                이슈 진행률
-              </Typography>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ fontSize: 11, fontWeight: 600 }}
-              >
-                {project.issueCount}건
-              </Typography>
-            </Box>
-            <LinearProgress
-              variant="determinate"
-              value={project.issueCount > 0 ? 35 : 0}
-              sx={{
-                height: 4,
-                borderRadius: 2,
-                bgcolor: "grey.100",
-                "& .MuiLinearProgress-bar": {
-                  borderRadius: 2,
-                  bgcolor: color,
-                },
-              }}
-            />
-          </Box>
+              {project.description}
+            </Typography>
+          )}
 
           <Box
             sx={{
@@ -131,36 +111,18 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
               justifyContent: "space-between",
             }}
           >
-            <Box sx={{ display: "flex", gap: 1.5 }}>
-              <Typography
-                variant="caption"
-                color="text.disabled"
-                sx={{ fontSize: 11 }}
-              >
-                스프린트 {project.sprintCount}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <Avatar
-                sx={{
-                  width: 18,
-                  height: 18,
-                  fontSize: 9,
-                  fontWeight: 700,
-                  bgcolor: "#e8eaed",
-                  color: "#5f6368",
-                }}
-              >
-                {project.lead.name.charAt(0)}
-              </Avatar>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ fontSize: 11 }}
-              >
-                {project.lead.name}
-              </Typography>
-            </Box>
+            <Chip
+              icon={<PeopleOutline sx={{ fontSize: 14 }} />}
+              label={`${project.members.length}명`}
+              size="small"
+              sx={{
+                height: 22,
+                fontSize: 11,
+                fontWeight: 500,
+                bgcolor: "grey.100",
+                "& .MuiChip-icon": { ml: 0.5 },
+              }}
+            />
           </Box>
         </CardContent>
       </CardActionArea>

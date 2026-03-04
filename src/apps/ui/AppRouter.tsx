@@ -26,6 +26,9 @@ const DashboardSystemPage = lazy(() => import("@/pages/dashboard-system"));
 const ProjectListPage = lazy(() => import("@/pages/project-list"));
 const ProjectLayoutPage = lazy(() => import("@/pages/project-layout"));
 const ProjectBoardPage = lazy(() => import("@/pages/project-board"));
+const ProjectBacklogPage = lazy(() => import("@/pages/project-backlog"));
+const ProjectIssuesPage = lazy(() => import("@/pages/project-issues"));
+const ProjectSettingsPage = lazy(() => import("@/pages/project-settings"));
 const AdminUsersPage = lazy(() => import("@/pages/admin-users"));
 
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -162,6 +165,9 @@ export const AppRouter = () => {
         >
           <Route index element={<Navigate to="board" replace />} />
           <Route path="board" element={<ProjectBoardPage />} />
+          <Route path="backlog" element={<ProjectBacklogPage />} />
+          <Route path="issues" element={<ProjectIssuesPage />} />
+          <Route path="settings" element={<ProjectSettingsPage />} />
         </Route>
       </Routes>
     </Suspense>

@@ -2,7 +2,7 @@ import { env } from "@/shared/config";
 import type { Middleware, MiddlewareContext } from "./middleware.type";
 import type { HttpMethod, RequestOptions } from "./http-options.type";
 
-export interface HttpClient {
+interface HttpClient {
   use: (middleware: Middleware) => void;
   get: <T>(url: string, options?: RequestOptions) => Promise<T>;
   post: <T>(

@@ -1,14 +1,14 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Chip, Typography } from "@mui/material";
 import {
   BugReportOutlined,
   BookmarkOutlined,
   CheckBoxOutlined,
   BoltOutlined,
+  AccountTreeOutlined,
   KeyboardArrowUp,
   KeyboardDoubleArrowUp,
   Remove,
   KeyboardArrowDown,
-  KeyboardDoubleArrowDown,
 } from "@mui/icons-material";
 import type { IssueKind, IssuePriority } from "../model/issue.model";
 import type { IssueType } from "../api/issue.type";
@@ -37,23 +37,36 @@ const KIND_CONFIG: Record<
     color: "#7c3aed",
     bg: "#f3e8ff",
   },
+  SUBTASK: {
+    icon: <AccountTreeOutlined sx={{ fontSize: 14 }} />,
+    color: "#0891b2",
+    bg: "#e0f7fa",
+  },
 };
 
 const PRIORITY_ICON: Record<IssuePriority, React.ReactNode> = {
-  HIGHEST: <KeyboardDoubleArrowUp sx={{ fontSize: 16, color: "#dc2626" }} />,
+  CRITICAL: <KeyboardDoubleArrowUp sx={{ fontSize: 16, color: "#dc2626" }} />,
   HIGH: <KeyboardArrowUp sx={{ fontSize: 16, color: "#e58a00" }} />,
   MEDIUM: <Remove sx={{ fontSize: 16, color: "#9ca3af" }} />,
   LOW: <KeyboardArrowDown sx={{ fontSize: 16, color: "#4680ff" }} />,
-  LOWEST: <KeyboardDoubleArrowDown sx={{ fontSize: 16, color: "#93c5fd" }} />,
 };
 
 interface IssueCardProps {
   issue: IssueType;
   isDragOverlay?: boolean;
+  parentIssueKey?: string;
+  childCount?: number;
+  progress?: { completed: number; total: number };
 }
 
-export const IssueCard = ({ issue, isDragOverlay }: IssueCardProps) => {
-  const kind = KIND_CONFIG[issue.kind];
+export const IssueCard = ({
+  issue,
+  isDragOverlay,
+  parentIssueKey,
+  childCount = 0,
+  progress,
+}: IssueCardProps) => {
+  const kind = KIND_CONFIG[issue.type];
 
   return (
     <Box
@@ -117,8 +130,52 @@ export const IssueCard = ({ issue, isDragOverlay }: IssueCardProps) => {
             variant="caption"
             sx={{ color: "text.disabled", fontWeight: 500, fontSize: 11 }}
           >
-            {issue.key}
+            {issue.issueKey}
           </Typography>
+          {parentIssueKey && (
+            <Chip
+              label={`↳ ${parentIssueKey}`}
+              size="small"
+              sx={{
+                height: 18,
+                fontSize: 10,
+                fontWeight: 600,
+                bgcolor: "#f3e8ff",
+                color: "#7c3aed",
+                "& .MuiChip-label": { px: 0.5 },
+              }}
+            />
+          )}
+          {childCount > 0 && (
+            <Chip
+              label={`${childCount} 하위`}
+              size="small"
+              sx={{
+                height: 18,
+                fontSize: 10,
+                fontWeight: 600,
+                bgcolor: "#e8eaed",
+                color: "#5f6368",
+                "& .MuiChip-label": { px: 0.5 },
+              }}
+            />
+          )}
+          {progress && progress.total > 0 && (
+            <Chip
+              label={`${progress.completed}/${progress.total} 완료`}
+              size="small"
+              sx={{
+                height: 18,
+                fontSize: 10,
+                fontWeight: 600,
+                bgcolor:
+                  progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
+                color:
+                  progress.completed === progress.total ? "#2ca87f" : "#e58a00",
+                "& .MuiChip-label": { px: 0.5 },
+              }}
+            />
+          )}
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
@@ -134,7 +191,7 @@ export const IssueCard = ({ issue, isDragOverlay }: IssueCardProps) => {
                 color: "#5f6368",
               }}
             >
-              {issue.assignee.name.charAt(0)}
+              {issue.assignee.charAt(0).toUpperCase()}
             </Avatar>
           )}
         </Box>

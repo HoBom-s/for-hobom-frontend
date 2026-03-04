@@ -3,30 +3,43 @@ import { useDroppable } from "@dnd-kit/core";
 import { Sortable } from "@/shared/ui";
 import {
   IssueCard,
-  ISSUE_STATUS_LABEL,
-  type IssueStatus,
+  ISSUE_STATUS_CATEGORY_LABEL,
+  getDescendantProgress,
+  getRootEpic,
+  type IssueStatusCategory,
   type IssueType,
+  type IssueTreeResult,
 } from "@/entities/issue";
 import { columnDroppableId } from "../lib/kanban-dnd.lib";
+import type { SwimlaneGroup } from "./KanbanBoard";
+import { KanbanSwimlane } from "./KanbanSwimlane";
 import { CreateIssueInlineForm } from "./CreateIssueInlineForm";
 
 interface KanbanColumnProps {
-  status: IssueStatus;
+  status: IssueStatusCategory;
   issues: IssueType[];
+  issueTree: IssueTreeResult;
+  swimlaneGroups?: SwimlaneGroup[] | null;
   onAddIssue: (title: string) => void;
+  onIssueClick?: (issueId: string) => void;
 }
 
-const STATUS_CONFIG: Record<IssueStatus, { color: string; bg: string }> = {
+const STATUS_CONFIG: Record<
+  IssueStatusCategory,
+  { color: string; bg: string }
+> = {
   TODO: { color: "#5b6a98", bg: "#eef0f4" },
   IN_PROGRESS: { color: "#4680ff", bg: "#e3f2fd" },
-  IN_REVIEW: { color: "#e58a00", bg: "#fff8e1" },
   DONE: { color: "#2ca87f", bg: "#e8f5e9" },
 };
 
 export const KanbanColumn = ({
   status,
   issues,
+  issueTree,
+  swimlaneGroups,
   onAddIssue,
+  onIssueClick,
 }: KanbanColumnProps) => {
   const { setNodeRef, isOver } = useDroppable({
     id: columnDroppableId(status),
@@ -73,7 +86,7 @@ export const KanbanColumn = ({
           fontWeight={700}
           sx={{ letterSpacing: "-0.01em" }}
         >
-          {ISSUE_STATUS_LABEL[status]}
+          {ISSUE_STATUS_CATEGORY_LABEL[status]}
         </Typography>
         <Chip
           label={issues.length}
@@ -89,7 +102,7 @@ export const KanbanColumn = ({
         />
       </Box>
 
-      <Sortable.List items={issues.map((i) => i.id.value)} strategy="vertical">
+      <Sortable.List items={issues.map((i) => i.id)} strategy="vertical">
         <Box
           sx={{
             display: "flex",
@@ -99,15 +112,67 @@ export const KanbanColumn = ({
             minHeight: 60,
           }}
         >
-          {issues.map((issue) => (
-            <Sortable.Item key={issue.id.value} id={issue.id.value}>
-              <IssueCard issue={issue} />
-            </Sortable.Item>
-          ))}
+          {swimlaneGroups
+            ? swimlaneGroups.map((group) => {
+                const laneIssues = issues.filter((issue) => {
+                  if (group.epicId === null) {
+                    const rootEpic = getRootEpic(issue.id, issueTree.parentMap);
+                    return !rootEpic && issue.type !== "EPIC";
+                  }
+                  return (
+                    issue.id === group.epicId ||
+                    getRootEpic(issue.id, issueTree.parentMap)?.id ===
+                      group.epicId
+                  );
+                });
+                if (laneIssues.length === 0) return null;
+                return (
+                  <KanbanSwimlane
+                    key={group.epicId ?? "no-epic"}
+                    epicKey={group.epicKey}
+                    epicTitle={group.epicTitle}
+                    progress={group.progress}
+                  >
+                    {laneIssues.map((issue) =>
+                      renderIssueItem(issue, issueTree, onIssueClick),
+                    )}
+                  </KanbanSwimlane>
+                );
+              })
+            : issues.map((issue) =>
+                renderIssueItem(issue, issueTree, onIssueClick),
+              )}
         </Box>
       </Sortable.List>
 
       <CreateIssueInlineForm onSubmit={onAddIssue} />
     </Box>
+  );
+};
+
+const renderIssueItem = (
+  issue: IssueType,
+  issueTree: IssueTreeResult,
+  onIssueClick?: (issueId: string) => void,
+) => {
+  const childCount = issueTree.childrenMap.get(issue.id)?.length ?? 0;
+  const progress =
+    childCount > 0
+      ? getDescendantProgress(issue.id, issueTree.childrenMap)
+      : undefined;
+  return (
+    <Sortable.Item key={issue.id} id={issue.id}>
+      <Box
+        onClick={() => onIssueClick?.(issue.id)}
+        sx={{ cursor: onIssueClick ? "pointer" : undefined }}
+      >
+        <IssueCard
+          issue={issue}
+          parentIssueKey={issueTree.parentMap.get(issue.id)?.issueKey}
+          childCount={childCount}
+          progress={progress}
+        />
+      </Box>
+    </Sortable.Item>
   );
 };

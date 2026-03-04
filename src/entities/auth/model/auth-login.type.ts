@@ -10,7 +10,7 @@ export interface AuthSignUpType {
   password: string;
 }
 
-export interface AuthTokenType {
+interface AuthTokenType {
   accessToken: string;
   refreshToken: string;
 }

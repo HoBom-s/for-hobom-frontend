@@ -120,7 +120,7 @@ export const AppShell = ({
               color: "text.secondary",
             }}
           >
-            HoBom Assistant
+            HoBom 관리
           </Typography>
           <Divider orientation="vertical" flexItem sx={{ my: 1.5 }} />
           <Typography

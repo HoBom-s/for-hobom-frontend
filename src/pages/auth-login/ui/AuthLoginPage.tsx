@@ -38,7 +38,7 @@ export default function AuthLoginPage() {
             HoBom
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            HoBom Assistant System
+            HoBom 관리 시스템
           </Typography>
         </Box>
 
@@ -67,7 +67,7 @@ AuthLoginPage.Fallback = () => {
     <Box sx={{ textAlign: "center", py: 2 }}>
       <ErrorOutline color="error" sx={{ fontSize: 48, mb: 1 }} />
       <Typography variant="h6" fontWeight={600} gutterBottom>
-        Oops!
+        앗!
       </Typography>
       <Typography variant="body2" color="text.secondary" mb={3}>
         시스템에 문제가 생겼어요.
