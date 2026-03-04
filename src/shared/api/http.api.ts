@@ -1,5 +1,6 @@
 import { env } from "@/shared/config";
 import { createHttpClient } from "./http-client.api";
+import { csrfMiddleware } from "./csrf.middleware";
 import { HttpStatusModel } from "./http-status.api";
 import type { Middleware } from "./middleware.type";
 
@@ -56,6 +57,7 @@ const authMiddleware: Middleware = {
 };
 
 const httpClient = createHttpClient(env.VITE_APP_HOBOM_API_GATEWAY_URL);
+httpClient.use(csrfMiddleware);
 httpClient.use(authMiddleware);
 
 export { httpClient };
