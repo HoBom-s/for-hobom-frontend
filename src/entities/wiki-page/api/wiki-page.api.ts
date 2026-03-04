@@ -1,4 +1,4 @@
-import { httpClient } from "@/shared/api";
+import { spaceHttpClient } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
 import type {
   PageType,
@@ -12,8 +12,8 @@ import type {
 // ── Pages ──
 
 export const fetchPageTree = async ({ spaceKey }: { spaceKey: string }) => {
-  return await httpClient.get<HttpResponseType<PageTreeNode[]>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages`,
+  return await spaceHttpClient.get<HttpResponseType<PageTreeNode[]>>(
+    `/api/v1/spaces/${spaceKey}/pages`,
   );
 };
 
@@ -24,8 +24,8 @@ export const fetchPageById = async ({
   spaceKey: string;
   pageId: string;
 }) => {
-  return await httpClient.get<HttpResponseType<PageType>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}`,
+  return await spaceHttpClient.get<HttpResponseType<PageType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}`,
   );
 };
 
@@ -33,8 +33,8 @@ export const postCreatePage = async ({
   spaceKey,
   ...data
 }: { spaceKey: string } & CreatePageRequest) => {
-  return await httpClient.post<HttpResponseType<PageType>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages`,
+  return await spaceHttpClient.post<HttpResponseType<PageType>>(
+    `/api/v1/spaces/${spaceKey}/pages`,
     data,
   );
 };
@@ -44,8 +44,8 @@ export const putUpdatePage = async ({
   pageId,
   ...data
 }: { spaceKey: string; pageId: string } & UpdatePageRequest) => {
-  return await httpClient.put<HttpResponseType<PageType>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}`,
+  return await spaceHttpClient.put<HttpResponseType<PageType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}`,
     data,
   );
 };
@@ -57,8 +57,8 @@ export const deletePage = async ({
   spaceKey: string;
   pageId: string;
 }) => {
-  return await httpClient.delete<HttpResponseType<unknown>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}`,
+  return await spaceHttpClient.delete<HttpResponseType<unknown>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}`,
   );
 };
 
@@ -75,10 +75,10 @@ export const fetchPageVersions = async ({
   offset?: number;
   limit?: number;
 }) => {
-  return await httpClient.get<
+  return await spaceHttpClient.get<
     HttpResponseType<PaginatedItems<PageVersionType>>
   >(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}/versions?offset=${offset}&limit=${limit}`,
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions?offset=${offset}&limit=${limit}`,
   );
 };
 
@@ -91,8 +91,8 @@ export const fetchPageVersion = async ({
   pageId: string;
   version: number;
 }) => {
-  return await httpClient.get<HttpResponseType<PageVersionType>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/${version}`,
+  return await spaceHttpClient.get<HttpResponseType<PageVersionType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/${version}`,
   );
 };
 
@@ -105,8 +105,8 @@ export const postRestorePageVersion = async ({
   pageId: string;
   version: number;
 }) => {
-  return await httpClient.post<HttpResponseType<PageType>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/${version}/restore`,
+  return await spaceHttpClient.post<HttpResponseType<PageType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/${version}/restore`,
     {},
   );
 };
@@ -125,9 +125,9 @@ export const searchPages = async ({
   limit?: number;
 }) => {
   const base = spaceKey
-    ? `/space-api/api/v1/search/spaces/${spaceKey}`
-    : "/space-api/api/v1/search";
-  return await httpClient.get<
+    ? `/api/v1/search/spaces/${spaceKey}`
+    : "/api/v1/search";
+  return await spaceHttpClient.get<
     HttpResponseType<PaginatedItems<SearchResultType>>
   >(`${base}?q=${encodeURIComponent(q)}&offset=${offset}&limit=${limit}`);
 };

@@ -7,26 +7,24 @@ import type {
 } from "./label.type";
 
 export const fetchLabels = async () => {
-  return await httpClient.get<HttpResponseType<LabelItemType[]>>("/api/labels");
+  return await httpClient.get<HttpResponseType<LabelItemType[]>>("/labels");
 };
 
 export const fetchLabelById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<LabelItemType>>(
-    `/api/labels/${id}`,
-  );
+  return await httpClient.get<HttpResponseType<LabelItemType>>(`/labels/${id}`);
 };
 
 export const postCreateLabel = async (data: CreateLabelRequest) => {
-  return await httpClient.post<void>("/api/labels", data);
+  return await httpClient.post<void>("/labels", data);
 };
 
 export const patchUpdateLabel = async ({
   id,
   ...data
 }: { id: string } & UpdateLabelRequest) => {
-  return await httpClient.patch<void>(`/api/labels/${id}`, data);
+  return await httpClient.patch<void>(`/labels/${id}`, data);
 };
 
 export const deleteLabel = async ({ id }: { id: string }) => {
-  return await httpClient.delete(`/api/labels/${id}`);
+  return await httpClient.delete(`/labels/${id}`);
 };

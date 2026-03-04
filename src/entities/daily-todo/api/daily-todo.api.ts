@@ -5,13 +5,13 @@ import type { DailyTodoType, ProgressType } from "./daily-todo.type.ts";
 
 export const fetchDailyTodos = async ({ date }: { date: string }) => {
   return await httpClient.get<HttpResponseType<DailyTodoType[]>>(
-    `/api/daily-todos?date=${date}`,
+    `/daily-todos?date=${date}`,
   );
 };
 
 export const fetchDailyTodosByDate = async ({ date }: { date: string }) => {
   return await httpClient.get<HttpResponseType<DailyTodoType[]>>(
-    `/api/daily-todos/by-date/${date}`,
+    `/daily-todos/by-date/${date}`,
   );
 };
 
@@ -22,7 +22,7 @@ export const patchDailyTodoCompleteStatusChange = async ({
   id: string;
   status: ProgressType;
 }) => {
-  return await httpClient.patch(`/api/daily-todos/${id}/complete-status`, {
+  return await httpClient.patch(`/daily-todos/${id}/complete-status`, {
     status,
   });
 };
@@ -38,7 +38,7 @@ export const postDailyTodoCreate = async ({
   category: string;
   cycle?: string;
 }) => {
-  await httpClient.post(`/api/daily-todos`, {
+  await httpClient.post(`/daily-todos`, {
     title,
     date,
     category,
@@ -55,7 +55,7 @@ export const patchDailyTodo = async ({
   date?: string;
   category?: string;
 }) => {
-  return await httpClient.patch(`/api/daily-todos/${id}`, body);
+  return await httpClient.patch(`/daily-todos/${id}`, body);
 };
 
 export const patchDailyTodoCycle = async ({
@@ -65,7 +65,7 @@ export const patchDailyTodoCycle = async ({
   id: string;
   cycle: string;
 }) => {
-  return await httpClient.patch(`/api/daily-todos/${id}/cycle-status`, {
+  return await httpClient.patch(`/daily-todos/${id}/cycle-status`, {
     cycle,
   });
 };
@@ -79,12 +79,12 @@ export const patchDailyTodoReaction = async ({
   reaction: string;
   reactionUserId: string;
 }) => {
-  return await httpClient.patch(`/api/daily-todos/${id}/reaction`, {
+  return await httpClient.patch(`/daily-todos/${id}/reaction`, {
     reaction,
     reactionUserId,
   });
 };
 
 export const deleteDailyTodoById = async ({ id }: { id: string }) => {
-  await httpClient.delete(`/api/daily-todos/${id}`);
+  await httpClient.delete(`/daily-todos/${id}`);
 };

@@ -1,4 +1,4 @@
-import { httpClient } from "@/shared/api";
+import { spaceHttpClient } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
 import type {
   CommentType,
@@ -17,8 +17,10 @@ export const fetchComments = async ({
   offset?: number;
   limit?: number;
 }) => {
-  return await httpClient.get<HttpResponseType<PaginatedItems<CommentType>>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}/comments?offset=${offset}&limit=${limit}`,
+  return await spaceHttpClient.get<
+    HttpResponseType<PaginatedItems<CommentType>>
+  >(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/comments?offset=${offset}&limit=${limit}`,
   );
 };
 
@@ -27,8 +29,8 @@ export const postCreateComment = async ({
   pageId,
   ...data
 }: { spaceKey: string; pageId: string } & CreateCommentRequest) => {
-  return await httpClient.post<HttpResponseType<CommentType>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}/comments`,
+  return await spaceHttpClient.post<HttpResponseType<CommentType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/comments`,
     data,
   );
 };
@@ -43,8 +45,8 @@ export const putUpdateComment = async ({
   pageId: string;
   commentId: string;
 } & UpdateCommentRequest) => {
-  return await httpClient.put<HttpResponseType<CommentType>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}/comments/${commentId}`,
+  return await spaceHttpClient.put<HttpResponseType<CommentType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/comments/${commentId}`,
     data,
   );
 };
@@ -58,7 +60,7 @@ export const deleteComment = async ({
   pageId: string;
   commentId: string;
 }) => {
-  return await httpClient.delete<HttpResponseType<unknown>>(
-    `/space-api/api/v1/spaces/${spaceKey}/pages/${pageId}/comments/${commentId}`,
+  return await spaceHttpClient.delete<HttpResponseType<unknown>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/comments/${commentId}`,
   );
 };

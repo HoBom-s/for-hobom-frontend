@@ -14,7 +14,7 @@ export const fetchIssuesByProject = async ({
   projectId: string;
 }) => {
   return await httpClient.get<HttpResponseType<IssueType[]>>(
-    `/api/projects/${projectId}/issues`,
+    `/projects/${projectId}/issues`,
   );
 };
 
@@ -26,7 +26,7 @@ export const fetchIssueById = async ({
   issueId: string;
 }) => {
   return await httpClient.get<HttpResponseType<IssueType>>(
-    `/api/projects/${projectId}/issues/${issueId}`,
+    `/projects/${projectId}/issues/${issueId}`,
   );
 };
 
@@ -34,7 +34,7 @@ export const postCreateIssue = async ({
   projectId,
   ...data
 }: { projectId: string } & CreateIssueRequest) => {
-  return await httpClient.post<void>(`/api/projects/${projectId}/issues`, data);
+  return await httpClient.post<void>(`/projects/${projectId}/issues`, data);
 };
 
 export const patchUpdateIssue = async ({
@@ -43,7 +43,7 @@ export const patchUpdateIssue = async ({
   ...data
 }: { projectId: string; issueId: string } & UpdateIssueRequest) => {
   return await httpClient.patch<void>(
-    `/api/projects/${projectId}/issues/${issueId}`,
+    `/projects/${projectId}/issues/${issueId}`,
     data,
   );
 };
@@ -55,9 +55,7 @@ export const deleteIssue = async ({
   projectId: string;
   issueId: string;
 }) => {
-  return await httpClient.delete(
-    `/api/projects/${projectId}/issues/${issueId}`,
-  );
+  return await httpClient.delete(`/projects/${projectId}/issues/${issueId}`);
 };
 
 export const postTransitionIssue = async ({
@@ -66,7 +64,7 @@ export const postTransitionIssue = async ({
   ...data
 }: { projectId: string; issueId: string } & TransitionIssueRequest) => {
   return await httpClient.post<void>(
-    `/api/projects/${projectId}/issues/${issueId}/transition`,
+    `/projects/${projectId}/issues/${issueId}/transition`,
     data,
   );
 };
@@ -77,7 +75,7 @@ export const patchAssignIssue = async ({
   ...data
 }: { projectId: string; issueId: string } & AssignIssueRequest) => {
   return await httpClient.patch<void>(
-    `/api/projects/${projectId}/issues/${issueId}/assignee`,
+    `/projects/${projectId}/issues/${issueId}/assignee`,
     data,
   );
 };

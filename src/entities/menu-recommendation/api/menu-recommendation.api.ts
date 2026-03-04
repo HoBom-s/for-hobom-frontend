@@ -12,7 +12,7 @@ import type {
 
 export const fetchMenuRecommendationList = async () => {
   return await httpClient.get<HttpResponseType<MenuRecommendationType[]>>(
-    "/api/menu-recommendation",
+    "/menu-recommendation",
   );
 };
 
@@ -22,7 +22,7 @@ export const postMenuRecommendation = async ({
   timeOfMeal,
   foodType,
 }: AddMenuRecommendationInput) => {
-  return await httpClient.post("/api/menu-recommendation", {
+  return await httpClient.post("/menu-recommendation", {
     name,
     menuKind,
     timeOfMeal,
@@ -37,7 +37,7 @@ export const putMenuRecommendationTodayMenu = async ({
   todayMenuId,
 }: TodayMenuCandidateInput) => {
   return await httpClient.put<HttpResponseType<TodayMenuResponse>>(
-    "/api/today-menu",
+    "/today-menu",
     {
       candidates,
       recommendedMenu,
@@ -49,13 +49,13 @@ export const putMenuRecommendationTodayMenu = async ({
 
 export const fetchTodayRecommendedMenu = async ({ id }: { id: string }) => {
   return await httpClient.get<HttpResponseType<TodayRecommendedMenuType>>(
-    `/api/today-menu/${id}`,
+    `/today-menu/${id}`,
   );
 };
 
 export const postSelectTodayMenu = async ({ id }: { id: string }) => {
   return await httpClient.post<HttpResponseType<SelectedTodayMenuResponse>>(
-    `/api/today-menu/pick`,
+    `/today-menu/pick`,
     {
       todayMenuId: id,
     },

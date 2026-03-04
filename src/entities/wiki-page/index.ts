@@ -1,5 +1,4 @@
 export type {
-  PageType,
   PageTreeNode,
   PageVersionType,
   SearchResultType,

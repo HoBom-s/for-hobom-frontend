@@ -5,7 +5,7 @@ const CSRF_HEADER = "X-XSRF-TOKEN";
 
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 
-export const getCsrfToken = (): string | null => {
+const getCsrfToken = (): string | null => {
   const match = document.cookie.match(
     new RegExp(`(?:^|;\\s*)${CSRF_COOKIE}=([^;]*)`),
   );

@@ -1,4 +1,4 @@
-import { httpClient } from "@/shared/api";
+import { spaceHttpClient } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
 import type {
   SpaceType,
@@ -12,20 +12,20 @@ export const fetchSpaces = async (params?: {
 }) => {
   const offset = params?.offset ?? 0;
   const limit = params?.limit ?? 20;
-  return await httpClient.get<HttpResponseType<PaginatedItems<SpaceType>>>(
-    `/space-api/api/v1/spaces?offset=${offset}&limit=${limit}`,
+  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<SpaceType>>>(
+    `/api/v1/spaces?offset=${offset}&limit=${limit}`,
   );
 };
 
 export const fetchSpaceByKey = async ({ key }: { key: string }) => {
-  return await httpClient.get<HttpResponseType<SpaceType>>(
-    `/space-api/api/v1/spaces/${key}`,
+  return await spaceHttpClient.get<HttpResponseType<SpaceType>>(
+    `/api/v1/spaces/${key}`,
   );
 };
 
 export const postCreateSpace = async (data: CreateSpaceRequest) => {
-  return await httpClient.post<HttpResponseType<SpaceType>>(
-    "/space-api/api/v1/spaces",
+  return await spaceHttpClient.post<HttpResponseType<SpaceType>>(
+    "/api/v1/spaces",
     data,
   );
 };
@@ -34,14 +34,14 @@ export const putUpdateSpace = async ({
   key,
   ...data
 }: { key: string } & UpdateSpaceRequest) => {
-  return await httpClient.put<HttpResponseType<SpaceType>>(
-    `/space-api/api/v1/spaces/${key}`,
+  return await spaceHttpClient.put<HttpResponseType<SpaceType>>(
+    `/api/v1/spaces/${key}`,
     data,
   );
 };
 
 export const deleteSpace = async ({ key }: { key: string }) => {
-  return await httpClient.delete<HttpResponseType<unknown>>(
-    `/space-api/api/v1/spaces/${key}`,
+  return await spaceHttpClient.delete<HttpResponseType<unknown>>(
+    `/api/v1/spaces/${key}`,
   );
 };

@@ -16,11 +16,11 @@ export const fetchNotificationPage = async (
 
   const qs = searchParams.toString();
   const res = await httpClient.get<HttpResponseType<NotificationPageResponse>>(
-    `/api/notifications/scroll?${qs}`,
+    `/notifications/scroll?${qs}`,
   );
   return res.items;
 };
 
 export const patchNotificationRead = async (id: string) => {
-  return await httpClient.patch<void>(`/api/notifications/${id}/read`, {});
+  return await httpClient.patch<void>(`/notifications/${id}/read`, {});
 };

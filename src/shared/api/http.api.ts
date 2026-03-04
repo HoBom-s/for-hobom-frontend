@@ -1,3 +1,4 @@
+import { env } from "@/shared/config";
 import { createHttpClient } from "./http-client.api";
 import { csrfMiddleware } from "./csrf.middleware";
 import {
@@ -6,8 +7,19 @@ import {
   resetUnauthorizedState,
 } from "./auth.middleware";
 
-const httpClient = createHttpClient();
-httpClient.use(csrfMiddleware);
-httpClient.use(authMiddleware);
+const createConfiguredClient = (baseUrl: string) => {
+  const client = createHttpClient(baseUrl);
+  client.use(csrfMiddleware);
+  client.use(authMiddleware);
+  return client;
+};
 
-export { httpClient, UNAUTHORIZED_EVENT, resetUnauthorizedState };
+const httpClient = createConfiguredClient(env.VITE_APP_HOBOM_API_GATEWAY_URL);
+const spaceHttpClient = createConfiguredClient(env.VITE_APP_HOBOM_SPACE_URL);
+
+export {
+  httpClient,
+  spaceHttpClient,
+  UNAUTHORIZED_EVENT,
+  resetUnauthorizedState,
+};

@@ -1,4 +1,4 @@
-export type { SpaceType, UpdateSpaceRequest } from "./api/wiki-space.type";
+export type { SpaceType } from "./api/wiki-space.type";
 export { wikiSpaceQueries } from "./api/wiki-space.queries";
 export { useCreateSpace } from "./model/useCreateSpace";
 export { useUpdateSpace } from "./model/useUpdateSpace";

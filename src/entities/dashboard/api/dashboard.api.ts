@@ -19,7 +19,7 @@ export const fetchDailyTodoDashboard = async ({
   date: string;
 }) => {
   return await httpClient.get<HttpResponseType<DailyTodoDashboardType>>(
-    `/api/dashboard/daily-todos?period=${period}&date=${date}`,
+    `/dashboard/daily-todos?period=${period}&date=${date}`,
   );
 };
 
@@ -31,7 +31,7 @@ export const fetchNoteDashboard = async ({
   date: string;
 }) => {
   return await httpClient.get<HttpResponseType<NoteDashboardType>>(
-    `/api/dashboard/notes?period=${period}&date=${date}`,
+    `/dashboard/notes?period=${period}&date=${date}`,
   );
 };
 
@@ -43,7 +43,7 @@ export const fetchMessageDashboard = async ({
   date: string;
 }) => {
   return await httpClient.get<HttpResponseType<MessageDashboardType>>(
-    `/api/dashboard/future-messages?period=${period}&date=${date}`,
+    `/dashboard/future-messages?period=${period}&date=${date}`,
   );
 };
 
@@ -55,7 +55,7 @@ export const fetchNotificationDashboard = async ({
   date: string;
 }) => {
   return await httpClient.get<HttpResponseType<NotificationDashboardType>>(
-    `/api/dashboard/notifications?period=${period}&date=${date}`,
+    `/dashboard/notifications?period=${period}&date=${date}`,
   );
 };
 
@@ -65,7 +65,7 @@ export const fetchSystemDashboard = async ({
   period: SystemPeriodType;
 }) => {
   return await httpClient.get<HttpResponseType<SystemDashboardType>>(
-    `/api/dashboard/system?period=${period}`,
+    `/dashboard/system?period=${period}`,
   );
 };
 
@@ -77,6 +77,6 @@ export const fetchActivityDashboard = async ({
   date: string;
 }) => {
   return await httpClient.get<HttpResponseType<ActivityDashboardType>>(
-    `/api/dashboard/activity?period=${period}&date=${date}`,
+    `/dashboard/activity?period=${period}&date=${date}`,
   );
 };
