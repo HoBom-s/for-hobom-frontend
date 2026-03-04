@@ -1,10 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  Grid,
-  useClientRowModel,
-  useColumnResize,
-  type CellVM,
-} from "@hobom-grid/react";
+import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
+import type { CellVM } from "@hobom-grid/core";
 import type { IssueType } from "@/entities/issue";
 import {
   COLUMNS,

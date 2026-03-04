@@ -1,5 +1,6 @@
 import { UnfoldMore, ArrowUpward, ArrowDownward } from "@mui/icons-material";
-import { useColumnResize, type CellVM } from "@hobom-grid/react";
+import { useColumnResize } from "@hobom-grid/react";
+import type { CellVM } from "@hobom-grid/core";
 import {
   COLUMNS,
   type ColKey,
