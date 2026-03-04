@@ -519,9 +519,9 @@
     "@eslint/core" "^0.14.0"
     levn "^0.4.1"
 
-"@hobom-grid/core@0.1.0":
+"@hobom-grid/core@0.1.0", "@hobom-grid/core@^0.1.0":
   version "0.1.0"
-  resolved "https://registry.npmjs.org/@hobom-grid/core/-/core-0.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/@hobom-grid/core/-/core-0.1.0.tgz#b5b5adc6df4f398c47a0842131e8a5e6488dad71"
   integrity sha512-J0JqFMSBXxtpWiRV3R3c8uIHplaDmNMf1ggcq2gurv94fj2J4+V89JjIUVmjf4STihPD3kvm/pA5xfop79+u/A==
 
 "@hobom-grid/react@^0.1.1":
