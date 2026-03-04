@@ -7,26 +7,30 @@ import type {
 } from "./project.type";
 
 export const fetchProjects = async () => {
-  return await httpClient.get<HttpResponseType<ProjectType[]>>("/projects/me");
+  return await httpClient.get<HttpResponseType<ProjectType[]>>(
+    "/api/projects/me",
+  );
 };
 
 export const fetchProjectById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<ProjectType>>(`/projects/${id}`);
+  return await httpClient.get<HttpResponseType<ProjectType>>(
+    `/api/projects/${id}`,
+  );
 };
 
 export const postCreateProject = async (data: CreateProjectRequest) => {
-  return await httpClient.post<void>("/projects", data);
+  return await httpClient.post<void>("/api/projects", data);
 };
 
 export const patchUpdateProject = async ({
   id,
   ...data
 }: { id: string } & UpdateProjectRequest) => {
-  return await httpClient.patch<void>(`/projects/${id}`, data);
+  return await httpClient.patch<void>(`/api/projects/${id}`, data);
 };
 
 export const deleteProject = async ({ id }: { id: string }) => {
-  return await httpClient.delete(`/projects/${id}`);
+  return await httpClient.delete(`/api/projects/${id}`);
 };
 
 export const postAddMember = async ({
@@ -38,7 +42,7 @@ export const postAddMember = async ({
   userId: string;
   role: string;
 }) => {
-  return await httpClient.post<void>(`/projects/${projectId}/members`, {
+  return await httpClient.post<void>(`/api/projects/${projectId}/members`, {
     userId,
     role,
   });
@@ -51,5 +55,7 @@ export const deleteRemoveMember = async ({
   projectId: string;
   userId: string;
 }) => {
-  return await httpClient.delete(`/projects/${projectId}/members/${userId}`);
+  return await httpClient.delete(
+    `/api/projects/${projectId}/members/${userId}`,
+  );
 };

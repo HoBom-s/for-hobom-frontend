@@ -11,16 +11,16 @@ export const postAuthLogin = async ({
   nickname: string;
   password: string;
 }) => {
-  await httpClient.post(`/auth/login`, { nickname, password });
+  await httpClient.post(`/api/auth/login`, { nickname, password });
 };
 
 export const postAuthSignUp = async (data: AuthSignUpType) => {
-  await httpClient.post(`/users`, data);
+  await httpClient.post(`/api/users`, data);
 };
 
 export const postAuthLogout = async () => {
-  await httpClient.post("/auth/logout", {});
+  await httpClient.post("/api/auth/logout", {});
 };
 
 export const fetchUsers = async () =>
-  await httpClient.get<HttpResponseType<UserType[]>>("/users");
+  await httpClient.get<HttpResponseType<UserType[]>>("/api/users");

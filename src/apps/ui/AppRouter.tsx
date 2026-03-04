@@ -1,9 +1,15 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { CircularProgress } from "@mui/material";
 import { RoutesConfig } from "@/shared/config";
-import { AppShell } from "@/shared/ui";
+import { AppShell, ErrorBoundary } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { useToast } from "@/shared/model";
 import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "./nav-items";
@@ -29,6 +35,10 @@ const pageImports = {
   projectIssues: () => import("@/pages/project-issues"),
   projectSettings: () => import("@/pages/project-settings"),
   adminUsers: () => import("@/pages/admin-users"),
+  wikiSpaces: () => import("@/pages/wiki-spaces"),
+  wikiSpaceLayout: () => import("@/pages/wiki-space-layout"),
+  wikiSpaceHome: () => import("@/pages/wiki-space-home"),
+  wikiPageView: () => import("@/pages/wiki-page-view"),
 };
 
 const AuthLoginPage = lazy(pageImports.authLogin);
@@ -50,6 +60,10 @@ const ProjectBacklogPage = lazy(pageImports.projectBacklog);
 const ProjectIssuesPage = lazy(pageImports.projectIssues);
 const ProjectSettingsPage = lazy(pageImports.projectSettings);
 const AdminUsersPage = lazy(pageImports.adminUsers);
+const WikiSpacesPage = lazy(pageImports.wikiSpaces);
+const WikiSpaceLayoutPage = lazy(pageImports.wikiSpaceLayout);
+const WikiSpaceHomePage = lazy(pageImports.wikiSpaceHome);
+const WikiPageViewPage = lazy(pageImports.wikiPageView);
 
 const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.MAIN.DAILY_TODO]: [pageImports.dailyTodo],
@@ -68,22 +82,33 @@ const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.ADMIN.USERS]: [pageImports.adminUsers],
   [RoutesConfig.DASHBOARD.HOME]: [pageImports.dashboard],
   [RoutesConfig.DASHBOARD.SYSTEM]: [pageImports.dashboardSystem],
+  [RoutesConfig.WIKI.SPACES]: [
+    pageImports.wikiSpaces,
+    pageImports.wikiSpaceLayout,
+    pageImports.wikiSpaceHome,
+  ],
 };
 
 const prefetchRoute = (path: string) => {
   PREFETCH_MAP[path]?.forEach((fn) => fn());
 };
 
-const Shell = ({ children }: { children: React.ReactNode }) => (
-  <AppShell
-    navItems={NAV_ITEMS}
-    bottomNavItems={BOTTOM_NAV_ITEMS}
-    appBarAction={<AppBarActions />}
-    onPrefetch={prefetchRoute}
-  >
-    {children}
-  </AppShell>
-);
+const Shell = ({ children }: { children: React.ReactNode }) => {
+  const { pathname } = useLocation();
+
+  return (
+    <AppShell
+      navItems={NAV_ITEMS}
+      bottomNavItems={BOTTOM_NAV_ITEMS}
+      appBarAction={<AppBarActions />}
+      onPrefetch={prefetchRoute}
+    >
+      <ErrorBoundary resetKey={pathname} inline>
+        {children}
+      </ErrorBoundary>
+    </AppShell>
+  );
+};
 
 export const AppRouter = () => {
   const navigate = useNavigate();
@@ -207,6 +232,25 @@ export const AppRouter = () => {
             </Shell>
           }
         />
+        <Route
+          path={RoutesConfig.WIKI.SPACES}
+          element={
+            <Shell>
+              <WikiSpacesPage />
+            </Shell>
+          }
+        />
+        <Route
+          path="/wiki/:spaceKey"
+          element={
+            <Shell>
+              <WikiSpaceLayoutPage />
+            </Shell>
+          }
+        >
+          <Route index element={<WikiSpaceHomePage />} />
+          <Route path="pages/:pageId" element={<WikiPageViewPage />} />
+        </Route>
         <Route
           path="/projects/:projectId"
           element={

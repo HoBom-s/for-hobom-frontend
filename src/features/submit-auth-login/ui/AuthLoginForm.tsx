@@ -33,7 +33,7 @@ export const AuthLoginForm = () => {
           resetUnauthorizedState();
           queryClient.clear();
           openSuccessToast({ message: "호봄 시스템으로 이동할게요." });
-          navigate(RoutesConfig.MAIN.DAILY_TODO);
+          navigate(RoutesConfig.DASHBOARD.HOME);
         },
         onError: () => {
           openErrorToast({

@@ -4,3 +4,4 @@ export { delayThen } from "./delay.lib";
 export { createFunnelStateId, createFunnelStorage } from "./funnel.lib";
 export type { FunnelStorage } from "./funnel.lib";
 export { unwrapVO } from "./unwrap-vo.lib";
+export { sanitizeHtml } from "./sanitize-html.lib";

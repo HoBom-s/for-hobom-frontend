@@ -9,11 +9,11 @@ export const fetchFutureMessageByStatus = async ({
   status: FutureMessageSendStatusType;
 }) =>
   httpClient.get<HttpResponseType<FutureMessageType[]>>(
-    `/future-messages/by-status?status=${status}`,
+    `/api/future-messages/by-status?status=${status}`,
   );
 
 export const postFutureMessage = async (body: FutureMessageSendSchemaType) =>
-  httpClient.post("/future-messages", body);
+  httpClient.post("/api/future-messages", body);
 
 export const patchFutureMessage = async ({
   id,
@@ -23,7 +23,7 @@ export const patchFutureMessage = async ({
   title?: string;
   content?: string;
   scheduledAt?: string;
-}) => httpClient.patch(`/future-messages/${id}`, body);
+}) => httpClient.patch(`/api/future-messages/${id}`, body);
 
 export const deleteFutureMessage = async ({ id }: { id: string }) =>
-  httpClient.delete(`/future-messages/${id}`);
+  httpClient.delete(`/api/future-messages/${id}`);

@@ -38,7 +38,7 @@ export default function AuthLoginPage() {
             HoBom
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            HoBom 관리 시스템
+            HoBom System
           </Typography>
         </Box>
 

@@ -4,3 +4,10 @@ export interface HttpResponseType<T> {
   timestamp: Date;
   items: T;
 }
+
+export interface PaginatedItems<T> {
+  items: T[];
+  totalCount: number;
+  offset: number;
+  limit: number;
+}

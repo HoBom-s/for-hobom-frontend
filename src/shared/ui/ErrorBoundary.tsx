@@ -1,10 +1,14 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { Box, Typography } from "@mui/material";
-import { ErrorOutline } from "@mui/icons-material";
+import { Box, Button, Typography } from "@mui/material";
+import { ErrorOutline, RefreshOutlined } from "@mui/icons-material";
 
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
+  /** 이 값이 변하면 에러 상태를 자동 리셋 */
+  resetKey?: string;
+  /** 풀스크린(100vh) 대신 콘텐츠 영역만 채우는 fallback 사용 */
+  inline?: boolean;
 }
 
 interface State {
@@ -19,15 +23,25 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (this.state.hasError && prevProps.resetKey !== this.props.resetKey) {
+      this.setState({ hasError: false, error: null });
+    }
+  }
+
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // @TODO Sentry
     console.error(error);
     console.error(errorInfo);
   }
 
+  private handleReset = () => {
+    this.setState({ hasError: false, error: null });
+  };
+
   render() {
     const { hasError, error } = this.state;
-    const { fallback } = this.props;
+    const { fallback, inline } = this.props;
 
     if (hasError) {
       if (fallback) {
@@ -35,21 +49,16 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div
-          style={{
+        <Box
+          sx={{
             width: "100%",
-            height: "100vh",
+            ...(inline ? { flex: 1, minHeight: 0 } : { height: "100vh" }),
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Box
-            sx={{
-              mx: "auto",
-              textAlign: "center",
-            }}
-          >
+          <Box sx={{ textAlign: "center" }}>
             <ErrorOutline color="info" sx={{ fontSize: 48 }} />
             <Typography variant="h5" gutterBottom>
               앗!
@@ -68,13 +77,26 @@ export class ErrorBoundary extends Component<Props, State> {
                   mt: 2,
                   whiteSpace: "pre-wrap",
                   wordBreak: "break-all",
+                  maxWidth: 480,
+                  mx: "auto",
                 }}
               >
                 {error.message}
               </Typography>
             ) : null}
+            <Box sx={{ mt: 2 }}>
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={<RefreshOutlined />}
+                onClick={this.handleReset}
+                sx={{ textTransform: "none" }}
+              >
+                다시 시도
+              </Button>
+            </Box>
           </Box>
-        </div>
+        </Box>
       );
     }
 

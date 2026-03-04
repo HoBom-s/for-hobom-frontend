@@ -23,6 +23,12 @@ export default defineConfig({
         secure: true,
         rewrite: (p) => p.replace(/^\/api/, ""),
       },
+      "/space-api": {
+        target: "https://hobom-system.com/hobom-api-gateway/hobom-space",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) => p.replace(/^\/space-api/, ""),
+      },
     },
   },
 });

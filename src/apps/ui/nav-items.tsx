@@ -1,5 +1,6 @@
 import {
   AdminPanelSettingsOutlined,
+  ArticleOutlined,
   DashboardOutlined,
   FolderOutlined,
   ListAlt,
@@ -48,6 +49,12 @@ export const NAV_ITEMS: AppShellNavItem[] = [
     label: "프로젝트",
     path: RoutesConfig.PROJECTS.LIST,
     icon: <FolderOutlined fontSize="small" />,
+  },
+  {
+    value: "WIKI",
+    label: "위키",
+    path: RoutesConfig.WIKI.SPACES,
+    icon: <ArticleOutlined fontSize="small" />,
   },
 ];
 

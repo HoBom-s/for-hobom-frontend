@@ -1,6 +1,6 @@
 export const RoutesConfig = {
   MAIN: {
-    DAILY_TODO: "/",
+    DAILY_TODO: "/daily-todo",
   },
   AUTH: {
     LOGIN: "/auth/login",
@@ -28,11 +28,16 @@ export const RoutesConfig = {
     ISSUE_DETAIL: "/projects/:projectId/issues/:issueKey",
     SETTINGS: "/projects/:projectId/settings",
   },
+  WIKI: {
+    SPACES: "/wiki",
+    SPACE_HOME: "/wiki/:spaceKey",
+    PAGE: "/wiki/:spaceKey/pages/:pageId",
+  },
   ADMIN: {
     USERS: "/admin/users",
   },
   DASHBOARD: {
-    HOME: "/dashboard",
+    HOME: "/",
     SYSTEM: "/dashboard/system",
   },
   NOT_FOUND: {

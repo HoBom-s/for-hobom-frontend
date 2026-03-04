@@ -34,7 +34,7 @@ export const theme = createTheme({
       primary: "#2d3748",
       secondary: "#5a6a85",
     },
-    divider: "#e9ecef",
+    divider: "#d0d5dd",
   },
   typography: {
     fontFamily: `'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif`,
@@ -163,7 +163,7 @@ export const theme = createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
-          borderBottom: "1px solid #e9ecef",
+          borderBottom: "1px solid #d0d5dd",
         },
       },
     },

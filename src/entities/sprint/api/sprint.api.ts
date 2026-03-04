@@ -12,7 +12,7 @@ export const fetchSprintsByProject = async ({
   projectId: string;
 }) => {
   return await httpClient.get<HttpResponseType<SprintType[]>>(
-    `/projects/${projectId}/sprints`,
+    `/api/projects/${projectId}/sprints`,
   );
 };
 
@@ -20,7 +20,10 @@ export const postCreateSprint = async ({
   projectId,
   ...data
 }: { projectId: string } & CreateSprintRequest) => {
-  return await httpClient.post<void>(`/projects/${projectId}/sprints`, data);
+  return await httpClient.post<void>(
+    `/api/projects/${projectId}/sprints`,
+    data,
+  );
 };
 
 export const patchUpdateSprint = async ({
@@ -29,7 +32,7 @@ export const patchUpdateSprint = async ({
   ...data
 }: { projectId: string; sprintId: string } & UpdateSprintRequest) => {
   return await httpClient.patch<void>(
-    `/projects/${projectId}/sprints/${sprintId}`,
+    `/api/projects/${projectId}/sprints/${sprintId}`,
     data,
   );
 };
@@ -41,7 +44,9 @@ export const deleteSprint = async ({
   projectId: string;
   sprintId: string;
 }) => {
-  return await httpClient.delete(`/projects/${projectId}/sprints/${sprintId}`);
+  return await httpClient.delete(
+    `/api/projects/${projectId}/sprints/${sprintId}`,
+  );
 };
 
 export const postStartSprint = async ({
@@ -52,7 +57,7 @@ export const postStartSprint = async ({
   sprintId: string;
 }) => {
   return await httpClient.post<void>(
-    `/projects/${projectId}/sprints/${sprintId}/start`,
+    `/api/projects/${projectId}/sprints/${sprintId}/start`,
     {},
   );
 };
@@ -65,7 +70,7 @@ export const postCompleteSprint = async ({
   sprintId: string;
 }) => {
   return await httpClient.post<void>(
-    `/projects/${projectId}/sprints/${sprintId}/complete`,
+    `/api/projects/${projectId}/sprints/${sprintId}/complete`,
     {},
   );
 };

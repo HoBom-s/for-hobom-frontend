@@ -117,15 +117,18 @@ export const AppShell = ({
         >
           <Typography
             variant="body2"
+            onClick={() => navigate("/")}
             sx={{
               fontWeight: 700,
               fontSize: "0.7rem",
               letterSpacing: "0.1em",
               textTransform: "uppercase",
               color: "text.secondary",
+              cursor: "pointer",
+              "&:hover": { color: "primary.main" },
             }}
           >
-            HoBom 관리
+            HoBom System
           </Typography>
           <Divider orientation="vertical" flexItem sx={{ my: 1.5 }} />
           <Typography

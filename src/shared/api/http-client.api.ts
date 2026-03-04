@@ -1,6 +1,9 @@
 import { env } from "@/shared/config";
+import { HttpError } from "./http-error";
 import type { Middleware, MiddlewareContext } from "./middleware.type";
 import type { HttpMethod, RequestOptions } from "./http-options.type";
+
+const DEFAULT_TIMEOUT_MS = 30_000;
 
 interface HttpClient {
   use: (middleware: Middleware) => void;
@@ -41,51 +44,69 @@ export const createHttpClient = (baseUrl: string = ""): HttpClient => {
     url: string,
     options: RequestOptions = {},
   ) => {
+    const { json, retry: maxRetry = 0, timeout, ...fetchOptions } = options;
     const fullUrl = baseUrl + url;
 
     const init: RequestInit = {
-      ...options,
+      ...fetchOptions,
       method,
       headers: {
         "Content-Type": "application/json",
-        ...(options.headers || {}),
+        ...(fetchOptions.headers || {}),
         "X-Hobom-Api-Key": env.VITE_APP_HOBOM_API_KEY,
       },
       credentials: "include",
     };
 
-    if (options.json !== undefined) {
-      init.body = JSON.stringify(options.json);
+    if (json !== undefined) {
+      init.body = JSON.stringify(json);
     }
+
+    const controller = new AbortController();
+    init.signal = init.signal ?? controller.signal;
+    const timeoutId = setTimeout(
+      () => controller.abort(),
+      timeout ?? DEFAULT_TIMEOUT_MS,
+    );
 
     const ctx: MiddlewareContext = { input: fullUrl, init };
     await runMiddlewareHook("onRequest", ctx);
 
     let attempt = 0;
-    const maxRetry = options.retry ?? 0;
 
-    while (true) {
-      try {
-        ctx.response = await fetch(ctx.input, ctx.init);
-        await runMiddlewareHook("onResponse", ctx);
+    try {
+      while (true) {
+        try {
+          ctx.response = await fetch(ctx.input, ctx.init);
+          await runMiddlewareHook("onResponse", ctx);
 
-        if (!ctx.response.ok) {
-          const error = new Error(`HTTP error! status: ${ctx.response.status}`);
+          if (!ctx.response.ok) {
+            let serverMessage: string | undefined;
+            try {
+              const body = await ctx.response.clone().json();
+              serverMessage = body.message;
+            } catch {
+              /* non-JSON or no message field */
+            }
+            const error = new HttpError(ctx.response.status, serverMessage);
+            ctx.error = error;
+            throw error;
+          }
+
+          return ctx.response;
+        } catch (error) {
           ctx.error = error;
+          await runMiddlewareHook("onError", ctx);
+
+          if (attempt < maxRetry) {
+            attempt++;
+            continue;
+          }
           throw error;
         }
-
-        return ctx.response;
-      } catch (error) {
-        ctx.error = error;
-        await runMiddlewareHook("onError", ctx);
-
-        if (attempt < maxRetry) {
-          attempt++;
-          continue;
-        }
-        throw error;
       }
+    } finally {
+      clearTimeout(timeoutId);
     }
   };
 
