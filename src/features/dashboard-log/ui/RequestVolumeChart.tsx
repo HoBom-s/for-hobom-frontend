@@ -89,7 +89,7 @@ export const RequestVolumeChart = ({ data }: RequestVolumeChartProps) => {
             }
           />
           <Tooltip
-            content={CustomTooltip}
+            content={<CustomTooltip />}
             cursor={{
               stroke: "#22d3ee",
               strokeWidth: 1,
