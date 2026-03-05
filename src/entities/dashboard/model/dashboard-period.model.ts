@@ -21,3 +21,9 @@ export const SYSTEM_PERIOD_LABEL: Record<SystemPeriodType, string> = {
   LAST_7D: "7일",
   LAST_30D: "30일",
 };
+
+export const SYSTEM_PERIOD_HOURS: Record<SystemPeriodType, number> = {
+  LAST_24H: 24,
+  LAST_7D: 168,
+  LAST_30D: 168, // API max 168h
+};

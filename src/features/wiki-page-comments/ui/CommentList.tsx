@@ -18,6 +18,7 @@ import {
   useUpdateComment,
   useDeleteComment,
 } from "@/entities/wiki-comment";
+import { UserType } from "@/entities/user";
 import type { CommentTreeNode } from "../lib/build-comment-tree.lib";
 import { CommentInput } from "./CommentInput";
 
@@ -25,12 +26,14 @@ interface CommentListProps {
   comments: CommentTreeNode[];
   spaceKey: string;
   pageId: string;
+  userInfo: UserType;
 }
 
 export const CommentList = ({
   comments,
   spaceKey,
   pageId,
+  userInfo,
 }: CommentListProps) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -41,6 +44,7 @@ export const CommentList = ({
           spaceKey={spaceKey}
           pageId={pageId}
           depth={0}
+          userInfo={userInfo}
         />
       ))}
     </Box>
@@ -52,6 +56,7 @@ interface CommentNodeProps {
   spaceKey: string;
   pageId: string;
   depth: number;
+  userInfo: UserType;
 }
 
 const CommentNode = ({
@@ -59,6 +64,7 @@ const CommentNode = ({
   spaceKey,
   pageId,
   depth,
+  userInfo,
 }: CommentNodeProps) => {
   const [replying, setReplying] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -72,7 +78,13 @@ const CommentNode = ({
 
   const handleReply = (content: string) => {
     createComment.mutate(
-      { spaceKey, pageId, content, parentCommentId: comment.id },
+      {
+        spaceKey,
+        pageId,
+        content,
+        parentCommentId: comment.id,
+        author: userInfo.nickname,
+      },
       { onSuccess: () => setReplying(false) },
     );
   };
@@ -264,6 +276,7 @@ const CommentNode = ({
           spaceKey={spaceKey}
           pageId={pageId}
           depth={depth + 1}
+          userInfo={userInfo}
         />
       ))}
     </Fragment>

@@ -29,6 +29,12 @@ export default defineConfig({
         secure: true,
         rewrite: (p) => p.replace(/^\/space-api/, ""),
       },
+      "/internal-api": {
+        target: "https://hobom-system.com/hobom-api-gateway/hobom-internal",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) => p.replace(/^\/internal-api/, ""),
+      },
     },
   },
 });

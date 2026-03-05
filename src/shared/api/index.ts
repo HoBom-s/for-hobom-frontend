@@ -1,6 +1,7 @@
 export {
   httpClient,
   spaceHttpClient,
+  internalHttpClient,
   UNAUTHORIZED_EVENT,
   resetUnauthorizedState,
 } from "./http.api";

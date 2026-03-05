@@ -9,6 +9,7 @@ import {
   NotificationsNoneOutlined,
   RiceBowlTwoTone,
   StickyNote2Outlined,
+  TextSnippetOutlined,
 } from "@mui/icons-material";
 import { RoutesConfig } from "@/shared/config";
 import type { AppShellNavItem } from "@/shared/ui";
@@ -76,5 +77,11 @@ export const BOTTOM_NAV_ITEMS: AppShellNavItem[] = [
     label: "시스템",
     path: RoutesConfig.DASHBOARD.SYSTEM,
     icon: <MonitorHeartOutlined fontSize="small" />,
+  },
+  {
+    value: "LOGS",
+    label: "로그",
+    path: RoutesConfig.DASHBOARD.LOGS,
+    icon: <TextSnippetOutlined fontSize="small" />,
   },
 ];

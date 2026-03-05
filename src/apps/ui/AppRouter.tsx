@@ -39,6 +39,7 @@ const pageImports = {
   wikiSpaceLayout: () => import("@/pages/wiki-space-layout"),
   wikiSpaceHome: () => import("@/pages/wiki-space-home"),
   wikiPageView: () => import("@/pages/wiki-page-view"),
+  dashboardLog: () => import("@/pages/dashboard-log"),
 };
 
 const AuthLoginPage = lazy(pageImports.authLogin);
@@ -64,6 +65,7 @@ const WikiSpacesPage = lazy(pageImports.wikiSpaces);
 const WikiSpaceLayoutPage = lazy(pageImports.wikiSpaceLayout);
 const WikiSpaceHomePage = lazy(pageImports.wikiSpaceHome);
 const WikiPageViewPage = lazy(pageImports.wikiPageView);
+const DashboardLogPage = lazy(pageImports.dashboardLog);
 
 const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.MAIN.DAILY_TODO]: [pageImports.dailyTodo],
@@ -82,6 +84,7 @@ const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.ADMIN.USERS]: [pageImports.adminUsers],
   [RoutesConfig.DASHBOARD.HOME]: [pageImports.dashboard],
   [RoutesConfig.DASHBOARD.SYSTEM]: [pageImports.dashboardSystem],
+  [RoutesConfig.DASHBOARD.LOGS]: [pageImports.dashboardLog],
   [RoutesConfig.WIKI.SPACES]: [
     pageImports.wikiSpaces,
     pageImports.wikiSpaceLayout,
@@ -213,6 +216,14 @@ export const AppRouter = () => {
           element={
             <Shell>
               <DashboardSystemPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.DASHBOARD.LOGS}
+          element={
+            <Shell>
+              <DashboardLogPage />
             </Shell>
           }
         />

@@ -5,15 +5,21 @@ import { useToast } from "@/shared/model";
 import { usePageComments } from "../model/usePageComments";
 import { CommentInput } from "./CommentInput";
 import { CommentList } from "./CommentList";
+import type { UserType } from "@/entities/user";
 
 interface CommentsSectionProps {
   spaceKey: string;
   pageId: string;
+  userInfo: UserType;
 }
 
 const validateComment = validateWithZod(CreateCommentSchema);
 
-export const CommentsSection = ({ spaceKey, pageId }: CommentsSectionProps) => {
+export const CommentsSection = ({
+  spaceKey,
+  pageId,
+  userInfo,
+}: CommentsSectionProps) => {
   const {
     comments,
     totalCount,
@@ -31,7 +37,12 @@ export const CommentsSection = ({ spaceKey, pageId }: CommentsSectionProps) => {
       openErrorToast({ message: result.message });
       return;
     }
-    createComment.mutate({ spaceKey, pageId, content: result.content });
+    createComment.mutate({
+      spaceKey,
+      pageId,
+      content: result.content,
+      author: userInfo.nickname,
+    });
   };
 
   return (
@@ -49,6 +60,7 @@ export const CommentsSection = ({ spaceKey, pageId }: CommentsSectionProps) => {
             comments={comments}
             spaceKey={spaceKey}
             pageId={pageId}
+            userInfo={userInfo}
           />
           {hasNextPage && (
             <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>

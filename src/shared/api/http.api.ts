@@ -16,10 +16,14 @@ const createConfiguredClient = (baseUrl: string) => {
 
 const httpClient = createConfiguredClient(env.VITE_APP_HOBOM_API_GATEWAY_URL);
 const spaceHttpClient = createConfiguredClient(env.VITE_APP_HOBOM_SPACE_URL);
+const internalHttpClient = createConfiguredClient(
+  env.VITE_APP_HOBOM_INTERNAL_URL,
+);
 
 export {
   httpClient,
   spaceHttpClient,
+  internalHttpClient,
   UNAUTHORIZED_EVENT,
   resetUnauthorizedState,
 };
