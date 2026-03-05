@@ -84,7 +84,8 @@ export const createHttpClient = (baseUrl: string = ""): HttpClient => {
             let serverMessage: string | undefined;
             try {
               const body = await ctx.response.clone().json();
-              serverMessage = body.message;
+              serverMessage =
+                typeof body?.message === "string" ? body.message : undefined;
             } catch {
               /* non-JSON or no message field */
             }

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { useParams } from "react-router-dom";
-import { Box, CircularProgress } from "@mui/material";
+import { SuspenseLoader } from "@/shared/ui";
 import { ProjectSettings } from "@/features/project-settings";
 
 export const ProjectSettingsWorkspace = () => {
@@ -9,13 +9,7 @@ export const ProjectSettingsWorkspace = () => {
   if (!projectId) return null;
 
   return (
-    <Suspense
-      fallback={
-        <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-          <CircularProgress />
-        </Box>
-      }
-    >
+    <Suspense fallback={<SuspenseLoader />}>
       <ProjectSettings projectId={projectId} />
     </Suspense>
   );

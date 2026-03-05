@@ -1,7 +1,8 @@
 import { Suspense, useState, type ReactNode, type SyntheticEvent } from "react";
-import { Box, CircularProgress, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { DashboardOutlined } from "@mui/icons-material";
 import { useRouterQuery } from "@/shared/model";
+import { SuspenseLoader } from "@/shared/ui";
 import {
   PeriodSelector,
   PeriodModel,
@@ -40,12 +41,6 @@ const TabPanel = ({
   if (!visible) return null;
   return <div role="tabpanel">{children}</div>;
 };
-
-const Loader = () => (
-  <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-    <CircularProgress />
-  </Box>
-);
 
 export const DashboardWorkspace = () => {
   const { query, updateQuery } = useRouterQuery();
@@ -107,7 +102,7 @@ export const DashboardWorkspace = () => {
         ))}
       </Tabs>
 
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<SuspenseLoader />}>
         <TabPanel visible={currentTab === "activity"}>
           <ActivityDashboardContent period={period} date={today} />
         </TabPanel>

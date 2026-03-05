@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
-import { Box, CircularProgress } from "@mui/material";
+import { SuspenseLoader } from "@/shared/ui";
 import { BacklogBoard } from "@/features/backlog-board";
 
 export const BacklogWorkspace = () => {
@@ -13,13 +13,7 @@ export const BacklogWorkspace = () => {
   if (!projectId) return null;
 
   return (
-    <Suspense
-      fallback={
-        <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-          <CircularProgress />
-        </Box>
-      }
-    >
+    <Suspense fallback={<SuspenseLoader />}>
       <BacklogBoard
         projectId={projectId}
         onCreateChildIssue={onCreateChildIssue}

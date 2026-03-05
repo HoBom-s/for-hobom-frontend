@@ -4,7 +4,7 @@ import { Box, Paper } from "@mui/material";
 import { FutureMessageFunnel } from "@/features/send-future-message";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 export default function FutureMessageSendPage() {
   const formMethods = useForm<FutureMessageSendSchemaType>({
@@ -29,7 +29,7 @@ export default function FutureMessageSendPage() {
       }}
     >
       <FormProvider {...formMethods}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Layout>
             <FutureMessageFunnel />
           </Layout>

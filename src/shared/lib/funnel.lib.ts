@@ -26,7 +26,12 @@ export const createFunnelStorage = <T>(
             return null;
           }
 
-          return JSON.parse(d) as Partial<T>;
+          try {
+            return JSON.parse(d) as Partial<T>;
+          } catch {
+            sessionStorage.removeItem(funnelStateId);
+            return null;
+          }
         },
         set: async (value: Partial<T>) => {
           sessionStorage.setItem(funnelStateId, JSON.stringify(value));

@@ -4,6 +4,7 @@ import { applyCsrfHeader } from "./csrf.middleware";
 import type { Middleware } from "./middleware.type";
 
 const REFRESH_URL = `${env.VITE_APP_HOBOM_API_GATEWAY_URL}/auth/refresh`;
+const DEFAULT_TIMEOUT_MS = 30_000;
 
 export const UNAUTHORIZED_EVENT = "hobom:unauthorized";
 
@@ -36,21 +37,35 @@ export const authMiddleware: Middleware = {
     if (unauthorizedDispatched) return;
 
     if (!refreshPromise) {
-      refreshPromise = tryRefresh().finally(() => {
-        refreshPromise = null;
-      });
+      refreshPromise = tryRefresh();
     }
 
     const refreshed = await refreshPromise;
+    refreshPromise = null;
 
     if (refreshed) {
-      // refresh 후 CSRF 토큰이 갱신될 수 있으므로 재적용
-      const retryInit: RequestInit = {
-        ...ctx.init,
-        headers: applyCsrfHeader(ctx.init.headers as Record<string, string>),
-      };
-      const retryResponse = await fetch(ctx.input, retryInit);
-      ctx.response = retryResponse;
+      const headers = new Headers(ctx.init.headers);
+      const headerRecord: Record<string, string> = {};
+      headers.forEach((value, key) => {
+        headerRecord[key] = value;
+      });
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(
+        () => controller.abort(),
+        DEFAULT_TIMEOUT_MS,
+      );
+
+      try {
+        const retryInit: RequestInit = {
+          ...ctx.init,
+          headers: applyCsrfHeader(headerRecord),
+          signal: controller.signal,
+        };
+        ctx.response = await fetch(ctx.input, retryInit);
+      } finally {
+        clearTimeout(timeoutId);
+      }
     } else {
       unauthorizedDispatched = true;
       window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));

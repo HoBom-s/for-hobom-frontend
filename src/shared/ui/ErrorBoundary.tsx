@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { ErrorOutline, RefreshOutlined } from "@mui/icons-material";
+import { reportError } from "@/shared/lib";
 
 interface Props {
   children: ReactNode;
@@ -30,9 +31,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // @TODO Sentry
-    console.error(error);
-    console.error(errorInfo);
+    reportError(error, { componentStack: errorInfo.componentStack });
   }
 
   private handleReset = () => {

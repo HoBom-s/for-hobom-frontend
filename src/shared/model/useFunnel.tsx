@@ -31,14 +31,7 @@ interface SetStepOptions {
   stepChangeType?: "push" | "replace";
 }
 
-export const useFunnel = <Steps extends NonEmptyArray<string>>(
-  steps: Steps,
-  options?: {
-    stepQueryKey?: string;
-    initialStep?: Steps[number];
-    onStepChange?: (name: Steps[number]) => void;
-  },
-): readonly [
+type UseFunnelReturn<Steps extends NonEmptyArray<string>> = readonly [
   FunnelComponent<Steps>,
   (step: Steps[number], options?: SetStepOptions) => void,
 ] & {
@@ -55,7 +48,16 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
           ) => StateExcludeStep & { step: Steps[number] }),
     ) => void,
   ];
-} => {
+};
+
+export const useFunnel = <Steps extends NonEmptyArray<string>>(
+  steps: Steps,
+  options?: {
+    stepQueryKey?: string;
+    initialStep?: Steps[number];
+    onStepChange?: (name: Steps[number]) => void;
+  },
+): UseFunnelReturn<Steps> => {
   const stepQueryKey = options?.stepQueryKey ?? DEFAULT_STEP_QUERY_KEY;
 
   const location = useLocation();
@@ -107,12 +109,12 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
   );
 
   type FunnelState = Record<string, unknown>;
-  type Step = Steps[number];
-  type NextState = FunnelState & { step?: Step };
+  type StepName = Steps[number];
+  type NextState = FunnelState & { step?: StepName };
 
   const [state, _setState] = useFunnelState<FunnelState>({});
 
-  const nextPendingStepRef = useRef<Step | null>(null);
+  const nextPendingStepRef = useRef<StepName | null>(null);
   const nextStateRef = useRef<Partial<FunnelState> | null>(null);
 
   const setState = useCallback(
@@ -150,34 +152,41 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
 
   function withState<State extends Record<string, unknown>>(
     initialState: State,
-  ) {
+  ): [
+    FunnelComponent<Steps>,
+    State,
+    (
+      next:
+        | Partial<State & { step: Steps[number] }>
+        | ((
+            next: Partial<State & { step: Steps[number] }>,
+          ) => State & { step: Steps[number] }),
+    ) => void,
+  ] {
     if (!initializedRef.current) {
       setState(initialState);
       initializedRef.current = true;
     }
-    return [FunnelComponent, state, setState] as const;
-  }
-
-  return Object.assign([FunnelComponent, setStep] as const, {
-    withState,
-  }) as unknown as readonly [
-    FunnelComponent<Steps>,
-    (step: Steps[number], options?: SetStepOptions) => Promise<void>,
-  ] & {
-    withState: <StateExcludeStep extends Record<string, unknown>>(
-      initialState: StateExcludeStep,
-    ) => [
-      FunnelComponent<Steps>,
-      StateExcludeStep,
-      (
+    return [
+      FunnelComponent as FunnelComponent<Steps>,
+      state as State,
+      setState as (
         next:
-          | Partial<StateExcludeStep & { step: Steps[number] }>
+          | Partial<State & { step: Steps[number] }>
           | ((
-              next: Partial<StateExcludeStep & { step: Steps[number] }>,
-            ) => StateExcludeStep & { step: Steps[number] }),
+              next: Partial<State & { step: Steps[number] }>,
+            ) => State & { step: Steps[number] }),
       ) => void,
     ];
-  };
+  }
+
+  return Object.assign(
+    [FunnelComponent, setStep] as readonly [
+      FunnelComponent<Steps>,
+      (step: Steps[number], options?: SetStepOptions) => void,
+    ],
+    { withState },
+  ) as UseFunnelReturn<Steps>;
 };
 
 const useQueryString = (name: string) => {

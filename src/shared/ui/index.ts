@@ -11,5 +11,6 @@ import { SkeletonCard } from "./SkeletonCard";
 import { SkeletonList } from "./SkeletonList";
 export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };
 
+export { SuspenseLoader } from "./SuspenseLoader";
 export { Sortable, arrayMove } from "./Sortable";
 export type { DragEndEvent, DragStartEvent } from "./Sortable";
