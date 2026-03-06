@@ -7,6 +7,7 @@ import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { resetUnauthorizedState } from "@/shared/api";
 import { postAuthLogin, type AuthLoginType } from "@/entities/auth";
+import { userQueries } from "@/entities/user";
 
 export const AuthLoginForm = () => {
   const navigate = useNavigate();
@@ -29,9 +30,10 @@ export const AuthLoginForm = () => {
         password,
       },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
           resetUnauthorizedState();
           queryClient.clear();
+          await queryClient.prefetchQuery(userQueries.me());
           openSuccessToast({ message: "호봄 시스템으로 이동할게요." });
           navigate(RoutesConfig.DASHBOARD.HOME);
         },
