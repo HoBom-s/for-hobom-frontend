@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -7,10 +8,11 @@ import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { resetUnauthorizedState } from "@/shared/api";
 import { postAuthLogin, type AuthLoginType } from "@/entities/auth";
-import { userQueries } from "@/entities/user";
+import { LoginTransitionOverlay } from "./LoginTransitionOverlay";
 
 export const AuthLoginForm = () => {
   const navigate = useNavigate();
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const formMethods = useForm<AuthLoginType>({
     mode: "onChange",
     defaultValues: {
@@ -20,7 +22,7 @@ export const AuthLoginForm = () => {
   });
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useMutation({ mutationFn: postAuthLogin });
-  const { openSuccessToast, openWarnToast, openErrorToast } = useToast();
+  const { openWarnToast, openErrorToast } = useToast();
 
   const handleValidFormSubmit = async (formValue: FieldValues) => {
     const { nickname, password } = formValue;
@@ -33,8 +35,8 @@ export const AuthLoginForm = () => {
         onSuccess: async () => {
           resetUnauthorizedState();
           queryClient.clear();
-          await queryClient.prefetchQuery(userQueries.me());
-          openSuccessToast({ message: "호봄 시스템으로 이동할게요." });
+          setIsTransitioning(true);
+          await new Promise((resolve) => setTimeout(resolve, 2000));
           navigate(RoutesConfig.DASHBOARD.HOME);
         },
         onError: () => {
@@ -53,51 +55,54 @@ export const AuthLoginForm = () => {
   };
 
   return (
-    <FormProvider {...formMethods}>
-      <Box
-        component="form"
-        noValidate
-        autoComplete="off"
-        width="100%"
-        display="flex"
-        flexDirection="column"
-        gap={2}
-        onSubmit={formMethods.handleSubmit(
-          handleValidFormSubmit,
-          handleInvalidFormSubmit,
-        )}
-      >
-        <Typography variant="h6" fontWeight={700} mb={0.5}>
-          로그인
-        </Typography>
-        <Typography variant="body2" color="text.secondary" mb={1}>
-          HoBom 시스템에 오신 것을 환영해요.
-          <br />
-          로그인을 진행해 주세요.
-        </Typography>
-        <NicknameField />
-        <PasswordField />
-        <Button
-          fullWidth
-          variant="contained"
-          type="submit"
-          color="primary"
-          loading={isPending}
-          sx={{ mt: 1, py: 1.2 }}
+    <>
+      {isTransitioning && <LoginTransitionOverlay />}
+      <FormProvider {...formMethods}>
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+          width="100%"
+          display="flex"
+          flexDirection="column"
+          gap={2}
+          onSubmit={formMethods.handleSubmit(
+            handleValidFormSubmit,
+            handleInvalidFormSubmit,
+          )}
         >
-          로그인
-        </Button>
-        <Typography variant="body2" color="text.secondary" textAlign="center">
-          계정이 없으신가요?{" "}
-          <Link
-            component={RouterLink}
-            to={RoutesConfig.AUTH.SIGN_UP}
-            underline="hover"
+          <Typography variant="h6" fontWeight={700} mb={0.5}>
+            로그인
+          </Typography>
+          <Typography variant="body2" color="text.secondary" mb={1}>
+            HoBom 시스템에 오신 것을 환영해요.
+            <br />
+            로그인을 진행해 주세요.
+          </Typography>
+          <NicknameField />
+          <PasswordField />
+          <Button
+            fullWidth
+            variant="contained"
+            type="submit"
+            color="primary"
+            loading={isPending}
+            sx={{ mt: 1, py: 1.2 }}
           >
-            회원가입
-          </Link>
-        </Typography>
-      </Box>
-    </FormProvider>
+            로그인
+          </Button>
+          <Typography variant="body2" color="text.secondary" textAlign="center">
+            계정이 없으신가요?{" "}
+            <Link
+              component={RouterLink}
+              to={RoutesConfig.AUTH.SIGN_UP}
+              underline="hover"
+            >
+              회원가입
+            </Link>
+          </Typography>
+        </Box>
+      </FormProvider>
+    </>
   );
 };

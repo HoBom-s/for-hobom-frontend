@@ -1,11 +1,12 @@
 import { Suspense, useState } from "react";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
 import {
   useProjectList,
   ProjectGrid,
   CreateProjectDialog,
 } from "@/features/project-list";
+import { SuspenseLoader } from "@/shared/ui";
 
 const ProjectListContent = () => {
   const { projects } = useProjectList();
@@ -49,13 +50,7 @@ export const ProjectListWorkspace = () => {
         </Button>
       </Box>
 
-      <Suspense
-        fallback={
-          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-            <CircularProgress />
-          </Box>
-        }
-      >
+      <Suspense fallback={<SuspenseLoader />}>
         <ProjectListContent />
       </Suspense>
 

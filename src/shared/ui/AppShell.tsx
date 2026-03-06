@@ -213,6 +213,7 @@ export const AppShell = ({
       <Box
         component="main"
         sx={{
+          position: "relative",
           flexGrow: 1,
           ml: `${DRAWER_WIDTH}px`,
           mt: `${APPBAR_HEIGHT}px`,

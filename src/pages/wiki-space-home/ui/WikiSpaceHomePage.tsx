@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { useOutletContext } from "react-router-dom";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { wikiSpaceQueries } from "@/entities/wiki-space";
+import { SuspenseLoader } from "@/shared/ui";
 
 interface WikiSpaceContext {
   spaceKey: string;
@@ -33,13 +34,7 @@ const WikiSpaceHomePage = () => {
   const { spaceKey } = useOutletContext<WikiSpaceContext>();
 
   return (
-    <Suspense
-      fallback={
-        <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-          <CircularProgress />
-        </Box>
-      }
-    >
+    <Suspense fallback={<SuspenseLoader />}>
       <SpaceHomeContent spaceKey={spaceKey} />
     </Suspense>
   );

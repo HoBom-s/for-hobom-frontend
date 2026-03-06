@@ -1,5 +1,5 @@
 import { Suspense, useState } from "react";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { TextSnippetOutlined } from "@mui/icons-material";
 import {
   PeriodSelector,
@@ -7,6 +7,7 @@ import {
   type SystemPeriodType,
 } from "@/entities/dashboard";
 import { LogDashboardContent } from "@/features/dashboard-log";
+import { SuspenseLoader } from "@/shared/ui";
 
 export const LogDashboardWorkspace = () => {
   const [period, setPeriod] = useState<SystemPeriodType>(
@@ -52,13 +53,7 @@ export const LogDashboardWorkspace = () => {
         <PeriodSelector type="system" period={period} onChange={setPeriod} />
       </Box>
 
-      <Suspense
-        fallback={
-          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-            <CircularProgress />
-          </Box>
-        }
-      >
+      <Suspense fallback={<SuspenseLoader />}>
         <LogDashboardContent period={period} />
       </Suspense>
     </Box>

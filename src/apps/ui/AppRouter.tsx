@@ -7,9 +7,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { CircularProgress } from "@mui/material";
 import { RoutesConfig } from "@/shared/config";
-import { AppShell, ErrorBoundary } from "@/shared/ui";
+import { AppShell, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { useToast } from "@/shared/model";
 import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "./nav-items";
@@ -281,16 +280,4 @@ export const AppRouter = () => {
   );
 };
 
-AppRouter.Loader = () => (
-  <div
-    style={{
-      width: "100%",
-      height: "100vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
-    <CircularProgress />
-  </div>
-);
+AppRouter.Loader = () => <SuspenseLoader fullScreen />;

@@ -1,17 +1,12 @@
 import { Suspense } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { PendingUsersTable } from "@/features/manage-pending-users";
+import { SuspenseLoader } from "@/shared/ui";
 
 export default function AdminUsersPage() {
   return (
     <Box sx={{ p: 3 }}>
-      <Suspense
-        fallback={
-          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-            <CircularProgress />
-          </Box>
-        }
-      >
+      <Suspense fallback={<SuspenseLoader />}>
         <PendingUsersTable />
       </Suspense>
     </Box>

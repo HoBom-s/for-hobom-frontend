@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
-import { Box, CircularProgress } from "@mui/material";
 import { IssueListTable } from "@/features/issue-list-table";
+import { SuspenseLoader } from "@/shared/ui";
 
 export const IssueListWorkspace = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -12,13 +12,7 @@ export const IssueListWorkspace = () => {
   if (!projectId) return null;
 
   return (
-    <Suspense
-      fallback={
-        <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-          <CircularProgress />
-        </Box>
-      }
-    >
+    <Suspense fallback={<SuspenseLoader />}>
       <IssueListTable projectId={projectId} onIssueClick={onOpenIssueDetail} />
     </Suspense>
   );
