@@ -93,6 +93,7 @@ const ProfileTrigger = ({
 }) => (
   <ButtonBase
     onClick={onClick}
+    aria-label="사용자 메뉴"
     sx={{
       display: "flex",
       alignItems: "center",

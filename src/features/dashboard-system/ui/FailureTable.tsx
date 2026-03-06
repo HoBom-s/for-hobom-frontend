@@ -41,11 +41,13 @@ export const FailureTable = ({ data }: FailureTableProps) => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>이벤트 ID</TableCell>
-                <TableCell>타입</TableCell>
-                <TableCell>에러</TableCell>
-                <TableCell align="center">재시도</TableCell>
-                <TableCell>시간</TableCell>
+                <TableCell scope="col">이벤트 ID</TableCell>
+                <TableCell scope="col">타입</TableCell>
+                <TableCell scope="col">에러</TableCell>
+                <TableCell scope="col" align="center">
+                  재시도
+                </TableCell>
+                <TableCell scope="col">시간</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

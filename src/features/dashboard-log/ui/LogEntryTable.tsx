@@ -51,15 +51,27 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
       <Table size="small" stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell sx={HEADER_SX}>Level</TableCell>
-            <TableCell sx={HEADER_SX}>Service</TableCell>
-            <TableCell sx={HEADER_SX}>Method</TableCell>
-            <TableCell sx={HEADER_SX}>Path</TableCell>
-            <TableCell sx={HEADER_SX}>Message</TableCell>
-            <TableCell align="center" sx={HEADER_SX}>
+            <TableCell scope="col" sx={HEADER_SX}>
+              Level
+            </TableCell>
+            <TableCell scope="col" sx={HEADER_SX}>
+              Service
+            </TableCell>
+            <TableCell scope="col" sx={HEADER_SX}>
+              Method
+            </TableCell>
+            <TableCell scope="col" sx={HEADER_SX}>
+              Path
+            </TableCell>
+            <TableCell scope="col" sx={HEADER_SX}>
+              Message
+            </TableCell>
+            <TableCell scope="col" align="center" sx={HEADER_SX}>
               Status
             </TableCell>
-            <TableCell sx={HEADER_SX}>Time</TableCell>
+            <TableCell scope="col" sx={HEADER_SX}>
+              Time
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -71,6 +71,7 @@ export const DailyTodoListItem = ({ item }: Props) => {
             {item.reaction && (
               <IconButton
                 size="small"
+                aria-label="리액션 변경"
                 onClick={(e) => setReactionAnchor(e.currentTarget)}
                 sx={{ fontSize: "1rem", p: 0.5 }}
               >
@@ -79,6 +80,7 @@ export const DailyTodoListItem = ({ item }: Props) => {
             )}
             <IconButton
               size="small"
+              aria-label="더보기"
               edge="end"
               onClick={() =>
                 onOpen({
@@ -207,6 +209,7 @@ export const DailyTodoListItem = ({ item }: Props) => {
           {!item.reaction && (
             <IconButton
               size="small"
+              aria-label="리액션 추가"
               className="reaction-trigger"
               sx={{
                 opacity: 0,

@@ -48,6 +48,7 @@ const NavList = ({
         <ListItemButton
           key={item.value}
           selected={isActive}
+          aria-current={isActive ? "page" : undefined}
           onClick={() => onNavigate(item.path)}
           onMouseEnter={() => onPrefetch?.(item.path)}
         >
@@ -173,7 +174,11 @@ export const AppShell = ({
 
         <Divider sx={{ borderColor: "rgba(255,255,255,0.08)" }} />
 
-        <Box sx={{ px: 1.5, py: 2, flexGrow: 1 }}>
+        <Box
+          component="nav"
+          aria-label="메인 네비게이션"
+          sx={{ px: 1.5, py: 2, flexGrow: 1 }}
+        >
           <Typography
             variant="caption"
             sx={{

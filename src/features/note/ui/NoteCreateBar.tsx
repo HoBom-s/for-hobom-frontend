@@ -48,6 +48,7 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
         <Tooltip title="체크리스트" arrow>
           <IconButton
             size="small"
+            aria-label="체크리스트"
             sx={{ color: "text.secondary" }}
             onClick={onClick}
           >
@@ -57,6 +58,7 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
         <Tooltip title="그리기" arrow>
           <IconButton
             size="small"
+            aria-label="그리기"
             sx={{ color: "text.secondary" }}
             onClick={onClick}
           >

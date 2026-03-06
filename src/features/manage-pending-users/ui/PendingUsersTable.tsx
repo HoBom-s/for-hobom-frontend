@@ -128,10 +128,10 @@ export const PendingUsersTable = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>사용자</TableCell>
-                <TableCell>닉네임</TableCell>
-                <TableCell>이메일</TableCell>
-                <TableCell align="right" sx={{ width: 200 }}>
+                <TableCell scope="col">사용자</TableCell>
+                <TableCell scope="col">닉네임</TableCell>
+                <TableCell scope="col">이메일</TableCell>
+                <TableCell scope="col" align="right" sx={{ width: 200 }}>
                   액션
                 </TableCell>
               </TableRow>

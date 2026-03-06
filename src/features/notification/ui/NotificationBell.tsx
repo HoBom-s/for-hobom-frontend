@@ -12,6 +12,7 @@ export const NotificationBell = () => {
     <>
       <IconButton
         size="small"
+        aria-label="알림"
         onClick={(e) => setAnchorEl(e.currentTarget)}
         sx={{
           color: "text.secondary",

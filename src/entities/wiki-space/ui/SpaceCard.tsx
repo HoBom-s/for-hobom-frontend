@@ -98,6 +98,7 @@ export const SpaceCard = ({
           <IconButton
             className="space-card-menu"
             size="small"
+            aria-label="메뉴"
             onClick={handleMenuOpen}
             sx={{
               position: "absolute",

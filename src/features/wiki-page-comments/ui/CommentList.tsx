@@ -180,6 +180,7 @@ const CommentNode = ({
                 <Tooltip title="답글">
                   <IconButton
                     size="small"
+                    aria-label="답글"
                     onClick={() => setReplying(!replying)}
                     sx={{ p: 0.25 }}
                   >
@@ -190,6 +191,7 @@ const CommentNode = ({
               <Tooltip title="수정">
                 <IconButton
                   size="small"
+                  aria-label="수정"
                   onClick={() => {
                     setEditing(!editing);
                     setEditContent(comment.content);
@@ -202,6 +204,7 @@ const CommentNode = ({
               <Tooltip title="삭제">
                 <IconButton
                   size="small"
+                  aria-label="삭제"
                   onClick={handleDelete}
                   sx={{ p: 0.25 }}
                 >

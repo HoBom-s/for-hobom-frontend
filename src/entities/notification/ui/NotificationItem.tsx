@@ -76,15 +76,32 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
             {notification.title}
           </Typography>
           {!notification.isRead && (
-            <Box
-              sx={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
-                bgcolor: "primary.main",
-                flexShrink: 0,
-              }}
-            />
+            <>
+              <Box
+                aria-hidden="true"
+                sx={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  bgcolor: "primary.main",
+                  flexShrink: 0,
+                }}
+              />
+              <Box
+                component="span"
+                sx={{
+                  position: "absolute",
+                  width: 1,
+                  height: 1,
+                  overflow: "hidden",
+                  clip: "rect(0 0 0 0)",
+                  clipPath: "inset(50%)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                읽지 않음
+              </Box>
+            </>
           )}
         </Box>
         <Typography

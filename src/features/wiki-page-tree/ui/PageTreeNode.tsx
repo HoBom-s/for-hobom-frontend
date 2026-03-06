@@ -68,6 +68,7 @@ export const PageTreeNode = ({
         {hasChildren ? (
           <IconButton
             size="small"
+            aria-label={isExpanded ? "접기" : "펼치기"}
             onClick={(e) => {
               e.stopPropagation();
               onToggle(node.id);
@@ -102,6 +103,7 @@ export const PageTreeNode = ({
           <IconButton
             className="tree-node-add"
             size="small"
+            aria-label="하위 페이지 추가"
             onClick={(e) => {
               e.stopPropagation();
               onCreateChild(node.id, node.title);

@@ -21,6 +21,7 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
     >
       <IconButton
         size="small"
+        aria-label="편집"
         onPointerDown={(e) => e.stopPropagation()}
         onMouseDown={(e) => {
           e.stopPropagation();
@@ -32,6 +33,7 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
       </IconButton>
       <IconButton
         size="small"
+        aria-label="삭제"
         onPointerDown={(e) => e.stopPropagation()}
         onMouseDown={(e) => {
           e.stopPropagation();

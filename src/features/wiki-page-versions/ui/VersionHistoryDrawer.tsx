@@ -72,7 +72,7 @@ export const VersionHistoryDrawer = ({
         <Typography variant="h6" fontWeight={700}>
           버전 히스토리
         </Typography>
-        <IconButton onClick={onClose} size="small">
+        <IconButton onClick={onClose} size="small" aria-label="닫기">
           <CloseOutlined fontSize="small" />
         </IconButton>
       </Box>
@@ -197,6 +197,7 @@ const VersionHistoryContent = ({
               <Tooltip title="이 버전으로 복원">
                 <IconButton
                   size="small"
+                  aria-label="이 버전으로 복원"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleRestore(version.version);

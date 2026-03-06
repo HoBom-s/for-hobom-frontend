@@ -6,6 +6,7 @@ import { ErrorBoundary } from "@/shared/ui";
 export default function AuthLoginPage() {
   return (
     <Box
+      component="main"
       width="100%"
       height="100%"
       display="flex"

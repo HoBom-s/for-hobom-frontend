@@ -144,6 +144,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           <Tooltip key={item.label} title={item.label}>
             <IconButton
               size="small"
+              aria-label={item.label}
               onClick={item.action}
               color={item.active ? "primary" : "default"}
             >
@@ -158,6 +159,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           <Tooltip key={item.label} title={`제목 ${item.label}`}>
             <IconButton
               size="small"
+              aria-label={`제목 ${item.label}`}
               onClick={item.action}
               color={item.active ? "primary" : "default"}
               sx={{
@@ -178,6 +180,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           <Tooltip key={item.label} title={item.label}>
             <IconButton
               size="small"
+              aria-label={item.label}
               onClick={item.action}
               color={item.active ? "primary" : "default"}
             >
@@ -191,6 +194,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
         <Tooltip title="링크 추가">
           <IconButton
             size="small"
+            aria-label="링크 추가"
             onClick={() => setLinkDialogOpen(true)}
             color={editor.isActive("link") ? "primary" : "default"}
           >
@@ -201,6 +205,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           <Tooltip title="링크 제거">
             <IconButton
               size="small"
+              aria-label="링크 제거"
               onClick={() => editor.chain().focus().unsetLink().run()}
             >
               <LinkOff fontSize="small" />
