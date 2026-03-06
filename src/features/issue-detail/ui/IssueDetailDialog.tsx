@@ -31,8 +31,10 @@ import {
   type IssueTransition,
 } from "@/entities/issue";
 import { sprintQueries } from "@/entities/sprint";
+import { userQueries } from "@/entities/user";
 import { IssueMetaSection } from "./IssueMetaSection";
 import { IssueChildrenSection } from "./IssueChildrenSection";
+import { IssueCommentsSection } from "./IssueCommentsSection";
 
 interface IssueDetailDialogProps {
   open: boolean;
@@ -55,6 +57,10 @@ export const IssueDetailDialog = ({
   });
   const { data: sprintData } = useQuery({
     ...sprintQueries.listByProject(projectId),
+    enabled: open && !!issueId,
+  });
+  const { data: userData } = useQuery({
+    ...userQueries.me(),
     enabled: open && !!issueId,
   });
   const { mutate: transitionIssue } = useTransitionIssue(projectId);
@@ -153,6 +159,7 @@ export const IssueDetailDialog = ({
               <IconButton
                 onClick={onClose}
                 size="small"
+                aria-label="닫기"
                 sx={{ position: "absolute", right: 12, top: 12 }}
               >
                 <CloseOutlined sx={{ fontSize: 18 }} />
@@ -166,6 +173,7 @@ export const IssueDetailDialog = ({
 
               <IssueMetaSection
                 issue={issue}
+                projectId={projectId}
                 sprintName={sprintName}
                 parentIssue={parentIssue}
                 availableParents={availableParents}
@@ -177,6 +185,9 @@ export const IssueDetailDialog = ({
                     issueId: issue.id,
                     parent: parent?.id ?? null,
                   });
+                }}
+                onLabelsChange={(labels) => {
+                  updateIssue({ projectId, issueId: issue.id, labels });
                 }}
               />
 
@@ -208,6 +219,12 @@ export const IssueDetailDialog = ({
                 progress={progress}
                 onNavigateToIssue={onNavigateToIssue}
               />
+
+              <IssueCommentsSection
+                projectId={projectId}
+                issueId={issue.id}
+                currentUserId={userData?.items?.id ?? ""}
+              />
             </DialogContent>
           </>
         )}
@@ -217,6 +234,7 @@ export const IssueDetailDialog = ({
         anchorEl={menuAnchor?.el}
         open={Boolean(menuAnchor)}
         onClose={() => setMenuAnchor(null)}
+        aria-label="상태 변경"
         slotProps={{
           paper: { sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 } },
         }}
@@ -246,6 +264,7 @@ export const IssueDetailDialog = ({
         anchorEl={priorityAnchor}
         open={Boolean(priorityAnchor)}
         onClose={() => setPriorityAnchor(null)}
+        aria-label="우선순위 변경"
         slotProps={{
           paper: { sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 } },
         }}

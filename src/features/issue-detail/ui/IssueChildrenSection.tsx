@@ -49,7 +49,22 @@ export const IssueChildrenSection = ({
         {childIssues.map((child) => (
           <Box
             key={child.id}
+            role={onNavigateToIssue ? "button" : undefined}
+            tabIndex={onNavigateToIssue ? 0 : undefined}
+            aria-label={
+              onNavigateToIssue ? `${child.issueKey} ${child.title}` : undefined
+            }
             onClick={() => onNavigateToIssue?.(child.id)}
+            onKeyDown={
+              onNavigateToIssue
+                ? (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      onNavigateToIssue(child.id);
+                    }
+                  }
+                : undefined
+            }
             sx={{
               display: "flex",
               alignItems: "center",
@@ -63,6 +78,7 @@ export const IssueChildrenSection = ({
             }}
           >
             <SubdirectoryArrowRightOutlined
+              aria-hidden="true"
               sx={{ fontSize: 14, color: "text.disabled" }}
             />
             <Chip

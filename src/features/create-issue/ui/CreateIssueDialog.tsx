@@ -3,6 +3,7 @@ import {
   Autocomplete,
   Box,
   Button,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,7 +13,9 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
+import { AddOutlined } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import {
   ISSUE_KIND_LABEL,
@@ -23,6 +26,10 @@ import {
   type IssuePriority,
   type IssueType,
 } from "@/entities/issue";
+import {
+  projectLabelQueries,
+  ProjectLabelPicker,
+} from "@/entities/project-label";
 
 const PARENT_ISSUE_KINDS: IssueKind[] = ["EPIC", "STORY"];
 
@@ -44,12 +51,21 @@ export const CreateIssueDialog = ({
   const [kind, setKind] = useState<IssueKind>("TASK");
   const [priority, setPriority] = useState<IssuePriority>("MEDIUM");
   const [parentIssue, setParentIssue] = useState<IssueType | null>(null);
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+  const [labelAnchor, setLabelAnchor] = useState<HTMLElement | null>(null);
   const { mutate, isPending } = useCreateIssue();
 
   const { data: issueData } = useQuery({
     ...issueQueries.listByProject(projectId),
     enabled: open,
   });
+
+  const { data: labelData } = useQuery({
+    ...projectLabelQueries.listByProject(projectId),
+    enabled: open,
+  });
+  const allLabels = labelData?.items ?? [];
+  const labelMap = new Map(allLabels.map((l) => [l.id, l]));
 
   const parentCandidates = (issueData?.items ?? []).filter((i) =>
     PARENT_ISSUE_KINDS.includes(i.type),
@@ -70,6 +86,7 @@ export const CreateIssueDialog = ({
     setKind("TASK");
     setPriority("MEDIUM");
     setParentIssue(null);
+    setSelectedLabels([]);
   };
 
   const handleSubmit = () => {
@@ -82,6 +99,7 @@ export const CreateIssueDialog = ({
         type: kind,
         priority,
         parent: parentIssue?.id,
+        labels: selectedLabels.length > 0 ? selectedLabels : undefined,
       },
       {
         onSuccess: () => {
@@ -144,6 +162,72 @@ export const CreateIssueDialog = ({
               ))}
             </Select>
           </FormControl>
+        </Box>
+        <Box>
+          <Typography
+            variant="body2"
+            sx={{ mb: 0.5, fontSize: 13, color: "text.secondary" }}
+          >
+            라벨
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 0.5,
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            {selectedLabels.map((labelId) => {
+              const label = labelMap.get(labelId);
+              if (!label) return null;
+              return (
+                <Chip
+                  key={label.id}
+                  label={label.name}
+                  size="small"
+                  onDelete={() =>
+                    setSelectedLabels((prev) =>
+                      prev.filter((id) => id !== labelId),
+                    )
+                  }
+                  sx={{
+                    height: 22,
+                    fontSize: 11,
+                    fontWeight: 500,
+                    bgcolor: `${label.color}18`,
+                    color: label.color,
+                  }}
+                />
+              );
+            })}
+            <Chip
+              icon={<AddOutlined sx={{ fontSize: 14 }} />}
+              label="추가"
+              size="small"
+              variant="outlined"
+              onClick={(e) => setLabelAnchor(e.currentTarget)}
+              sx={{
+                height: 22,
+                fontSize: 11,
+                cursor: "pointer",
+                borderStyle: "dashed",
+              }}
+            />
+          </Box>
+          <ProjectLabelPicker
+            anchorEl={labelAnchor}
+            onClose={() => setLabelAnchor(null)}
+            projectId={projectId}
+            selectedIds={new Set(selectedLabels)}
+            onToggle={(labelId) => {
+              setSelectedLabels((prev) =>
+                prev.includes(labelId)
+                  ? prev.filter((id) => id !== labelId)
+                  : [...prev, labelId],
+              );
+            }}
+          />
         </Box>
         <Autocomplete
           size="small"
