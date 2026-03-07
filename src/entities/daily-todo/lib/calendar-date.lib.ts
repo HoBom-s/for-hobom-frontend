@@ -1,5 +1,4 @@
 import { format, isValid, parseISO } from "date-fns";
-import { Bom } from "@/packages/bom";
 
 export const formatDate = (date: Date): string => format(date, "yyyy-MM-dd");
 
@@ -10,24 +9,14 @@ export const getDatePickerToolbarTitle = (
   now: Date,
 ): string => {
   const dateFromQuery = query.get("selectedDate");
-  return Bom.pipe(
-    dateFromQuery,
-    (fromQuery) => {
-      if (Bom.isNullish(fromQuery)) {
-        return now;
-      }
-      const parsed = parseISO(fromQuery);
-      return isValid(parsed) ? parsed : now;
-    },
-    formatDate,
-  );
+  if (dateFromQuery == null) return formatDate(now);
+  const parsed = parseISO(dateFromQuery);
+  return formatDate(isValid(parsed) ? parsed : now);
 };
 
 export const getSelectedDate = (query: URLSearchParams, now: Date): Date => {
   const dateFromQuery = query.get("selectedDate");
-  return Bom.pipe(dateFromQuery, (fromQuery) =>
-    Bom.isString(fromQuery) ? parseISO(fromQuery) : now,
-  );
+  return typeof dateFromQuery === "string" ? parseISO(dateFromQuery) : now;
 };
 
 export const normalizeTodoDateToUtcMidnight = (

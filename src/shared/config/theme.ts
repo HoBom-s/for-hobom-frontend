@@ -1,40 +1,80 @@
 import { createTheme } from "@mui/material";
 
 export const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH_COLLAPSED = 64;
 export const APPBAR_HEIGHT = 56;
 
 export const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#4680ff",
-      light: "#94baff",
-      dark: "#2a5bd7",
-      contrastText: "#ffffff",
+  cssVariables: { colorSchemeSelector: "data-mui-color-scheme" },
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: {
+          main: "#4680ff",
+          light: "#94baff",
+          dark: "#2a5bd7",
+          contrastText: "#ffffff",
+        },
+        secondary: {
+          main: "#5b6a98",
+          contrastText: "#ffffff",
+        },
+        success: {
+          main: "#2ca87f",
+          light: "#e8f5e9",
+        },
+        warning: {
+          main: "#e58a00",
+          light: "#fff3e0",
+        },
+        error: {
+          main: "#dc2626",
+        },
+        background: {
+          default: "#f0f2f5",
+          paper: "#ffffff",
+        },
+        text: {
+          primary: "#2d3748",
+          secondary: "#4a5568",
+        },
+        divider: "#d0d5dd",
+      },
     },
-    secondary: {
-      main: "#5b6a98",
-      contrastText: "#ffffff",
+    dark: {
+      palette: {
+        primary: {
+          main: "#5b93ff",
+          light: "#94baff",
+          dark: "#3a6de0",
+          contrastText: "#ffffff",
+        },
+        secondary: {
+          main: "#8a9bc8",
+          contrastText: "#ffffff",
+        },
+        success: {
+          main: "#34c793",
+          light: "#1a3a2a",
+        },
+        warning: {
+          main: "#f5a623",
+          light: "#3a2d1a",
+        },
+        error: {
+          main: "#ef4444",
+        },
+        background: {
+          default: "#111827",
+          paper: "#1e293b",
+        },
+        text: {
+          primary: "#e2e8f0",
+          secondary: "#94a3b8",
+        },
+        divider: "#334155",
+      },
     },
-    success: {
-      main: "#2ca87f",
-      light: "#e8f5e9",
-    },
-    warning: {
-      main: "#e58a00",
-      light: "#fff3e0",
-    },
-    error: {
-      main: "#dc2626",
-    },
-    background: {
-      default: "#f0f2f5",
-      paper: "#ffffff",
-    },
-    text: {
-      primary: "#2d3748",
-      secondary: "#4a5568",
-    },
-    divider: "#d0d5dd",
   },
   typography: {
     fontFamily: `'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif`,
@@ -63,11 +103,11 @@ export const theme = createTheme({
   components: {
     MuiAppBar: {
       styleOverrides: {
-        root: {
-          backgroundColor: "#ffffff",
-          color: "#2d3748",
+        root: ({ theme }) => ({
+          backgroundColor: theme.vars.palette.background.paper,
+          color: theme.vars.palette.text.primary,
           boxShadow: "0 1px 0 rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
-        },
+        }),
       },
     },
     MuiDrawer: {
@@ -162,9 +202,9 @@ export const theme = createTheme({
     },
     MuiTabs: {
       styleOverrides: {
-        root: {
-          borderBottom: "1px solid #d0d5dd",
-        },
+        root: ({ theme }) => ({
+          borderBottom: `1px solid ${theme.vars.palette.divider}`,
+        }),
       },
     },
     MuiTextField: {

@@ -2,7 +2,7 @@ import { Suspense, useState, type ReactNode, type SyntheticEvent } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { DashboardOutlined } from "@mui/icons-material";
 import { useRouterQuery } from "@/shared/model";
-import { SuspenseLoader } from "@/shared/ui";
+import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import {
   PeriodSelector,
   PeriodModel,
@@ -102,23 +102,25 @@ export const DashboardWorkspace = () => {
         ))}
       </Tabs>
 
-      <Suspense fallback={<SuspenseLoader />}>
-        <TabPanel visible={currentTab === "activity"}>
-          <ActivityDashboardContent period={period} date={today} />
-        </TabPanel>
-        <TabPanel visible={currentTab === "daily-todo"}>
-          <DailyTodoDashboardContent period={period} date={today} />
-        </TabPanel>
-        <TabPanel visible={currentTab === "note"}>
-          <NoteDashboardContent period={period} date={today} />
-        </TabPanel>
-        <TabPanel visible={currentTab === "message"}>
-          <MessageDashboardContent period={period} date={today} />
-        </TabPanel>
-        <TabPanel visible={currentTab === "notification"}>
-          <NotificationDashboardContent period={period} date={today} />
-        </TabPanel>
-      </Suspense>
+      <ErrorBoundary inline>
+        <Suspense fallback={<SuspenseLoader />}>
+          <TabPanel visible={currentTab === "activity"}>
+            <ActivityDashboardContent period={period} date={today} />
+          </TabPanel>
+          <TabPanel visible={currentTab === "daily-todo"}>
+            <DailyTodoDashboardContent period={period} date={today} />
+          </TabPanel>
+          <TabPanel visible={currentTab === "note"}>
+            <NoteDashboardContent period={period} date={today} />
+          </TabPanel>
+          <TabPanel visible={currentTab === "message"}>
+            <MessageDashboardContent period={period} date={today} />
+          </TabPanel>
+          <TabPanel visible={currentTab === "notification"}>
+            <NotificationDashboardContent period={period} date={today} />
+          </TabPanel>
+        </Suspense>
+      </ErrorBoundary>
     </Box>
   );
 };

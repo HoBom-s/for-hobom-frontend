@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Box } from "@mui/material";
 import { sanitizeHtml } from "../lib/sanitize-html.lib";
 
@@ -6,7 +7,7 @@ interface PageViewerProps {
 }
 
 export const PageViewer = ({ content }: PageViewerProps) => {
-  const sanitized = sanitizeHtml(content);
+  const sanitized = useMemo(() => sanitizeHtml(content), [content]);
 
   return (
     <Box

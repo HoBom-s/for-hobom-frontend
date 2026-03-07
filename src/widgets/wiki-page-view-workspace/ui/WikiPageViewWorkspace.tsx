@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { SuspenseLoader } from "@/shared/ui";
+import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { PageContent } from "./PageContent";
 
 export const WikiPageViewWorkspace = ({
@@ -9,7 +9,9 @@ export const WikiPageViewWorkspace = ({
   spaceKey: string;
   pageId: string;
 }) => (
-  <Suspense fallback={<SuspenseLoader />}>
-    <PageContent spaceKey={spaceKey} pageId={pageId} />
-  </Suspense>
+  <ErrorBoundary inline resetKey={`${spaceKey}/${pageId}`}>
+    <Suspense fallback={<SuspenseLoader />}>
+      <PageContent spaceKey={spaceKey} pageId={pageId} />
+    </Suspense>
+  </ErrorBoundary>
 );

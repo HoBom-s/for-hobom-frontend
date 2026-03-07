@@ -28,14 +28,12 @@ export const useNoteGrid = ({
     [pinnedNotes, otherNotes],
   );
 
-  const activeNote = activeId
-    ? allNotes.find((n) => n.id.value === activeId)
-    : null;
+  const activeNote = activeId ? allNotes.find((n) => n.id === activeId) : null;
 
   const findSection = useCallback(
     (id: string): Section | null => {
-      if (pinnedNotes.some((n) => n.id.value === id)) return "pinned";
-      if (otherNotes.some((n) => n.id.value === id)) return "unpinned";
+      if (pinnedNotes.some((n) => n.id === id)) return "pinned";
+      if (otherNotes.some((n) => n.id === id)) return "unpinned";
       return null;
     },
     [pinnedNotes, otherNotes],
@@ -59,8 +57,8 @@ export const useNoteGrid = ({
         onTogglePin(String(active.id));
       } else if (active.id !== over.id && onReorder) {
         const notes = activeSection === "pinned" ? pinnedNotes : otherNotes;
-        const oldIndex = notes.findIndex((n) => n.id.value === active.id);
-        const newIndex = notes.findIndex((n) => n.id.value === over.id);
+        const oldIndex = notes.findIndex((n) => n.id === active.id);
+        const newIndex = notes.findIndex((n) => n.id === over.id);
         if (oldIndex === -1 || newIndex === -1) return;
 
         const reordered = arrayMove(notes, oldIndex, newIndex);

@@ -19,7 +19,7 @@ export const useToggleNotePin = (status?: NoteStatus) => {
         HttpResponseType<NoteItemType[]>
       >(queryOption.queryKey);
 
-      const targetNote = previous?.items.find((n) => n.id.value === id);
+      const targetNote = previous?.items.find((n) => n.id === id);
       const wasPinned = targetNote?.isPinned ?? false;
 
       queryClient.setQueryData<HttpResponseType<NoteItemType[]>>(
@@ -29,9 +29,7 @@ export const useToggleNotePin = (status?: NoteStatus) => {
           return {
             ...old,
             items: old.items.map((note) =>
-              note.id.value === id
-                ? { ...note, isPinned: !note.isPinned }
-                : note,
+              note.id === id ? { ...note, isPinned: !note.isPinned } : note,
             ),
           };
         },

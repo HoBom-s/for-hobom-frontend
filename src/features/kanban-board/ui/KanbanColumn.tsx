@@ -36,10 +36,10 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
         minHeight: 400,
         display: "flex",
         flexDirection: "column",
-        bgcolor: isOver ? config.bg : "#fafbfc",
-        borderRadius: 3,
+        bgcolor: isOver ? `${config.color}14` : "action.hover",
+        borderRadius: 2,
         border: "1px solid",
-        borderColor: isOver ? config.color : "transparent",
+        borderColor: isOver ? config.color : "divider",
         p: 1.5,
         transition: "all 0.2s",
       }}
@@ -59,7 +59,7 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             height: 10,
             borderRadius: "50%",
             bgcolor: config.color,
-            boxShadow: `0 0 0 3px ${config.bg}`,
+            boxShadow: `0 0 0 3px ${config.color}28`,
           }}
         />
         <Typography

@@ -7,7 +7,7 @@ import {
   type SystemPeriodType,
 } from "@/entities/dashboard";
 import { LogDashboardContent } from "@/features/dashboard-log";
-import { SuspenseLoader } from "@/shared/ui";
+import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 
 export const LogDashboardWorkspace = () => {
   const [period, setPeriod] = useState<SystemPeriodType>(
@@ -53,9 +53,11 @@ export const LogDashboardWorkspace = () => {
         <PeriodSelector type="system" period={period} onChange={setPeriod} />
       </Box>
 
-      <Suspense fallback={<SuspenseLoader />}>
-        <LogDashboardContent period={period} />
-      </Suspense>
+      <ErrorBoundary inline>
+        <Suspense fallback={<SuspenseLoader />}>
+          <LogDashboardContent period={period} />
+        </Suspense>
+      </ErrorBoundary>
     </Box>
   );
 };

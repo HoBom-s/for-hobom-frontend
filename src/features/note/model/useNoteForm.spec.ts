@@ -5,14 +5,14 @@ import { NOTE_COLORS } from "@/entities/note";
 import type { NoteItemType } from "@/entities/note";
 
 const makeNote = (overrides: Partial<NoteItemType> = {}): NoteItemType => ({
-  id: { value: "note-1" },
-  owner: { value: "owner-1" },
+  id: "note-1",
+  owner: "owner-1",
   title: "제목",
   content: "내용",
   type: "TEXT",
   checklistItems: [],
-  color: { value: "#fff475" },
-  labels: [{ value: "label-1" }],
+  color: "#fff475",
+  labels: ["label-1"],
   reminder: null,
   isPinned: false,
   status: "ACTIVE",
@@ -193,7 +193,7 @@ describe("useNoteForm", () => {
 
     it("있는 라벨을 제거한다", () => {
       const note = makeNote({
-        labels: [{ value: "label-1" }, { value: "label-2" }],
+        labels: ["label-1", "label-2"],
       });
       const { result } = renderHook(() => useNoteForm(true, note));
 

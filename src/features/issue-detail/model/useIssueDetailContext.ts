@@ -1,4 +1,5 @@
-import { createContext, useContext, type MouseEvent } from "react";
+import type { MouseEvent } from "react";
+import { createSafeContext } from "@/shared/lib";
 import type {
   IssueType,
   IssuePriority,
@@ -40,15 +41,5 @@ interface IssueDetailContextValue {
   onNavigateToIssue?: (issueId: string) => void;
 }
 
-export const IssueDetailContext = createContext<IssueDetailContextValue | null>(
-  null,
-);
-
-export const useIssueDetailContext = (): IssueDetailContextValue => {
-  const ctx = useContext(IssueDetailContext);
-  if (!ctx)
-    throw new Error(
-      "useIssueDetailContext must be used within IssueDetailContext.Provider",
-    );
-  return ctx;
-};
+export const [IssueDetailContext, useIssueDetailContext] =
+  createSafeContext<IssueDetailContextValue>("IssueDetailContext");

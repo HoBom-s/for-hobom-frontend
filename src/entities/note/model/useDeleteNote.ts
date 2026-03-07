@@ -1,22 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@/shared/model";
-import { noteQueries } from "../api/note.queries";
+import { useEntityMutation } from "@/shared/model";
 import { noteMutations } from "../api/note.mutations";
+import { noteQueries } from "../api/note.queries";
 
-export const useDeleteNote = () => {
-  const queryClient = useQueryClient();
-  const { openSuccessToast, openErrorToast } = useToast();
-
-  return useMutation({
-    ...noteMutations.delete(),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: noteQueries.notes(),
-      });
-      openSuccessToast({ message: "노트를 삭제했어요." });
-    },
-    onError: () => {
-      openErrorToast({ message: "노트를 삭제하지 못했어요." });
-    },
+export const useDeleteNote = () =>
+  useEntityMutation({
+    mutation: noteMutations.delete(),
+    invalidateKeys: [noteQueries.notes()],
+    successMessage: "노트를 삭제했어요.",
+    errorMessage: "노트를 삭제하지 못했어요.",
   });
-};

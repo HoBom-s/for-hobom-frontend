@@ -1,22 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@/shared/model";
-import { issueQueries } from "../api/issue.queries";
+import { useEntityMutation } from "@/shared/model";
 import { issueMutations } from "../api/issue.mutations";
+import { issueQueries } from "../api/issue.queries";
 
-export const useCreateIssue = () => {
-  const queryClient = useQueryClient();
-  const { openSuccessToast, openErrorToast } = useToast();
-
-  return useMutation({
-    ...issueMutations.create(),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: issueQueries.issues(),
-      });
-      openSuccessToast({ message: "이슈를 생성했어요." });
-    },
-    onError: () => {
-      openErrorToast({ message: "이슈를 생성하지 못했어요." });
-    },
+export const useCreateIssue = () =>
+  useEntityMutation({
+    mutation: issueMutations.create(),
+    invalidateKeys: [issueQueries.issues()],
+    successMessage: "이슈를 생성했어요.",
+    errorMessage: "이슈를 생성하지 못했어요.",
   });
-};

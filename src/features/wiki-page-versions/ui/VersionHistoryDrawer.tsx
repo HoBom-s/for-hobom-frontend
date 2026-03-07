@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useMemo } from "react";
 import {
   Avatar,
   Box,
@@ -19,6 +19,7 @@ import { CloseOutlined, RestoreOutlined } from "@mui/icons-material";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { wikiPageQueries } from "@/entities/wiki-page";
 import { sanitizeHtml } from "@/shared/lib";
+import { ErrorBoundary, EmptyState } from "@/shared/ui";
 import { useVersionHistory } from "../model/useVersionHistory";
 
 const DRAWER_WIDTH = 520;
@@ -70,19 +71,21 @@ export const VersionHistoryDrawer = ({
         </IconButton>
       </Box>
 
-      <Suspense
-        fallback={
-          <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-            <CircularProgress size={28} />
-          </Box>
-        }
-      >
-        <VersionHistoryContent
-          spaceKey={spaceKey}
-          pageId={pageId}
-          onClose={onClose}
-        />
-      </Suspense>
+      <ErrorBoundary inline resetKey={`${spaceKey}/${pageId}`}>
+        <Suspense
+          fallback={
+            <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+              <CircularProgress size={28} />
+            </Box>
+          }
+        >
+          <VersionHistoryContent
+            spaceKey={spaceKey}
+            pageId={pageId}
+            onClose={onClose}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </Drawer>
   );
 };
@@ -109,13 +112,7 @@ const VersionHistoryContent = ({
   } = useVersionHistory({ spaceKey, pageId, onClose });
 
   if (!versions.length) {
-    return (
-      <Box sx={{ p: 4, textAlign: "center" }}>
-        <Typography variant="body2" color="text.disabled">
-          아직 버전 히스토리가 없습니다.
-        </Typography>
-      </Box>
-    );
+    return <EmptyState message="아직 버전 히스토리가 없습니다." />;
   }
 
   return (
@@ -267,6 +264,10 @@ const VersionPreview = ({
     wikiPageQueries.version(spaceKey, pageId, versionNumber),
   );
   const version = data.items;
+  const sanitizedContent = useMemo(
+    () => sanitizeHtml(version.content),
+    [version.content],
+  );
 
   return (
     <Box sx={{ px: 2.5, py: 2 }}>
@@ -289,7 +290,7 @@ const VersionPreview = ({
         </Typography>
       </Box>
       <Box
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(version.content) }}
+        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         sx={{
           fontSize: "0.8125rem",
           lineHeight: 1.6,

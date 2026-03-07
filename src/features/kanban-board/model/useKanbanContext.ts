@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createSafeContext } from "@/shared/lib";
 import type { IssueTreeResult } from "@/entities/issue";
 import type { SwimlaneGroup } from "../lib/kanban-filter.lib";
 
@@ -11,13 +11,5 @@ interface KanbanContextValue {
   onIssueClick?: (issueId: string) => void;
 }
 
-export const KanbanContext = createContext<KanbanContextValue | null>(null);
-
-export const useKanbanContext = (): KanbanContextValue => {
-  const ctx = useContext(KanbanContext);
-  if (!ctx)
-    throw new Error(
-      "useKanbanContext must be used within KanbanContext.Provider",
-    );
-  return ctx;
-};
+export const [KanbanContext, useKanbanContext] =
+  createSafeContext<KanbanContextValue>("KanbanContext");

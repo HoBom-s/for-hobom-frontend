@@ -19,7 +19,7 @@ import { getStatusColor } from "@/entities/project";
 import { useIssueListFilters } from "../model/useIssueListFilters";
 import { useStatusTransitionMenu } from "../model/useStatusTransitionMenu";
 import { IssueGrid } from "./IssueGrid";
-import { EmptyState } from "./EmptyState";
+import { EmptyState } from "@/shared/ui";
 
 interface IssueListTableProps {
   projectId: string;
@@ -106,7 +106,7 @@ export const IssueListTable = ({
       </Box>
 
       {data.items.length === 0 ? (
-        <EmptyState />
+        <EmptyState message="조건에 맞는 이슈가 없어요" />
       ) : (
         <IssueGrid
           items={data.items}

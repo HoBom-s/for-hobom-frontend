@@ -14,12 +14,12 @@ export type ColKey = (typeof COLUMNS)[number]["key"];
 export const HEADER_ROW_COUNT = 1;
 export const MIN_COL_WIDTH = 50;
 
-/* ── 색상 상수 ─────────────────────────── */
+/* ── 색상 상수 (CSS 변수로 다크모드 대응) ── */
 
-export const HEADER_BG = "#f8f9fb";
-export const HEADER_TEXT = "#6b7280";
-export const ROW_EVEN = "#ffffff";
-export const ROW_ODD = "#fafbfc";
-export const BORDER_COLOR = "#f0f2f5";
+export const HEADER_BG = "var(--mui-palette-action-hover)";
+export const HEADER_TEXT = "var(--mui-palette-text-secondary)";
+export const ROW_EVEN = "var(--mui-palette-background-paper)";
+export const ROW_ODD = "var(--mui-palette-action-hover)";
+export const BORDER_COLOR = "var(--mui-palette-divider)";
 
 export const COL_WIDTH_RATIOS = [0.12, 0.06, 0.38, 0.15, 0.14, 0.15];

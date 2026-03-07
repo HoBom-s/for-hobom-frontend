@@ -111,13 +111,18 @@ export const createHttpClient = (baseUrl: string = ""): HttpClient => {
     }
   };
 
+  const parseJson = async <T>(res: Response): Promise<T> => {
+    if (res.status === 204) return undefined as T;
+    return res.json();
+  };
+
   return {
     use: (middleware) => {
       middlewares.push(middleware);
     },
     get: async <T>(url: string, options?: RequestOptions): Promise<T> => {
       const res = await request("GET", url, options);
-      return res.json();
+      return parseJson<T>(res);
     },
     post: async <T>(
       url: string,
@@ -125,7 +130,7 @@ export const createHttpClient = (baseUrl: string = ""): HttpClient => {
       options?: Omit<RequestOptions, "json">,
     ): Promise<T> => {
       const res = await request("POST", url, { ...options, json: body });
-      return res.json();
+      return parseJson<T>(res);
     },
     put: async <T>(
       url: string,
@@ -133,7 +138,7 @@ export const createHttpClient = (baseUrl: string = ""): HttpClient => {
       options?: Omit<RequestOptions, "json">,
     ): Promise<T> => {
       const res = await request("PUT", url, { ...options, json: body });
-      return res.json();
+      return parseJson<T>(res);
     },
     patch: async <T>(
       url: string,
@@ -141,11 +146,11 @@ export const createHttpClient = (baseUrl: string = ""): HttpClient => {
       options?: Omit<RequestOptions, "json">,
     ): Promise<T> => {
       const res = await request("PATCH", url, { ...options, json: body });
-      return res.json();
+      return parseJson<T>(res);
     },
     delete: async <T>(url: string, options?: RequestOptions): Promise<T> => {
       const res = await request("DELETE", url, options);
-      return res.json();
+      return parseJson<T>(res);
     },
   };
 };

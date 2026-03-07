@@ -19,7 +19,6 @@ import {
   RestoreFromTrashOutlined,
   NotificationsActiveOutlined,
 } from "@mui/icons-material";
-import { unwrapVO } from "../lib/unwrap-vo.lib.ts";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
 
@@ -55,7 +54,7 @@ export const NoteCard = ({
 
   const title = note.title;
   const content = note.content;
-  const color = unwrapVO(note.color) || "#ffffff";
+  const color = note.color || "#ffffff";
   const hasChecklist = note.checklistItems?.length > 0;
   const isWhite = color === "#ffffff";
 
@@ -70,7 +69,7 @@ export const NoteCard = ({
             ? "transparent"
             : "rgba(0,0,0,0.08)"
           : isWhite
-            ? "#e0e0e0"
+            ? "divider"
             : "rgba(0,0,0,0.06)",
         borderRadius: 2,
         position: "relative",
@@ -120,7 +119,7 @@ export const NoteCard = ({
             }}
             onClick={(e) => {
               e.stopPropagation();
-              onTogglePin(note.id.value);
+              onTogglePin(note.id);
             }}
           >
             {note.isPinned ? (
@@ -231,8 +230,8 @@ export const NoteCard = ({
             )}
             {note.labels?.map((label) => (
               <Chip
-                key={label.value}
-                label={labelMap?.[label.value] ?? label.value}
+                key={label}
+                label={labelMap?.[label] ?? label}
                 size="small"
                 sx={META_CHIP_SX}
               />
@@ -259,7 +258,7 @@ export const NoteCard = ({
               <IconButton
                 size="small"
                 sx={{ color: "text.secondary" }}
-                onClick={() => onStatusChange(note.id.value, "ACTIVE")}
+                onClick={() => onStatusChange(note.id, "ACTIVE")}
               >
                 <RestoreFromTrashOutlined sx={{ fontSize: 18 }} />
               </IconButton>
@@ -268,7 +267,7 @@ export const NoteCard = ({
               <IconButton
                 size="small"
                 sx={{ color: "text.secondary" }}
-                onClick={() => onDelete(note.id.value)}
+                onClick={() => onDelete(note.id)}
               >
                 <DeleteOutlined sx={{ fontSize: 18 }} />
               </IconButton>
@@ -281,10 +280,7 @@ export const NoteCard = ({
                 size="small"
                 sx={{ color: "text.secondary" }}
                 onClick={() =>
-                  onStatusChange(
-                    note.id.value,
-                    isArchived ? "ACTIVE" : "ARCHIVED",
-                  )
+                  onStatusChange(note.id, isArchived ? "ACTIVE" : "ARCHIVED")
                 }
               >
                 {isArchived ? (
@@ -298,7 +294,7 @@ export const NoteCard = ({
               <IconButton
                 size="small"
                 sx={{ color: "text.secondary" }}
-                onClick={() => onStatusChange(note.id.value, "TRASHED")}
+                onClick={() => onStatusChange(note.id, "TRASHED")}
               >
                 <DeleteOutlined sx={{ fontSize: 18 }} />
               </IconButton>

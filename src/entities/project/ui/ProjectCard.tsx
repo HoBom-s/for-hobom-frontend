@@ -39,15 +39,9 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
     <Card
       variant="outlined"
       sx={{
-        borderRadius: 3,
-        border: "1px solid",
-        borderColor: "grey.200",
-        transition: "all 0.2s",
-        "&:hover": {
-          boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-          borderColor: "grey.300",
-          transform: "translateY(-2px)",
-        },
+        borderRadius: 2,
+        transition: "box-shadow 0.15s",
+        "&:hover": { boxShadow: 3 },
       }}
     >
       <CardActionArea onClick={onClick}>
@@ -119,7 +113,7 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
                 height: 22,
                 fontSize: 11,
                 fontWeight: 500,
-                bgcolor: "grey.100",
+                bgcolor: "action.selected",
                 "& .MuiChip-icon": { ml: 0.5 },
               }}
             />

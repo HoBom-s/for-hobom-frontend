@@ -1,22 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@/shared/model";
-import { sprintQueries } from "../api/sprint.queries";
+import { useEntityMutation } from "@/shared/model";
 import { sprintMutations } from "../api/sprint.mutations";
+import { sprintQueries } from "../api/sprint.queries";
 
-export const useCreateSprint = () => {
-  const queryClient = useQueryClient();
-  const { openSuccessToast, openErrorToast } = useToast();
-
-  return useMutation({
-    ...sprintMutations.create(),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: sprintQueries.sprints(),
-      });
-      openSuccessToast({ message: "스프린트를 생성했어요." });
-    },
-    onError: () => {
-      openErrorToast({ message: "스프린트를 생성하지 못했어요." });
-    },
+export const useCreateSprint = () =>
+  useEntityMutation({
+    mutation: sprintMutations.create(),
+    invalidateKeys: [sprintQueries.sprints()],
+    successMessage: "스프린트를 생성했어요.",
+    errorMessage: "스프린트를 생성하지 못했어요.",
   });
-};

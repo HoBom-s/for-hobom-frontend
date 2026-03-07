@@ -32,12 +32,12 @@ export const GeneralSettingsSection = ({
     (description || undefined) !== (project.description || undefined);
 
   return (
-    <Paper variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
+    <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
       <Box
         sx={{
           px: 3,
           py: 2,
-          bgcolor: "#f8f9fa",
+          bgcolor: "action.hover",
           borderBottom: "1px solid",
           borderColor: "divider",
           display: "flex",

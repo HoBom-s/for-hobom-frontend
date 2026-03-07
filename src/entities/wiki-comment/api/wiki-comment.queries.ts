@@ -1,4 +1,5 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
+import { CACHE_PROFILE } from "@/shared/config";
 import { fetchComments } from "./wiki-comment.api";
 
 const COMMENTS_PAGE_SIZE = 10;
@@ -9,6 +10,7 @@ export const wikiCommentQueries = {
   list: (spaceKey: string, pageId: string) =>
     infiniteQueryOptions({
       queryKey: ["wiki-comments", "list", spaceKey, pageId] as const,
+      ...CACHE_PROFILE.FAST,
       queryFn: ({ pageParam }) =>
         fetchComments({
           spaceKey,

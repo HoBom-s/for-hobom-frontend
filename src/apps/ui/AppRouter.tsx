@@ -140,12 +140,10 @@ export const AppRouter = () => {
   return (
     <Suspense fallback={<AppRouter.Loader />}>
       <Routes>
-        {/* 사이드바 없이 단독 렌더 */}
         <Route path={RoutesConfig.AUTH.LOGIN} element={<AuthLoginPage />} />
         <Route path={RoutesConfig.AUTH.SIGN_UP} element={<AuthSignUpPage />} />
         <Route path={RoutesConfig.NOT_FOUND.ALL} element={<NotFoundPage />} />
 
-        {/* AppShell 사이드바 레이아웃 */}
         <Route
           path={RoutesConfig.MAIN.DAILY_TODO}
           element={

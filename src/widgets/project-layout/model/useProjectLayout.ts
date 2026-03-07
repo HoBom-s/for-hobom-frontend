@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQueries } from "@tanstack/react-query";
 import {
   projectQueries,
   buildStatusesFromColumns,
@@ -28,10 +28,12 @@ export const useProjectLayout = () => {
 
   assertCondition(projectId, "projectId is required in route params");
 
-  const { data } = useSuspenseQuery(projectQueries.detail(projectId));
-  const { data: boardsData } = useSuspenseQuery(
-    boardQueries.listByProject(projectId),
-  );
+  const [{ data }, { data: boardsData }] = useSuspenseQueries({
+    queries: [
+      projectQueries.detail(projectId),
+      boardQueries.listByProject(projectId),
+    ],
+  });
   const project = data.items;
 
   const projectCtx = useMemo(() => {

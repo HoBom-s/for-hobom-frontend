@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo } from "react";
 import {
   Avatar,
   Box,
@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
-import { useProjectContext } from "@/shared/model";
+import { useProjectContext, usePopoverState } from "@/shared/model";
 import {
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
@@ -55,20 +55,25 @@ export const IssueMetaSection = () => {
   } = useIssueDetailContext();
   const { statuses } = useProjectContext();
 
-  const [labelAnchor, setLabelAnchor] = useState<HTMLElement | null>(null);
+  const labelPopover = usePopoverState();
   const { data: labelData } = useQuery(
     projectLabelQueries.listByProject(projectId),
   );
-  const allLabels = labelData?.items ?? [];
-  const labelMap = new Map(allLabels.map((l) => [l.id, l]));
-  const selectedIds = new Set(issue.labels);
+  const labelMap = useMemo(
+    () => new Map((labelData?.items ?? []).map((l) => [l.id, l])),
+    [labelData?.items],
+  );
+  const selectedIds = useMemo(() => new Set(issue.labels), [issue.labels]);
 
-  const handleToggle = (labelId: string) => {
-    const next = selectedIds.has(labelId)
-      ? issue.labels.filter((id) => id !== labelId)
-      : [...issue.labels, labelId];
-    updateField({ labels: next });
-  };
+  const handleToggle = useCallback(
+    (labelId: string) => {
+      const next = selectedIds.has(labelId)
+        ? issue.labels.filter((id) => id !== labelId)
+        : [...issue.labels, labelId];
+      updateField({ labels: next });
+    },
+    [issue.labels, selectedIds, updateField],
+  );
 
   const statusColor = getStatusColor(statuses, issue.status);
 
@@ -124,8 +129,8 @@ export const IssueMetaSection = () => {
                 height: 22,
                 fontSize: 10,
                 fontWeight: 700,
-                bgcolor: "#e8eaed",
-                color: "#5f6368",
+                bgcolor: "action.selected",
+                color: "text.secondary",
               }}
             >
               {issue.assignee.charAt(0).toUpperCase()}
@@ -160,7 +165,7 @@ export const IssueMetaSection = () => {
                 key={label.id}
                 label={label.name}
                 size="small"
-                onClick={(e) => setLabelAnchor(e.currentTarget)}
+                onClick={labelPopover.open}
                 sx={{
                   height: 22,
                   fontSize: 11,
@@ -178,7 +183,7 @@ export const IssueMetaSection = () => {
             label="추가"
             size="small"
             variant="outlined"
-            onClick={(e) => setLabelAnchor(e.currentTarget)}
+            onClick={labelPopover.open}
             sx={{
               height: 22,
               fontSize: 11,
@@ -188,8 +193,8 @@ export const IssueMetaSection = () => {
           />
         </Box>
         <ProjectLabelPicker
-          anchorEl={labelAnchor}
-          onClose={() => setLabelAnchor(null)}
+          anchorEl={labelPopover.anchor}
+          onClose={labelPopover.close}
           projectId={projectId}
           selectedIds={selectedIds}
           onToggle={handleToggle}

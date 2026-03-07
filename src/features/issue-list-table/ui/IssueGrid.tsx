@@ -15,7 +15,7 @@ import {
 } from "./issue-list-constants";
 import { HeaderCell } from "./HeaderCell";
 import { BodyCell } from "./BodyCell";
-import { EmptyState } from "./EmptyState";
+import { EmptyState } from "@/shared/ui";
 
 interface IssueGridProps {
   items: IssueType[];
@@ -142,7 +142,9 @@ export const IssueGrid = ({
           style={{ width: "100%", height: gridHeight }}
         />
       )}
-      {rowModel.rowCount === 0 && <EmptyState />}
+      {rowModel.rowCount === 0 && (
+        <EmptyState message="조건에 맞는 이슈가 없어요" />
+      )}
     </div>
   );
 };

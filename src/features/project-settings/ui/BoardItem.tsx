@@ -89,7 +89,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                 height: 20,
                 fontSize: 10,
                 fontWeight: 700,
-                bgcolor: "#f0f2f5",
+                bgcolor: "action.selected",
                 color: "text.secondary",
               }}
             />
@@ -147,7 +147,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                       px: 1,
                       py: 0.5,
                       borderRadius: 1.5,
-                      bgcolor: "#fafbfc",
+                      bgcolor: "action.hover",
                       border: "1px solid",
                       borderColor: "divider",
                     }}
@@ -188,7 +188,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                           height: 18,
                           fontSize: 10,
                           fontWeight: 600,
-                          bgcolor: "#f0f2f5",
+                          bgcolor: "action.selected",
                         }}
                       />
                     )}

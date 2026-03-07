@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import { InboxOutlined } from "@mui/icons-material";
-import { useProjectContext } from "@/shared/model";
+import { useProjectContext, useVirtualList } from "@/shared/model";
+import { EmptyState } from "@/shared/ui";
 import { getDescendantProgress } from "@/entities/issue";
 import { BacklogContext } from "../model/useBacklogContext";
 import { useBacklogBoard } from "../model/useBacklogBoard";
@@ -24,6 +25,11 @@ export const BacklogBoard = ({
   const { sprints, sprintGroups, backlogIssues } = useBacklogBoard(projectId);
   const { issueTree, flatTree, collapsedIds, toggleCollapse } =
     useCollapsibleTree(backlogIssues);
+
+  const { containerProps, virtualItems, totalHeight } = useVirtualList({
+    items: flatTree,
+    itemHeight: 44,
+  });
 
   const contextValue = useMemo(
     () => ({
@@ -54,7 +60,7 @@ export const BacklogBoard = ({
               gap: 1,
               px: 2,
               py: 1.2,
-              bgcolor: "#f8f9fb",
+              bgcolor: "action.hover",
             }}
           >
             <InboxOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
@@ -74,37 +80,49 @@ export const BacklogBoard = ({
             </Typography>
           </Box>
           {backlogIssues.length === 0 ? (
-            <Box sx={{ px: 2, py: 4, textAlign: "center" }}>
-              <Typography
-                variant="body2"
-                color="text.disabled"
-                sx={{ fontSize: 13 }}
-              >
-                백로그에 이슈가 없어요
-              </Typography>
-            </Box>
+            <EmptyState message="백로그에 이슈가 없어요" />
           ) : (
-            flatTree.map(({ issue, depth, childCount }) => {
-              const progress =
-                childCount > 0
-                  ? getDescendantProgress(
-                      issue.id,
-                      issueTree.childrenMap,
-                      doneStatusIds,
-                    )
-                  : undefined;
-              return (
-                <IssueRow
-                  key={issue.id}
-                  issue={issue}
-                  depth={depth}
-                  childCount={childCount}
-                  isCollapsed={collapsedIds.has(issue.id)}
-                  onToggleCollapse={toggleCollapse}
-                  progress={progress}
-                />
-              );
-            })
+            <Box
+              {...containerProps}
+              sx={{
+                ...containerProps.style,
+                maxHeight: "calc(100vh - 300px)",
+              }}
+            >
+              <Box sx={{ height: totalHeight, position: "relative" }}>
+                {virtualItems.map(({ item, offsetTop }) => {
+                  const { issue, depth, childCount } = item;
+                  const progress =
+                    childCount > 0
+                      ? getDescendantProgress(
+                          issue.id,
+                          issueTree.childrenMap,
+                          doneStatusIds,
+                        )
+                      : undefined;
+                  return (
+                    <Box
+                      key={issue.id}
+                      sx={{
+                        position: "absolute",
+                        top: offsetTop,
+                        width: "100%",
+                        height: 44,
+                      }}
+                    >
+                      <IssueRow
+                        issue={issue}
+                        depth={depth}
+                        childCount={childCount}
+                        isCollapsed={collapsedIds.has(issue.id)}
+                        onToggleCollapse={toggleCollapse}
+                        progress={progress}
+                      />
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Box>
           )}
         </Paper>
       </Box>

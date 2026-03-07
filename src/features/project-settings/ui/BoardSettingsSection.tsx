@@ -68,12 +68,12 @@ export const BoardSettingsSection = ({
   };
 
   return (
-    <Paper variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
+    <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
       <Box
         sx={{
           px: 3,
           py: 2,
-          bgcolor: "#f8f9fa",
+          bgcolor: "action.hover",
           borderBottom: "1px solid",
           borderColor: "divider",
           display: "flex",
@@ -94,8 +94,8 @@ export const BoardSettingsSection = ({
               minWidth: 20,
               fontSize: 11,
               fontWeight: 700,
-              bgcolor: "#4680ff18",
-              color: "#4680ff",
+              bgcolor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
+              color: "primary.main",
             }}
           />
         </Box>

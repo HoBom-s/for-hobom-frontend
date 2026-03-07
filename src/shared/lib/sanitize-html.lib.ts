@@ -22,6 +22,12 @@ const ALLOWED_TAGS = [
 
 const ALLOWED_ATTRS = ["href", "target", "rel"];
 
+DOMPurify.addHook("afterSanitizeAttributes", (node) => {
+  if (node.tagName === "A" && node.getAttribute("target") === "_blank") {
+    node.setAttribute("rel", "noopener noreferrer");
+  }
+});
+
 export const sanitizeHtml = (html: string): string =>
   DOMPurify.sanitize(html, {
     ALLOWED_TAGS,

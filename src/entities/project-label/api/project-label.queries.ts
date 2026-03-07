@@ -1,4 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
+import { CACHE_PROFILE } from "@/shared/config";
 import { fetchProjectLabels } from "./project-label.api";
 
 export const projectLabelQueries = {
@@ -8,5 +9,6 @@ export const projectLabelQueries = {
     queryOptions({
       queryKey: ["project-labels", "list", projectId],
       queryFn: () => fetchProjectLabels({ projectId }),
+      ...CACHE_PROFILE.SLOW,
     }),
 } as const;

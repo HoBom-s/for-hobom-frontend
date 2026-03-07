@@ -38,7 +38,7 @@ export const HeaderCell = ({
         fontSize: 12,
         color: HEADER_TEXT,
         backgroundColor: HEADER_BG,
-        borderBottom: `2px solid #e9ecef`,
+        borderBottom: `2px solid var(--mui-palette-divider)`,
         boxSizing: "border-box",
         userSelect: "none",
         cursor: col.sortable ? "pointer" : "default",

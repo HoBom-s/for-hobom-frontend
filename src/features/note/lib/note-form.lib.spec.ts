@@ -110,14 +110,14 @@ describe("reindex", () => {
 
 describe("fromNote", () => {
   const baseNote: NoteItemType = {
-    id: { value: "note-1" },
-    owner: { value: "owner-1" },
+    id: "note-1",
+    owner: "owner-1",
     title: "제목",
     content: "내용",
     type: "TEXT",
     checklistItems: [],
-    color: { value: "#fff475" },
-    labels: [{ value: "label-1" }, { value: "label-2" }],
+    color: "#fff475",
+    labels: ["label-1", "label-2"],
     reminder: null,
     isPinned: false,
     status: "ACTIVE",
@@ -154,7 +154,7 @@ describe("fromNote", () => {
   it("color가 빈 문자열이면 DEFAULT 색상을 사용한다", () => {
     const note: NoteItemType = {
       ...baseNote,
-      color: { value: "" },
+      color: "",
     };
     expect(fromNote(note).color).toBe("#ffffff");
   });

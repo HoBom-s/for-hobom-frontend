@@ -40,11 +40,21 @@ interface FlatTreeIssue {
   childCount: number;
 }
 
-export const flattenIssueTree = (
+export function flattenIssueTree(
   issues: IssueType[],
   collapsedIds?: Set<string>,
-): FlatTreeIssue[] => {
-  const { roots, childrenMap } = buildIssueTree(issues);
+): FlatTreeIssue[];
+export function flattenIssueTree(
+  tree: IssueTreeResult,
+  collapsedIds?: Set<string>,
+): FlatTreeIssue[];
+export function flattenIssueTree(
+  input: IssueType[] | IssueTreeResult,
+  collapsedIds?: Set<string>,
+): FlatTreeIssue[] {
+  const { roots, childrenMap } = Array.isArray(input)
+    ? buildIssueTree(input)
+    : input;
   const result: FlatTreeIssue[] = [];
 
   const walk = (items: IssueType[], depth: number) => {
@@ -59,7 +69,7 @@ export const flattenIssueTree = (
 
   walk(roots, 0);
   return result;
-};
+}
 
 export interface DescendantProgress {
   completed: number;
@@ -71,21 +81,24 @@ export const getDescendantProgress = (
   childrenMap: Map<string, IssueType[]>,
   doneStatusIds: Set<string>,
 ): DescendantProgress => {
-  let completed = 0;
-  let total = 0;
-
-  const walk = (id: string) => {
+  const walk = (id: string): DescendantProgress => {
     const children = childrenMap.get(id);
-    if (!children) return;
-    for (const child of children) {
-      total++;
-      if (doneStatusIds.has(child.status)) completed++;
-      walk(child.id);
-    }
+    if (!children) return { completed: 0, total: 0 };
+    return children.reduce(
+      (acc, child) => {
+        const sub = walk(child.id);
+        return {
+          completed:
+            acc.completed +
+            (doneStatusIds.has(child.status) ? 1 : 0) +
+            sub.completed,
+          total: acc.total + 1 + sub.total,
+        };
+      },
+      { completed: 0, total: 0 },
+    );
   };
-
-  walk(issueId);
-  return { completed, total };
+  return walk(issueId);
 };
 
 export const isDescendantOf = (

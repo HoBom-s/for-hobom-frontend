@@ -14,3 +14,4 @@ export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };
 export { SuspenseLoader } from "./SuspenseLoader";
 export { Sortable, arrayMove } from "./Sortable";
 export type { DragEndEvent, DragStartEvent } from "./Sortable";
+export { EmptyState } from "./EmptyState";

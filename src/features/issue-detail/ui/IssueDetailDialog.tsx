@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
 import { useProjectContext } from "@/shared/model";
+import { ErrorBoundary } from "@/shared/ui";
 import {
   ISSUE_KIND_LABEL,
   ISSUE_KIND_REGISTRY,
@@ -93,38 +94,40 @@ export const IssueDetailDialog = ({
               </IconButton>
             </DialogTitle>
             <DialogContent sx={{ pt: 0 }}>
-              <Typography variant="h6" fontWeight={700} sx={{ mb: 2 }}>
-                {issue.title}
-              </Typography>
-              <Divider sx={{ mb: 2 }} />
+              <ErrorBoundary inline resetKey={issueId ?? ""}>
+                <Typography variant="h6" fontWeight={700} sx={{ mb: 2 }}>
+                  {issue.title}
+                </Typography>
+                <Divider sx={{ mb: 2 }} />
 
-              <IssueMetaSection />
+                <IssueMetaSection />
 
-              {issue.description && (
-                <>
-                  <Divider sx={{ mb: 2 }} />
-                  <Typography
-                    variant="subtitle2"
-                    fontWeight={600}
-                    sx={{ mb: 1, fontSize: 13 }}
-                  >
-                    설명
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontSize: 13,
-                      color: "text.secondary",
-                      whiteSpace: "pre-wrap",
-                    }}
-                  >
-                    {issue.description}
-                  </Typography>
-                </>
-              )}
+                {issue.description && (
+                  <>
+                    <Divider sx={{ mb: 2 }} />
+                    <Typography
+                      variant="subtitle2"
+                      fontWeight={600}
+                      sx={{ mb: 1, fontSize: 13 }}
+                    >
+                      설명
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: 13,
+                        color: "text.secondary",
+                        whiteSpace: "pre-wrap",
+                      }}
+                    >
+                      {issue.description}
+                    </Typography>
+                  </>
+                )}
 
-              <IssueChildrenSection />
-              <IssueCommentsSection />
+                <IssueChildrenSection />
+                <IssueCommentsSection />
+              </ErrorBoundary>
             </DialogContent>
           </IssueDetailContext.Provider>
         )}

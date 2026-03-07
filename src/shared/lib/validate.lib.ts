@@ -1,10 +1,9 @@
 import { ZodSchema } from "zod";
-import { Bom } from "@/packages/bom";
 
 export const validateWithZod =
   <T>(schema: ZodSchema<T>) =>
   (input: unknown): T | Error => {
-    const parsed = Bom.pipe(input, schema.safeParse);
+    const parsed = schema.safeParse(input);
     return parsed.success
       ? parsed.data
       : new Error(parsed.error.issues.map((i) => i.message).join(", "));

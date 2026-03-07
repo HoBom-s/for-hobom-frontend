@@ -48,8 +48,8 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
                 height: 22,
                 fontSize: 11,
                 fontWeight: 700,
-                bgcolor: "#4680ff18",
-                color: "#4680ff",
+                bgcolor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
+                color: "primary.main",
               }}
             />
           </Box>

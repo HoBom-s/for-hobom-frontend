@@ -12,11 +12,10 @@ export interface ReminderType {
 }
 
 /**
- * 서버 응답 형태.
- * id, owner, color, labels는 VO 래핑 ({ value: T }).
- * title, content, type 등은 plain string.
+ * 서버 응답 원본 (VO 래핑).
+ * API 경계에서 normalizeNote로 변환되므로 외부에 노출하지 않는다.
  */
-export interface NoteItemType {
+export interface RawNoteItemType {
   id: { value: string };
   owner: { value: string };
   title: string;
@@ -25,6 +24,25 @@ export interface NoteItemType {
   checklistItems: ChecklistItemType[];
   color: { value: string };
   labels: { value: string }[];
+  reminder: ReminderType | null;
+  isPinned: boolean;
+  status: NoteStatus;
+  trashedAt: string | null;
+  order: number;
+}
+
+/**
+ * 정규화된 NoteItemType — VO 래핑 해제.
+ */
+export interface NoteItemType {
+  id: string;
+  owner: string;
+  title: string;
+  content: string;
+  type: NoteType;
+  checklistItems: ChecklistItemType[];
+  color: string;
+  labels: string[];
   reminder: ReminderType | null;
   isPinned: boolean;
   status: NoteStatus;

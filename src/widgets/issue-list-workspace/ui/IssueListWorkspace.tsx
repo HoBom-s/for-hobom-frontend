@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import { IssueListTable } from "@/features/issue-list-table";
-import { SuspenseLoader } from "@/shared/ui";
+import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 
 export const IssueListWorkspace = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -12,8 +12,13 @@ export const IssueListWorkspace = () => {
   if (!projectId) return null;
 
   return (
-    <Suspense fallback={<SuspenseLoader />}>
-      <IssueListTable projectId={projectId} onIssueClick={onOpenIssueDetail} />
-    </Suspense>
+    <ErrorBoundary inline>
+      <Suspense fallback={<SuspenseLoader />}>
+        <IssueListTable
+          projectId={projectId}
+          onIssueClick={onOpenIssueDetail}
+        />
+      </Suspense>
+    </ErrorBoundary>
   );
 };

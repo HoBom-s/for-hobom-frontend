@@ -1,3 +1,4 @@
+import { Bom } from "@/packages/bom";
 import {
   isDescendantOf,
   getRootEpic,
@@ -19,54 +20,52 @@ export const filterColumnsByEpic = (
   columns: ColumnMap,
   epicId: string,
   parentMap: Map<string, IssueType>,
-): ColumnMap => {
-  const filtered: ColumnMap = {};
-  for (const [status, issues] of Object.entries(columns)) {
-    filtered[status] = issues.filter(
-      (issue) =>
-        issue.id === epicId || isDescendantOf(issue.id, epicId, parentMap),
-    );
-  }
-  return filtered;
-};
+): ColumnMap =>
+  Bom.pipe(
+    columns,
+    Bom.mapValues((issues: IssueType[]) =>
+      issues.filter(
+        (issue) =>
+          issue.id === epicId || isDescendantOf(issue.id, epicId, parentMap),
+      ),
+    ),
+  ) as ColumnMap;
 
 export const buildSwimlaneGroups = (
   issues: IssueType[],
   issueTree: IssueTreeResult,
   doneStatusIds: Set<string>,
 ): SwimlaneGroup[] => {
-  const epicMap = new Map<string | null, SwimlaneGroup>();
+  const issueMap = new Map(issues.map((i) => [i.id, i]));
 
-  for (const issue of issues) {
-    const rootEpic = getRootEpic(issue.id, issueTree.parentMap);
-    const epicId = rootEpic?.id ?? (issue.type === "EPIC" ? issue.id : null);
-
-    if (!epicMap.has(epicId)) {
-      if (epicId) {
-        const epic = issues.find((i) => i.id === epicId);
-        epicMap.set(epicId, {
-          epicId,
-          epicKey: epic?.issueKey ?? null,
-          epicTitle: epic?.title ?? "",
-          progress: getDescendantProgress(
-            epicId,
-            issueTree.childrenMap,
-            doneStatusIds,
-          ),
-        });
-      } else {
-        epicMap.set(null, {
-          epicId: null,
-          epicKey: null,
-          epicTitle: "에픽 없음",
-        });
+  const epicEntries = Bom.pipe(
+    issues,
+    Bom.map((issue: IssueType) => {
+      const rootEpic = getRootEpic(issue.id, issueTree.parentMap);
+      return rootEpic?.id ?? (issue.type === "EPIC" ? issue.id : null);
+    }),
+    Bom.uniq,
+    Bom.map((epicId: string | null): SwimlaneGroup => {
+      if (!epicId) {
+        return { epicId: null, epicKey: null, epicTitle: "에픽 없음" };
       }
-    }
-  }
+      const epic = issueMap.get(epicId);
+      return {
+        epicId,
+        epicKey: epic?.issueKey ?? null,
+        epicTitle: epic?.title ?? "",
+        progress: getDescendantProgress(
+          epicId,
+          issueTree.childrenMap,
+          doneStatusIds,
+        ),
+      };
+    }),
+    Bom.sortBy((g: SwimlaneGroup) => {
+      if (g.epicId === null) return "\uffff";
+      return g.epicKey ?? "";
+    }),
+  );
 
-  return [...epicMap.values()].sort((a, b) => {
-    if (a.epicId === null) return 1;
-    if (b.epicId === null) return -1;
-    return (a.epicKey ?? "").localeCompare(b.epicKey ?? "");
-  });
+  return epicEntries;
 };

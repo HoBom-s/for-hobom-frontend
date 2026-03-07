@@ -54,7 +54,7 @@ export const useNoteEditForm = ({
     if (isEdit && note) {
       updateNote.mutate(
         {
-          id: note.id.value,
+          id: note.id,
           title: noteForm.form.title,
           content:
             noteForm.form.type === "TEXT" ? noteForm.form.content : undefined,

@@ -1,6 +1,6 @@
 import { Fragment, type ReactElement } from "react";
 import { Bounce, ToastContainer } from "react-toastify";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BottomSheetCTAProvider } from "@/shared/model";
 import { theme } from "@/shared/config";
@@ -24,6 +24,12 @@ const queryClient = new QueryClient({
   },
 });
 
+const COLOR_SCHEME_TRANSITION_STYLES = {
+  "body, #root, .MuiPaper-root, .MuiAppBar-root": {
+    transition: "background-color 0.3s ease, color 0.2s ease",
+  },
+} as const;
+
 interface Props {
   children: ReactElement;
 }
@@ -31,7 +37,6 @@ interface Props {
 export const AppProvider = ({ children }: Props) => {
   return (
     <Fragment>
-      <CssBaseline />
       <ToastContainer
         position="top-right"
         hideProgressBar
@@ -43,6 +48,8 @@ export const AppProvider = ({ children }: Props) => {
       />
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
+          <CssBaseline enableColorScheme />
+          <GlobalStyles styles={COLOR_SCHEME_TRANSITION_STYLES} />
           <ErrorBoundary>
             <BottomSheetCTAProvider>
               <OverlayProvider>{children}</OverlayProvider>

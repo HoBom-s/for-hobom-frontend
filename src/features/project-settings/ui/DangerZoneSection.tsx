@@ -53,7 +53,7 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
     <Paper
       variant="outlined"
       sx={{
-        borderRadius: 3,
+        borderRadius: 2,
         overflow: "hidden",
         borderColor: "error.light",
       }}
@@ -62,7 +62,7 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
         sx={{
           px: 3,
           py: 2,
-          bgcolor: "#fef2f2",
+          bgcolor: "rgba(var(--mui-palette-error-mainChannel) / 0.06)",
           borderBottom: "1px solid",
           borderColor: "error.light",
           display: "flex",

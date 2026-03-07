@@ -1,5 +1,4 @@
 import { Bom } from "@/packages/bom";
-import { unwrapVO } from "@/shared/lib";
 import { NOTE_COLORS } from "@/entities/note";
 import type { NoteItemType, ChecklistItemType } from "@/entities/note";
 import type { NoteFormState } from "../model/useNoteForm";
@@ -44,10 +43,7 @@ export const fromNote = (note: NoteItemType): NoteFormState => ({
   content: note.content,
   type: resolveFormType(note),
   checklistItems: note.checklistItems ?? [],
-  color: unwrapVO(note.color) || NOTE_COLORS.DEFAULT,
-  labels: Bom.pipe(
-    note.labels ?? [],
-    Bom.map((l) => l.value),
-  ),
+  color: note.color || NOTE_COLORS.DEFAULT,
+  labels: note.labels ?? [],
   reminder: note.reminder,
 });

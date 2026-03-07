@@ -7,7 +7,7 @@ import {
   type SystemPeriodType,
 } from "@/entities/dashboard";
 import { SystemDashboardContent } from "@/features/dashboard-system";
-import { SuspenseLoader } from "@/shared/ui";
+import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 
 export const SystemDashboardWorkspace = () => {
   const [period, setPeriod] = useState<SystemPeriodType>(
@@ -53,9 +53,11 @@ export const SystemDashboardWorkspace = () => {
         <PeriodSelector type="system" period={period} onChange={setPeriod} />
       </Box>
 
-      <Suspense fallback={<SuspenseLoader />}>
-        <SystemDashboardContent period={period} />
-      </Suspense>
+      <ErrorBoundary inline>
+        <Suspense fallback={<SuspenseLoader />}>
+          <SystemDashboardContent period={period} />
+        </Suspense>
+      </ErrorBoundary>
     </Box>
   );
 };

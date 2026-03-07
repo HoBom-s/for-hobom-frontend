@@ -51,10 +51,16 @@ export const SprintSection = ({
           gap: 1,
           px: 2,
           py: 1.2,
-          bgcolor: sprint.status === "ACTIVE" ? "#f0f4ff" : "#f8f9fb",
+          bgcolor:
+            sprint.status === "ACTIVE"
+              ? "rgba(var(--mui-palette-primary-mainChannel) / 0.06)"
+              : "action.hover",
           cursor: "pointer",
           "&:hover": {
-            bgcolor: sprint.status === "ACTIVE" ? "#e8eeff" : "#f0f2f5",
+            bgcolor:
+              sprint.status === "ACTIVE"
+                ? "rgba(var(--mui-palette-primary-mainChannel) / 0.1)"
+                : "action.selected",
           },
           transition: "background 0.15s",
         }}

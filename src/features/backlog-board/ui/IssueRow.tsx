@@ -86,7 +86,7 @@ export const IssueRow = ({
           py: 0.8,
           borderBottom: "1px solid",
           borderColor: "divider",
-          "&:hover": { bgcolor: "#f8f9fb" },
+          "&:hover": { bgcolor: "action.hover" },
           "&:hover .move-btn, &:focus-within .move-btn": { opacity: 1 },
           transition: "background 0.1s",
           cursor: onIssueClick ? "pointer" : undefined,
@@ -136,8 +136,8 @@ export const IssueRow = ({
               height: 18,
               fontSize: 10,
               fontWeight: 600,
-              bgcolor: "#e8eaed",
-              color: "#5f6368",
+              bgcolor: "action.selected",
+              color: "text.secondary",
             }}
           />
         )}
@@ -164,8 +164,8 @@ export const IssueRow = ({
               height: 22,
               fontSize: 10,
               fontWeight: 700,
-              bgcolor: "#e8eaed",
-              color: "#5f6368",
+              bgcolor: "action.selected",
+              color: "text.secondary",
             }}
           >
             {issue.assignee.charAt(0).toUpperCase()}

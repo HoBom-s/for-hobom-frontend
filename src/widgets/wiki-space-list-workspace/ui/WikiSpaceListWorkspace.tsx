@@ -9,7 +9,7 @@ import {
   DeleteSpaceDialog,
 } from "@/features/wiki-space-list";
 import { useOverlay } from "@/shared/model";
-import { SuspenseLoader } from "@/shared/ui";
+import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { useSpaceListWorkspace } from "../model/useSpaceListWorkspace";
 
 export const WikiSpaceListWorkspace = () => {
@@ -75,13 +75,15 @@ export const WikiSpaceListWorkspace = () => {
         </Button>
       </Box>
 
-      <Suspense fallback={<SuspenseLoader />}>
-        <SpaceGrid
-          onSpaceClick={handleNavigateToSpace}
-          onEdit={setEditSpace}
-          onDelete={handleOpenDeleteDialog}
-        />
-      </Suspense>
+      <ErrorBoundary inline>
+        <Suspense fallback={<SuspenseLoader />}>
+          <SpaceGrid
+            onSpaceClick={handleNavigateToSpace}
+            onEdit={setEditSpace}
+            onDelete={handleOpenDeleteDialog}
+          />
+        </Suspense>
+      </ErrorBoundary>
 
       <CreateSpaceDialog
         open={createOpen}

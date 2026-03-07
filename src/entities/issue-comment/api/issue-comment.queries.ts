@@ -1,4 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
+import { CACHE_PROFILE } from "@/shared/config";
 import { fetchIssueComments } from "./issue-comment.api";
 
 export const issueCommentQueries = {
@@ -8,5 +9,6 @@ export const issueCommentQueries = {
     queryOptions({
       queryKey: ["issue-comments", "list", projectId, issueId],
       queryFn: () => fetchIssueComments({ projectId, issueId }),
+      ...CACHE_PROFILE.FAST,
     }),
 } as const;

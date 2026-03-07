@@ -1,3 +1,4 @@
+import { Bom } from "@/packages/bom";
 import type { IssueType } from "@/entities/issue";
 import type { SprintType } from "@/entities/sprint";
 
@@ -11,23 +12,23 @@ export const groupIssuesBySprint = (
   sprints: SprintType[],
 ): { sprintGroups: SprintGroup[]; backlogIssues: IssueType[] } => {
   const sprintIds = new Set(sprints.map((s) => s.id));
-  const issuesBySprint = new Map<string, IssueType[]>();
-  const backlog: IssueType[] = [];
 
-  for (const issue of issues) {
-    if (issue.sprint && sprintIds.has(issue.sprint)) {
-      const list = issuesBySprint.get(issue.sprint);
-      if (list) list.push(issue);
-      else issuesBySprint.set(issue.sprint, [issue]);
-    } else {
-      backlog.push(issue);
-    }
-  }
+  const [sprintIssues, backlogIssues] = Bom.pipe(
+    issues,
+    Bom.partition(
+      (issue: IssueType) => !!issue.sprint && sprintIds.has(issue.sprint),
+    ),
+  );
 
-  const groups = sprints.map((sprint) => ({
+  const grouped = Bom.pipe(
+    sprintIssues,
+    Bom.groupBy((i: IssueType) => i.sprint!),
+  );
+
+  const sprintGroups = sprints.map((sprint) => ({
     sprint,
-    issues: issuesBySprint.get(sprint.id) ?? [],
+    issues: grouped[sprint.id] ?? [],
   }));
 
-  return { sprintGroups: groups, backlogIssues: backlog };
+  return { sprintGroups, backlogIssues };
 };

@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createSafeContext } from "@/shared/lib";
 import type { SprintType } from "@/entities/sprint";
 
 interface BacklogContextValue {
@@ -9,13 +9,5 @@ interface BacklogContextValue {
   onIssueClick?: (issueId: string) => void;
 }
 
-export const BacklogContext = createContext<BacklogContextValue | null>(null);
-
-export const useBacklogContext = (): BacklogContextValue => {
-  const ctx = useContext(BacklogContext);
-  if (!ctx)
-    throw new Error(
-      "useBacklogContext must be used within BacklogContext.Provider",
-    );
-  return ctx;
-};
+export const [BacklogContext, useBacklogContext] =
+  createSafeContext<BacklogContextValue>("BacklogContext");

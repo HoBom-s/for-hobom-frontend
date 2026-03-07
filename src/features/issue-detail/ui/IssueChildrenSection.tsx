@@ -67,7 +67,7 @@ export const IssueChildrenSection = () => {
                 borderRadius: 1.5,
                 cursor: onNavigateToIssue ? "pointer" : "default",
                 "&:hover": onNavigateToIssue
-                  ? { bgcolor: "#f8f9fb" }
+                  ? { bgcolor: "action.hover" }
                   : undefined,
                 transition: "background 0.1s",
               }}

@@ -92,12 +92,12 @@ export const MemberSettingsSection = ({
   };
 
   return (
-    <Paper variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
+    <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
       <Box
         sx={{
           px: 3,
           py: 2,
-          bgcolor: "#f8f9fa",
+          bgcolor: "action.hover",
           borderBottom: "1px solid",
           borderColor: "divider",
           display: "flex",
@@ -118,8 +118,8 @@ export const MemberSettingsSection = ({
               minWidth: 20,
               fontSize: 11,
               fontWeight: 700,
-              bgcolor: "#4680ff18",
-              color: "#4680ff",
+              bgcolor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
+              color: "primary.main",
             }}
           />
         </Box>
@@ -142,7 +142,9 @@ export const MemberSettingsSection = ({
       <Box sx={{ p: 0 }}>
         {project.members.length === 0 ? (
           <Box sx={{ py: 6, textAlign: "center" }}>
-            <PeopleOutline sx={{ fontSize: 48, color: "#dadce0", mb: 1 }} />
+            <PeopleOutline
+              sx={{ fontSize: 48, color: "action.disabled", mb: 1 }}
+            />
             <Typography variant="body2" color="text.disabled">
               멤버가 없어요
             </Typography>

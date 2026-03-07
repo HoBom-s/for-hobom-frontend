@@ -10,8 +10,8 @@ export const useCollapsibleTree = (issues: IssueType[]) => {
   const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set());
 
   const flatTree = useMemo(
-    () => flattenIssueTree(issues, collapsedIds),
-    [issues, collapsedIds],
+    () => flattenIssueTree(issueTree, collapsedIds),
+    [issueTree, collapsedIds],
   );
 
   const toggleCollapse = useCallback((issueId: string) => {

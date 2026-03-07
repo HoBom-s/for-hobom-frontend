@@ -20,9 +20,9 @@ const SECTION_HEADER_SX = {
 } as const;
 
 const PLACEHOLDER_STYLE: React.CSSProperties = {
-  border: "2px dashed #e0e0e0",
+  border: "2px dashed var(--mui-palette-divider)",
   borderRadius: 8,
-  backgroundColor: "#fafafa",
+  backgroundColor: "var(--mui-palette-action-hover)",
 };
 
 const OVER_STYLE: React.CSSProperties = {
@@ -61,7 +61,7 @@ const NoteItem = ({
   onDelete: (id: string) => void;
 }) => (
   <Sortable.Item
-    id={note.id.value}
+    id={note.id}
     style={{ width: CARD_WIDTH }}
     useHandle
     placeholderStyle={PLACEHOLDER_STYLE}
@@ -117,7 +117,7 @@ export const NoteGrid = ({
         }}
       >
         <LightbulbOutlined
-          sx={{ fontSize: 96, color: "#dadce0", strokeWidth: 0.5 }}
+          sx={{ fontSize: 96, color: "action.disabled", strokeWidth: 0.5 }}
         />
         <Typography
           variant="body1"
@@ -162,10 +162,10 @@ export const NoteGrid = ({
             <Typography variant="caption" sx={SECTION_HEADER_SX}>
               고정됨
             </Typography>
-            <Sortable.List items={pinnedNotes.map((n) => n.id.value)}>
+            <Sortable.List items={pinnedNotes.map((n) => n.id)}>
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
                 {pinnedNotes.map((note) => (
-                  <NoteItem key={note.id.value} note={note} {...sharedProps} />
+                  <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}
               </Box>
             </Sortable.List>
@@ -182,10 +182,10 @@ export const NoteGrid = ({
                 기타
               </Typography>
             )}
-            <Sortable.List items={otherNotes.map((n) => n.id.value)}>
+            <Sortable.List items={otherNotes.map((n) => n.id)}>
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
                 {otherNotes.map((note) => (
-                  <NoteItem key={note.id.value} note={note} {...sharedProps} />
+                  <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}
               </Box>
             </Sortable.List>

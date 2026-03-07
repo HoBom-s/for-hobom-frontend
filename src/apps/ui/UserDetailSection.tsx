@@ -1,10 +1,12 @@
-import { Box, Chip, Typography } from "@mui/material";
+import { Box, Chip, CircularProgress, Typography } from "@mui/material";
 import {
   AlternateEmailOutlined,
   BadgeOutlined,
   PeopleOutline,
   PersonOutline,
 } from "@mui/icons-material";
+import { useQueries } from "@tanstack/react-query";
+import { userQueries } from "@/entities/user";
 
 interface UserDetailSectionProps {
   user: {
@@ -44,45 +46,57 @@ export const UserDetailSection = ({ user }: UserDetailSectionProps) => (
   </Box>
 );
 
-const FriendsRow = ({ friends }: { friends: string[] }) => (
-  <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
-    <Box sx={{ color: "text.secondary", pt: 0.25 }}>
-      <PeopleOutline sx={{ fontSize: 18 }} />
-    </Box>
-    <Box sx={{ minWidth: 0 }}>
-      <Typography
-        variant="caption"
-        sx={{
-          color: "text.secondary",
-          fontSize: "0.6875rem",
-          fontWeight: 500,
-        }}
-      >
-        친구
-      </Typography>
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.25 }}>
-        {friends.length > 0 ? (
-          friends.map((friend) => (
-            <Chip
-              key={friend}
-              label={friend}
-              size="small"
-              variant="outlined"
-              sx={{ fontSize: "0.75rem", height: 24 }}
-            />
-          ))
-        ) : (
-          <Typography
-            variant="body2"
-            sx={{ color: "text.disabled", fontSize: "0.8125rem" }}
-          >
-            없음
-          </Typography>
-        )}
+const FriendsRow = ({ friends }: { friends: string[] }) => {
+  const friendQueries = useQueries({
+    queries: friends.map((id) => userQueries.detail(id)),
+  });
+
+  const isLoading = friendQueries.some((q) => q.isLoading);
+
+  return (
+    <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
+      <Box sx={{ color: "text.secondary", pt: 0.25 }}>
+        <PeopleOutline sx={{ fontSize: 18 }} />
+      </Box>
+      <Box sx={{ minWidth: 0 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "text.secondary",
+            fontSize: "0.6875rem",
+            fontWeight: 500,
+          }}
+        >
+          친구
+        </Typography>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.25 }}>
+          {friends.length > 0 ? (
+            isLoading ? (
+              <CircularProgress size={16} />
+            ) : (
+              friendQueries.map((q, i) => (
+                <Chip
+                  key={friends[i]}
+                  label={q.data?.items.nickname ?? friends[i]}
+                  size="small"
+                  variant="outlined"
+                  sx={{ fontSize: "0.75rem", height: 24 }}
+                />
+              ))
+            )
+          ) : (
+            <Typography
+              variant="body2"
+              sx={{ color: "text.disabled", fontSize: "0.8125rem" }}
+            >
+              없음
+            </Typography>
+          )}
+        </Box>
       </Box>
     </Box>
-  </Box>
-);
+  );
+};
 
 const InfoRow = ({
   icon,
