@@ -21,7 +21,8 @@ export const useEntityMutation = <TData, TVariables>({
 
   return useMutation({
     ...mutation,
-    onSuccess: async () => {
+    onSuccess: async (...args) => {
+      await mutation.onSuccess?.(...args);
       await Promise.all(
         invalidateKeys.map((key) =>
           queryClient.invalidateQueries({ queryKey: key }),
@@ -29,9 +30,10 @@ export const useEntityMutation = <TData, TVariables>({
       );
       if (successMessage) openSuccessToast({ message: successMessage });
     },
-    onError: (error) => {
+    onError: (...args) => {
+      mutation.onError?.(...args);
       if (errorMessage) {
-        openErrorToast({ message: getErrorMessage(error, errorMessage) });
+        openErrorToast({ message: getErrorMessage(args[0], errorMessage) });
       }
     },
   });

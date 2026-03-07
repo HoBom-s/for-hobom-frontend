@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { ReportProblemOutlined, RefreshOutlined } from "@mui/icons-material";
+import { useQueryClient, type QueryClient } from "@tanstack/react-query";
 import { reportError } from "@/shared/lib";
 
 interface Props {
@@ -12,19 +13,23 @@ interface Props {
   inline?: boolean;
 }
 
+interface InternalProps extends Props {
+  queryClient: QueryClient;
+}
+
 interface State {
   hasError: boolean;
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundaryInner extends Component<InternalProps, State> {
   state: State = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: InternalProps) {
     if (this.state.hasError && prevProps.resetKey !== this.props.resetKey) {
       this.setState({ hasError: false, error: null });
     }
@@ -35,6 +40,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   private handleReset = () => {
+    this.props.queryClient.invalidateQueries();
     this.setState({ hasError: false, error: null });
   };
 
@@ -148,3 +154,8 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+export const ErrorBoundary = (props: Props) => {
+  const queryClient = useQueryClient();
+  return <ErrorBoundaryInner {...props} queryClient={queryClient} />;
+};
