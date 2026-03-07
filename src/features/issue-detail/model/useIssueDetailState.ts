@@ -34,7 +34,7 @@ export const useIssueDetailState = (
   const issue = issueData?.items.find((i) => i.id === issueId);
 
   const activeSprints = useMemo(
-    () => (sprintData?.items ?? []).filter((s) => s.status !== "CLOSED"),
+    () => (sprintData?.items ?? []).filter((s) => s.status !== "COMPLETED"),
     [sprintData],
   );
 
@@ -62,7 +62,7 @@ export const useIssueDetailState = (
       ? getDescendantProgress(issue.id, issueTree.childrenMap, doneStatusIds)
       : null;
 
-  const currentUserId = userData?.items?.id ?? "";
+  const currentUserId = userData?.id ?? "";
 
   return {
     issue,

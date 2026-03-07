@@ -49,7 +49,7 @@ export const useCreateIssueForm = ({
   });
 
   const activeSprints = (sprintData?.items ?? []).filter(
-    (s: SprintType) => s.status !== "CLOSED",
+    (s: SprintType) => s.status !== "COMPLETED",
   );
   const allLabels = labelData?.items ?? [];
   const labelMap = new Map(allLabels.map((l) => [l.id, l]));

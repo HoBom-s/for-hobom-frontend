@@ -58,6 +58,7 @@ describe("buildSwimlaneGroups", () => {
     const task = makeIssue("task1");
 
     const issueTree: IssueTreeResult = {
+      roots: [epic],
       parentMap: new Map<string, IssueType>([["task1", epic]]),
       childrenMap: new Map([["epic1", [task]]]),
     };
@@ -77,6 +78,7 @@ describe("buildSwimlaneGroups", () => {
     const task = makeIssue("task1");
 
     const issueTree: IssueTreeResult = {
+      roots: [task],
       parentMap: new Map<string, IssueType>(),
       childrenMap: new Map(),
     };
@@ -97,6 +99,7 @@ describe("buildSwimlaneGroups", () => {
     const orphan = makeIssue("task1");
 
     const issueTree: IssueTreeResult = {
+      roots: [orphan, epic],
       parentMap: new Map<string, IssueType>(),
       childrenMap: new Map(),
     };
@@ -112,6 +115,7 @@ describe("buildSwimlaneGroups", () => {
 
   it("이슈가 없으면 빈 배열을 반환한다", () => {
     const issueTree: IssueTreeResult = {
+      roots: [],
       parentMap: new Map<string, IssueType>(),
       childrenMap: new Map(),
     };
