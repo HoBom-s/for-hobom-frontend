@@ -27,31 +27,27 @@ import {
   ISSUE_PRIORITY_REGISTRY,
   type IssueType,
 } from "@/entities/issue";
-import type { SprintType } from "@/entities/sprint";
+import { useBacklogContext } from "../model/useBacklogContext";
 
-export const IssueRow = ({
-  issue,
-  sprints,
-  projectId,
-  depth = 0,
-  childCount = 0,
-  isCollapsed,
-  onToggleCollapse,
-  progress,
-  onCreateChildIssue,
-  onIssueClick,
-}: {
+interface IssueRowProps {
   issue: IssueType;
-  sprints: SprintType[];
-  projectId: string;
   depth?: number;
   childCount?: number;
   isCollapsed?: boolean;
   onToggleCollapse?: (issueId: string) => void;
   progress?: { completed: number; total: number };
-  onCreateChildIssue?: (parentId: string) => void;
-  onIssueClick?: (issueId: string) => void;
-}) => {
+}
+
+export const IssueRow = ({
+  issue,
+  depth = 0,
+  childCount = 0,
+  isCollapsed,
+  onToggleCollapse,
+  progress,
+}: IssueRowProps) => {
+  const { sprints, projectId, onCreateChildIssue, onIssueClick } =
+    useBacklogContext();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { mutate: updateIssue } = useUpdateIssue();
   const kind = ISSUE_KIND_REGISTRY[issue.type];

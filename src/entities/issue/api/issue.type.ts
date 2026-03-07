@@ -1,8 +1,4 @@
-import type {
-  IssueKind,
-  IssuePriority,
-  IssueStatusCategory,
-} from "../model/issue.model";
+import type { IssueKind, IssuePriority } from "../model/issue.model";
 
 export interface IssueType {
   id: string;
@@ -13,7 +9,6 @@ export interface IssueType {
   title: string;
   description?: string;
   status: string;
-  statusCategory: IssueStatusCategory;
   priority: IssuePriority;
   resolution?: string;
   reporter: string;

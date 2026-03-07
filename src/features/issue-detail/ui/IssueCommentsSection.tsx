@@ -8,20 +8,14 @@ import {
   useDeleteIssueComment,
 } from "@/entities/issue-comment";
 import { userQueries } from "@/entities/user";
+import { useIssueDetailContext } from "../model/useIssueDetailContext";
 import { IssueCommentInput } from "./IssueCommentInput";
 import { IssueCommentItem } from "./IssueCommentItem";
 
-interface IssueCommentsSectionProps {
-  projectId: string;
-  issueId: string;
-  currentUserId: string;
-}
+export const IssueCommentsSection = () => {
+  const { issue, projectId, currentUserId } = useIssueDetailContext();
+  const issueId = issue.id;
 
-export const IssueCommentsSection = ({
-  projectId,
-  issueId,
-  currentUserId,
-}: IssueCommentsSectionProps) => {
   const { data } = useQuery({
     ...issueCommentQueries.list(projectId, issueId),
   });

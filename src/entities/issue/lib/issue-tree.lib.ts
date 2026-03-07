@@ -69,6 +69,7 @@ export interface DescendantProgress {
 export const getDescendantProgress = (
   issueId: string,
   childrenMap: Map<string, IssueType[]>,
+  doneStatusIds: Set<string>,
 ): DescendantProgress => {
   let completed = 0;
   let total = 0;
@@ -78,7 +79,7 @@ export const getDescendantProgress = (
     if (!children) return;
     for (const child of children) {
       total++;
-      if (child.statusCategory === "DONE") completed++;
+      if (doneStatusIds.has(child.status)) completed++;
       walk(child.id);
     }
   };
@@ -93,7 +94,10 @@ export const isDescendantOf = (
   parentMap: Map<string, IssueType>,
 ): boolean => {
   let current = issueId;
+  const visited = new Set<string>();
   while (true) {
+    if (visited.has(current)) return false;
+    visited.add(current);
     const parent = parentMap.get(current);
     if (!parent) return false;
     if (parent.id === ancestorId) return true;
@@ -107,7 +111,10 @@ export const getRootEpic = (
 ): IssueType | null => {
   let current = parentMap.get(issueId);
   if (!current) return null;
+  const visited = new Set<string>();
   while (true) {
+    if (visited.has(current.id)) return null;
+    visited.add(current.id);
     const next = parentMap.get(current.id);
     if (!next) return current.type === "EPIC" ? current : null;
     current = next;

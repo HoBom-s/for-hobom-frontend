@@ -1,4 +1,3 @@
-import { useCallback, useMemo, useState } from "react";
 import {
   Box,
   FormControl,
@@ -8,24 +7,17 @@ import {
   Select,
 } from "@mui/material";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useProjectContext } from "@/shared/model";
 import {
   issueQueries,
-  useTransitionIssue,
-  getAvailableTransitions,
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
-  ISSUE_STATUS_CATEGORY_LABEL,
-  type IssueType,
   type IssueKind,
   type IssuePriority,
-  type IssueStatusCategory,
-  type IssueTransition,
 } from "@/entities/issue";
-import {
-  COLUMNS,
-  type ColKey,
-  STATUS_CHIP_COLOR,
-} from "./issue-list-constants";
+import { getStatusColor } from "@/entities/project";
+import { useIssueListFilters } from "../model/useIssueListFilters";
+import { useStatusTransitionMenu } from "../model/useStatusTransitionMenu";
 import { IssueGrid } from "./IssueGrid";
 import { EmptyState } from "./EmptyState";
 
@@ -38,83 +30,28 @@ export const IssueListTable = ({
   projectId,
   onIssueClick,
 }: IssueListTableProps) => {
+  const { statuses, transitions } = useProjectContext();
   const { data } = useSuspenseQuery(issueQueries.listByProject(projectId));
-  const { mutate: transitionIssue } = useTransitionIssue(projectId);
 
-  const [statusFilter, setStatusFilter] = useState<IssueStatusCategory | "">(
-    "",
-  );
-  const [priorityFilter, setPriorityFilter] = useState<IssuePriority | "">("");
-  const [typeFilter, setTypeFilter] = useState<IssueKind | "">("");
+  const {
+    statusFilter,
+    setStatusFilter,
+    priorityFilter,
+    setPriorityFilter,
+    typeFilter,
+    setTypeFilter,
+    filter,
+    sort,
+    sortKey,
+    sortDir,
+    handleHeaderClick,
+  } = useIssueListFilters();
 
-  const [sortKey, setSortKey] = useState<ColKey | null>(null);
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-
-  const [menuAnchor, setMenuAnchor] = useState<{
-    el: HTMLElement;
-    issueId: string;
-    transitions: IssueTransition[];
-  } | null>(null);
-
-  const filter = useCallback(
-    (row: IssueType) => {
-      if (statusFilter && row.statusCategory !== statusFilter) return false;
-      if (priorityFilter && row.priority !== priorityFilter) return false;
-      if (typeFilter && row.type !== typeFilter) return false;
-      return true;
-    },
-    [statusFilter, priorityFilter, typeFilter],
-  );
-
-  const sort = useMemo(
-    () =>
-      sortKey
-        ? [
-            {
-              key: sortKey as keyof IssueType,
-              direction: sortDir as "asc" | "desc",
-            },
-          ]
-        : [],
-    [sortKey, sortDir],
-  );
-
-  const handleHeaderClick = (colKey: ColKey) => {
-    const col = COLUMNS.find((c) => c.key === colKey);
-    if (!col?.sortable) return;
-    if (sortKey === colKey) {
-      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
-    } else {
-      setSortKey(colKey);
-      setSortDir("asc");
-    }
-  };
-
-  const handleStatusClick = (
-    e: React.MouseEvent<HTMLElement>,
-    issueId: string,
-    currentStatus: string,
-  ) => {
-    e.stopPropagation();
-    const transitions = getAvailableTransitions(currentStatus);
-    if (transitions.length === 0) return;
-    setMenuAnchor({ el: e.currentTarget, issueId, transitions });
-  };
-
-  const handleTransition = (transition: IssueTransition) => {
-    if (menuAnchor) {
-      transitionIssue({
-        projectId,
-        issueId: menuAnchor.issueId,
-        statusId: transition.to,
-      });
-    }
-    setMenuAnchor(null);
-  };
+  const { menuAnchor, handleStatusClick, handleTransition, closeMenu } =
+    useStatusTransitionMenu(projectId, transitions);
 
   return (
     <Box>
-      {/* 필터 바 */}
       <Box sx={{ display: "flex", gap: 1.5, mb: 2, flexWrap: "wrap" }}>
         <FormControl size="small" sx={{ minWidth: 120 }}>
           <InputLabel shrink>상태</InputLabel>
@@ -122,14 +59,12 @@ export const IssueListTable = ({
             value={statusFilter}
             label="상태"
             displayEmpty
-            onChange={(e) =>
-              setStatusFilter(e.target.value as IssueStatusCategory | "")
-            }
+            onChange={(e) => setStatusFilter(e.target.value)}
           >
             <MenuItem value="">전체</MenuItem>
-            {Object.entries(ISSUE_STATUS_CATEGORY_LABEL).map(([k, label]) => (
-              <MenuItem key={k} value={k}>
-                {label}
+            {statuses.map((s) => (
+              <MenuItem key={s.id} value={s.id}>
+                {s.name}
               </MenuItem>
             ))}
           </Select>
@@ -170,12 +105,12 @@ export const IssueListTable = ({
         </FormControl>
       </Box>
 
-      {/* 그리드 */}
       {data.items.length === 0 ? (
         <EmptyState />
       ) : (
         <IssueGrid
           items={data.items}
+          statuses={statuses}
           filter={filter}
           sort={sort}
           sortKey={sortKey}
@@ -186,11 +121,10 @@ export const IssueListTable = ({
         />
       )}
 
-      {/* 상태 전환 메뉴 */}
       <Menu
         anchorEl={menuAnchor?.el}
         open={Boolean(menuAnchor)}
-        onClose={() => setMenuAnchor(null)}
+        onClose={closeMenu}
         slotProps={{
           paper: {
             sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 },
@@ -208,7 +142,7 @@ export const IssueListTable = ({
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                bgcolor: STATUS_CHIP_COLOR[t.toCategory],
+                bgcolor: getStatusColor(statuses, t.to),
                 mr: 1.5,
                 flexShrink: 0,
               }}

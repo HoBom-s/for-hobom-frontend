@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
 import {
   useDeleteFutureMessage,
@@ -6,6 +6,7 @@ import {
 } from "@/entities/future-message";
 import { Box, Typography } from "@mui/material";
 import { MailOutline } from "@mui/icons-material";
+import { useContainerWidth } from "@/shared/model";
 import {
   HEADER_ROW_COUNT,
   MIN_COL_WIDTH,
@@ -22,21 +23,10 @@ export const FutureMessageGrid = ({
 }: {
   messages: FutureMessageType[];
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerRef, containerWidth] = useContainerWidth();
   const [editingMessage, setEditingMessage] =
     useState<FutureMessageType | null>(null);
   const { mutate: mutateDelete } = useDeleteFutureMessage();
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new ResizeObserver((entries) => {
-      setContainerWidth(entries[0].contentRect.width);
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
   if (messages.length === 0) {
     return (

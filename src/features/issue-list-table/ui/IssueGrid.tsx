@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
 import type { CellVM } from "@hobom-grid/core";
 import type { IssueType } from "@/entities/issue";
+import type { WorkflowStatus } from "@/entities/project";
 import {
   COLUMNS,
   type ColKey,
@@ -18,6 +19,7 @@ import { EmptyState } from "./EmptyState";
 
 interface IssueGridProps {
   items: IssueType[];
+  statuses: WorkflowStatus[];
   filter: (row: IssueType) => boolean;
   sort: { key: keyof IssueType; direction: "asc" | "desc" }[];
   sortKey: ColKey | null;
@@ -33,6 +35,7 @@ interface IssueGridProps {
 
 export const IssueGrid = ({
   items,
+  statuses,
   filter,
   sort,
   sortKey,
@@ -99,6 +102,7 @@ export const IssueGrid = ({
           colKey={colKey}
           row={row}
           bg={bg}
+          statuses={statuses}
           onStatusClick={onStatusClick}
           onRowClick={onRowClick}
         />
@@ -106,6 +110,7 @@ export const IssueGrid = ({
     },
     [
       rowModel,
+      statuses,
       sortKey,
       sortDir,
       onHeaderClick,

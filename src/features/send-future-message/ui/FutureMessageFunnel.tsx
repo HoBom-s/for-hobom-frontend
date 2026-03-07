@@ -1,10 +1,8 @@
 import { useFunnel } from "@/shared/model";
-import {
-  FutureMessageContentFunnel,
-  FutureMessageRecipientFunnel,
-  FutureMessageScheduleFunnel,
-  FutureMessageTitleFunnel,
-} from "@/features/send-future-message";
+import { FutureMessageContentFunnel } from "./FutureMessageContentFunnel";
+import { FutureMessageRecipientFunnel } from "./FutureMessageRecipientFunnel";
+import { FutureMessageScheduleFunnel } from "./FutureMessageScheduleFunnel";
+import { FutureMessageTitleFunnel } from "./FutureMessageTitleFunnel";
 
 const FUNNEL_STEPS = [
   "select-recipient",

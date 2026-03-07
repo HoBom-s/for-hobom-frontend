@@ -1,5 +1,4 @@
-import { Suspense, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Suspense } from "react";
 import {
   Box,
   Button,
@@ -21,12 +20,10 @@ import {
   HistoryOutlined,
 } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { useSuspenseQueries } from "@tanstack/react-query";
-import { wikiPageQueries, useDeletePage } from "@/entities/wiki-page";
-import { userQueries } from "@/entities/user";
 import { PageViewer } from "@/features/wiki-page-editor";
 import { CommentsSection } from "@/features/wiki-page-comments";
 import { VersionHistoryDrawer } from "@/features/wiki-page-versions";
+import { usePageContent } from "../model/usePageContent";
 import { PageEditor } from "./PageEditor";
 
 export const PageContent = ({
@@ -36,28 +33,18 @@ export const PageContent = ({
   spaceKey: string;
   pageId: string;
 }) => {
-  const navigate = useNavigate();
-  const [editing, setEditing] = useState(false);
-  const [versionDrawerOpen, setVersionDrawerOpen] = useState(false);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [{ data }, { data: user }] = useSuspenseQueries({
-    queries: [wikiPageQueries.detail(spaceKey, pageId), userQueries.me()],
-  });
-  const page = data.items;
-  const userInfo = user;
-  const deletePage = useDeletePage();
-
-  const handleDelete = () => {
-    deletePage.mutate(
-      { spaceKey, pageId },
-      {
-        onSuccess: () => {
-          setDeleteDialogOpen(false);
-          navigate(`/wiki/${spaceKey}`);
-        },
-      },
-    );
-  };
+  const {
+    editing,
+    setEditing,
+    versionDrawerOpen,
+    setVersionDrawerOpen,
+    deleteDialogOpen,
+    setDeleteDialogOpen,
+    page,
+    userInfo,
+    handleDelete,
+    isDeleting,
+  } = usePageContent({ spaceKey, pageId });
 
   if (editing) {
     return (
@@ -73,7 +60,6 @@ export const PageContent = ({
 
   return (
     <Box sx={{ p: 2 }}>
-      {/* 페이지 본문 */}
       <Paper
         elevation={0}
         sx={{
@@ -83,7 +69,6 @@ export const PageContent = ({
           overflow: "hidden",
         }}
       >
-        {/* 헤더: 제목 + 메타 + 액션 */}
         <Box
           sx={{
             display: "flex",
@@ -143,11 +128,9 @@ export const PageContent = ({
 
         <Divider sx={{ mx: 3.5, my: 1.5 }} />
 
-        {/* 본문 콘텐츠 */}
         <PageViewer content={page.content} />
       </Paper>
 
-      {/* 댓글 */}
       <Paper
         elevation={0}
         sx={{
@@ -192,7 +175,7 @@ export const PageContent = ({
         <DialogActions>
           <Button
             onClick={() => setDeleteDialogOpen(false)}
-            disabled={deletePage.isPending}
+            disabled={isDeleting}
           >
             취소
           </Button>
@@ -200,7 +183,7 @@ export const PageContent = ({
             onClick={handleDelete}
             color="error"
             variant="contained"
-            loading={deletePage.isPending}
+            loading={isDeleting}
           >
             삭제
           </LoadingButton>

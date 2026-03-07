@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -14,119 +14,26 @@ import {
   PlayArrowOutlined,
   CheckCircleOutline,
 } from "@mui/icons-material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useToast, useOverlay } from "@/shared/model";
-import {
-  issueQueries,
-  buildIssueTree,
-  flattenIssueTree,
-  getDescendantProgress,
-  type IssueType,
-} from "@/entities/issue";
-import {
-  sprintQueries,
-  sprintMutations,
-  SPRINT_STATUS_LABEL,
-  type SprintType,
-} from "@/entities/sprint";
+import { getDescendantProgress, type IssueType } from "@/entities/issue";
+import { SPRINT_STATUS_LABEL, type SprintType } from "@/entities/sprint";
+import { useBacklogContext } from "../model/useBacklogContext";
+import { useCollapsibleTree } from "../model/useCollapsibleTree";
+import { useSprintActions } from "../model/useSprintActions";
 import { STATUS_COLOR } from "./backlog-constants";
-import { ConfirmDialog } from "@/shared/ui";
 import { IssueRow } from "./IssueRow";
 
 export const SprintSection = ({
   sprint,
   issues,
-  sprints,
-  projectId,
-  onCreateChildIssue,
-  onIssueClick,
 }: {
   sprint: SprintType;
   issues: IssueType[];
-  sprints: SprintType[];
-  projectId: string;
-  onCreateChildIssue?: (parentId: string) => void;
-  onIssueClick?: (issueId: string) => void;
 }) => {
-  const issueTree = useMemo(() => buildIssueTree(issues), [issues]);
-  const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set());
-  const flatTree = useMemo(
-    () => flattenIssueTree(issues, collapsedIds),
-    [issues, collapsedIds],
-  );
-  const handleToggleCollapse = useCallback((issueId: string) => {
-    setCollapsedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(issueId)) next.delete(issueId);
-      else next.add(issueId);
-      return next;
-    });
-  }, []);
+  const { projectId, doneStatusIds } = useBacklogContext();
+  const { issueTree, flatTree, collapsedIds, toggleCollapse } =
+    useCollapsibleTree(issues);
+  const { handleStart, handleComplete } = useSprintActions(projectId, sprint);
   const [expanded, setExpanded] = useState(true);
-  const queryClient = useQueryClient();
-  const { openSuccessToast, openErrorToast } = useToast();
-  const { onOpen } = useOverlay();
-
-  const { mutate: startSprint, isPending: isStarting } = useMutation({
-    ...sprintMutations.start(),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: sprintQueries.sprints(),
-      });
-      openSuccessToast({ message: "스프린트를 시작했어요." });
-    },
-    onError: () => openErrorToast({ message: "스프린트를 시작하지 못했어요." }),
-  });
-
-  const { mutate: completeSprint, isPending: isCompleting } = useMutation({
-    ...sprintMutations.complete(),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: sprintQueries.sprints(),
-      });
-      await queryClient.invalidateQueries({
-        queryKey: issueQueries.issues(),
-      });
-      openSuccessToast({ message: "스프린트를 완료했어요." });
-    },
-    onError: () => openErrorToast({ message: "스프린트를 완료하지 못했어요." }),
-  });
-
-  const handleStart = () => {
-    onOpen(({ isOpen, onClose }) => (
-      <ConfirmDialog
-        open={isOpen}
-        onClose={onClose}
-        title="스프린트 시작"
-        description={`"${sprint.name}" 스프린트를 시작하시겠어요?`}
-        isPending={isStarting}
-        onConfirm={() => {
-          startSprint(
-            { projectId, sprintId: sprint.id },
-            { onSuccess: onClose },
-          );
-        }}
-      />
-    ));
-  };
-
-  const handleComplete = () => {
-    onOpen(({ isOpen, onClose }) => (
-      <ConfirmDialog
-        open={isOpen}
-        onClose={onClose}
-        title="스프린트 완료"
-        description={`"${sprint.name}" 스프린트를 완료하시겠어요? 완료되지 않은 이슈는 백로그로 이동합니다.`}
-        isPending={isCompleting}
-        onConfirm={() => {
-          completeSprint(
-            { projectId, sprintId: sprint.id },
-            { onSuccess: onClose },
-          );
-        }}
-      />
-    ));
-  };
 
   return (
     <Paper
@@ -230,34 +137,41 @@ export const SprintSection = ({
       </Box>
       <Collapse in={expanded}>
         {issues.length === 0 ? (
-          <Box sx={{ px: 2, py: 4, textAlign: "center" }}>
+          <Box sx={{ px: 2, py: 3, textAlign: "center" }}>
             <Typography
               variant="body2"
               color="text.disabled"
               sx={{ fontSize: 13 }}
             >
-              이슈를 이 스프린트로 이동해 보세요
+              스프린트에 이슈가 없어요
+            </Typography>
+            <Typography
+              variant="caption"
+              color="text.disabled"
+              sx={{ fontSize: 11 }}
+            >
+              백로그 이슈의 ⋮ 메뉴에서 이 스프린트로 이동할 수 있어요
             </Typography>
           </Box>
         ) : (
           flatTree.map(({ issue, depth, childCount }) => {
             const progress =
               childCount > 0
-                ? getDescendantProgress(issue.id, issueTree.childrenMap)
+                ? getDescendantProgress(
+                    issue.id,
+                    issueTree.childrenMap,
+                    doneStatusIds,
+                  )
                 : undefined;
             return (
               <IssueRow
                 key={issue.id}
                 issue={issue}
-                sprints={sprints}
-                projectId={projectId}
                 depth={depth}
                 childCount={childCount}
                 isCollapsed={collapsedIds.has(issue.id)}
-                onToggleCollapse={handleToggleCollapse}
+                onToggleCollapse={toggleCollapse}
                 progress={progress}
-                onCreateChildIssue={onCreateChildIssue}
-                onIssueClick={onIssueClick}
               />
             );
           })

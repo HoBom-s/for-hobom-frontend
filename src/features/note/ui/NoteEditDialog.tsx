@@ -1,4 +1,3 @@
-import { useState, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -21,11 +20,8 @@ import {
   AddOutlined,
   CloseOutlined,
 } from "@mui/icons-material";
-import { useQuery } from "@tanstack/react-query";
-import { NOTE_COLORS, useCreateNote, useUpdateNote } from "@/entities/note";
 import type { NoteItemType } from "@/entities/note";
-import { labelQueries } from "@/entities/label";
-import { useNoteForm } from "../model/useNoteForm";
+import { useNoteEditForm } from "../model/useNoteEditForm";
 import { ColorPickerPopover } from "./ColorPickerPopover";
 import { LabelPickerPopover } from "./LabelPickerPopover";
 import { ReminderPickerPopover } from "./ReminderPickerPopover";
@@ -41,9 +37,8 @@ export const NoteEditDialog = ({
   onClose,
   note,
 }: NoteEditDialogProps) => {
-  const isEdit = !!note;
-
   const {
+    isEdit,
     form,
     setField,
     toggleType,
@@ -53,67 +48,18 @@ export const NoteEditDialog = ({
     toggleLabel,
     setReminder,
     clearReminder,
-    hasContent,
-    filteredChecklist,
-  } = useNoteForm(open, note ?? null);
-
-  const createNote = useCreateNote();
-  const updateNote = useUpdateNote();
-
-  const { data: labelsData } = useQuery({
-    ...labelQueries.list(),
-    enabled: open,
-  });
-  const availableLabels = useMemo(
-    () => labelsData?.items ?? [],
-    [labelsData?.items],
-  );
-  const selectedLabelIds = useMemo(() => new Set(form.labels), [form.labels]);
-  const labelMap = useMemo(
-    () => Object.fromEntries(availableLabels.map((l) => [l.id, l.title])),
-    [availableLabels],
-  );
-
-  const [colorAnchor, setColorAnchor] = useState<HTMLElement | null>(null);
-  const [labelAnchor, setLabelAnchor] = useState<HTMLElement | null>(null);
-  const [reminderAnchor, setReminderAnchor] = useState<HTMLElement | null>(
-    null,
-  );
-
-  const handleSave = () => {
-    if (!hasContent) {
-      onClose();
-      return;
-    }
-
-    if (isEdit) {
-      updateNote.mutate(
-        {
-          id: note.id.value,
-          title: form.title,
-          content: form.type === "TEXT" ? form.content : undefined,
-          checklistItems: filteredChecklist,
-          color: form.color,
-          labels: form.labels,
-          reminder: form.reminder,
-        },
-        { onSuccess: onClose },
-      );
-    } else {
-      createNote.mutate(
-        {
-          title: form.title || undefined,
-          content: form.type === "TEXT" ? form.content || undefined : undefined,
-          type: form.type,
-          checklistItems: filteredChecklist,
-          color: form.color !== NOTE_COLORS.DEFAULT ? form.color : undefined,
-          labels: form.labels.length > 0 ? form.labels : undefined,
-          reminder: form.reminder ?? undefined,
-        },
-        { onSuccess: onClose },
-      );
-    }
-  };
+    availableLabels,
+    selectedLabelIds,
+    labelMap,
+    colorAnchor,
+    setColorAnchor,
+    labelAnchor,
+    setLabelAnchor,
+    reminderAnchor,
+    setReminderAnchor,
+    handleSave,
+    isPending,
+  } = useNoteEditForm({ open, note: note ?? null, onClose });
 
   return (
     <Dialog
@@ -269,7 +215,7 @@ export const NoteEditDialog = ({
 
         <Button
           onClick={handleSave}
-          loading={createNote.isPending || updateNote.isPending}
+          loading={isPending}
           sx={{ textTransform: "none" }}
         >
           닫기

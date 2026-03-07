@@ -1,2 +1,7 @@
-export { NoteStatusTabs } from "./ui/NoteStatusTabs";
-export { NoteContent } from "./ui/NoteContent";
+import { NoteStatusTabs } from "./ui/NoteStatusTabs";
+import { NoteContent } from "./ui/NoteContent";
+
+export const Note = {
+  StatusTabs: NoteStatusTabs,
+  Content: NoteContent,
+};

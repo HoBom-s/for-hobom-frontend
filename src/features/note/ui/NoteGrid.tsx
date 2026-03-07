@@ -1,15 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { DragIndicatorOutlined, LightbulbOutlined } from "@mui/icons-material";
 import { Bom } from "@/packages/bom";
-import {
-  Sortable,
-  arrayMove,
-  type DragEndEvent,
-  type DragStartEvent,
-} from "@/shared/ui";
+import { Sortable } from "@/shared/ui";
 import { NoteCard } from "@/entities/note";
 import type { NoteItemType, NoteStatus } from "@/entities/note";
+import { useNoteGrid } from "../model/useNoteGrid";
 
 const CARD_WIDTH = 240;
 const GAP = 12;
@@ -49,8 +44,6 @@ interface NoteGridProps {
     reorderedItems: NoteItemType[],
   ) => void;
 }
-
-type Section = "pinned" | "unpinned";
 
 const NoteItem = ({
   note,
@@ -100,60 +93,8 @@ export const NoteGrid = ({
   onDelete,
   onReorder,
 }: NoteGridProps) => {
-  const [activeId, setActiveId] = useState<string | null>(null);
-
-  const allNotes = useMemo(
-    () => [...pinnedNotes, ...otherNotes],
-    [pinnedNotes, otherNotes],
-  );
-
-  const activeNote = activeId
-    ? allNotes.find((n) => n.id.value === activeId)
-    : null;
-
-  const findSection = useCallback(
-    (id: string): Section | null => {
-      if (pinnedNotes.some((n) => n.id.value === id)) return "pinned";
-      if (otherNotes.some((n) => n.id.value === id)) return "unpinned";
-      return null;
-    },
-    [pinnedNotes, otherNotes],
-  );
-
-  const handleDragStart = useCallback((event: DragStartEvent) => {
-    setActiveId(String(event.active.id));
-  }, []);
-
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      setActiveId(null);
-      const { active, over } = event;
-      if (!over) return;
-
-      const activeSection = findSection(String(active.id));
-      const overSection = findSection(String(over.id));
-      if (!activeSection || !overSection) return;
-
-      if (activeSection !== overSection) {
-        // 섹션 간 이동 → 핀 토글
-        onTogglePin(String(active.id));
-      } else if (active.id !== over.id && onReorder) {
-        // 같은 섹션 내 정렬
-        const notes = activeSection === "pinned" ? pinnedNotes : otherNotes;
-        const oldIndex = notes.findIndex((n) => n.id.value === active.id);
-        const newIndex = notes.findIndex((n) => n.id.value === over.id);
-        if (oldIndex === -1 || newIndex === -1) return;
-
-        const reordered = arrayMove(notes, oldIndex, newIndex);
-        onReorder(String(active.id), newIndex, reordered);
-      }
-    },
-    [findSection, onTogglePin, onReorder, pinnedNotes, otherNotes],
-  );
-
-  const handleDragCancel = useCallback(() => {
-    setActiveId(null);
-  }, []);
+  const { activeNote, handleDragStart, handleDragEnd, handleDragCancel } =
+    useNoteGrid({ pinnedNotes, otherNotes, onTogglePin, onReorder });
 
   const sharedProps = {
     labelMap,

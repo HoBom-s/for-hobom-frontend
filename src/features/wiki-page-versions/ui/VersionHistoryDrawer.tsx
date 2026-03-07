@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import {
   Avatar,
   Box,
@@ -16,16 +16,10 @@ import {
   Typography,
 } from "@mui/material";
 import { CloseOutlined, RestoreOutlined } from "@mui/icons-material";
-import {
-  useSuspenseInfiniteQuery,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
-import {
-  wikiPageQueries,
-  useRestorePageVersion,
-  type PageVersionType,
-} from "@/entities/wiki-page";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { wikiPageQueries } from "@/entities/wiki-page";
 import { sanitizeHtml } from "@/shared/lib";
+import { useVersionHistory } from "../model/useVersionHistory";
 
 const DRAWER_WIDTH = 520;
 
@@ -57,7 +51,6 @@ export const VersionHistoryDrawer = ({
         },
       }}
     >
-      {/* 헤더 */}
       <Box
         sx={{
           display: "flex",
@@ -103,22 +96,17 @@ const VersionHistoryContent = ({
   pageId: string;
   onClose: () => void;
 }) => {
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useSuspenseInfiniteQuery(wikiPageQueries.versions(spaceKey, pageId));
-
-  const versions = data.pages.flatMap((page) => page.items.items);
-  const totalCount = data.pages.at(-1)?.items.totalCount ?? 0;
-
-  const [selectedVersion, setSelectedVersion] =
-    useState<PageVersionType | null>(null);
-  const restoreVersion = useRestorePageVersion();
-
-  const handleRestore = (version: number) => {
-    restoreVersion.mutate(
-      { spaceKey, pageId, version },
-      { onSuccess: () => onClose() },
-    );
-  };
+  const {
+    versions,
+    totalCount,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    selectedVersion,
+    setSelectedVersion,
+    handleRestore,
+    isRestoring,
+  } = useVersionHistory({ spaceKey, pageId, onClose });
 
   if (!versions.length) {
     return (
@@ -132,7 +120,6 @@ const VersionHistoryContent = ({
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      {/* 버전 목록 */}
       <Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
         <Typography variant="caption" fontWeight={600} color="text.secondary">
           버전 목록 ({totalCount})
@@ -202,7 +189,7 @@ const VersionHistoryContent = ({
                     e.stopPropagation();
                     handleRestore(version.version);
                   }}
-                  disabled={restoreVersion.isPending}
+                  disabled={isRestoring}
                   sx={{
                     color: isSelected
                       ? "rgba(255,255,255,0.8)"
@@ -240,7 +227,6 @@ const VersionHistoryContent = ({
 
       <Divider />
 
-      {/* 미리보기 */}
       <Box sx={{ flex: 1, overflow: "auto" }}>
         {selectedVersion ? (
           <Suspense

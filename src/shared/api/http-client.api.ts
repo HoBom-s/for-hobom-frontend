@@ -1,5 +1,5 @@
 import { env } from "@/shared/config";
-import { HttpError } from "./http-error";
+import { HttpError } from "./http-error.api";
 import type { Middleware, MiddlewareContext } from "./middleware.type";
 import type { HttpMethod, RequestOptions } from "./http-options.type";
 

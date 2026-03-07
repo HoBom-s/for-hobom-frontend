@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import {
   Avatar,
   Box,
@@ -13,13 +13,9 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@mui/icons-material";
-import {
-  useCreateComment,
-  useUpdateComment,
-  useDeleteComment,
-} from "@/entities/wiki-comment";
 import { UserType } from "@/entities/user";
 import type { CommentTreeNode } from "../lib/build-comment-tree.lib";
+import { useCommentNode } from "../model/useCommentNode";
 import { CommentInput } from "./CommentInput";
 
 interface CommentListProps {
@@ -66,41 +62,28 @@ const CommentNode = ({
   depth,
   userInfo,
 }: CommentNodeProps) => {
-  const [replying, setReplying] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [editContent, setEditContent] = useState(comment.content);
-  const createComment = useCreateComment();
-  const updateComment = useUpdateComment();
-  const deleteComment = useDeleteComment();
+  const {
+    replying,
+    setReplying,
+    editing,
+    editContent,
+    setEditContent,
+    isReplyPending,
+    handleReply,
+    handleUpdate,
+    handleDelete,
+    startEditing,
+    cancelEditing,
+  } = useCommentNode({
+    spaceKey,
+    pageId,
+    commentId: comment.id,
+    content: comment.content,
+    author: userInfo.nickname,
+  });
 
   const authorName = comment.author ?? "익명";
   const initial = authorName.charAt(0).toUpperCase();
-
-  const handleReply = (content: string) => {
-    createComment.mutate(
-      {
-        spaceKey,
-        pageId,
-        content,
-        parentCommentId: comment.id,
-        author: userInfo.nickname,
-      },
-      { onSuccess: () => setReplying(false) },
-    );
-  };
-
-  const handleUpdate = () => {
-    const trimmed = editContent.trim();
-    if (!trimmed) return;
-    updateComment.mutate(
-      { spaceKey, pageId, commentId: comment.id, content: trimmed },
-      { onSuccess: () => setEditing(false) },
-    );
-  };
-
-  const handleDelete = () => {
-    deleteComment.mutate({ spaceKey, pageId, commentId: comment.id });
-  };
 
   return (
     <Fragment>
@@ -146,7 +129,6 @@ const CommentNode = ({
         </Avatar>
 
         <Box sx={{ flex: 1, minWidth: 0 }}>
-          {/* 작성자 + 날짜 + 액션 */}
           <Box
             sx={{
               display: "flex",
@@ -192,10 +174,7 @@ const CommentNode = ({
                 <IconButton
                   size="small"
                   aria-label="수정"
-                  onClick={() => {
-                    setEditing(!editing);
-                    setEditContent(comment.content);
-                  }}
+                  onClick={editing ? cancelEditing : startEditing}
                   sx={{ p: 0.25 }}
                 >
                   <EditOutlined sx={{ fontSize: 15 }} />
@@ -214,7 +193,6 @@ const CommentNode = ({
             </Box>
           </Box>
 
-          {/* 내용 or 수정 폼 */}
           {editing ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
               <TextField
@@ -229,7 +207,7 @@ const CommentNode = ({
               <Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
                 <Button
                   size="small"
-                  onClick={() => setEditing(false)}
+                  onClick={cancelEditing}
                   sx={{ textTransform: "none" }}
                 >
                   취소
@@ -258,12 +236,11 @@ const CommentNode = ({
             </Typography>
           )}
 
-          {/* 답글 입력 */}
           {replying && (
             <Box sx={{ mt: 1.5 }}>
               <CommentInput
                 onSubmit={handleReply}
-                loading={createComment.isPending}
+                loading={isReplyPending}
                 placeholder="답글을 입력하세요..."
                 autoFocus
               />

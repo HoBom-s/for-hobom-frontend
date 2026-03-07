@@ -3,7 +3,7 @@ import {
   AddMenuRecommendationSchema,
   type TodayMenuCandidateInput,
   TodayMenuCandidateSchema,
-} from "@/entities/menu-recommendation/model/menu-recommendation.model.ts";
+} from "./menu-recommendation.model";
 import { validateWithZod } from "@/shared/lib";
 
 export const validateTodayMenuInput = (

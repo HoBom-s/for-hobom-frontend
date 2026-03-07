@@ -10,11 +10,7 @@ import {
   Remove,
   KeyboardArrowDown,
 } from "@mui/icons-material";
-import type {
-  IssueKind,
-  IssuePriority,
-  IssueStatusCategory,
-} from "../model/issue.model";
+import type { IssueKind, IssuePriority } from "../model/issue.model";
 
 type IconComponent = React.ComponentType<SvgIconProps>;
 
@@ -45,13 +41,4 @@ export const ISSUE_PRIORITY_REGISTRY: Record<
   HIGH: { Icon: KeyboardArrowUp, color: "#e58a00" },
   MEDIUM: { Icon: Remove, color: "#9ca3af" },
   LOW: { Icon: KeyboardArrowDown, color: "#4680ff" },
-};
-
-export const ISSUE_STATUS_CATEGORY_REGISTRY: Record<
-  IssueStatusCategory,
-  { color: string }
-> = {
-  TODO: { color: "#5b6a98" },
-  IN_PROGRESS: { color: "#4680ff" },
-  DONE: { color: "#2ca87f" },
 };

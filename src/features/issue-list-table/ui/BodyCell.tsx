@@ -1,21 +1,22 @@
 import { Avatar, Chip } from "@mui/material";
 import {
+  ISSUE_KIND_REGISTRY,
   ISSUE_PRIORITY_LABEL,
-  ISSUE_STATUS_CATEGORY_LABEL,
+  ISSUE_PRIORITY_REGISTRY,
   type IssueType,
 } from "@/entities/issue";
 import {
-  type ColKey,
-  KIND_ICON,
-  STATUS_CHIP_COLOR,
-  PRIORITY_COLOR,
-  BORDER_COLOR,
-} from "./issue-list-constants";
+  getStatusName,
+  getStatusColor,
+  type WorkflowStatus,
+} from "@/entities/project";
+import { type ColKey, BORDER_COLOR } from "./issue-list-constants";
 
 interface BodyCellProps {
   colKey: ColKey;
   row: IssueType;
   bg: string;
+  statuses: WorkflowStatus[];
   onStatusClick: (
     e: React.MouseEvent<HTMLElement>,
     issueId: string,
@@ -28,6 +29,7 @@ export const BodyCell = ({
   colKey,
   row,
   bg,
+  statuses,
   onStatusClick,
   onRowClick,
 }: BodyCellProps) => {
@@ -68,7 +70,10 @@ export const BodyCell = ({
           style={{ ...baseCellStyle, justifyContent: "center" }}
           onClick={handleRowClick}
         >
-          {KIND_ICON[row.type]}
+          {(() => {
+            const config = ISSUE_KIND_REGISTRY[row.type];
+            return <config.Icon sx={{ fontSize: 16, color: config.color }} />;
+          })()}
         </div>
       );
 
@@ -88,7 +93,8 @@ export const BodyCell = ({
         </div>
       );
 
-    case "statusCategory":
+    case "status": {
+      const color = getStatusColor(statuses, row.status);
       return (
         <div
           style={baseCellStyle}
@@ -96,7 +102,7 @@ export const BodyCell = ({
           onPointerDown={(e) => e.stopPropagation()}
         >
           <Chip
-            label={ISSUE_STATUS_CATEGORY_LABEL[row.statusCategory]}
+            label={getStatusName(statuses, row.status)}
             size="small"
             onClick={(e) => {
               e.stopPropagation();
@@ -106,16 +112,17 @@ export const BodyCell = ({
               height: 22,
               fontSize: 11,
               fontWeight: 600,
-              bgcolor: `${STATUS_CHIP_COLOR[row.statusCategory]}18`,
-              color: STATUS_CHIP_COLOR[row.statusCategory],
+              bgcolor: `${color}18`,
+              color,
               cursor: "pointer",
               "&:hover": {
-                bgcolor: `${STATUS_CHIP_COLOR[row.statusCategory]}28`,
+                bgcolor: `${color}28`,
               },
             }}
           />
         </div>
       );
+    }
 
     case "priority":
       return (
@@ -127,8 +134,8 @@ export const BodyCell = ({
               height: 22,
               fontSize: 11,
               fontWeight: 500,
-              bgcolor: `${PRIORITY_COLOR[row.priority]}18`,
-              color: PRIORITY_COLOR[row.priority],
+              bgcolor: `${ISSUE_PRIORITY_REGISTRY[row.priority].color}18`,
+              color: ISSUE_PRIORITY_REGISTRY[row.priority].color,
             }}
           />
         </div>

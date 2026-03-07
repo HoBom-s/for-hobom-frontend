@@ -1,26 +1,28 @@
 import { useState } from "react";
 import {
-  Autocomplete,
   Avatar,
   Box,
   Chip,
-  TextField,
+  FormControl,
+  MenuItem,
+  Select,
   Typography,
 } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
+import { useProjectContext } from "@/shared/model";
 import {
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
   ISSUE_PRIORITY_REGISTRY,
-  ISSUE_STATUS_CATEGORY_LABEL,
-  ISSUE_STATUS_CATEGORY_REGISTRY,
-  type IssueType,
+  ParentIssueAutocomplete,
 } from "@/entities/issue";
+import { getStatusName, getStatusColor } from "@/entities/project";
 import {
   projectLabelQueries,
   ProjectLabelPicker,
 } from "@/entities/project-label";
+import { useIssueDetailContext } from "../model/useIssueDetailContext";
 
 const MetaRow = ({
   label,
@@ -40,29 +42,19 @@ const MetaRow = ({
   </Box>
 );
 
-interface IssueMetaSectionProps {
-  issue: IssueType;
-  projectId: string;
-  sprintName: string | null;
-  parentIssue?: IssueType;
-  availableParents: IssueType[];
-  onStatusClick: (e: React.MouseEvent<HTMLElement>) => void;
-  onPriorityClick: (e: React.MouseEvent<HTMLElement>) => void;
-  onParentChange: (parent: IssueType | null) => void;
-  onLabelsChange: (labels: string[]) => void;
-}
+export const IssueMetaSection = () => {
+  const {
+    issue,
+    projectId,
+    activeSprints,
+    parentIssue,
+    availableParents,
+    updateField,
+    statusMenu,
+    priorityMenu,
+  } = useIssueDetailContext();
+  const { statuses } = useProjectContext();
 
-export const IssueMetaSection = ({
-  issue,
-  projectId,
-  sprintName,
-  parentIssue,
-  availableParents,
-  onStatusClick,
-  onPriorityClick,
-  onParentChange,
-  onLabelsChange,
-}: IssueMetaSectionProps) => {
   const [labelAnchor, setLabelAnchor] = useState<HTMLElement | null>(null);
   const { data: labelData } = useQuery(
     projectLabelQueries.listByProject(projectId),
@@ -75,25 +67,27 @@ export const IssueMetaSection = ({
     const next = selectedIds.has(labelId)
       ? issue.labels.filter((id) => id !== labelId)
       : [...issue.labels, labelId];
-    onLabelsChange(next);
+    updateField({ labels: next });
   };
+
+  const statusColor = getStatusColor(statuses, issue.status);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 2 }}>
       <MetaRow label="상태">
         <Chip
-          label={ISSUE_STATUS_CATEGORY_LABEL[issue.statusCategory]}
+          label={getStatusName(statuses, issue.status)}
           size="small"
-          onClick={onStatusClick}
+          onClick={statusMenu.open}
           sx={{
             height: 22,
             fontSize: 11,
             fontWeight: 600,
-            bgcolor: `${ISSUE_STATUS_CATEGORY_REGISTRY[issue.statusCategory].color}18`,
-            color: ISSUE_STATUS_CATEGORY_REGISTRY[issue.statusCategory].color,
+            bgcolor: `${statusColor}18`,
+            color: statusColor,
             cursor: "pointer",
             "&:hover": {
-              bgcolor: `${ISSUE_STATUS_CATEGORY_REGISTRY[issue.statusCategory].color}28`,
+              bgcolor: `${statusColor}28`,
             },
           }}
         />
@@ -102,7 +96,7 @@ export const IssueMetaSection = ({
         <Chip
           label={ISSUE_PRIORITY_LABEL[issue.priority]}
           size="small"
-          onClick={onPriorityClick}
+          onClick={priorityMenu.open}
           sx={{
             height: 22,
             fontSize: 11,
@@ -201,13 +195,32 @@ export const IssueMetaSection = ({
           onToggle={handleToggle}
         />
       </MetaRow>
-      {sprintName && (
-        <MetaRow label="스프린트">
-          <Typography variant="body2" sx={{ fontSize: 13 }}>
-            {sprintName}
-          </Typography>
-        </MetaRow>
-      )}
+      <MetaRow label="스프린트">
+        <FormControl size="small" fullWidth>
+          <Select
+            value={issue.sprint ?? ""}
+            displayEmpty
+            onChange={(e) =>
+              updateField({ sprint: e.target.value || undefined })
+            }
+            sx={{ fontSize: 13, "& .MuiSelect-select": { py: 0.75 } }}
+          >
+            <MenuItem value="" sx={{ fontSize: 13 }}>
+              <Typography
+                variant="body2"
+                sx={{ fontSize: 13, color: "text.disabled" }}
+              >
+                없음
+              </Typography>
+            </MenuItem>
+            {activeSprints.map((s) => (
+              <MenuItem key={s.id} value={s.id} sx={{ fontSize: 13 }}>
+                {s.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </MetaRow>
       {issue.storyPoints != null && (
         <MetaRow label="스토리 포인트">
           <Typography variant="body2" sx={{ fontSize: 13 }}>
@@ -223,22 +236,12 @@ export const IssueMetaSection = ({
         </MetaRow>
       )}
       <MetaRow label="상위 이슈">
-        <Autocomplete<IssueType>
-          size="small"
+        <ParentIssueAutocomplete
           value={parentIssue ?? null}
           options={availableParents}
-          getOptionLabel={(opt) => `${opt.issueKey} ${opt.title}`}
-          isOptionEqualToValue={(opt, val) => opt.id === val.id}
-          onChange={(_e, newValue) => onParentChange(newValue)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="상위 이슈 선택"
-              variant="outlined"
-            />
-          )}
-          sx={{ minWidth: 200 }}
-          noOptionsText="선택 가능한 상위 이슈 없음"
+          onChange={(parent) => updateField({ parent: parent?.id ?? null })}
+          label=""
+          placeholder="상위 이슈 선택"
         />
       </MetaRow>
     </Box>

@@ -11,7 +11,7 @@ import { RoutesConfig } from "@/shared/config";
 import { AppShell, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { useToast } from "@/shared/model";
-import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "./nav-items";
+import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "./NavItems";
 import { AppBarActions } from "./AppBarActions";
 
 const pageImports = {

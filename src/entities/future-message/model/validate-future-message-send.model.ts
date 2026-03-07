@@ -2,7 +2,7 @@ import { validateWithZod } from "@/shared/lib";
 import {
   FutureMessageSendSchema,
   type FutureMessageSendSchemaType,
-} from "@/entities/future-message/model/future-message-send.model.ts";
+} from "./future-message-send.model";
 
 export const validateFutureMessageSendInput = (
   input: unknown,

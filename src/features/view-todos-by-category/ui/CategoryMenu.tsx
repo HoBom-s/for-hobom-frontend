@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Button,
   Dialog,
@@ -11,8 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { MoreHoriz } from "@mui/icons-material";
-import { Bom } from "@/packages/bom";
-import { useUpdateCategory, useDeleteCategory } from "@/entities/daily-todo";
+import { useCategoryMenu } from "../model/useCategoryMenu";
 
 interface Props {
   categoryId: string;
@@ -20,53 +18,33 @@ interface Props {
 }
 
 export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [editOpen, setEditOpen] = useState(false);
-  const [editTitle, setEditTitle] = useState(categoryTitle);
-  const { mutate: mutateUpdate, isPending: isUpdatePending } =
-    useUpdateCategory();
-  const { mutate: mutateDelete } = useDeleteCategory();
-
-  const handleEdit = () => {
-    const trimmed = editTitle.trim();
-    if (Bom.isEmpty(trimmed)) return;
-    mutateUpdate(
-      { id: categoryId, title: trimmed },
-      { onSuccess: () => setEditOpen(false) },
-    );
-  };
+  const {
+    anchorEl,
+    editOpen,
+    editTitle,
+    setEditTitle,
+    setEditOpen,
+    isUpdatePending,
+    openMenu,
+    closeMenu,
+    openEdit,
+    handleEdit,
+    handleDelete,
+  } = useCategoryMenu({ categoryId, categoryTitle });
 
   return (
     <>
-      <IconButton
-        size="small"
-        onClick={(e) => setAnchorEl(e.currentTarget)}
-        sx={{ p: 0.25 }}
-      >
+      <IconButton size="small" onClick={openMenu} sx={{ p: 0.25 }}>
         <MoreHoriz sx={{ fontSize: 16 }} />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
+        onClose={closeMenu}
         slotProps={{ paper: { sx: { minWidth: 100 } } }}
       >
-        <MenuItem
-          onClick={() => {
-            setEditTitle(categoryTitle);
-            setEditOpen(true);
-            setAnchorEl(null);
-          }}
-        >
-          수정
-        </MenuItem>
-        <MenuItem
-          sx={{ color: "error.main" }}
-          onClick={() => {
-            mutateDelete({ id: categoryId });
-            setAnchorEl(null);
-          }}
-        >
+        <MenuItem onClick={openEdit}>수정</MenuItem>
+        <MenuItem sx={{ color: "error.main" }} onClick={handleDelete}>
           삭제
         </MenuItem>
       </Menu>

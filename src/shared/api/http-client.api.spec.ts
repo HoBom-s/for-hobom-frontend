@@ -1,5 +1,5 @@
 import { createHttpClient } from "./http-client.api";
-import { HttpError } from "./http-error";
+import { HttpError } from "./http-error.api";
 
 const mockFetch = vi.fn();
 vi.stubGlobal("fetch", mockFetch);

@@ -1,15 +1,11 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import { InboxOutlined } from "@mui/icons-material";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  issueQueries,
-  buildIssueTree,
-  flattenIssueTree,
-  getDescendantProgress,
-  type IssueType,
-} from "@/entities/issue";
-import { sprintQueries } from "@/entities/sprint";
+import { useProjectContext } from "@/shared/model";
+import { getDescendantProgress } from "@/entities/issue";
+import { BacklogContext } from "../model/useBacklogContext";
+import { useBacklogBoard } from "../model/useBacklogBoard";
+import { useCollapsibleTree } from "../model/useCollapsibleTree";
 import { SprintSection } from "./SprintSection";
 import { IssueRow } from "./IssueRow";
 
@@ -24,131 +20,94 @@ export const BacklogBoard = ({
   onCreateChildIssue,
   onIssueClick,
 }: BacklogBoardProps) => {
-  const { data: issueData } = useSuspenseQuery(
-    issueQueries.listByProject(projectId),
+  const { doneStatusIds } = useProjectContext();
+  const { sprints, sprintGroups, backlogIssues } = useBacklogBoard(projectId);
+  const { issueTree, flatTree, collapsedIds, toggleCollapse } =
+    useCollapsibleTree(backlogIssues);
+
+  const contextValue = useMemo(
+    () => ({
+      sprints,
+      projectId,
+      doneStatusIds,
+      onCreateChildIssue,
+      onIssueClick,
+    }),
+    [sprints, projectId, doneStatusIds, onCreateChildIssue, onIssueClick],
   );
-  const { data: sprintData } = useSuspenseQuery(
-    sprintQueries.listByProject(projectId),
-  );
-  const sprints = sprintData.items;
-  const issues = issueData.items;
-
-  const { sprintGroups, backlogIssues } = useMemo(() => {
-    const sprintIds = new Set(sprints.map((s) => s.id));
-    const issuesBySprint = new Map<string, IssueType[]>();
-    const backlog: IssueType[] = [];
-
-    for (const issue of issues) {
-      if (issue.sprint && sprintIds.has(issue.sprint)) {
-        const list = issuesBySprint.get(issue.sprint);
-        if (list) list.push(issue);
-        else issuesBySprint.set(issue.sprint, [issue]);
-      } else {
-        backlog.push(issue);
-      }
-    }
-
-    const groups = sprints.map((sprint) => ({
-      sprint,
-      issues: issuesBySprint.get(sprint.id) ?? [],
-    }));
-
-    return { sprintGroups: groups, backlogIssues: backlog };
-  }, [sprints, issues]);
-
-  const backlogTree = useMemo(
-    () => buildIssueTree(backlogIssues),
-    [backlogIssues],
-  );
-  const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set());
-  const backlogFlatTree = useMemo(
-    () => flattenIssueTree(backlogIssues, collapsedIds),
-    [backlogIssues, collapsedIds],
-  );
-  const handleToggleCollapse = useCallback((issueId: string) => {
-    setCollapsedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(issueId)) next.delete(issueId);
-      else next.add(issueId);
-      return next;
-    });
-  }, []);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      {sprintGroups.map(({ sprint, issues: sprintIssues }) => (
-        <SprintSection
-          key={sprint.id}
-          sprint={sprint}
-          issues={sprintIssues}
-          sprints={sprints}
-          projectId={projectId}
-          onCreateChildIssue={onCreateChildIssue}
-          onIssueClick={onIssueClick}
-        />
-      ))}
+    <BacklogContext.Provider value={contextValue}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {sprintGroups.map(({ sprint, issues }) => (
+          <SprintSection key={sprint.id} sprint={sprint} issues={issues} />
+        ))}
 
-      <Paper variant="outlined" sx={{ borderRadius: 2.5, overflow: "hidden" }}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            px: 2,
-            py: 1.2,
-            bgcolor: "#f8f9fb",
-          }}
+        <Paper
+          variant="outlined"
+          sx={{ borderRadius: 2.5, overflow: "hidden" }}
         >
-          <InboxOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
-          <Typography
-            variant="subtitle2"
-            fontWeight={700}
-            sx={{ fontSize: 13 }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              px: 2,
+              py: 1.2,
+              bgcolor: "#f8f9fb",
+            }}
           >
-            백로그
-          </Typography>
-          <Typography
-            variant="caption"
-            color="text.disabled"
-            sx={{ fontSize: 11 }}
-          >
-            {backlogIssues.length}건
-          </Typography>
-        </Box>
-        {backlogIssues.length === 0 ? (
-          <Box sx={{ px: 2, py: 4, textAlign: "center" }}>
+            <InboxOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
             <Typography
-              variant="body2"
-              color="text.disabled"
+              variant="subtitle2"
+              fontWeight={700}
               sx={{ fontSize: 13 }}
             >
-              백로그에 이슈가 없어요
+              백로그
+            </Typography>
+            <Typography
+              variant="caption"
+              color="text.disabled"
+              sx={{ fontSize: 11 }}
+            >
+              {backlogIssues.length}건
             </Typography>
           </Box>
-        ) : (
-          backlogFlatTree.map(({ issue, depth, childCount }) => {
-            const progress =
-              childCount > 0
-                ? getDescendantProgress(issue.id, backlogTree.childrenMap)
-                : undefined;
-            return (
-              <IssueRow
-                key={issue.id}
-                issue={issue}
-                sprints={sprints}
-                projectId={projectId}
-                depth={depth}
-                childCount={childCount}
-                isCollapsed={collapsedIds.has(issue.id)}
-                onToggleCollapse={handleToggleCollapse}
-                progress={progress}
-                onCreateChildIssue={onCreateChildIssue}
-                onIssueClick={onIssueClick}
-              />
-            );
-          })
-        )}
-      </Paper>
-    </Box>
+          {backlogIssues.length === 0 ? (
+            <Box sx={{ px: 2, py: 4, textAlign: "center" }}>
+              <Typography
+                variant="body2"
+                color="text.disabled"
+                sx={{ fontSize: 13 }}
+              >
+                백로그에 이슈가 없어요
+              </Typography>
+            </Box>
+          ) : (
+            flatTree.map(({ issue, depth, childCount }) => {
+              const progress =
+                childCount > 0
+                  ? getDescendantProgress(
+                      issue.id,
+                      issueTree.childrenMap,
+                      doneStatusIds,
+                    )
+                  : undefined;
+              return (
+                <IssueRow
+                  key={issue.id}
+                  issue={issue}
+                  depth={depth}
+                  childCount={childCount}
+                  isCollapsed={collapsedIds.has(issue.id)}
+                  onToggleCollapse={toggleCollapse}
+                  progress={progress}
+                />
+              );
+            })
+          )}
+        </Paper>
+      </Box>
+    </BacklogContext.Provider>
   );
 };

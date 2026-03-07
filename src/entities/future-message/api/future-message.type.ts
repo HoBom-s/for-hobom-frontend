@@ -1,4 +1,4 @@
-import type { FutureMessageSendStatusType } from "@/entities/future-message/model/future-message-send-status.model.ts";
+import type { FutureMessageSendStatusType } from "../model/future-message-send-status.model";
 
 export interface FutureMessageType {
   id: string;

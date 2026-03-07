@@ -6,6 +6,7 @@ import {
   postAddMember,
   deleteRemoveMember,
 } from "./project.api";
+import { putUpdateWorkflow } from "./workflow.api";
 
 export const projectMutations = {
   projects: () => ["projects"] as const,
@@ -34,5 +35,10 @@ export const projectMutations = {
     mutationOptions({
       mutationKey: [...projectMutations.projects(), "removeMember"] as const,
       mutationFn: deleteRemoveMember,
+    }),
+  updateWorkflow: () =>
+    mutationOptions({
+      mutationKey: [...projectMutations.projects(), "updateWorkflow"] as const,
+      mutationFn: putUpdateWorkflow,
     }),
 } as const;

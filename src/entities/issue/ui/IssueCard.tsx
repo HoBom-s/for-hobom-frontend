@@ -1,5 +1,5 @@
 import { Avatar, Box, Chip, Typography } from "@mui/material";
-import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "./issue-registry";
+import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "./IssueRegistry";
 import type { IssueType } from "../api/issue.type";
 
 interface IssueCardProps {

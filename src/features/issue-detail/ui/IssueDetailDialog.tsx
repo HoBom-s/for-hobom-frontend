@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   Box,
   Chip,
@@ -12,26 +12,18 @@ import {
   Typography,
 } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
-import { useQuery } from "@tanstack/react-query";
+import { useProjectContext } from "@/shared/model";
 import {
-  issueQueries,
-  buildIssueTree,
-  getDescendantProgress,
-  isDescendantOf,
-  useTransitionIssue,
-  useUpdateIssue,
-  getAvailableTransitions,
   ISSUE_KIND_LABEL,
   ISSUE_KIND_REGISTRY,
   ISSUE_PRIORITY_LABEL,
   ISSUE_PRIORITY_REGISTRY,
-  ISSUE_STATUS_CATEGORY_REGISTRY,
-  PARENT_ISSUE_KINDS,
   type IssuePriority,
-  type IssueTransition,
 } from "@/entities/issue";
-import { sprintQueries } from "@/entities/sprint";
-import { userQueries } from "@/entities/user";
+import { getStatusColor } from "@/entities/project";
+import { IssueDetailContext } from "../model/useIssueDetailContext";
+import { useIssueDetailState } from "../model/useIssueDetailState";
+import { useIssueDetailActions } from "../model/useIssueDetailActions";
 import { IssueMetaSection } from "./IssueMetaSection";
 import { IssueChildrenSection } from "./IssueChildrenSection";
 import { IssueCommentsSection } from "./IssueCommentsSection";
@@ -51,93 +43,28 @@ export const IssueDetailDialog = ({
   issueId,
   onNavigateToIssue,
 }: IssueDetailDialogProps) => {
-  const { data: issueData } = useQuery({
-    ...issueQueries.listByProject(projectId),
-    enabled: open && !!issueId,
-  });
-  const { data: sprintData } = useQuery({
-    ...sprintQueries.listByProject(projectId),
-    enabled: open && !!issueId,
-  });
-  const { data: userData } = useQuery({
-    ...userQueries.me(),
-    enabled: open && !!issueId,
-  });
-  const { mutate: transitionIssue } = useTransitionIssue(projectId);
-  const { mutate: updateIssue } = useUpdateIssue();
+  const { statuses } = useProjectContext();
+  const enabled = open && !!issueId;
 
-  const [menuAnchor, setMenuAnchor] = useState<{
-    el: HTMLElement;
-    transitions: IssueTransition[];
-  } | null>(null);
-  const [priorityAnchor, setPriorityAnchor] = useState<HTMLElement | null>(
-    null,
+  const state = useIssueDetailState(projectId, issueId, enabled);
+  const actions = useIssueDetailActions(projectId, state.issue);
+  const { issue } = state;
+
+  const contextValue = useMemo(
+    () =>
+      issue
+        ? { ...state, issue, ...actions, projectId, onNavigateToIssue }
+        : null,
+    [state, issue, actions, projectId, onNavigateToIssue],
   );
-
-  const issue = issueData?.items.find((i) => i.id === issueId);
-  const sprintName = issue?.sprint
-    ? (sprintData?.items.find((s) => s.id === issue.sprint)?.name ?? null)
-    : null;
-
-  const issueTree = useMemo(
-    () => (issueData ? buildIssueTree(issueData.items) : null),
-    [issueData],
-  );
-
-  const parentIssue = issue ? issueTree?.parentMap.get(issue.id) : undefined;
-  const childIssues = issue ? (issueTree?.childrenMap.get(issue.id) ?? []) : [];
-
-  const availableParents = useMemo(() => {
-    if (!issueData || !issue || !issueTree) return [];
-    return issueData.items.filter((candidate) => {
-      if (!PARENT_ISSUE_KINDS.has(candidate.type)) return false;
-      if (candidate.id === issue.id) return false;
-      if (isDescendantOf(candidate.id, issue.id, issueTree.parentMap))
-        return false;
-      return true;
-    });
-  }, [issueData, issue, issueTree]);
-
-  const progress =
-    issue && issueTree
-      ? getDescendantProgress(issue.id, issueTree.childrenMap)
-      : null;
-
-  const handleStatusClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (!issue) return;
-    const transitions = getAvailableTransitions(issue.status);
-    if (transitions.length === 0) return;
-    setMenuAnchor({ el: e.currentTarget, transitions });
-  };
-
-  const handleTransition = (transition: IssueTransition) => {
-    if (!issue) return;
-    transitionIssue({
-      projectId,
-      issueId: issue.id,
-      statusId: transition.to,
-    });
-    setMenuAnchor(null);
-  };
-
-  const handlePriorityChange = (priority: IssuePriority) => {
-    if (!issue) return;
-    updateIssue({ projectId, issueId: issue.id, priority });
-    setPriorityAnchor(null);
-  };
 
   return (
     <>
       <Dialog open={open && !!issue} onClose={onClose} maxWidth="sm" fullWidth>
-        {issue && (
-          <>
+        {issue && contextValue && (
+          <IssueDetailContext.Provider value={contextValue}>
             <DialogTitle
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                pr: 6,
-              }}
+              sx={{ display: "flex", alignItems: "center", gap: 1, pr: 6 }}
             >
               <Chip
                 label={ISSUE_KIND_LABEL[issue.type]}
@@ -171,25 +98,7 @@ export const IssueDetailDialog = ({
               </Typography>
               <Divider sx={{ mb: 2 }} />
 
-              <IssueMetaSection
-                issue={issue}
-                projectId={projectId}
-                sprintName={sprintName}
-                parentIssue={parentIssue}
-                availableParents={availableParents}
-                onStatusClick={handleStatusClick}
-                onPriorityClick={(e) => setPriorityAnchor(e.currentTarget)}
-                onParentChange={(parent) => {
-                  updateIssue({
-                    projectId,
-                    issueId: issue.id,
-                    parent: parent?.id ?? null,
-                  });
-                }}
-                onLabelsChange={(labels) => {
-                  updateIssue({ projectId, issueId: issue.id, labels });
-                }}
-              />
+              <IssueMetaSection />
 
               {issue.description && (
                 <>
@@ -214,35 +123,27 @@ export const IssueDetailDialog = ({
                 </>
               )}
 
-              <IssueChildrenSection
-                childIssues={childIssues}
-                progress={progress}
-                onNavigateToIssue={onNavigateToIssue}
-              />
-
-              <IssueCommentsSection
-                projectId={projectId}
-                issueId={issue.id}
-                currentUserId={userData?.items?.id ?? ""}
-              />
+              <IssueChildrenSection />
+              <IssueCommentsSection />
             </DialogContent>
-          </>
+          </IssueDetailContext.Provider>
         )}
       </Dialog>
 
+      {/* Status Menu */}
       <Menu
-        anchorEl={menuAnchor?.el}
-        open={Boolean(menuAnchor)}
-        onClose={() => setMenuAnchor(null)}
+        anchorEl={actions.statusMenu.anchor?.el}
+        open={Boolean(actions.statusMenu.anchor)}
+        onClose={actions.statusMenu.close}
         aria-label="상태 변경"
         slotProps={{
           paper: { sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 } },
         }}
       >
-        {menuAnchor?.transitions.map((t) => (
+        {actions.statusMenu.anchor?.transitions.map((t) => (
           <MenuItem
             key={t.to}
-            onClick={() => handleTransition(t)}
+            onClick={() => actions.statusMenu.handleTransition(t)}
             sx={{ fontSize: 13, py: 0.8 }}
           >
             <Box
@@ -250,7 +151,7 @@ export const IssueDetailDialog = ({
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                bgcolor: ISSUE_STATUS_CATEGORY_REGISTRY[t.toCategory].color,
+                bgcolor: getStatusColor(statuses, t.to),
                 mr: 1.5,
                 flexShrink: 0,
               }}
@@ -260,10 +161,11 @@ export const IssueDetailDialog = ({
         ))}
       </Menu>
 
+      {/* Priority Menu */}
       <Menu
-        anchorEl={priorityAnchor}
-        open={Boolean(priorityAnchor)}
-        onClose={() => setPriorityAnchor(null)}
+        anchorEl={actions.priorityMenu.anchor}
+        open={Boolean(actions.priorityMenu.anchor)}
+        onClose={actions.priorityMenu.close}
         aria-label="우선순위 변경"
         slotProps={{
           paper: { sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 } },
@@ -275,7 +177,7 @@ export const IssueDetailDialog = ({
           <MenuItem
             key={key}
             selected={issue?.priority === key}
-            onClick={() => handlePriorityChange(key)}
+            onClick={() => actions.priorityMenu.handleChange(key)}
             sx={{ fontSize: 13, py: 0.8 }}
           >
             <Box

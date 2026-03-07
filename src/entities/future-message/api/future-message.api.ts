@@ -1,7 +1,7 @@
-import type { FutureMessageSendStatusType } from "@/entities/future-message/model/future-message-send-status.model.ts";
+import type { FutureMessageSendStatusType } from "../model/future-message-send-status.model";
 import { httpClient, type HttpResponseType } from "@/shared/api";
-import type { FutureMessageType } from "@/entities/future-message/api/future-message.type.ts";
-import type { FutureMessageSendSchemaType } from "@/entities/future-message";
+import type { FutureMessageType } from "./future-message.type";
+import type { FutureMessageSendSchemaType } from "../model/future-message-send.model";
 
 export const fetchFutureMessageByStatus = async ({
   status,

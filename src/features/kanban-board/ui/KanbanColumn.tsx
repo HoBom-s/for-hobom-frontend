@@ -3,49 +3,30 @@ import { useDroppable } from "@dnd-kit/core";
 import { Sortable } from "@/shared/ui";
 import {
   IssueCard,
-  ISSUE_STATUS_CATEGORY_LABEL,
   getDescendantProgress,
   getRootEpic,
-  type IssueStatusCategory,
   type IssueType,
-  type IssueTreeResult,
 } from "@/entities/issue";
+import { getStatusConfig, type BoardColumn } from "@/entities/board";
 import { columnDroppableId } from "../lib/kanban-dnd.lib";
-import type { SwimlaneGroup } from "./KanbanBoard";
+import { useKanbanContext } from "../model/useKanbanContext";
 import { KanbanSwimlane } from "./KanbanSwimlane";
 import { CreateIssueInlineForm } from "./CreateIssueInlineForm";
 
 interface KanbanColumnProps {
-  status: IssueStatusCategory;
+  column: BoardColumn;
   issues: IssueType[];
-  issueTree: IssueTreeResult;
-  swimlaneGroups?: SwimlaneGroup[] | null;
-  onAddIssue: (title: string) => void;
-  onIssueClick?: (issueId: string) => void;
 }
 
-const STATUS_CONFIG: Record<
-  IssueStatusCategory,
-  { color: string; bg: string }
-> = {
-  TODO: { color: "#5b6a98", bg: "#eef0f4" },
-  IN_PROGRESS: { color: "#4680ff", bg: "#e3f2fd" },
-  DONE: { color: "#2ca87f", bg: "#e8f5e9" },
-};
+export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
+  const { issueTree, doneStatusIds, swimlaneGroups, onAddIssue, onIssueClick } =
+    useKanbanContext();
 
-export const KanbanColumn = ({
-  status,
-  issues,
-  issueTree,
-  swimlaneGroups,
-  onAddIssue,
-  onIssueClick,
-}: KanbanColumnProps) => {
   const { setNodeRef, isOver } = useDroppable({
-    id: columnDroppableId(status),
+    id: columnDroppableId(column.statusId),
   });
 
-  const config = STATUS_CONFIG[status];
+  const config = getStatusConfig(column.statusId);
 
   return (
     <Box
@@ -86,7 +67,7 @@ export const KanbanColumn = ({
           fontWeight={700}
           sx={{ letterSpacing: "-0.01em" }}
         >
-          {ISSUE_STATUS_CATEGORY_LABEL[status]}
+          {column.name}
         </Typography>
         <Chip
           label={issues.length}
@@ -134,13 +115,18 @@ export const KanbanColumn = ({
                     progress={group.progress}
                   >
                     {laneIssues.map((issue) =>
-                      renderIssueItem(issue, issueTree, onIssueClick),
+                      renderIssueItem(
+                        issue,
+                        issueTree,
+                        doneStatusIds,
+                        onIssueClick,
+                      ),
                     )}
                   </KanbanSwimlane>
                 );
               })
             : issues.map((issue) =>
-                renderIssueItem(issue, issueTree, onIssueClick),
+                renderIssueItem(issue, issueTree, doneStatusIds, onIssueClick),
               )}
         </Box>
       </Sortable.List>
@@ -152,13 +138,17 @@ export const KanbanColumn = ({
 
 const renderIssueItem = (
   issue: IssueType,
-  issueTree: IssueTreeResult,
+  issueTree: {
+    parentMap: Map<string, IssueType>;
+    childrenMap: Map<string, IssueType[]>;
+  },
+  doneStatusIds: Set<string>,
   onIssueClick?: (issueId: string) => void,
 ) => {
   const childCount = issueTree.childrenMap.get(issue.id)?.length ?? 0;
   const progress =
     childCount > 0
-      ? getDescendantProgress(issue.id, issueTree.childrenMap)
+      ? getDescendantProgress(issue.id, issueTree.childrenMap, doneStatusIds)
       : undefined;
   return (
     <Sortable.Item key={issue.id} id={issue.id}>

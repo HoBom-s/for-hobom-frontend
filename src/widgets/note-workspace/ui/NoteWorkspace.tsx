@@ -1,7 +1,7 @@
 import { Suspense, useState } from "react";
 import { Box } from "@mui/material";
 import type { NoteStatus } from "@/entities/note";
-import { NoteContent, NoteStatusTabs } from "@/features/note";
+import { Note } from "@/features/note";
 import { SuspenseLoader } from "@/shared/ui";
 
 export const NoteWorkspace = () => {
@@ -9,10 +9,10 @@ export const NoteWorkspace = () => {
 
   return (
     <Box sx={{ p: 3, maxWidth: 1200, mx: "auto" }}>
-      <NoteStatusTabs value={status} onChange={setStatus} />
+      <Note.StatusTabs value={status} onChange={setStatus} />
 
       <Suspense fallback={<SuspenseLoader />}>
-        <NoteContent status={status} />
+        <Note.Content status={status} />
       </Suspense>
     </Box>
   );

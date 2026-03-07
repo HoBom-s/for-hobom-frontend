@@ -1,5 +1,4 @@
-import { Suspense, useCallback, useState } from "react";
-import { useParams, useNavigate, Outlet } from "react-router-dom";
+import { Suspense } from "react";
 import {
   Box,
   Button,
@@ -8,23 +7,16 @@ import {
   Typography,
 } from "@mui/material";
 import { AddOutlined, ChevronRight } from "@mui/icons-material";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { wikiSpaceQueries } from "@/entities/wiki-space";
-import { useCreatePage } from "@/entities/wiki-page";
 import {
   usePageTree,
   PageTreeView,
   CreatePageDialog,
 } from "@/features/wiki-page-tree";
 import { WikiSearchField } from "@/features/wiki-search";
+import { Outlet } from "react-router-dom";
+import { useWikiSpaceLayout } from "../model/useWikiSpaceLayout";
 
 const SIDEBAR_WIDTH = 260;
-
-interface CreateDialogState {
-  open: boolean;
-  parentPageId: string | null;
-  parentTitle?: string;
-}
 
 const PageTreeContent = ({
   spaceKey,
@@ -50,57 +42,24 @@ const PageTreeContent = ({
 };
 
 export const WikiSpaceLayout = () => {
-  const { spaceKey, pageId } = useParams<{
-    spaceKey: string;
-    pageId: string;
-  }>();
-  const navigate = useNavigate();
-  const [createDialog, setCreateDialog] = useState<CreateDialogState>({
-    open: false,
-    parentPageId: null,
-  });
-  const createPage = useCreatePage();
-
-  const { data } = useSuspenseQuery(wikiSpaceQueries.detail(spaceKey!));
-  const space = data.items;
-
-  const handlePageSelect = useCallback(
-    (pageId: string) => {
-      navigate(`/wiki/${spaceKey}/pages/${pageId}`);
-    },
-    [navigate, spaceKey],
-  );
-
-  const handleCreateChild = useCallback(
-    (parentId: string, parentTitle: string) => {
-      setCreateDialog({ open: true, parentPageId: parentId, parentTitle });
-    },
-    [],
-  );
+  const {
+    spaceKey,
+    pageId,
+    space,
+    createDialog,
+    handleNavigateToWiki,
+    handlePageSelect,
+    handleCreateChild,
+    handleCreatePage,
+    handleCloseDialog,
+    handleOpenCreateDialog,
+    isCreating,
+  } = useWikiSpaceLayout();
 
   if (!spaceKey) return null;
 
-  const handleCreatePage = (title: string) => {
-    createPage.mutate(
-      {
-        spaceKey,
-        title,
-        content: "",
-        parentPageId: createDialog.parentPageId,
-      },
-      {
-        onSuccess: () => setCreateDialog({ open: false, parentPageId: null }),
-      },
-    );
-  };
-
-  const handleCloseDialog = () => {
-    setCreateDialog({ open: false, parentPageId: null });
-  };
-
   return (
     <Box sx={{ p: 3 }}>
-      {/* Breadcrumb */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
         <Typography
           variant="caption"
@@ -109,7 +68,7 @@ export const WikiSpaceLayout = () => {
             cursor: "pointer",
             "&:hover": { color: "primary.main" },
           }}
-          onClick={() => navigate("/wiki")}
+          onClick={handleNavigateToWiki}
         >
           위키
         </Typography>
@@ -119,7 +78,6 @@ export const WikiSpaceLayout = () => {
         </Typography>
       </Box>
 
-      {/* Title + Search */}
       <Box
         sx={{
           display: "flex",
@@ -167,9 +125,7 @@ export const WikiSpaceLayout = () => {
             <Button
               size="small"
               startIcon={<AddOutlined />}
-              onClick={() =>
-                setCreateDialog({ open: true, parentPageId: null })
-              }
+              onClick={handleOpenCreateDialog}
               sx={{
                 width: "100%",
                 justifyContent: "flex-start",
@@ -193,7 +149,7 @@ export const WikiSpaceLayout = () => {
         open={createDialog.open}
         onClose={handleCloseDialog}
         onSubmit={handleCreatePage}
-        loading={createPage.isPending}
+        loading={isCreating}
         parentTitle={createDialog.parentTitle}
       />
     </Box>

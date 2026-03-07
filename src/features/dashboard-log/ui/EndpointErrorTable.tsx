@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
 import type { CellVM } from "@hobom-grid/core";
 import { Box, Typography } from "@mui/material";
 import { ErrorOutline } from "@mui/icons-material";
+import { useContainerWidth } from "@/shared/model";
 import type { LogEndpointError } from "@/entities/log";
 import {
   COLUMNS,
@@ -21,18 +22,7 @@ interface EndpointErrorTableProps {
 }
 
 export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new ResizeObserver((entries) => {
-      setContainerWidth(entries[0].contentRect.width);
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [containerRef, containerWidth] = useContainerWidth();
 
   const rowModel = useClientRowModel(data, {
     getId: (r) => `${r.httpMethod}-${r.path}`,

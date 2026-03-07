@@ -1,4 +1,3 @@
-import { useMemo, useState } from "react";
 import {
   Box,
   CircularProgress,
@@ -9,42 +8,23 @@ import {
   Divider,
 } from "@mui/material";
 import { NotificationsNoneOutlined } from "@mui/icons-material";
-import {
-  NotificationItem,
-  groupNotificationsByDate,
-  type NotificationItemType,
-} from "@/entities/notification";
-import {
-  useNotificationList,
-  useMarkNotificationRead,
-  TAB_FILTERS,
-  EMPTY_MESSAGES,
-} from "@/features/notification";
+import { NotificationItem } from "@/entities/notification";
+import { EMPTY_MESSAGES } from "@/features/notification";
 import { SUBTLE_SCROLLBAR_SX } from "@/shared/config";
-import { useInfiniteScroll } from "@/shared/model";
+import { useNotificationCenter } from "../model/useNotificationCenter";
 
 export const NotificationCenter = () => {
-  const [tab, setTab] = useState(0);
-  const filter = TAB_FILTERS[tab];
   const {
-    notifications,
+    tab,
+    setTab,
+    filter,
+    dateGroups,
     unreadCount,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
     isPending,
-  } = useNotificationList(filter);
-  const markRead = useMarkNotificationRead();
-  const dateGroups = useMemo(
-    () => groupNotificationsByDate(notifications),
-    [notifications],
-  );
-
-  const handleScroll = useInfiniteScroll({
-    hasNextPage,
     isFetchingNextPage,
-    fetchNextPage,
-  });
+    handleScroll,
+    handleMarkRead,
+  } = useNotificationCenter();
 
   return (
     <Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
@@ -133,11 +113,7 @@ export const NotificationCenter = () => {
                     <NotificationItem
                       key={notification.id}
                       notification={notification}
-                      onClick={(n: NotificationItemType) => {
-                        if (!n.isRead) {
-                          markRead.mutate(n.id);
-                        }
-                      }}
+                      onClick={handleMarkRead}
                     />
                   ))}
                 </Box>

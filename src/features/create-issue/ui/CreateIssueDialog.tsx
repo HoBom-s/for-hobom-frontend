@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import {
-  Autocomplete,
   Box,
   Button,
   Chip,
@@ -16,22 +14,16 @@ import {
   Typography,
 } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
-import { useQuery } from "@tanstack/react-query";
 import {
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
-  issueQueries,
-  useCreateIssue,
+  ParentIssueAutocomplete,
   type IssueKind,
   type IssuePriority,
-  type IssueType,
 } from "@/entities/issue";
-import {
-  projectLabelQueries,
-  ProjectLabelPicker,
-} from "@/entities/project-label";
-
-const PARENT_ISSUE_KINDS: IssueKind[] = ["EPIC", "STORY"];
+import { type SprintType } from "@/entities/sprint";
+import { ProjectLabelPicker } from "@/entities/project-label";
+import { useCreateIssueForm } from "../model/useCreateIssueForm";
 
 interface CreateIssueDialogProps {
   open: boolean;
@@ -46,69 +38,21 @@ export const CreateIssueDialog = ({
   projectId,
   defaultParentId,
 }: CreateIssueDialogProps) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [kind, setKind] = useState<IssueKind>("TASK");
-  const [priority, setPriority] = useState<IssuePriority>("MEDIUM");
-  const [parentIssue, setParentIssue] = useState<IssueType | null>(null);
-  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
-  const [labelAnchor, setLabelAnchor] = useState<HTMLElement | null>(null);
-  const { mutate, isPending } = useCreateIssue();
-
-  const { data: issueData } = useQuery({
-    ...issueQueries.listByProject(projectId),
+  const {
+    fields,
+    labelAnchor,
+    setLabelAnchor,
+    handleSubmit,
+    isPending,
+    parentCandidates,
+    activeSprints,
+    labelMap,
+  } = useCreateIssueForm({
+    projectId,
+    defaultParentId,
     enabled: open,
+    onSuccess: onClose,
   });
-
-  const { data: labelData } = useQuery({
-    ...projectLabelQueries.listByProject(projectId),
-    enabled: open,
-  });
-  const allLabels = labelData?.items ?? [];
-  const labelMap = new Map(allLabels.map((l) => [l.id, l]));
-
-  const parentCandidates = (issueData?.items ?? []).filter((i) =>
-    PARENT_ISSUE_KINDS.includes(i.type),
-  );
-
-  useEffect(() => {
-    if (!open || !defaultParentId || !issueData) return;
-    const items = issueData.items ?? [];
-    const found = items.find(
-      (i) => i.id === defaultParentId && PARENT_ISSUE_KINDS.includes(i.type),
-    );
-    if (found) setParentIssue(found);
-  }, [open, defaultParentId, issueData]);
-
-  const reset = () => {
-    setTitle("");
-    setDescription("");
-    setKind("TASK");
-    setPriority("MEDIUM");
-    setParentIssue(null);
-    setSelectedLabels([]);
-  };
-
-  const handleSubmit = () => {
-    if (!title.trim()) return;
-    mutate(
-      {
-        projectId,
-        title: title.trim(),
-        description: description || undefined,
-        type: kind,
-        priority,
-        parent: parentIssue?.id,
-        labels: selectedLabels.length > 0 ? selectedLabels : undefined,
-      },
-      {
-        onSuccess: () => {
-          onClose();
-          reset();
-        },
-      },
-    );
-  };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -118,16 +62,16 @@ export const CreateIssueDialog = ({
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <TextField
           label="제목"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={fields.title}
+          onChange={(e) => fields.setTitle(e.target.value)}
           fullWidth
           size="small"
           sx={{ mt: 1 }}
         />
         <TextField
           label="설명"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={fields.description}
+          onChange={(e) => fields.setDescription(e.target.value)}
           fullWidth
           multiline
           rows={3}
@@ -137,9 +81,9 @@ export const CreateIssueDialog = ({
           <FormControl size="small" sx={{ flex: 1 }}>
             <InputLabel>유형</InputLabel>
             <Select
-              value={kind}
+              value={fields.kind}
               label="유형"
-              onChange={(e) => setKind(e.target.value as IssueKind)}
+              onChange={(e) => fields.setKind(e.target.value as IssueKind)}
             >
               {Object.entries(ISSUE_KIND_LABEL).map(([k, label]) => (
                 <MenuItem key={k} value={k}>
@@ -151,9 +95,11 @@ export const CreateIssueDialog = ({
           <FormControl size="small" sx={{ flex: 1 }}>
             <InputLabel>우선순위</InputLabel>
             <Select
-              value={priority}
+              value={fields.priority}
               label="우선순위"
-              onChange={(e) => setPriority(e.target.value as IssuePriority)}
+              onChange={(e) =>
+                fields.setPriority(e.target.value as IssuePriority)
+              }
             >
               {Object.entries(ISSUE_PRIORITY_LABEL).map(([k, label]) => (
                 <MenuItem key={k} value={k}>
@@ -163,6 +109,24 @@ export const CreateIssueDialog = ({
             </Select>
           </FormControl>
         </Box>
+        {activeSprints.length > 0 && (
+          <FormControl size="small" fullWidth>
+            <InputLabel>스프린트 (선택)</InputLabel>
+            <Select
+              value={fields.sprint}
+              label="스프린트 (선택)"
+              displayEmpty
+              onChange={(e) => fields.setSprint(e.target.value)}
+            >
+              <MenuItem value="">없음</MenuItem>
+              {activeSprints.map((s: SprintType) => (
+                <MenuItem key={s.id} value={s.id}>
+                  {s.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
         <Box>
           <Typography
             variant="body2"
@@ -178,7 +142,7 @@ export const CreateIssueDialog = ({
               alignItems: "center",
             }}
           >
-            {selectedLabels.map((labelId) => {
+            {fields.selectedLabels.map((labelId) => {
               const label = labelMap.get(labelId);
               if (!label) return null;
               return (
@@ -187,7 +151,7 @@ export const CreateIssueDialog = ({
                   label={label.name}
                   size="small"
                   onDelete={() =>
-                    setSelectedLabels((prev) =>
+                    fields.setSelectedLabels((prev) =>
                       prev.filter((id) => id !== labelId),
                     )
                   }
@@ -219,9 +183,9 @@ export const CreateIssueDialog = ({
             anchorEl={labelAnchor}
             onClose={() => setLabelAnchor(null)}
             projectId={projectId}
-            selectedIds={new Set(selectedLabels)}
+            selectedIds={new Set(fields.selectedLabels)}
             onToggle={(labelId) => {
-              setSelectedLabels((prev) =>
+              fields.setSelectedLabels((prev) =>
                 prev.includes(labelId)
                   ? prev.filter((id) => id !== labelId)
                   : [...prev, labelId],
@@ -229,21 +193,10 @@ export const CreateIssueDialog = ({
             }}
           />
         </Box>
-        <Autocomplete
-          size="small"
+        <ParentIssueAutocomplete
+          value={fields.parentIssue}
           options={parentCandidates}
-          value={parentIssue}
-          onChange={(_, value) => setParentIssue(value)}
-          getOptionLabel={(option) => `${option.issueKey} ${option.title}`}
-          groupBy={(option) => ISSUE_KIND_LABEL[option.type]}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="상위 이슈 (선택)"
-              placeholder="에픽 또는 스토리 검색"
-            />
-          )}
-          noOptionsText="상위 이슈가 없어요"
+          onChange={fields.setParentIssue}
         />
       </DialogContent>
       <DialogActions sx={{ px: 3, pb: 2 }}>
@@ -253,7 +206,7 @@ export const CreateIssueDialog = ({
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={!title.trim()}
+          disabled={!fields.title.trim()}
           loading={isPending}
         >
           만들기

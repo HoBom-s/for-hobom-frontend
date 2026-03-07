@@ -1,13 +1,7 @@
-import { Suspense, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Suspense } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
-import {
-  useCreateSpace,
-  useUpdateSpace,
-  useDeleteSpace,
-  type SpaceType,
-} from "@/entities/wiki-space";
+import type { SpaceType } from "@/entities/wiki-space";
 import {
   SpaceGrid,
   CreateSpaceDialog,
@@ -16,35 +10,23 @@ import {
 } from "@/features/wiki-space-list";
 import { useOverlay } from "@/shared/model";
 import { SuspenseLoader } from "@/shared/ui";
+import { useSpaceListWorkspace } from "../model/useSpaceListWorkspace";
 
 export const WikiSpaceListWorkspace = () => {
-  const navigate = useNavigate();
-  const [createOpen, setCreateOpen] = useState(false);
-  const [editSpace, setEditSpace] = useState<SpaceType | null>(null);
-  const createMutation = useCreateSpace();
-  const updateMutation = useUpdateSpace();
-  const deleteMutation = useDeleteSpace();
+  const {
+    handleNavigateToSpace,
+    createOpen,
+    setCreateOpen,
+    editSpace,
+    setEditSpace,
+    handleCreateSpace,
+    handleUpdateSpace,
+    handleDeleteSpace,
+    isCreating,
+    isUpdating,
+    isDeleting,
+  } = useSpaceListWorkspace();
   const { onOpen } = useOverlay();
-
-  const handleCreateSpace = (data: {
-    key: string;
-    name: string;
-    description: string;
-  }) => {
-    createMutation.mutate(data, {
-      onSuccess: () => setCreateOpen(false),
-    });
-  };
-
-  const handleUpdateSpace = (data: {
-    key: string;
-    name: string;
-    description: string;
-  }) => {
-    updateMutation.mutate(data, {
-      onSuccess: () => setEditSpace(null),
-    });
-  };
 
   const handleOpenDeleteDialog = (space: SpaceType) => {
     onOpen(({ isOpen, onClose, onExit }) => (
@@ -53,10 +35,8 @@ export const WikiSpaceListWorkspace = () => {
         onClose={onClose}
         onExit={onExit}
         space={space}
-        onConfirm={(key) => {
-          deleteMutation.mutate({ key }, { onSuccess: onClose });
-        }}
-        isPending={deleteMutation.isPending}
+        onConfirm={(key) => handleDeleteSpace(key, onClose)}
+        isPending={isDeleting}
       />
     ));
   };
@@ -97,7 +77,7 @@ export const WikiSpaceListWorkspace = () => {
 
       <Suspense fallback={<SuspenseLoader />}>
         <SpaceGrid
-          onSpaceClick={(key) => navigate(`/wiki/${key}`)}
+          onSpaceClick={handleNavigateToSpace}
           onEdit={setEditSpace}
           onDelete={handleOpenDeleteDialog}
         />
@@ -107,14 +87,14 @@ export const WikiSpaceListWorkspace = () => {
         open={createOpen}
         onClose={() => setCreateOpen(false)}
         onSubmit={handleCreateSpace}
-        loading={createMutation.isPending}
+        loading={isCreating}
       />
 
       <EditSpaceDialog
         open={Boolean(editSpace)}
         onClose={() => setEditSpace(null)}
         onSubmit={handleUpdateSpace}
-        loading={updateMutation.isPending}
+        loading={isUpdating}
         space={editSpace}
       />
     </Box>

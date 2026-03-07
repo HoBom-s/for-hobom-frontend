@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/shared/model";
 import { issueQueries } from "../api/issue.queries";
 import { issueMutations } from "../api/issue.mutations";
-import { STATUS_ID_TO_CATEGORY } from "./issue.model";
 import type { HttpResponseType } from "@/shared/api";
 import type { IssueType } from "../api/issue.type";
 
@@ -26,14 +25,7 @@ export const useTransitionIssue = (projectId: string) => {
           return {
             ...old,
             items: old.items.map((issue) =>
-              issue.id === issueId
-                ? {
-                    ...issue,
-                    status: statusId,
-                    statusCategory:
-                      STATUS_ID_TO_CATEGORY[statusId] ?? issue.statusCategory,
-                  }
-                : issue,
+              issue.id === issueId ? { ...issue, status: statusId } : issue,
             ),
           };
         },

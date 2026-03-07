@@ -1,7 +1,14 @@
+import type { WorkflowStatus, WorkflowTransition } from "./workflow.type";
+
 export interface ProjectMemberType {
   userId: string;
   role: string;
   joinedAt: string;
+}
+
+export interface ProjectWorkflow {
+  statuses: WorkflowStatus[];
+  transitions: WorkflowTransition[];
 }
 
 export interface ProjectType {
@@ -12,6 +19,7 @@ export interface ProjectType {
   owner: string;
   members: ProjectMemberType[];
   issueSequence: number;
+  workflow: ProjectWorkflow | null;
 }
 
 export interface CreateProjectRequest {
