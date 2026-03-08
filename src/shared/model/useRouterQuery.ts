@@ -1,9 +1,10 @@
+import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Bom } from "@/packages/bom";
+import { applyParams, buildPath } from "@/shared/lib";
 
-type UpdateQueryOptions = {
+interface UpdateQueryOptions {
   replace?: boolean;
-};
+}
 
 /**
  * URL 쿼리 파라미터를 읽고 업데이트하는 훅.
@@ -12,37 +13,20 @@ type UpdateQueryOptions = {
  * `options.replace`가 `true`이면 히스토리를 push 대신 replace한다.
  */
 export const useRouterQuery = () => {
-  const location = useLocation();
+  const { search, pathname } = useLocation();
   const navigate = useNavigate();
-  const query = new URLSearchParams(location.search);
+  const query = new URLSearchParams(search);
 
-  return {
-    query,
-    updateQuery: (
+  const updateQuery = useCallback(
+    (
       newParams: Record<string, string | undefined>,
       options: UpdateQueryOptions = {},
     ) => {
-      const currentParams = new URLSearchParams(location.search);
-
-      Bom.pipe(
-        newParams,
-        Object.entries,
-        Bom.forEach(([key, value]) => {
-          if (value === undefined) {
-            currentParams.delete(key);
-          } else {
-            currentParams.set(key, value);
-          }
-        }),
-      );
-
-      const newUrl = `${location.pathname}?${currentParams.toString()}`;
-
-      if (options.replace) {
-        navigate(newUrl, { replace: true });
-      } else {
-        navigate(newUrl);
-      }
+      const next = applyParams(new URLSearchParams(search), newParams);
+      navigate(buildPath(pathname, next), { replace: options.replace });
     },
-  };
+    [search, pathname, navigate],
+  );
+
+  return { query, updateQuery };
 };

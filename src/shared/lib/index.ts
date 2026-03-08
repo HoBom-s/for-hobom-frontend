@@ -7,3 +7,4 @@ export { unwrapVO } from "./unwrap-vo.lib";
 export { sanitizeHtml } from "./sanitize-html.lib";
 export { reportError } from "./report-error.lib";
 export { createSafeContext } from "./create-safe-context.lib";
+export { applyParams, buildPath } from "./router-query.lib";

@@ -37,9 +37,7 @@ export interface AppShellNavItem {
 
 /** children 포함 전체 아이템을 1차원 배열로 펼친다. */
 const flattenNavItems = (items: AppShellNavItem[]): AppShellNavItem[] =>
-  items.flatMap((item) =>
-    item.children ? [item, ...item.children] : [item],
-  );
+  items.flatMap((item) => (item.children ? [item, ...item.children] : [item]));
 
 interface Props {
   children: ReactNode;
@@ -67,9 +65,7 @@ const NavList = ({
   const [openGroups, setOpenGroups] = useState<Set<string>>(() => {
     const initial = new Set<string>();
     for (const item of items) {
-      if (
-        item.children?.some((child) => child.value === activeValue)
-      ) {
+      if (item.children?.some((child) => child.value === activeValue)) {
         initial.add(item.value);
       }
     }
@@ -91,7 +87,8 @@ const NavList = ({
         const hasChildren = item.children && item.children.length > 0;
         const isGroupOpen = openGroups.has(item.value);
         const isActive = item.value === activeValue;
-        const isChildActive = hasChildren && item.children!.some((c) => c.value === activeValue);
+        const isChildActive =
+          hasChildren && item.children!.some((c) => c.value === activeValue);
 
         const button = (
           <ListItemButton
@@ -99,9 +96,7 @@ const NavList = ({
             selected={!hasChildren && isActive}
             aria-current={!hasChildren && isActive ? "page" : undefined}
             onClick={() =>
-              hasChildren
-                ? toggleGroup(item.value)
-                : onNavigate(item.path)
+              hasChildren ? toggleGroup(item.value) : onNavigate(item.path)
             }
             onMouseEnter={() => !hasChildren && onPrefetch?.(item.path)}
             sx={collapsed ? { justifyContent: "center", px: 1.5 } : undefined}
@@ -242,10 +237,7 @@ export const AppShell = ({
 
   const currentWidth = drawerOpen ? DRAWER_WIDTH : DRAWER_WIDTH_COLLAPSED;
 
-  const allItems = flattenNavItems([
-    ...navItems,
-    ...(bottomNavItems ?? []),
-  ]);
+  const allItems = flattenNavItems([...navItems, ...(bottomNavItems ?? [])]);
   const activeItem = Bom.pipe(
     location.pathname,
     (currentPath) => {
