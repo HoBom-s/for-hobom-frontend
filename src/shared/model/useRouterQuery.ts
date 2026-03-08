@@ -5,6 +5,12 @@ type UpdateQueryOptions = {
   replace?: boolean;
 };
 
+/**
+ * URL 쿼리 파라미터를 읽고 업데이트하는 훅.
+ *
+ * `updateQuery`에서 값이 `undefined`인 키는 쿼리 파라미터에서 삭제된다.
+ * `options.replace`가 `true`이면 히스토리를 push 대신 replace한다.
+ */
 export const useRouterQuery = () => {
   const location = useLocation();
   const navigate = useNavigate();

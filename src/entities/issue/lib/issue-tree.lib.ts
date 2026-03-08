@@ -10,6 +10,13 @@ export interface IssueTreeResult {
   parentMap: Map<string, IssueType>;
 }
 
+/**
+ * 이슈 목록을 트리 구조로 변환한다.
+ *
+ * @returns `roots` — 부모가 없는 최상위 이슈 목록
+ * @returns `childrenMap` — 부모 ID → 자식 이슈 배열
+ * @returns `parentMap` — 자식 ID → 부모 이슈 객체
+ */
 export const buildIssueTree = (issues: IssueType[]): IssueTreeResult => {
   const issueById = new Map(issues.map((i) => [i.id, i]));
   const hasParent = (i: IssueType) => !!i.parent && issueById.has(i.parent);
@@ -40,6 +47,12 @@ interface FlatTreeIssue {
   childCount: number;
 }
 
+/**
+ * 이슈 트리를 DFS로 순회하여 flat 배열로 변환한다.
+ *
+ * 오버로드: `IssueType[]` 또는 `IssueTreeResult`를 입력으로 받는다.
+ * `collapsedIds`에 포함된 이슈의 자식은 결과에서 제외된다 (UI 접힘 상태).
+ */
 export function flattenIssueTree(
   issues: IssueType[],
   collapsedIds?: Set<string>,
@@ -76,6 +89,10 @@ export interface DescendantProgress {
   total: number;
 }
 
+/**
+ * 특정 이슈의 모든 하위 이슈를 재귀 순회하여 완료/전체 개수를 집계한다.
+ * `doneStatusIds`에 포함된 status를 가진 이슈를 완료로 간주.
+ */
 export const getDescendantProgress = (
   issueId: string,
   childrenMap: Map<string, IssueType[]>,
@@ -101,6 +118,10 @@ export const getDescendantProgress = (
   return walk(issueId);
 };
 
+/**
+ * `issueId`가 `ancestorId`의 후손인지 판별한다.
+ * visited Set으로 순환 참조를 방어한다.
+ */
 export const isDescendantOf = (
   issueId: string,
   ancestorId: string,
@@ -118,6 +139,11 @@ export const isDescendantOf = (
   }
 };
 
+/**
+ * 부모 체인을 거슬러 올라가 최상위 EPIC을 찾는다.
+ * 최상위가 EPIC이 아니거나 부모가 없으면 `null` 반환.
+ * visited Set으로 순환 참조를 방어한다.
+ */
 export const getRootEpic = (
   issueId: string,
   parentMap: Map<string, IssueType>,

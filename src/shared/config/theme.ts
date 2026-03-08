@@ -1,9 +1,16 @@
 import { createTheme } from "@mui/material";
 
+/** 사이드 Drawer 펼침 너비(px). AppShell과 동기화 필요. */
 export const DRAWER_WIDTH = 240;
+/** 사이드 Drawer 접힘 너비(px). */
 export const DRAWER_WIDTH_COLLAPSED = 64;
+/** 상단 AppBar 높이(px). main 콘텐츠 영역 offset에 사용. */
 export const APPBAR_HEIGHT = 56;
 
+/**
+ * MUI 테마. light/dark 스킴을 `data-mui-color-scheme` 속성으로 전환한다.
+ * Datta Able 디자인 시스템 기반 (Primary: #4680ff, Sidebar: #1d2630).
+ */
 export const theme = createTheme({
   cssVariables: { colorSchemeSelector: "data-mui-color-scheme" },
   colorSchemes: {

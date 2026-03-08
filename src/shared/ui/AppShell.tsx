@@ -23,8 +23,11 @@ import {
 } from "@/shared/config";
 
 export interface AppShellNavItem {
+  /** 네비게이션 아이템의 고유 식별자. 활성 상태 판별에 사용. */
   value: string;
+  /** 사이드바에 표시할 텍스트. 접힘 모드에서는 Tooltip으로 표시. */
   label: string;
+  /** 클릭 시 이동할 경로. `location.pathname.startsWith(path)`로 활성 상태 판별. */
   path: string;
   icon: ReactNode;
 }
@@ -98,6 +101,10 @@ const NavList = ({
   </List>
 );
 
+/**
+ * 데스크톱 레이아웃 쉘. AppBar(56px) + Drawer(240px/64px) + main 콘텐츠로 구성.
+ * 현재 경로와 가장 긴 prefix 매칭되는 navItem이 활성 상태로 표시된다.
+ */
 export const AppShell = ({
   children,
   navItems,

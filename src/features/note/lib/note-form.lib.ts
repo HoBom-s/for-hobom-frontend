@@ -12,6 +12,7 @@ export const toChecklistItem = (
   order,
 });
 
+/** 줄바꿈 구분 텍스트를 체크리스트 아이템 배열로 변환. 빈 줄은 무시한다. */
 export const textToChecklist = (content: string): ChecklistItemType[] =>
   Bom.pipe(
     content.split("\n"),
@@ -19,6 +20,7 @@ export const textToChecklist = (content: string): ChecklistItemType[] =>
     Bom.map((text, i) => toChecklistItem(text, i)),
   );
 
+/** 체크리스트 아이템 배열을 줄바꿈 구분 텍스트로 변환. `textToChecklist`의 역변환. */
 export const checklistToText = (items: ChecklistItemType[]): string =>
   Bom.pipe(
     items,
@@ -38,6 +40,10 @@ export const reindex = (items: ChecklistItemType[]): ChecklistItemType[] =>
 const resolveFormType = (note: NoteItemType): "TEXT" | "CHECKLIST" =>
   note.checklistItems?.length > 0 ? "CHECKLIST" : "TEXT";
 
+/**
+ * 서버 응답 NoteItemType을 폼 상태로 변환한다.
+ * 서버의 `type` 필드는 신뢰하지 않고, `checklistItems` 유무로 TEXT/CHECKLIST를 판별한다.
+ */
 export const fromNote = (note: NoteItemType): NoteFormState => ({
   title: note.title,
   content: note.content,

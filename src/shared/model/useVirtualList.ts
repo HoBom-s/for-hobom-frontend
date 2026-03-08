@@ -8,10 +8,21 @@ interface VirtualItem<T> {
 
 interface UseVirtualListParams<T> {
   items: T[];
+  /** 각 아이템의 고정 높이(px). 가변 높이는 지원하지 않는다. */
   itemHeight: number;
+  /** 뷰포트 밖에 미리 렌더링할 아이템 수 (기본값 5) */
   overscan?: number;
 }
 
+/**
+ * 고정 높이 가상 스크롤 훅. `containerProps`를 스크롤 컨테이너에 spread하고,
+ * `virtualItems` 배열만 렌더링하면 된다.
+ *
+ * @returns `containerRef` — 컨테이너 ref
+ * @returns `containerProps` — 스크롤 컨테이너에 spread할 props (ref + onScroll + style)
+ * @returns `virtualItems` — 현재 뷰포트에 보이는 아이템 + overscan 목록
+ * @returns `totalHeight` — 전체 리스트의 총 높이(px). 스크롤 영역 높이 지정에 사용.
+ */
 export const useVirtualList = <T>({
   items,
   itemHeight,

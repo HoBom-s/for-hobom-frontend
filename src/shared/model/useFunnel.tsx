@@ -50,6 +50,21 @@ type UseFunnelReturn<Steps extends NonEmptyArray<string>> = readonly [
   ];
 };
 
+/**
+ * 멀티스텝 퍼널(wizard) 훅. 현재 스텝을 URL 쿼리 파라미터에 동기화한다.
+ *
+ * 기본 반환은 `[FunnelComponent, setStep]` 튜플이며,
+ * `.withState(initialState)`를 호출하면 퍼널 전체에 걸친 공유 상태를 함께 관리할 수 있다.
+ *
+ * @example
+ * ```tsx
+ * const [Funnel, setStep] = useFunnel(["info", "confirm", "done"] as const);
+ *
+ * // 상태 포함 사용
+ * const [Funnel, state, setState] = useFunnel(["info", "confirm"] as const)
+ *   .withState({ name: "", email: "" });
+ * ```
+ */
 export const useFunnel = <Steps extends NonEmptyArray<string>>(
   steps: Steps,
   options?: {

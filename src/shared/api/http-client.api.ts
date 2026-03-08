@@ -26,6 +26,15 @@ interface HttpClient {
   delete: <T>(url: string, options?: RequestOptions) => Promise<T>;
 }
 
+/**
+ * 미들웨어 기반 HTTP 클라이언트 팩토리.
+ *
+ * - 모든 요청에 `Content-Type: application/json`, `X-Hobom-Api-Key`, `credentials: "include"` 자동 부여
+ * - `timeout` 기본값 30초. 초과 시 `AbortError` 발생
+ * - `retry` 옵션으로 실패 시 재시도 횟수 지정 가능
+ * - 204 응답은 body 파싱 없이 `undefined` 반환
+ * - 미들웨어 훅 실행 순서: `onRequest` → fetch → `onResponse` (또는 `onError`), 등록 순으로 순차 실행
+ */
 export const createHttpClient = (baseUrl: string = ""): HttpClient => {
   const middlewares: Middleware[] = [];
 

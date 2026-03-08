@@ -155,6 +155,14 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
   }
 }
 
+/**
+ * React Error Boundary 래퍼.
+ *
+ * - `resetKey` 변경 시 에러 상태를 자동 리셋
+ * - `inline` 모드에서는 100vh 대신 콘텐츠 영역 내에서만 fallback 표시
+ * - "다시 시도" 버튼 클릭 시 `queryClient.invalidateQueries()`를 호출하여 모든 쿼리를 재요청
+ * - 에러 발생 시 `reportError`를 통해 componentStack과 함께 로깅
+ */
 export const ErrorBoundary = (props: Props) => {
   const queryClient = useQueryClient();
   return <ErrorBoundaryInner {...props} queryClient={queryClient} />;
