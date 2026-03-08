@@ -109,24 +109,35 @@ export const CreateIssueDialog = ({
             </Select>
           </FormControl>
         </Box>
-        {activeSprints.length > 0 && (
-          <FormControl size="small" fullWidth>
-            <InputLabel>스프린트 (선택)</InputLabel>
-            <Select
-              value={fields.sprint}
-              label="스프린트 (선택)"
-              displayEmpty
-              onChange={(e) => fields.setSprint(e.target.value)}
-            >
-              <MenuItem value="">없음</MenuItem>
-              {activeSprints.map((s: SprintType) => (
-                <MenuItem key={s.id} value={s.id}>
-                  {s.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        )}
+        <Box sx={{ display: "flex", gap: 2 }}>
+          {activeSprints.length > 0 && (
+            <FormControl size="small" sx={{ flex: 1 }}>
+              <InputLabel>스프린트 (선택)</InputLabel>
+              <Select
+                value={fields.sprint}
+                label="스프린트 (선택)"
+                displayEmpty
+                onChange={(e) => fields.setSprint(e.target.value)}
+              >
+                <MenuItem value="">없음</MenuItem>
+                {activeSprints.map((s: SprintType) => (
+                  <MenuItem key={s.id} value={s.id}>
+                    {s.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+          <TextField
+            label="스토리 포인트"
+            type="number"
+            value={fields.storyPoints}
+            onChange={(e) => fields.setStoryPoints(e.target.value)}
+            size="small"
+            slotProps={{ htmlInput: { min: 0, step: 1 } }}
+            sx={{ width: 140 }}
+          />
+        </Box>
         <Box>
           <Typography
             variant="body2"

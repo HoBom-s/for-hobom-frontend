@@ -35,6 +35,7 @@ interface IssueDetailContextValue {
     parent?: string | null;
     sprint?: string;
     labels?: string[];
+    storyPoints?: number;
   }) => void;
   statusMenu: StatusMenuState;
   priorityMenu: PriorityMenuState;

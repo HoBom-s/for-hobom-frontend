@@ -31,6 +31,7 @@ export const useCreateIssueForm = ({
   const [parentIssue, setParentIssue] = useState<IssueType | null>(null);
   const [sprint, setSprint] = useState("");
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+  const [storyPoints, setStoryPoints] = useState<string>("");
   const [labelAnchor, setLabelAnchor] = useState<HTMLElement | null>(null);
 
   const { mutate, isPending } = useCreateIssue();
@@ -73,10 +74,12 @@ export const useCreateIssueForm = ({
     setParentIssue(null);
     setSprint("");
     setSelectedLabels([]);
+    setStoryPoints("");
   };
 
   const handleSubmit = () => {
     if (!title.trim()) return;
+    const parsedSp = Number(storyPoints);
     mutate(
       {
         projectId,
@@ -87,6 +90,8 @@ export const useCreateIssueForm = ({
         parent: parentIssue?.id,
         sprint: sprint || undefined,
         labels: selectedLabels.length > 0 ? selectedLabels : undefined,
+        storyPoints:
+          storyPoints !== "" && !isNaN(parsedSp) ? parsedSp : undefined,
       },
       {
         onSuccess: () => {
@@ -113,6 +118,8 @@ export const useCreateIssueForm = ({
       setSprint,
       selectedLabels,
       setSelectedLabels,
+      storyPoints,
+      setStoryPoints,
     },
     labelAnchor,
     setLabelAnchor,

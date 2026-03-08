@@ -82,6 +82,7 @@ export const useIssueDetailActions = (
       parent?: string | null;
       sprint?: string;
       labels?: string[];
+      storyPoints?: number;
     }) => {
       if (!issue) return;
       updateIssue({ projectId, issueId: issue.id, ...fields });

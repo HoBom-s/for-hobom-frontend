@@ -23,3 +23,4 @@ export {
 };
 
 export type { PeriodType, SystemPeriodType };
+export type { ProjectIssueDashboardDto } from "./api/dashboard.type";

@@ -26,6 +26,7 @@ export const RoutesConfig = {
     BACKLOG: "/projects/:projectId/backlog",
     ISSUES: "/projects/:projectId/issues",
     ISSUE_DETAIL: "/projects/:projectId/issues/:issueKey",
+    DASHBOARD: "/projects/:projectId/dashboard",
     SETTINGS: "/projects/:projectId/settings",
   },
   WIKI: {
@@ -40,6 +41,7 @@ export const RoutesConfig = {
     HOME: "/",
     SYSTEM: "/dashboard/system",
     LOGS: "/dashboard/logs",
+    ERRORS: "/dashboard/errors",
   },
   NOT_FOUND: {
     ALL: "*",

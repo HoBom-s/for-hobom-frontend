@@ -32,6 +32,7 @@ const pageImports = {
   projectBoard: () => import("@/pages/project-board"),
   projectBacklog: () => import("@/pages/project-backlog"),
   projectIssues: () => import("@/pages/project-issues"),
+  projectDashboard: () => import("@/pages/project-dashboard"),
   projectSettings: () => import("@/pages/project-settings"),
   adminUsers: () => import("@/pages/admin-users"),
   wikiSpaces: () => import("@/pages/wiki-spaces"),
@@ -39,6 +40,7 @@ const pageImports = {
   wikiSpaceHome: () => import("@/pages/wiki-space-home"),
   wikiPageView: () => import("@/pages/wiki-page-view"),
   dashboardLog: () => import("@/pages/dashboard-log"),
+  errorMonitoring: () => import("@/pages/error-monitoring"),
 };
 
 const AuthLoginPage = lazy(pageImports.authLogin);
@@ -58,6 +60,7 @@ const ProjectLayoutPage = lazy(pageImports.projectLayout);
 const ProjectBoardPage = lazy(pageImports.projectBoard);
 const ProjectBacklogPage = lazy(pageImports.projectBacklog);
 const ProjectIssuesPage = lazy(pageImports.projectIssues);
+const ProjectDashboardPage = lazy(pageImports.projectDashboard);
 const ProjectSettingsPage = lazy(pageImports.projectSettings);
 const AdminUsersPage = lazy(pageImports.adminUsers);
 const WikiSpacesPage = lazy(pageImports.wikiSpaces);
@@ -65,6 +68,7 @@ const WikiSpaceLayoutPage = lazy(pageImports.wikiSpaceLayout);
 const WikiSpaceHomePage = lazy(pageImports.wikiSpaceHome);
 const WikiPageViewPage = lazy(pageImports.wikiPageView);
 const DashboardLogPage = lazy(pageImports.dashboardLog);
+const ErrorMonitoringPage = lazy(pageImports.errorMonitoring);
 
 const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.MAIN.DAILY_TODO]: [pageImports.dailyTodo],
@@ -84,6 +88,7 @@ const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.DASHBOARD.HOME]: [pageImports.dashboard],
   [RoutesConfig.DASHBOARD.SYSTEM]: [pageImports.dashboardSystem],
   [RoutesConfig.DASHBOARD.LOGS]: [pageImports.dashboardLog],
+  [RoutesConfig.DASHBOARD.ERRORS]: [pageImports.errorMonitoring],
   [RoutesConfig.WIKI.SPACES]: [
     pageImports.wikiSpaces,
     pageImports.wikiSpaceLayout,
@@ -225,6 +230,14 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path={RoutesConfig.DASHBOARD.ERRORS}
+          element={
+            <Shell>
+              <ErrorMonitoringPage />
+            </Shell>
+          }
+        />
+        <Route
           path={RoutesConfig.ADMIN.USERS}
           element={
             <Shell>
@@ -271,6 +284,7 @@ export const AppRouter = () => {
           <Route path="board" element={<ProjectBoardPage />} />
           <Route path="backlog" element={<ProjectBacklogPage />} />
           <Route path="issues" element={<ProjectIssuesPage />} />
+          <Route path="dashboard" element={<ProjectDashboardPage />} />
           <Route path="settings" element={<ProjectSettingsPage />} />
         </Route>
       </Routes>

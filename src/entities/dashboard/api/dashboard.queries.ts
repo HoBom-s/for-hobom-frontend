@@ -1,4 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
+import { CACHE_PROFILE } from "@/shared/config";
 import {
   fetchDailyTodoDashboard,
   fetchNoteDashboard,
@@ -6,6 +7,8 @@ import {
   fetchNotificationDashboard,
   fetchSystemDashboard,
   fetchActivityDashboard,
+  fetchProjectIssueDashboard,
+  fetchSprintDashboard,
 } from "./dashboard.api";
 import type { PeriodType, SystemPeriodType } from "./dashboard.type";
 
@@ -46,5 +49,19 @@ export const dashboardQueries = {
     queryOptions({
       queryKey: ["dashboard", "activity", period, date],
       queryFn: () => fetchActivityDashboard({ period, date }),
+    }),
+
+  projectIssues: (projectId: string) =>
+    queryOptions({
+      queryKey: ["dashboard", "project-issues", projectId],
+      queryFn: () => fetchProjectIssueDashboard({ projectId }),
+      ...CACHE_PROFILE.DASHBOARD,
+    }),
+
+  sprint: (projectId: string, sprintId: string) =>
+    queryOptions({
+      queryKey: ["dashboard", "sprint", projectId, sprintId],
+      queryFn: () => fetchSprintDashboard({ projectId, sprintId }),
+      ...CACHE_PROFILE.DASHBOARD,
     }),
 } as const;

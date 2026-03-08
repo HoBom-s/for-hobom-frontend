@@ -14,6 +14,7 @@ const TABS = [
   { label: "보드", path: "board" },
   { label: "백로그", path: "backlog" },
   { label: "이슈", path: "issues" },
+  { label: "대시보드", path: "dashboard" },
   { label: "설정", path: "settings" },
 ] as const;
 

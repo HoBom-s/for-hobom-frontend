@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
+  Collapse,
   Divider,
   Drawer,
   IconButton,
@@ -14,7 +15,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { MenuOutlined } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, MenuOutlined } from "@mui/icons-material";
 import { Bom } from "@/packages/bom";
 import {
   DRAWER_WIDTH,
@@ -30,7 +31,15 @@ export interface AppShellNavItem {
   /** 클릭 시 이동할 경로. `location.pathname.startsWith(path)`로 활성 상태 판별. */
   path: string;
   icon: ReactNode;
+  /** 접이식 서브 메뉴 아이템. 부모 아이템 클릭 시 토글. */
+  children?: AppShellNavItem[];
 }
+
+/** children 포함 전체 아이템을 1차원 배열로 펼친다. */
+const flattenNavItems = (items: AppShellNavItem[]): AppShellNavItem[] =>
+  items.flatMap((item) =>
+    item.children ? [item, ...item.children] : [item],
+  );
 
 interface Props {
   children: ReactNode;
@@ -54,52 +63,167 @@ const NavList = ({
   collapsed: boolean;
   onNavigate: (path: string) => void;
   onPrefetch?: (path: string) => void;
-}) => (
-  <List disablePadding>
-    {items.map((item) => {
-      const isActive = item.value === activeValue;
-      const button = (
-        <ListItemButton
-          key={item.value}
-          selected={isActive}
-          aria-current={isActive ? "page" : undefined}
-          onClick={() => onNavigate(item.path)}
-          onMouseEnter={() => onPrefetch?.(item.path)}
-          sx={collapsed ? { justifyContent: "center", px: 1.5 } : undefined}
-        >
-          <ListItemIcon
-            sx={
-              collapsed ? { minWidth: 0, justifyContent: "center" } : undefined
-            }
-          >
-            {item.icon}
-          </ListItemIcon>
-          {!collapsed && (
-            <ListItemText
-              primary={item.label}
-              slotProps={{
-                primary: {
-                  sx: {
-                    fontSize: "0.875rem",
-                    fontWeight: isActive ? 600 : 400,
-                  },
-                },
-              }}
-            />
-          )}
-        </ListItemButton>
-      );
+}) => {
+  const [openGroups, setOpenGroups] = useState<Set<string>>(() => {
+    const initial = new Set<string>();
+    for (const item of items) {
+      if (
+        item.children?.some((child) => child.value === activeValue)
+      ) {
+        initial.add(item.value);
+      }
+    }
+    return initial;
+  });
 
-      return collapsed ? (
-        <Tooltip key={item.value} title={item.label} placement="right" arrow>
-          {button}
-        </Tooltip>
-      ) : (
-        button
-      );
-    })}
-  </List>
-);
+  const toggleGroup = (value: string) => {
+    setOpenGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
+      return next;
+    });
+  };
+
+  return (
+    <List disablePadding>
+      {items.map((item) => {
+        const hasChildren = item.children && item.children.length > 0;
+        const isGroupOpen = openGroups.has(item.value);
+        const isActive = item.value === activeValue;
+        const isChildActive = hasChildren && item.children!.some((c) => c.value === activeValue);
+
+        const button = (
+          <ListItemButton
+            key={item.value}
+            selected={!hasChildren && isActive}
+            aria-current={!hasChildren && isActive ? "page" : undefined}
+            onClick={() =>
+              hasChildren
+                ? toggleGroup(item.value)
+                : onNavigate(item.path)
+            }
+            onMouseEnter={() => !hasChildren && onPrefetch?.(item.path)}
+            sx={collapsed ? { justifyContent: "center", px: 1.5 } : undefined}
+          >
+            <ListItemIcon
+              sx={
+                collapsed
+                  ? { minWidth: 0, justifyContent: "center" }
+                  : undefined
+              }
+            >
+              {item.icon}
+            </ListItemIcon>
+            {!collapsed && (
+              <>
+                <ListItemText
+                  primary={item.label}
+                  slotProps={{
+                    primary: {
+                      sx: {
+                        fontSize: "0.875rem",
+                        fontWeight: isActive || isChildActive ? 600 : 400,
+                      },
+                    },
+                  }}
+                />
+                {hasChildren &&
+                  (isGroupOpen ? (
+                    <ExpandLess sx={{ fontSize: 18, opacity: 0.5 }} />
+                  ) : (
+                    <ExpandMore sx={{ fontSize: 18, opacity: 0.5 }} />
+                  ))}
+              </>
+            )}
+          </ListItemButton>
+        );
+
+        const wrappedButton = collapsed ? (
+          <Tooltip key={item.value} title={item.label} placement="right" arrow>
+            {button}
+          </Tooltip>
+        ) : (
+          button
+        );
+
+        if (!hasChildren) return wrappedButton;
+
+        // 접힘 모드: children을 부모 아이콘 Tooltip에 flat 렌더링
+        if (collapsed) {
+          return (
+            <Box key={item.value}>
+              {wrappedButton}
+              {item.children!.map((child) => {
+                const childActive = child.value === activeValue;
+                return (
+                  <Tooltip
+                    key={child.value}
+                    title={child.label}
+                    placement="right"
+                    arrow
+                  >
+                    <ListItemButton
+                      selected={childActive}
+                      aria-current={childActive ? "page" : undefined}
+                      onClick={() => onNavigate(child.path)}
+                      onMouseEnter={() => onPrefetch?.(child.path)}
+                      sx={{ justifyContent: "center", px: 1.5 }}
+                    >
+                      <ListItemIcon
+                        sx={{ minWidth: 0, justifyContent: "center" }}
+                      >
+                        {child.icon}
+                      </ListItemIcon>
+                    </ListItemButton>
+                  </Tooltip>
+                );
+              })}
+            </Box>
+          );
+        }
+
+        return (
+          <Box key={item.value}>
+            {wrappedButton}
+            <Collapse in={isGroupOpen} unmountOnExit>
+              <List disablePadding>
+                {item.children!.map((child) => {
+                  const childActive = child.value === activeValue;
+                  return (
+                    <ListItemButton
+                      key={child.value}
+                      selected={childActive}
+                      aria-current={childActive ? "page" : undefined}
+                      onClick={() => onNavigate(child.path)}
+                      onMouseEnter={() => onPrefetch?.(child.path)}
+                      sx={{ pl: 4.5 }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 28 }}>
+                        {child.icon}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={child.label}
+                        slotProps={{
+                          primary: {
+                            sx: {
+                              fontSize: "0.8125rem",
+                              fontWeight: childActive ? 600 : 400,
+                            },
+                          },
+                        }}
+                      />
+                    </ListItemButton>
+                  );
+                })}
+              </List>
+            </Collapse>
+          </Box>
+        );
+      })}
+    </List>
+  );
+};
 
 /**
  * 데스크톱 레이아웃 쉘. AppBar(56px) + Drawer(240px/64px) + main 콘텐츠로 구성.
@@ -118,7 +242,10 @@ export const AppShell = ({
 
   const currentWidth = drawerOpen ? DRAWER_WIDTH : DRAWER_WIDTH_COLLAPSED;
 
-  const allItems = [...navItems, ...(bottomNavItems ?? [])];
+  const allItems = flattenNavItems([
+    ...navItems,
+    ...(bottomNavItems ?? []),
+  ]);
   const activeItem = Bom.pipe(
     location.pathname,
     (currentPath) => {

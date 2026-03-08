@@ -9,6 +9,8 @@ import type {
   NotificationDashboardType,
   SystemDashboardType,
   ActivityDashboardType,
+  ProjectIssueDashboardDto,
+  SprintDashboardDto,
 } from "./dashboard.type";
 
 export const fetchDailyTodoDashboard = async ({
@@ -78,5 +80,27 @@ export const fetchActivityDashboard = async ({
 }) => {
   return await httpClient.get<HttpResponseType<ActivityDashboardType>>(
     `/dashboard/activity?period=${period}&date=${date}`,
+  );
+};
+
+export const fetchProjectIssueDashboard = async ({
+  projectId,
+}: {
+  projectId: string;
+}) => {
+  return await httpClient.get<HttpResponseType<ProjectIssueDashboardDto>>(
+    `/dashboard/projects/${projectId}/issues`,
+  );
+};
+
+export const fetchSprintDashboard = async ({
+  projectId,
+  sprintId,
+}: {
+  projectId: string;
+  sprintId: string;
+}) => {
+  return await httpClient.get<HttpResponseType<SprintDashboardDto>>(
+    `/dashboard/projects/${projectId}/sprints/${sprintId}`,
   );
 };

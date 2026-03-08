@@ -103,6 +103,60 @@ export interface SystemDashboardType {
   retryDistribution: { retryCount: number; count: number }[];
 }
 
+// --- Project Issue Dashboard ---
+export interface IssueOverviewDto {
+  total: number;
+  open: number;
+  done: number;
+  completionRate: number;
+  overdueCount: number;
+}
+
+export interface StatusCountDto {
+  status: string;
+  count: number;
+}
+
+export interface PriorityCountDto {
+  priority: string;
+  count: number;
+}
+
+export interface TypeCountDto {
+  type: string;
+  count: number;
+}
+
+export interface ProjectIssueDashboardDto {
+  overview: IssueOverviewDto;
+  byStatus: StatusCountDto[];
+  byPriority: PriorityCountDto[];
+  byType: TypeCountDto[];
+}
+
+// --- Sprint Dashboard ---
+export interface SprintInfoDto {
+  id: string;
+  name: string;
+  goal: string | null;
+  status: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface SprintOverviewDto {
+  totalIssues: number;
+  completedIssues: number;
+  completionRate: number;
+  totalStoryPoints: number;
+  completedStoryPoints: number;
+}
+
+export interface SprintDashboardDto {
+  sprint: SprintInfoDto;
+  overview: SprintOverviewDto;
+}
+
 // API 6: 활동 대시보드
 export interface ActivityDashboardType {
   period: PeriodType;

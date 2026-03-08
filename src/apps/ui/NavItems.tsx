@@ -1,12 +1,14 @@
 import {
   AdminPanelSettingsOutlined,
   ArticleOutlined,
+  BugReportOutlined,
   DashboardOutlined,
   FolderOutlined,
   ListAlt,
   Mail,
   MonitorHeartOutlined,
   NotificationsNoneOutlined,
+  QueryStatsOutlined,
   RiceBowlTwoTone,
   StickyNote2Outlined,
   TextSnippetOutlined,
@@ -73,15 +75,29 @@ export const BOTTOM_NAV_ITEMS: AppShellNavItem[] = [
     icon: <AdminPanelSettingsOutlined fontSize="small" />,
   },
   {
-    value: "SYSTEM",
-    label: "시스템",
+    value: "MONITORING",
+    label: "모니터링",
     path: RoutesConfig.DASHBOARD.SYSTEM,
-    icon: <MonitorHeartOutlined fontSize="small" />,
-  },
-  {
-    value: "LOGS",
-    label: "로그",
-    path: RoutesConfig.DASHBOARD.LOGS,
-    icon: <TextSnippetOutlined fontSize="small" />,
+    icon: <QueryStatsOutlined fontSize="small" />,
+    children: [
+      {
+        value: "SYSTEM",
+        label: "시스템",
+        path: RoutesConfig.DASHBOARD.SYSTEM,
+        icon: <MonitorHeartOutlined sx={{ fontSize: 16 }} />,
+      },
+      {
+        value: "LOGS",
+        label: "로그",
+        path: RoutesConfig.DASHBOARD.LOGS,
+        icon: <TextSnippetOutlined sx={{ fontSize: 16 }} />,
+      },
+      {
+        value: "ERRORS",
+        label: "에러",
+        path: RoutesConfig.DASHBOARD.ERRORS,
+        icon: <BugReportOutlined sx={{ fontSize: 16 }} />,
+      },
+    ],
   },
 ];

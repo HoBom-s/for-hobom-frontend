@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   Avatar,
   Box,
@@ -6,6 +6,7 @@ import {
   FormControl,
   MenuItem,
   Select,
+  TextField,
   Typography,
 } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
@@ -41,6 +42,67 @@ const MetaRow = ({
     <Box sx={{ flex: 1 }}>{children}</Box>
   </Box>
 );
+
+const StoryPointsInput = ({
+  value,
+  onChange,
+}: {
+  value?: number;
+  onChange: (sp: number) => void;
+}) => {
+  const [draft, setDraft] = useState(value?.toString() ?? "");
+  const [editing, setEditing] = useState(false);
+
+  const commit = () => {
+    setEditing(false);
+    const parsed = Number(draft);
+    if (draft === "" || isNaN(parsed) || parsed < 0) {
+      setDraft(value?.toString() ?? "");
+      return;
+    }
+    if (parsed !== value) onChange(parsed);
+  };
+
+  if (!editing) {
+    return (
+      <Typography
+        variant="body2"
+        onClick={() => setEditing(true)}
+        sx={{
+          fontSize: 13,
+          cursor: "pointer",
+          color: value != null ? "text.primary" : "text.disabled",
+          "&:hover": { color: "primary.main" },
+        }}
+      >
+        {value != null ? value : "-"}
+      </Typography>
+    );
+  }
+
+  return (
+    <TextField
+      autoFocus
+      size="small"
+      type="number"
+      value={draft}
+      onChange={(e) => setDraft(e.target.value)}
+      onBlur={commit}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") commit();
+        if (e.key === "Escape") {
+          setDraft(value?.toString() ?? "");
+          setEditing(false);
+        }
+      }}
+      slotProps={{ htmlInput: { min: 0, step: 1 } }}
+      sx={{
+        width: 80,
+        "& .MuiInputBase-input": { fontSize: 13, py: 0.5 },
+      }}
+    />
+  );
+};
 
 export const IssueMetaSection = () => {
   const {
@@ -226,13 +288,12 @@ export const IssueMetaSection = () => {
           </Select>
         </FormControl>
       </MetaRow>
-      {issue.storyPoints != null && (
-        <MetaRow label="스토리 포인트">
-          <Typography variant="body2" sx={{ fontSize: 13 }}>
-            {issue.storyPoints}
-          </Typography>
-        </MetaRow>
-      )}
+      <MetaRow label="스토리 포인트">
+        <StoryPointsInput
+          value={issue.storyPoints}
+          onChange={(sp) => updateField({ storyPoints: sp })}
+        />
+      </MetaRow>
       {issue.dueDate && (
         <MetaRow label="마감일">
           <Typography variant="body2" sx={{ fontSize: 13 }}>

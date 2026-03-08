@@ -3,6 +3,7 @@ import {
   ViewKanbanOutlined,
   FormatListBulletedOutlined,
   BugReportOutlined,
+  DashboardOutlined,
   SettingsOutlined,
   ChevronRight,
   AddOutlined,
@@ -19,6 +20,7 @@ const TAB_ICONS: Record<string, React.ReactNode> = {
   board: <ViewKanbanOutlined sx={{ fontSize: 18 }} />,
   backlog: <FormatListBulletedOutlined sx={{ fontSize: 18 }} />,
   issues: <BugReportOutlined sx={{ fontSize: 18 }} />,
+  dashboard: <DashboardOutlined sx={{ fontSize: 18 }} />,
   settings: <SettingsOutlined sx={{ fontSize: 18 }} />,
 };
 

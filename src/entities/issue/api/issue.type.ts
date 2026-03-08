@@ -36,6 +36,7 @@ export interface CreateIssueRequest {
   sprint?: string;
   parent?: string;
   labels?: string[];
+  storyPoints?: number;
 }
 
 export interface UpdateIssueRequest {
