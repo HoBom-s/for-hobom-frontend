@@ -8,6 +8,7 @@ import {
   isDescendantOf,
   PARENT_ISSUE_KINDS,
 } from "@/entities/issue";
+import { projectQueries } from "@/entities/project";
 import { sprintQueries } from "@/entities/sprint";
 import { userQueries } from "@/entities/user";
 
@@ -28,6 +29,14 @@ export const useIssueDetailState = (
   });
   const { data: userData } = useQuery({
     ...userQueries.me(),
+    enabled,
+  });
+  const { data: projectData } = useQuery({
+    ...projectQueries.detail(projectId),
+    enabled,
+  });
+  const { data: usersData } = useQuery({
+    ...userQueries.list(),
     enabled,
   });
 
@@ -64,6 +73,15 @@ export const useIssueDetailState = (
 
   const currentUserId = userData?.id ?? "";
 
+  const projectMembers = useMemo(() => {
+    if (!projectData || !usersData) return [];
+    const userMap = new Map(usersData.items.map((u) => [u.id, u]));
+    return projectData.items.members.map((m) => ({
+      userId: m.userId,
+      nickname: userMap.get(m.userId)?.nickname ?? m.userId,
+    }));
+  }, [projectData, usersData]);
+
   return {
     issue,
     parentIssue,
@@ -72,5 +90,6 @@ export const useIssueDetailState = (
     progress,
     activeSprints,
     currentUserId,
+    projectMembers,
   };
 };

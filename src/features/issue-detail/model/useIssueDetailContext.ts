@@ -22,6 +22,18 @@ interface PriorityMenuState {
   handleChange: (priority: IssuePriority) => void;
 }
 
+interface AssigneeMenuState {
+  anchor: HTMLElement | null;
+  open: (e: MouseEvent<HTMLElement>) => void;
+  close: () => void;
+  handleAssign: (userId: string | undefined) => void;
+}
+
+interface ProjectMember {
+  userId: string;
+  nickname: string;
+}
+
 interface IssueDetailContextValue {
   issue: IssueType;
   projectId: string;
@@ -39,6 +51,8 @@ interface IssueDetailContextValue {
   }) => void;
   statusMenu: StatusMenuState;
   priorityMenu: PriorityMenuState;
+  assigneeMenu: AssigneeMenuState;
+  projectMembers: ProjectMember[];
   onNavigateToIssue?: (issueId: string) => void;
 }
 

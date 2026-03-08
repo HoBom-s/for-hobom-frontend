@@ -37,9 +37,16 @@ vi.mock("@/entities/sprint", () => ({
   },
 }));
 
+vi.mock("@/entities/project", () => ({
+  projectQueries: {
+    detail: (id: string) => ({ queryKey: ["projects", "detail", id] }),
+  },
+}));
+
 vi.mock("@/entities/user", () => ({
   userQueries: {
     me: () => ({ queryKey: ["user", "me"] }),
+    list: () => ({ queryKey: ["users", "list"] }),
   },
 }));
 
@@ -73,13 +80,20 @@ describe("useIssueDetailState", () => {
     issues: IssueType[] = [],
     sprints: Array<{ id: string; status: string }> = [],
     user: { id: string } = { id: "user-1" },
+    project: {
+      members: Array<{ userId: string; role: string; joinedAt: string }>;
+    } = { members: [] },
+    users: Array<{ id: string; nickname: string }> = [],
   ) => {
     let callIndex = 0;
     useQueryMock.mockImplementation(() => {
       const idx = callIndex++;
       if (idx === 0) return { data: { items: issues } };
       if (idx === 1) return { data: { items: sprints } };
-      return { data: user };
+      if (idx === 2) return { data: user };
+      if (idx === 3) return { data: { items: project } };
+      if (idx === 4) return { data: { items: users } };
+      return { data: undefined };
     });
   };
 
@@ -200,5 +214,73 @@ describe("useIssueDetailState", () => {
     );
 
     expect(result.current.issue).toBeUndefined();
+  });
+
+  describe("projectMembers", () => {
+    it("프로젝트 멤버의 닉네임을 resolve한다", () => {
+      setupQueries(
+        [makeIssue()],
+        [],
+        { id: "user-1" },
+        {
+          members: [
+            { userId: "user-1", role: "ADMIN", joinedAt: "2026-01-01" },
+            { userId: "user-2", role: "MEMBER", joinedAt: "2026-01-02" },
+          ],
+        },
+        [
+          { id: "user-1", nickname: "홍길동" },
+          { id: "user-2", nickname: "김철수" },
+        ],
+      );
+
+      const { result } = renderHook(() =>
+        useIssueDetailState("proj-1", "issue-1", true),
+      );
+
+      expect(result.current.projectMembers).toEqual([
+        { userId: "user-1", nickname: "홍길동" },
+        { userId: "user-2", nickname: "김철수" },
+      ]);
+    });
+
+    it("유저 정보가 없으면 userId를 닉네임 대신 사용한다", () => {
+      setupQueries(
+        [makeIssue()],
+        [],
+        { id: "user-1" },
+        {
+          members: [
+            { userId: "unknown-user", role: "MEMBER", joinedAt: "2026-01-01" },
+          ],
+        },
+        [{ id: "user-1", nickname: "홍길동" }],
+      );
+
+      const { result } = renderHook(() =>
+        useIssueDetailState("proj-1", "issue-1", true),
+      );
+
+      expect(result.current.projectMembers).toEqual([
+        { userId: "unknown-user", nickname: "unknown-user" },
+      ]);
+    });
+
+    it("프로젝트 또는 유저 데이터가 없으면 빈 배열을 반환한다", () => {
+      let callIndex = 0;
+      useQueryMock.mockImplementation(() => {
+        const idx = callIndex++;
+        if (idx === 0) return { data: { items: [makeIssue()] } };
+        if (idx === 1) return { data: { items: [] } };
+        if (idx === 2) return { data: { id: "user-1" } };
+        return { data: undefined };
+      });
+
+      const { result } = renderHook(() =>
+        useIssueDetailState("proj-1", "issue-1", true),
+      );
+
+      expect(result.current.projectMembers).toEqual([]);
+    });
   });
 });

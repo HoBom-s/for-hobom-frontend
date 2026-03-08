@@ -5,14 +5,14 @@ import { issueMutations } from "../api/issue.mutations";
 import type { HttpResponseType } from "@/shared/api";
 import type { IssueType } from "../api/issue.type";
 
-export const useTransitionIssue = (projectId: string) => {
+export const useAssignIssue = (projectId: string) => {
   const queryClient = useQueryClient();
   const queryOption = issueQueries.listByProject(projectId);
   const { openErrorToast } = useToast();
 
   return useMutation({
-    ...issueMutations.transition(),
-    onMutate: async ({ issueId, statusId }) => {
+    ...issueMutations.assign(),
+    onMutate: async ({ issueId, assignee }) => {
       await queryClient.cancelQueries(queryOption);
       const previous = queryClient.getQueryData<HttpResponseType<IssueType[]>>(
         queryOption.queryKey,
@@ -25,7 +25,7 @@ export const useTransitionIssue = (projectId: string) => {
           return {
             ...old,
             items: old.items.map((issue) =>
-              issue.id === issueId ? { ...issue, status: statusId } : issue,
+              issue.id === issueId ? { ...issue, assignee } : issue,
             ),
           };
         },
@@ -37,10 +37,12 @@ export const useTransitionIssue = (projectId: string) => {
       if (context?.previous) {
         queryClient.setQueryData(queryOption.queryKey, context.previous);
       }
-      openErrorToast({ message: "이슈 상태를 변경하지 못했어요." });
+      openErrorToast({ message: "담당자를 변경하지 못했어요." });
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: issueQueries.issues() });
+      await queryClient.invalidateQueries({
+        queryKey: issueQueries.issues(),
+      });
     },
   });
 };

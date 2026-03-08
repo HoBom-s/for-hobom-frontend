@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { partitionNotesLib } from "./partition-notes.lib.ts";
-import type { NoteItemType } from "@/entities/note";
+import { partitionNotesLib } from "./partition-notes.lib";
+import { NoteItemType } from "../../../entities/note";
 
 const makeNote = (
   overrides: Partial<NoteItemType> & { id: string },
@@ -12,6 +12,7 @@ const makeNote = (
   checklistItems: [],
   color: "",
   labels: [],
+  members: [],
   reminder: null,
   isPinned: false,
   status: "ACTIVE",

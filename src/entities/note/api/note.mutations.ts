@@ -7,6 +7,8 @@ import {
   patchToggleNotePin,
   patchReorderNote,
   deleteEmptyTrash,
+  postAddNoteMember,
+  deleteRemoveNoteMember,
 } from "../api/note.api";
 
 export const noteMutations = {
@@ -46,5 +48,15 @@ export const noteMutations = {
     mutationOptions({
       mutationKey: [...noteMutations.notes(), "emptyTrash"] as const,
       mutationFn: deleteEmptyTrash,
+    }),
+  addMember: () =>
+    mutationOptions({
+      mutationKey: [...noteMutations.notes(), "addMember"] as const,
+      mutationFn: postAddNoteMember,
+    }),
+  removeMember: () =>
+    mutationOptions({
+      mutationKey: [...noteMutations.notes(), "removeMember"] as const,
+      mutationFn: deleteRemoveNoteMember,
     }),
 } as const;

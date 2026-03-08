@@ -25,6 +25,7 @@ export interface RawNoteItemType {
   color: { value: string };
   labels: { value: string }[];
   reminder: ReminderType | null;
+  members: { value: string }[];
   isPinned: boolean;
   status: NoteStatus;
   trashedAt: string | null;
@@ -43,6 +44,7 @@ export interface NoteItemType {
   checklistItems: ChecklistItemType[];
   color: string;
   labels: string[];
+  members: string[];
   reminder: ReminderType | null;
   isPinned: boolean;
   status: NoteStatus;

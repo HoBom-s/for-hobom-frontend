@@ -6,7 +6,7 @@
   "sideEffects": false,
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b tsconfig.app.json tsconfig.node.json && vite build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "format": "prettier . --write",
@@ -60,6 +60,7 @@
     "globals": "^16.0.0",
     "happy-dom": "^20.7.0",
     "knip": "^5.84.1",
+    "msw": "^2.12.10",
     "prettier": "^3.4.2",
     "type-fest": "^4.39.1",
     "typescript": "~5.8.3",

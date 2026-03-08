@@ -10,6 +10,7 @@ import {
   Checkbox,
   InputBase,
   Tooltip,
+  Badge,
 } from "@mui/material";
 import {
   CheckBoxOutlined,
@@ -17,14 +18,17 @@ import {
   PaletteOutlined,
   LabelOutlined,
   NotificationAddOutlined,
+  PersonAddOutlined,
   AddOutlined,
   CloseOutlined,
 } from "@mui/icons-material";
 import type { NoteItemType } from "@/entities/note";
 import { useNoteEditForm } from "../model/useNoteEditForm";
+import { useNoteMemberShare } from "../model/useNoteMemberShare";
 import { ColorPickerPopover } from "./ColorPickerPopover";
 import { LabelPickerPopover } from "./LabelPickerPopover";
 import { ReminderPickerPopover } from "./ReminderPickerPopover";
+import { MemberPickerPopover } from "./MemberPickerPopover";
 
 interface NoteEditDialogProps {
   open: boolean;
@@ -37,6 +41,8 @@ export const NoteEditDialog = ({
   onClose,
   note,
 }: NoteEditDialogProps) => {
+  const noteArg = note ?? null;
+
   const {
     isEdit,
     form,
@@ -59,7 +65,17 @@ export const NoteEditDialog = ({
     setReminderAnchor,
     handleSave,
     isPending,
-  } = useNoteEditForm({ open, note: note ?? null, onClose });
+  } = useNoteEditForm({ open, note: noteArg, onClose });
+
+  const {
+    isOwner,
+    noteMembers,
+    availableUsers,
+    memberAnchor,
+    setMemberAnchor,
+    handleAddMember,
+    handleRemoveMember,
+  } = useNoteMemberShare({ open, note: noteArg });
 
   return (
     <Dialog
@@ -211,6 +227,30 @@ export const NoteEditDialog = ({
               <NotificationAddOutlined fontSize="small" />
             </IconButton>
           </Tooltip>
+
+          {isEdit && (
+            <Tooltip title="멤버 공유">
+              <IconButton
+                size="small"
+                aria-label="멤버 공유"
+                onClick={(e) => setMemberAnchor(e.currentTarget)}
+              >
+                <Badge
+                  badgeContent={noteMembers.length || undefined}
+                  color="primary"
+                  sx={{
+                    "& .MuiBadge-badge": {
+                      fontSize: 10,
+                      height: 16,
+                      minWidth: 16,
+                    },
+                  }}
+                >
+                  <PersonAddOutlined fontSize="small" />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
 
         <Button
@@ -241,6 +281,16 @@ export const NoteEditDialog = ({
         anchorEl={reminderAnchor}
         onClose={() => setReminderAnchor(null)}
         onSet={setReminder}
+      />
+
+      <MemberPickerPopover
+        anchorEl={memberAnchor}
+        onClose={() => setMemberAnchor(null)}
+        members={noteMembers}
+        availableUsers={availableUsers}
+        isOwner={isOwner}
+        onAdd={handleAddMember}
+        onRemove={handleRemoveMember}
       />
     </Dialog>
   );

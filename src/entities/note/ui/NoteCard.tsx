@@ -18,6 +18,7 @@ import {
   DeleteOutlined,
   RestoreFromTrashOutlined,
   NotificationsActiveOutlined,
+  PeopleOutlined,
 } from "@mui/icons-material";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
@@ -218,13 +219,24 @@ export const NoteCard = ({
           </Box>
         )}
 
-        {(note.reminder || note.labels?.length > 0) && (
+        {(note.reminder ||
+          note.labels?.length > 0 ||
+          note.members?.length > 0) && (
           <Box sx={{ mt: 1.5, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
             {note.reminder && (
               <Chip
                 icon={<NotificationsActiveOutlined sx={{ fontSize: 14 }} />}
                 label={new Date(note.reminder.date).toLocaleDateString("ko-KR")}
                 size="small"
+                sx={META_CHIP_SX}
+              />
+            )}
+            {note.members?.length > 0 && (
+              <Chip
+                icon={<PeopleOutlined sx={{ fontSize: 14 }} />}
+                label={note.members.length}
+                size="small"
+                aria-label={`공유 멤버 ${note.members.length}명`}
                 sx={META_CHIP_SX}
               />
             )}

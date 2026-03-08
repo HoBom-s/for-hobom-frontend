@@ -12,6 +12,8 @@ export { useUpdateNoteStatus } from "./model/useUpdateNoteStatus";
 export { useToggleNotePin } from "./model/useToggleNotePin";
 export { useEmptyTrash } from "./model/useEmptyTrash";
 export { useReorderNote } from "./model/useReorderNote";
+export { useAddNoteMember } from "./model/useAddNoteMember";
+export { useRemoveNoteMember } from "./model/useRemoveNoteMember";
 export { NoteCard } from "./ui/NoteCard";
 
 export type {

@@ -114,6 +114,8 @@ export const IssueMetaSection = () => {
     updateField,
     statusMenu,
     priorityMenu,
+    assigneeMenu,
+    projectMembers,
   } = useIssueDetailContext();
   const { statuses } = useProjectContext();
 
@@ -183,32 +185,47 @@ export const IssueMetaSection = () => {
         </Typography>
       </MetaRow>
       <MetaRow label="담당자">
-        {issue.assignee ? (
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Avatar
+        {(() => {
+          const assigneeName = issue.assignee
+            ? (projectMembers.find((m) => m.userId === issue.assignee)
+                ?.nickname ?? issue.assignee)
+            : null;
+          return (
+            <Chip
+              label={assigneeName ?? "미할당"}
+              size="small"
+              role="button"
+              aria-label={`담당자: ${assigneeName ?? "미할당"}. 클릭하여 변경`}
+              aria-haspopup="listbox"
+              avatar={
+                assigneeName ? (
+                  <Avatar
+                    alt={assigneeName}
+                    sx={{
+                      width: 22,
+                      height: 22,
+                      fontSize: 10,
+                      fontWeight: 700,
+                      bgcolor: "action.selected",
+                      color: "text.secondary",
+                    }}
+                  >
+                    {assigneeName.charAt(0).toUpperCase()}
+                  </Avatar>
+                ) : undefined
+              }
+              onClick={assigneeMenu.open}
               sx={{
-                width: 22,
                 height: 22,
-                fontSize: 10,
-                fontWeight: 700,
-                bgcolor: "action.selected",
-                color: "text.secondary",
+                fontSize: 11,
+                fontWeight: 500,
+                cursor: "pointer",
+                color: issue.assignee ? "text.primary" : "text.disabled",
+                "&:hover": { bgcolor: "action.hover" },
               }}
-            >
-              {issue.assignee.charAt(0).toUpperCase()}
-            </Avatar>
-            <Typography variant="body2" sx={{ fontSize: 13 }}>
-              {issue.assignee}
-            </Typography>
-          </Box>
-        ) : (
-          <Typography
-            variant="body2"
-            sx={{ fontSize: 13, color: "text.disabled" }}
-          >
-            -
-          </Typography>
-        )}
+            />
+          );
+        })()}
       </MetaRow>
       <MetaRow label="라벨">
         <Box

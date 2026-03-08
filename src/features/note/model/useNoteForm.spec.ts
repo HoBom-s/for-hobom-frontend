@@ -13,6 +13,7 @@ const makeNote = (overrides: Partial<NoteItemType> = {}): NoteItemType => ({
   checklistItems: [],
   color: "#fff475",
   labels: ["label-1"],
+  members: [],
   reminder: null,
   isPinned: false,
   status: "ACTIVE",

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import {
+  Avatar,
   Box,
   Chip,
   Dialog,
@@ -7,11 +8,13 @@ import {
   DialogTitle,
   Divider,
   IconButton,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Typography,
 } from "@mui/material";
-import { CloseOutlined } from "@mui/icons-material";
+import { CloseOutlined, PersonOffOutlined } from "@mui/icons-material";
 import { useProjectContext } from "@/shared/model";
 import { ErrorBoundary } from "@/shared/ui";
 import {
@@ -196,6 +199,70 @@ export const IssueDetailDialog = ({
             {label}
           </MenuItem>
         ))}
+      </Menu>
+
+      {/* Assignee Menu */}
+      <Menu
+        anchorEl={actions.assigneeMenu.anchor}
+        open={Boolean(actions.assigneeMenu.anchor)}
+        onClose={actions.assigneeMenu.close}
+        aria-label="담당자 변경"
+        role="listbox"
+        slotProps={{
+          paper: { sx: { minWidth: 160, borderRadius: 2, boxShadow: 3 } },
+        }}
+      >
+        <MenuItem
+          role="option"
+          aria-selected={!issue?.assignee}
+          selected={!issue?.assignee}
+          onClick={() => actions.assigneeMenu.handleAssign(undefined)}
+          sx={{ fontSize: 13, py: 0.8 }}
+        >
+          <ListItemIcon sx={{ minWidth: 32 }}>
+            <PersonOffOutlined
+              aria-hidden
+              sx={{ fontSize: 18, color: "text.disabled" }}
+            />
+          </ListItemIcon>
+          <ListItemText
+            primary="미할당"
+            slotProps={{ primary: { sx: { fontSize: 13 } } }}
+          />
+        </MenuItem>
+        {state.projectMembers.map((member) => {
+          const isSelected = issue?.assignee === member.userId;
+          return (
+            <MenuItem
+              key={member.userId}
+              role="option"
+              aria-selected={isSelected}
+              selected={isSelected}
+              onClick={() => actions.assigneeMenu.handleAssign(member.userId)}
+              sx={{ fontSize: 13, py: 0.8 }}
+            >
+              <ListItemIcon sx={{ minWidth: 32 }}>
+                <Avatar
+                  alt={member.nickname}
+                  sx={{
+                    width: 22,
+                    height: 22,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    bgcolor: "action.selected",
+                    color: "text.secondary",
+                  }}
+                >
+                  {member.nickname.charAt(0).toUpperCase()}
+                </Avatar>
+              </ListItemIcon>
+              <ListItemText
+                primary={member.nickname}
+                slotProps={{ primary: { sx: { fontSize: 13 } } }}
+              />
+            </MenuItem>
+          );
+        })}
       </Menu>
     </>
   );

@@ -3,6 +3,7 @@ import { useProjectContext } from "@/shared/model";
 import {
   useTransitionIssue,
   useUpdateIssue,
+  useAssignIssue,
   type IssueType,
   type IssuePriority,
 } from "@/entities/issue";
@@ -23,6 +24,7 @@ export const useIssueDetailActions = (
   const { transitions } = useProjectContext();
   const { mutate: transitionIssue } = useTransitionIssue(projectId);
   const { mutate: updateIssue } = useUpdateIssue();
+  const { mutate: assignIssue } = useAssignIssue(projectId);
 
   // ── Status Menu ──
   const [statusAnchor, setStatusAnchor] = useState<StatusMenuState | null>(
@@ -76,6 +78,27 @@ export const useIssueDetailActions = (
     ),
   };
 
+  // ── Assignee Menu ──
+  const [assigneeAnchor, setAssigneeAnchor] = useState<HTMLElement | null>(
+    null,
+  );
+
+  const assigneeMenu = {
+    anchor: assigneeAnchor,
+    open: useCallback((e: React.MouseEvent<HTMLElement>) => {
+      setAssigneeAnchor(e.currentTarget);
+    }, []),
+    close: useCallback(() => setAssigneeAnchor(null), []),
+    handleAssign: useCallback(
+      (userId: string | undefined) => {
+        if (!issue) return;
+        assignIssue({ projectId, issueId: issue.id, assignee: userId });
+        setAssigneeAnchor(null);
+      },
+      [issue, projectId, assignIssue],
+    ),
+  };
+
   // ── Field Updates ──
   const updateField = useCallback(
     (fields: {
@@ -90,5 +113,5 @@ export const useIssueDetailActions = (
     [issue, projectId, updateIssue],
   );
 
-  return { updateField, statusMenu, priorityMenu };
+  return { updateField, statusMenu, priorityMenu, assigneeMenu };
 };

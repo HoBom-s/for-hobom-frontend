@@ -16,6 +16,7 @@ const normalizeNote = (raw: RawNoteItemType): NoteItemType => ({
   owner: raw.owner.value,
   color: raw.color.value,
   labels: raw.labels.map((l) => l.value),
+  members: raw.members.map((m) => m.value),
 });
 
 export const fetchNotes = async (status?: NoteStatus) => {
@@ -68,4 +69,24 @@ export const patchReorderNote = async ({
 
 export const deleteEmptyTrash = async () => {
   return await httpClient.delete(`/notes/trash`);
+};
+
+export const postAddNoteMember = async ({
+  noteId,
+  userId,
+}: {
+  noteId: string;
+  userId: string;
+}) => {
+  return await httpClient.post(`/notes/${noteId}/members`, { userId });
+};
+
+export const deleteRemoveNoteMember = async ({
+  noteId,
+  userId,
+}: {
+  noteId: string;
+  userId: string;
+}) => {
+  return await httpClient.delete(`/notes/${noteId}/members/${userId}`);
 };
