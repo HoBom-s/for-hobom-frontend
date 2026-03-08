@@ -17,6 +17,6 @@ export const formatTime = (raw: string) => {
       minute: "2-digit",
     }).format(new Date(raw));
   } catch {
-    return "";
+    return raw;
   }
 };

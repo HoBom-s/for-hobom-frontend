@@ -1,5 +1,7 @@
 import { z } from "zod";
-import { Bom } from "@/packages/bom";
+
+const enumValues = <T extends Record<string, string>>(obj: T) =>
+  Object.values(obj) as [T[keyof T], ...T[keyof T][]];
 
 export const MenuKindModel = {
   KOREAN: "KOREAN",
@@ -39,9 +41,9 @@ export type TodayMenuCandidateInput = z.infer<typeof TodayMenuCandidateSchema>;
 
 export const AddMenuRecommendationSchema = z.object({
   name: z.string().min(1),
-  menuKind: z.enum(Bom.values(MenuKindModel) as [string, ...string[]]),
-  timeOfMeal: z.enum(Bom.values(TimeOfMealModel) as [string, ...string[]]),
-  foodType: z.enum(Bom.values(FoodTypeModel) as [string, ...string[]]),
+  menuKind: z.enum(enumValues(MenuKindModel)),
+  timeOfMeal: z.enum(enumValues(TimeOfMealModel)),
+  foodType: z.enum(enumValues(FoodTypeModel)),
 });
 export type AddMenuRecommendationInput = z.infer<
   typeof AddMenuRecommendationSchema

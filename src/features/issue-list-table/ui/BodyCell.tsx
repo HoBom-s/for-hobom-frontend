@@ -42,10 +42,24 @@ export const BodyCell = memo(
 
     const handleRowClick = () => onRowClick?.(row.id);
 
+    const interactiveProps = onRowClick
+      ? {
+          role: "row" as const,
+          tabIndex: 0,
+          onClick: handleRowClick,
+          onKeyDown: (e: React.KeyboardEvent) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleRowClick();
+            }
+          },
+        }
+      : {};
+
     switch (colKey) {
       case "issueKey":
         return (
-          <div style={baseCellStyle} onClick={handleRowClick}>
+          <div style={baseCellStyle} {...interactiveProps}>
             <span
               style={{
                 fontSize: 12,
@@ -63,7 +77,7 @@ export const BodyCell = memo(
         return (
           <div
             style={{ ...baseCellStyle, justifyContent: "center" }}
-            onClick={handleRowClick}
+            {...interactiveProps}
           >
             {(() => {
               const config = ISSUE_KIND_REGISTRY[row.type];
@@ -74,7 +88,7 @@ export const BodyCell = memo(
 
       case "title":
         return (
-          <div style={baseCellStyle} onClick={handleRowClick}>
+          <div style={baseCellStyle} {...interactiveProps}>
             <span
               style={{
                 fontSize: 13,
@@ -93,7 +107,7 @@ export const BodyCell = memo(
         return (
           <div
             style={baseCellStyle}
-            onClick={handleRowClick}
+            {...interactiveProps}
             onPointerDown={(e) => e.stopPropagation()}
           >
             <Chip
@@ -121,7 +135,7 @@ export const BodyCell = memo(
 
       case "priority":
         return (
-          <div style={baseCellStyle} onClick={handleRowClick}>
+          <div style={baseCellStyle} {...interactiveProps}>
             <Chip
               label={ISSUE_PRIORITY_LABEL[row.priority]}
               size="small"
@@ -138,7 +152,7 @@ export const BodyCell = memo(
 
       case "assignee":
         return (
-          <div style={baseCellStyle} onClick={handleRowClick}>
+          <div style={baseCellStyle} {...interactiveProps}>
             {row.assignee ? (
               <Avatar
                 sx={{

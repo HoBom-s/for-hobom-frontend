@@ -33,7 +33,7 @@ export const groupNotificationsByDate = (
   );
 
   return Bom.pipe(
-    DATE_LABELS as unknown as DateLabel[],
+    [...DATE_LABELS],
     Bom.filter((label) => (grouped[label]?.length ?? 0) > 0),
     Bom.map((label) => ({ label, items: grouped[label] })),
   );
