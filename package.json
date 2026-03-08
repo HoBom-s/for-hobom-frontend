@@ -24,7 +24,7 @@
     "@emotion/styled": "^11.14.0",
     "@hobom-grid/core": "^0.1.2",
     "@hobom-grid/react": "^0.1.2",
-    "@mui/icons-material": "^7.1.0",
+    "@mui/icons-material": "^7.3.8",
     "@mui/lab": "^7.0.1-beta.22",
     "@mui/material": "^7.1.0",
     "@mui/x-date-pickers": "^8.11.2",
