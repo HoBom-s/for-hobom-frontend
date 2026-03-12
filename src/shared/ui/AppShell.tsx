@@ -35,13 +35,35 @@ export interface AppShellNavItem {
   children?: AppShellNavItem[];
 }
 
+/** 섹션 헤더로 그룹화된 네비게이션 아이템 모음. */
+export interface AppShellNavSection {
+  /** 섹션 고유 키. */
+  section: string;
+  /** 사이드바에 표시할 섹션 헤더 텍스트. */
+  label: string;
+  /** 이 섹션에 속하는 아이템 목록. */
+  items: AppShellNavItem[];
+}
+
+/** 독립 아이템 또는 섹션. navItems prop의 엘리먼트 타입. */
+export type NavEntry = AppShellNavItem | AppShellNavSection;
+
+const isSection = (entry: NavEntry): entry is AppShellNavSection =>
+  "items" in entry;
+
 /** children 포함 전체 아이템을 1차원 배열로 펼친다. */
 const flattenNavItems = (items: AppShellNavItem[]): AppShellNavItem[] =>
   items.flatMap((item) => (item.children ? [item, ...item.children] : [item]));
 
+/** NavEntry[]에서 모든 AppShellNavItem을 1차원 배열로 추출한다. */
+const flattenNavEntries = (entries: NavEntry[]): AppShellNavItem[] =>
+  entries.flatMap((entry) =>
+    isSection(entry) ? flattenNavItems(entry.items) : flattenNavItems([entry]),
+  );
+
 interface Props {
   children: ReactNode;
-  navItems: AppShellNavItem[];
+  navItems: NavEntry[];
   bottomNavItems?: AppShellNavItem[];
   appBarAction?: ReactNode;
   onPrefetch?: (path: string) => void;
@@ -235,9 +257,36 @@ export const AppShell = ({
   const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(true);
 
+  // 현재 활성 아이템이 속한 섹션을 자동 펼침
+  const [openSections, setOpenSections] = useState<Set<string>>(() => {
+    const initial = new Set<string>();
+    for (const entry of navItems) {
+      if (isSection(entry)) {
+        initial.add(entry.section);
+      }
+    }
+    return initial;
+  });
+
+  const toggleSection = (section: string) => {
+    setOpenSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(section)) next.delete(section);
+      else next.add(section);
+      return next;
+    });
+  };
+
   const currentWidth = drawerOpen ? DRAWER_WIDTH : DRAWER_WIDTH_COLLAPSED;
 
-  const allItems = flattenNavItems([...navItems, ...(bottomNavItems ?? [])]);
+  const allItems = [
+    ...flattenNavEntries(navItems),
+    ...flattenNavItems(bottomNavItems ?? []),
+  ];
+  const firstItem = (() => {
+    const first = navItems[0];
+    return first && isSection(first) ? first.items[0] : first;
+  })();
   const activeItem = Bom.pipe(
     location.pathname,
     (currentPath) => {
@@ -246,7 +295,7 @@ export const AppShell = ({
       );
       return sorted.find((item) => currentPath.startsWith(item.path));
     },
-    Bom.when(Bom.isNullish, () => navItems[0]),
+    Bom.when(Bom.isNullish, () => firstItem),
   );
 
   return (
@@ -354,30 +403,90 @@ export const AppShell = ({
           aria-label="메인 네비게이션"
           sx={{ px: drawerOpen ? 1.5 : 0.75, py: 2, flexGrow: 1 }}
         >
-          {drawerOpen && (
-            <Typography
-              variant="caption"
-              sx={{
-                px: 1,
-                mb: 1,
-                display: "block",
-                color: "rgba(244,220,200,0.4)",
-                fontSize: "0.7125rem",
-                fontWeight: 600,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-              }}
-            >
-              메뉴
-            </Typography>
-          )}
-          <NavList
-            items={navItems}
-            activeValue={activeItem.value}
-            collapsed={!drawerOpen}
-            onNavigate={navigate}
-            onPrefetch={onPrefetch}
-          />
+          {navItems.map((entry, index) => {
+            if (isSection(entry)) {
+              const isSectionOpen = openSections.has(entry.section);
+              return (
+                <Box key={entry.section}>
+                  {drawerOpen ? (
+                    <Box
+                      onClick={() => toggleSection(entry.section)}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        px: 1,
+                        mt: index > 0 ? 2 : 0,
+                        mb: 0.5,
+                        cursor: "pointer",
+                        borderRadius: 1,
+                        "&:hover": {
+                          bgcolor: "rgba(255,255,255,0.04)",
+                        },
+                      }}
+                    >
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: "rgba(244,220,200,0.4)",
+                          fontSize: "0.7125rem",
+                          fontWeight: 600,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          userSelect: "none",
+                        }}
+                      >
+                        {entry.label}
+                      </Typography>
+                      {isSectionOpen ? (
+                        <ExpandLess
+                          sx={{
+                            fontSize: 14,
+                            color: "rgba(244,220,200,0.3)",
+                          }}
+                        />
+                      ) : (
+                        <ExpandMore
+                          sx={{
+                            fontSize: 14,
+                            color: "rgba(244,220,200,0.3)",
+                          }}
+                        />
+                      )}
+                    </Box>
+                  ) : (
+                    index > 0 && (
+                      <Divider
+                        sx={{
+                          borderColor: "rgba(255,255,255,0.08)",
+                          my: 1,
+                        }}
+                      />
+                    )
+                  )}
+                  <Collapse in={!drawerOpen || isSectionOpen} unmountOnExit>
+                    <NavList
+                      items={entry.items}
+                      activeValue={activeItem.value}
+                      collapsed={!drawerOpen}
+                      onNavigate={navigate}
+                      onPrefetch={onPrefetch}
+                    />
+                  </Collapse>
+                </Box>
+              );
+            }
+            return (
+              <NavList
+                key={entry.value}
+                items={[entry]}
+                activeValue={activeItem.value}
+                collapsed={!drawerOpen}
+                onNavigate={navigate}
+                onPrefetch={onPrefetch}
+              />
+            );
+          })}
         </Box>
 
         {bottomNavItems && bottomNavItems.length > 0 && (

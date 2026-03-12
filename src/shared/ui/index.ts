@@ -1,6 +1,6 @@
 export { AppShell } from "./AppShell";
 export { ConfirmDialog } from "./ConfirmDialog";
-export type { AppShellNavItem } from "./AppShell";
+export type { AppShellNavItem, NavEntry } from "./AppShell";
 export { BottomSheetCTA } from "./BottomSheetCTA";
 export { ErrorBoundary } from "./ErrorBoundary";
 export { Funnel, Step } from "./Funnel";
