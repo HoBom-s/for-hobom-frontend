@@ -58,7 +58,7 @@ export const PageEditor = ({
       }}
     >
       <Hb.Box
-        sx={{
+        sx={(theme) => ({
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
@@ -67,7 +67,8 @@ export const PageEditor = ({
           borderBottom: "1px solid",
           borderColor: "divider",
           bgcolor: "grey.50",
-        }}
+          ...theme.applyStyles("dark", { bgcolor: "background.default" }),
+        })}
       >
         <Hb.Button
           size="small"

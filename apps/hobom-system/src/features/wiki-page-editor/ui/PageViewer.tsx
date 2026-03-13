@@ -12,7 +12,7 @@ export const PageViewer = ({ content }: PageViewerProps) => {
   return (
     <Hb.Box
       dangerouslySetInnerHTML={{ __html: sanitized }}
-      sx={{
+      sx={(theme) => ({
         px: 3.5,
         py: 2,
         lineHeight: 1.7,
@@ -37,6 +37,7 @@ export const PageViewer = ({ content }: PageViewerProps) => {
         },
         "& pre": {
           bgcolor: "grey.50",
+          ...theme.applyStyles("dark", { bgcolor: "background.default" }),
           border: "1px solid",
           borderColor: "divider",
           borderRadius: 1,
@@ -49,6 +50,7 @@ export const PageViewer = ({ content }: PageViewerProps) => {
         },
         "& code": {
           bgcolor: "grey.100",
+          ...theme.applyStyles("dark", { bgcolor: "background.default" }),
           borderRadius: 0.5,
           px: 0.5,
           py: 0.25,
@@ -68,7 +70,7 @@ export const PageViewer = ({ content }: PageViewerProps) => {
           borderColor: "divider",
           my: 2,
         },
-      }}
+      })}
     />
   );
 };

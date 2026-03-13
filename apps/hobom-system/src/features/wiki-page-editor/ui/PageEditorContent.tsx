@@ -74,7 +74,7 @@ export const PageEditorContent = ({
       <PageEditorToolbar editor={editor} />
 
       <Hb.Box
-        sx={{
+        sx={(theme) => ({
           flex: 1,
           overflow: "auto",
           px: 3,
@@ -102,6 +102,7 @@ export const PageEditorContent = ({
             },
             "& pre": {
               bgcolor: "grey.100",
+              ...theme.applyStyles("dark", { bgcolor: "background.default" }),
               borderRadius: 1,
               p: 2,
               overflow: "auto",
@@ -112,6 +113,7 @@ export const PageEditorContent = ({
             },
             "& code": {
               bgcolor: "grey.100",
+              ...theme.applyStyles("dark", { bgcolor: "background.default" }),
               borderRadius: 0.5,
               px: 0.5,
               py: 0.25,
@@ -138,7 +140,7 @@ export const PageEditorContent = ({
               pointerEvents: "none",
             },
           },
-        }}
+        })}
       >
         <EditorContent editor={editor} />
       </Hb.Box>
