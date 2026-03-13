@@ -9,7 +9,7 @@ import {
 
 type DialogSize = "xs" | "sm" | "md" | "lg";
 
-export interface DialogRootProps extends Omit<
+interface DialogRootProps extends Omit<
   MuiDialogProps,
   "maxWidth" | "fullWidth"
 > {

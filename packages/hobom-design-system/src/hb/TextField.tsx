@@ -3,7 +3,7 @@ import {
   type TextFieldProps as MuiTextFieldProps,
 } from "@mui/material";
 
-export type TextFieldProps = Omit<MuiTextFieldProps, "variant">;
+type TextFieldProps = Omit<MuiTextFieldProps, "variant">;
 
 export const TextField = (props: TextFieldProps) => (
   <MuiTextField variant="outlined" {...props} />

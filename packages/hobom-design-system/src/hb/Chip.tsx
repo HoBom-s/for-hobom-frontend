@@ -2,7 +2,7 @@ import { Chip as MuiChip, type ChipProps as MuiChipProps } from "@mui/material";
 
 type ChipVariant = "filled" | "outlined" | "soft";
 
-export interface ChipProps extends Omit<MuiChipProps, "variant"> {
+interface ChipProps extends Omit<MuiChipProps, "variant"> {
   variant?: ChipVariant;
 }
 

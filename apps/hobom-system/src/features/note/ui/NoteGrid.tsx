@@ -28,7 +28,6 @@ const PLACEHOLDER_STYLE: React.CSSProperties = {
 };
 
 const OVER_STYLE: React.CSSProperties = {
-  boxShadow: "inset 0 0 0 2px #4680ff",
   borderRadius: 8,
 };
 
@@ -141,9 +140,11 @@ export const NoteGrid = ({
           <Hb.Box
             sx={{
               width: CARD_WIDTH,
-              transform: "scale(1.03)",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
+              transform: "rotate(2deg) scale(1.04)",
+              boxShadow: "0 16px 40px rgba(0,0,0,0.25)",
               borderRadius: 2,
+              cursor: "grabbing",
+              opacity: 0.95,
             }}
           >
             <NoteCard

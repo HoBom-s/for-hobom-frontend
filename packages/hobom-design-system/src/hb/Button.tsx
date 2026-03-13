@@ -17,7 +17,7 @@ const VARIANT_MAP: Record<
   ghost: { variant: "text", color: "inherit" },
 };
 
-export interface ButtonProps extends Omit<MuiButtonProps, "variant" | "color"> {
+interface ButtonProps extends Omit<MuiButtonProps, "variant" | "color"> {
   variant?: ButtonVariant;
 }
 
@@ -27,7 +27,7 @@ const ButtonBase = ({ variant = "primary", ...props }: ButtonProps) => {
   return <MuiButton variant={mapped.variant} color={mapped.color} {...props} />;
 };
 
-export interface IconButtonProps extends Omit<MuiIconButtonProps, "color"> {
+interface IconButtonProps extends Omit<MuiIconButtonProps, "color"> {
   variant?: "default" | "danger";
 }
 

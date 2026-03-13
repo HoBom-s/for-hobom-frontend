@@ -9,6 +9,7 @@ import {
 
 type NonEmptyArray<T> = readonly [T, ...T[]];
 
+/** @public */
 export interface FunnelProps<Steps extends NonEmptyArray<string>> {
   steps: Steps;
   step: Steps[number];
@@ -35,6 +36,7 @@ export const Funnel = <Steps extends NonEmptyArray<string>>({
   return <Fragment>{targetStep}</Fragment>;
 };
 
+/** @public */
 export interface StepProps<Steps extends NonEmptyArray<string>> {
   name: Steps[number];
   onEnter?: () => void;

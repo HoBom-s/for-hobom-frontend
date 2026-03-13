@@ -34,13 +34,16 @@ const TAB_ITEMS: {
 ];
 
 export const NoteStatusTabs = ({ value, onChange }: NoteStatusTabsProps) => (
-  <Hb.Box sx={{ display: "flex", gap: 1, mb: 3 }}>
+  <Hb.Box role="tablist" sx={{ display: "flex", gap: 1, mb: 3 }}>
     {TAB_ITEMS.map((item) => {
       const selected = value === item.value;
 
       return (
         <Hb.Chip
           key={item.label}
+          role="tab"
+          aria-selected={selected}
+          tabIndex={selected ? 0 : -1}
           icon={item.icon}
           label={item.label}
           onClick={() => onChange(item.value)}

@@ -117,6 +117,7 @@ export const LabelPickerPopover = ({
           />
           <Hb.Button.Icon
             size="small"
+            aria-label="라벨 추가"
             onClick={handleCreate}
             disabled={!newTitle.trim() || createLabel.isPending}
           >

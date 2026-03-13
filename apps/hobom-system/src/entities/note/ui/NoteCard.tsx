@@ -13,12 +13,14 @@ import { Hb } from "@/shared/ui";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
 
-const META_CHIP_SX = {
-  height: 24,
-  fontSize: "0.6875rem",
-  bgcolor: "rgba(0,0,0,0.06)",
-  border: "none",
-} as const;
+const META_CHIP_SX = (isCustomColor: boolean) =>
+  ({
+    height: 24,
+    fontSize: "0.6875rem",
+    bgcolor: isCustomColor ? "rgba(0,0,0,0.08)" : "action.hover",
+    color: isCustomColor ? "rgba(0,0,0,0.7)" : undefined,
+    border: "none",
+  }) as const;
 
 interface NoteCardProps {
   note: NoteItemType;
@@ -48,20 +50,21 @@ export const NoteCard = ({
   const color = note.color || "#ffffff";
   const hasChecklist = note.checklistItems?.length > 0;
   const isWhite = color === "#ffffff";
+  const isCustomColor = !isWhite;
 
   return (
     <Hb.Card.Root
       sx={{
-        backgroundColor: color,
+        backgroundColor: isCustomColor ? color : undefined,
         cursor: "pointer",
         border: "1px solid",
         borderColor: hovered
-          ? isWhite
-            ? "transparent"
-            : "rgba(0,0,0,0.08)"
-          : isWhite
-            ? "divider"
-            : "rgba(0,0,0,0.06)",
+          ? isCustomColor
+            ? "rgba(0,0,0,0.08)"
+            : "transparent"
+          : isCustomColor
+            ? "rgba(0,0,0,0.06)"
+            : "divider",
         borderRadius: 2,
         position: "relative",
         transition: "box-shadow 0.08s linear, border-color 0.08s linear",
@@ -86,7 +89,7 @@ export const NoteCard = ({
               opacity: hovered ? 1 : 0,
               transition: "opacity 0.15s ease",
               pointerEvents: hovered ? "auto" : "none",
-              color: "text.secondary",
+              color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
               zIndex: 1,
             }}
           >
@@ -105,8 +108,8 @@ export const NoteCard = ({
               opacity: hovered || note.isPinned ? 1 : 0,
               transition: "opacity 0.15s ease",
               pointerEvents: hovered || note.isPinned ? "auto" : "none",
-              bgcolor: `${color}cc`,
-              "&:hover": { bgcolor: `${color}ee` },
+              bgcolor: isCustomColor ? `${color}cc` : undefined,
+              "&:hover": { bgcolor: isCustomColor ? `${color}ee` : undefined },
             }}
             onClick={(e) => {
               e.stopPropagation();
@@ -131,6 +134,7 @@ export const NoteCard = ({
               pr: note.isPinned || hovered ? 3.5 : 0,
               mb: 0.5,
               wordBreak: "break-word",
+              color: isCustomColor ? "#2d3748" : undefined,
             }}
           >
             {title}
@@ -141,7 +145,7 @@ export const NoteCard = ({
           <Hb.Text
             variant="body2"
             sx={{
-              color: "text.secondary",
+              color: isCustomColor ? "rgba(0,0,0,0.65)" : "text.secondary",
               fontSize: "0.8125rem",
               lineHeight: 1.5,
               display: "-webkit-box",
@@ -185,7 +189,13 @@ export const NoteCard = ({
                     sx={{
                       fontSize: "0.8125rem",
                       textDecoration: item.checked ? "line-through" : "none",
-                      color: item.checked ? "text.disabled" : "text.secondary",
+                      color: isCustomColor
+                        ? item.checked
+                          ? "rgba(0,0,0,0.35)"
+                          : "rgba(0,0,0,0.65)"
+                        : item.checked
+                          ? "text.disabled"
+                          : "text.secondary",
                       lineHeight: 1.4,
                     }}
                   >
@@ -218,7 +228,7 @@ export const NoteCard = ({
                 icon={<NotificationsActiveOutlined sx={{ fontSize: 14 }} />}
                 label={new Date(note.reminder.date).toLocaleDateString("ko-KR")}
                 size="small"
-                sx={META_CHIP_SX}
+                sx={META_CHIP_SX(isCustomColor)}
               />
             )}
             {note.members?.length > 0 && (
@@ -227,7 +237,7 @@ export const NoteCard = ({
                 label={note.members.length}
                 size="small"
                 aria-label={`공유 멤버 ${note.members.length}명`}
-                sx={META_CHIP_SX}
+                sx={META_CHIP_SX(isCustomColor)}
               />
             )}
             {note.labels?.map((label) => (
@@ -235,7 +245,7 @@ export const NoteCard = ({
                 key={label}
                 label={labelMap?.[label] ?? label}
                 size="small"
-                sx={META_CHIP_SX}
+                sx={META_CHIP_SX(isCustomColor)}
               />
             ))}
           </Hb.Box>
@@ -259,7 +269,9 @@ export const NoteCard = ({
             <Hb.Tooltip title="복원" arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{ color: "text.secondary" }}
+                sx={{
+                  color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
+                }}
                 onClick={() => onStatusChange(note.id, "ACTIVE")}
               >
                 <RestoreFromTrashOutlined sx={{ fontSize: 18 }} />
@@ -268,7 +280,9 @@ export const NoteCard = ({
             <Hb.Tooltip title="영구 삭제" arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{ color: "text.secondary" }}
+                sx={{
+                  color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
+                }}
                 onClick={() => onDelete(note.id)}
               >
                 <DeleteOutlined sx={{ fontSize: 18 }} />
@@ -280,7 +294,9 @@ export const NoteCard = ({
             <Hb.Tooltip title={isArchived ? "보관 해제" : "보관처리"} arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{ color: "text.secondary" }}
+                sx={{
+                  color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
+                }}
                 onClick={() =>
                   onStatusChange(note.id, isArchived ? "ACTIVE" : "ARCHIVED")
                 }
@@ -295,7 +311,9 @@ export const NoteCard = ({
             <Hb.Tooltip title="삭제" arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{ color: "text.secondary" }}
+                sx={{
+                  color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
+                }}
                 onClick={() => onStatusChange(note.id, "TRASHED")}
               >
                 <DeleteOutlined sx={{ fontSize: 18 }} />

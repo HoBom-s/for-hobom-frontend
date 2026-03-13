@@ -26,12 +26,16 @@ export const useReorderNote = (status?: NoteStatus) => {
         HttpResponseType<NoteItemType[]>
       >(queryOption.queryKey);
 
+      const reorderedIds = new Set(reorderedItems.map((n) => n.id));
+
       queryClient.setQueryData<HttpResponseType<NoteItemType[]>>(
         queryOption.queryKey,
         (old) => {
           if (!old) return old;
 
-          return { ...old, items: reorderedItems };
+          const untouched = old.items.filter((n) => !reorderedIds.has(n.id));
+
+          return { ...old, items: [...reorderedItems, ...untouched] };
         },
       );
 

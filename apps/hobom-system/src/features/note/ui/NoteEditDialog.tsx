@@ -126,6 +126,7 @@ export const NoteEditDialog = ({
                 />
                 <Hb.Button.Icon
                   size="small"
+                  aria-label="항목 삭제"
                   onClick={() => removeChecklistItem(idx)}
                 >
                   <CloseOutlined sx={{ fontSize: 16 }} />
@@ -177,7 +178,13 @@ export const NoteEditDialog = ({
                 form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"
               }
             >
-              <Hb.Button.Icon size="small" onClick={toggleType}>
+              <Hb.Button.Icon
+                size="small"
+                aria-label={
+                  form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"
+                }
+                onClick={toggleType}
+              >
                 {form.type === "TEXT" ? (
                   <CheckBoxOutlined fontSize="small" />
                 ) : (
@@ -190,6 +197,7 @@ export const NoteEditDialog = ({
           <Hb.Tooltip title="배경색">
             <Hb.Button.Icon
               size="small"
+              aria-label="배경색"
               onClick={(e) => setColorAnchor(e.currentTarget)}
             >
               <PaletteOutlined fontSize="small" />
@@ -199,6 +207,7 @@ export const NoteEditDialog = ({
           <Hb.Tooltip title="라벨">
             <Hb.Button.Icon
               size="small"
+              aria-label="라벨"
               onClick={(e) => setLabelAnchor(e.currentTarget)}
             >
               <LabelOutlined fontSize="small" />
@@ -208,6 +217,7 @@ export const NoteEditDialog = ({
           <Hb.Tooltip title="리마인더">
             <Hb.Button.Icon
               size="small"
+              aria-label="리마인더"
               onClick={(e) => setReminderAnchor(e.currentTarget)}
             >
               <NotificationAddOutlined fontSize="small" />

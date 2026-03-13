@@ -15,7 +15,7 @@ export const useNoteContent = (status: NoteStatus | undefined) => {
   const { pinnedNotes, otherNotes } = useNoteList(effectiveStatus);
 
   const togglePin = useToggleNotePin(effectiveStatus);
-  const updateStatus = useUpdateNoteStatus();
+  const updateStatus = useUpdateNoteStatus(effectiveStatus);
   const deleteNote = useDeleteNote();
   const reorderNote = useReorderNote(effectiveStatus);
 

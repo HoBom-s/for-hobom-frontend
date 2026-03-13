@@ -21,7 +21,7 @@ const PRESET_MAP: Record<TextPreset, Partial<TypographyProps>> = {
   overline: { variant: "overline" },
 };
 
-export interface TextProps extends Omit<TypographyProps, "variant"> {
+interface TextProps extends Omit<TypographyProps, "variant"> {
   preset?: TextPreset;
   variant?: TypographyProps["variant"];
 }

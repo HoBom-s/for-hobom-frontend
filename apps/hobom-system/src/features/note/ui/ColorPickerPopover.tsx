@@ -29,6 +29,7 @@ export const ColorPickerPopover = ({
         return (
           <Hb.Button.Icon
             key={key}
+            aria-label={`색상: ${key}`}
             onClick={() => {
               onChange(hex);
               onClose();

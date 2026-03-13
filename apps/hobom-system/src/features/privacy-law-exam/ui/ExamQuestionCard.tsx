@@ -310,7 +310,9 @@ export const ExamQuestionCard = ({ questions }: Props) => {
           </Hb.Alert>
         )}
 
-        <Hb.Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
+        <Hb.Box
+          sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}
+        >
           <Hb.Button
             variant="secondary"
             disabled={currentIndex === 0}

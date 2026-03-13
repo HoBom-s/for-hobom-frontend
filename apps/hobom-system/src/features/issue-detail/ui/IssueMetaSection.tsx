@@ -60,7 +60,15 @@ const StoryPointsInput = ({
     return (
       <Hb.Text
         variant="body2"
+        role="button"
+        tabIndex={0}
         onClick={() => setEditing(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setEditing(true);
+          }
+        }}
         sx={{
           fontSize: 13,
           cursor: "pointer",

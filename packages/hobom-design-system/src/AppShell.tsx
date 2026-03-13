@@ -315,6 +315,28 @@ export const AppShell = ({
         bgcolor: "background.default",
       }}
     >
+      <Box
+        component="a"
+        href="#main-content"
+        sx={{
+          position: "fixed",
+          top: -100,
+          left: 8,
+          zIndex: (theme) => theme.zIndex.tooltip + 1,
+          bgcolor: "primary.main",
+          color: "#fff",
+          px: 2,
+          py: 1,
+          borderRadius: 1,
+          fontSize: "0.875rem",
+          fontWeight: 600,
+          textDecoration: "none",
+          "&:focus": { top: 8 },
+        }}
+      >
+        본문으로 건너뛰기
+      </Box>
+
       <AppBar
         position="fixed"
         elevation={0}
@@ -330,6 +352,8 @@ export const AppShell = ({
           }}
         >
           <IconButton
+            aria-label="사이드바 토글"
+            aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen((prev) => !prev)}
             size="small"
             edge="start"
@@ -419,7 +443,16 @@ export const AppShell = ({
                 <Box key={entry.section}>
                   {drawerOpen ? (
                     <Box
+                      role="button"
+                      tabIndex={0}
+                      aria-expanded={isSectionOpen}
                       onClick={() => toggleSection(entry.section)}
+                      onKeyDown={(e: React.KeyboardEvent) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          toggleSection(entry.section);
+                        }
+                      }}
                       sx={{
                         display: "flex",
                         alignItems: "center",
@@ -515,6 +548,7 @@ export const AppShell = ({
 
       <Box
         component="main"
+        id="main-content"
         sx={{
           position: "relative",
           flexGrow: 1,
