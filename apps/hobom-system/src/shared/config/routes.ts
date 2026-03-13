@@ -43,6 +43,8 @@ export const RoutesConfig = {
     STUDY: "/privacy-law/study",
     STUDY_DETAIL: "/privacy-law/study/:materialId",
     CHAT: "/privacy-law/chat",
+    EXAMS: "/privacy-law/exams",
+    EXAM_DETAIL: "/privacy-law/exams/:examId",
   },
   ADMIN: {
     USERS: "/admin/users",

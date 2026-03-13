@@ -5,6 +5,7 @@ import {
   CompareArrowsOutlined,
   SchoolOutlined,
   SmartToyOutlined,
+  AssignmentOutlined,
 } from "@mui/icons-material";
 
 const TABS = [
@@ -15,6 +16,11 @@ const TABS = [
     icon: <CompareArrowsOutlined />,
   },
   { label: "학습 자료", path: "/privacy-law/study", icon: <SchoolOutlined /> },
+  {
+    label: "모의고사",
+    path: "/privacy-law/exams",
+    icon: <AssignmentOutlined />,
+  },
   { label: "AI 상담", path: "/privacy-law/chat", icon: <SmartToyOutlined /> },
 ] as const;
 

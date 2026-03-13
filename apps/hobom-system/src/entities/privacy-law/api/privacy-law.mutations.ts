@@ -1,5 +1,9 @@
 import { mutationOptions } from "@tanstack/react-query";
-import { postAskQuestion, postFetchLaw } from "./privacy-law.api";
+import {
+  postAskQuestion,
+  postFetchLaw,
+  postGenerateExam,
+} from "./privacy-law.api";
 
 export const privacyLawMutations = {
   all: () => ["privacy-law"] as const,
@@ -14,5 +18,11 @@ export const privacyLawMutations = {
     mutationOptions({
       mutationKey: [...privacyLawMutations.all(), "fetch"] as const,
       mutationFn: postFetchLaw,
+    }),
+
+  generateExam: () =>
+    mutationOptions({
+      mutationKey: [...privacyLawMutations.all(), "generate-exam"] as const,
+      mutationFn: postGenerateExam,
     }),
 } as const;

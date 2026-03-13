@@ -12,7 +12,9 @@ import stylistic from "@stylistic/eslint-plugin";
  * import baseConfig from "../../eslint.config.js";
  * export default tseslint.config(...baseConfig, { … });
  */
-export const baseIgnores = { ignores: ["**/dist", "**/coverage", "**/node_modules"] };
+export const baseIgnores = {
+  ignores: ["**/dist", "**/coverage", "**/node_modules"],
+};
 
 export const baseConfig = {
   extends: [js.configs.recommended, ...tseslint.configs.recommended],

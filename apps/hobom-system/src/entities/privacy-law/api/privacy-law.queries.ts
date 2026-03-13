@@ -8,6 +8,8 @@ import {
   fetchStudyMaterials,
   fetchStudyMaterialById,
   fetchQuestionHistory,
+  fetchExams,
+  fetchExamById,
 } from "./privacy-law.api";
 
 export const privacyLawQueries = {
@@ -59,5 +61,19 @@ export const privacyLawQueries = {
     queryOptions({
       queryKey: ["privacy-law", "questions"] as const,
       queryFn: fetchQuestionHistory,
+    }),
+
+  exams: () =>
+    queryOptions({
+      queryKey: ["privacy-law", "exams"] as const,
+      queryFn: fetchExams,
+      ...CACHE_PROFILE.MODERATE,
+    }),
+
+  exam: (id: string) =>
+    queryOptions({
+      queryKey: ["privacy-law", "exams", id] as const,
+      queryFn: () => fetchExamById({ id }),
+      ...CACHE_PROFILE.SLOW,
     }),
 } as const;

@@ -1,6 +1,7 @@
 import {
   AdminPanelSettingsOutlined,
   ArticleOutlined,
+  AssignmentOutlined,
   BugReportOutlined,
   CompareArrowsOutlined,
   DashboardOutlined,
@@ -109,6 +110,12 @@ export const NAV_ITEMS: NavEntry[] = [
             label: "학습 자료",
             path: RoutesConfig.PRIVACY_LAW.STUDY,
             icon: <SchoolOutlined sx={{ fontSize: 16 }} />,
+          },
+          {
+            value: "LAW_EXAMS",
+            label: "모의고사",
+            path: RoutesConfig.PRIVACY_LAW.EXAMS,
+            icon: <AssignmentOutlined sx={{ fontSize: 16 }} />,
           },
           {
             value: "LAW_CHAT",

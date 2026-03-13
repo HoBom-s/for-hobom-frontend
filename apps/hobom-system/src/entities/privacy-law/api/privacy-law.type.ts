@@ -75,3 +75,25 @@ export interface AskQuestionResponse {
   answer: string;
   referencedArticles: string[];
 }
+
+export interface ExamQuestion {
+  no: number;
+  subject: string;
+  type: string;
+  question: string;
+  choices: string[];
+  answer: string;
+  explanation: string;
+}
+
+export interface ExamSet {
+  id: string;
+  title: string;
+  version: number;
+  totalQuestions: number;
+  createdAt: string;
+}
+
+export interface ExamSetDetail extends ExamSet {
+  questions: ExamQuestion[];
+}

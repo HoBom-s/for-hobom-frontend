@@ -12,9 +12,7 @@ type NonEmptyArray<T> = readonly [T, ...T[]];
 export interface FunnelProps<Steps extends NonEmptyArray<string>> {
   steps: Steps;
   step: Steps[number];
-  children:
-    | ReactElement<StepProps<Steps>>[]
-    | ReactElement<StepProps<Steps>>;
+  children: ReactElement<StepProps<Steps>>[] | ReactElement<StepProps<Steps>>;
 }
 
 export const Funnel = <Steps extends NonEmptyArray<string>>({

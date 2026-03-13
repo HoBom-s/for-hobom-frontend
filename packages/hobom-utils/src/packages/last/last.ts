@@ -7,7 +7,7 @@
  * @category Array
  */
 export function last(data: readonly []): undefined;
-export function last<T>(data: readonly [...readonly unknown[], T]): T;
+export function last<T>(data: readonly [...(readonly unknown[]), T]): T;
 export function last<T>(data: readonly T[]): T | undefined;
 export function last<T>(data: readonly T[]): T | undefined {
   return data[data.length - 1];

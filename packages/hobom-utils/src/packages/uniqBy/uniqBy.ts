@@ -12,21 +12,13 @@ import { curry } from "../curry/curry";
  *
  * @category Array
  */
-export function uniqBy<T, K>(
-  data: readonly T[],
-  fn: (item: T) => K,
-): T[];
-export function uniqBy<T, K>(
-  fn: (item: T) => K,
-): (data: readonly T[]) => T[];
+export function uniqBy<T, K>(data: readonly T[], fn: (item: T) => K): T[];
+export function uniqBy<T, K>(fn: (item: T) => K): (data: readonly T[]) => T[];
 export function uniqBy(...args: readonly unknown[]): unknown {
   return curry(uniqByImpl, args);
 }
 
-function uniqByImpl<T, K>(
-  data: readonly T[],
-  fn: (item: T) => K,
-): T[] {
+function uniqByImpl<T, K>(data: readonly T[], fn: (item: T) => K): T[] {
   const seen = new Set<K>();
   const result: T[] = [];
 

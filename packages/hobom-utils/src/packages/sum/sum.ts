@@ -3,7 +3,7 @@ import type { Iterable } from "../../core/types/iterable.type";
 
 type Sum<T extends Iterable<bigint> | Iterable<number>> = T extends readonly []
   ? 0
-  : T extends readonly [bigint, ...readonly unknown[]]
+  : T extends readonly [bigint, ...(readonly unknown[])]
     ? bigint
     : T[number] extends bigint
       ? bigint | 0

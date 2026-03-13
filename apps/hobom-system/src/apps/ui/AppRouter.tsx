@@ -49,6 +49,8 @@ const pageImports = {
   privacyLawStudy: () => import("@/pages/privacy-law-study"),
   privacyLawStudyDetail: () => import("@/pages/privacy-law-study-detail"),
   privacyLawChat: () => import("@/pages/privacy-law-chat"),
+  privacyLawExams: () => import("@/pages/privacy-law-exams"),
+  privacyLawExamDetail: () => import("@/pages/privacy-law-exam-detail"),
 };
 
 const AuthLoginPage = lazy(pageImports.authLogin);
@@ -85,6 +87,8 @@ const PrivacyLawDiffDetailPage = lazy(pageImports.privacyLawDiffDetail);
 const PrivacyLawStudyPage = lazy(pageImports.privacyLawStudy);
 const PrivacyLawStudyDetailPage = lazy(pageImports.privacyLawStudyDetail);
 const PrivacyLawChatPage = lazy(pageImports.privacyLawChat);
+const PrivacyLawExamsPage = lazy(pageImports.privacyLawExams);
+const PrivacyLawExamDetailPage = lazy(pageImports.privacyLawExamDetail);
 
 const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.MAIN.DAILY_TODO]: [pageImports.dailyTodo],
@@ -306,6 +310,8 @@ export const AppRouter = () => {
             element={<PrivacyLawStudyDetailPage />}
           />
           <Route path="chat" element={<PrivacyLawChatPage />} />
+          <Route path="exams" element={<PrivacyLawExamsPage />} />
+          <Route path="exams/:examId" element={<PrivacyLawExamDetailPage />} />
         </Route>
         <Route
           path="/wiki/:spaceKey"

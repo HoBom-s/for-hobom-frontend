@@ -22,11 +22,7 @@ export function countBy(...args: readonly unknown[]): unknown {
 
 function countByImpl<T>(
   data: readonly T[],
-  fn: (
-    value: T,
-    index: number,
-    data: readonly T[],
-  ) => PropertyKey | undefined,
+  fn: (value: T, index: number, data: readonly T[]) => PropertyKey | undefined,
 ): ExactRecordType<PropertyKey, number> {
   const result = new Map<PropertyKey, number>();
 

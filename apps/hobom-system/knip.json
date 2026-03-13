@@ -1,3 +1,11 @@
 {
-  "ignore": ["**/*.spec.*"]
+  "entry": ["eslint.config.js"],
+  "project": ["src/**/*.{ts,tsx}", "eslint-rules/**/*.js"],
+  "ignoreDependencies": [
+    "hobom-design-system",
+    "hobom-utils",
+    "typescript-eslint"
+  ],
+  "ignoreBinaries": ["tsc", "eslint", "prettier"],
+  "ignore": ["src/shared/ui/Sortable.tsx", "src/shared/ui/Funnel.tsx"]
 }

@@ -7,6 +7,8 @@ import type {
   QuestionHistory,
   AskQuestionRequest,
   AskQuestionResponse,
+  ExamSet,
+  ExamSetDetail,
 } from "./privacy-law.type";
 
 const BASE = "/privacy-law";
@@ -61,6 +63,26 @@ export const postAskQuestion = async (data: AskQuestionRequest) => {
   return await httpClient.post<HttpResponseType<AskQuestionResponse>>(
     `${BASE}/ask`,
     data,
+  );
+};
+
+// ── Exams ──
+
+export const fetchExams = async () => {
+  return await httpClient.get<HttpResponseType<ExamSet[]>>(`${BASE}/exams`);
+};
+
+export const fetchExamById = async ({ id }: { id: string }) => {
+  return await httpClient.get<HttpResponseType<ExamSetDetail>>(
+    `${BASE}/exams/${id}`,
+  );
+};
+
+export const postGenerateExam = async () => {
+  return await httpClient.post<HttpResponseType<ExamSetDetail>>(
+    `${BASE}/exams`,
+    {},
+    { timeout: 180_000 },
   );
 };
 

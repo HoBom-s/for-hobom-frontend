@@ -1,10 +1,5 @@
 export { env } from "./env";
 export { RoutesConfig } from "./routes";
 export { SUBTLE_SCROLLBAR_SX } from "./scrollbar-styles";
-export {
-  theme,
-  DRAWER_WIDTH,
-  DRAWER_WIDTH_COLLAPSED,
-  APPBAR_HEIGHT,
-} from "hobom-design-system";
+export { theme } from "hobom-design-system";
 export { CACHE_PROFILE } from "./query-cache";
