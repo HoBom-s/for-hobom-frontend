@@ -10,4 +10,5 @@ dist-ssr
 .DS_Store
 .env
 .env.*
-src
+apps/hobom-system/src
+packages

@@ -14,31 +14,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          submodules: true
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
+          cache: "pnpm"
 
-      - name: Clean install dependencies
-        run: |
-          rm -rf node_modules
-          npm ci
-        env:
-          ROLLUP_NO_NATIVE: true
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Typecheck
-        run: npm run typecheck
+        run: pnpm typecheck
 
       - name: Run test
-        run: npm run test:coverage
+        run: pnpm test:coverage
 
       - name: Run build
-        run: npm run build
-        env:
-          ROLLUP_NO_NATIVE: true
+        run: pnpm build
 
       - name: Run lint
-        run: npm run lint
+        run: pnpm lint
