@@ -7,6 +7,7 @@ const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
+
   return {
     queryClient,
     Wrapper: ({ children }: { children: React.ReactNode }) => (
@@ -17,6 +18,7 @@ const createWrapper = () => {
 
 const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
   if (shouldThrow) throw new Error("테스트 에러");
+
   return <div>정상 렌더링</div>;
 };
 
@@ -27,6 +29,7 @@ describe("ErrorBoundary", () => {
 
   it("정상 children을 렌더링한다", () => {
     const { Wrapper } = createWrapper();
+
     render(
       <Wrapper>
         <ErrorBoundary>
@@ -40,6 +43,7 @@ describe("ErrorBoundary", () => {
 
   it("에러 발생 시 기본 fallback UI를 표시한다", () => {
     const { Wrapper } = createWrapper();
+
     render(
       <Wrapper>
         <ErrorBoundary>
@@ -54,6 +58,7 @@ describe("ErrorBoundary", () => {
 
   it("custom fallback prop 전달 시 해당 UI를 표시한다", () => {
     const { Wrapper } = createWrapper();
+
     render(
       <Wrapper>
         <ErrorBoundary fallback={<div>커스텀 에러 UI</div>}>

@@ -7,13 +7,13 @@
  * @category Guard
  */
 export function isEmpty(value: string): value is "";
-export function isEmpty<T>(value: ReadonlyArray<T>): value is [];
+export function isEmpty<T>(value: readonly T[]): value is [];
 export function isEmpty(value: Map<unknown, unknown> | Set<unknown>): boolean;
 export function isEmpty(value: Readonly<Record<string, unknown>>): boolean;
 export function isEmpty(
   value:
     | string
-    | ReadonlyArray<unknown>
+    | readonly unknown[]
     | Map<unknown, unknown>
     | Set<unknown>
     | Readonly<Record<string, unknown>>,
@@ -24,5 +24,6 @@ export function isEmpty(
   if (value instanceof Map || value instanceof Set) {
     return value.size === 0;
   }
+
   return Object.keys(value).length === 0;
 }

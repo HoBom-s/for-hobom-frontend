@@ -15,26 +15,26 @@ import type { Evaluator } from "../../core/types/evaluator.type";
  * @category Array
  */
 export function find<T, S extends T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => v is S,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => v is S,
 ): S | undefined;
 export function find<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): T | undefined;
 export function find<T, S extends T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => v is S,
-): (data: ReadonlyArray<T>) => S | undefined;
+  predicate: (v: T, index: number, arr: readonly T[]) => v is S,
+): (data: readonly T[]) => S | undefined;
 export function find<T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): (data: ReadonlyArray<T>) => T | undefined;
-export function find(...args: ReadonlyArray<unknown>): unknown {
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
+): (data: readonly T[]) => T | undefined;
+export function find(...args: readonly unknown[]): unknown {
   return curry(findImpl, args, lazyImpl);
 }
 
 function findImpl<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): T | undefined {
   return data.find(predicate);
 }
@@ -42,7 +42,7 @@ function findImpl<T>(
 // single: true tells pipe to unwrap the accumulator to a single value, not an array.
 const lazyImpl = Object.assign(
   function lazyFind<T>(
-    predicate: (item: T, index: number, arr: ReadonlyArray<T>) => boolean,
+    predicate: (item: T, index: number, arr: readonly T[]) => boolean,
   ): Evaluator<T, T> {
     return (item, index, arr) =>
       predicate(item, index, arr)

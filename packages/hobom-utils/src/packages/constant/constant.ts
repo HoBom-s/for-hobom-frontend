@@ -8,6 +8,6 @@
  */
 export function constant<T>(
   v: T,
-): <Args extends ReadonlyArray<unknown>>(...args: Args) => T {
+): <Args extends readonly unknown[]>(...args: Args) => T {
   return () => v;
 }

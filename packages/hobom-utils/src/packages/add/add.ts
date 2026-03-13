@@ -12,7 +12,7 @@ export function add(target: number, added: number): number;
 export function add(target: bigint, added: bigint): bigint;
 export function add(target: number): (added: number) => number;
 export function add(target: bigint): (added: bigint) => bigint;
-export function add(...args: ReadonlyArray<unknown>): unknown {
+export function add(...args: readonly unknown[]): unknown {
   return curry(addImpl, args);
 }
 

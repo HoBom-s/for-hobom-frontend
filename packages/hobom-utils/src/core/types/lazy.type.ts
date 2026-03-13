@@ -1,17 +1,19 @@
 export type LazyResult<T> = LazyEmpty | LazyNext<T> | LazyMany<T>;
+
 type LazyFn = (
   value: unknown,
   index: number,
-  items: ReadonlyArray<unknown>,
+  items: readonly unknown[],
 ) => LazyResult<unknown>;
-type LazyMeta = {
-  readonly single?: boolean;
-};
 
-export type LazyDefinition = {
+interface LazyMeta {
+  readonly single?: boolean;
+}
+
+export interface LazyDefinition {
   readonly lazy: LazyMeta & ((...args: any) => LazyFn);
-  readonly lazyArgs: ReadonlyArray<unknown>;
-};
+  readonly lazyArgs: readonly unknown[];
+}
 
 interface LazyEmpty {
   done: boolean;
@@ -31,5 +33,5 @@ interface LazyMany<T> {
   done: boolean;
   hasNext: true;
   hasMany: true;
-  next: ReadonlyArray<T>;
+  next: readonly T[];
 }

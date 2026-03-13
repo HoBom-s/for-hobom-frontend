@@ -8,6 +8,7 @@ describe("sortBy()", () => {
 
   test("data-first — sort by string key", () => {
     const users = [{ name: "Charlie" }, { name: "Alice" }, { name: "Bob" }];
+
     expect(sortBy(users, (u) => u.name)).toStrictEqual([
       { name: "Alice" },
       { name: "Bob" },
@@ -21,6 +22,7 @@ describe("sortBy()", () => {
 
   test("does not mutate original", () => {
     const arr = [3, 1, 2];
+
     sortBy(arr, (x) => x);
     expect(arr).toStrictEqual([3, 1, 2]);
   });

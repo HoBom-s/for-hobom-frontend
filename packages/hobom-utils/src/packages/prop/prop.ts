@@ -17,7 +17,7 @@ export function prop<T, K extends keyof T>(key: K): (data: T) => T[K];
 export function prop<K extends PropertyKey>(
   key: K,
 ): <T extends Partial<Record<K, unknown>>>(data: T) => T[K];
-export function prop(...args: ReadonlyArray<unknown>): unknown {
+export function prop(...args: readonly unknown[]): unknown {
   return curry(propImpl, args);
 }
 

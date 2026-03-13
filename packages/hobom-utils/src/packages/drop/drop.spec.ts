@@ -18,6 +18,7 @@ describe("drop()", () => {
       drop(2),
       map((x) => x * 10),
     );
+
     expect(result).toStrictEqual([30, 40, 50]);
   });
 });

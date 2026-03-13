@@ -1,10 +1,10 @@
-import { LazyDefinition, LazyResult } from "../../core/types/lazy.type";
+import type { LazyDefinition, LazyResult } from "../../core/types/lazy.type";
 import type { Evaluator } from "../../core/types/evaluator.type";
 
 type PreparedLazyOperation = Evaluator & {
   readonly isSingle: boolean;
   index: number;
-  items: Array<unknown>;
+  items: unknown[];
 };
 
 type LazyOp = LazyDefinition & ((input: unknown) => unknown);
@@ -174,7 +174,7 @@ export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
 ): P;
 export function pipe(
   input: unknown,
-  ...operations: ReadonlyArray<LazyOp | ((value: any) => unknown)>
+  ...operations: readonly (LazyOp | ((value: any) => unknown))[]
 ): any {
   let output = input;
 
@@ -183,6 +183,7 @@ export function pipe(
   );
 
   let operationIndex = 0;
+
   while (operationIndex < operations.length) {
     const lazyOperation = lazyOperations[operationIndex];
 
@@ -195,7 +196,8 @@ export function pipe(
       continue;
     }
 
-    const lazySequence: Array<PreparedLazyOperation> = [];
+    const lazySequence: PreparedLazyOperation[] = [];
+
     for (let index = operationIndex; index < operations.length; index++) {
       const lazyOp = lazyOperations[index];
 
@@ -210,7 +212,7 @@ export function pipe(
       }
     }
 
-    const accumulator: Array<unknown> = [];
+    const accumulator: unknown[] = [];
 
     for (const value of output) {
       const shouldExitEarly = processItem(value, accumulator, lazySequence);
@@ -231,8 +233,8 @@ export function pipe(
 
 function processItem(
   item: unknown,
-  accumulator: Array<unknown>,
-  lazySequence: ReadonlyArray<PreparedLazyOperation>,
+  accumulator: unknown[],
+  lazySequence: readonly PreparedLazyOperation[],
 ): boolean {
   if (lazySequence.length === 0) {
     accumulator.push(item);
@@ -243,14 +245,16 @@ function processItem(
   let currentItem = item;
   let lazyResult: LazyResult<any> = { done: false, hasNext: false };
   let isDone = false;
+
   for (const [operationsIndex, lazyFn] of lazySequence.entries()) {
     const { index, items } = lazyFn;
+
     items.push(currentItem);
     lazyResult = lazyFn(currentItem, index, items);
     lazyFn.index += 1;
     if (lazyResult.hasNext) {
       if (lazyResult.hasMany ?? false) {
-        for (const subItem of lazyResult.next as ReadonlyArray<unknown>) {
+        for (const subItem of lazyResult.next as readonly unknown[]) {
           const subResult = processItem(
             subItem,
             accumulator,
@@ -287,10 +291,11 @@ function processItem(
 function prepareLazyOperation(op: LazyOp): PreparedLazyOperation {
   const { lazy, lazyArgs } = op;
   const fn = lazy(...lazyArgs);
+
   return Object.assign(fn, {
     isSingle: lazy.single ?? false,
     index: 0,
-    items: [] as Array<unknown>,
+    items: [] as unknown[],
   });
 }
 

@@ -9,11 +9,11 @@ import { curry } from "../curry/curry";
  */
 export function clone<T>(data: T): T;
 export function clone(): <T>(data: T) => T;
-export function clone(...args: ReadonlyArray<unknown>): unknown {
+export function clone(...args: readonly unknown[]): unknown {
   return curry(cloneImpl, args);
 }
 
-function cloneImpl<T>(v: T, from: Array<T> = [], to: Array<T> = []): T {
+function cloneImpl<T>(v: T, from: T[] = [], to: T[] = []): T {
   if (typeof v === "function") {
     return v;
   }
@@ -27,6 +27,7 @@ function cloneImpl<T>(v: T, from: Array<T> = [], to: Array<T> = []): T {
   }
 
   const foundIndex = from.indexOf(v);
+
   if (foundIndex !== -1) {
     return to[foundIndex] as T;
   }
@@ -38,12 +39,12 @@ function cloneImpl<T>(v: T, from: Array<T> = [], to: Array<T> = []): T {
   return cloneDeepObject(v, from, to);
 }
 
-function cloneDeepArray<T extends ReadonlyArray<unknown>>(
+function cloneDeepArray<T extends readonly unknown[]>(
   v: T,
-  from: Array<unknown>,
-  to: Array<unknown>,
+  from: unknown[],
+  to: unknown[],
 ): T {
-  const copied: Array<unknown> = [];
+  const copied: unknown[] = [];
 
   to.push(copied);
 
@@ -56,8 +57,8 @@ function cloneDeepArray<T extends ReadonlyArray<unknown>>(
 
 function cloneDeepObject<T extends object>(
   v: T,
-  from: Array<unknown>,
-  to: Array<unknown>,
+  from: unknown[],
+  to: unknown[],
 ): T {
   const copied: Record<PropertyKey, unknown> = {};
 

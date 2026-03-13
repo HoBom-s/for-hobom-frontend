@@ -31,23 +31,25 @@ export function forEach<T extends Iterable>(
 export function forEach<T extends Iterable>(
   cb: (value: T[number], index: number, data: T) => void,
 ): (data: T) => Writable<T>;
-export function forEach(...args: ReadonlyArray<unknown>): unknown {
+export function forEach(...args: readonly unknown[]): unknown {
   return curry(forEachImpl, args, lazyImplementation);
 }
 
 function forEachImpl<T>(
-  data: ReadonlyArray<T>,
-  cb: (value: T, index: number, data: ReadonlyArray<T>) => void,
-): ReadonlyArray<T> {
+  data: readonly T[],
+  cb: (value: T, index: number, data: readonly T[]) => void,
+): readonly T[] {
   data.forEach(cb);
+
   return data;
 }
 
 const lazyImplementation =
   <T>(
-    cb: (value: T, index: number, data: ReadonlyArray<T>) => void,
+    cb: (value: T, index: number, data: readonly T[]) => void,
   ): Evaluator<T> =>
   (value, index, data) => {
     cb(value, index, data);
+
     return { done: false, hasNext: true, next: value };
   };

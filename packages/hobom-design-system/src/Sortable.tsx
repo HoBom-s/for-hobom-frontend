@@ -11,7 +11,6 @@ import {
   type DragOverEvent,
   type DragCancelEvent,
 } from "@dnd-kit/core";
-import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import {
   SortableContext,
   rectSortingStrategy,
@@ -20,11 +19,14 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 
 export function arrayMove<T>(array: T[], from: number, to: number): T[] {
   const next = array.slice();
   const [item] = next.splice(from, 1);
+
   next.splice(to, 0, item);
+
   return next;
 }
 
@@ -34,11 +36,13 @@ class GrabSensor extends PointerSensor {
       eventName: "onPointerDown" as const,
       handler: ({ nativeEvent: event }: { nativeEvent: PointerEvent }) => {
         const target = event.target as HTMLElement;
+
         if (
           target.closest("button, a, input, textarea, select, [data-no-dnd]")
         ) {
           return false;
         }
+
         return true;
       },
     },
@@ -186,6 +190,7 @@ interface HandleProps {
 
 const Handle = ({ children, className, style }: HandleProps) => {
   const context = useContext(SortableItemContext);
+
   if (!context) {
     throw new Error(
       "Sortable.Handle must be used inside Sortable.Item with useHandle",

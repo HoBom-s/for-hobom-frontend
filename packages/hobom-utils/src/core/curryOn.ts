@@ -1,7 +1,7 @@
 export function curryOn<T>(
   isArgs: (data: unknown) => data is T,
   impl: (data: unknown, ...args: T[]) => unknown,
-  ...args: ReadonlyArray<unknown>
+  ...args: readonly unknown[]
 ): unknown {
   if (args.length === 0) {
     throw new Error("No arguments passed to curryOn");
@@ -12,6 +12,7 @@ export function curryOn<T>(
   // data-first
   if (!isArgs(firstArg)) {
     const [data, ...maybeCases] = args;
+
     if (!maybeCases.every(isArgs)) {
       throw new Error("Invalid case arguments in data-first mode");
     }

@@ -1,5 +1,5 @@
-import { forEach } from "./forEach";
 import { expect } from "vitest";
+import { forEach } from "./forEach";
 
 describe("forEach()", () => {
   test("Invoke callback function - data first", () => {

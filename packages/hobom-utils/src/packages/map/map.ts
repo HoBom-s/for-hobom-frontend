@@ -22,19 +22,19 @@ export function map<T extends Iterable, U>(
 export function map<T extends Iterable, U>(
   cb: (v: T[number], index: number, arr: T) => U,
 ): (data: T) => Mappable<T, U>;
-export function map(...args: ReadonlyArray<unknown>): unknown {
+export function map(...args: readonly unknown[]): unknown {
   return curry(mapImpl, args, lazyImpl);
 }
 
 function mapImpl<T, U>(
-  data: ReadonlyArray<T>,
-  cb: (item: T, index: number, arr: ReadonlyArray<T>) => U,
-): Array<U> {
+  data: readonly T[],
+  cb: (item: T, index: number, arr: readonly T[]) => U,
+): U[] {
   return data.map(cb);
 }
 
 function lazyImpl<T, U>(
-  cb: (item: T, index: number, arr: ReadonlyArray<T>) => U,
+  cb: (item: T, index: number, arr: readonly T[]) => U,
 ): Evaluator<T, U> {
   return (item, index, arr) => ({
     done: false,

@@ -15,27 +15,27 @@ import type { Evaluator } from "../../core/types/evaluator.type";
  * @category Array
  */
 export function flatMap<T, U>(
-  data: ReadonlyArray<T>,
-  cb: (item: T, index: number, arr: ReadonlyArray<T>) => ReadonlyArray<U>,
-): Array<U>;
+  data: readonly T[],
+  cb: (item: T, index: number, arr: readonly T[]) => readonly U[],
+): U[];
 export function flatMap<T, U>(
-  cb: (item: T, index: number, arr: ReadonlyArray<T>) => ReadonlyArray<U>,
-): (data: ReadonlyArray<T>) => Array<U>;
-export function flatMap(...args: ReadonlyArray<unknown>): unknown {
+  cb: (item: T, index: number, arr: readonly T[]) => readonly U[],
+): (data: readonly T[]) => U[];
+export function flatMap(...args: readonly unknown[]): unknown {
   return curry(flatMapImpl, args, lazyImpl);
 }
 
 function flatMapImpl<T, U>(
-  data: ReadonlyArray<T>,
-  cb: (item: T, index: number, arr: ReadonlyArray<T>) => ReadonlyArray<U>,
-): Array<U> {
-  return (data as Array<T>).flatMap(
-    cb as unknown as (item: T, index: number, arr: Array<T>) => Array<U>,
+  data: readonly T[],
+  cb: (item: T, index: number, arr: readonly T[]) => readonly U[],
+): U[] {
+  return (data as T[]).flatMap(
+    cb as unknown as (item: T, index: number, arr: T[]) => U[],
   );
 }
 
 function lazyImpl<T, U>(
-  cb: (item: T, index: number, arr: ReadonlyArray<T>) => ReadonlyArray<U>,
+  cb: (item: T, index: number, arr: readonly T[]) => readonly U[],
 ): Evaluator<T, U> {
   return (item, index, arr) => ({
     done: false,

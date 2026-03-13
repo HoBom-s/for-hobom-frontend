@@ -166,5 +166,6 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
  */
 export const ErrorBoundary = (props: Props) => {
   const queryClient = useQueryClient();
+
   return <ErrorBoundaryInner {...props} queryClient={queryClient} />;
 };

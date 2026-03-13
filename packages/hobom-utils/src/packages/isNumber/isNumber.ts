@@ -1,4 +1,4 @@
-import { NarrowedType } from "../../core/types/narrowType.type";
+import type { NarrowedType } from "../../core/types/narrowType.type";
 
 /**
  * Check if the passed value is number then returns `true`.

@@ -6,6 +6,6 @@
  *
  * @category Object
  */
-export function keys<T extends object>(data: T): Array<keyof T & string> {
-  return Object.keys(data) as Array<keyof T & string>;
+export function keys<T extends object>(data: T): (keyof T & string)[] {
+  return Object.keys(data) as (keyof T & string)[];
 }

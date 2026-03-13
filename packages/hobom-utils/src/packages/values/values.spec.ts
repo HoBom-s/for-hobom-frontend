@@ -1,5 +1,5 @@
-import { values } from "./values";
 import { expect } from "vitest";
+import { values } from "./values";
 
 describe("values()", () => {
   test("Extract values of passed object", () => {

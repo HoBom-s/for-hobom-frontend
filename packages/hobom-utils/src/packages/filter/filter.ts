@@ -16,31 +16,31 @@ import type { Evaluator } from "../../core/types/evaluator.type";
  */
 export function filter<T>(
   data: T[],
-  predicate: (v: T, index: number, data: ReadonlyArray<T>) => boolean,
-): Array<T>;
+  predicate: (v: T, index: number, data: readonly T[]) => boolean,
+): T[];
 export function filter<T, S extends T>(
-  data: ReadonlyArray<T>,
-  predicate: (value: T, index: number, data: ReadonlyArray<T>) => value is S,
-): Array<S>;
+  data: readonly T[],
+  predicate: (value: T, index: number, data: readonly T[]) => value is S,
+): S[];
 export function filter<T, S extends T>(
-  predicate: (v: T, index: number, data: ReadonlyArray<T>) => v is S,
-): (data: ReadonlyArray<T>) => Array<S>;
+  predicate: (v: T, index: number, data: readonly T[]) => v is S,
+): (data: readonly T[]) => S[];
 export function filter<T>(
-  predicate: (v: T, index: number, data: ReadonlyArray<T>) => boolean,
-): (data: ReadonlyArray<T>) => Array<T>;
-export function filter(...args: ReadonlyArray<unknown>): unknown {
+  predicate: (v: T, index: number, data: readonly T[]) => boolean,
+): (data: readonly T[]) => T[];
+export function filter(...args: readonly unknown[]): unknown {
   return curry(filterImpl, args, lazyImpl);
 }
 
 function filterImpl<T>(
   data: T[],
-  predicate: (item: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): Array<T> {
+  predicate: (item: T, index: number, arr: readonly T[]) => boolean,
+): T[] {
   return data.filter(predicate);
 }
 
 function lazyImpl<T>(
-  predicate: (item: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  predicate: (item: T, index: number, arr: readonly T[]) => boolean,
 ): Evaluator<T> {
   return (item, index, arr) =>
     predicate(item, index, arr)

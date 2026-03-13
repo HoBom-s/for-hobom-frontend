@@ -16,18 +16,20 @@ import type { Evaluator } from "../../core/types/evaluator.type";
  */
 export function tap<T>(data: T, fn: (item: T) => void): T;
 export function tap<T>(fn: (item: T) => void): (data: T) => T;
-export function tap(...args: ReadonlyArray<unknown>): unknown {
+export function tap(...args: readonly unknown[]): unknown {
   return curry(tapImpl, args, lazyImpl);
 }
 
 function tapImpl<T>(data: T, fn: (item: T) => void): T {
   fn(data);
+
   return data;
 }
 
 function lazyImpl<T>(fn: (item: T) => void): Evaluator<T, T> {
   return (item) => {
     fn(item);
+
     return { done: false, hasNext: true, next: item };
   };
 }

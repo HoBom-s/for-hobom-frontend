@@ -12,7 +12,7 @@ import type { Evaluator } from "../../core/types/evaluator.type";
  */
 export function curry(
   fn: (...args: any) => unknown,
-  args: ReadonlyArray<unknown>,
+  args: readonly unknown[],
   lazy?: (...args: any) => Evaluator,
 ) {
   const diff = fn.length - args.length;

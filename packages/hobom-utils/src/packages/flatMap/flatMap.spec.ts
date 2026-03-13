@@ -22,6 +22,7 @@ describe("flatMap()", () => {
       flatMap((x) => [x, x * 10]),
       filter((x) => x > 5),
     );
+
     expect(result).toStrictEqual([10, 20, 30]);
   });
 });

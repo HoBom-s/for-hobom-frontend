@@ -9,6 +9,6 @@
  */
 export function entries<T extends object>(
   data: T,
-): Array<[keyof T & string, T[keyof T]]> {
-  return Object.entries(data) as Array<[keyof T & string, T[keyof T]]>;
+): [keyof T & string, T[keyof T]][] {
+  return Object.entries(data) as [keyof T & string, T[keyof T]][];
 }

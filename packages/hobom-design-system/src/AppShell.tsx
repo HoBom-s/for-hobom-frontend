@@ -82,19 +82,23 @@ const NavList = ({
 }) => {
   const [openGroups, setOpenGroups] = useState<Set<string>>(() => {
     const initial = new Set<string>();
+
     for (const item of items) {
       if (item.children?.some((child) => child.value === activeValue)) {
         initial.add(item.value);
       }
     }
+
     return initial;
   });
 
   const toggleGroup = (value: string) => {
     setOpenGroups((prev) => {
       const next = new Set(prev);
+
       if (next.has(value)) next.delete(value);
       else next.add(value);
+
       return next;
     });
   };
@@ -169,6 +173,7 @@ const NavList = ({
               {wrappedButton}
               {item.children!.map((child) => {
                 const childActive = child.value === activeValue;
+
                 return (
                   <Tooltip
                     key={child.value}
@@ -203,6 +208,7 @@ const NavList = ({
               <List disablePadding>
                 {item.children!.map((child) => {
                   const childActive = child.value === activeValue;
+
                   return (
                     <ListItemButton
                       key={child.value}
@@ -256,19 +262,23 @@ export const AppShell = ({
   // 현재 활성 아이템이 속한 섹션을 자동 펼침
   const [openSections, setOpenSections] = useState<Set<string>>(() => {
     const initial = new Set<string>();
+
     for (const entry of navItems) {
       if (isSection(entry)) {
         initial.add(entry.section);
       }
     }
+
     return initial;
   });
 
   const toggleSection = (section: string) => {
     setOpenSections((prev) => {
       const next = new Set(prev);
+
       if (next.has(section)) next.delete(section);
       else next.add(section);
+
       return next;
     });
   };
@@ -281,6 +291,7 @@ export const AppShell = ({
   ];
   const firstItem = (() => {
     const first = navItems[0];
+
     return first && isSection(first) ? first.items[0] : first;
   })();
   const activeItem = Bom.pipe(
@@ -289,6 +300,7 @@ export const AppShell = ({
       const sorted = [...allItems].sort(
         (a, b) => b.path.length - a.path.length,
       );
+
       return sorted.find((item) => currentPath.startsWith(item.path));
     },
     Bom.when(Bom.isNullish, () => firstItem),
@@ -402,6 +414,7 @@ export const AppShell = ({
           {navItems.map((entry, index) => {
             if (isSection(entry)) {
               const isSectionOpen = openSections.has(entry.section);
+
               return (
                 <Box key={entry.section}>
                   {drawerOpen ? (
@@ -472,6 +485,7 @@ export const AppShell = ({
                 </Box>
               );
             }
+
             return (
               <NavList
                 key={entry.value}

@@ -13,22 +13,24 @@ import { curry } from "../curry/curry";
  */
 export function pick<T extends object, K extends keyof T>(
   data: T,
-  keys: ReadonlyArray<K>,
+  keys: readonly K[],
 ): Pick<T, K>;
 export function pick<T extends object, K extends keyof T>(
-  keys: ReadonlyArray<K>,
+  keys: readonly K[],
 ): (data: T) => Pick<T, K>;
-export function pick(...args: ReadonlyArray<unknown>): unknown {
+export function pick(...args: readonly unknown[]): unknown {
   return curry(pickImpl, args);
 }
 
 function pickImpl<T extends object, K extends keyof T>(
   data: T,
-  keys: ReadonlyArray<K>,
+  keys: readonly K[],
 ): Pick<T, K> {
   const result = {} as Pick<T, K>;
+
   for (const key of keys) {
     result[key] = data[key];
   }
+
   return result;
 }

@@ -12,6 +12,7 @@ describe("not()", () => {
 
   test("used with filter in pipe", () => {
     const result = pipe([1, null, 2, undefined, 3], filter(not(isNullish)));
+
     expect(result).toStrictEqual([1, 2, 3]);
   });
 });
@@ -23,6 +24,7 @@ describe("isNot()", () => {
 
   test("used with filter", () => {
     const result = pipe([1, null, 2, undefined, 3], filter(isNot(isNullish)));
+
     expect(result).toStrictEqual([1, 2, 3]);
   });
 });

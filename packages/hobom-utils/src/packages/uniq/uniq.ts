@@ -6,6 +6,6 @@
  *
  * @category Array
  */
-export function uniq<T>(data: ReadonlyArray<T>): Array<T> {
+export function uniq<T>(data: readonly T[]): T[] {
   return [...new Set(data)];
 }

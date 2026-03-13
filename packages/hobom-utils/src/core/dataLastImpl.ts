@@ -2,7 +2,7 @@ import type { Evaluator } from "./types/evaluator.type";
 
 export function dataLastImpl(
   fn: (...args: unknown[]) => unknown,
-  args: ReadonlyArray<unknown>,
+  args: readonly unknown[],
   lazy?: (...args: unknown[]) => Evaluator,
 ): unknown {
   const dataLast = (data: unknown): unknown => fn(data, ...args);

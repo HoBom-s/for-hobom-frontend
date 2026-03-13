@@ -13,7 +13,7 @@ export interface FunnelProps<Steps extends NonEmptyArray<string>> {
   steps: Steps;
   step: Steps[number];
   children:
-    | Array<ReactElement<StepProps<Steps>>>
+    | ReactElement<StepProps<Steps>>[]
     | ReactElement<StepProps<Steps>>;
 }
 
@@ -26,7 +26,7 @@ export const Funnel = <Steps extends NonEmptyArray<string>>({
     .filter(isValidElement)
     .filter((idx) =>
       steps.includes((idx.props as Partial<StepProps<Steps>>).name ?? ""),
-    ) as Array<ReactElement<StepProps<Steps>>>;
+    ) as ReactElement<StepProps<Steps>>[];
 
   const targetStep = validChildren.find((child) => child.props.name === step);
 

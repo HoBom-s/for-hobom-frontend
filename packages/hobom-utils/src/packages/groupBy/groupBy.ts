@@ -13,27 +13,30 @@ import { curry } from "../curry/curry";
  * @category Array
  */
 export function groupBy<T>(
-  data: ReadonlyArray<T>,
-  fn: (item: T, index: number, arr: ReadonlyArray<T>) => string,
-): Record<string, Array<T>>;
+  data: readonly T[],
+  fn: (item: T, index: number, arr: readonly T[]) => string,
+): Record<string, T[]>;
 export function groupBy<T>(
-  fn: (item: T, index: number, arr: ReadonlyArray<T>) => string,
-): (data: ReadonlyArray<T>) => Record<string, Array<T>>;
-export function groupBy(...args: ReadonlyArray<unknown>): unknown {
+  fn: (item: T, index: number, arr: readonly T[]) => string,
+): (data: readonly T[]) => Record<string, T[]>;
+export function groupBy(...args: readonly unknown[]): unknown {
   return curry(groupByImpl, args);
 }
 
 function groupByImpl<T>(
-  data: ReadonlyArray<T>,
-  fn: (item: T, index: number, arr: ReadonlyArray<T>) => string,
-): Record<string, Array<T>> {
-  const result: Record<string, Array<T>> = {};
+  data: readonly T[],
+  fn: (item: T, index: number, arr: readonly T[]) => string,
+): Record<string, T[]> {
+  const result: Record<string, T[]> = {};
+
   for (const [index, item] of data.entries()) {
     const key = fn(item, index, data);
+
     if (result[key] === undefined) {
       result[key] = [];
     }
     result[key]!.push(item);
   }
+
   return result;
 }

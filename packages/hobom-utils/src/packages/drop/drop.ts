@@ -14,23 +14,26 @@ import type { Evaluator } from "../../core/types/evaluator.type";
  *
  * @category Array
  */
-export function drop<T>(data: ReadonlyArray<T>, count: number): Array<T>;
-export function drop<T>(count: number): (data: ReadonlyArray<T>) => Array<T>;
-export function drop(...args: ReadonlyArray<unknown>): unknown {
+export function drop<T>(data: readonly T[], count: number): T[];
+export function drop<T>(count: number): (data: readonly T[]) => T[];
+export function drop(...args: readonly unknown[]): unknown {
   return curry(dropImpl, args, lazyImpl);
 }
 
-function dropImpl<T>(data: ReadonlyArray<T>, count: number): Array<T> {
+function dropImpl<T>(data: readonly T[], count: number): T[] {
   return data.slice(count);
 }
 
 function lazyImpl<T>(count: number): Evaluator<T, T> {
   let skipped = 0;
+
   return (item) => {
     if (skipped < count) {
       skipped += 1;
+
       return { done: false, hasNext: false };
     }
+
     return { done: false, hasNext: true, next: item };
   };
 }

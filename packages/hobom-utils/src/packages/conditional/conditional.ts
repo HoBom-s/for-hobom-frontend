@@ -1,13 +1,15 @@
 import { curryOn } from "../../core/curryOn";
-import { InferGuardType } from "../../core/types/inferGuardType";
+import type { InferGuardType } from "../../core/types/inferGuardType";
 
 type W<X> = (x: X) => boolean;
+
 type Case<In, Out, When extends W<In> = W<In>> = readonly [
   when: When,
   then: (x: InferGuardType<When, In> & In) => Out,
 ];
 
 const c = Object.assign(conditional, { defaultCase });
+
 export { c as conditional };
 
 /**
@@ -111,13 +113,13 @@ function conditional<
   | Return7
   | Return8
   | Return9;
-function conditional(...args: ReadonlyArray<unknown>): unknown {
+function conditional(...args: readonly unknown[]): unknown {
   return curryOn(isCase, conditionalImpl, ...args);
 }
 
 function conditionalImpl<In, Out>(
   data: In,
-  ...cases: ReadonlyArray<Case<In, Out>>
+  ...cases: readonly Case<In, Out>[]
 ): Out {
   for (const [when, then] of cases) {
     if (when(data)) {

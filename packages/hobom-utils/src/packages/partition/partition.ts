@@ -13,29 +13,30 @@ import { curry } from "../curry/curry";
  * @category Array
  */
 export function partition<T, S extends T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => v is S,
-): [Array<S>, Array<Exclude<T, S>>];
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => v is S,
+): [S[], Exclude<T, S>[]];
 export function partition<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): [Array<T>, Array<T>];
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
+): [T[], T[]];
 export function partition<T, S extends T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => v is S,
-): (data: ReadonlyArray<T>) => [Array<S>, Array<Exclude<T, S>>];
+  predicate: (v: T, index: number, arr: readonly T[]) => v is S,
+): (data: readonly T[]) => [S[], Exclude<T, S>[]];
 export function partition<T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): (data: ReadonlyArray<T>) => [Array<T>, Array<T>];
-export function partition(...args: ReadonlyArray<unknown>): unknown {
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
+): (data: readonly T[]) => [T[], T[]];
+export function partition(...args: readonly unknown[]): unknown {
   return curry(partitionImpl, args);
 }
 
 function partitionImpl<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): [Array<T>, Array<T>] {
-  const truthy: Array<T> = [];
-  const falsy: Array<T> = [];
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
+): [T[], T[]] {
+  const truthy: T[] = [];
+  const falsy: T[] = [];
+
   for (const [index, item] of data.entries()) {
     if (predicate(item, index, data)) {
       truthy.push(item);
@@ -43,5 +44,6 @@ function partitionImpl<T>(
       falsy.push(item);
     }
   }
+
   return [truthy, falsy];
 }

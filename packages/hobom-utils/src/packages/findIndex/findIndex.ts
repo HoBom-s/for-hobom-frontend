@@ -13,19 +13,19 @@ import { curry } from "../curry/curry";
  * @category Array
  */
 export function findIndex<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): number;
 export function findIndex<T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): (data: ReadonlyArray<T>) => number;
-export function findIndex(...args: ReadonlyArray<unknown>): unknown {
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
+): (data: readonly T[]) => number;
+export function findIndex(...args: readonly unknown[]): unknown {
   return curry(findIndexImpl, args);
 }
 
 function findIndexImpl<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): number {
   return data.findIndex(predicate);
 }

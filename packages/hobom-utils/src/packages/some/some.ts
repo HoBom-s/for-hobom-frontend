@@ -13,19 +13,19 @@ import { curry } from "../curry/curry";
  * @category Array
  */
 export function some<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): boolean;
 export function some<T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): (data: ReadonlyArray<T>) => boolean;
-export function some(...args: ReadonlyArray<unknown>): unknown {
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
+): (data: readonly T[]) => boolean;
+export function some(...args: readonly unknown[]): unknown {
   return curry(someImpl, args);
 }
 
 function someImpl<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): boolean {
   return data.some(predicate);
 }

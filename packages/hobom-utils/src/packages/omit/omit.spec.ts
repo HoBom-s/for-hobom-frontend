@@ -13,6 +13,7 @@ describe("omit()", () => {
       b: 2,
       c: 3,
     });
+
     expect(result).toStrictEqual({ b: 2, c: 3 });
   });
 });

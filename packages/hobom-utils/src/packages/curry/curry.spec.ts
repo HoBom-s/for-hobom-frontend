@@ -5,7 +5,7 @@ describe("curry()", () => {
     return a - b;
   }
 
-  function fn(...args: ReadonlyArray<unknown>): unknown {
+  function fn(...args: readonly unknown[]): unknown {
     return curry(sub, args);
   }
 
@@ -14,7 +14,7 @@ describe("curry()", () => {
   });
 
   test("1 arguments", () => {
-    const curried = fn(5) as (...args: ReadonlyArray<unknown>) => unknown;
+    const curried = fn(5) as (...args: readonly unknown[]) => unknown;
 
     expect(curried(10)).toBe(5);
   });

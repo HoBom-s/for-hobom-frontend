@@ -6,7 +6,7 @@ describe("isDate()", () => {
     expect(isDate(1)).toBe(false);
     expect(isDate("1")).toBe(false);
     expect(isDate({})).toBe(false);
-    expect(isDate(function () {})).toBe(false);
+    expect(isDate(() => {})).toBe(false);
     expect(isDate([1, 2, 3])).toBe(false);
     expect(isDate({ a: 1, b: "2" })).toBe(false);
     expect(isDate(new Date())).toBe(true);

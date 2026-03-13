@@ -1,4 +1,4 @@
-export type Iterable<T = unknown> = ReadonlyArray<T> | readonly [];
+export type Iterable<T = unknown> = readonly T[] | readonly [];
 
 export type Mappable<T extends Iterable, K> = {
   // Remove readonly property.

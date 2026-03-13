@@ -19,6 +19,7 @@ describe("pick()", () => {
       b: 2,
       c: 3,
     });
+
     expect(result).toStrictEqual({ a: 1, b: 2 });
   });
 });

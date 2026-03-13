@@ -22,6 +22,7 @@ describe("find()", () => {
       map((x) => x * 2),
       find((x) => x > 4),
     );
+
     expect(result).toBe(6);
   });
 });

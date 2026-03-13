@@ -15,7 +15,7 @@ interface Params {
  */
 export function clamp(v: number, params: Params): number;
 export function clamp(params: Params): (v: number) => number;
-export function clamp(...args: ReadonlyArray<unknown>): unknown {
+export function clamp(...args: readonly unknown[]): unknown {
   return curry(clampImpl, args);
 }
 

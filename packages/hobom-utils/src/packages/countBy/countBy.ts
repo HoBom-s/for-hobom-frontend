@@ -1,5 +1,5 @@
-import type { ExactRecordType } from "../../core/types/exactRecord.type";
 import { curry } from "../curry/curry";
+import type { ExactRecordType } from "../../core/types/exactRecord.type";
 
 /**
  * Categorize and count elements in array using callback function.
@@ -10,22 +10,22 @@ import { curry } from "../curry/curry";
  * @category Array
  */
 export function countBy<T, K extends PropertyKey>(
-  data: ReadonlyArray<T>,
-  fn: (value: T, index: number, data: ReadonlyArray<T>) => K | undefined,
+  data: readonly T[],
+  fn: (value: T, index: number, data: readonly T[]) => K | undefined,
 ): ExactRecordType<K, number>;
 export function countBy<T, K extends PropertyKey>(
-  fn: (value: T, index: number, data: ReadonlyArray<T>) => K | undefined,
-): (data: ReadonlyArray<T>) => ExactRecordType<K, number>;
-export function countBy(...args: ReadonlyArray<unknown>): unknown {
+  fn: (value: T, index: number, data: readonly T[]) => K | undefined,
+): (data: readonly T[]) => ExactRecordType<K, number>;
+export function countBy(...args: readonly unknown[]): unknown {
   return curry(countByImpl, args);
 }
 
 function countByImpl<T>(
-  data: ReadonlyArray<T>,
+  data: readonly T[],
   fn: (
     value: T,
     index: number,
-    data: ReadonlyArray<T>,
+    data: readonly T[],
   ) => PropertyKey | undefined,
 ): ExactRecordType<PropertyKey, number> {
   const result = new Map<PropertyKey, number>();

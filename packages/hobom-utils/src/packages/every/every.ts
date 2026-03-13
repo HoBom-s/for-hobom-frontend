@@ -13,26 +13,26 @@ import { curry } from "../curry/curry";
  * @category Array
  */
 export function every<T, S extends T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => v is S,
-): data is ReadonlyArray<S>;
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => v is S,
+): data is readonly S[];
 export function every<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): boolean;
 export function every<T, S extends T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => v is S,
-): (data: ReadonlyArray<T>) => data is ReadonlyArray<S>;
+  predicate: (v: T, index: number, arr: readonly T[]) => v is S,
+): (data: readonly T[]) => data is readonly S[];
 export function every<T>(
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
-): (data: ReadonlyArray<T>) => boolean;
-export function every(...args: ReadonlyArray<unknown>): unknown {
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
+): (data: readonly T[]) => boolean;
+export function every(...args: readonly unknown[]): unknown {
   return curry(everyImpl, args);
 }
 
 function everyImpl<T>(
-  data: ReadonlyArray<T>,
-  predicate: (v: T, index: number, arr: ReadonlyArray<T>) => boolean,
+  data: readonly T[],
+  predicate: (v: T, index: number, arr: readonly T[]) => boolean,
 ): boolean {
   return data.every(predicate);
 }

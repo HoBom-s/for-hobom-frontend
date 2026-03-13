@@ -7,7 +7,7 @@
  * @category Guard
  */
 export function isArray<T>(
-  value: T | ReadonlyArray<unknown>,
-): value is ReadonlyArray<unknown> {
+  value: T | readonly unknown[],
+): value is readonly unknown[] {
   return Array.isArray(value);
 }

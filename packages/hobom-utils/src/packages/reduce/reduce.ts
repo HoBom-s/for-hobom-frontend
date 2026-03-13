@@ -14,12 +14,12 @@ import { curry } from "../curry/curry";
  * @category Array
  */
 export function reduce<T, U>(
-  data: ReadonlyArray<T>,
+  data: readonly T[],
   cb: (
     previousValue: U,
     currentValue: T,
     currentIndex: number,
-    data: ReadonlyArray<T>,
+    data: readonly T[],
   ) => U,
   initialValue: U,
 ): U;
@@ -28,21 +28,21 @@ export function reduce<T, U>(
     previousValue: U,
     currentValue: T,
     currentIndex: number,
-    data: ReadonlyArray<T>,
+    data: readonly T[],
   ) => U,
   initialValue: U,
-): (data: ReadonlyArray<T>) => U;
-export function reduce(...args: ReadonlyArray<unknown>): unknown {
+): (data: readonly T[]) => U;
+export function reduce(...args: readonly unknown[]): unknown {
   return curry(reduceImpl, args);
 }
 
 function reduceImpl<T, U>(
-  data: ReadonlyArray<T>,
+  data: readonly T[],
   cb: (
     previousValue: U,
     currentValue: T,
     currentIndex: number,
-    data: ReadonlyArray<T>,
+    data: readonly T[],
   ) => U,
   initialValue: U,
 ): U {

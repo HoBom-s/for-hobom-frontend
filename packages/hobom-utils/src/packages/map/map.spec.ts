@@ -9,6 +9,7 @@ describe("map()", () => {
     expect(res).toStrictEqual([2, 4, 6]);
 
     const addedResult = map(arr, add(1));
+
     expect(addedResult).toStrictEqual([2, 3, 4]);
   });
 

@@ -21,7 +21,7 @@ import type { InferGuardType } from "../../core/types/inferGuardType";
  */
 export function when<
   T,
-  ExtraArgs extends Array<any>,
+  ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (
     data: InferGuardType<Predicate, T>,
@@ -36,7 +36,7 @@ export function when<
 ) => Exclude<T, InferGuardType<Predicate>> | ReturnType<OnTrue>;
 export function when<
   T,
-  ExtraArgs extends Array<any>,
+  ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (
     data: InferGuardType<Predicate, T>,
@@ -58,7 +58,7 @@ export function when<
 ) => ReturnType<OnFalse> | ReturnType<OnTrue>;
 export function when<
   T,
-  ExtraArgs extends Array<any>,
+  ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (
     data: InferGuardType<Predicate, T>,
@@ -72,7 +72,7 @@ export function when<
 ): Exclude<T, InferGuardType<Predicate>> | ReturnType<OnTrue>;
 export function when<
   T,
-  ExtraArgs extends Array<any>,
+  ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (
     data: InferGuardType<Predicate, T>,
@@ -91,9 +91,9 @@ export function when<
   },
   ...extraArgs: ExtraArgs
 ): ReturnType<OnFalse> | ReturnType<OnTrue>;
-export function when(...args: ReadonlyArray<unknown>): unknown {
+export function when(...args: readonly unknown[]): unknown {
   if (args.length === 2) {
-    return (data: unknown, ...extraArgs: ReadonlyArray<unknown>) =>
+    return (data: unknown, ...extraArgs: readonly unknown[]) =>
       // @ts-expect-error
       whenImpl(data, ...args, ...extraArgs);
   }
@@ -102,7 +102,7 @@ export function when(...args: ReadonlyArray<unknown>): unknown {
   return whenImpl(...args);
 }
 
-function whenImpl<T, ExtraArgs extends Array<any>, WhenTrue, WhenFalse>(
+function whenImpl<T, ExtraArgs extends any[], WhenTrue, WhenFalse>(
   data: T,
   predicate: (data: T, ...extraArgs: ExtraArgs) => boolean,
   onTrueOrBranches:

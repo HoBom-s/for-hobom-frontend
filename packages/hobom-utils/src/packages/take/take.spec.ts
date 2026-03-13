@@ -18,6 +18,7 @@ describe("take()", () => {
       map((x) => x * 2),
       take(3),
     );
+
     expect(result).toStrictEqual([2, 4, 6]);
   });
 });
