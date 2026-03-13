@@ -9,7 +9,9 @@ hobomPipeline(
   dockerfilePath: 'apps/hobom-system',
   preBuild:       { sh '''
     set -eux
-    git clean -fdx -e apps/hobom-system/.env -e .pnpm-store
+    docker run --rm -v "$PWD":/app -w /app node:20 sh -c \
+      'rm -rf node_modules apps/*/node_modules packages/*/node_modules .pnpm-store'
+    git clean -fdx -e apps/hobom-system/.env
     cp /etc/hobom-dev/dev-for-hobom-frontend/.env apps/hobom-system/.env
     docker run --rm \
       -v "$PWD":/app -w /app node:20 sh -c '
