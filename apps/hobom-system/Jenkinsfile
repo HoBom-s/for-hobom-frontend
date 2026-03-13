@@ -6,6 +6,7 @@ hobomPipeline(
   memory:         '256m',
   cpus:           '0.5',
   submodules:     false,
+  dockerfilePath: 'apps/hobom-system',
   preBuild:       { sh '''
     set -eux
     git clean -fdx -e apps/hobom-system/.env -e .pnpm-store
