@@ -9,9 +9,8 @@ hobomPipeline(
   preBuild:       { sh '''
     set -eux
     cp /etc/hobom-dev/dev-for-hobom-frontend/.env apps/hobom-system/.env
-    UID=$(id -u); GID=$(id -g)
-    docker run --rm --user "$UID:$GID" -e HOME=/tmp \
-      -v "$PWD":/app -w /app node:20 sh -lc '
+    docker run --rm \
+      -v "$PWD":/app -w /app node:20 sh -c '
         corepack enable &&
         pnpm install --frozen-lockfile &&
         pnpm build
