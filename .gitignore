@@ -24,5 +24,6 @@ coverage
 *.sln
 *.sw?
 
+# Environment
 .env
 .env.production
