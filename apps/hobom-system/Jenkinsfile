@@ -8,6 +8,7 @@ hobomPipeline(
   submodules:     false,
   preBuild:       { sh '''
     set -eux
+    git clean -fdx -e apps/hobom-system/.env
     cp /etc/hobom-dev/dev-for-hobom-frontend/.env apps/hobom-system/.env
     docker run --rm \
       -v "$PWD":/app -w /app node:20 sh -c '
