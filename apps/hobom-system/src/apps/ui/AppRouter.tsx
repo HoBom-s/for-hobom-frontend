@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useCallback, useEffect } from "react";
 import {
   Routes,
   Route,
@@ -11,6 +11,11 @@ import { RoutesConfig } from "@/shared/config";
 import { AppShell, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { useToast } from "@/shared/model";
+import { todoQueries } from "@/entities/daily-todo";
+import { menuQueries } from "@/entities/menu-recommendation";
+import { noteQueries } from "@/entities/note";
+import { projectQueries } from "@/entities/project";
+import { wikiSpaceQueries } from "@/entities/wiki-space";
 import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "./NavItems";
 import { AppBarActions } from "./AppBarActions";
 
@@ -126,13 +131,34 @@ const prefetchRoute = (path: string) => {
 
 const Shell = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
+  const queryClient = useQueryClient();
+
+  const handlePrefetch = useCallback(
+    (path: string) => {
+      prefetchRoute(path);
+      const queryPrefetchMap: Record<string, () => void> = {
+        [RoutesConfig.MAIN.DAILY_TODO]: () =>
+          queryClient.prefetchQuery(todoQueries.categories()),
+        [RoutesConfig.MENU.RECOMMENDATION]: () =>
+          queryClient.prefetchQuery(menuQueries.recommendationList()),
+        [RoutesConfig.NOTES.LIST]: () =>
+          queryClient.prefetchQuery(noteQueries.list()),
+        [RoutesConfig.PROJECTS.LIST]: () =>
+          queryClient.prefetchQuery(projectQueries.list()),
+        [RoutesConfig.WIKI.SPACES]: () =>
+          queryClient.prefetchQuery(wikiSpaceQueries.list()),
+      };
+      queryPrefetchMap[path]?.();
+    },
+    [queryClient],
+  );
 
   return (
     <AppShell
       navItems={NAV_ITEMS}
       bottomNavItems={BOTTOM_NAV_ITEMS}
       appBarAction={<AppBarActions />}
-      onPrefetch={prefetchRoute}
+      onPrefetch={handlePrefetch}
     >
       <ErrorBoundary resetKey={pathname} inline>
         {children}

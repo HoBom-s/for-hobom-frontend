@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { InfoOutlined } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import { NOTIFICATION_CATEGORY } from "../lib/notification-category.lib";
@@ -16,7 +17,10 @@ interface Props {
   onClick?: (notification: NotificationItemType) => void;
 }
 
-export const NotificationItem = ({ notification, onClick }: Props) => {
+export const NotificationItem = memo(function NotificationItem({
+  notification,
+  onClick,
+}: Props) {
   const meta = NOTIFICATION_CATEGORY[notification.category];
   const Icon = CATEGORY_ICONS[notification.category];
 
@@ -131,4 +135,4 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
       </Hb.Box>
     </Hb.ButtonBase>
   );
-};
+});

@@ -193,6 +193,7 @@ export const ExamQuestionCard = ({ questions }: Props) => {
     setAnswer,
     reveal,
     next,
+    prev,
     reset,
   } = useExamSession(questions);
 
@@ -309,24 +310,32 @@ export const ExamQuestionCard = ({ questions }: Props) => {
           </Hb.Alert>
         )}
 
-        <Hb.Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-          {!revealed ? (
+        <Hb.Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
+          <Hb.Button
+            variant="secondary"
+            disabled={currentIndex === 0}
+            onClick={prev}
+          >
+            이전
+          </Hb.Button>
+          <Hb.Stack direction="row" spacing={1}>
+            {!revealed && (
+              <Hb.Button
+                variant="primary"
+                disabled={!userAnswer}
+                onClick={reveal}
+              >
+                정답 확인
+              </Hb.Button>
+            )}
             <Hb.Button
-              variant="primary"
-              disabled={!userAnswer}
-              onClick={reveal}
-            >
-              정답 확인
-            </Hb.Button>
-          ) : (
-            <Hb.Button
-              variant="primary"
+              variant={revealed ? "primary" : "secondary"}
               endIcon={<NavigateNext />}
               onClick={next}
             >
-              {currentIndex + 1 < total ? "다음 문제" : "결과 보기"}
+              {currentIndex + 1 < total ? "다음" : "결과 보기"}
             </Hb.Button>
-          )}
+          </Hb.Stack>
         </Hb.Box>
       </Hb.Card.Content>
     </Hb.Card.Root>

@@ -82,7 +82,7 @@ export const postGenerateExam = async () => {
   return await httpClient.post<HttpResponseType<ExamSetDetail>>(
     `${BASE}/exams`,
     {},
-    { timeout: 180_000 },
+    { timeout: 210_000 },
   );
 };
 

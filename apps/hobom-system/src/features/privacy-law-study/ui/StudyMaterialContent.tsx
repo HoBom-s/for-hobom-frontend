@@ -49,8 +49,8 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
         <Hb.Stack direction="row" alignItems="center" spacing={1} mt={3}>
           <CheckCircleOutline color="primary" fontSize="small" />
           <Hb.Text variant="subtitle2" color="text.secondary">
-            이 학습 자료에 {material.quizzes.length}개의 퀴즈가 있습니다.
-            아래에서 풀어보세요.
+            이 학습 자료에 {material.quizzes.length}개의 퀴즈가 있어요. 아래에서
+            풀어보세요.
           </Hb.Text>
         </Hb.Stack>
       )}

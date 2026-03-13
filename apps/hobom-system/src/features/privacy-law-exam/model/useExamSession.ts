@@ -1,11 +1,14 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { ExamQuestion } from "@/entities/privacy-law";
+
+interface AnswerState {
+  userAnswer: string;
+  revealed: boolean;
+}
 
 interface ExamState {
   currentIndex: number;
-  userAnswer: string;
-  revealed: boolean;
-  score: number;
+  answers: AnswerState[];
   finished: boolean;
 }
 
@@ -15,40 +18,63 @@ const checkCorrect = (question: ExamQuestion, userAnswer: string): boolean => {
   return normalize(userAnswer) === normalize(question.answer);
 };
 
+const createInitialAnswers = (count: number): AnswerState[] =>
+  Array.from({ length: count }, () => ({ userAnswer: "", revealed: false }));
+
 export const useExamSession = (questions: ExamQuestion[]) => {
   const [state, setState] = useState<ExamState>({
     currentIndex: 0,
-    userAnswer: "",
-    revealed: false,
-    score: 0,
+    answers: createInitialAnswers(questions.length),
     finished: false,
   });
 
   const currentQuestion = questions[state.currentIndex] as
     | ExamQuestion
     | undefined;
+  const currentAnswer = state.answers[state.currentIndex];
+  const userAnswer = currentAnswer?.userAnswer ?? "";
+  const revealed = currentAnswer?.revealed ?? false;
   const isCorrect =
-    state.revealed && currentQuestion
-      ? checkCorrect(currentQuestion, state.userAnswer)
+    revealed && currentQuestion
+      ? checkCorrect(currentQuestion, userAnswer)
       : false;
 
+  const score = useMemo(
+    () =>
+      state.answers.reduce((acc, ans, i) => {
+        if (!ans.revealed) return acc;
+        const q = questions[i];
+
+        return q && checkCorrect(q, ans.userAnswer) ? acc + 1 : acc;
+      }, 0),
+    [state.answers, questions],
+  );
+
   const setAnswer = useCallback((answer: string) => {
-    setState((prev) =>
-      prev.revealed ? prev : { ...prev, userAnswer: answer },
-    );
+    setState((prev) => {
+      const current = prev.answers[prev.currentIndex];
+
+      if (!current || current.revealed) return prev;
+      const answers = [...prev.answers];
+
+      answers[prev.currentIndex] = { ...current, userAnswer: answer };
+
+      return { ...prev, answers };
+    });
   }, []);
 
   const reveal = useCallback(() => {
     setState((prev) => {
-      if (prev.revealed || !prev.userAnswer) return prev;
-      const question = questions[prev.currentIndex];
+      const current = prev.answers[prev.currentIndex];
 
-      if (!question) return prev;
-      const correct = checkCorrect(question, prev.userAnswer);
+      if (!current || current.revealed || !current.userAnswer) return prev;
+      const answers = [...prev.answers];
 
-      return { ...prev, revealed: true, score: prev.score + (correct ? 1 : 0) };
+      answers[prev.currentIndex] = { ...current, revealed: true };
+
+      return { ...prev, answers };
     });
-  }, [questions]);
+  }, []);
 
   const next = useCallback(() => {
     setState((prev) => {
@@ -56,30 +82,31 @@ export const useExamSession = (questions: ExamQuestion[]) => {
 
       if (nextIndex >= questions.length) return { ...prev, finished: true };
 
-      return {
-        ...prev,
-        currentIndex: nextIndex,
-        userAnswer: "",
-        revealed: false,
-      };
+      return { ...prev, currentIndex: nextIndex };
     });
   }, [questions.length]);
+
+  const prev = useCallback(() => {
+    setState((s) => {
+      if (s.currentIndex <= 0) return s;
+
+      return { ...s, currentIndex: s.currentIndex - 1 };
+    });
+  }, []);
 
   const reset = useCallback(() => {
     setState({
       currentIndex: 0,
-      userAnswer: "",
-      revealed: false,
-      score: 0,
+      answers: createInitialAnswers(questions.length),
       finished: false,
     });
-  }, []);
+  }, [questions.length]);
 
   return {
     currentIndex: state.currentIndex,
-    userAnswer: state.userAnswer,
-    revealed: state.revealed,
-    score: state.score,
+    userAnswer,
+    revealed,
+    score,
     finished: state.finished,
     currentQuestion,
     isCorrect,
@@ -87,6 +114,7 @@ export const useExamSession = (questions: ExamQuestion[]) => {
     setAnswer,
     reveal,
     next,
+    prev,
     reset,
   };
 };

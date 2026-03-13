@@ -1,11 +1,14 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { Quiz } from "@/entities/privacy-law";
+
+interface AnswerState {
+  userAnswer: string;
+  revealed: boolean;
+}
 
 interface QuizState {
   currentIndex: number;
-  userAnswer: string;
-  revealed: boolean;
-  score: number;
+  answers: AnswerState[];
   finished: boolean;
 }
 
@@ -15,38 +18,61 @@ const checkCorrect = (quiz: Quiz, userAnswer: string): boolean => {
   return normalize(userAnswer) === normalize(quiz.answer);
 };
 
+const createInitialAnswers = (count: number): AnswerState[] =>
+  Array.from({ length: count }, () => ({ userAnswer: "", revealed: false }));
+
 export const useQuizSession = (quizzes: Quiz[]) => {
   const [state, setState] = useState<QuizState>({
     currentIndex: 0,
-    userAnswer: "",
-    revealed: false,
-    score: 0,
+    answers: createInitialAnswers(quizzes.length),
     finished: false,
   });
 
   const currentQuiz = quizzes[state.currentIndex] as Quiz | undefined;
+  const currentAnswer = state.answers[state.currentIndex];
+  const userAnswer = currentAnswer?.userAnswer ?? "";
+  const revealed = currentAnswer?.revealed ?? false;
   const isCorrect =
-    state.revealed && currentQuiz
-      ? checkCorrect(currentQuiz, state.userAnswer)
+    revealed && currentQuiz
+      ? checkCorrect(currentQuiz, userAnswer)
       : false;
 
+  const score = useMemo(
+    () =>
+      state.answers.reduce((acc, ans, i) => {
+        if (!ans.revealed) return acc;
+        const q = quizzes[i];
+
+        return q && checkCorrect(q, ans.userAnswer) ? acc + 1 : acc;
+      }, 0),
+    [state.answers, quizzes],
+  );
+
   const setAnswer = useCallback((answer: string) => {
-    setState((prev) =>
-      prev.revealed ? prev : { ...prev, userAnswer: answer },
-    );
+    setState((prev) => {
+      const current = prev.answers[prev.currentIndex];
+
+      if (!current || current.revealed) return prev;
+      const answers = [...prev.answers];
+
+      answers[prev.currentIndex] = { ...current, userAnswer: answer };
+
+      return { ...prev, answers };
+    });
   }, []);
 
   const reveal = useCallback(() => {
     setState((prev) => {
-      if (prev.revealed || !prev.userAnswer) return prev;
-      const quiz = quizzes[prev.currentIndex];
+      const current = prev.answers[prev.currentIndex];
 
-      if (!quiz) return prev;
-      const correct = checkCorrect(quiz, prev.userAnswer);
+      if (!current || current.revealed || !current.userAnswer) return prev;
+      const answers = [...prev.answers];
 
-      return { ...prev, revealed: true, score: prev.score + (correct ? 1 : 0) };
+      answers[prev.currentIndex] = { ...current, revealed: true };
+
+      return { ...prev, answers };
     });
-  }, [quizzes]);
+  }, []);
 
   const next = useCallback(() => {
     setState((prev) => {
@@ -54,30 +80,31 @@ export const useQuizSession = (quizzes: Quiz[]) => {
 
       if (nextIndex >= quizzes.length) return { ...prev, finished: true };
 
-      return {
-        ...prev,
-        currentIndex: nextIndex,
-        userAnswer: "",
-        revealed: false,
-      };
+      return { ...prev, currentIndex: nextIndex };
     });
   }, [quizzes.length]);
+
+  const prev = useCallback(() => {
+    setState((s) => {
+      if (s.currentIndex <= 0) return s;
+
+      return { ...s, currentIndex: s.currentIndex - 1 };
+    });
+  }, []);
 
   const reset = useCallback(() => {
     setState({
       currentIndex: 0,
-      userAnswer: "",
-      revealed: false,
-      score: 0,
+      answers: createInitialAnswers(quizzes.length),
       finished: false,
     });
-  }, []);
+  }, [quizzes.length]);
 
   return {
     currentIndex: state.currentIndex,
-    userAnswer: state.userAnswer,
-    revealed: state.revealed,
-    score: state.score,
+    userAnswer,
+    revealed,
+    score,
     finished: state.finished,
     currentQuiz,
     isCorrect,
@@ -85,6 +112,7 @@ export const useQuizSession = (quizzes: Quiz[]) => {
     setAnswer,
     reveal,
     next,
+    prev,
     reset,
   };
 };

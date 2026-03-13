@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { MoreVert } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import { Hb } from "@/shared/ui";
@@ -23,7 +23,9 @@ interface Props {
   item: DailyTodoType;
 }
 
-export const DailyTodoListItem = ({ item }: Props) => {
+export const DailyTodoListItem = memo(function DailyTodoListItem({
+  item,
+}: Props) {
   const { mutate, isPending } = useChangeDailyTodoCompleteStatus(item);
   const { mutate: mutateDelete, isPending: isDeletePending } =
     useDeleteDailyTodo();
@@ -231,4 +233,4 @@ export const DailyTodoListItem = ({ item }: Props) => {
       />
     </>
   );
-};
+});
