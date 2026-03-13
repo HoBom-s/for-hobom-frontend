@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -8,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Hb } from "@/shared/ui";
 
 interface RetryDistributionBarProps {
   data: { retryCount: number; count: number }[];
@@ -20,10 +20,10 @@ export const RetryDistributionBar = ({ data }: RetryDistributionBarProps) => {
   }));
 
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         재시도 분포
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={chartData} barSize={32}>
           <defs>
@@ -61,6 +61,6 @@ export const RetryDistributionBar = ({ data }: RetryDistributionBarProps) => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

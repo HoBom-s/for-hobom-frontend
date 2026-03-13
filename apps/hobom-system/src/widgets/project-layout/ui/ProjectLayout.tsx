@@ -1,4 +1,3 @@
-import { Box, Button, ButtonBase, Divider, Typography } from "@mui/material";
 import {
   ViewKanbanOutlined,
   FormatListBulletedOutlined,
@@ -7,12 +6,13 @@ import {
   SettingsOutlined,
   ChevronRight,
   AddOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { Outlet } from "react-router-dom";
 import { ProjectContext } from "@/shared/model";
 import { CreateIssueDialog } from "@/features/create-issue";
 import { CreateSprintDialog } from "@/features/backlog-board";
 import { IssueDetailDialog } from "@/features/issue-detail";
+import { Hb } from "@/shared/ui";
 import { useProjectLayout, TABS } from "../model/useProjectLayout";
 import { useProjectDialogs } from "../model/useProjectDialogs";
 
@@ -49,10 +49,10 @@ export const ProjectLayout = () => {
 
   return (
     <ProjectContext.Provider value={projectCtx}>
-      <Box sx={{ p: 3 }}>
+      <Hb.Box sx={{ p: 3 }}>
         {/* Breadcrumb */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
-          <Typography
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
+          <Hb.Text
             variant="caption"
             sx={{
               color: "text.disabled",
@@ -62,24 +62,26 @@ export const ProjectLayout = () => {
             onClick={handleNavigateToProjects}
           >
             프로젝트
-          </Typography>
+          </Hb.Text>
           <ChevronRight sx={{ fontSize: 14, color: "text.disabled" }} />
-          <Typography variant="caption" fontWeight={600} color="text.secondary">
+          <Hb.Text variant="caption" fontWeight={600} color="text.secondary">
             {project.name}
-          </Typography>
-        </Box>
+          </Hb.Text>
+        </Hb.Box>
 
-        <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
+        <Hb.Text variant="h5" fontWeight={700} sx={{ mb: 2 }}>
           {project.name}
-        </Typography>
+        </Hb.Text>
 
         {/* Tab Navigation + Action Buttons */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}>
+        <Hb.Box
+          sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}
+        >
           {TABS.map((tab) => {
             const isActive = currentPath === tab.path;
 
             return (
-              <ButtonBase
+              <Hb.ButtonBase
                 key={tab.path}
                 onClick={() => handleNavigateToTab(tab.path)}
                 sx={{
@@ -99,16 +101,16 @@ export const ProjectLayout = () => {
               >
                 {TAB_ICONS[tab.path]}
                 {tab.label}
-              </ButtonBase>
+              </Hb.ButtonBase>
             );
           })}
 
-          <Box sx={{ flex: 1 }} />
+          <Hb.Box sx={{ flex: 1 }} />
 
           {showSprintButton && (
-            <Button
+            <Hb.Button
               size="small"
-              variant="outlined"
+              variant="secondary"
               startIcon={<AddOutlined />}
               onClick={() => sprintDialog.setOpen(true)}
               sx={{
@@ -120,12 +122,12 @@ export const ProjectLayout = () => {
               }}
             >
               스프린트 만들기
-            </Button>
+            </Hb.Button>
           )}
           {showIssueButton && (
-            <Button
+            <Hb.Button
               size="small"
-              variant="contained"
+              variant="primary"
               startIcon={<AddOutlined />}
               onClick={() => issueDialog.setOpen(true)}
               sx={{
@@ -138,11 +140,11 @@ export const ProjectLayout = () => {
               }}
             >
               이슈 만들기
-            </Button>
+            </Hb.Button>
           )}
-        </Box>
+        </Hb.Box>
 
-        <Divider sx={{ mb: 2.5 }} />
+        <Hb.Divider sx={{ mb: 2.5 }} />
 
         <Outlet
           context={{
@@ -169,7 +171,7 @@ export const ProjectLayout = () => {
           issueId={detailIssueId}
           onNavigateToIssue={setDetailIssueId}
         />
-      </Box>
+      </Hb.Box>
     </ProjectContext.Provider>
   );
 };

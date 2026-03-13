@@ -1,13 +1,13 @@
-import { Box, Paper } from "@mui/material";
 import {
   FutureMessageContent,
   FutureMessageHeader,
   FutureMessageStatusTab,
 } from "@/features/send-future-message";
+import { Hb } from "@/shared/ui";
 
 export const FutureMessageWorkspace = () => {
   return (
-    <Box
+    <Hb.Box
       sx={{
         width: "100%",
         height: "100%",
@@ -19,7 +19,7 @@ export const FutureMessageWorkspace = () => {
     >
       <FutureMessageHeader />
 
-      <Paper
+      <Hb.Paper
         elevation={0}
         sx={{
           flex: 1,
@@ -32,7 +32,7 @@ export const FutureMessageWorkspace = () => {
         }}
       >
         <FutureMessageStatusTab />
-        <Box
+        <Hb.Box
           sx={{
             flex: 1,
             overflow: "hidden",
@@ -40,8 +40,8 @@ export const FutureMessageWorkspace = () => {
           }}
         >
           <FutureMessageContent />
-        </Box>
-      </Paper>
-    </Box>
+        </Hb.Box>
+      </Hb.Paper>
+    </Hb.Box>
   );
 };

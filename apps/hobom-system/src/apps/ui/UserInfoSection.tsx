@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Hb } from "@/shared/ui";
 
 interface UserInfoSectionProps {
   initial: string;
@@ -11,7 +11,7 @@ export const UserInfoSection = ({
   nickname,
   email,
 }: UserInfoSectionProps) => (
-  <Box
+  <Hb.Box
     sx={{
       display: "flex",
       alignItems: "center",
@@ -20,7 +20,7 @@ export const UserInfoSection = ({
       py: 2,
     }}
   >
-    <Avatar
+    <Hb.Avatar
       sx={{
         width: 44,
         height: 44,
@@ -30,15 +30,12 @@ export const UserInfoSection = ({
       }}
     >
       {initial}
-    </Avatar>
-    <Box sx={{ minWidth: 0 }}>
-      <Typography
-        variant="body1"
-        sx={{ fontWeight: 700, fontSize: "0.9375rem" }}
-      >
+    </Hb.Avatar>
+    <Hb.Box sx={{ minWidth: 0 }}>
+      <Hb.Text variant="body1" sx={{ fontWeight: 700, fontSize: "0.9375rem" }}>
         {nickname}
-      </Typography>
-      <Typography
+      </Hb.Text>
+      <Hb.Text
         variant="body2"
         sx={{
           color: "text.secondary",
@@ -49,7 +46,7 @@ export const UserInfoSection = ({
         }}
       >
         {email}
-      </Typography>
-    </Box>
-  </Box>
+      </Hb.Text>
+    </Hb.Box>
+  </Hb.Box>
 );

@@ -1,14 +1,13 @@
 import { type ReactNode, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { Box, Button, Checkbox, List, Paper } from "@mui/material";
 import { Bom } from "hobom-utils";
 import {
   MenuRecommendationListItem,
   useAddCandidatesTodayMenu,
   validateTodayMenuInput,
 } from "@/entities/menu-recommendation";
-import { HoBomSkeleton } from "@/shared/ui";
+import { Hb, HoBomSkeleton } from "@/shared/ui";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { handleValidationResult } from "@/shared/lib";
@@ -22,7 +21,7 @@ export const PickMenuContent = ({ onNextCallback }: Props) => {
   return (
     <Suspense
       fallback={
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -34,7 +33,7 @@ export const PickMenuContent = ({ onNextCallback }: Props) => {
               <HoBomSkeleton.List key={i} />
             ))}
           </PickMenuContent.Layout>
-        </Box>
+        </Hb.Box>
       }
     >
       <Inner onNextCallback={onNextCallback} />
@@ -50,7 +49,7 @@ const Inner = ({ onNextCallback }: Props) => {
   const addCandidatesTodayMenu = useAddCandidatesTodayMenu(onNextCallback);
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -58,14 +57,14 @@ const Inner = ({ onNextCallback }: Props) => {
       }}
     >
       <PickMenuContent.Layout>
-        <List dense>
+        <Hb.List.Root dense>
           {itemList.map((item, index) => (
             <MenuRecommendationListItem
               key={item.id}
               item={item}
               showDivider={index < itemList.length - 1}
               rightAddon={
-                <Checkbox
+                <Hb.Checkbox
                   edge="start"
                   disableRipple
                   checked={selectedMenuIds.has(item.id)}
@@ -74,9 +73,9 @@ const Inner = ({ onNextCallback }: Props) => {
               }
             />
           ))}
-        </List>
+        </Hb.List.Root>
       </PickMenuContent.Layout>
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           gap: 1.5,
@@ -87,18 +86,17 @@ const Inner = ({ onNextCallback }: Props) => {
           flexShrink: 0,
         }}
       >
-        <Button
+        <Hb.Button
           fullWidth
-          variant="outlined"
-          color="inherit"
+          variant="secondary"
           sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
           onClick={() => navigate(RoutesConfig.MAIN.DAILY_TODO)}
         >
           나가기
-        </Button>
-        <Button
+        </Hb.Button>
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           disableElevation
           loading={addCandidatesTodayMenu.isPending}
           sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
@@ -123,14 +121,14 @@ const Inner = ({ onNextCallback }: Props) => {
           }}
         >
           다음
-        </Button>
-      </Box>
-    </Box>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Box>
   );
 };
 
 PickMenuContent.Layout = ({ children }: { children: ReactNode }) => (
-  <Paper
+  <Hb.Paper
     elevation={0}
     sx={{
       flexGrow: 1,
@@ -140,5 +138,5 @@ PickMenuContent.Layout = ({ children }: { children: ReactNode }) => (
     }}
   >
     {children}
-  </Paper>
+  </Hb.Paper>
 );

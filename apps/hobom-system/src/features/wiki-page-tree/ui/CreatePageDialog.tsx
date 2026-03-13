@@ -1,13 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+import { Hb } from "@/shared/ui";
 
 interface CreatePageDialogProps {
   open: boolean;
@@ -44,12 +36,12 @@ export const CreatePageDialog = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle>
+    <Hb.Dialog.Root open={open} onClose={onClose} size="xs">
+      <Hb.Dialog.Title>
         {parentTitle ? `"${parentTitle}" 하위 페이지 생성` : "새 페이지"}
-      </DialogTitle>
-      <DialogContent>
-        <TextField
+      </Hb.Dialog.Title>
+      <Hb.Dialog.Content>
+        <Hb.TextField
           autoFocus
           fullWidth
           label="페이지 제목"
@@ -61,20 +53,20 @@ export const CreatePageDialog = ({
           disabled={loading}
           sx={{ mt: 1 }}
         />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} disabled={loading}>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions>
+        <Hb.Button onClick={onClose} disabled={loading}>
           취소
-        </Button>
-        <LoadingButton
+        </Hb.Button>
+        <Hb.Button
           onClick={handleSubmit}
-          variant="contained"
+          variant="primary"
           loading={loading}
           disabled={!title.trim()}
         >
           생성
-        </LoadingButton>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

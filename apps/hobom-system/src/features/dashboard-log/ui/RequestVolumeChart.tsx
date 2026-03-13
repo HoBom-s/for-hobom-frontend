@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   AreaChart,
   Area,
@@ -9,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { LogRequestCount } from "@/entities/log";
+import { Hb } from "@/shared/ui";
 
 interface ChartTooltipProps {
   active?: boolean;
@@ -55,10 +55,10 @@ interface RequestVolumeChartProps {
 
 export const RequestVolumeChart = ({ data }: RequestVolumeChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         분당 요청량
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={280}>
         <AreaChart data={data}>
           <defs>
@@ -112,6 +112,6 @@ export const RequestVolumeChart = ({ data }: RequestVolumeChartProps) => {
           />
         </AreaChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   RadarChart,
   PolarGrid,
@@ -7,6 +6,7 @@ import {
   Radar,
   ResponsiveContainer,
 } from "recharts";
+import { Hb } from "@/shared/ui";
 
 interface ModuleUsageRadarProps {
   data: { module: string; count: number; percentage: number }[];
@@ -27,10 +27,10 @@ export const ModuleUsageRadar = ({ data }: ModuleUsageRadarProps) => {
   }));
 
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         모듈별 활동 비중
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <RadarChart data={chartData}>
           <PolarGrid />
@@ -44,6 +44,6 @@ export const ModuleUsageRadar = ({ data }: ModuleUsageRadarProps) => {
           />
         </RadarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

@@ -1,12 +1,5 @@
 import { Suspense } from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Divider,
-  Typography,
-} from "@mui/material";
-import { AddOutlined, ChevronRight } from "@mui/icons-material";
+import { AddOutlined, ChevronRight } from "hobom-design-system/icons";
 import { Outlet } from "react-router-dom";
 import {
   usePageTree,
@@ -14,6 +7,7 @@ import {
   CreatePageDialog,
 } from "@/features/wiki-page-tree";
 import { WikiSearchField } from "@/features/wiki-search";
+import { Hb } from "@/shared/ui";
 import { useWikiSpaceLayout } from "../model/useWikiSpaceLayout";
 
 const SIDEBAR_WIDTH = 260;
@@ -59,9 +53,9 @@ export const WikiSpaceLayout = () => {
   if (!spaceKey) return null;
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
-        <Typography
+    <Hb.Box sx={{ p: 3 }}>
+      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
+        <Hb.Text
           variant="caption"
           sx={{
             color: "text.disabled",
@@ -71,14 +65,14 @@ export const WikiSpaceLayout = () => {
           onClick={handleNavigateToWiki}
         >
           위키
-        </Typography>
+        </Hb.Text>
         <ChevronRight sx={{ fontSize: 14, color: "text.disabled" }} />
-        <Typography variant="caption" fontWeight={600} color="text.secondary">
+        <Hb.Text variant="caption" fontWeight={600} color="text.secondary">
           {space.name}
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
 
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -86,16 +80,16 @@ export const WikiSpaceLayout = () => {
           mb: 2,
         }}
       >
-        <Typography variant="h5" fontWeight={700}>
+        <Hb.Text variant="h5" fontWeight={700}>
           {space.name}
-        </Typography>
+        </Hb.Text>
         <WikiSearchField spaceKey={spaceKey} />
-      </Box>
+      </Hb.Box>
 
-      <Divider sx={{ mb: 0 }} />
+      <Hb.Divider sx={{ mb: 0 }} />
 
-      <Box sx={{ display: "flex", minHeight: "calc(100vh - 200px)" }}>
-        <Box
+      <Hb.Box sx={{ display: "flex", minHeight: "calc(100vh - 200px)" }}>
+        <Hb.Box
           sx={{
             width: SIDEBAR_WIDTH,
             flexShrink: 0,
@@ -108,9 +102,9 @@ export const WikiSpaceLayout = () => {
         >
           <Suspense
             fallback={
-              <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-                <CircularProgress size={24} />
-              </Box>
+              <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+                <Hb.Progress.Circular size={24} />
+              </Hb.Box>
             }
           >
             <PageTreeContent
@@ -121,8 +115,9 @@ export const WikiSpaceLayout = () => {
             />
           </Suspense>
 
-          <Box sx={{ px: 1, mt: 1 }}>
-            <Button
+          <Hb.Box sx={{ px: 1, mt: 1 }}>
+            <Hb.Button
+              variant="ghost"
               size="small"
               startIcon={<AddOutlined />}
               onClick={handleOpenCreateDialog}
@@ -136,14 +131,14 @@ export const WikiSpaceLayout = () => {
               }}
             >
               새 페이지
-            </Button>
-          </Box>
-        </Box>
+            </Hb.Button>
+          </Hb.Box>
+        </Hb.Box>
 
-        <Box sx={{ flex: 1, minWidth: 0 }}>
+        <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
           <Outlet context={{ spaceKey }} />
-        </Box>
-      </Box>
+        </Hb.Box>
+      </Hb.Box>
 
       <CreatePageDialog
         open={createDialog.open}
@@ -152,6 +147,6 @@ export const WikiSpaceLayout = () => {
         loading={isCreating}
         parentTitle={createDialog.parentTitle}
       />
-    </Box>
+    </Hb.Box>
   );
 };

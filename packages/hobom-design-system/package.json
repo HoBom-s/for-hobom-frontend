@@ -8,6 +8,14 @@
     ".": {
       "types": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./icons": {
+      "types": "./src/icons.ts",
+      "default": "./src/icons.ts"
+    },
+    "./date-pickers": {
+      "types": "./src/date-pickers.ts",
+      "default": "./src/date-pickers.ts"
     }
   },
   "scripts": {
@@ -17,6 +25,11 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/material": "^7.1.0",
+    "@mui/x-date-pickers": "^8.11.2",
     "hobom-utils": "workspace:*"
   },
   "devDependencies": {
@@ -35,10 +48,6 @@
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^7.1.0",
-    "@mui/material": "^7.1.0",
     "@tanstack/react-query": "^5.90.21",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

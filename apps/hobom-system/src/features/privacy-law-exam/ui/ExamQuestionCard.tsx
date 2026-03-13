@@ -1,20 +1,11 @@
 import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  LinearProgress,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  Stack,
-  TextField,
-  Typography,
-  Alert,
-} from "@mui/material";
-import { CheckCircle, Cancel, NavigateNext, Replay } from "@mui/icons-material";
+  CheckCircle,
+  Cancel,
+  NavigateNext,
+  Replay,
+} from "hobom-design-system/icons";
 import type { ExamQuestion } from "@/entities/privacy-law";
+import { Hb } from "@/shared/ui";
 import { useExamSession } from "../model/useExamSession";
 
 interface Props {
@@ -34,29 +25,36 @@ const OxInput = ({
   revealed: boolean;
   answer: string;
 }) => (
-  <Stack direction="row" spacing={2}>
+  <Hb.Stack direction="row" spacing={2}>
     {["O", "X"].map((option) => {
       const selected = value === option;
       const isAnswer = answer === option;
-      let color: "primary" | "success" | "error" | "inherit" = "inherit";
-
-      if (revealed) {
-        if (isAnswer) color = "success";
-        else if (selected) color = "error";
-      } else if (selected) {
-        color = "primary";
-      }
 
       return (
-        <Button
+        <Hb.Button
           key={option}
-          variant={
-            selected || (revealed && isAnswer) ? "contained" : "outlined"
-          }
-          color={color}
+          variant={selected || (revealed && isAnswer) ? "primary" : "secondary"}
           disabled={disabled}
           onClick={() => onChange(option)}
-          sx={{ minWidth: 80, fontSize: "1.25rem", fontWeight: 700, py: 1.5 }}
+          sx={{
+            minWidth: 80,
+            fontSize: "1.25rem",
+            fontWeight: 700,
+            py: 1.5,
+            ...(revealed &&
+              isAnswer && {
+                bgcolor: "success.main",
+                color: "#fff",
+                "&:hover": { bgcolor: "success.dark" },
+              }),
+            ...(revealed &&
+              selected &&
+              !isAnswer && {
+                bgcolor: "error.main",
+                color: "#fff",
+                "&:hover": { bgcolor: "error.dark" },
+              }),
+          }}
         >
           {option}
           {revealed && isAnswer && (
@@ -65,10 +63,10 @@ const OxInput = ({
           {revealed && selected && !isAnswer && (
             <Cancel fontSize="small" sx={{ ml: 0.5 }} />
           )}
-        </Button>
+        </Hb.Button>
       );
     })}
-  </Stack>
+  </Hb.Stack>
 );
 
 const FillBlankInput = ({
@@ -84,8 +82,8 @@ const FillBlankInput = ({
   revealed: boolean;
   answer: string;
 }) => (
-  <Stack spacing={1}>
-    <TextField
+  <Hb.Stack spacing={1}>
+    <Hb.TextField
       fullWidth
       size="small"
       placeholder="정답을 입력하세요..."
@@ -94,11 +92,11 @@ const FillBlankInput = ({
       disabled={disabled}
     />
     {revealed && (
-      <Typography variant="body2" color="primary" fontWeight={600}>
+      <Hb.Text variant="body2" color="primary" fontWeight={600}>
         정답: {answer}
-      </Typography>
+      </Hb.Text>
     )}
-  </Stack>
+  </Hb.Stack>
 );
 
 const MultipleChoiceInput = ({
@@ -116,7 +114,7 @@ const MultipleChoiceInput = ({
   revealed: boolean;
   answer: string;
 }) => (
-  <RadioGroup value={value} onChange={(_, v) => onChange(v)}>
+  <Hb.Radio.Group value={value} onChange={(_, v) => onChange(v)}>
     {choices.map((choice, i) => {
       const selected = value === choice;
       const isAnswer = answer === choice;
@@ -128,23 +126,23 @@ const MultipleChoiceInput = ({
       }
 
       return (
-        <FormControlLabel
+        <Hb.Form.ControlLabel
           key={i}
           value={choice}
           disabled={disabled}
-          control={<Radio size="small" />}
+          control={<Hb.Radio.Root size="small" />}
           label={
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography variant="body2" sx={{ color }}>
+            <Hb.Stack direction="row" alignItems="center" spacing={1}>
+              <Hb.Text variant="body2" sx={{ color }}>
                 {choice}
-              </Typography>
+              </Hb.Text>
               {revealed && isAnswer && (
                 <CheckCircle fontSize="small" sx={{ color: "success.main" }} />
               )}
               {revealed && selected && !isAnswer && (
                 <Cancel fontSize="small" sx={{ color: "error.main" }} />
               )}
-            </Stack>
+            </Hb.Stack>
           }
           sx={{
             mb: 0.5,
@@ -173,7 +171,7 @@ const MultipleChoiceInput = ({
         />
       );
     })}
-  </RadioGroup>
+  </Hb.Radio.Group>
 );
 
 const QUIZ_TYPE_LABEL: Record<string, string> = {
@@ -200,81 +198,81 @@ export const ExamQuestionCard = ({ questions }: Props) => {
 
   if (finished) {
     return (
-      <Card variant="outlined">
-        <CardContent sx={{ textAlign: "center", py: 4 }}>
-          <Typography variant="h5" gutterBottom>
+      <Hb.Card.Root variant="outlined">
+        <Hb.Card.Content sx={{ textAlign: "center", py: 4 }}>
+          <Hb.Text variant="h5" gutterBottom>
             모의고사 완료
-          </Typography>
-          <Typography variant="h3" color="primary" gutterBottom>
+          </Hb.Text>
+          <Hb.Text variant="h3" color="primary" gutterBottom>
             {score} / {total}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
+          </Hb.Text>
+          <Hb.Text variant="body2" color="text.secondary" gutterBottom>
             {score === total
               ? "완벽합니다!"
               : score >= total * 0.7
                 ? "잘했습니다!"
                 : "다시 도전해보세요."}
-          </Typography>
-          <Button
-            variant="outlined"
+          </Hb.Text>
+          <Hb.Button
+            variant="secondary"
             startIcon={<Replay />}
             onClick={reset}
             sx={{ mt: 2 }}
           >
             다시 풀기
-          </Button>
-        </CardContent>
-      </Card>
+          </Hb.Button>
+        </Hb.Card.Content>
+      </Hb.Card.Root>
     );
   }
 
   if (!currentQuestion) return null;
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Stack
+    <Hb.Card.Root variant="outlined">
+      <Hb.Card.Content>
+        <Hb.Stack
           direction="row"
           justifyContent="space-between"
           alignItems="center"
           mb={2}
         >
-          <Stack direction="row" spacing={1}>
-            <Chip
+          <Hb.Stack direction="row" spacing={1}>
+            <Hb.Chip
               label={`${currentIndex + 1} / ${total}`}
               size="small"
               color="primary"
             />
-            <Chip
+            <Hb.Chip
               label={
                 QUIZ_TYPE_LABEL[currentQuestion.type] ?? currentQuestion.type
               }
               size="small"
               variant="outlined"
             />
-            <Chip
+            <Hb.Chip
               label={currentQuestion.subject}
               size="small"
               variant="outlined"
               color="secondary"
             />
-          </Stack>
-          <Typography variant="caption" color="text.secondary">
+          </Hb.Stack>
+          <Hb.Text variant="caption" color="text.secondary">
             점수: {score}
-          </Typography>
-        </Stack>
+          </Hb.Text>
+        </Hb.Stack>
 
-        <LinearProgress
+        <Hb.Progress.Linear
           variant="determinate"
           value={((currentIndex + 1) / total) * 100}
           sx={{ mb: 3, borderRadius: 1 }}
         />
 
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+        <Hb.Text variant="subtitle1" fontWeight={600} gutterBottom>
           {currentQuestion.question}
-        </Typography>
+        </Hb.Text>
 
-        <Box sx={{ mt: 2 }}>
+        <Hb.Box sx={{ mt: 2 }}>
           {currentQuestion.type === "OX" && (
             <OxInput
               value={userAnswer}
@@ -303,30 +301,34 @@ export const ExamQuestionCard = ({ questions }: Props) => {
               answer={currentQuestion.answer}
             />
           )}
-        </Box>
+        </Hb.Box>
 
         {revealed && (
-          <Alert severity={isCorrect ? "success" : "error"} sx={{ mt: 2 }}>
+          <Hb.Alert severity={isCorrect ? "success" : "error"} sx={{ mt: 2 }}>
             {currentQuestion.explanation}
-          </Alert>
+          </Hb.Alert>
         )}
 
-        <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
+        <Hb.Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
           {!revealed ? (
-            <Button variant="contained" disabled={!userAnswer} onClick={reveal}>
+            <Hb.Button
+              variant="primary"
+              disabled={!userAnswer}
+              onClick={reveal}
+            >
               정답 확인
-            </Button>
+            </Hb.Button>
           ) : (
-            <Button
-              variant="contained"
+            <Hb.Button
+              variant="primary"
               endIcon={<NavigateNext />}
               onClick={next}
             >
               {currentIndex + 1 < total ? "다음 문제" : "결과 보기"}
-            </Button>
+            </Hb.Button>
           )}
-        </Box>
-      </CardContent>
-    </Card>
+        </Hb.Box>
+      </Hb.Card.Content>
+    </Hb.Card.Root>
   );
 };

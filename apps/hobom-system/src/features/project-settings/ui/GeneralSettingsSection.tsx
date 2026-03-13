@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import { SettingsOutlined } from "@mui/icons-material";
+import { SettingsOutlined } from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { projectQueries, useUpdateProject } from "@/entities/project";
+import { Hb } from "@/shared/ui";
 
 interface GeneralSettingsSectionProps {
   projectId: string;
@@ -32,8 +32,8 @@ export const GeneralSettingsSection = ({
     (description || undefined) !== (project.description || undefined);
 
   return (
-    <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
-      <Box
+    <Hb.Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
+      <Hb.Box
         sx={{
           px: 3,
           py: 2,
@@ -46,12 +46,12 @@ export const GeneralSettingsSection = ({
         }}
       >
         <SettingsOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
-        <Typography variant="subtitle2" fontWeight={700}>
+        <Hb.Text variant="subtitle2" fontWeight={700}>
           일반
-        </Typography>
-      </Box>
-      <Box sx={{ p: 3, display: "flex", flexDirection: "column", gap: 2.5 }}>
-        <TextField
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.Box sx={{ p: 3, display: "flex", flexDirection: "column", gap: 2.5 }}>
+        <Hb.TextField
           label="프로젝트 키"
           value={project.key}
           size="small"
@@ -59,14 +59,14 @@ export const GeneralSettingsSection = ({
           disabled
           helperText="프로젝트 키는 변경할 수 없어요"
         />
-        <TextField
+        <Hb.TextField
           label="프로젝트 이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
           size="small"
           fullWidth
         />
-        <TextField
+        <Hb.TextField
           label="설명"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -76,9 +76,9 @@ export const GeneralSettingsSection = ({
           rows={3}
           placeholder="프로젝트에 대한 간단한 설명을 입력하세요"
         />
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button
-            variant="contained"
+        <Hb.Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Hb.Button
+            variant="primary"
             onClick={handleSave}
             disabled={!isDirty || !name.trim()}
             loading={isUpdating}
@@ -91,9 +91,9 @@ export const GeneralSettingsSection = ({
             }}
           >
             변경사항 저장
-          </Button>
-        </Box>
-      </Box>
-    </Paper>
+          </Hb.Button>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Paper>
   );
 };

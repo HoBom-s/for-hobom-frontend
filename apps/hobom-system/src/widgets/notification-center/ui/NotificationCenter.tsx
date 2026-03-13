@@ -1,16 +1,8 @@
-import {
-  Box,
-  CircularProgress,
-  Paper,
-  Typography,
-  Tabs,
-  Tab,
-  Divider,
-} from "@mui/material";
-import { NotificationsNoneOutlined } from "@mui/icons-material";
+import { NotificationsNoneOutlined } from "hobom-design-system/icons";
 import { NotificationItem } from "@/entities/notification";
 import { EMPTY_MESSAGES } from "@/features/notification";
 import { SUBTLE_SCROLLBAR_SX } from "@/shared/config";
+import { Hb } from "@/shared/ui";
 import { useNotificationCenter } from "../model/useNotificationCenter";
 
 export const NotificationCenter = () => {
@@ -27,15 +19,15 @@ export const NotificationCenter = () => {
   } = useNotificationCenter();
 
   return (
-    <Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
-      <Box sx={{ mb: 2.5 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: "1.125rem" }}>
+    <Hb.Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
+      <Hb.Box sx={{ mb: 2.5 }}>
+        <Hb.Text variant="h6" sx={{ fontWeight: 700, fontSize: "1.125rem" }}>
           알림
-        </Typography>
-      </Box>
-      <Paper elevation={1} sx={{ borderRadius: 2, overflow: "hidden" }}>
-        <Box sx={{ px: 2 }}>
-          <Tabs
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.Paper elevation={1} sx={{ borderRadius: 2, overflow: "hidden" }}>
+        <Hb.Box sx={{ px: 2 }}>
+          <Hb.Tabs.Root
             value={tab}
             onChange={(_, v) => setTab(v)}
             sx={{
@@ -49,17 +41,17 @@ export const NotificationCenter = () => {
               },
             }}
           >
-            <Tab label="전체" />
-            <Tab
+            <Hb.Tabs.Item label="전체" />
+            <Hb.Tabs.Item
               label={
                 unreadCount > 0 ? `읽지 않음 (${unreadCount})` : "읽지 않음"
               }
             />
-            <Tab label="읽음" />
-          </Tabs>
-        </Box>
-        <Divider />
-        <Box
+            <Hb.Tabs.Item label="읽음" />
+          </Hb.Tabs.Root>
+        </Hb.Box>
+        <Hb.Divider />
+        <Hb.Box
           onScroll={handleScroll}
           sx={{
             maxHeight: "calc(100vh - 200px)",
@@ -68,11 +60,11 @@ export const NotificationCenter = () => {
           }}
         >
           {isPending ? (
-            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-              <CircularProgress size={28} />
-            </Box>
+            <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+              <Hb.Progress.Circular size={28} />
+            </Hb.Box>
           ) : dateGroups.length === 0 ? (
-            <Box
+            <Hb.Box
               sx={{
                 py: 8,
                 display: "flex",
@@ -84,19 +76,19 @@ export const NotificationCenter = () => {
               <NotificationsNoneOutlined
                 sx={{ fontSize: 48, color: "text.disabled" }}
               />
-              <Typography
+              <Hb.Text
                 variant="body2"
                 sx={{ color: "text.disabled", fontSize: "0.875rem" }}
               >
                 {EMPTY_MESSAGES[filter]}
-              </Typography>
-            </Box>
+              </Hb.Text>
+            </Hb.Box>
           ) : (
             <>
               {dateGroups.map((group) => (
-                <Box key={group.label}>
-                  <Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
-                    <Typography
+                <Hb.Box key={group.label}>
+                  <Hb.Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
+                    <Hb.Text
                       variant="caption"
                       sx={{
                         fontWeight: 600,
@@ -107,8 +99,8 @@ export const NotificationCenter = () => {
                       }}
                     >
                       {group.label}
-                    </Typography>
-                  </Box>
+                    </Hb.Text>
+                  </Hb.Box>
                   {group.items.map((notification) => (
                     <NotificationItem
                       key={notification.id}
@@ -116,17 +108,19 @@ export const NotificationCenter = () => {
                       onClick={handleMarkRead}
                     />
                   ))}
-                </Box>
+                </Hb.Box>
               ))}
               {isFetchingNextPage && (
-                <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
-                  <CircularProgress size={24} />
-                </Box>
+                <Hb.Box
+                  sx={{ display: "flex", justifyContent: "center", py: 2 }}
+                >
+                  <Hb.Progress.Circular size={24} />
+                </Hb.Box>
               )}
             </>
           )}
-        </Box>
-      </Paper>
-    </Box>
+        </Hb.Box>
+      </Hb.Paper>
+    </Hb.Box>
   );
 };

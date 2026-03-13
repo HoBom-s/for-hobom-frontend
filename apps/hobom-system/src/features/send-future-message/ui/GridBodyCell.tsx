@@ -1,7 +1,7 @@
 import {
   Schedule as ScheduleIcon,
   CheckCircle as CheckCircleIcon,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import {
   isPendingMessageSendStatus,
   type FutureMessageType,

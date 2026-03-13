@@ -1,19 +1,7 @@
 import { useState } from "react";
-import {
-  Box,
-  Checkbox,
-  Divider,
-  IconButton,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Popover,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined } from "hobom-design-system/icons";
 import { useQuery } from "@tanstack/react-query";
+import { Hb } from "@/shared/ui";
 import { projectLabelQueries } from "../api/project-label.queries";
 import { useCreateProjectLabel } from "../model/useCreateProjectLabel";
 
@@ -69,7 +57,7 @@ export const ProjectLabelPicker = ({
   };
 
   return (
-    <Popover
+    <Hb.Popover
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
       onClose={onClose}
@@ -79,7 +67,7 @@ export const ProjectLabelPicker = ({
         paper: { sx: { width: 240, borderRadius: 2, boxShadow: 3 } },
       }}
     >
-      <Typography
+      <Hb.Text
         variant="caption"
         fontWeight={600}
         sx={{
@@ -91,24 +79,28 @@ export const ProjectLabelPicker = ({
         }}
       >
         라벨
-      </Typography>
+      </Hb.Text>
 
-      <List dense disablePadding sx={{ maxHeight: 240, overflow: "auto" }}>
+      <Hb.List.Root
+        dense
+        disablePadding
+        sx={{ maxHeight: 240, overflow: "auto" }}
+      >
         {labels.map((label) => (
-          <ListItemButton
+          <Hb.List.ItemButton
             key={label.id}
             onClick={() => onToggle(label.id)}
             sx={{ py: 0.5 }}
           >
-            <ListItemIcon sx={{ minWidth: 32 }}>
-              <Checkbox
+            <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
+              <Hb.Checkbox
                 size="small"
                 checked={selectedIds.has(label.id)}
                 tabIndex={-1}
                 disableRipple
               />
-            </ListItemIcon>
-            <Box
+            </Hb.List.ItemIcon>
+            <Hb.Box
               sx={{
                 width: 12,
                 height: 12,
@@ -118,7 +110,7 @@ export const ProjectLabelPicker = ({
                 mr: 1,
               }}
             />
-            <ListItemText
+            <Hb.List.ItemText
               primary={label.name}
               slotProps={{
                 primary: {
@@ -126,24 +118,26 @@ export const ProjectLabelPicker = ({
                 },
               }}
             />
-          </ListItemButton>
+          </Hb.List.ItemButton>
         ))}
         {labels.length === 0 && (
-          <Typography
+          <Hb.Text
             variant="body2"
             color="text.disabled"
             sx={{ px: 2, py: 2, textAlign: "center", fontSize: "0.8125rem" }}
           >
             라벨이 없어요
-          </Typography>
+          </Hb.Text>
         )}
-      </List>
+      </Hb.List.Root>
 
-      <Divider />
+      <Hb.Divider />
 
       {creating ? (
-        <Box sx={{ p: 1.5, display: "flex", flexDirection: "column", gap: 1 }}>
-          <TextField
+        <Hb.Box
+          sx={{ p: 1.5, display: "flex", flexDirection: "column", gap: 1 }}
+        >
+          <Hb.TextField
             size="small"
             placeholder="라벨 이름"
             aria-label="라벨 이름"
@@ -155,9 +149,9 @@ export const ProjectLabelPicker = ({
             autoFocus
             fullWidth
           />
-          <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+          <Hb.Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
             {LABEL_COLORS.map((color) => (
-              <Box
+              <Hb.Box
                 key={color}
                 role="button"
                 tabIndex={0}
@@ -184,42 +178,43 @@ export const ProjectLabelPicker = ({
                 }}
               />
             ))}
-          </Box>
-          <Box sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}>
-            <IconButton
+          </Hb.Box>
+          <Hb.Box
+            sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}
+          >
+            <Hb.Button.Icon
               size="small"
               aria-label="라벨 생성 취소"
               onClick={() => setCreating(false)}
               sx={{ fontSize: "0.75rem" }}
             >
               취소
-            </IconButton>
-            <IconButton
+            </Hb.Button.Icon>
+            <Hb.Button.Icon
               size="small"
               aria-label="새 라벨 추가"
               onClick={handleCreate}
               disabled={!newName.trim() || isPending}
-              color="primary"
-              sx={{ fontSize: "0.75rem" }}
+              sx={{ fontSize: "0.75rem", color: "primary.main" }}
             >
               추가
-            </IconButton>
-          </Box>
-        </Box>
+            </Hb.Button.Icon>
+          </Hb.Box>
+        </Hb.Box>
       ) : (
-        <ListItemButton
+        <Hb.List.ItemButton
           onClick={() => setCreating(true)}
           sx={{ py: 1, gap: 1 }}
         >
           <AddOutlined sx={{ fontSize: 16, color: "text.secondary" }} />
-          <Typography
+          <Hb.Text
             variant="body2"
             sx={{ fontSize: "0.8125rem", color: "text.secondary" }}
           >
             새 라벨 만들기
-          </Typography>
-        </ListItemButton>
+          </Hb.Text>
+        </Hb.List.ItemButton>
       )}
-    </Popover>
+    </Hb.Popover>
   );
 };

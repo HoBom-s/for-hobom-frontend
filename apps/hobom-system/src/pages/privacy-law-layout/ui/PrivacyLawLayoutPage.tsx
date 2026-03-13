@@ -1,12 +1,12 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Box, Tab, Tabs, Typography, Stack } from "@mui/material";
 import {
   MenuBookOutlined,
   CompareArrowsOutlined,
   SchoolOutlined,
   SmartToyOutlined,
   AssignmentOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 const TABS = [
   { label: "법령", path: "/privacy-law/versions", icon: <MenuBookOutlined /> },
@@ -31,33 +31,33 @@ const PrivacyLawLayoutPage = () => {
   const currentTab = TABS.findIndex((tab) => pathname.startsWith(tab.path));
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Stack direction="row" alignItems="center" spacing={1.5} mb={3}>
-        <Typography variant="h5" fontWeight={600}>
+    <Hb.Box sx={{ p: 3 }}>
+      <Hb.Stack direction="row" alignItems="center" spacing={1.5} mb={3}>
+        <Hb.Text variant="h5" fontWeight={600}>
           개인정보보호법
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        </Hb.Text>
+        <Hb.Text variant="body2" color="text.secondary">
           CPPG 학습 플랫폼
-        </Typography>
-      </Stack>
+        </Hb.Text>
+      </Hb.Stack>
 
-      <Tabs
+      <Hb.Tabs.Root
         value={currentTab === -1 ? 0 : currentTab}
         onChange={(_, idx) => navigate(TABS[idx].path)}
         sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}
       >
         {TABS.map((tab) => (
-          <Tab
+          <Hb.Tabs.Item
             key={tab.path}
             icon={tab.icon}
             iconPosition="start"
             label={tab.label}
           />
         ))}
-      </Tabs>
+      </Hb.Tabs.Root>
 
       <Outlet />
-    </Box>
+    </Hb.Box>
   );
 };
 

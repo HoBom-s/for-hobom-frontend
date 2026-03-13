@@ -1,19 +1,7 @@
 import { useState } from "react";
-import {
-  Box,
-  Checkbox,
-  IconButton,
-  InputBase,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Popover,
-  Typography,
-} from "@mui/material";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined } from "hobom-design-system/icons";
 import { useCreateLabel, type LabelItemType } from "@/entities/label";
+import { Hb } from "@/shared/ui";
 
 interface LabelPickerPopoverProps {
   anchorEl: HTMLElement | null;
@@ -44,39 +32,43 @@ export const LabelPickerPopover = ({
   };
 
   return (
-    <Popover
+    <Hb.Popover
       open={!!anchorEl}
       anchorEl={anchorEl}
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <Box sx={{ minWidth: 220, maxHeight: 320 }}>
-        <Typography
+      <Hb.Box sx={{ minWidth: 220, maxHeight: 320 }}>
+        <Hb.Text
           variant="caption"
           fontWeight={600}
           sx={{ px: 2, pt: 1.5, pb: 0.5, display: "block" }}
         >
           라벨 선택
-        </Typography>
+        </Hb.Text>
 
         {labels.length > 0 && (
-          <List dense disablePadding sx={{ maxHeight: 200, overflow: "auto" }}>
+          <Hb.List.Root
+            dense
+            disablePadding
+            sx={{ maxHeight: 200, overflow: "auto" }}
+          >
             {labels.map((label) => (
-              <ListItem key={label.id} disablePadding>
-                <ListItemButton
+              <Hb.List.Item key={label.id} disablePadding>
+                <Hb.List.ItemButton
                   onClick={() => onToggle(label.id)}
                   dense
                   sx={{ py: 0.25 }}
                 >
-                  <ListItemIcon sx={{ minWidth: 32 }}>
-                    <Checkbox
+                  <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
+                    <Hb.Checkbox
                       size="small"
                       checked={selectedIds.has(label.id)}
                       disableRipple
                       sx={{ p: 0.25 }}
                     />
-                  </ListItemIcon>
-                  <ListItemText
+                  </Hb.List.ItemIcon>
+                  <Hb.List.ItemText
                     primary={label.title}
                     slotProps={{
                       primary: {
@@ -86,13 +78,13 @@ export const LabelPickerPopover = ({
                       },
                     }}
                   />
-                </ListItemButton>
-              </ListItem>
+                </Hb.List.ItemButton>
+              </Hb.List.Item>
             ))}
-          </List>
+          </Hb.List.Root>
         )}
 
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             gap: 0.5,
@@ -103,7 +95,7 @@ export const LabelPickerPopover = ({
             borderColor: "divider",
           }}
         >
-          <InputBase
+          <Hb.InputBase
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="새 라벨 만들기..."
@@ -123,15 +115,15 @@ export const LabelPickerPopover = ({
               }
             }}
           />
-          <IconButton
+          <Hb.Button.Icon
             size="small"
             onClick={handleCreate}
             disabled={!newTitle.trim() || createLabel.isPending}
           >
             <AddOutlined fontSize="small" />
-          </IconButton>
-        </Box>
-      </Box>
-    </Popover>
+          </Hb.Button.Icon>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Popover>
   );
 };

@@ -1,12 +1,5 @@
-import {
-  Box,
-  Chip,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { Schedule } from "@mui/icons-material";
+import { Schedule } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 interface UpcomingMessage {
   id: string;
@@ -31,25 +24,25 @@ export const UpcomingMessageTimeline = ({
   data,
 }: UpcomingMessageTimelineProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         예정된 메시지
-      </Typography>
+      </Hb.Text>
       {data.length === 0 ? (
-        <Typography
+        <Hb.Text
           variant="body2"
           color="text.secondary"
           sx={{ py: 2, textAlign: "center" }}
         >
           예정된 메시지가 없습니다
-        </Typography>
+        </Hb.Text>
       ) : (
-        <List disablePadding>
+        <Hb.List.Root disablePadding>
           {data.map((msg) => {
             const dDay = getDDay(msg.scheduledAt);
 
             return (
-              <ListItem
+              <Hb.List.Item
                 key={msg.id}
                 sx={{
                   px: 0,
@@ -61,23 +54,23 @@ export const UpcomingMessageTimeline = ({
                 <Schedule
                   sx={{ color: "text.secondary", mr: 1.5, fontSize: 20 }}
                 />
-                <ListItemText
+                <Hb.List.ItemText
                   primary={msg.title}
                   secondary={msg.scheduledAt.slice(0, 10)}
                   primaryTypographyProps={{ variant: "body2" }}
                   secondaryTypographyProps={{ variant: "caption" }}
                 />
-                <Chip
+                <Hb.Chip
                   label={dDay === 0 ? "D-Day" : `D-${dDay}`}
                   size="small"
                   color={dDay <= 3 ? "error" : "default"}
                   variant="outlined"
                 />
-              </ListItem>
+              </Hb.List.Item>
             );
           })}
-        </List>
+        </Hb.List.Root>
       )}
-    </Box>
+    </Hb.Box>
   );
 };

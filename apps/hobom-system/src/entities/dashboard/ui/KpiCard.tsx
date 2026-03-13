@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { Box, Typography } from "@mui/material";
-import { TrendingUp, TrendingDown } from "@mui/icons-material";
+import { TrendingUp, TrendingDown } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import { DashboardPaper } from "./DashboardPaper";
 
 interface KpiCardProps {
@@ -20,26 +20,28 @@ export const KpiCard = ({
 }: KpiCardProps) => {
   return (
     <DashboardPaper sx={{ height: "100%" }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
-        <Typography variant="body2" color="text.secondary">
+      <Hb.Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+        <Hb.Text variant="body2" color="text.secondary">
           {label}
-        </Typography>
+        </Hb.Text>
         {icon && (
-          <Box sx={{ color: "text.secondary", display: "flex" }}>{icon}</Box>
+          <Hb.Box sx={{ color: "text.secondary", display: "flex" }}>
+            {icon}
+          </Hb.Box>
         )}
-      </Box>
-      <Box sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
-        <Typography variant="h4" fontWeight={700}>
+      </Hb.Box>
+      <Hb.Box sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
+        <Hb.Text variant="h4" fontWeight={700}>
           {value}
-        </Typography>
+        </Hb.Text>
         {suffix && (
-          <Typography variant="body2" color="text.secondary">
+          <Hb.Text variant="body2" color="text.secondary">
             {suffix}
-          </Typography>
+          </Hb.Text>
         )}
-      </Box>
+      </Hb.Box>
       {trend != null && (
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             alignItems: "center",
@@ -53,11 +55,11 @@ export const KpiCard = ({
           ) : (
             <TrendingDown sx={{ fontSize: 16 }} />
           )}
-          <Typography variant="caption" fontWeight={500}>
+          <Hb.Text variant="caption" fontWeight={500}>
             {trend > 0 ? "+" : ""}
             {trend}%
-          </Typography>
-        </Box>
+          </Hb.Text>
+        </Hb.Box>
       )}
     </DashboardPaper>
   );

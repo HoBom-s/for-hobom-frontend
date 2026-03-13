@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
-import { TextField } from "@mui/material";
 import type { AuthLoginType } from "@/entities/auth";
+import { Hb } from "@/shared/ui";
 
 export const NicknameField = () => {
   const { control } = useFormContext<AuthLoginType>();
@@ -17,7 +17,7 @@ export const NicknameField = () => {
         },
       }}
       render={({ field, fieldState }) => (
-        <TextField
+        <Hb.TextField
           sx={{
             fontSize: 14,
             "& input::placeholder": {

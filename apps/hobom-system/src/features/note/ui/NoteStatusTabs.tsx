@@ -1,10 +1,10 @@
-import { Box, Chip } from "@mui/material";
 import {
   LightbulbOutlined,
   ArchiveOutlined,
   DeleteOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import type { NoteStatus } from "@/entities/note";
+import { Hb } from "@/shared/ui";
 
 interface NoteStatusTabsProps {
   value: NoteStatus | undefined;
@@ -34,12 +34,12 @@ const TAB_ITEMS: {
 ];
 
 export const NoteStatusTabs = ({ value, onChange }: NoteStatusTabsProps) => (
-  <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
+  <Hb.Box sx={{ display: "flex", gap: 1, mb: 3 }}>
     {TAB_ITEMS.map((item) => {
       const selected = value === item.value;
 
       return (
-        <Chip
+        <Hb.Chip
           key={item.label}
           icon={item.icon}
           label={item.label}
@@ -62,5 +62,5 @@ export const NoteStatusTabs = ({ value, onChange }: NoteStatusTabsProps) => (
         />
       );
     })}
-  </Box>
+  </Hb.Box>
 );

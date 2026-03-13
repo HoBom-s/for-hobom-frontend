@@ -1,13 +1,5 @@
 import { useCallback, useMemo } from "react";
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  ToggleButton,
-} from "@mui/material";
-import { ViewStreamOutlined } from "@mui/icons-material";
+import { ViewStreamOutlined } from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   IssueCard,
@@ -21,7 +13,12 @@ import {
   type BoardColumn,
 } from "@/entities/board";
 import { useProjectContext } from "@/shared/model";
-import { Sortable, type DragEndEvent, type DragStartEvent } from "@/shared/ui";
+import {
+  Hb,
+  Sortable,
+  type DragEndEvent,
+  type DragStartEvent,
+} from "@/shared/ui";
 import { useKanbanBoard } from "../model/useKanbanBoard";
 import { useKanbanDnd } from "../model/useKanbanDnd";
 import { useKanbanFilters } from "../model/useKanbanFilters";
@@ -123,26 +120,26 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
         }
       >
         {/* Toolbar */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           {filters.epics.length > 0 && (
-            <FormControl size="small" sx={{ minWidth: 200 }}>
-              <InputLabel shrink>에픽 필터</InputLabel>
-              <Select
+            <Hb.Form.Control size="small" sx={{ minWidth: 200 }}>
+              <Hb.Form.Label shrink>에픽 필터</Hb.Form.Label>
+              <Hb.Form.Select
                 value={filters.epicFilter ?? ""}
                 label="에픽 필터"
                 displayEmpty
                 onChange={(e) => filters.setEpicFilter(e.target.value || null)}
               >
-                <MenuItem value="">전체</MenuItem>
+                <Hb.Menu.Item value="">전체</Hb.Menu.Item>
                 {filters.epics.map((epic) => (
-                  <MenuItem key={epic.id} value={epic.id}>
+                  <Hb.Menu.Item key={epic.id} value={epic.id}>
                     {epic.issueKey} {epic.title}
-                  </MenuItem>
+                  </Hb.Menu.Item>
                 ))}
-              </Select>
-            </FormControl>
+              </Hb.Form.Select>
+            </Hb.Form.Control>
           )}
-          <ToggleButton
+          <Hb.ToggleButton
             value="swimlane"
             selected={filters.swimlaneEnabled}
             onChange={filters.toggleSwimlane}
@@ -157,11 +154,11 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
           >
             <ViewStreamOutlined sx={{ fontSize: 16, mr: 0.5 }} />
             에픽 스윔레인
-          </ToggleButton>
-        </Box>
+          </Hb.ToggleButton>
+        </Hb.Box>
 
         {/* Columns */}
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             gap: 2,
@@ -177,7 +174,7 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
               issues={filters.filteredColumns[col.statusId] ?? []}
             />
           ))}
-        </Box>
+        </Hb.Box>
       </Sortable.Root>
     </KanbanContext.Provider>
   );

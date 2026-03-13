@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Box } from "@mui/material";
+import { Hb } from "@/shared/ui";
 import { sanitizeHtml } from "../lib/sanitize-html.lib";
 
 interface PageViewerProps {
@@ -10,7 +10,7 @@ export const PageViewer = ({ content }: PageViewerProps) => {
   const sanitized = useMemo(() => sanitizeHtml(content), [content]);
 
   return (
-    <Box
+    <Hb.Box
       dangerouslySetInnerHTML={{ __html: sanitized }}
       sx={{
         px: 3.5,

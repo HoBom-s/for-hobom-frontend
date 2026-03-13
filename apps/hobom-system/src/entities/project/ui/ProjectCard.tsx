@@ -1,13 +1,5 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Avatar,
-  Box,
-  Typography,
-  Chip,
-} from "@mui/material";
-import { PeopleOutline } from "@mui/icons-material";
+import { PeopleOutline } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import type { ProjectType } from "../api/project.type";
 
 const PROJECT_COLORS = [
@@ -38,90 +30,88 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
   const color = getProjectColor(project.key);
 
   return (
-    <Card
-      variant="outlined"
+    <Hb.Card.Clickable
+      onClick={onClick}
       sx={{
         borderRadius: 2,
         transition: "box-shadow 0.15s",
         "&:hover": { boxShadow: 3 },
       }}
     >
-      <CardActionArea onClick={onClick}>
-        <CardContent sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
-          <Box
+      <Hb.Card.Content sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
+        <Hb.Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
+            mb: 1.5,
+          }}
+        >
+          <Hb.Avatar
             sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1.5,
+              width: 36,
+              height: 36,
+              bgcolor: color,
+              fontSize: 14,
+              fontWeight: 700,
+              borderRadius: 1.5,
+            }}
+            variant="rounded"
+          >
+            {project.key.slice(0, 2)}
+          </Hb.Avatar>
+          <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+            <Hb.Text variant="subtitle2" fontWeight={600} noWrap>
+              {project.name}
+            </Hb.Text>
+            <Hb.Text
+              variant="caption"
+              color="text.disabled"
+              sx={{ fontSize: 11 }}
+            >
+              {project.key}
+            </Hb.Text>
+          </Hb.Box>
+        </Hb.Box>
+
+        {project.description && (
+          <Hb.Text
+            variant="body2"
+            color="text.secondary"
+            sx={{
               mb: 1.5,
+              fontSize: 12,
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 2,
+              overflow: "hidden",
             }}
           >
-            <Avatar
-              sx={{
-                width: 36,
-                height: 36,
-                bgcolor: color,
-                fontSize: 14,
-                fontWeight: 700,
-                borderRadius: 1.5,
-              }}
-              variant="rounded"
-            >
-              {project.key.slice(0, 2)}
-            </Avatar>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <Typography variant="subtitle2" fontWeight={600} noWrap>
-                {project.name}
-              </Typography>
-              <Typography
-                variant="caption"
-                color="text.disabled"
-                sx={{ fontSize: 11 }}
-              >
-                {project.key}
-              </Typography>
-            </Box>
-          </Box>
+            {project.description}
+          </Hb.Text>
+        )}
 
-          {project.description && (
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{
-                mb: 1.5,
-                fontSize: 12,
-                display: "-webkit-box",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 2,
-                overflow: "hidden",
-              }}
-            >
-              {project.description}
-            </Typography>
-          )}
-
-          <Box
+        <Hb.Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Hb.Chip
+            icon={<PeopleOutline sx={{ fontSize: 14 }} />}
+            label={`${project.members.length}명`}
+            size="small"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              height: 22,
+              fontSize: 11,
+              fontWeight: 500,
+              bgcolor: "action.selected",
+              "& .MuiChip-icon": { ml: 0.5 },
             }}
-          >
-            <Chip
-              icon={<PeopleOutline sx={{ fontSize: 14 }} />}
-              label={`${project.members.length}명`}
-              size="small"
-              sx={{
-                height: 22,
-                fontSize: 11,
-                fontWeight: 500,
-                bgcolor: "action.selected",
-                "& .MuiChip-icon": { ml: 0.5 },
-              }}
-            />
-          </Box>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          />
+        </Hb.Box>
+      </Hb.Card.Content>
+    </Hb.Card.Clickable>
   );
 };

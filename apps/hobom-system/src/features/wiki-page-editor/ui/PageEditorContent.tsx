@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Box, TextField } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 import { EditorContent } from "@tiptap/react";
+import { Hb } from "@/shared/ui";
 import { PageEditorToolbar } from "./PageEditorToolbar";
 import type { Editor } from "@tiptap/react";
 
@@ -33,8 +32,8 @@ export const PageEditorContent = ({
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Box
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -45,14 +44,13 @@ export const PageEditorContent = ({
           borderColor: "divider",
         }}
       >
-        <TextField
+        <Hb.TextField
           value={title}
           onChange={(e) => {
             onTitleChange(e.target.value);
             if (e.target.value.trim()) setTitleError(false);
           }}
           placeholder="페이지 제목"
-          variant="standard"
           error={titleError}
           helperText={titleError ? "제목을 입력하세요" : undefined}
           slotProps={{
@@ -63,19 +61,19 @@ export const PageEditorContent = ({
           }}
           sx={{ flex: 1 }}
         />
-        <LoadingButton
-          variant="contained"
+        <Hb.Button
+          variant="primary"
           onClick={handleSave}
           loading={saving}
           size="small"
         >
           저장
-        </LoadingButton>
-      </Box>
+        </Hb.Button>
+      </Hb.Box>
 
       <PageEditorToolbar editor={editor} />
 
-      <Box
+      <Hb.Box
         sx={{
           flex: 1,
           overflow: "auto",
@@ -143,7 +141,7 @@ export const PageEditorContent = ({
         }}
       >
         <EditorContent editor={editor} />
-      </Box>
-    </Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

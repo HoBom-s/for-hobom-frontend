@@ -1,5 +1,5 @@
-import { Paper, Typography, Box, IconButton, Tooltip } from "@mui/material";
-import { CheckBoxOutlined, BrushOutlined } from "@mui/icons-material";
+import { CheckBoxOutlined, BrushOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 interface NoteCreateBarProps {
   onClick: () => void;
@@ -7,7 +7,7 @@ interface NoteCreateBarProps {
 
 export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
   return (
-    <Paper
+    <Hb.Paper
       sx={{
         display: "flex",
         alignItems: "center",
@@ -30,7 +30,7 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
       onClick={onClick}
       elevation={0}
     >
-      <Typography
+      <Hb.Text
         sx={{
           flex: 1,
           color: "text.secondary",
@@ -40,32 +40,32 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
         }}
       >
         메모 작성...
-      </Typography>
-      <Box
+      </Hb.Text>
+      <Hb.Box
         sx={{ display: "flex", gap: 0.25, ml: 2 }}
         onClick={(e) => e.stopPropagation()}
       >
-        <Tooltip title="체크리스트" arrow>
-          <IconButton
+        <Hb.Tooltip title="체크리스트" arrow>
+          <Hb.Button.Icon
             size="small"
             aria-label="체크리스트"
             sx={{ color: "text.secondary" }}
             onClick={onClick}
           >
             <CheckBoxOutlined sx={{ fontSize: 20 }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="그리기" arrow>
-          <IconButton
+          </Hb.Button.Icon>
+        </Hb.Tooltip>
+        <Hb.Tooltip title="그리기" arrow>
+          <Hb.Button.Icon
             size="small"
             aria-label="그리기"
             sx={{ color: "text.secondary" }}
             onClick={onClick}
           >
             <BrushOutlined sx={{ fontSize: 20 }} />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    </Paper>
+          </Hb.Button.Icon>
+        </Hb.Tooltip>
+      </Hb.Box>
+    </Hb.Paper>
   );
 };

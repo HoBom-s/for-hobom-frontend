@@ -1,16 +1,9 @@
 import { useState } from "react";
 import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
-import {
   useUpdateFutureMessage,
   type FutureMessageType,
 } from "@/entities/future-message";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   message: FutureMessageType;
@@ -32,10 +25,10 @@ export const FutureMessageEditDialog = ({ message, open, onClose }: Props) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle sx={{ pb: 1 }}>메시지 수정</DialogTitle>
-      <DialogContent sx={{ pt: "12px !important" }}>
-        <TextField
+    <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
+      <Hb.Dialog.Title sx={{ pb: 1 }}>메시지 수정</Hb.Dialog.Title>
+      <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
+        <Hb.TextField
           fullWidth
           autoFocus
           label="제목"
@@ -44,7 +37,7 @@ export const FutureMessageEditDialog = ({ message, open, onClose }: Props) => {
           onChange={(e) => setTitle(e.target.value)}
           sx={{ mb: 2 }}
         />
-        <TextField
+        <Hb.TextField
           fullWidth
           label="내용"
           size="small"
@@ -53,20 +46,20 @@ export const FutureMessageEditDialog = ({ message, open, onClose }: Props) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-        <Button fullWidth variant="outlined" color="inherit" onClick={onClose}>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
+        <Hb.Button fullWidth variant="secondary" onClick={onClose}>
           취소
-        </Button>
-        <Button
+        </Hb.Button>
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           loading={isPending}
           onClick={handleSubmit}
         >
           저장
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

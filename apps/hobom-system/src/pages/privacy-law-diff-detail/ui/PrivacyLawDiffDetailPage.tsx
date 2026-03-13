@@ -1,8 +1,7 @@
 import { Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import { ArrowBackOutlined } from "@mui/icons-material";
-import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
+import { ArrowBackOutlined } from "hobom-design-system/icons";
+import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { LawDiffViewer } from "@/features/privacy-law-diff";
 
 const PrivacyLawDiffDetailPage = () => {
@@ -13,14 +12,14 @@ const PrivacyLawDiffDetailPage = () => {
 
   return (
     <>
-      <Button
+      <Hb.Button
         startIcon={<ArrowBackOutlined />}
         onClick={() => navigate("/privacy-law/diffs")}
         sx={{ mb: 2 }}
         size="small"
       >
         목록으로
-      </Button>
+      </Hb.Button>
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
           <LawDiffViewer diffId={diffId} />

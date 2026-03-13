@@ -1,5 +1,8 @@
 import { format, isSameDay, isToday } from "date-fns";
-import { PickersDay, type PickersDayProps } from "@mui/x-date-pickers";
+import {
+  PickersDay,
+  type PickersDayProps,
+} from "hobom-design-system/date-pickers";
 import { useRouterQuery } from "@/shared/model";
 
 type Props = PickersDayProps & { days?: Date[] };

@@ -1,15 +1,7 @@
 import { useState } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  IconButton,
-  TextField,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import { EditOutlined, DeleteOutlined } from "@mui/icons-material";
+import { EditOutlined, DeleteOutlined } from "hobom-design-system/icons";
 import type { IssueCommentType } from "@/entities/issue-comment";
+import { Hb } from "@/shared/ui";
 
 interface IssueCommentItemProps {
   comment: IssueCommentType;
@@ -40,7 +32,7 @@ export const IssueCommentItem = ({
   };
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         gap: 1.5,
@@ -48,7 +40,7 @@ export const IssueCommentItem = ({
         "&:hover .comment-actions": { opacity: 1 },
       }}
     >
-      <Avatar
+      <Hb.Avatar
         sx={{
           width: 28,
           height: 28,
@@ -60,24 +52,24 @@ export const IssueCommentItem = ({
         }}
       >
         {initial}
-      </Avatar>
+      </Hb.Avatar>
 
-      <Box sx={{ flex: 1, minWidth: 0 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
-          <Typography variant="body2" fontWeight={600} sx={{ fontSize: 13 }}>
+      <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
+          <Hb.Text variant="body2" fontWeight={600} sx={{ fontSize: 13 }}>
             {authorName}
-          </Typography>
-          <Typography variant="caption" color="text.disabled">
+          </Hb.Text>
+          <Hb.Text variant="caption" color="text.disabled">
             {new Date(comment.createdAt).toLocaleDateString("ko-KR")}
-          </Typography>
+          </Hb.Text>
           {comment.editedAt && (
-            <Typography variant="caption" color="text.disabled">
+            <Hb.Text variant="caption" color="text.disabled">
               (수정됨)
-            </Typography>
+            </Hb.Text>
           )}
 
           {isOwn && (
-            <Box
+            <Hb.Box
               className="comment-actions"
               sx={{
                 display: "flex",
@@ -87,8 +79,8 @@ export const IssueCommentItem = ({
                 transition: "opacity 0.15s ease",
               }}
             >
-              <Tooltip title="수정">
-                <IconButton
+              <Hb.Tooltip title="수정">
+                <Hb.Button.Icon
                   size="small"
                   aria-label="수정"
                   onClick={() => {
@@ -98,25 +90,25 @@ export const IssueCommentItem = ({
                   sx={{ p: 0.25 }}
                 >
                   <EditOutlined sx={{ fontSize: 15 }} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="삭제">
-                <IconButton
+                </Hb.Button.Icon>
+              </Hb.Tooltip>
+              <Hb.Tooltip title="삭제">
+                <Hb.Button.Icon
                   size="small"
                   aria-label="삭제"
                   onClick={() => onDelete(comment.id)}
                   sx={{ p: 0.25 }}
                 >
                   <DeleteOutlined sx={{ fontSize: 15 }} />
-                </IconButton>
-              </Tooltip>
-            </Box>
+                </Hb.Button.Icon>
+              </Hb.Tooltip>
+            </Hb.Box>
           )}
-        </Box>
+        </Hb.Box>
 
         {editing ? (
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-            <TextField
+          <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            <Hb.TextField
               fullWidth
               multiline
               minRows={2}
@@ -127,22 +119,24 @@ export const IssueCommentItem = ({
               onChange={(e) => setEditBody(e.target.value)}
               autoFocus
             />
-            <Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
-              <Button size="small" onClick={() => setEditing(false)}>
+            <Hb.Box
+              sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}
+            >
+              <Hb.Button size="small" onClick={() => setEditing(false)}>
                 취소
-              </Button>
-              <Button
+              </Hb.Button>
+              <Hb.Button
                 size="small"
-                variant="contained"
+                variant="primary"
                 onClick={handleUpdate}
                 disabled={!editBody.trim()}
               >
                 수정
-              </Button>
-            </Box>
-          </Box>
+              </Hb.Button>
+            </Hb.Box>
+          </Hb.Box>
         ) : (
-          <Typography
+          <Hb.Text
             variant="body2"
             sx={{
               whiteSpace: "pre-wrap",
@@ -152,9 +146,9 @@ export const IssueCommentItem = ({
             }}
           >
             {comment.body}
-          </Typography>
+          </Hb.Text>
         )}
-      </Box>
-    </Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
-import { StopScreenShareOutlined } from "@mui/icons-material";
+import { StopScreenShareOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
@@ -16,16 +16,16 @@ export default function NotFoundPage() {
       }}
     >
       <div>
-        <Box sx={{ mx: "auto", textAlign: "center" }}>
+        <Hb.Box sx={{ mx: "auto", textAlign: "center" }}>
           <StopScreenShareOutlined sx={{ fontSize: 48 }} />
-          <Typography variant="h5" gutterBottom>
+          <Hb.Text variant="h5" gutterBottom>
             404
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
+          </Hb.Text>
+          <Hb.Text variant="caption" color="text.secondary">
             해당 페이지를 찾을 수 없어요.
-          </Typography>
-        </Box>
-        <Box
+          </Hb.Text>
+        </Hb.Box>
+        <Hb.Box
           sx={{
             mt: 1,
             display: "flex",
@@ -33,17 +33,16 @@ export default function NotFoundPage() {
             alignItems: "center",
           }}
         >
-          <Button
-            variant="contained"
+          <Hb.Button
+            variant="primary"
             size="small"
-            color="info"
             onClick={() => {
               navigate(-1);
             }}
           >
             돌아가기
-          </Button>
-        </Box>
+          </Hb.Button>
+        </Hb.Box>
       </div>
     </div>
   );

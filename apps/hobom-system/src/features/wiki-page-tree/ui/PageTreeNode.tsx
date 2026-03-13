@@ -1,20 +1,12 @@
 import { Fragment } from "react";
 import {
-  Box,
-  Collapse,
-  IconButton,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-} from "@mui/material";
-import {
   ExpandMore,
   ChevronRight,
   ArticleOutlined,
   AddOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import type { PageTreeNode as PageTreeNodeType } from "@/entities/wiki-page";
+import { Hb } from "@/shared/ui";
 
 interface PageTreeNodeProps {
   node: PageTreeNodeType;
@@ -41,7 +33,7 @@ export const PageTreeNode = ({
 
   return (
     <Fragment>
-      <ListItemButton
+      <Hb.List.ItemButton
         selected={isActive}
         onClick={() => onSelect(node.id)}
         sx={{
@@ -66,7 +58,7 @@ export const PageTreeNode = ({
         }}
       >
         {hasChildren ? (
-          <IconButton
+          <Hb.Button.Icon
             size="small"
             aria-label={isExpanded ? "접기" : "펼치기"}
             onClick={(e) => {
@@ -80,14 +72,14 @@ export const PageTreeNode = ({
             ) : (
               <ChevronRight sx={{ fontSize: 16 }} />
             )}
-          </IconButton>
+          </Hb.Button.Icon>
         ) : (
-          <Box sx={{ width: 24, mr: 0.5 }} />
+          <Hb.Box sx={{ width: 24, mr: 0.5 }} />
         )}
-        <ListItemIcon sx={{ minWidth: 24, color: "inherit" }}>
+        <Hb.List.ItemIcon sx={{ minWidth: 24, color: "inherit" }}>
           <ArticleOutlined sx={{ fontSize: 16 }} />
-        </ListItemIcon>
-        <ListItemText
+        </Hb.List.ItemIcon>
+        <Hb.List.ItemText
           primary={node.title}
           slotProps={{
             primary: {
@@ -99,8 +91,8 @@ export const PageTreeNode = ({
             },
           }}
         />
-        <Tooltip title="하위 페이지 추가">
-          <IconButton
+        <Hb.Tooltip title="하위 페이지 추가">
+          <Hb.Button.Icon
             className="tree-node-add"
             size="small"
             aria-label="하위 페이지 추가"
@@ -116,12 +108,12 @@ export const PageTreeNode = ({
             }}
           >
             <AddOutlined sx={{ fontSize: 15 }} />
-          </IconButton>
-        </Tooltip>
-      </ListItemButton>
+          </Hb.Button.Icon>
+        </Hb.Tooltip>
+      </Hb.List.ItemButton>
 
       {hasChildren && (
-        <Collapse in={isExpanded} unmountOnExit>
+        <Hb.Collapse in={isExpanded} unmountOnExit>
           {node.children.map((child) => (
             <PageTreeNode
               key={child.id}
@@ -134,7 +126,7 @@ export const PageTreeNode = ({
               onCreateChild={onCreateChild}
             />
           ))}
-        </Collapse>
+        </Hb.Collapse>
       )}
     </Fragment>
   );

@@ -1,10 +1,9 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
-import { DeleteOutline } from "@mui/icons-material";
+import { DeleteOutline } from "hobom-design-system/icons";
 import { useNavigate } from "react-router-dom";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useOverlay } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
-import { ConfirmDialog } from "@/shared/ui";
+import { Hb, ConfirmDialog } from "@/shared/ui";
 import { projectQueries, useDeleteProject } from "@/entities/project";
 
 interface DangerZoneSectionProps {
@@ -50,7 +49,7 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
   };
 
   return (
-    <Paper
+    <Hb.Paper
       variant="outlined"
       sx={{
         borderRadius: 2,
@@ -58,7 +57,7 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
         borderColor: "error.light",
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           px: 3,
           py: 2,
@@ -71,11 +70,11 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
         }}
       >
         <DeleteOutline sx={{ fontSize: 18, color: "error.main" }} />
-        <Typography variant="subtitle2" fontWeight={700} color="error.main">
+        <Hb.Text variant="subtitle2" fontWeight={700} color="error.main">
           위험 구역
-        </Typography>
-      </Box>
-      <Box
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.Box
         sx={{
           px: 3,
           py: 2.5,
@@ -84,17 +83,16 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
           justifyContent: "space-between",
         }}
       >
-        <Box>
-          <Typography variant="body2" fontWeight={600}>
+        <Hb.Box>
+          <Hb.Text variant="body2" fontWeight={600}>
             프로젝트 삭제
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
+          </Hb.Text>
+          <Hb.Text variant="caption" color="text.secondary">
             프로젝트와 관련된 모든 데이터가 영구적으로 삭제됩니다
-          </Typography>
-        </Box>
-        <Button
-          variant="outlined"
-          color="error"
+          </Hb.Text>
+        </Hb.Box>
+        <Hb.Button
+          variant="danger"
           size="small"
           startIcon={<DeleteOutline />}
           onClick={handleDelete}
@@ -106,8 +104,8 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
           }}
         >
           프로젝트 삭제
-        </Button>
-      </Box>
-    </Paper>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Paper>
   );
 };

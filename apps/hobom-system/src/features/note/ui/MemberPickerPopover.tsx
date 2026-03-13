@@ -1,19 +1,7 @@
-import {
-  Autocomplete,
-  Avatar,
-  Box,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Popover,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { CloseOutlined } from "@mui/icons-material";
+import { CloseOutlined } from "hobom-design-system/icons";
 import type { UserType } from "@/entities/user";
 import { getAvatarColor } from "@/shared/lib";
+import { Hb } from "@/shared/ui";
 
 interface MemberPickerPopoverProps {
   anchorEl: HTMLElement | null;
@@ -35,42 +23,46 @@ export const MemberPickerPopover = ({
   onRemove,
 }: MemberPickerPopoverProps) => {
   return (
-    <Popover
+    <Hb.Popover
       open={!!anchorEl}
       anchorEl={anchorEl}
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <Box sx={{ minWidth: 260, maxHeight: 400 }}>
-        <Typography
+      <Hb.Box sx={{ minWidth: 260, maxHeight: 400 }}>
+        <Hb.Text
           variant="caption"
           fontWeight={600}
           sx={{ px: 2, pt: 1.5, pb: 0.5, display: "block" }}
         >
           공유 멤버
-        </Typography>
+        </Hb.Text>
 
         {members.length > 0 ? (
-          <List dense disablePadding sx={{ maxHeight: 200, overflow: "auto" }}>
+          <Hb.List.Root
+            dense
+            disablePadding
+            sx={{ maxHeight: 200, overflow: "auto" }}
+          >
             {members.map((user) => (
-              <ListItem
+              <Hb.List.Item
                 key={user.id}
                 secondaryAction={
                   isOwner ? (
-                    <IconButton
+                    <Hb.Button.Icon
                       edge="end"
                       size="small"
                       aria-label={`${user.nickname} 제거`}
                       onClick={() => onRemove(user.id)}
                     >
                       <CloseOutlined sx={{ fontSize: 16 }} />
-                    </IconButton>
+                    </Hb.Button.Icon>
                   ) : null
                 }
                 sx={{ py: 0.5 }}
               >
-                <ListItemAvatar sx={{ minWidth: 36 }}>
-                  <Avatar
+                <Hb.List.ItemAvatar sx={{ minWidth: 36 }}>
+                  <Hb.Avatar
                     sx={{
                       width: 28,
                       height: 28,
@@ -81,29 +73,29 @@ export const MemberPickerPopover = ({
                     }}
                   >
                     {user.nickname.charAt(0).toUpperCase()}
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
+                  </Hb.Avatar>
+                </Hb.List.ItemAvatar>
+                <Hb.List.ItemText
                   primary={user.nickname}
                   slotProps={{
                     primary: { fontSize: "0.8125rem", fontWeight: 500 },
                   }}
                 />
-              </ListItem>
+              </Hb.List.Item>
             ))}
-          </List>
+          </Hb.List.Root>
         ) : (
-          <Typography
+          <Hb.Text
             variant="body2"
             color="text.disabled"
             sx={{ px: 2, py: 1.5 }}
           >
             공유된 멤버가 없어요
-          </Typography>
+          </Hb.Text>
         )}
 
         {isOwner && (
-          <Box
+          <Hb.Box
             sx={{
               px: 1.5,
               pt: 1,
@@ -112,18 +104,18 @@ export const MemberPickerPopover = ({
               borderColor: "divider",
             }}
           >
-            <Autocomplete
+            <Hb.Autocomplete
               aria-label="멤버 검색"
               options={availableUsers}
               getOptionLabel={(u) => `${u.nickname} (${u.username})`}
               renderOption={(props, u) => (
-                <Box
+                <Hb.Box
                   component="li"
                   {...props}
                   key={u.id}
                   sx={{ display: "flex", gap: 1.5, alignItems: "center" }}
                 >
-                  <Avatar
+                  <Hb.Avatar
                     sx={{
                       width: 24,
                       height: 24,
@@ -134,31 +126,30 @@ export const MemberPickerPopover = ({
                     }}
                   >
                     {u.nickname.charAt(0).toUpperCase()}
-                  </Avatar>
-                  <Typography variant="body2" fontSize="0.8125rem">
+                  </Hb.Avatar>
+                  <Hb.Text variant="body2" fontSize="0.8125rem">
                     {u.nickname}
-                  </Typography>
-                </Box>
+                  </Hb.Text>
+                </Hb.Box>
               )}
               onChange={(_, v) => {
                 if (v) onAdd(v.id);
               }}
               value={null}
               renderInput={(params) => (
-                <TextField
+                <Hb.TextField
                   {...params}
                   placeholder="멤버 추가..."
                   size="small"
-                  variant="outlined"
                 />
               )}
               noOptionsText="검색 결과가 없어요"
               blurOnSelect
               clearOnBlur
             />
-          </Box>
+          </Hb.Box>
         )}
-      </Box>
-    </Popover>
+      </Hb.Box>
+    </Hb.Popover>
   );
 };

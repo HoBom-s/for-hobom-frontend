@@ -1,14 +1,6 @@
-import {
-  Box,
-  Chip,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import { CloseOutlined } from "@mui/icons-material";
+import { CloseOutlined } from "hobom-design-system/icons";
 import type { ErrorEventDto } from "@/entities/error-event";
+import { Hb } from "@/shared/ui";
 import { ERROR_TYPE_CHIP } from "./error-type-chip";
 
 interface ErrorEventDetailDialogProps {
@@ -18,17 +10,17 @@ interface ErrorEventDetailDialogProps {
 }
 
 const InfoRow = ({ label, value }: { label: string; value: string | null }) => (
-  <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-    <Typography
+  <Hb.Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+    <Hb.Text
       variant="body2"
       sx={{ fontWeight: 600, minWidth: 80, color: "text.secondary" }}
     >
       {label}
-    </Typography>
-    <Typography variant="body2" sx={{ wordBreak: "break-all" }}>
+    </Hb.Text>
+    <Hb.Text variant="body2" sx={{ wordBreak: "break-all" }}>
       {value ?? "-"}
-    </Typography>
-  </Box>
+    </Hb.Text>
+  </Hb.Box>
 );
 
 export const ErrorEventDetailDialog = ({
@@ -41,19 +33,19 @@ export const ErrorEventDetailDialog = ({
   const chip = ERROR_TYPE_CHIP[event.errorType];
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-      <DialogTitle
+    <Hb.Dialog.Root open={open} onClose={onClose} size="md">
+      <Hb.Dialog.Title
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Hb.Text variant="h6" sx={{ fontWeight: 700 }}>
             에러 상세
-          </Typography>
-          <Chip
+          </Hb.Text>
+          <Hb.Chip
             label={chip.label}
             size="small"
             sx={{
@@ -64,12 +56,12 @@ export const ErrorEventDetailDialog = ({
               color: chip.color,
             }}
           />
-        </Box>
-        <IconButton onClick={onClose} size="small">
+        </Hb.Box>
+        <Hb.Button.Icon onClick={onClose} size="small">
           <CloseOutlined fontSize="small" />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent dividers>
+        </Hb.Button.Icon>
+      </Hb.Dialog.Title>
+      <Hb.Dialog.Content dividers>
         <InfoRow label="메시지" value={event.message} />
         <InfoRow label="화면" value={event.screen} />
         <InfoRow label="사용자" value={event.nickname} />
@@ -80,14 +72,14 @@ export const ErrorEventDetailDialog = ({
         />
 
         {event.stackTrace && (
-          <Box sx={{ mt: 2 }}>
-            <Typography
+          <Hb.Box sx={{ mt: 2 }}>
+            <Hb.Text
               variant="body2"
               sx={{ fontWeight: 600, color: "text.secondary", mb: 1 }}
             >
               Stack Trace
-            </Typography>
-            <Box
+            </Hb.Text>
+            <Hb.Box
               component="pre"
               sx={{
                 p: 2,
@@ -102,10 +94,10 @@ export const ErrorEventDetailDialog = ({
               }}
             >
               {event.stackTrace}
-            </Box>
-          </Box>
+            </Hb.Box>
+          </Hb.Box>
         )}
-      </DialogContent>
-    </Dialog>
+      </Hb.Dialog.Content>
+    </Hb.Dialog.Root>
   );
 };

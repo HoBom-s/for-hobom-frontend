@@ -1,14 +1,6 @@
 import { useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  Typography,
-} from "@mui/material";
 import type { SpaceType } from "@/entities/wiki-space";
+import { Hb } from "@/shared/ui";
 
 interface DeleteSpaceDialogProps {
   isOpen: boolean;
@@ -34,18 +26,18 @@ export const DeleteSpaceDialog = ({
   };
 
   return (
-    <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
-      <DialogTitle>스페이스 삭제</DialogTitle>
-      <DialogContent>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+    <Hb.Dialog.Root open={isOpen} onClose={handleClose} size="xs">
+      <Hb.Dialog.Title>스페이스 삭제</Hb.Dialog.Title>
+      <Hb.Dialog.Content>
+        <Hb.Text variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           <strong>&quot;{space.name}&quot;</strong> 스페이스를 삭제할까요?
           <br />
           스페이스 내 모든 페이지와 댓글이 함께 삭제돼요.
-        </Typography>
-        <Typography variant="body2" sx={{ mb: 1 }}>
+        </Hb.Text>
+        <Hb.Text variant="body2" sx={{ mb: 1 }}>
           확인을 위해 스페이스 키 <strong>{space.key}</strong>를 입력하세요.
-        </Typography>
-        <TextField
+        </Hb.Text>
+        <Hb.TextField
           fullWidth
           size="small"
           placeholder={space.key}
@@ -53,21 +45,20 @@ export const DeleteSpaceDialog = ({
           onChange={(e) => setConfirmInput(e.target.value)}
           autoFocus
         />
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2 }}>
-        <Button variant="outlined" color="inherit" onClick={handleClose}>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions sx={{ px: 3, pb: 2 }}>
+        <Hb.Button variant="secondary" onClick={handleClose}>
           취소
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
+        </Hb.Button>
+        <Hb.Button
+          variant="danger"
           onClick={() => onConfirm(space.key)}
           disabled={confirmInput !== space.key}
           loading={isPending}
         >
           삭제
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

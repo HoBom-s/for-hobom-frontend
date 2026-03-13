@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, Chip, Divider, ListItem, ListItemText } from "@mui/material";
+import { Hb } from "@/shared/ui";
 import type { MenuRecommendationType } from "@/entities/menu-recommendation";
 
 const MENU_KIND_LABEL: Record<string, string> = {
@@ -44,8 +44,8 @@ export const MenuRecommendationListItem = ({
   rightAddon?: ReactNode;
 }) => (
   <>
-    <ListItem secondaryAction={rightAddon} sx={{ py: 1.5, px: 2.5 }}>
-      <ListItemText
+    <Hb.List.Item secondaryAction={rightAddon} sx={{ py: 1.5, px: 2.5 }}>
+      <Hb.List.ItemText
         primary={item.name}
         primaryTypographyProps={{
           fontWeight: 600,
@@ -54,11 +54,11 @@ export const MenuRecommendationListItem = ({
           mb: 0.75,
         }}
         secondary={
-          <Box
+          <Hb.Box
             component="span"
             sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}
           >
-            <Chip
+            <Hb.Chip
               label={MENU_KIND_LABEL[item.menuKind] ?? item.menuKind}
               size="small"
               sx={{
@@ -68,22 +68,22 @@ export const MenuRecommendationListItem = ({
                 bgcolor: MENU_KIND_COLORS[item.menuKind] ?? "#f5f5f5",
               }}
             />
-            <Chip
+            <Hb.Chip
               label={TIME_LABEL[item.timeOfMeal] ?? item.timeOfMeal}
               size="small"
               variant="outlined"
               sx={{ height: 22, fontSize: 11 }}
             />
-            <Chip
+            <Hb.Chip
               label={FOOD_TYPE_LABEL[item.foodType] ?? item.foodType}
               size="small"
               variant="outlined"
               sx={{ height: 22, fontSize: 11 }}
             />
-          </Box>
+          </Hb.Box>
         }
       />
-    </ListItem>
-    {showDivider && <Divider component="li" />}
+    </Hb.List.Item>
+    {showDivider && <Hb.Divider component="li" />}
   </>
 );

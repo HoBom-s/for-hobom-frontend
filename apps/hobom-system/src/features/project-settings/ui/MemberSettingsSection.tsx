@@ -1,23 +1,11 @@
 import { useMemo } from "react";
 import {
-  Avatar,
-  Box,
-  Button,
-  Chip,
-  Divider,
-  IconButton,
-  Paper,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import {
   CalendarTodayOutlined,
   PeopleOutline,
   PersonAddOutlined,
   PersonRemoveOutlined,
   ShieldOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useOverlay } from "@/shared/model";
 import {
@@ -26,6 +14,7 @@ import {
   useRemoveMember,
 } from "@/entities/project";
 import { userQueries, type UserType } from "@/entities/user";
+import { Hb } from "@/shared/ui";
 import {
   ROLE_LABEL,
   ROLE_COLOR,
@@ -92,8 +81,8 @@ export const MemberSettingsSection = ({
   };
 
   return (
-    <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
-      <Box
+    <Hb.Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
+      <Hb.Box
         sx={{
           px: 3,
           py: 2,
@@ -105,12 +94,12 @@ export const MemberSettingsSection = ({
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <PeopleOutline sx={{ fontSize: 18, color: "text.secondary" }} />
-          <Typography variant="subtitle2" fontWeight={700}>
+          <Hb.Text variant="subtitle2" fontWeight={700}>
             멤버
-          </Typography>
-          <Chip
+          </Hb.Text>
+          <Hb.Chip
             label={project.members.length}
             size="small"
             sx={{
@@ -122,9 +111,9 @@ export const MemberSettingsSection = ({
               color: "primary.main",
             }}
           />
-        </Box>
-        <Button
-          variant="contained"
+        </Hb.Box>
+        <Hb.Button
+          variant="primary"
           size="small"
           startIcon={<PersonAddOutlined />}
           onClick={handleAddMember}
@@ -137,20 +126,20 @@ export const MemberSettingsSection = ({
           }}
         >
           멤버 추가
-        </Button>
-      </Box>
-      <Box sx={{ p: 0 }}>
+        </Hb.Button>
+      </Hb.Box>
+      <Hb.Box sx={{ p: 0 }}>
         {project.members.length === 0 ? (
-          <Box sx={{ py: 6, textAlign: "center" }}>
+          <Hb.Box sx={{ py: 6, textAlign: "center" }}>
             <PeopleOutline
               sx={{ fontSize: 48, color: "action.disabled", mb: 1 }}
             />
-            <Typography variant="body2" color="text.disabled">
+            <Hb.Text variant="body2" color="text.disabled">
               멤버가 없어요
-            </Typography>
-          </Box>
+            </Hb.Text>
+          </Hb.Box>
         ) : (
-          <Stack divider={<Divider />}>
+          <Hb.Stack divider={<Hb.Divider />}>
             {project.members.map((member) => {
               const user = usersMap.get(member.userId);
               const displayName =
@@ -160,7 +149,7 @@ export const MemberSettingsSection = ({
               const roleColor = ROLE_COLOR[member.role] ?? "#6b7280";
 
               return (
-                <Box
+                <Hb.Box
                   key={member.userId}
                   sx={{
                     px: 3,
@@ -172,7 +161,7 @@ export const MemberSettingsSection = ({
                     transition: "background-color 0.15s",
                   }}
                 >
-                  <Avatar
+                  <Hb.Avatar
                     sx={{
                       width: 36,
                       height: 36,
@@ -183,19 +172,19 @@ export const MemberSettingsSection = ({
                     }}
                   >
                     {displayName.charAt(0).toUpperCase()}
-                  </Avatar>
-                  <Box sx={{ flex: 1, minWidth: 0 }}>
-                    <Box
+                  </Hb.Avatar>
+                  <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Hb.Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         gap: 1,
                       }}
                     >
-                      <Typography variant="body2" fontWeight={600} noWrap>
+                      <Hb.Text variant="body2" fontWeight={600} noWrap>
                         {displayName}
-                      </Typography>
-                      <Chip
+                      </Hb.Text>
+                      <Hb.Chip
                         icon={
                           <ShieldOutlined
                             sx={{ fontSize: "13px !important" }}
@@ -212,8 +201,8 @@ export const MemberSettingsSection = ({
                           "& .MuiChip-icon": { color: roleColor },
                         }}
                       />
-                    </Box>
-                    <Box
+                    </Hb.Box>
+                    <Hb.Box
                       sx={{
                         display: "flex",
                         alignItems: "center",
@@ -221,12 +210,12 @@ export const MemberSettingsSection = ({
                       }}
                     >
                       {user?.email && (
-                        <Typography variant="caption" color="text.secondary">
+                        <Hb.Text variant="caption" color="text.secondary">
                           {user.email}
-                        </Typography>
+                        </Hb.Text>
                       )}
-                      <Tooltip title="참여일" arrow>
-                        <Box
+                      <Hb.Tooltip title="참여일" arrow>
+                        <Hb.Box
                           sx={{
                             display: "flex",
                             alignItems: "center",
@@ -236,15 +225,15 @@ export const MemberSettingsSection = ({
                           <CalendarTodayOutlined
                             sx={{ fontSize: 11, color: "text.disabled" }}
                           />
-                          <Typography variant="caption" color="text.disabled">
+                          <Hb.Text variant="caption" color="text.disabled">
                             {formatDate(member.joinedAt)}
-                          </Typography>
-                        </Box>
-                      </Tooltip>
-                    </Box>
-                  </Box>
-                  <Tooltip title="멤버 제거">
-                    <IconButton
+                          </Hb.Text>
+                        </Hb.Box>
+                      </Hb.Tooltip>
+                    </Hb.Box>
+                  </Hb.Box>
+                  <Hb.Tooltip title="멤버 제거">
+                    <Hb.Button.Icon
                       size="small"
                       onClick={() =>
                         handleRemoveMember(member.userId, displayName)
@@ -255,14 +244,14 @@ export const MemberSettingsSection = ({
                       }}
                     >
                       <PersonRemoveOutlined sx={{ fontSize: 18 }} />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
+                    </Hb.Button.Icon>
+                  </Hb.Tooltip>
+                </Hb.Box>
               );
             })}
-          </Stack>
+          </Hb.Stack>
         )}
-      </Box>
-    </Paper>
+      </Hb.Box>
+    </Hb.Paper>
   );
 };

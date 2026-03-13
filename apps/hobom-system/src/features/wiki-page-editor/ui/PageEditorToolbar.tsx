@@ -1,17 +1,5 @@
 import { useCallback, useState } from "react";
 import {
-  Box,
-  Divider,
-  IconButton,
-  TextField,
-  Tooltip,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@mui/material";
-import {
   FormatBold,
   FormatItalic,
   FormatUnderlined,
@@ -23,7 +11,8 @@ import {
   HorizontalRule,
   Link as LinkIcon,
   LinkOff,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import type { Editor } from "@tiptap/react";
 
 interface PageEditorToolbarProps {
@@ -128,7 +117,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
 
   return (
     <>
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -141,28 +130,28 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
         }}
       >
         {toolbarItems.map((item) => (
-          <Tooltip key={item.label} title={item.label}>
-            <IconButton
+          <Hb.Tooltip key={item.label} title={item.label}>
+            <Hb.Button.Icon
               size="small"
               aria-label={item.label}
               onClick={item.action}
-              color={item.active ? "primary" : "default"}
+              sx={{ color: item.active ? "primary.main" : "action.active" }}
             >
               {item.icon}
-            </IconButton>
-          </Tooltip>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
         ))}
 
-        <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+        <Hb.Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
 
         {headingItems.map((item) => (
-          <Tooltip key={item.label} title={`제목 ${item.label}`}>
-            <IconButton
+          <Hb.Tooltip key={item.label} title={`제목 ${item.label}`}>
+            <Hb.Button.Icon
               size="small"
               aria-label={`제목 ${item.label}`}
               onClick={item.action}
-              color={item.active ? "primary" : "default"}
               sx={{
+                color: item.active ? "primary.main" : "action.active",
                 fontSize: "0.75rem",
                 fontWeight: 700,
                 width: 28,
@@ -170,59 +159,60 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
               }}
             >
               {item.label}
-            </IconButton>
-          </Tooltip>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
         ))}
 
-        <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+        <Hb.Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
 
         {blockItems.map((item) => (
-          <Tooltip key={item.label} title={item.label}>
-            <IconButton
+          <Hb.Tooltip key={item.label} title={item.label}>
+            <Hb.Button.Icon
               size="small"
               aria-label={item.label}
               onClick={item.action}
-              color={item.active ? "primary" : "default"}
+              sx={{ color: item.active ? "primary.main" : "action.active" }}
             >
               {item.icon}
-            </IconButton>
-          </Tooltip>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
         ))}
 
-        <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+        <Hb.Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
 
-        <Tooltip title="링크 추가">
-          <IconButton
+        <Hb.Tooltip title="링크 추가">
+          <Hb.Button.Icon
             size="small"
             aria-label="링크 추가"
             onClick={() => setLinkDialogOpen(true)}
-            color={editor.isActive("link") ? "primary" : "default"}
+            sx={{
+              color: editor.isActive("link") ? "primary.main" : "action.active",
+            }}
           >
             <LinkIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
+          </Hb.Button.Icon>
+        </Hb.Tooltip>
         {editor.isActive("link") && (
-          <Tooltip title="링크 제거">
-            <IconButton
+          <Hb.Tooltip title="링크 제거">
+            <Hb.Button.Icon
               size="small"
               aria-label="링크 제거"
               onClick={() => editor.chain().focus().unsetLink().run()}
             >
               <LinkOff fontSize="small" />
-            </IconButton>
-          </Tooltip>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
         )}
-      </Box>
+      </Hb.Box>
 
-      <Dialog
+      <Hb.Dialog.Root
         open={linkDialogOpen}
         onClose={() => setLinkDialogOpen(false)}
-        maxWidth="xs"
-        fullWidth
+        size="xs"
       >
-        <DialogTitle>링크 추가</DialogTitle>
-        <DialogContent>
-          <TextField
+        <Hb.Dialog.Title>링크 추가</Hb.Dialog.Title>
+        <Hb.Dialog.Content>
+          <Hb.TextField
             autoFocus
             fullWidth
             label="URL"
@@ -234,18 +224,18 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
             }}
             sx={{ mt: 1 }}
           />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setLinkDialogOpen(false)}>취소</Button>
-          <Button
+        </Hb.Dialog.Content>
+        <Hb.Dialog.Actions>
+          <Hb.Button onClick={() => setLinkDialogOpen(false)}>취소</Hb.Button>
+          <Hb.Button
             onClick={handleLinkSubmit}
-            variant="contained"
+            variant="primary"
             disabled={!linkUrl}
           >
             확인
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </Hb.Button>
+        </Hb.Dialog.Actions>
+      </Hb.Dialog.Root>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Paper, type SxProps, type Theme } from "@mui/material";
+import { Hb } from "@/shared/ui";
+import type { SxProps, Theme } from "@/shared/ui";
 
 interface Props {
   children: ReactNode;
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export const DashboardPaper = ({ children, sx }: Props) => (
-  <Paper
+  <Hb.Paper
     elevation={0}
     sx={{
       p: 2.5,
@@ -17,5 +18,5 @@ export const DashboardPaper = ({ children, sx }: Props) => (
     }}
   >
     {children}
-  </Paper>
+  </Hb.Paper>
 );

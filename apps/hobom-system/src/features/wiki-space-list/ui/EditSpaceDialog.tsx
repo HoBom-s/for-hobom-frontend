@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  TextField,
-} from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 import type { SpaceType } from "@/entities/wiki-space";
+import { Hb } from "@/shared/ui";
 
 interface EditSpaceDialogProps {
   open: boolean;
@@ -46,25 +37,25 @@ export const EditSpaceDialog = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>스페이스 수정</DialogTitle>
-      <DialogContent>
-        <Stack spacing={2} sx={{ mt: 1 }}>
-          <TextField
+    <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
+      <Hb.Dialog.Title>스페이스 수정</Hb.Dialog.Title>
+      <Hb.Dialog.Content>
+        <Hb.Stack spacing={2} sx={{ mt: 1 }}>
+          <Hb.TextField
             fullWidth
             label="스페이스 키"
             value={space?.key ?? ""}
             disabled
             helperText="스페이스 키는 변경할 수 없습니다"
           />
-          <TextField
+          <Hb.TextField
             autoFocus
             fullWidth
             label="스페이스 이름"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextField
+          <Hb.TextField
             fullWidth
             label="설명"
             value={description}
@@ -72,21 +63,21 @@ export const EditSpaceDialog = ({
             multiline
             rows={3}
           />
-        </Stack>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} disabled={loading}>
+        </Hb.Stack>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions>
+        <Hb.Button onClick={onClose} disabled={loading}>
           취소
-        </Button>
-        <LoadingButton
+        </Hb.Button>
+        <Hb.Button
           onClick={handleSubmit}
-          variant="contained"
+          variant="primary"
           loading={loading}
           disabled={!name.trim()}
         >
           수정
-        </LoadingButton>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

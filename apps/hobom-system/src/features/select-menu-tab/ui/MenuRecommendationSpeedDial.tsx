@@ -1,13 +1,5 @@
 import { useForm } from "react-hook-form";
-import {
-  Box,
-  Button,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Add } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import {
   type AddMenuRecommendationInput,
@@ -19,6 +11,7 @@ import {
 } from "@/entities/menu-recommendation";
 import { useBottomSheetCTA, useToast } from "@/shared/model";
 import { handleValidationResult } from "@/shared/lib";
+import { Hb } from "@/shared/ui";
 
 const MENU_KIND_LABEL: Record<string, string> = {
   KOREAN: "한식",
@@ -59,71 +52,72 @@ export const MenuRecommendationSpeedDial = () => {
   const handleOpen = () => {
     onOpen({
       title: (
-        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+        <Hb.Text variant="subtitle1" sx={{ fontWeight: 700 }}>
           메뉴 추가하기
-        </Typography>
+        </Hb.Text>
       ),
       content: (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, px: 2 }}>
-          <TextField
+        <Hb.Box
+          sx={{ display: "flex", flexDirection: "column", gap: 2, px: 2 }}
+        >
+          <Hb.TextField
             fullWidth
             size="small"
             label="메뉴 이름"
             placeholder="예: 김치찌개"
             {...register("name")}
           />
-          <Select
+          <Hb.Form.Select
             fullWidth
             size="small"
             defaultValue={MenuKindModel.KOREAN}
             {...register("menuKind")}
           >
             {Bom.values(MenuKindModel).map((item) => (
-              <MenuItem key={item} value={item}>
+              <Hb.Menu.Item key={item} value={item}>
                 {MENU_KIND_LABEL[item] ?? item}
-              </MenuItem>
+              </Hb.Menu.Item>
             ))}
-          </Select>
-          <Select
+          </Hb.Form.Select>
+          <Hb.Form.Select
             fullWidth
             size="small"
             defaultValue={TimeOfMealModel.LUNCH}
             {...register("timeOfMeal")}
           >
             {Bom.values(TimeOfMealModel).map((item) => (
-              <MenuItem key={item} value={item}>
+              <Hb.Menu.Item key={item} value={item}>
                 {TIME_LABEL[item] ?? item}
-              </MenuItem>
+              </Hb.Menu.Item>
             ))}
-          </Select>
-          <Select
+          </Hb.Form.Select>
+          <Hb.Form.Select
             fullWidth
             size="small"
             defaultValue={FoodTypeModel.MEAL}
             {...register("foodType")}
           >
             {Bom.values(FoodTypeModel).map((item) => (
-              <MenuItem key={item} value={item}>
+              <Hb.Menu.Item key={item} value={item}>
                 {FOOD_TYPE_LABEL[item] ?? item}
-              </MenuItem>
+              </Hb.Menu.Item>
             ))}
-          </Select>
-        </Box>
+          </Hb.Form.Select>
+        </Hb.Box>
       ),
       footer: (
-        <Box display="flex" gap={1.5} width="100%">
-          <Button
+        <Hb.Box display="flex" gap={1.5} width="100%">
+          <Hb.Button
             fullWidth
-            variant="outlined"
-            color="inherit"
+            variant="secondary"
             onClick={onClose}
             sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
           >
             취소
-          </Button>
-          <Button
+          </Hb.Button>
+          <Hb.Button
             fullWidth
-            variant="contained"
+            variant="primary"
             disableElevation
             loading={menuRecommendationHandler.isPending}
             sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
@@ -145,21 +139,21 @@ export const MenuRecommendationSpeedDial = () => {
             }}
           >
             추가하기
-          </Button>
-        </Box>
+          </Hb.Button>
+        </Hb.Box>
       ),
     });
   };
 
   return (
-    <Button
-      variant="contained"
+    <Hb.Button
+      variant="primary"
       size="small"
       startIcon={<Add />}
       onClick={handleOpen}
       sx={{ textTransform: "none", borderRadius: 2, px: 2 }}
     >
       메뉴 추가
-    </Button>
+    </Hb.Button>
   );
 };

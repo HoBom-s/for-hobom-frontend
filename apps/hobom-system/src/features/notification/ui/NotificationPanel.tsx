@@ -1,22 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Popover,
-  Box,
-  CircularProgress,
-  Typography,
-  Button,
-  Tabs,
-  Tab,
-  Divider,
-} from "@mui/material";
-import { NotificationsNoneOutlined } from "@mui/icons-material";
+import { NotificationsNoneOutlined } from "hobom-design-system/icons";
 import {
   NotificationItem,
   type NotificationItemType,
 } from "@/entities/notification";
 import { RoutesConfig, SUBTLE_SCROLLBAR_SX } from "@/shared/config";
 import { useInfiniteScroll } from "@/shared/model";
+import { Hb } from "@/shared/ui";
 import { useNotificationList } from "../model/useNotificationList";
 import { useMarkNotificationRead } from "../model/useMarkNotificationRead";
 import { TAB_FILTERS, EMPTY_MESSAGES } from "../lib/notification-filter.lib";
@@ -48,7 +39,7 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
   });
 
   return (
-    <Popover
+    <Hb.Popover
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
       onClose={onClose}
@@ -68,12 +59,12 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
         },
       }}
     >
-      <Box sx={{ px: 2, pt: 2, pb: 0 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: "1rem" }}>
+      <Hb.Box sx={{ px: 2, pt: 2, pb: 0 }}>
+        <Hb.Text variant="h6" sx={{ fontWeight: 700, fontSize: "1rem" }}>
           알림
-        </Typography>
-      </Box>
-      <Tabs
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.Tabs.Root
         value={tab}
         onChange={(_, v) => setTab(v)}
         sx={{
@@ -88,12 +79,12 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
           },
         }}
       >
-        <Tab label="전체" />
-        <Tab label="읽지 않음" />
-        <Tab label="읽음" />
-      </Tabs>
-      <Divider />
-      <Box
+        <Hb.Tabs.Item label="전체" />
+        <Hb.Tabs.Item label="읽지 않음" />
+        <Hb.Tabs.Item label="읽음" />
+      </Hb.Tabs.Root>
+      <Hb.Divider />
+      <Hb.Box
         onScroll={handleScroll}
         sx={{
           maxHeight: 380,
@@ -106,11 +97,11 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
         }}
       >
         {isPending ? (
-          <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-            <CircularProgress size={24} />
-          </Box>
+          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+            <Hb.Progress.Circular size={24} />
+          </Hb.Box>
         ) : notifications.length === 0 ? (
-          <Box
+          <Hb.Box
             sx={{
               py: 6,
               display: "flex",
@@ -122,10 +113,10 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
             <NotificationsNoneOutlined
               sx={{ fontSize: 40, color: "text.disabled" }}
             />
-            <Typography variant="body2" sx={{ color: "text.disabled" }}>
+            <Hb.Text variant="body2" sx={{ color: "text.disabled" }}>
               {EMPTY_MESSAGES[filter]}
-            </Typography>
-          </Box>
+            </Hb.Text>
+          </Hb.Box>
         ) : (
           <>
             {notifications.map((notification) => (
@@ -141,16 +132,16 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
               />
             ))}
             {isFetchingNextPage && (
-              <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
-                <CircularProgress size={20} />
-              </Box>
+              <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+                <Hb.Progress.Circular size={20} />
+              </Hb.Box>
             )}
           </>
         )}
-      </Box>
-      <Divider />
-      <Box sx={{ px: 2, py: 1.5, textAlign: "center" }}>
-        <Button
+      </Hb.Box>
+      <Hb.Divider />
+      <Hb.Box sx={{ px: 2, py: 1.5, textAlign: "center" }}>
+        <Hb.Button
           size="small"
           onClick={() => {
             navigate(RoutesConfig.NOTIFICATION.LIST);
@@ -163,8 +154,8 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
           }}
         >
           모든 알림 보기
-        </Button>
-      </Box>
-    </Popover>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Popover>
   );
 };

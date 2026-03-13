@@ -2,14 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  Typography,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DatePicker } from "hobom-design-system/date-pickers";
 import { Bom } from "hobom-utils";
 import {
   type FutureMessageSendSchemaType,
@@ -20,6 +13,7 @@ import {
 import { handleValidationResult } from "@/shared/lib";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   onPrevStep: () => void;
@@ -36,17 +30,17 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Box>
-        <Typography fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Hb.Box>
+        <Hb.Text fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
           날짜를 선택해 주세요
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        </Hb.Text>
+        <Hb.Text variant="body2" color="text.secondary">
           언제 메시지를 보낼까요?
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
 
-      <FormControl fullWidth>
+      <Hb.Form.Control fullWidth>
         <DatePicker
           label="보낼 날짜"
           sx={{ width: "100%" }}
@@ -55,21 +49,16 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
             setValue("scheduledAt", format(evt as Date, "yyyy-MM-dd"));
           }}
         />
-        <FormHelperText>발송 예정일을 선택해 주세요.</FormHelperText>
-      </FormControl>
+        <Hb.Form.Helper>발송 예정일을 선택해 주세요.</Hb.Form.Helper>
+      </Hb.Form.Control>
 
-      <Box display="flex" gap={1.5}>
-        <Button
-          fullWidth
-          variant="outlined"
-          color="inherit"
-          onClick={onPrevStep}
-        >
+      <Hb.Box display="flex" gap={1.5}>
+        <Hb.Button fullWidth variant="secondary" onClick={onPrevStep}>
           이전
-        </Button>
-        <Button
+        </Hb.Button>
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           disabled={watch("scheduledAt") === ""}
           loading={sendFutureMessageMutationHandler.isPending}
           onClick={() => {
@@ -110,8 +99,8 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
           }}
         >
           예약 완료
-        </Button>
-      </Box>
-    </Box>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

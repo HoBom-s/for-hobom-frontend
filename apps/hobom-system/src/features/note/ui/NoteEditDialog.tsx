@@ -1,18 +1,4 @@
 import {
-  Dialog,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Box,
-  IconButton,
-  Chip,
-  Button,
-  Checkbox,
-  InputBase,
-  Tooltip,
-  Badge,
-} from "@mui/material";
-import {
   CheckBoxOutlined,
   NotesOutlined,
   PaletteOutlined,
@@ -21,8 +7,9 @@ import {
   PersonAddOutlined,
   AddOutlined,
   CloseOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import type { NoteItemType } from "@/entities/note";
+import { Hb } from "@/shared/ui";
 import { useNoteEditForm } from "../model/useNoteEditForm";
 import { useNoteMemberShare } from "../model/useNoteMemberShare";
 import { ColorPickerPopover } from "./ColorPickerPopover";
@@ -78,20 +65,18 @@ export const NoteEditDialog = ({
   } = useNoteMemberShare({ open, note: noteArg });
 
   return (
-    <Dialog
+    <Hb.Dialog.Root
       open={open}
       onClose={handleSave}
-      maxWidth="sm"
-      fullWidth
+      size="sm"
       PaperProps={{
         sx: { backgroundColor: form.color, borderRadius: 2 },
       }}
     >
-      <DialogContent sx={{ pb: 1 }}>
-        <TextField
+      <Hb.Dialog.Content sx={{ pb: 1 }}>
+        <Hb.TextField
           placeholder="제목"
           fullWidth
-          variant="standard"
           value={form.title}
           onChange={(e) => setField("title", e.target.value)}
           InputProps={{ disableUnderline: true, sx: { fontWeight: 600 } }}
@@ -99,12 +84,11 @@ export const NoteEditDialog = ({
         />
 
         {form.type === "TEXT" && (
-          <TextField
+          <Hb.TextField
             placeholder="메모 작성..."
             fullWidth
             multiline
             minRows={3}
-            variant="standard"
             value={form.content}
             onChange={(e) => setField("content", e.target.value)}
             InputProps={{ disableUnderline: true }}
@@ -112,13 +96,13 @@ export const NoteEditDialog = ({
         )}
 
         {form.type === "CHECKLIST" && (
-          <Box>
+          <Hb.Box>
             {form.checklistItems.map((item, idx) => (
-              <Box
+              <Hb.Box
                 key={idx}
                 sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
               >
-                <Checkbox
+                <Hb.Checkbox
                   size="small"
                   checked={item.checked}
                   onChange={(e) =>
@@ -126,7 +110,7 @@ export const NoteEditDialog = ({
                   }
                   sx={{ p: 0.5 }}
                 />
-                <InputBase
+                <Hb.InputBase
                   value={item.text}
                   onChange={(e) =>
                     updateChecklistItem(idx, "text", e.target.value)
@@ -140,40 +124,40 @@ export const NoteEditDialog = ({
                     }
                   }}
                 />
-                <IconButton
+                <Hb.Button.Icon
                   size="small"
                   onClick={() => removeChecklistItem(idx)}
                 >
                   <CloseOutlined sx={{ fontSize: 16 }} />
-                </IconButton>
-              </Box>
+                </Hb.Button.Icon>
+              </Hb.Box>
             ))}
-            <Button
+            <Hb.Button
               size="small"
               startIcon={<AddOutlined />}
               onClick={addChecklistItem}
               sx={{ ml: 1, textTransform: "none" }}
             >
               항목 추가
-            </Button>
-          </Box>
+            </Hb.Button>
+          </Hb.Box>
         )}
 
         {selectedLabelIds.size > 0 && (
-          <Box sx={{ mt: 2, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+          <Hb.Box sx={{ mt: 2, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
             {form.labels.map((labelId) => (
-              <Chip
+              <Hb.Chip
                 key={labelId}
                 label={labelMap[labelId] ?? labelId}
                 size="small"
                 onDelete={() => toggleLabel(labelId)}
               />
             ))}
-          </Box>
+          </Hb.Box>
         )}
 
         {form.reminder && (
-          <Chip
+          <Hb.Chip
             icon={<NotificationAddOutlined sx={{ fontSize: 14 }} />}
             label={`${new Date(form.reminder.date).toLocaleDateString("ko-KR")} ${form.reminder.recurrence !== "NONE" ? `(${form.reminder.recurrence})` : ""}`}
             size="small"
@@ -181,61 +165,63 @@ export const NoteEditDialog = ({
             sx={{ mt: 1 }}
           />
         )}
-      </DialogContent>
+      </Hb.Dialog.Content>
 
-      <DialogActions sx={{ px: 2, pb: 1.5, justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex", gap: 0.5 }}>
+      <Hb.Dialog.Actions
+        sx={{ px: 2, pb: 1.5, justifyContent: "space-between" }}
+      >
+        <Hb.Box sx={{ display: "flex", gap: 0.5 }}>
           {!isEdit && (
-            <Tooltip
+            <Hb.Tooltip
               title={
                 form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"
               }
             >
-              <IconButton size="small" onClick={toggleType}>
+              <Hb.Button.Icon size="small" onClick={toggleType}>
                 {form.type === "TEXT" ? (
                   <CheckBoxOutlined fontSize="small" />
                 ) : (
                   <NotesOutlined fontSize="small" />
                 )}
-              </IconButton>
-            </Tooltip>
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
           )}
 
-          <Tooltip title="배경색">
-            <IconButton
+          <Hb.Tooltip title="배경색">
+            <Hb.Button.Icon
               size="small"
               onClick={(e) => setColorAnchor(e.currentTarget)}
             >
               <PaletteOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
 
-          <Tooltip title="라벨">
-            <IconButton
+          <Hb.Tooltip title="라벨">
+            <Hb.Button.Icon
               size="small"
               onClick={(e) => setLabelAnchor(e.currentTarget)}
             >
               <LabelOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
 
-          <Tooltip title="리마인더">
-            <IconButton
+          <Hb.Tooltip title="리마인더">
+            <Hb.Button.Icon
               size="small"
               onClick={(e) => setReminderAnchor(e.currentTarget)}
             >
               <NotificationAddOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
 
           {isEdit && (
-            <Tooltip title="멤버 공유">
-              <IconButton
+            <Hb.Tooltip title="멤버 공유">
+              <Hb.Button.Icon
                 size="small"
                 aria-label="멤버 공유"
                 onClick={(e) => setMemberAnchor(e.currentTarget)}
               >
-                <Badge
+                <Hb.Badge
                   badgeContent={noteMembers.length || undefined}
                   color="primary"
                   sx={{
@@ -247,20 +233,20 @@ export const NoteEditDialog = ({
                   }}
                 >
                   <PersonAddOutlined fontSize="small" />
-                </Badge>
-              </IconButton>
-            </Tooltip>
+                </Hb.Badge>
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
           )}
-        </Box>
+        </Hb.Box>
 
-        <Button
+        <Hb.Button
           onClick={handleSave}
           loading={isPending}
           sx={{ textTransform: "none" }}
         >
           닫기
-        </Button>
-      </DialogActions>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
 
       <ColorPickerPopover
         anchorEl={colorAnchor}
@@ -292,6 +278,6 @@ export const NoteEditDialog = ({
         onAdd={handleAddMember}
         onRemove={handleRemoveMember}
       />
-    </Dialog>
+    </Hb.Dialog.Root>
   );
 };

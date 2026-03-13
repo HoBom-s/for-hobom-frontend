@@ -1,5 +1,5 @@
-import { Chip, Tooltip } from "@mui/material";
 import type { LogEndpointError } from "@/entities/log";
+import { Hb } from "@/shared/ui";
 import {
   type ColKey,
   BORDER_COLOR,
@@ -35,7 +35,7 @@ export const EndpointErrorBodyCell = ({
 
       return (
         <div style={base}>
-          <Chip
+          <Hb.Chip
             label={row.httpMethod}
             size="small"
             sx={{
@@ -53,7 +53,7 @@ export const EndpointErrorBodyCell = ({
     }
     case "path":
       return (
-        <Tooltip
+        <Hb.Tooltip
           title={row.path}
           placement="bottom-start"
           enterDelay={100}
@@ -85,7 +85,7 @@ export const EndpointErrorBodyCell = ({
               {row.path}
             </span>
           </div>
-        </Tooltip>
+        </Hb.Tooltip>
       );
     case "total":
       return (

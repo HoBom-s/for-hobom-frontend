@@ -1,36 +1,36 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Add } from "hobom-design-system/icons";
 import { RoutesConfig } from "@/shared/config";
+import { Hb } from "@/shared/ui";
 
 export const FutureMessageHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
       }}
     >
-      <Box>
-        <Typography variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+      <Hb.Box>
+        <Hb.Text variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
           미래 메시지
-        </Typography>
-        <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+        </Hb.Text>
+        <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
           상대에게 전하고 싶은 말을 예약해보세요
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
 
-      <Button
-        variant="contained"
+      <Hb.Button
+        variant="primary"
         startIcon={<Add />}
         onClick={() => navigate(RoutesConfig.MESSAGE.SEND_FUNNEL)}
         sx={{ flexShrink: 0 }}
       >
         메시지 예약
-      </Button>
-    </Box>
+      </Hb.Button>
+    </Hb.Box>
   );
 };

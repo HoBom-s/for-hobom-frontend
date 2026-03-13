@@ -1,12 +1,12 @@
-import { Tab, Tabs } from "@mui/material";
 import { useRouterQuery } from "@/shared/model";
+import { Hb } from "@/shared/ui";
 
 export const FutureMessageStatusTab = () => {
   const { query, updateQuery } = useRouterQuery();
   const tabValue = query.get("status") || "SENT";
 
   return (
-    <Tabs
+    <Hb.Tabs.Root
       sx={{
         px: 2,
         borderBottom: "1px solid",
@@ -18,16 +18,16 @@ export const FutureMessageStatusTab = () => {
       value={tabValue}
       onChange={(_, value) => updateQuery({ status: value })}
     >
-      <Tab
+      <Hb.Tabs.Item
         label="발송 완료"
         value="SENT"
         sx={{ fontWeight: tabValue === "SENT" ? 700 : 500 }}
       />
-      <Tab
+      <Hb.Tabs.Item
         label="발송 대기"
         value="PENDING"
         sx={{ fontWeight: tabValue === "PENDING" ? 700 : 500 }}
       />
-    </Tabs>
+    </Hb.Tabs.Root>
   );
 };

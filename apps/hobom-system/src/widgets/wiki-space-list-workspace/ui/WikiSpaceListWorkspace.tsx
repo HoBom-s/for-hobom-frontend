@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined } from "hobom-design-system/icons";
 import type { SpaceType } from "@/entities/wiki-space";
 import {
   SpaceGrid,
@@ -9,7 +8,7 @@ import {
   DeleteSpaceDialog,
 } from "@/features/wiki-space-list";
 import { useOverlay } from "@/shared/model";
-import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
+import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { useSpaceListWorkspace } from "../model/useSpaceListWorkspace";
 
 export const WikiSpaceListWorkspace = () => {
@@ -42,8 +41,8 @@ export const WikiSpaceListWorkspace = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box
+    <Hb.Box sx={{ p: 3 }}>
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "flex-start",
@@ -51,16 +50,16 @@ export const WikiSpaceListWorkspace = () => {
           mb: 4,
         }}
       >
-        <Box>
-          <Typography variant="h5" fontWeight={700} sx={{ mb: 0.5 }}>
+        <Hb.Box>
+          <Hb.Text variant="h5" fontWeight={700} sx={{ mb: 0.5 }}>
             위키
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
+          </Hb.Text>
+          <Hb.Text variant="body2" color="text.secondary">
             팀의 지식을 문서화하고 공유하세요.
-          </Typography>
-        </Box>
-        <Button
-          variant="contained"
+          </Hb.Text>
+        </Hb.Box>
+        <Hb.Button
+          variant="primary"
           startIcon={<AddOutlined />}
           onClick={() => setCreateOpen(true)}
           sx={{
@@ -72,8 +71,8 @@ export const WikiSpaceListWorkspace = () => {
           }}
         >
           새 스페이스
-        </Button>
-      </Box>
+        </Hb.Button>
+      </Hb.Box>
 
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
@@ -99,6 +98,6 @@ export const WikiSpaceListWorkspace = () => {
         loading={isUpdating}
         space={editSpace}
       />
-    </Box>
+    </Hb.Box>
   );
 };

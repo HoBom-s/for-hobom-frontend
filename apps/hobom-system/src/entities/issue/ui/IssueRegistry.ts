@@ -8,8 +8,8 @@ import {
   KeyboardArrowUp,
   Remove,
   KeyboardArrowDown,
-} from "@mui/icons-material";
-import type { SvgIconProps } from "@mui/material";
+} from "hobom-design-system/icons";
+import type { SvgIconProps } from "@/shared/ui";
 import type { IssueKind, IssuePriority } from "../model/issue.model";
 
 type IconComponent = React.ComponentType<SvgIconProps>;

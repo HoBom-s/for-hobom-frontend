@@ -1,20 +1,11 @@
 import {
-  Box,
-  Chip,
-  IconButton,
-  Stack,
-  TextField,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import {
   AddOutlined,
   CloseOutlined,
   DeleteOutline,
   DragIndicatorOutlined,
   EditOutlined,
-} from "@mui/icons-material";
-import { Sortable } from "@/shared/ui";
+} from "hobom-design-system/icons";
+import { Hb, Sortable } from "@/shared/ui";
 import { getStatusConfig, type BoardDto } from "@/entities/board";
 import { useBoardItem } from "../model/useBoardItem";
 
@@ -43,7 +34,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
   } = useBoardItem(board, projectId);
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         p: 2,
         borderRadius: 2,
@@ -52,7 +43,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
       }}
     >
       {/* 보드 헤더 */}
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -61,7 +52,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
         }}
       >
         {isEditing ? (
-          <TextField
+          <Hb.TextField
             size="small"
             value={editName}
             onChange={(e) => setEditName(e.target.value)}
@@ -78,11 +69,11 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             sx={{ flex: 1, mr: 1 }}
           />
         ) : (
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2" fontWeight={600}>
+          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Hb.Text variant="body2" fontWeight={600}>
               {board.name}
-            </Typography>
-            <Chip
+            </Hb.Text>
+            <Hb.Chip
               label={board.type}
               size="small"
               sx={{
@@ -93,20 +84,20 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                 color: "text.secondary",
               }}
             />
-          </Box>
+          </Hb.Box>
         )}
-        <Box sx={{ display: "flex", gap: 0.5, flexShrink: 0 }}>
-          <Tooltip title="이름 수정">
-            <IconButton
+        <Hb.Box sx={{ display: "flex", gap: 0.5, flexShrink: 0 }}>
+          <Hb.Tooltip title="이름 수정">
+            <Hb.Button.Icon
               size="small"
               onClick={() => setIsEditing(true)}
               sx={{ color: "text.disabled" }}
             >
               <EditOutlined sx={{ fontSize: 16 }} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="삭제">
-            <IconButton
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
+          <Hb.Tooltip title="삭제">
+            <Hb.Button.Icon
               size="small"
               onClick={onDelete}
               sx={{
@@ -115,32 +106,32 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
               }}
             >
               <DeleteOutline sx={{ fontSize: 16 }} />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Box>
+            </Hb.Button.Icon>
+          </Hb.Tooltip>
+        </Hb.Box>
+      </Hb.Box>
 
       {/* 컬럼 목록 (드래그 정렬) */}
-      <Typography
+      <Hb.Text
         variant="caption"
         color="text.secondary"
         fontWeight={600}
         sx={{ mb: 0.5, display: "block" }}
       >
         컬럼
-      </Typography>
+      </Hb.Text>
       <Sortable.Root onDragEnd={handleColumnReorder}>
         <Sortable.List
           items={board.columns.map((c) => c.statusId)}
           strategy="vertical"
         >
-          <Stack spacing={0.5}>
+          <Hb.Stack spacing={0.5}>
             {board.columns.map((col) => {
               const config = getStatusConfig(col.statusId);
 
               return (
                 <Sortable.Item key={col.statusId} id={col.statusId} useHandle>
-                  <Box
+                  <Hb.Box
                     sx={{
                       display: "flex",
                       alignItems: "center",
@@ -162,7 +153,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                         }}
                       />
                     </Sortable.Handle>
-                    <Box
+                    <Hb.Box
                       sx={{
                         width: 8,
                         height: 8,
@@ -171,18 +162,18 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                         flexShrink: 0,
                       }}
                     />
-                    <Typography variant="body2" sx={{ flex: 1, fontSize: 13 }}>
+                    <Hb.Text variant="body2" sx={{ flex: 1, fontSize: 13 }}>
                       {col.name}
-                    </Typography>
-                    <Typography
+                    </Hb.Text>
+                    <Hb.Text
                       variant="caption"
                       color="text.disabled"
                       sx={{ fontSize: 11 }}
                     >
                       {col.statusId}
-                    </Typography>
+                    </Hb.Text>
                     {col.wipLimit != null && (
-                      <Chip
+                      <Hb.Chip
                         label={`WIP ${col.wipLimit}`}
                         size="small"
                         sx={{
@@ -193,7 +184,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                         }}
                       />
                     )}
-                    <IconButton
+                    <Hb.Button.Icon
                       size="small"
                       onClick={() => handleRemoveColumn(col.statusId)}
                       sx={{
@@ -203,18 +194,18 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                       }}
                     >
                       <CloseOutlined sx={{ fontSize: 14 }} />
-                    </IconButton>
-                  </Box>
+                    </Hb.Button.Icon>
+                  </Hb.Box>
                 </Sortable.Item>
               );
             })}
-          </Stack>
+          </Hb.Stack>
         </Sortable.List>
       </Sortable.Root>
 
       {/* 컬럼 추가 */}
-      <Box sx={{ display: "flex", gap: 0.5, mt: 1 }}>
-        <TextField
+      <Hb.Box sx={{ display: "flex", gap: 0.5, mt: 1 }}>
+        <Hb.TextField
           size="small"
           placeholder="status ID"
           value={newStatusId}
@@ -225,7 +216,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             "& .MuiInputBase-input": { fontSize: 13, py: 0.75 },
           }}
         />
-        <TextField
+        <Hb.TextField
           size="small"
           placeholder="표시 이름"
           value={newStatusName}
@@ -236,16 +227,15 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             "& .MuiInputBase-input": { fontSize: 13, py: 0.75 },
           }}
         />
-        <IconButton
+        <Hb.Button.Icon
           size="small"
           onClick={handleAddColumn}
           disabled={!newStatusId.trim() || !newStatusName.trim() || isDuplicate}
-          color="primary"
-          sx={{ borderRadius: 1.5 }}
+          sx={{ color: "primary.main", borderRadius: 1.5 }}
         >
           <AddOutlined sx={{ fontSize: 18 }} />
-        </IconButton>
-      </Box>
-    </Box>
+        </Hb.Button.Icon>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

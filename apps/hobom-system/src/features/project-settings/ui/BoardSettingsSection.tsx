@@ -1,17 +1,8 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Chip,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { AddOutlined, DashboardOutlined } from "@mui/icons-material";
+import { AddOutlined, DashboardOutlined } from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useOverlay } from "@/shared/model";
-import { ConfirmDialog } from "@/shared/ui";
+import { Hb, ConfirmDialog } from "@/shared/ui";
 import {
   boardQueries,
   useCreateBoard,
@@ -68,8 +59,8 @@ export const BoardSettingsSection = ({
   };
 
   return (
-    <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
-      <Box
+    <Hb.Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
+      <Hb.Box
         sx={{
           px: 3,
           py: 2,
@@ -81,12 +72,12 @@ export const BoardSettingsSection = ({
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <DashboardOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
-          <Typography variant="subtitle2" fontWeight={700}>
+          <Hb.Text variant="subtitle2" fontWeight={700}>
             보드
-          </Typography>
-          <Chip
+          </Hb.Text>
+          <Hb.Chip
             label={boards.length}
             size="small"
             sx={{
@@ -98,13 +89,13 @@ export const BoardSettingsSection = ({
               color: "primary.main",
             }}
           />
-        </Box>
-      </Box>
+        </Hb.Box>
+      </Hb.Box>
 
-      <Box sx={{ p: 3 }}>
+      <Hb.Box sx={{ p: 3 }}>
         {/* 보드 생성 */}
-        <Box sx={{ display: "flex", gap: 1, mb: boards.length > 0 ? 2 : 0 }}>
-          <TextField
+        <Hb.Box sx={{ display: "flex", gap: 1, mb: boards.length > 0 ? 2 : 0 }}>
+          <Hb.TextField
             size="small"
             placeholder="새 보드 이름"
             value={newBoardName}
@@ -112,8 +103,8 @@ export const BoardSettingsSection = ({
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
             sx={{ flex: 1 }}
           />
-          <Button
-            variant="contained"
+          <Hb.Button
+            variant="primary"
             size="small"
             startIcon={<AddOutlined />}
             onClick={handleCreate}
@@ -128,12 +119,12 @@ export const BoardSettingsSection = ({
             }}
           >
             생성
-          </Button>
-        </Box>
+          </Hb.Button>
+        </Hb.Box>
 
         {/* 보드 목록 */}
         {boards.length > 0 && (
-          <Stack spacing={1.5}>
+          <Hb.Stack spacing={1.5}>
             {boards.map((board) => (
               <BoardItem
                 key={board.id}
@@ -142,9 +133,9 @@ export const BoardSettingsSection = ({
                 onDelete={() => handleDelete(board)}
               />
             ))}
-          </Stack>
+          </Hb.Stack>
         )}
-      </Box>
-    </Paper>
+      </Hb.Box>
+    </Hb.Paper>
   );
 };

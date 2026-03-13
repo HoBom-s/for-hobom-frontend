@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
 import {
   PickMenuContent,
   PickMenuHeader,
   SelectedMenuContent,
 } from "@/features/pick-menu";
 import { useFunnel } from "@/shared/model";
+import { Hb } from "@/shared/ui";
 
 const FUNNEL_STEPS = ["select-menu", "pick"] as const;
 
@@ -16,19 +16,21 @@ export const PickMenuFunnel = () => {
   return (
     <Funnel>
       <Funnel.Step name="select-menu">
-        <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <Hb.Box
+          sx={{ display: "flex", flexDirection: "column", height: "100%" }}
+        >
           <PickMenuHeader />
-          <Box sx={{ flexGrow: 1, minHeight: 0 }}>
+          <Hb.Box sx={{ flexGrow: 1, minHeight: 0 }}>
             <PickMenuContent
               onNextCallback={() => setState({ step: "pick" })}
             />
-          </Box>
-        </Box>
+          </Hb.Box>
+        </Hb.Box>
       </Funnel.Step>
       <Funnel.Step name="pick">
-        <Box sx={{ height: "100%" }}>
+        <Hb.Box sx={{ height: "100%" }}>
           <SelectedMenuContent />
-        </Box>
+        </Hb.Box>
       </Funnel.Step>
     </Funnel>
   );

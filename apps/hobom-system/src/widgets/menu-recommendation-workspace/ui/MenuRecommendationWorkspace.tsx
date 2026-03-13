@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
 import { MenuRecommendationHeader } from "@/features/menu-recommendation-header";
 import { MenuRecommendationTab } from "@/features/select-menu-tab";
+import { Hb } from "@/shared/ui";
 
 export const MenuRecommendationWorkspace = () => {
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -14,6 +14,6 @@ export const MenuRecommendationWorkspace = () => {
     >
       <MenuRecommendationHeader />
       <MenuRecommendationTab />
-    </Box>
+    </Hb.Box>
   );
 };

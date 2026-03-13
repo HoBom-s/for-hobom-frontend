@@ -1,12 +1,5 @@
-import {
-  Box,
-  Chip,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { NotificationsActive } from "@mui/icons-material";
+import { NotificationsActive } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 interface UnreadItem {
   id: string;
@@ -21,22 +14,22 @@ interface UnreadAlertListProps {
 
 export const UnreadAlertList = ({ data }: UnreadAlertListProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         미확인 알림
-      </Typography>
+      </Hb.Text>
       {data.length === 0 ? (
-        <Typography
+        <Hb.Text
           variant="body2"
           color="text.secondary"
           sx={{ py: 2, textAlign: "center" }}
         >
           미확인 알림이 없습니다
-        </Typography>
+        </Hb.Text>
       ) : (
-        <List disablePadding>
+        <Hb.List.Root disablePadding>
           {data.slice(0, 5).map((item) => (
-            <ListItem
+            <Hb.List.Item
               key={item.id}
               sx={{
                 px: 0,
@@ -48,17 +41,17 @@ export const UnreadAlertList = ({ data }: UnreadAlertListProps) => {
               <NotificationsActive
                 sx={{ color: "warning.main", mr: 1.5, fontSize: 20 }}
               />
-              <ListItemText
+              <Hb.List.ItemText
                 primary={item.title}
                 secondary={item.createdAt.slice(0, 10)}
                 primaryTypographyProps={{ variant: "body2" }}
                 secondaryTypographyProps={{ variant: "caption" }}
               />
-              <Chip label={item.category} size="small" variant="outlined" />
-            </ListItem>
+              <Hb.Chip label={item.category} size="small" variant="outlined" />
+            </Hb.List.Item>
           ))}
-        </List>
+        </Hb.List.Root>
       )}
-    </Box>
+    </Hb.Box>
   );
 };

@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Box, Paper } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import {
+  LocalizationProvider,
+  AdapterDateFns,
+} from "hobom-design-system/date-pickers";
 import { FutureMessageFunnel } from "@/features/send-future-message";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
+import { Hb } from "@/shared/ui";
 
 export default function FutureMessageSendPage() {
   const formMethods = useForm<FutureMessageSendSchemaType>({
@@ -18,7 +20,7 @@ export default function FutureMessageSendPage() {
   });
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         width: "100%",
         height: "100%",
@@ -35,12 +37,12 @@ export default function FutureMessageSendPage() {
           </Layout>
         </LocalizationProvider>
       </FormProvider>
-    </Box>
+    </Hb.Box>
   );
 }
 
 const Layout = ({ children }: { children: ReactNode }) => (
-  <Paper
+  <Hb.Paper
     elevation={2}
     sx={{
       width: "100%",
@@ -50,5 +52,5 @@ const Layout = ({ children }: { children: ReactNode }) => (
     }}
   >
     {children}
-  </Paper>
+  </Hb.Paper>
 );

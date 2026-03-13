@@ -1,12 +1,16 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import Grid from "@mui/material/Grid";
-import { Notifications, DoneAll, MarkEmailUnread } from "@mui/icons-material";
+import {
+  Notifications,
+  DoneAll,
+  MarkEmailUnread,
+} from "hobom-design-system/icons";
 import {
   DashboardPaper,
   dashboardQueries,
   KpiCard,
   type PeriodType,
 } from "@/entities/dashboard";
+import { Hb } from "@/shared/ui";
 import { ReadUnreadStackedBar } from "./ReadUnreadStackedBar";
 import { UnreadAlertList } from "./UnreadAlertList";
 import { NotificationCategoryDonut } from "./NotificationCategoryDonut";
@@ -26,48 +30,48 @@ export const NotificationDashboardContent = ({
   const d = data.items;
 
   return (
-    <Grid container spacing={2.5}>
-      <Grid size={{ xs: 12, sm: 4 }}>
+    <Hb.Grid container spacing={2.5}>
+      <Hb.Grid size={{ xs: 12, sm: 4 }}>
         <KpiCard
           label="총 알림"
           value={d.overview.total}
           suffix="개"
           icon={<Notifications fontSize="small" />}
         />
-      </Grid>
-      <Grid size={{ xs: 12, sm: 4 }}>
+      </Hb.Grid>
+      <Hb.Grid size={{ xs: 12, sm: 4 }}>
         <KpiCard
           label="읽음"
           value={d.overview.read}
           suffix="개"
           icon={<DoneAll fontSize="small" />}
         />
-      </Grid>
-      <Grid size={{ xs: 12, sm: 4 }}>
+      </Hb.Grid>
+      <Hb.Grid size={{ xs: 12, sm: 4 }}>
         <KpiCard
           label="안읽음"
           value={d.overview.unread}
           suffix="개"
           icon={<MarkEmailUnread fontSize="small" />}
         />
-      </Grid>
+      </Hb.Grid>
 
-      <Grid size={{ xs: 12, md: 8 }}>
+      <Hb.Grid size={{ xs: 12, md: 8 }}>
         <DashboardPaper>
           <ReadUnreadStackedBar data={d.dailyTrend} />
         </DashboardPaper>
-      </Grid>
-      <Grid size={{ xs: 12, md: 4 }}>
+      </Hb.Grid>
+      <Hb.Grid size={{ xs: 12, md: 4 }}>
         <DashboardPaper>
           <NotificationCategoryDonut data={d.byCategory} />
         </DashboardPaper>
-      </Grid>
+      </Hb.Grid>
 
-      <Grid size={12}>
+      <Hb.Grid size={12}>
         <DashboardPaper>
           <UnreadAlertList data={d.recentUnread} />
         </DashboardPaper>
-      </Grid>
-    </Grid>
+      </Hb.Grid>
+    </Hb.Grid>
   );
 };

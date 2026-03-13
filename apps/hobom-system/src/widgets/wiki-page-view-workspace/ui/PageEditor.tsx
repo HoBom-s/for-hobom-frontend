@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Box, Button, Paper } from "@mui/material";
-import { VisibilityOutlined } from "@mui/icons-material";
+import { VisibilityOutlined } from "hobom-design-system/icons";
 import { useUpdatePage, UpdatePageSchema } from "@/entities/wiki-page";
 import { validateWithZod } from "@/shared/lib";
 import { useToast } from "@/shared/model";
 import { usePageEditor, PageEditorContent } from "@/features/wiki-page-editor";
+import { Hb } from "@/shared/ui";
 
 const validatePageUpdate = validateWithZod(UpdatePageSchema);
 
@@ -45,7 +45,7 @@ export const PageEditor = ({
   };
 
   return (
-    <Paper
+    <Hb.Paper
       elevation={0}
       sx={{
         m: 2,
@@ -57,7 +57,7 @@ export const PageEditor = ({
         minHeight: "calc(100vh - 280px)",
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -69,16 +69,16 @@ export const PageEditor = ({
           bgcolor: "grey.50",
         }}
       >
-        <Button
+        <Hb.Button
           size="small"
-          variant="text"
+          variant="ghost"
           startIcon={<VisibilityOutlined />}
           onClick={onCancel}
           sx={{ textTransform: "none", color: "text.secondary" }}
         >
           보기 모드
-        </Button>
-      </Box>
+        </Hb.Button>
+      </Hb.Box>
       <PageEditorContent
         editor={editor}
         title={title}
@@ -86,6 +86,6 @@ export const PageEditor = ({
         onSave={handleSave}
         saving={updatePage.isPending}
       />
-    </Paper>
+    </Hb.Paper>
   );
 };

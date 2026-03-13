@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Hb } from "@/shared/ui";
 
 interface IssueCommentInputProps {
   onSubmit: (body: string) => void;
@@ -21,8 +21,8 @@ export const IssueCommentInput = ({
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-      <TextField
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      <Hb.TextField
         fullWidth
         multiline
         minRows={2}
@@ -39,17 +39,17 @@ export const IssueCommentInput = ({
           }
         }}
       />
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          variant="contained"
+      <Hb.Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Hb.Button
+          variant="primary"
           size="small"
           onClick={handleSubmit}
           disabled={!body.trim()}
           loading={loading}
         >
           등록
-        </Button>
-      </Box>
-    </Box>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

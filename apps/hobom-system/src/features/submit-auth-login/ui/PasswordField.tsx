@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
-import { TextField } from "@mui/material";
 import type { AuthLoginType } from "@/entities/auth";
+import { Hb } from "@/shared/ui";
 
 export const PasswordField = () => {
   const { control } = useFormContext<AuthLoginType>();
@@ -13,7 +13,7 @@ export const PasswordField = () => {
         required: "비밀번호를 입력해 주세요.",
       }}
       render={({ field, fieldState }) => (
-        <TextField
+        <Hb.TextField
           sx={{
             fontSize: 14,
             "& input::placeholder": {

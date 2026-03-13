@@ -1,17 +1,17 @@
-import { Box, Paper, Typography } from "@mui/material";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { Calendar } from "@/features/calendar";
 import { DailyTodoList } from "@/features/view-todos-by-category";
 import { useRouterQuery } from "@/shared/model";
 import { getNow, getSelectedDate } from "@/entities/daily-todo";
+import { Hb } from "@/shared/ui";
 
 const DateHeader = () => {
   const { query } = useRouterQuery();
   const selected = getSelectedDate(query, getNow());
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         px: 3,
         py: 2,
@@ -20,22 +20,22 @@ const DateHeader = () => {
         flexShrink: 0,
       }}
     >
-      <Typography
+      <Hb.Text
         variant="h5"
         sx={{ fontWeight: 700, color: "text.primary", lineHeight: 1.3 }}
       >
         {format(selected, "M월 d일 EEEE", { locale: ko })}
-      </Typography>
-      <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+      </Hb.Text>
+      <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
         {format(selected, "yyyy년")}
-      </Typography>
-    </Box>
+      </Hb.Text>
+    </Hb.Box>
   );
 };
 
 export const DailyTodoWorkspace = () => {
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         flexDirection: "row",
@@ -46,7 +46,7 @@ export const DailyTodoWorkspace = () => {
       }}
     >
       {/* 왼쪽: 캘린더 */}
-      <Paper
+      <Hb.Paper
         elevation={0}
         sx={{
           overflow: "hidden",
@@ -60,10 +60,10 @@ export const DailyTodoWorkspace = () => {
         <Calendar.WithSuspense>
           <Calendar />
         </Calendar.WithSuspense>
-      </Paper>
+      </Hb.Paper>
 
       {/* 오른쪽: 할 일 목록 */}
-      <Paper
+      <Hb.Paper
         elevation={0}
         sx={{
           flexGrow: 1,
@@ -78,10 +78,10 @@ export const DailyTodoWorkspace = () => {
         }}
       >
         <DateHeader />
-        <Box sx={{ flexGrow: 1, overflowY: "auto", minHeight: 0 }}>
+        <Hb.Box sx={{ flexGrow: 1, overflowY: "auto", minHeight: 0 }}>
           <DailyTodoList />
-        </Box>
-      </Paper>
-    </Box>
+        </Hb.Box>
+      </Hb.Paper>
+    </Hb.Box>
   );
 };

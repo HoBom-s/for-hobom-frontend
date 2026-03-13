@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   PieChart,
   Pie,
@@ -8,6 +7,7 @@ import {
   Legend,
 } from "recharts";
 import { CHART_COLORS } from "@/entities/dashboard";
+import { Hb } from "@/shared/ui";
 
 interface NoteStatusPieChartProps {
   data: { status: string; count: number }[];
@@ -15,10 +15,10 @@ interface NoteStatusPieChartProps {
 
 export const NoteStatusPieChart = ({ data }: NoteStatusPieChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         노트 상태 분포
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <PieChart>
           <Pie
@@ -37,6 +37,6 @@ export const NoteStatusPieChart = ({ data }: NoteStatusPieChartProps) => {
           <Legend />
         </PieChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

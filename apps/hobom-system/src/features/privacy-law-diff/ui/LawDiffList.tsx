@@ -1,18 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Chip,
-  Stack,
-  Typography,
-} from "@mui/material";
-import {
   ArrowForwardOutlined,
   CompareArrowsOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
+import { Hb } from "@/shared/ui";
 
 const CHANGE_COLORS: Record<string, "success" | "warning" | "error"> = {
   ADDED: "success",
@@ -26,7 +19,7 @@ export const LawDiffList = () => {
   const diffs = data.items;
 
   return (
-    <Stack spacing={2}>
+    <Hb.Stack spacing={2}>
       {diffs.map((diff) => {
         const counts = diff.changes.reduce(
           (acc, c) => {
@@ -38,34 +31,34 @@ export const LawDiffList = () => {
         );
 
         return (
-          <Card key={diff.id} variant="outlined">
-            <CardActionArea
+          <Hb.Card.Root key={diff.id} variant="outlined">
+            <Hb.Card.Clickable
               onClick={() => navigate(`/privacy-law/diffs/${diff.id}`)}
             >
-              <CardContent>
-                <Stack
+              <Hb.Card.Content>
+                <Hb.Stack
                   direction="row"
                   alignItems="center"
                   justifyContent="space-between"
                 >
-                  <Stack direction="row" alignItems="center" spacing={1.5}>
+                  <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
                     <CompareArrowsOutlined color="primary" fontSize="small" />
-                    <Stack direction="row" alignItems="center" spacing={0.5}>
-                      <Typography variant="subtitle2">
+                    <Hb.Stack direction="row" alignItems="center" spacing={0.5}>
+                      <Hb.Text variant="subtitle2">
                         {diff.fromProclamationDate}
-                      </Typography>
+                      </Hb.Text>
                       <ArrowForwardOutlined
                         fontSize="small"
                         sx={{ color: "text.secondary" }}
                       />
-                      <Typography variant="subtitle2">
+                      <Hb.Text variant="subtitle2">
                         {diff.toProclamationDate}
-                      </Typography>
-                    </Stack>
-                  </Stack>
-                  <Stack direction="row" spacing={0.5}>
+                      </Hb.Text>
+                    </Hb.Stack>
+                  </Hb.Stack>
+                  <Hb.Stack direction="row" spacing={0.5}>
                     {Object.entries(counts).map(([type, count]) => (
-                      <Chip
+                      <Hb.Chip
                         key={type}
                         label={`${type} ${count}`}
                         size="small"
@@ -73,23 +66,23 @@ export const LawDiffList = () => {
                         variant="outlined"
                       />
                     ))}
-                    <Chip
+                    <Hb.Chip
                       label={`${diff.changes.length}건`}
                       size="small"
                       variant="outlined"
                     />
-                  </Stack>
-                </Stack>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+                  </Hb.Stack>
+                </Hb.Stack>
+              </Hb.Card.Content>
+            </Hb.Card.Clickable>
+          </Hb.Card.Root>
         );
       })}
       {diffs.length === 0 && (
-        <Typography color="text.secondary" textAlign="center" py={4}>
+        <Hb.Text color="text.secondary" textAlign="center" py={4}>
           변경 이력이 없습니다.
-        </Typography>
+        </Hb.Text>
       )}
-    </Stack>
+    </Hb.Stack>
   );
 };

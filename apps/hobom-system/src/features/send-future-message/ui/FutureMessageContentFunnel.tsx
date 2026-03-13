@@ -1,13 +1,6 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  TextField,
-  Typography,
-} from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   onPrevStep: () => void;
@@ -21,18 +14,18 @@ export const FutureMessageContentFunnel = ({
   const { setValue, watch } = useFormContext<FutureMessageSendSchemaType>();
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Box>
-        <Typography fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Hb.Box>
+        <Hb.Text fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
           내용을 입력해 주세요
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        </Hb.Text>
+        <Hb.Text variant="body2" color="text.secondary">
           어떤 내용으로 보낼까요?
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
 
-      <FormControl fullWidth>
-        <TextField
+      <Hb.Form.Control fullWidth>
+        <Hb.TextField
           fullWidth
           multiline
           minRows={4}
@@ -40,29 +33,24 @@ export const FutureMessageContentFunnel = ({
           value={watch("content")}
           onChange={(evt) => setValue("content", evt.target.value)}
         />
-        <FormHelperText>
+        <Hb.Form.Helper>
           전하고 싶은 말을 자유롭게 작성해 주세요.
-        </FormHelperText>
-      </FormControl>
+        </Hb.Form.Helper>
+      </Hb.Form.Control>
 
-      <Box display="flex" gap={1.5}>
-        <Button
-          fullWidth
-          variant="outlined"
-          color="inherit"
-          onClick={onPrevStep}
-        >
+      <Hb.Box display="flex" gap={1.5}>
+        <Hb.Button fullWidth variant="secondary" onClick={onPrevStep}>
           이전
-        </Button>
-        <Button
+        </Hb.Button>
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           disabled={watch("content") === ""}
           onClick={onNextStep}
         >
           다음
-        </Button>
-      </Box>
-    </Box>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

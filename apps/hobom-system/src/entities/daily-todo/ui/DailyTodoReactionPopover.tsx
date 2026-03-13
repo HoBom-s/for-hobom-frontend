@@ -1,4 +1,4 @@
-import { IconButton, Popover, Stack } from "@mui/material";
+import { Hb } from "@/shared/ui";
 
 const REACTION_OPTIONS = ["👍", "❤️", "🎉", "😊", "💪", "🔥"];
 
@@ -13,7 +13,7 @@ export const DailyTodoReactionPopover = ({
   onClose,
   onSelect,
 }: Props) => (
-  <Popover
+  <Hb.Popover
     open={Boolean(anchorEl)}
     anchorEl={anchorEl}
     onClose={onClose}
@@ -21,9 +21,9 @@ export const DailyTodoReactionPopover = ({
     transformOrigin={{ vertical: "top", horizontal: "center" }}
     slotProps={{ paper: { sx: { p: 0.5, borderRadius: 2 } } }}
   >
-    <Stack direction="row" spacing={0.25}>
+    <Hb.Stack direction="row" spacing={0.25}>
       {REACTION_OPTIONS.map((emoji) => (
-        <IconButton
+        <Hb.Button.Icon
           key={emoji}
           size="small"
           onClick={() => onSelect(emoji)}
@@ -34,8 +34,8 @@ export const DailyTodoReactionPopover = ({
           }}
         >
           {emoji}
-        </IconButton>
+        </Hb.Button.Icon>
       ))}
-    </Stack>
-  </Popover>
+    </Hb.Stack>
+  </Hb.Popover>
 );

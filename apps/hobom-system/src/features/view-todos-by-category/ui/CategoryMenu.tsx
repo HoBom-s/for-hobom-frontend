@@ -1,15 +1,5 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Menu,
-  MenuItem,
-  TextField,
-} from "@mui/material";
-import { MoreHoriz } from "@mui/icons-material";
+import { MoreHoriz } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import { useCategoryMenu } from "../model/useCategoryMenu";
 
 interface Props {
@@ -34,33 +24,31 @@ export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
 
   return (
     <>
-      <IconButton size="small" onClick={openMenu} sx={{ p: 0.25 }}>
+      <Hb.Button.Icon size="small" onClick={openMenu} sx={{ p: 0.25 }}>
         <MoreHoriz sx={{ fontSize: 16 }} />
-      </IconButton>
-      <Menu
+      </Hb.Button.Icon>
+      <Hb.Menu.Root
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={closeMenu}
         slotProps={{ paper: { sx: { minWidth: 100 } } }}
       >
-        <MenuItem onClick={openEdit}>수정</MenuItem>
-        <MenuItem sx={{ color: "error.main" }} onClick={handleDelete}>
+        <Hb.Menu.Item onClick={openEdit}>수정</Hb.Menu.Item>
+        <Hb.Menu.Item sx={{ color: "error.main" }} onClick={handleDelete}>
           삭제
-        </MenuItem>
-      </Menu>
+        </Hb.Menu.Item>
+      </Hb.Menu.Root>
 
-      <Dialog
+      <Hb.Dialog.Root
         open={editOpen}
         onClose={() => setEditOpen(false)}
-        maxWidth="xs"
-        fullWidth
+        size="xs"
       >
-        <DialogTitle sx={{ pb: 1 }}>카테고리 수정</DialogTitle>
-        <DialogContent sx={{ pt: "12px !important" }}>
-          <TextField
+        <Hb.Dialog.Title sx={{ pb: 1 }}>카테고리 수정</Hb.Dialog.Title>
+        <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
+          <Hb.TextField
             fullWidth
             autoFocus
-            variant="outlined"
             label="카테고리 이름"
             size="small"
             value={editTitle}
@@ -72,26 +60,25 @@ export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
               }
             }}
           />
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-          <Button
+        </Hb.Dialog.Content>
+        <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
+          <Hb.Button
             fullWidth
-            variant="outlined"
-            color="inherit"
+            variant="secondary"
             onClick={() => setEditOpen(false)}
           >
             취소
-          </Button>
-          <Button
+          </Hb.Button>
+          <Hb.Button
             fullWidth
-            variant="contained"
+            variant="primary"
             loading={isUpdatePending}
             onClick={handleEdit}
           >
             저장
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </Hb.Button>
+        </Hb.Dialog.Actions>
+      </Hb.Dialog.Root>
     </>
   );
 };

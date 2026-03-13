@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -9,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { ProjectIssueDashboardDto } from "@/entities/dashboard";
+import { Hb } from "@/shared/ui";
 
 interface TypeDistributionChartProps {
   data: ProjectIssueDashboardDto["byType"];
@@ -16,10 +16,10 @@ interface TypeDistributionChartProps {
 
 export const TypeDistributionChart = ({ data }: TypeDistributionChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         유형별 분포
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={data} layout="vertical" barSize={20}>
           <defs>
@@ -60,6 +60,6 @@ export const TypeDistributionChart = ({ data }: TypeDistributionChartProps) => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { Box, Divider, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import {
   issueCommentQueries,
@@ -8,6 +7,7 @@ import {
   useDeleteIssueComment,
 } from "@/entities/issue-comment";
 import { userQueries } from "@/entities/user";
+import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
 import { IssueCommentInput } from "./IssueCommentInput";
 import { IssueCommentItem } from "./IssueCommentItem";
@@ -49,14 +49,14 @@ export const IssueCommentsSection = () => {
 
   return (
     <>
-      <Divider sx={{ my: 2 }} />
-      <Typography
+      <Hb.Divider sx={{ my: 2 }} />
+      <Hb.Text
         variant="subtitle2"
         fontWeight={600}
         sx={{ mb: 1.5, fontSize: 13 }}
       >
         댓글 {comments.length > 0 && `(${comments.length})`}
-      </Typography>
+      </Hb.Text>
 
       <IssueCommentInput
         onSubmit={handleCreate}
@@ -64,7 +64,7 @@ export const IssueCommentsSection = () => {
       />
 
       {comments.length > 0 && (
-        <Box sx={{ mt: 1 }}>
+        <Hb.Box sx={{ mt: 1 }}>
           {comments.map((comment) => (
             <IssueCommentItem
               key={comment.id}
@@ -75,7 +75,7 @@ export const IssueCommentsSection = () => {
               onDelete={handleDelete}
             />
           ))}
-        </Box>
+        </Hb.Box>
       )}
     </>
   );

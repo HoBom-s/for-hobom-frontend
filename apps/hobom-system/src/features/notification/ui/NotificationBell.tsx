@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { IconButton, Badge } from "@mui/material";
-import { NotificationsNoneOutlined } from "@mui/icons-material";
+import { NotificationsNoneOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import { useNotificationList } from "../model/useNotificationList";
 import { NotificationPanel } from "./NotificationPanel";
 
@@ -10,7 +10,7 @@ export const NotificationBell = () => {
 
   return (
     <>
-      <IconButton
+      <Hb.Button.Icon
         size="small"
         aria-label="알림"
         onClick={(e) => setAnchorEl(e.currentTarget)}
@@ -19,7 +19,7 @@ export const NotificationBell = () => {
           "&:hover": { bgcolor: "rgba(0,0,0,0.04)" },
         }}
       >
-        <Badge
+        <Hb.Badge
           badgeContent={unreadCount}
           max={99}
           color="error"
@@ -33,8 +33,8 @@ export const NotificationBell = () => {
           }}
         >
           <NotificationsNoneOutlined sx={{ fontSize: 22 }} />
-        </Badge>
-      </IconButton>
+        </Hb.Badge>
+      </Hb.Button.Icon>
       {anchorEl != null && (
         <NotificationPanel
           anchorEl={anchorEl}

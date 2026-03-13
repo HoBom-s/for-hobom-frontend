@@ -1,19 +1,12 @@
 import { type ReactNode, useState } from "react";
-import {
-  Box,
-  Button,
-  Chip,
-  List,
-  ListSubheader,
-  Typography,
-} from "@mui/material";
-import { Add, CheckCircleOutline } from "@mui/icons-material";
+import { Add, CheckCircleOutline } from "hobom-design-system/icons";
 import {
   DailyTodoAddButton,
   isCompleteStatus,
   type DailyTodoType,
   type DailyTodoWithCategoryType,
 } from "@/entities/daily-todo";
+import { Hb } from "@/shared/ui";
 import { CategoryCreateDialog } from "./CategoryCreateDialog";
 import { CategoryMenu } from "./CategoryMenu";
 
@@ -28,7 +21,7 @@ const CategoryProgress = ({ items }: { items: DailyTodoType[] }) => {
   const total = items.length;
 
   return (
-    <Chip
+    <Hb.Chip
       size="small"
       label={`${done}/${total}`}
       sx={{
@@ -51,7 +44,7 @@ export const DailyTodoListContentSection = ({
   return (
     <>
       {groupedTodos.length === 0 ? (
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -62,22 +55,22 @@ export const DailyTodoListContentSection = ({
           }}
         >
           <CheckCircleOutline sx={{ fontSize: 64, color: "#dadce0" }} />
-          <Typography
+          <Hb.Text
             variant="body1"
             sx={{ color: "text.disabled", fontSize: "0.95rem" }}
           >
             오늘의 할 일이 없어요
-          </Typography>
-        </Box>
+          </Hb.Text>
+        </Hb.Box>
       ) : (
-        <Box sx={{ width: "100%", py: 1 }}>
+        <Hb.Box sx={{ width: "100%", py: 1 }}>
           {groupedTodos.map((item) => (
-            <List
+            <Hb.List.Root
               key={item.categoryId}
               disablePadding
               sx={{ width: "100%", mb: 1 }}
               subheader={
-                <ListSubheader
+                <Hb.List.Subheader
                   disableSticky
                   disableGutters
                   component="div"
@@ -101,28 +94,28 @@ export const DailyTodoListContentSection = ({
                     categoryId={item.categoryId}
                     categoryTitle={item.categoryTitle}
                   />
-                  <Box sx={{ ml: "auto" }}>
+                  <Hb.Box sx={{ ml: "auto" }}>
                     <DailyTodoAddButton item={item} />
-                  </Box>
-                </ListSubheader>
+                  </Hb.Box>
+                </Hb.List.Subheader>
               }
             >
               {item.todoItems.map((todo) => renderItem(todo))}
-            </List>
+            </Hb.List.Root>
           ))}
-        </Box>
+        </Hb.Box>
       )}
 
-      <Box sx={{ px: 2.5, py: 1.5 }}>
-        <Button
+      <Hb.Box sx={{ px: 2.5, py: 1.5 }}>
+        <Hb.Button
           size="small"
           startIcon={<Add />}
           sx={{ color: "text.secondary", textTransform: "none" }}
           onClick={() => setCreateOpen(true)}
         >
           카테고리 추가
-        </Button>
-      </Box>
+        </Hb.Button>
+      </Hb.Box>
 
       <CategoryCreateDialog
         open={createOpen}

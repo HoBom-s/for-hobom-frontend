@@ -1,16 +1,16 @@
 import { Suspense } from "react";
-import { Avatar, Box, Chip, CircularProgress, Typography } from "@mui/material";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { projectQueries } from "@/entities/project";
+import { Hb } from "@/shared/ui";
 import { GeneralSettingsSection } from "./GeneralSettingsSection";
 import { MemberSettingsSection } from "./MemberSettingsSection";
 import { BoardSettingsSection } from "./BoardSettingsSection";
 import { DangerZoneSection } from "./DangerZoneSection";
 
 const SuspenseFallback = () => (
-  <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-    <CircularProgress size={24} />
-  </Box>
+  <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+    <Hb.Progress.Circular size={24} />
+  </Hb.Box>
 );
 
 interface ProjectSettingsProps {
@@ -22,10 +22,10 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
   const project = data.items;
 
   return (
-    <Box sx={{ maxWidth: 1080, mx: "auto" }}>
+    <Hb.Box sx={{ maxWidth: 1080, mx: "auto" }}>
       {/* 헤더 */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
-        <Avatar
+      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+        <Hb.Avatar
           sx={{
             width: 48,
             height: 48,
@@ -35,13 +35,13 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
           }}
         >
           {project.key.charAt(0)}
-        </Avatar>
-        <Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="h6" fontWeight={700}>
+        </Hb.Avatar>
+        <Hb.Box>
+          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Hb.Text variant="h6" fontWeight={700}>
               {project.name}
-            </Typography>
-            <Chip
+            </Hb.Text>
+            <Hb.Chip
               label={project.key}
               size="small"
               sx={{
@@ -52,17 +52,17 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
                 color: "primary.main",
               }}
             />
-          </Box>
-          <Typography variant="body2" color="text.secondary">
+          </Hb.Box>
+          <Hb.Text variant="body2" color="text.secondary">
             프로젝트 설정을 관리할 수 있어요.
-          </Typography>
-        </Box>
-      </Box>
+          </Hb.Text>
+        </Hb.Box>
+      </Hb.Box>
 
       {/* 2-column 레이아웃 */}
-      <Box sx={{ display: "flex", gap: 3, alignItems: "flex-start" }}>
+      <Hb.Box sx={{ display: "flex", gap: 3, alignItems: "flex-start" }}>
         {/* 좌측: 일반 + 위험 구역 */}
-        <Box
+        <Hb.Box
           sx={{
             flex: 1,
             display: "flex",
@@ -73,10 +73,10 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
         >
           <GeneralSettingsSection projectId={projectId} />
           <DangerZoneSection projectId={projectId} />
-        </Box>
+        </Hb.Box>
 
         {/* 우측: 보드 + 멤버 */}
-        <Box
+        <Hb.Box
           sx={{
             flex: 1,
             display: "flex",
@@ -89,8 +89,8 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
             <BoardSettingsSection projectId={projectId} />
           </Suspense>
           <MemberSettingsSection projectId={projectId} />
-        </Box>
-      </Box>
-    </Box>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

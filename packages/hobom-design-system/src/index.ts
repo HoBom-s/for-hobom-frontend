@@ -21,3 +21,12 @@ export {
   DRAWER_WIDTH_COLLAPSED,
   APPBAR_HEIGHT,
 } from "./theme";
+
+export { Hb } from "./hb";
+
+// MUI types re-export
+export type { SxProps, Theme, SelectChangeEvent } from "@mui/material";
+export type { SvgIconProps } from "@mui/material";
+
+// MUI hooks re-export
+export { useColorScheme } from "@mui/material/styles";

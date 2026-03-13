@@ -1,13 +1,13 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Box, Chip, Divider, Paper, Stack, Typography } from "@mui/material";
 import {
   AddCircleOutline,
   EditOutlined,
   RemoveCircleOutline,
   ArrowForwardOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import type { ArticleChange } from "@/entities/privacy-law";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   diffId: string;
@@ -38,26 +38,26 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
   const config = CHANGE_CONFIG[change.changeType];
 
   return (
-    <Paper variant="outlined" sx={{ p: 2 }}>
-      <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
-        <Chip
+    <Hb.Paper variant="outlined" sx={{ p: 2 }}>
+      <Hb.Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
+        <Hb.Chip
           label={change.articleNo}
           size="small"
           color="primary"
           sx={{ fontWeight: 600 }}
         />
-        <Chip
+        <Hb.Chip
           icon={config.icon}
           label={config.label}
           size="small"
           color={config.color}
           variant="outlined"
         />
-      </Stack>
+      </Hb.Stack>
 
       {change.changeType === "MODIFIED" && (
-        <Stack spacing={1}>
-          <Box
+        <Hb.Stack spacing={1}>
+          <Hb.Box
             sx={{
               p: 1.5,
               borderRadius: 1,
@@ -66,17 +66,14 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
               borderColor: "error.main",
             }}
           >
-            <Typography variant="caption" color="error.main" fontWeight={600}>
+            <Hb.Text variant="caption" color="error.main" fontWeight={600}>
               변경 전
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ whiteSpace: "pre-wrap", mt: 0.5 }}
-            >
+            </Hb.Text>
+            <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", mt: 0.5 }}>
               {change.before}
-            </Typography>
-          </Box>
-          <Box
+            </Hb.Text>
+          </Hb.Box>
+          <Hb.Box
             sx={{
               p: 1.5,
               borderRadius: 1,
@@ -85,21 +82,18 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
               borderColor: "success.main",
             }}
           >
-            <Typography variant="caption" color="success.main" fontWeight={600}>
+            <Hb.Text variant="caption" color="success.main" fontWeight={600}>
               변경 후
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ whiteSpace: "pre-wrap", mt: 0.5 }}
-            >
+            </Hb.Text>
+            <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", mt: 0.5 }}>
               {change.after}
-            </Typography>
-          </Box>
-        </Stack>
+            </Hb.Text>
+          </Hb.Box>
+        </Hb.Stack>
       )}
 
       {change.changeType === "ADDED" && change.after && (
-        <Box
+        <Hb.Box
           sx={{
             p: 1.5,
             borderRadius: 1,
@@ -108,14 +102,14 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
             borderColor: "success.main",
           }}
         >
-          <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+          <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
             {change.after}
-          </Typography>
-        </Box>
+          </Hb.Text>
+        </Hb.Box>
       )}
 
       {change.changeType === "DELETED" && change.before && (
-        <Box
+        <Hb.Box
           sx={{
             p: 1.5,
             borderRadius: 1,
@@ -125,12 +119,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
             textDecoration: "line-through",
           }}
         >
-          <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+          <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
             {change.before}
-          </Typography>
-        </Box>
+          </Hb.Text>
+        </Hb.Box>
       )}
-    </Paper>
+    </Hb.Paper>
   );
 };
 
@@ -139,24 +133,24 @@ export const LawDiffViewer = ({ diffId }: Props) => {
   const diff = data.items;
 
   return (
-    <Box>
-      <Stack direction="row" alignItems="center" spacing={1} mb={3}>
-        <Typography variant="h6">{diff.fromProclamationDate}</Typography>
+    <Hb.Box>
+      <Hb.Stack direction="row" alignItems="center" spacing={1} mb={3}>
+        <Hb.Text variant="h6">{diff.fromProclamationDate}</Hb.Text>
         <ArrowForwardOutlined sx={{ color: "text.secondary" }} />
-        <Typography variant="h6">{diff.toProclamationDate}</Typography>
-        <Chip
+        <Hb.Text variant="h6">{diff.toProclamationDate}</Hb.Text>
+        <Hb.Chip
           label={`${diff.changes.length}건 변경`}
           size="small"
           color="primary"
           variant="outlined"
         />
-      </Stack>
-      <Divider sx={{ mb: 2 }} />
-      <Stack spacing={2}>
+      </Hb.Stack>
+      <Hb.Divider sx={{ mb: 2 }} />
+      <Hb.Stack spacing={2}>
         {diff.changes.map((change, i) => (
           <ChangeCard key={`${change.articleNo}-${i}`} change={change} />
         ))}
-      </Stack>
-    </Box>
+      </Hb.Stack>
+    </Hb.Box>
   );
 };

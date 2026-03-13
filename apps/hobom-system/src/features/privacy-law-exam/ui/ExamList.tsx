@@ -5,22 +5,14 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import {
-  Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  Chip,
-  Stack,
-  Typography,
-} from "@mui/material";
-import {
   AssignmentOutlined,
   AddCircleOutline,
   QuizOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { privacyLawQueries, privacyLawMutations } from "@/entities/privacy-law";
 import { useToast } from "@/shared/model";
 import { reportError } from "@/shared/lib";
+import { Hb } from "@/shared/ui";
 
 export const ExamList = () => {
   const navigate = useNavigate();
@@ -47,61 +39,61 @@ export const ExamList = () => {
   });
 
   return (
-    <Stack spacing={2}>
-      <Button
-        variant="contained"
+    <Hb.Stack spacing={2}>
+      <Hb.Button
+        variant="primary"
         startIcon={<AddCircleOutline />}
         onClick={() => generate()}
         loading={isPending}
         sx={{ alignSelf: "flex-start" }}
       >
         {isPending ? "생성 중..." : "모의고사 생성"}
-      </Button>
+      </Hb.Button>
 
       {exams.map((exam) => (
-        <Card key={exam.id} variant="outlined">
-          <CardActionArea
+        <Hb.Card.Root key={exam.id} variant="outlined">
+          <Hb.Card.Clickable
             onClick={() => navigate(`/privacy-law/exams/${exam.id}`)}
           >
-            <CardContent>
-              <Stack
+            <Hb.Card.Content>
+              <Hb.Stack
                 direction="row"
                 alignItems="flex-start"
                 justifyContent="space-between"
               >
-                <Stack direction="row" spacing={1.5} alignItems="flex-start">
+                <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
                   <AssignmentOutlined
                     color="primary"
                     fontSize="small"
                     sx={{ mt: 0.25 }}
                   />
                   <div>
-                    <Typography variant="subtitle2" gutterBottom>
+                    <Hb.Text variant="subtitle2" gutterBottom>
                       {exam.title}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
+                    </Hb.Text>
+                    <Hb.Text variant="caption" color="text.secondary">
                       {new Date(exam.createdAt).toLocaleDateString("ko-KR")}
-                    </Typography>
+                    </Hb.Text>
                   </div>
-                </Stack>
-                <Chip
+                </Hb.Stack>
+                <Hb.Chip
                   icon={<QuizOutlined />}
                   label={`${exam.totalQuestions}문제`}
                   size="small"
                   color="primary"
                   variant="outlined"
                 />
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+              </Hb.Stack>
+            </Hb.Card.Content>
+          </Hb.Card.Clickable>
+        </Hb.Card.Root>
       ))}
 
       {exams.length === 0 && (
-        <Typography color="text.secondary" textAlign="center" py={4}>
+        <Hb.Text color="text.secondary" textAlign="center" py={4}>
           모의고사 이력이 없습니다. 위 버튼으로 새 모의고사를 생성해보세요.
-        </Typography>
+        </Hb.Text>
       )}
-    </Stack>
+    </Hb.Stack>
   );
 };

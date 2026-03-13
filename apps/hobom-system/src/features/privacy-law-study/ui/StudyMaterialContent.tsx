@@ -1,18 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
-  Box,
-  Chip,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { CheckCircleOutline, LightbulbOutlined } from "@mui/icons-material";
+  CheckCircleOutline,
+  LightbulbOutlined,
+} from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   materialId: string;
@@ -25,43 +17,43 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
   const material = data.items;
 
   return (
-    <Box>
-      <Paper variant="outlined" sx={{ p: 3, mb: 3 }}>
-        <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+    <Hb.Box>
+      <Hb.Paper variant="outlined" sx={{ p: 3, mb: 3 }}>
+        <Hb.Stack direction="row" alignItems="center" spacing={1} mb={2}>
           <LightbulbOutlined color="warning" />
-          <Typography variant="h6">요약</Typography>
-        </Stack>
-        <Typography variant="body1" sx={{ whiteSpace: "pre-wrap" }}>
+          <Hb.Text variant="h6">요약</Hb.Text>
+        </Hb.Stack>
+        <Hb.Text variant="body1" sx={{ whiteSpace: "pre-wrap" }}>
           {material.summary}
-        </Typography>
-      </Paper>
+        </Hb.Text>
+      </Hb.Paper>
 
-      <Typography variant="h6" gutterBottom>
+      <Hb.Text variant="h6" gutterBottom>
         핵심 포인트
-      </Typography>
-      <Divider sx={{ mb: 1 }} />
-      <List disablePadding>
+      </Hb.Text>
+      <Hb.Divider sx={{ mb: 1 }} />
+      <Hb.List.Root disablePadding>
         {material.keyPoints.map((point, i) => (
-          <ListItem key={i} disableGutters>
-            <ListItemIcon sx={{ minWidth: 36 }}>
-              <Chip label={i + 1} size="small" color="primary" />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography variant="body2">{point}</Typography>
-            </ListItemText>
-          </ListItem>
+          <Hb.List.Item key={i} disableGutters>
+            <Hb.List.ItemIcon sx={{ minWidth: 36 }}>
+              <Hb.Chip label={i + 1} size="small" color="primary" />
+            </Hb.List.ItemIcon>
+            <Hb.List.ItemText>
+              <Hb.Text variant="body2">{point}</Hb.Text>
+            </Hb.List.ItemText>
+          </Hb.List.Item>
         ))}
-      </List>
+      </Hb.List.Root>
 
       {material.quizzes.length > 0 && (
-        <Stack direction="row" alignItems="center" spacing={1} mt={3}>
+        <Hb.Stack direction="row" alignItems="center" spacing={1} mt={3}>
           <CheckCircleOutline color="primary" fontSize="small" />
-          <Typography variant="subtitle2" color="text.secondary">
+          <Hb.Text variant="subtitle2" color="text.secondary">
             이 학습 자료에 {material.quizzes.length}개의 퀴즈가 있습니다.
             아래에서 풀어보세요.
-          </Typography>
-        </Stack>
+          </Hb.Text>
+        </Hb.Stack>
       )}
-    </Box>
+    </Hb.Box>
   );
 };

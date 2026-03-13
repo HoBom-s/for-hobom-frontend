@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
-import { Box, Typography } from "@mui/material";
-import { MailOutline } from "@mui/icons-material";
+import { MailOutline } from "hobom-design-system/icons";
 import {
   useDeleteFutureMessage,
   type FutureMessageType,
 } from "@/entities/future-message";
 import { useContainerWidth } from "@/shared/model";
+import { Hb } from "@/shared/ui";
 import {
   HEADER_ROW_COUNT,
   MIN_COL_WIDTH,
@@ -30,7 +30,7 @@ export const FutureMessageGrid = ({
 
   if (messages.length === 0) {
     return (
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -41,13 +41,13 @@ export const FutureMessageGrid = ({
         }}
       >
         <MailOutline sx={{ fontSize: 64, color: "#dadce0" }} />
-        <Typography
+        <Hb.Text
           variant="body1"
           sx={{ color: "text.disabled", fontSize: "0.95rem" }}
         >
           메시지가 없어요
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
     );
   }
 

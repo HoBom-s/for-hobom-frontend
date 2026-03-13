@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  TextField,
-} from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+import { Hb } from "@/shared/ui";
 
 interface CreateSpaceDialogProps {
   open: boolean;
@@ -49,11 +40,11 @@ export const CreateSpaceDialog = ({
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>새 스페이스</DialogTitle>
-      <DialogContent>
-        <Stack spacing={2} sx={{ mt: 1 }}>
-          <TextField
+    <Hb.Dialog.Root open={open} onClose={handleClose} size="sm">
+      <Hb.Dialog.Title>새 스페이스</Hb.Dialog.Title>
+      <Hb.Dialog.Content>
+        <Hb.Stack spacing={2} sx={{ mt: 1 }}>
+          <Hb.TextField
             autoFocus
             fullWidth
             label="스페이스 키"
@@ -65,14 +56,14 @@ export const CreateSpaceDialog = ({
             helperText="영문, 숫자, 하이픈만 사용 가능"
             slotProps={{ htmlInput: { maxLength: 20 } }}
           />
-          <TextField
+          <Hb.TextField
             fullWidth
             label="스페이스 이름"
             placeholder="팀 위키"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextField
+          <Hb.TextField
             fullWidth
             label="설명"
             placeholder="스페이스에 대한 간략한 설명"
@@ -81,19 +72,19 @@ export const CreateSpaceDialog = ({
             multiline
             rows={3}
           />
-        </Stack>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>취소</Button>
-        <LoadingButton
+        </Hb.Stack>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions>
+        <Hb.Button onClick={handleClose}>취소</Hb.Button>
+        <Hb.Button
           onClick={handleSubmit}
-          variant="contained"
+          variant="primary"
           loading={loading}
           disabled={!key.trim() || !name.trim()}
         >
           생성
-        </LoadingButton>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

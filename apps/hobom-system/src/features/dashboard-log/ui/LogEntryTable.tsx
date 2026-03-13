@@ -1,15 +1,5 @@
-import {
-  Chip,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-  Typography,
-} from "@mui/material";
 import type { LogEntry } from "@/entities/log";
+import { Hb } from "@/shared/ui";
 import { SERVICE_LABEL_MAP } from "../lib/log-dashboard.lib";
 import { METHOD_CHIP_COLOR as METHOD_COLOR } from "./endpoint-error-constants";
 
@@ -36,45 +26,45 @@ interface LogEntryTableProps {
 export const LogEntryTable = ({ data }: LogEntryTableProps) => {
   if (data.length === 0) {
     return (
-      <Typography
+      <Hb.Text
         variant="body2"
         color="text.secondary"
         sx={{ py: 4, textAlign: "center" }}
       >
         조건에 맞는 로그가 없습니다
-      </Typography>
+      </Hb.Text>
     );
   }
 
   return (
-    <TableContainer sx={{ maxHeight: 520 }}>
-      <Table size="small" stickyHeader>
-        <TableHead>
-          <TableRow>
-            <TableCell scope="col" sx={HEADER_SX}>
+    <Hb.Table.Container sx={{ maxHeight: 520 }}>
+      <Hb.Table.Root size="small" stickyHeader>
+        <Hb.Table.Head>
+          <Hb.Table.Row>
+            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
               Level
-            </TableCell>
-            <TableCell scope="col" sx={HEADER_SX}>
+            </Hb.Table.Cell>
+            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
               Service
-            </TableCell>
-            <TableCell scope="col" sx={HEADER_SX}>
+            </Hb.Table.Cell>
+            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
               Method
-            </TableCell>
-            <TableCell scope="col" sx={HEADER_SX}>
+            </Hb.Table.Cell>
+            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
               Path
-            </TableCell>
-            <TableCell scope="col" sx={HEADER_SX}>
+            </Hb.Table.Cell>
+            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
               Message
-            </TableCell>
-            <TableCell scope="col" align="center" sx={HEADER_SX}>
+            </Hb.Table.Cell>
+            <Hb.Table.Cell scope="col" align="center" sx={HEADER_SX}>
               Status
-            </TableCell>
-            <TableCell scope="col" sx={HEADER_SX}>
+            </Hb.Table.Cell>
+            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
               Time
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+            </Hb.Table.Cell>
+          </Hb.Table.Row>
+        </Hb.Table.Head>
+        <Hb.Table.Body>
           {data.map((row) => {
             const levelStyle = LEVEL_COLOR[row.level] ?? {
               bg: "#f3f4f6",
@@ -82,9 +72,9 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
             };
 
             return (
-              <TableRow key={row.id} hover>
-                <TableCell>
-                  <Chip
+              <Hb.Table.Row key={row.id} hover>
+                <Hb.Table.Cell>
+                  <Hb.Chip
                     label={row.level}
                     size="small"
                     sx={{
@@ -95,14 +85,14 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                       color: levelStyle.text,
                     }}
                   />
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body2" sx={{ fontSize: 12 }}>
+                </Hb.Table.Cell>
+                <Hb.Table.Cell>
+                  <Hb.Text variant="body2" sx={{ fontSize: 12 }}>
                     {SERVICE_LABEL_MAP[row.serviceType] ?? row.serviceType}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Chip
+                  </Hb.Text>
+                </Hb.Table.Cell>
+                <Hb.Table.Cell>
+                  <Hb.Chip
                     label={row.httpMethod}
                     size="small"
                     sx={{
@@ -113,13 +103,13 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                       color: METHOD_COLOR[row.httpMethod] ?? "#94a3b8",
                     }}
                   />
-                </TableCell>
-                <TableCell sx={{ maxWidth: 200 }}>
-                  <Tooltip
+                </Hb.Table.Cell>
+                <Hb.Table.Cell sx={{ maxWidth: 200 }}>
+                  <Hb.Tooltip
                     title={`${row.httpMethod} ${row.path}`}
                     enterDelay={200}
                   >
-                    <Typography
+                    <Hb.Text
                       variant="body2"
                       noWrap
                       sx={{
@@ -128,18 +118,18 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                       }}
                     >
                       {row.path}
-                    </Typography>
-                  </Tooltip>
-                </TableCell>
-                <TableCell sx={{ maxWidth: 220 }}>
-                  <Tooltip title={row.message} enterDelay={200}>
-                    <Typography variant="body2" noWrap sx={{ fontSize: 12 }}>
+                    </Hb.Text>
+                  </Hb.Tooltip>
+                </Hb.Table.Cell>
+                <Hb.Table.Cell sx={{ maxWidth: 220 }}>
+                  <Hb.Tooltip title={row.message} enterDelay={200}>
+                    <Hb.Text variant="body2" noWrap sx={{ fontSize: 12 }}>
                       {row.message}
-                    </Typography>
-                  </Tooltip>
-                </TableCell>
-                <TableCell align="center">
-                  <Chip
+                    </Hb.Text>
+                  </Hb.Tooltip>
+                </Hb.Table.Cell>
+                <Hb.Table.Cell align="center">
+                  <Hb.Chip
                     label={row.statusCode}
                     size="small"
                     sx={{
@@ -160,9 +150,9 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                             : "#34d399",
                     }}
                   />
-                </TableCell>
-                <TableCell>
-                  <Typography
+                </Hb.Table.Cell>
+                <Hb.Table.Cell>
+                  <Hb.Text
                     variant="caption"
                     sx={{
                       fontVariantNumeric: "tabular-nums",
@@ -171,13 +161,13 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                     }}
                   >
                     {row.timestamp?.replace("T", " ").slice(0, 19) ?? "-"}
-                  </Typography>
-                </TableCell>
-              </TableRow>
+                  </Hb.Text>
+                </Hb.Table.Cell>
+              </Hb.Table.Row>
             );
           })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </Hb.Table.Body>
+      </Hb.Table.Root>
+    </Hb.Table.Container>
   );
 };

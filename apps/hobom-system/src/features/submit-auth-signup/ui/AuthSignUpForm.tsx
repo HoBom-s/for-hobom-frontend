@@ -1,11 +1,11 @@
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { Box, Button, Link, TextField, Typography } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { postAuthSignUp, type AuthSignUpType } from "@/entities/auth";
+import { Hb } from "@/shared/ui";
 
 export const AuthSignUpForm = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ export const AuthSignUpForm = () => {
 
   return (
     <FormProvider {...formMethods}>
-      <Box
+      <Hb.Box
         component="form"
         noValidate
         autoComplete="off"
@@ -67,14 +67,14 @@ export const AuthSignUpForm = () => {
           handleInvalidFormSubmit,
         )}
       >
-        <Typography variant="h6" fontWeight={700} mb={0.5}>
+        <Hb.Text variant="h6" fontWeight={700} mb={0.5}>
           회원가입
-        </Typography>
-        <Typography variant="body2" color="text.secondary" mb={1}>
+        </Hb.Text>
+        <Hb.Text variant="body2" color="text.secondary" mb={1}>
           HoBom 시스템에 가입해요.
           <br />
           관리자 승인 후 서비스를 이용할 수 있어요.
-        </Typography>
+        </Hb.Text>
 
         <Controller
           control={formMethods.control}
@@ -84,7 +84,7 @@ export const AuthSignUpForm = () => {
             minLength: { value: 2, message: "이름은 최소 2자 이상이에요." },
           }}
           render={({ field, fieldState }) => (
-            <TextField
+            <Hb.TextField
               sx={fieldSx}
               label="이름"
               size="small"
@@ -107,7 +107,7 @@ export const AuthSignUpForm = () => {
             minLength: { value: 2, message: "닉네임은 최소 2자 이상이에요." },
           }}
           render={({ field, fieldState }) => (
-            <TextField
+            <Hb.TextField
               sx={fieldSx}
               label="닉네임"
               size="small"
@@ -133,7 +133,7 @@ export const AuthSignUpForm = () => {
             },
           }}
           render={({ field, fieldState }) => (
-            <TextField
+            <Hb.TextField
               sx={fieldSx}
               label="이메일"
               size="small"
@@ -156,7 +156,7 @@ export const AuthSignUpForm = () => {
             minLength: { value: 4, message: "비밀번호는 최소 4자 이상이에요." },
           }}
           render={({ field, fieldState }) => (
-            <TextField
+            <Hb.TextField
               sx={fieldSx}
               label="비밀번호"
               size="small"
@@ -172,28 +172,27 @@ export const AuthSignUpForm = () => {
           )}
         />
 
-        <Button
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           type="submit"
-          color="primary"
           loading={isPending}
           sx={{ mt: 1, py: 1.2 }}
         >
           가입하기
-        </Button>
+        </Hb.Button>
 
-        <Typography variant="body2" color="text.secondary" textAlign="center">
+        <Hb.Text variant="body2" color="text.secondary" textAlign="center">
           이미 계정이 있으신가요?{" "}
-          <Link
+          <Hb.Link
             component={RouterLink}
             to={RoutesConfig.AUTH.LOGIN}
             underline="hover"
           >
             로그인
-          </Link>
-        </Typography>
-      </Box>
+          </Hb.Link>
+        </Hb.Text>
+      </Hb.Box>
     </FormProvider>
   );
 };

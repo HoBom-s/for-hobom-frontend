@@ -1,16 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  MenuItem,
-  TextField,
-} from "@mui/material";
 import { Bom } from "hobom-utils";
+import { Hb } from "@/shared/ui";
 import {
   todoQueries,
   useUpdateDailyTodo,
@@ -45,47 +37,45 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle sx={{ pb: 1 }}>할 일 수정</DialogTitle>
-      <DialogContent sx={{ pt: "12px !important" }}>
-        <TextField
+    <Hb.Dialog.Root open={open} onClose={onClose} size="xs">
+      <Hb.Dialog.Title sx={{ pb: 1 }}>할 일 수정</Hb.Dialog.Title>
+      <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
+        <Hb.TextField
           fullWidth
           autoFocus
-          variant="outlined"
           label="제목"
           size="small"
           sx={{ mb: 2 }}
           {...register("title")}
         />
-        <TextField
+        <Hb.TextField
           fullWidth
           select
-          variant="outlined"
           label="카테고리"
           size="small"
           value={editCategory}
           onChange={(e) => setEditCategory(e.target.value)}
         >
           {(categoriesData?.items ?? []).map((cat) => (
-            <MenuItem key={cat.id} value={cat.id}>
+            <Hb.Menu.Item key={cat.id} value={cat.id}>
               {cat.title}
-            </MenuItem>
+            </Hb.Menu.Item>
           ))}
-        </TextField>
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-        <Button fullWidth variant="outlined" color="inherit" onClick={onClose}>
+        </Hb.TextField>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
+        <Hb.Button fullWidth variant="ghost" onClick={onClose}>
           취소
-        </Button>
-        <Button
+        </Hb.Button>
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           loading={isPending}
           onClick={handleSubmit}
         >
           저장
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

@@ -5,17 +5,11 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  Chip,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { CloudDownloadOutlined, GavelOutlined } from "@mui/icons-material";
+  CloudDownloadOutlined,
+  GavelOutlined,
+} from "hobom-design-system/icons";
 import { privacyLawQueries, privacyLawMutations } from "@/entities/privacy-law";
+import { Hb } from "@/shared/ui";
 
 export const LawVersionList = () => {
   const navigate = useNavigate();
@@ -33,76 +27,74 @@ export const LawVersionList = () => {
   });
 
   return (
-    <Stack spacing={2}>
+    <Hb.Stack spacing={2}>
       {versions.length === 0 && (
-        <Card
+        <Hb.Card.Root
           variant="outlined"
           sx={{ textAlign: "center", py: 4, bgcolor: "background.default" }}
         >
-          <CardContent>
+          <Hb.Card.Content>
             <GavelOutlined
               sx={{ fontSize: 48, color: "text.disabled", mb: 1 }}
             />
-            <Typography color="text.secondary" gutterBottom>
+            <Hb.Text color="text.secondary" gutterBottom>
               등록된 법률 버전이 없습니다.
-            </Typography>
-            <Typography variant="caption" color="text.disabled" gutterBottom>
+            </Hb.Text>
+            <Hb.Text variant="caption" color="text.disabled" gutterBottom>
               법률 데이터를 수집하면 최신 개인정보보호법을 불러옵니다.
-            </Typography>
-            <Box mt={2}>
-              <Button
-                variant="contained"
+            </Hb.Text>
+            <Hb.Box mt={2}>
+              <Hb.Button
+                variant="primary"
                 startIcon={<CloudDownloadOutlined />}
                 onClick={() => fetchMutation.mutate()}
                 disabled={fetchMutation.isPending}
               >
                 {fetchMutation.isPending ? "수집 중..." : "법률 데이터 수집"}
-              </Button>
-            </Box>
-          </CardContent>
-        </Card>
+              </Hb.Button>
+            </Hb.Box>
+          </Hb.Card.Content>
+        </Hb.Card.Root>
       )}
 
       {versions.map((version) => (
-        <Card key={version.id} variant="outlined">
-          <CardActionArea
+        <Hb.Card.Root key={version.id} variant="outlined">
+          <Hb.Card.Clickable
             onClick={() => navigate(`/privacy-law/versions/${version.id}`)}
           >
-            <CardContent>
-              <Stack
+            <Hb.Card.Content>
+              <Hb.Stack
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Stack direction="row" alignItems="center" spacing={1.5}>
+                <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
                   <GavelOutlined color="primary" fontSize="small" />
-                  <Box>
-                    <Typography variant="subtitle2">
-                      {version.lawName}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
+                  <Hb.Box>
+                    <Hb.Text variant="subtitle2">{version.lawName}</Hb.Text>
+                    <Hb.Text variant="caption" color="text.secondary">
                       {version.articles.length}개 조문
-                    </Typography>
-                  </Box>
-                </Stack>
-                <Stack direction="row" spacing={1}>
-                  <Chip
+                    </Hb.Text>
+                  </Hb.Box>
+                </Hb.Stack>
+                <Hb.Stack direction="row" spacing={1}>
+                  <Hb.Chip
                     label={`공포 ${version.proclamationDate}`}
                     size="small"
                     variant="outlined"
                   />
-                  <Chip
+                  <Hb.Chip
                     label={`시행 ${version.enforcementDate}`}
                     size="small"
                     color="primary"
                     variant="outlined"
                   />
-                </Stack>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+                </Hb.Stack>
+              </Hb.Stack>
+            </Hb.Card.Content>
+          </Hb.Card.Clickable>
+        </Hb.Card.Root>
       ))}
-    </Stack>
+    </Hb.Stack>
   );
 };

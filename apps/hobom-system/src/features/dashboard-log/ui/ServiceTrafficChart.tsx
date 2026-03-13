@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { CHART_COLORS } from "@/entities/dashboard";
 import type { LogServiceCount } from "@/entities/log";
+import { Hb } from "@/shared/ui";
 import { SERVICE_LABEL_MAP } from "../lib/log-dashboard.lib";
 
 interface ServiceTrafficChartProps {
@@ -12,11 +12,11 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
   const total = data.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         서비스별 트래픽
-      </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+      </Hb.Text>
+      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
         <ResponsiveContainer width={180} height={180}>
           <PieChart>
             <Pie
@@ -70,13 +70,15 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
             </text>
           </PieChart>
         </ResponsiveContainer>
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+        <Hb.Box
+          sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
+        >
           {data.map((entry, i) => {
             const pct = total > 0 ? (entry.count / total) * 100 : 0;
             const color = CHART_COLORS[i % CHART_COLORS.length];
 
             return (
-              <Box
+              <Hb.Box
                 key={entry.serviceType}
                 sx={{
                   display: "flex",
@@ -84,7 +86,7 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
                   gap: 1.5,
                 }}
               >
-                <Box
+                <Hb.Box
                   sx={{
                     width: 32,
                     height: 32,
@@ -96,7 +98,7 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
                     flexShrink: 0,
                   }}
                 >
-                  <Box
+                  <Hb.Box
                     sx={{
                       width: 10,
                       height: 10,
@@ -104,27 +106,27 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
                       bgcolor: color,
                     }}
                   />
-                </Box>
-                <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Typography
+                </Hb.Box>
+                <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+                  <Hb.Text
                     variant="body2"
                     sx={{ fontWeight: 600, fontSize: 13 }}
                   >
                     {SERVICE_LABEL_MAP[entry.serviceType] ?? entry.serviceType}
-                  </Typography>
-                  <Typography
+                  </Hb.Text>
+                  <Hb.Text
                     variant="caption"
                     color="text.secondary"
                     sx={{ fontVariantNumeric: "tabular-nums" }}
                   >
                     {entry.count.toLocaleString()} · {pct.toFixed(1)}%
-                  </Typography>
-                </Box>
-              </Box>
+                  </Hb.Text>
+                </Hb.Box>
+              </Hb.Box>
             );
           })}
-        </Box>
-      </Box>
-    </Box>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

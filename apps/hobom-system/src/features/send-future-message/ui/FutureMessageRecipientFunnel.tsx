@@ -2,20 +2,11 @@ import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  type SelectChangeEvent,
-  Typography,
-} from "@mui/material";
 import { authQueries } from "@/entities/auth";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
 import { RoutesConfig } from "@/shared/config";
+import { Hb } from "@/shared/ui";
+import type { SelectChangeEvent } from "@/shared/ui";
 
 interface Props {
   onNextStep: () => void;
@@ -36,19 +27,19 @@ const Inner = ({ onNextStep }: Props) => {
   const { data: users } = useSuspenseQuery(authQueries.users());
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Box>
-        <Typography fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Hb.Box>
+        <Hb.Text fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
           받는 사람을 선택해 주세요
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        </Hb.Text>
+        <Hb.Text variant="body2" color="text.secondary">
           누구에게 메시지를 보낼까요?
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
 
-      <FormControl fullWidth>
-        <InputLabel>받는 사람</InputLabel>
-        <Select
+      <Hb.Form.Control fullWidth>
+        <Hb.Form.Label>받는 사람</Hb.Form.Label>
+        <Hb.Form.Select
           label="받는 사람"
           value={watch("recipientId")}
           onChange={(evt: SelectChangeEvent) => {
@@ -56,35 +47,34 @@ const Inner = ({ onNextStep }: Props) => {
           }}
         >
           {users.items.map((user) => (
-            <MenuItem key={user.id} value={user.id}>
+            <Hb.Menu.Item key={user.id} value={user.id}>
               {user.nickname}
-            </MenuItem>
+            </Hb.Menu.Item>
           ))}
-        </Select>
-        <FormHelperText>목록에서 선택해 주세요.</FormHelperText>
-      </FormControl>
+        </Hb.Form.Select>
+        <Hb.Form.Helper>목록에서 선택해 주세요.</Hb.Form.Helper>
+      </Hb.Form.Control>
 
-      <Box display="flex" gap={1.5}>
-        <Button
+      <Hb.Box display="flex" gap={1.5}>
+        <Hb.Button
           fullWidth
-          variant="outlined"
-          color="inherit"
+          variant="secondary"
           onClick={() => {
             reset();
             navigate(RoutesConfig.MESSAGE.RESERVATION);
           }}
         >
           취소
-        </Button>
-        <Button
+        </Hb.Button>
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           disabled={watch("recipientId") === ""}
           onClick={onNextStep}
         >
           다음
-        </Button>
-      </Box>
-    </Box>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

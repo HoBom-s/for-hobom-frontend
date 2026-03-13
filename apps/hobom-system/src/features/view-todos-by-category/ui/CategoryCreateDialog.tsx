@@ -1,14 +1,7 @@
 import { useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
 import { Bom } from "hobom-utils";
 import { useCreateCategory } from "@/entities/daily-todo";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   open: boolean;
@@ -32,13 +25,12 @@ export const CategoryCreateDialog = ({ open, onClose }: Props) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
-      <DialogTitle sx={{ pb: 1 }}>카테고리 추가</DialogTitle>
-      <DialogContent sx={{ pt: "12px !important" }}>
-        <TextField
+    <Hb.Dialog.Root open={open} onClose={handleClose} size="xs">
+      <Hb.Dialog.Title sx={{ pb: 1 }}>카테고리 추가</Hb.Dialog.Title>
+      <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
+        <Hb.TextField
           fullWidth
           autoFocus
-          variant="outlined"
           label="카테고리 이름"
           size="small"
           value={title}
@@ -50,25 +42,20 @@ export const CategoryCreateDialog = ({ open, onClose }: Props) => {
             }
           }}
         />
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-        <Button
-          fullWidth
-          variant="outlined"
-          color="inherit"
-          onClick={handleClose}
-        >
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
+        <Hb.Button fullWidth variant="secondary" onClick={handleClose}>
           취소
-        </Button>
-        <Button
+        </Hb.Button>
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           loading={isPending}
           onClick={handleSubmit}
         >
           추가
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

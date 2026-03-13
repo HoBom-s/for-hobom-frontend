@@ -2,12 +2,12 @@ import { useState } from "react";
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Box, Button, Link, Typography } from "@mui/material";
 import { NicknameField, PasswordField } from "@/features/submit-auth-login";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { resetUnauthorizedState } from "@/shared/api";
 import { postAuthLogin, type AuthLoginType } from "@/entities/auth";
+import { Hb } from "@/shared/ui";
 import { LoginTransitionOverlay } from "./LoginTransitionOverlay";
 
 export const AuthLoginForm = () => {
@@ -59,7 +59,7 @@ export const AuthLoginForm = () => {
     <>
       {isTransitioning && <LoginTransitionOverlay />}
       <FormProvider {...formMethods}>
-        <Box
+        <Hb.Box
           component="form"
           noValidate
           autoComplete="off"
@@ -72,37 +72,36 @@ export const AuthLoginForm = () => {
             handleInvalidFormSubmit,
           )}
         >
-          <Typography variant="h6" fontWeight={700} mb={0.5}>
+          <Hb.Text variant="h6" fontWeight={700} mb={0.5}>
             로그인
-          </Typography>
-          <Typography variant="body2" color="text.secondary" mb={1}>
+          </Hb.Text>
+          <Hb.Text variant="body2" color="text.secondary" mb={1}>
             HoBom 시스템에 오신 것을 환영해요.
             <br />
             로그인을 진행해 주세요.
-          </Typography>
+          </Hb.Text>
           <NicknameField />
           <PasswordField />
-          <Button
+          <Hb.Button
             fullWidth
-            variant="contained"
+            variant="primary"
             type="submit"
-            color="primary"
             loading={isPending}
             sx={{ mt: 1, py: 1.2 }}
           >
             로그인
-          </Button>
-          <Typography variant="body2" color="text.secondary" textAlign="center">
+          </Hb.Button>
+          <Hb.Text variant="body2" color="text.secondary" textAlign="center">
             계정이 없으신가요?{" "}
-            <Link
+            <Hb.Link
               component={RouterLink}
               to={RoutesConfig.AUTH.SIGN_UP}
               underline="hover"
             >
               회원가입
-            </Link>
-          </Typography>
-        </Box>
+            </Hb.Link>
+          </Hb.Text>
+        </Hb.Box>
       </FormProvider>
     </>
   );

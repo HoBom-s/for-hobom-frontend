@@ -1,19 +1,11 @@
 import { Fragment } from "react";
 import {
-  Avatar,
-  Box,
-  Button,
-  IconButton,
-  TextField,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import {
   ReplyOutlined,
   EditOutlined,
   DeleteOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import type { UserType } from "@/entities/user";
+import { Hb } from "@/shared/ui";
 import { useCommentNode } from "../model/useCommentNode";
 import { CommentInput } from "./CommentInput";
 import type { CommentTreeNode } from "../lib/build-comment-tree.lib";
@@ -32,7 +24,7 @@ export const CommentList = ({
   userInfo,
 }: CommentListProps) => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column" }}>
       {comments.map((comment) => (
         <CommentNode
           key={comment.id}
@@ -43,7 +35,7 @@ export const CommentList = ({
           userInfo={userInfo}
         />
       ))}
-    </Box>
+    </Hb.Box>
   );
 };
 
@@ -87,7 +79,7 @@ const CommentNode = ({
 
   return (
     <Fragment>
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           gap: 1.5,
@@ -114,7 +106,7 @@ const CommentNode = ({
           "&:hover .comment-actions": { opacity: 1 },
         }}
       >
-        <Avatar
+        <Hb.Avatar
           sx={{
             width: 28,
             height: 28,
@@ -126,10 +118,10 @@ const CommentNode = ({
           }}
         >
           {initial}
-        </Avatar>
+        </Hb.Avatar>
 
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Box
+        <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+          <Hb.Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -137,18 +129,18 @@ const CommentNode = ({
               mb: 0.5,
             }}
           >
-            <Typography
+            <Hb.Text
               variant="body2"
               fontWeight={600}
               sx={{ color: "text.primary" }}
             >
               {authorName}
-            </Typography>
-            <Typography variant="caption" color="text.disabled">
+            </Hb.Text>
+            <Hb.Text variant="caption" color="text.disabled">
               {new Date(comment.createdAt).toLocaleDateString("ko-KR")}
-            </Typography>
+            </Hb.Text>
 
-            <Box
+            <Hb.Box
               className="comment-actions"
               sx={{
                 display: "flex",
@@ -159,43 +151,43 @@ const CommentNode = ({
               }}
             >
               {depth < 2 && (
-                <Tooltip title="답글">
-                  <IconButton
+                <Hb.Tooltip title="답글">
+                  <Hb.Button.Icon
                     size="small"
                     aria-label="답글"
                     onClick={() => setReplying(!replying)}
                     sx={{ p: 0.25 }}
                   >
                     <ReplyOutlined sx={{ fontSize: 15 }} />
-                  </IconButton>
-                </Tooltip>
+                  </Hb.Button.Icon>
+                </Hb.Tooltip>
               )}
-              <Tooltip title="수정">
-                <IconButton
+              <Hb.Tooltip title="수정">
+                <Hb.Button.Icon
                   size="small"
                   aria-label="수정"
                   onClick={editing ? cancelEditing : startEditing}
                   sx={{ p: 0.25 }}
                 >
                   <EditOutlined sx={{ fontSize: 15 }} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="삭제">
-                <IconButton
+                </Hb.Button.Icon>
+              </Hb.Tooltip>
+              <Hb.Tooltip title="삭제">
+                <Hb.Button.Icon
                   size="small"
                   aria-label="삭제"
                   onClick={handleDelete}
                   sx={{ p: 0.25 }}
                 >
                   <DeleteOutlined sx={{ fontSize: 15 }} />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </Box>
+                </Hb.Button.Icon>
+              </Hb.Tooltip>
+            </Hb.Box>
+          </Hb.Box>
 
           {editing ? (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <TextField
+            <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <Hb.TextField
                 fullWidth
                 multiline
                 minRows={2}
@@ -204,27 +196,29 @@ const CommentNode = ({
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
               />
-              <Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
-                <Button
+              <Hb.Box
+                sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}
+              >
+                <Hb.Button
                   size="small"
                   onClick={cancelEditing}
                   sx={{ textTransform: "none" }}
                 >
                   취소
-                </Button>
-                <Button
+                </Hb.Button>
+                <Hb.Button
                   size="small"
-                  variant="contained"
+                  variant="primary"
                   onClick={handleUpdate}
                   disabled={!editContent.trim()}
                   sx={{ textTransform: "none" }}
                 >
                   수정
-                </Button>
-              </Box>
-            </Box>
+                </Hb.Button>
+              </Hb.Box>
+            </Hb.Box>
           ) : (
-            <Typography
+            <Hb.Text
               variant="body2"
               sx={{
                 whiteSpace: "pre-wrap",
@@ -233,21 +227,21 @@ const CommentNode = ({
               }}
             >
               {comment.content}
-            </Typography>
+            </Hb.Text>
           )}
 
           {replying && (
-            <Box sx={{ mt: 1.5 }}>
+            <Hb.Box sx={{ mt: 1.5 }}>
               <CommentInput
                 onSubmit={handleReply}
                 loading={isReplyPending}
                 placeholder="답글을 입력하세요..."
                 autoFocus
               />
-            </Box>
+            </Hb.Box>
           )}
-        </Box>
-      </Box>
+        </Hb.Box>
+      </Hb.Box>
 
       {comment.children.map((child) => (
         <CommentNode

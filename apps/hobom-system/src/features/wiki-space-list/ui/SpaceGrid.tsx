@@ -1,10 +1,10 @@
-import { Grid } from "@mui/material";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   wikiSpaceQueries,
   SpaceCard,
   type SpaceType,
 } from "@/entities/wiki-space";
+import { Hb } from "@/shared/ui";
 
 interface SpaceGridProps {
   onSpaceClick: (spaceKey: string) => void;
@@ -20,17 +20,17 @@ export const SpaceGrid = ({
   const { data } = useSuspenseQuery(wikiSpaceQueries.list());
 
   return (
-    <Grid container spacing={2.5}>
+    <Hb.Grid container spacing={2.5}>
       {data.items.items.map((space) => (
-        <Grid key={space.key} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        <Hb.Grid key={space.key} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
           <SpaceCard
             space={space}
             onClick={() => onSpaceClick(space.key)}
             onEdit={onEdit}
             onDelete={onDelete}
           />
-        </Grid>
+        </Hb.Grid>
       ))}
-    </Grid>
+    </Hb.Grid>
   );
 };

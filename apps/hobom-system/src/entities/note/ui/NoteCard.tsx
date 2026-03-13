@@ -1,16 +1,5 @@
 import { type ReactNode, useState } from "react";
 import {
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  IconButton,
-  Chip,
-  Box,
-  Checkbox,
-  Tooltip,
-} from "@mui/material";
-import {
   PushPin,
   PushPinOutlined,
   ArchiveOutlined,
@@ -19,7 +8,8 @@ import {
   RestoreFromTrashOutlined,
   NotificationsActiveOutlined,
   PeopleOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
 
@@ -60,7 +50,7 @@ export const NoteCard = ({
   const isWhite = color === "#ffffff";
 
   return (
-    <Card
+    <Hb.Card.Root
       sx={{
         backgroundColor: color,
         cursor: "pointer",
@@ -85,10 +75,10 @@ export const NoteCard = ({
       onClick={() => onClick(note)}
       elevation={0}
     >
-      <CardContent sx={{ p: "12px 12px 8px", "&:last-child": { pb: 1 } }}>
+      <Hb.Card.Content sx={{ p: "12px 12px 8px", "&:last-child": { pb: 1 } }}>
         {/* 드래그 핸들 — top-left */}
         {dragHandle && (
-          <Box
+          <Hb.Box
             sx={{
               position: "absolute",
               top: 2,
@@ -101,12 +91,12 @@ export const NoteCard = ({
             }}
           >
             {dragHandle}
-          </Box>
+          </Hb.Box>
         )}
 
         {/* 핀 아이콘 — CSS transition */}
         {!isTrash && (
-          <IconButton
+          <Hb.Button.Icon
             size="small"
             sx={{
               position: "absolute",
@@ -128,11 +118,11 @@ export const NoteCard = ({
             ) : (
               <PushPinOutlined sx={{ fontSize: 18 }} />
             )}
-          </IconButton>
+          </Hb.Button.Icon>
         )}
 
         {title && (
-          <Typography
+          <Hb.Text
             variant="subtitle2"
             sx={{
               fontWeight: 500,
@@ -144,11 +134,11 @@ export const NoteCard = ({
             }}
           >
             {title}
-          </Typography>
+          </Hb.Text>
         )}
 
         {!hasChecklist && content && (
-          <Typography
+          <Hb.Text
             variant="body2"
             sx={{
               color: "text.secondary",
@@ -163,16 +153,16 @@ export const NoteCard = ({
             }}
           >
             {content}
-          </Typography>
+          </Hb.Text>
         )}
 
         {hasChecklist && (
-          <Box sx={{ mx: -0.5 }}>
+          <Hb.Box sx={{ mx: -0.5 }}>
             {[...note.checklistItems]
               .sort((a, b) => a.order - b.order)
               .slice(0, 8)
               .map((item, idx) => (
-                <Box
+                <Hb.Box
                   key={idx}
                   sx={{
                     display: "flex",
@@ -180,7 +170,7 @@ export const NoteCard = ({
                     py: 0.125,
                   }}
                 >
-                  <Checkbox
+                  <Hb.Checkbox
                     size="small"
                     checked={item.checked}
                     disabled
@@ -190,7 +180,7 @@ export const NoteCard = ({
                       "&.Mui-checked": { color: "action.disabled" },
                     }}
                   />
-                  <Typography
+                  <Hb.Text
                     variant="body2"
                     sx={{
                       fontSize: "0.8125rem",
@@ -200,11 +190,11 @@ export const NoteCard = ({
                     }}
                   >
                     {item.text}
-                  </Typography>
-                </Box>
+                  </Hb.Text>
+                </Hb.Box>
               ))}
             {note.checklistItems.length > 8 && (
-              <Typography
+              <Hb.Text
                 variant="caption"
                 sx={{
                   color: "text.disabled",
@@ -214,17 +204,17 @@ export const NoteCard = ({
                 }}
               >
                 +{note.checklistItems.length - 8}개 더
-              </Typography>
+              </Hb.Text>
             )}
-          </Box>
+          </Hb.Box>
         )}
 
         {(note.reminder ||
           note.labels?.length > 0 ||
           note.members?.length > 0) && (
-          <Box sx={{ mt: 1.5, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+          <Hb.Box sx={{ mt: 1.5, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
             {note.reminder && (
-              <Chip
+              <Hb.Chip
                 icon={<NotificationsActiveOutlined sx={{ fontSize: 14 }} />}
                 label={new Date(note.reminder.date).toLocaleDateString("ko-KR")}
                 size="small"
@@ -232,7 +222,7 @@ export const NoteCard = ({
               />
             )}
             {note.members?.length > 0 && (
-              <Chip
+              <Hb.Chip
                 icon={<PeopleOutlined sx={{ fontSize: 14 }} />}
                 label={note.members.length}
                 size="small"
@@ -241,18 +231,18 @@ export const NoteCard = ({
               />
             )}
             {note.labels?.map((label) => (
-              <Chip
+              <Hb.Chip
                 key={label}
                 label={labelMap?.[label] ?? label}
                 size="small"
                 sx={META_CHIP_SX}
               />
             ))}
-          </Box>
+          </Hb.Box>
         )}
-      </CardContent>
+      </Hb.Card.Content>
 
-      <CardActions
+      <Hb.Card.Actions
         sx={{
           pt: 0,
           px: 1,
@@ -266,29 +256,29 @@ export const NoteCard = ({
       >
         {isTrash ? (
           <>
-            <Tooltip title="복원" arrow>
-              <IconButton
+            <Hb.Tooltip title="복원" arrow>
+              <Hb.Button.Icon
                 size="small"
                 sx={{ color: "text.secondary" }}
                 onClick={() => onStatusChange(note.id, "ACTIVE")}
               >
                 <RestoreFromTrashOutlined sx={{ fontSize: 18 }} />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="영구 삭제" arrow>
-              <IconButton
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
+            <Hb.Tooltip title="영구 삭제" arrow>
+              <Hb.Button.Icon
                 size="small"
                 sx={{ color: "text.secondary" }}
                 onClick={() => onDelete(note.id)}
               >
                 <DeleteOutlined sx={{ fontSize: 18 }} />
-              </IconButton>
-            </Tooltip>
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
           </>
         ) : (
           <>
-            <Tooltip title={isArchived ? "보관 해제" : "보관처리"} arrow>
-              <IconButton
+            <Hb.Tooltip title={isArchived ? "보관 해제" : "보관처리"} arrow>
+              <Hb.Button.Icon
                 size="small"
                 sx={{ color: "text.secondary" }}
                 onClick={() =>
@@ -300,20 +290,20 @@ export const NoteCard = ({
                 ) : (
                   <ArchiveOutlined sx={{ fontSize: 18 }} />
                 )}
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="삭제" arrow>
-              <IconButton
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
+            <Hb.Tooltip title="삭제" arrow>
+              <Hb.Button.Icon
                 size="small"
                 sx={{ color: "text.secondary" }}
                 onClick={() => onStatusChange(note.id, "TRASHED")}
               >
                 <DeleteOutlined sx={{ fontSize: 18 }} />
-              </IconButton>
-            </Tooltip>
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
           </>
         )}
-      </CardActions>
-    </Card>
+      </Hb.Card.Actions>
+    </Hb.Card.Root>
   );
 };

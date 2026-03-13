@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import { List } from "@mui/material";
 import type { PageTreeNode as PageTreeNodeType } from "@/entities/wiki-page";
+import { Hb } from "@/shared/ui";
 import { PageTreeNode } from "./PageTreeNode";
 
 interface PageTreeViewProps {
@@ -30,7 +30,7 @@ export const PageTreeView = ({
   }, []);
 
   return (
-    <List dense disablePadding>
+    <Hb.List.Root dense disablePadding>
       {nodes.map((node) => (
         <PageTreeNode
           key={node.id}
@@ -43,6 +43,6 @@ export const PageTreeView = ({
           onCreateChild={onCreateChild}
         />
       ))}
-    </List>
+    </Hb.List.Root>
   );
 };

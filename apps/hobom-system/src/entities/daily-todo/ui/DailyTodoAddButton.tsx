@@ -1,17 +1,7 @@
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { AddCircle } from "@mui/icons-material";
+import { AddCircle } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
+import { Hb } from "@/shared/ui";
 import {
   type DailyTodoWithCategoryType,
   type CycleType,
@@ -44,70 +34,62 @@ export const DailyTodoAddButton = ({ item }: Props) => {
   const { mutate, isPending } = useCreateDailyTodo();
 
   return (
-    <IconButton
+    <Hb.Button.Icon
       size="small"
       onClick={() => {
         onOpen(({ isOpen, onClose }) => (
-          <Dialog
+          <Hb.Dialog.Root
             open={isOpen}
             onClose={() => {
               reset();
               onClose();
             }}
-            maxWidth="xs"
-            fullWidth
+            size="xs"
           >
-            <DialogTitle sx={{ pb: 1 }}>
+            <Hb.Dialog.Title sx={{ pb: 1 }}>
               할 일 추가
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ mt: 0.5 }}
-              >
+              <Hb.Text variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
                 {item.categoryTitle}
-              </Typography>
-            </DialogTitle>
-            <DialogContent sx={{ pt: "12px !important" }}>
-              <TextField
+              </Hb.Text>
+            </Hb.Dialog.Title>
+            <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
+              <Hb.TextField
                 fullWidth
                 autoFocus
-                variant="outlined"
                 label="제목"
                 size="small"
                 sx={{ mb: 2 }}
                 {...register("title")}
               />
-              <TextField
+              <Hb.TextField
                 fullWidth
                 select
-                variant="outlined"
                 label="반복 주기"
                 size="small"
                 value={watch("cycle")}
                 onChange={(e) => setValue("cycle", e.target.value as CycleType)}
               >
                 {CYCLE_OPTIONS.map((key) => (
-                  <MenuItem key={key} value={key}>
+                  <Hb.Menu.Item key={key} value={key}>
                     {CYCLE_LABELS[key]}
-                  </MenuItem>
+                  </Hb.Menu.Item>
                 ))}
-              </TextField>
-            </DialogContent>
-            <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
-              <Button
+              </Hb.TextField>
+            </Hb.Dialog.Content>
+            <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
+              <Hb.Button
                 fullWidth
-                variant="outlined"
-                color="inherit"
+                variant="ghost"
                 onClick={() => {
                   reset();
                   onClose();
                 }}
               >
                 취소
-              </Button>
-              <Button
+              </Hb.Button>
+              <Hb.Button
                 fullWidth
-                variant="contained"
+                variant="primary"
                 loading={isPending}
                 onClick={() => {
                   const title = watch("title");
@@ -146,13 +128,13 @@ export const DailyTodoAddButton = ({ item }: Props) => {
                 }}
               >
                 추가
-              </Button>
-            </DialogActions>
-          </Dialog>
+              </Hb.Button>
+            </Hb.Dialog.Actions>
+          </Hb.Dialog.Root>
         ));
       }}
     >
       <AddCircle fontSize="small" />
-    </IconButton>
+    </Hb.Button.Icon>
   );
 };

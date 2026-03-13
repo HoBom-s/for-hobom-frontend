@@ -1,4 +1,4 @@
-import { Box, Typography, Tooltip } from "@mui/material";
+import { Hb } from "@/shared/ui";
 
 interface HeatmapData {
   date: string;
@@ -42,11 +42,11 @@ export const ActivityHeatmap = ({ data }: ActivityHeatmapProps) => {
   }
 
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1.5 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1.5 }}>
         활동 히트맵
-      </Typography>
-      <Box
+      </Hb.Text>
+      <Hb.Box
         sx={{
           display: "grid",
           gridTemplateColumns: `repeat(${WEEKS}, 14px)`,
@@ -56,13 +56,13 @@ export const ActivityHeatmap = ({ data }: ActivityHeatmapProps) => {
         }}
       >
         {cells.map((cell) => (
-          <Tooltip
+          <Hb.Tooltip
             key={cell.date}
             title={`${cell.date}: ${cell.count}건`}
             arrow
             placement="top"
           >
-            <Box
+            <Hb.Box
               sx={{
                 width: 14,
                 height: 14,
@@ -70,9 +70,9 @@ export const ActivityHeatmap = ({ data }: ActivityHeatmapProps) => {
                 bgcolor: LEVEL_COLORS[cell.level],
               }}
             />
-          </Tooltip>
+          </Hb.Tooltip>
         ))}
-      </Box>
-    </Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

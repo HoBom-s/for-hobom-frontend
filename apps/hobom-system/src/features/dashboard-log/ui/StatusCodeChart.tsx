@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -10,6 +9,7 @@ import {
   Cell,
 } from "recharts";
 import type { LogStatusCount } from "@/entities/log";
+import { Hb } from "@/shared/ui";
 import { getStatusColor, getStatusLabel } from "../lib/log-dashboard.lib";
 
 interface ChartTooltipProps {
@@ -74,10 +74,10 @@ interface StatusCodeChartProps {
 
 export const StatusCodeChart = ({ data }: StatusCodeChartProps) => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         HTTP 상태 코드 분포
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height="100%" minHeight={200}>
         <BarChart data={data} barCategoryGap="25%">
           <CartesianGrid
@@ -119,6 +119,6 @@ export const StatusCodeChart = ({ data }: StatusCodeChartProps) => {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

@@ -1,5 +1,5 @@
-import { Box, Typography, ButtonBase } from "@mui/material";
-import { InfoOutlined } from "@mui/icons-material";
+import { InfoOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import { NOTIFICATION_CATEGORY } from "../lib/notification-category.lib";
 import { formatRelativeTime } from "../lib/format-relative-time.lib";
 import type {
@@ -21,7 +21,7 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
   const Icon = CATEGORY_ICONS[notification.category];
 
   return (
-    <ButtonBase
+    <Hb.ButtonBase
       onClick={() => onClick?.(notification)}
       sx={{
         display: "flex",
@@ -42,7 +42,7 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
         },
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           width: 36,
           height: 36,
@@ -56,12 +56,12 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
         }}
       >
         <Icon sx={{ fontSize: 18, color: meta.color }} />
-      </Box>
-      <Box sx={{ flex: 1, minWidth: 0 }}>
-        <Box
+      </Hb.Box>
+      <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+        <Hb.Box
           sx={{ display: "flex", alignItems: "center", gap: 0.75, mb: 0.25 }}
         >
-          <Typography
+          <Hb.Text
             variant="body2"
             sx={{
               fontWeight: notification.isRead ? 400 : 600,
@@ -74,10 +74,10 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
             }}
           >
             {notification.title}
-          </Typography>
+          </Hb.Text>
           {!notification.isRead && (
             <>
-              <Box
+              <Hb.Box
                 aria-hidden="true"
                 sx={{
                   width: 7,
@@ -87,7 +87,7 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
                   flexShrink: 0,
                 }}
               />
-              <Box
+              <Hb.Box
                 component="span"
                 sx={{
                   position: "absolute",
@@ -100,11 +100,11 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
                 }}
               >
                 읽지 않음
-              </Box>
+              </Hb.Box>
             </>
           )}
-        </Box>
-        <Typography
+        </Hb.Box>
+        <Hb.Text
           variant="body2"
           sx={{
             color: "text.secondary",
@@ -118,8 +118,8 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
           }}
         >
           {notification.body}
-        </Typography>
-        <Typography
+        </Hb.Text>
+        <Hb.Text
           variant="caption"
           sx={{
             color: "text.disabled",
@@ -127,8 +127,8 @@ export const NotificationItem = ({ notification, onClick }: Props) => {
           }}
         >
           {formatRelativeTime(notification.createdAt)}
-        </Typography>
-      </Box>
-    </ButtonBase>
+        </Hb.Text>
+      </Hb.Box>
+    </Hb.ButtonBase>
   );
 };

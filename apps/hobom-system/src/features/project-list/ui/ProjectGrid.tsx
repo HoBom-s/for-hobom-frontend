@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import { FolderOutlined } from "@mui/icons-material";
+import { FolderOutlined } from "hobom-design-system/icons";
 import { useNavigate } from "react-router-dom";
 import { ProjectCard, type ProjectType } from "@/entities/project";
+import { Hb } from "@/shared/ui";
 
 interface ProjectGridProps {
   projects: ProjectType[];
@@ -12,7 +12,7 @@ export const ProjectGrid = ({ projects }: ProjectGridProps) => {
 
   if (projects.length === 0) {
     return (
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -25,18 +25,18 @@ export const ProjectGrid = ({ projects }: ProjectGridProps) => {
         <FolderOutlined
           sx={{ fontSize: 96, color: "#dadce0", strokeWidth: 0.5 }}
         />
-        <Typography
+        <Hb.Text
           variant="body1"
           sx={{ color: "text.disabled", fontSize: "1rem", fontWeight: 400 }}
         >
           프로젝트가 없어요. 새 프로젝트를 만들어 보세요.
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
     );
   }
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
@@ -50,6 +50,6 @@ export const ProjectGrid = ({ projects }: ProjectGridProps) => {
           onClick={() => navigate(`/projects/${project.id}/board`)}
         />
       ))}
-    </Box>
+    </Hb.Box>
   );
 };

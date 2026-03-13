@@ -1,7 +1,10 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
-import { ReportProblemOutlined, RefreshOutlined } from "@mui/icons-material";
+import {
+  ReportProblemOutlined,
+  RefreshOutlined,
+} from "hobom-design-system/icons";
 import { useQueryClient, type QueryClient } from "@tanstack/react-query";
+import { Hb } from "hobom-design-system";
 
 interface Props {
   children: ReactNode;
@@ -55,7 +58,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
       }
 
       return (
-        <Box
+        <Hb.Box
           sx={{
             width: "100%",
             ...(inline
@@ -66,7 +69,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
             alignItems: "center",
           }}
         >
-          <Paper
+          <Hb.Paper
             variant="outlined"
             sx={{
               textAlign: "center",
@@ -77,7 +80,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
               width: "100%",
             }}
           >
-            <Box
+            <Hb.Box
               sx={{
                 width: 48,
                 height: 48,
@@ -91,11 +94,11 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
               }}
             >
               <ReportProblemOutlined sx={{ color: "#fff", fontSize: 24 }} />
-            </Box>
-            <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 0.5 }}>
+            </Hb.Box>
+            <Hb.Text variant="subtitle1" fontWeight={700} sx={{ mb: 0.5 }}>
               문제가 발생했어요
-            </Typography>
-            <Typography
+            </Hb.Text>
+            <Hb.Text
               variant="body2"
               color="text.secondary"
               sx={{ fontSize: 13, lineHeight: 1.6 }}
@@ -103,9 +106,9 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
               요청을 처리하는 중 오류가 발생했어요.
               <br />
               잠시 후 다시 시도해 주세요.
-            </Typography>
+            </Hb.Text>
             {error?.message ? (
-              <Box
+              <Hb.Box
                 sx={{
                   mt: 2,
                   p: 1.5,
@@ -115,7 +118,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
                   borderColor: "divider",
                 }}
               >
-                <Typography
+                <Hb.Text
                   variant="caption"
                   color="error"
                   sx={{
@@ -128,11 +131,11 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
                   }}
                 >
                   {error.message}
-                </Typography>
-              </Box>
+                </Hb.Text>
+              </Hb.Box>
             ) : null}
-            <Button
-              variant="contained"
+            <Hb.Button
+              variant="primary"
               size="small"
               startIcon={<RefreshOutlined />}
               onClick={this.handleReset}
@@ -146,9 +149,9 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
               }}
             >
               다시 시도
-            </Button>
-          </Paper>
-        </Box>
+            </Hb.Button>
+          </Hb.Paper>
+        </Hb.Box>
       );
     }
 

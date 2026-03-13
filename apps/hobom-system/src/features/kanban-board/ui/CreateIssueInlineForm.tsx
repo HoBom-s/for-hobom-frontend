@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Box, ButtonBase, TextField } from "@mui/material";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 interface CreateIssueInlineFormProps {
   onSubmit: (title: string) => void;
@@ -21,7 +21,7 @@ export const CreateIssueInlineForm = ({
 
   if (!isOpen) {
     return (
-      <ButtonBase
+      <Hb.ButtonBase
         onClick={() => setIsOpen(true)}
         sx={{
           display: "flex",
@@ -42,13 +42,13 @@ export const CreateIssueInlineForm = ({
       >
         <AddOutlined sx={{ fontSize: 18 }} />
         이슈 만들기
-      </ButtonBase>
+      </Hb.ButtonBase>
     );
   }
 
   return (
-    <Box sx={{ mt: 1 }}>
-      <TextField
+    <Hb.Box sx={{ mt: 1 }}>
+      <Hb.TextField
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         onKeyDown={(e) => {
@@ -73,6 +73,6 @@ export const CreateIssueInlineForm = ({
           },
         }}
       />
-    </Box>
+    </Hb.Box>
   );
 };

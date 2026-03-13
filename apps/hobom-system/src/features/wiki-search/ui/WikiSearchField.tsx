@@ -1,12 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import {
-  Autocomplete,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { SearchOutlined } from "@mui/icons-material";
+import { SearchOutlined } from "hobom-design-system/icons";
 import type { SearchResultType } from "@/entities/wiki-page";
+import { Hb } from "@/shared/ui";
 import { useWikiSearch } from "../model/useWikiSearch";
 
 interface WikiSearchFieldProps {
@@ -28,7 +23,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
   };
 
   return (
-    <Autocomplete
+    <Hb.Autocomplete
       freeSolo
       options={results}
       getOptionLabel={(option) =>
@@ -41,13 +36,13 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
       noOptionsText={query.length < 2 ? "2글자 이상 입력" : "결과 없음"}
       renderOption={({ key, ...props }, option) => (
         <li key={key} {...props}>
-          <Typography variant="body2">
+          <Hb.Text variant="body2">
             {(option as SearchResultType).title}
-          </Typography>
+          </Hb.Text>
         </li>
       )}
       renderInput={(params) => (
-        <TextField
+        <Hb.TextField
           {...params}
           size="small"
           placeholder="페이지 검색..."
@@ -61,7 +56,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
               ),
               endAdornment: (
                 <>
-                  {searching && <CircularProgress size={16} />}
+                  {searching && <Hb.Progress.Circular size={16} />}
                   {params.InputProps.endAdornment}
                 </>
               ),

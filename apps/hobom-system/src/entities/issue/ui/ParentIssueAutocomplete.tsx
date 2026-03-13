@@ -1,10 +1,4 @@
-import {
-  Autocomplete,
-  Box,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Hb } from "@/shared/ui";
 import { ISSUE_KIND_LABEL } from "../model/issue.model";
 import { ISSUE_KIND_REGISTRY } from "./IssueRegistry";
 import type { IssueKind } from "../model/issue.model";
@@ -25,7 +19,7 @@ export const ParentIssueAutocomplete = ({
   label = "상위 이슈 (선택)",
   placeholder = "에픽 또는 스토리 검색",
 }: ParentIssueAutocompleteProps) => (
-  <Autocomplete<IssueType>
+  <Hb.Autocomplete<IssueType>
     size="small"
     value={value}
     options={options}
@@ -41,7 +35,7 @@ export const ParentIssueAutocomplete = ({
 
       return (
         <li key={params.key}>
-          <Box
+          <Hb.Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -57,7 +51,7 @@ export const ParentIssueAutocomplete = ({
             {config && (
               <config.Icon sx={{ fontSize: 14, color: config.color }} />
             )}
-            <Typography
+            <Hb.Text
               variant="caption"
               sx={{
                 fontWeight: 700,
@@ -68,8 +62,8 @@ export const ParentIssueAutocomplete = ({
               }}
             >
               {params.group}
-            </Typography>
-          </Box>
+            </Hb.Text>
+          </Hb.Box>
           <ul style={{ padding: 0 }}>{params.children}</ul>
         </li>
       );
@@ -78,7 +72,7 @@ export const ParentIssueAutocomplete = ({
       const config = ISSUE_KIND_REGISTRY[option.type];
 
       return (
-        <MenuItem
+        <Hb.Menu.Item
           key={key}
           {...props}
           sx={{ display: "flex", alignItems: "center", gap: 1, py: 0.75 }}
@@ -86,7 +80,7 @@ export const ParentIssueAutocomplete = ({
           <config.Icon
             sx={{ fontSize: 16, color: config.color, flexShrink: 0 }}
           />
-          <Typography
+          <Hb.Text
             variant="caption"
             sx={{
               fontWeight: 600,
@@ -96,8 +90,8 @@ export const ParentIssueAutocomplete = ({
             }}
           >
             {option.issueKey}
-          </Typography>
-          <Typography
+          </Hb.Text>
+          <Hb.Text
             variant="body2"
             sx={{
               fontSize: 13,
@@ -107,12 +101,12 @@ export const ParentIssueAutocomplete = ({
             }}
           >
             {option.title}
-          </Typography>
-        </MenuItem>
+          </Hb.Text>
+        </Hb.Menu.Item>
       );
     }}
     renderInput={(params) => (
-      <TextField {...params} label={label} placeholder={placeholder} />
+      <Hb.TextField {...params} label={label} placeholder={placeholder} />
     )}
     noOptionsText="선택 가능한 상위 이슈 없음"
     slotProps={{

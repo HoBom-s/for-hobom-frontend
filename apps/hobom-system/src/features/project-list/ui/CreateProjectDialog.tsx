@@ -1,13 +1,6 @@
 import { useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
 import { useCreateProject } from "@/entities/project";
+import { Hb } from "@/shared/ui";
 
 interface CreateProjectDialogProps {
   open: boolean;
@@ -43,10 +36,12 @@ export const CreateProjectDialog = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>프로젝트 만들기</DialogTitle>
-      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <TextField
+    <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
+      <Hb.Dialog.Title>프로젝트 만들기</Hb.Dialog.Title>
+      <Hb.Dialog.Content
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      >
+        <Hb.TextField
           label="프로젝트 키"
           placeholder="PROJ"
           value={key}
@@ -56,14 +51,14 @@ export const CreateProjectDialog = ({
           sx={{ mt: 1 }}
           helperText="영문 대문자로 입력하세요 (예: PROJ)"
         />
-        <TextField
+        <Hb.TextField
           label="프로젝트 이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
           fullWidth
           size="small"
         />
-        <TextField
+        <Hb.TextField
           label="설명"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -72,20 +67,20 @@ export const CreateProjectDialog = ({
           rows={3}
           size="small"
         />
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2 }}>
-        <Button variant="outlined" color="inherit" onClick={onClose}>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions sx={{ px: 3, pb: 2 }}>
+        <Hb.Button variant="secondary" onClick={onClose}>
           취소
-        </Button>
-        <Button
-          variant="contained"
+        </Hb.Button>
+        <Hb.Button
+          variant="primary"
           onClick={handleSubmit}
           disabled={!key.trim() || !name.trim()}
           loading={isPending}
         >
           만들기
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

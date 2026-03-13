@@ -1,28 +1,13 @@
 import { Suspense } from "react";
 import {
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Divider,
-  IconButton,
-  Paper,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import {
   DeleteOutlined,
   EditOutlined,
   HistoryOutlined,
-} from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
+} from "hobom-design-system/icons";
 import { PageViewer } from "@/features/wiki-page-editor";
 import { CommentsSection } from "@/features/wiki-page-comments";
 import { VersionHistoryDrawer } from "@/features/wiki-page-versions";
+import { Hb } from "@/shared/ui";
 import { usePageContent } from "../model/usePageContent";
 import { PageEditor } from "./PageEditor";
 
@@ -59,8 +44,8 @@ export const PageContent = ({
   }
 
   return (
-    <Box sx={{ p: 2 }}>
-      <Paper
+    <Hb.Box sx={{ p: 2 }}>
+      <Hb.Paper
         elevation={0}
         sx={{
           border: "1px solid",
@@ -69,7 +54,7 @@ export const PageContent = ({
           overflow: "hidden",
         }}
       >
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             alignItems: "flex-start",
@@ -79,59 +64,59 @@ export const PageContent = ({
             pb: 1,
           }}
         >
-          <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography
+          <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+            <Hb.Text
               variant="h4"
               sx={{ fontWeight: 700, lineHeight: 1.3, mb: 0.75 }}
             >
               {page.title}
-            </Typography>
-            <Typography variant="caption" color="text.disabled">
+            </Hb.Text>
+            <Hb.Text variant="caption" color="text.disabled">
               마지막 수정{" "}
               {new Date(page.updatedAt).toLocaleDateString("ko-KR", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
-            </Typography>
-          </Box>
-          <Box sx={{ display: "flex", gap: 0.5, ml: 2, flexShrink: 0 }}>
-            <Tooltip title="버전 히스토리">
-              <IconButton
+            </Hb.Text>
+          </Hb.Box>
+          <Hb.Box sx={{ display: "flex", gap: 0.5, ml: 2, flexShrink: 0 }}>
+            <Hb.Tooltip title="버전 히스토리">
+              <Hb.Button.Icon
                 size="small"
                 onClick={() => setVersionDrawerOpen(true)}
                 sx={{ color: "text.secondary" }}
               >
                 <HistoryOutlined fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="편집">
-              <IconButton
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
+            <Hb.Tooltip title="편집">
+              <Hb.Button.Icon
                 size="small"
                 onClick={() => setEditing(true)}
                 sx={{ color: "text.secondary" }}
               >
                 <EditOutlined fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="삭제">
-              <IconButton
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
+            <Hb.Tooltip title="삭제">
+              <Hb.Button.Icon
                 size="small"
                 onClick={() => setDeleteDialogOpen(true)}
                 sx={{ color: "text.secondary" }}
               >
                 <DeleteOutlined fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Box>
+              </Hb.Button.Icon>
+            </Hb.Tooltip>
+          </Hb.Box>
+        </Hb.Box>
 
-        <Divider sx={{ mx: 3.5, my: 1.5 }} />
+        <Hb.Divider sx={{ mx: 3.5, my: 1.5 }} />
 
         <PageViewer content={page.content} />
-      </Paper>
+      </Hb.Paper>
 
-      <Paper
+      <Hb.Paper
         elevation={0}
         sx={{
           mt: 2,
@@ -142,9 +127,9 @@ export const PageContent = ({
       >
         <Suspense
           fallback={
-            <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-              <CircularProgress size={20} />
-            </Box>
+            <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+              <Hb.Progress.Circular size={20} />
+            </Hb.Box>
           }
         >
           <CommentsSection
@@ -153,7 +138,7 @@ export const PageContent = ({
             userInfo={userInfo}
           />
         </Suspense>
-      </Paper>
+      </Hb.Paper>
 
       <VersionHistoryDrawer
         open={versionDrawerOpen}
@@ -161,34 +146,33 @@ export const PageContent = ({
         spaceKey={spaceKey}
         pageId={pageId}
       />
-      <Dialog
+      <Hb.Dialog.Root
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
       >
-        <DialogTitle>페이지 삭제</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <Hb.Dialog.Title>페이지 삭제</Hb.Dialog.Title>
+        <Hb.Dialog.Content>
+          <Hb.Dialog.ContentText>
             <strong>"{page.title}"</strong> 페이지를 삭제할까요?
             <br />이 작업은 되돌릴 수 없어요.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
+          </Hb.Dialog.ContentText>
+        </Hb.Dialog.Content>
+        <Hb.Dialog.Actions>
+          <Hb.Button
             onClick={() => setDeleteDialogOpen(false)}
             disabled={isDeleting}
           >
             취소
-          </Button>
-          <LoadingButton
+          </Hb.Button>
+          <Hb.Button
             onClick={handleDelete}
-            color="error"
-            variant="contained"
+            variant="danger"
             loading={isDeleting}
           >
             삭제
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-    </Box>
+          </Hb.Button>
+        </Hb.Dialog.Actions>
+      </Hb.Dialog.Root>
+    </Hb.Box>
   );
 };

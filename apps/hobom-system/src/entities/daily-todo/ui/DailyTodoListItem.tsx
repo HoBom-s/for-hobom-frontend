@@ -1,19 +1,7 @@
 import { useState } from "react";
-import { MoreVert } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Chip,
-  IconButton,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { MoreVert } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
+import { Hb } from "@/shared/ui";
 import {
   formatDate,
   normalizeTodoDateToUtcMidnight,
@@ -64,42 +52,42 @@ export const DailyTodoListItem = ({ item }: Props) => {
 
   return (
     <>
-      <ListItem
+      <Hb.List.Item
         disablePadding
         secondaryAction={
-          <Stack direction="row" alignItems="center" spacing={0.5}>
+          <Hb.Stack direction="row" alignItems="center" spacing={0.5}>
             {item.reaction && (
-              <IconButton
+              <Hb.Button.Icon
                 size="small"
                 aria-label="리액션 변경"
                 onClick={(e) => setReactionAnchor(e.currentTarget)}
                 sx={{ fontSize: "1rem", p: 0.5 }}
               >
                 {item.reaction.value}
-              </IconButton>
+              </Hb.Button.Icon>
             )}
-            <IconButton
+            <Hb.Button.Icon
               size="small"
               aria-label="더보기"
               edge="end"
               onClick={() =>
                 onOpen({
                   title: (
-                    <Typography variant="subtitle1" mt={1}>
+                    <Hb.Text variant="subtitle1" mt={1}>
                       {item.title}
-                    </Typography>
+                    </Hb.Text>
                   ),
                   content: (
-                    <Box sx={{ px: 2 }}>
-                      <Typography
+                    <Hb.Box sx={{ px: 2 }}>
+                      <Hb.Text
                         gutterBottom
                         variant="subtitle1"
                         fontWeight="bold"
                       >
                         {formatDate(normalizeTodoDateToUtcMidnight(item.date))}
-                      </Typography>
-                      <Stack direction="row" mt={1} spacing={1}>
-                        <Chip
+                      </Hb.Text>
+                      <Hb.Stack direction="row" mt={1} spacing={1}>
+                        <Hb.Chip
                           color={
                             isCompleteStatus(item.progress)
                               ? "success"
@@ -109,7 +97,7 @@ export const DailyTodoListItem = ({ item }: Props) => {
                           label={item.progress}
                           size="small"
                         />
-                        <Chip
+                        <Hb.Chip
                           color="secondary"
                           variant="outlined"
                           label={
@@ -117,15 +105,14 @@ export const DailyTodoListItem = ({ item }: Props) => {
                           }
                           size="small"
                         />
-                      </Stack>
-                    </Box>
+                      </Hb.Stack>
+                    </Hb.Box>
                   ),
                   footer: (
-                    <Box display="flex" gap={2}>
-                      <Button
+                    <Hb.Box display="flex" gap={2}>
+                      <Hb.Button
                         fullWidth
-                        variant="contained"
-                        color="error"
+                        variant="danger"
                         loading={isDeletePending}
                         onClick={() => {
                           mutateDelete({ id: item.id });
@@ -133,35 +120,34 @@ export const DailyTodoListItem = ({ item }: Props) => {
                         }}
                       >
                         삭제하기
-                      </Button>
-                      <Button
+                      </Hb.Button>
+                      <Hb.Button
                         fullWidth
-                        variant="contained"
-                        color="primary"
+                        variant="primary"
                         onClick={() => setEditOpen(true)}
                       >
                         수정하기
-                      </Button>
-                    </Box>
+                      </Hb.Button>
+                    </Hb.Box>
                   ),
                   height: "32%",
                 })
               }
             >
               <MoreVert />
-            </IconButton>
-          </Stack>
+            </Hb.Button.Icon>
+          </Hb.Stack>
         }
       >
-        <ListItemButton
+        <Hb.List.ItemButton
           sx={{
             px: 2.5,
             py: 0.75,
             "&:hover .reaction-trigger": { opacity: 1 },
           }}
         >
-          <ListItemIcon sx={{ minWidth: 36 }}>
-            <Checkbox
+          <Hb.List.ItemIcon sx={{ minWidth: 36 }}>
+            <Hb.Checkbox
               edge="start"
               size="small"
               tabIndex={-1}
@@ -172,13 +158,13 @@ export const DailyTodoListItem = ({ item }: Props) => {
                 handleChangeCompleteStatus(item.id, item.progress)
               }
             />
-          </ListItemIcon>
-          <ListItemText
+          </Hb.List.ItemIcon>
+          <Hb.List.ItemText
             primary={
-              <Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
+              <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
                 <span>{item.title}</span>
                 {item.cycle !== "EVERYDAY" && (
-                  <Chip
+                  <Hb.Chip
                     label={CYCLE_LABELS[item.cycle as CycleType] ?? item.cycle}
                     size="small"
                     sx={{
@@ -188,7 +174,7 @@ export const DailyTodoListItem = ({ item }: Props) => {
                     }}
                   />
                 )}
-              </Box>
+              </Hb.Box>
             }
             slotProps={{
               primary: {
@@ -207,7 +193,7 @@ export const DailyTodoListItem = ({ item }: Props) => {
             }}
           />
           {!item.reaction && (
-            <IconButton
+            <Hb.Button.Icon
               size="small"
               aria-label="리액션 추가"
               className="reaction-trigger"
@@ -224,10 +210,10 @@ export const DailyTodoListItem = ({ item }: Props) => {
               }}
             >
               😊
-            </IconButton>
+            </Hb.Button.Icon>
           )}
-        </ListItemButton>
-      </ListItem>
+        </Hb.List.ItemButton>
+      </Hb.List.Item>
 
       <DailyTodoReactionPopover
         anchorEl={reactionAnchor}

@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -8,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Hb } from "@/shared/ui";
 
 interface ThroughputLineChartProps {
   data: { hour: number; count: number }[];
@@ -15,10 +15,10 @@ interface ThroughputLineChartProps {
 
 export const ThroughputLineChart = ({ data }: ThroughputLineChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         시간대별 처리량
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data} barSize={20}>
           <defs>
@@ -58,6 +58,6 @@ export const ThroughputLineChart = ({ data }: ThroughputLineChartProps) => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

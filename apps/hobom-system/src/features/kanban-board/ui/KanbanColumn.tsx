@@ -1,6 +1,5 @@
-import { Box, Chip, Typography } from "@mui/material";
 import { useDroppable } from "@dnd-kit/core";
-import { Sortable } from "@/shared/ui";
+import { Hb, Sortable } from "@/shared/ui";
 import {
   IssueCard,
   getDescendantProgress,
@@ -29,7 +28,7 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
   const config = getStatusConfig(column.statusId);
 
   return (
-    <Box
+    <Hb.Box
       ref={setNodeRef}
       sx={{
         flex: "0 0 296px",
@@ -44,7 +43,7 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
         transition: "all 0.2s",
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -53,7 +52,7 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
           px: 0.5,
         }}
       >
-        <Box
+        <Hb.Box
           sx={{
             width: 10,
             height: 10,
@@ -62,14 +61,14 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             boxShadow: `0 0 0 3px ${config.color}28`,
           }}
         />
-        <Typography
+        <Hb.Text
           variant="body2"
           fontWeight={700}
           sx={{ letterSpacing: "-0.01em" }}
         >
           {column.name}
-        </Typography>
-        <Chip
+        </Hb.Text>
+        <Hb.Chip
           label={issues.length}
           size="small"
           sx={{
@@ -81,10 +80,10 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             "& .MuiChip-label": { px: 0.75 },
           }}
         />
-      </Box>
+      </Hb.Box>
 
       <Sortable.List items={issues.map((i) => i.id)} strategy="vertical">
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -132,11 +131,11 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             : issues.map((issue) =>
                 renderIssueItem(issue, issueTree, doneStatusIds, onIssueClick),
               )}
-        </Box>
+        </Hb.Box>
       </Sortable.List>
 
       <CreateIssueInlineForm onSubmit={onAddIssue} />
-    </Box>
+    </Hb.Box>
   );
 };
 
@@ -157,7 +156,7 @@ const renderIssueItem = (
 
   return (
     <Sortable.Item key={issue.id} id={issue.id}>
-      <Box
+      <Hb.Box
         onClick={() => onIssueClick?.(issue.id)}
         sx={{ cursor: onIssueClick ? "pointer" : undefined }}
       >
@@ -167,7 +166,7 @@ const renderIssueItem = (
           childCount={childCount}
           progress={progress}
         />
-      </Box>
+      </Hb.Box>
     </Sortable.Item>
   );
 };

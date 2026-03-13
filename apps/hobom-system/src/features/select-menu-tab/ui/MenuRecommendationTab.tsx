@@ -1,8 +1,8 @@
 import { type ReactNode, useState } from "react";
-import { Box, Paper, Tab, Tabs } from "@mui/material";
 import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent";
 import { MenuRecommendationList } from "@/features/select-menu-tab/ui/MenuRecommendationList";
 import { MenuRecommendationSpeedDial } from "@/features/select-menu-tab/ui/MenuRecommendationSpeedDial";
+import { Hb } from "@/shared/ui";
 
 const TAB_VALUES = ["recommendation", "list"] as const;
 
@@ -17,7 +17,7 @@ export const MenuRecommendationTab = () => {
   const [tab, setTab] = useState<TabValue>("recommendation");
 
   return (
-    <Paper
+    <Hb.Paper
       elevation={0}
       sx={{
         flex: 1,
@@ -31,7 +31,7 @@ export const MenuRecommendationTab = () => {
         borderRadius: 2,
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -41,7 +41,7 @@ export const MenuRecommendationTab = () => {
           pr: 2,
         }}
       >
-        <Tabs
+        <Hb.Tabs.Root
           value={tab}
           onChange={(_, v) => setTab(v)}
           sx={{
@@ -55,21 +55,21 @@ export const MenuRecommendationTab = () => {
           }}
         >
           {TAB_VALUES.map((v) => (
-            <Tab key={v} value={v} label={TAB_LABELS[v]} />
+            <Hb.Tabs.Item key={v} value={v} label={TAB_LABELS[v]} />
           ))}
-        </Tabs>
+        </Hb.Tabs.Root>
         {tab === "list" && <MenuRecommendationSpeedDial />}
-      </Box>
+      </Hb.Box>
 
-      <Box sx={{ flex: 1, overflow: "auto" }}>
+      <Hb.Box sx={{ flex: 1, overflow: "auto" }}>
         <TabPanel visible={tab === "recommendation"}>
           <MenuRecommendationContent />
         </TabPanel>
         <TabPanel visible={tab === "list"}>
           <MenuRecommendationList />
         </TabPanel>
-      </Box>
-    </Paper>
+      </Hb.Box>
+    </Hb.Paper>
   );
 };
 

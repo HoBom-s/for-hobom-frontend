@@ -1,12 +1,12 @@
-import { Box, Button, Typography } from "@mui/material";
-import { DeleteForeverOutlined, InfoOutlined } from "@mui/icons-material";
+import { DeleteForeverOutlined, InfoOutlined } from "hobom-design-system/icons";
 import { useEmptyTrash } from "@/entities/note";
+import { Hb } from "@/shared/ui";
 
 export const NoteTrashActions = () => {
   const emptyTrash = useEmptyTrash();
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         alignItems: "center",
@@ -19,16 +19,16 @@ export const NoteTrashActions = () => {
         border: "1px solid #fde293",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
         <InfoOutlined sx={{ fontSize: 18, color: "#b06000" }} />
-        <Typography
+        <Hb.Text
           variant="body2"
           sx={{ color: "#5f3700", fontSize: "0.8125rem" }}
         >
           휴지통의 메모는 7일 후 자동으로 삭제돼요.
-        </Typography>
-      </Box>
-      <Button
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.Button
         size="small"
         startIcon={<DeleteForeverOutlined sx={{ fontSize: 16 }} />}
         onClick={() => emptyTrash.mutate()}
@@ -43,7 +43,7 @@ export const NoteTrashActions = () => {
         }}
       >
         휴지통 비우기
-      </Button>
-    </Box>
+      </Hb.Button>
+    </Hb.Box>
   );
 };

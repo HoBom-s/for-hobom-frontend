@@ -1,7 +1,9 @@
-import { Box, Typography } from "@mui/material";
-import { DragIndicatorOutlined, LightbulbOutlined } from "@mui/icons-material";
+import {
+  DragIndicatorOutlined,
+  LightbulbOutlined,
+} from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
-import { Sortable } from "@/shared/ui";
+import { Hb, Sortable } from "@/shared/ui";
 import { NoteCard } from "@/entities/note";
 import type { NoteItemType, NoteStatus } from "@/entities/note";
 import { useNoteGrid } from "../model/useNoteGrid";
@@ -106,7 +108,7 @@ export const NoteGrid = ({
 
   if (Bom.isEmpty(pinnedNotes) && Bom.isEmpty(otherNotes)) {
     return (
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -119,13 +121,13 @@ export const NoteGrid = ({
         <LightbulbOutlined
           sx={{ fontSize: 96, color: "action.disabled", strokeWidth: 0.5 }}
         />
-        <Typography
+        <Hb.Text
           variant="body1"
           sx={{ color: "text.disabled", fontSize: "1rem", fontWeight: 400 }}
         >
           추가한 메모가 여기에 표시됩니다.
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
     );
   }
 
@@ -136,7 +138,7 @@ export const NoteGrid = ({
       onDragCancel={handleDragCancel}
       overlay={
         activeNote && (
-          <Box
+          <Hb.Box
             sx={{
               width: CARD_WIDTH,
               transform: "scale(1.03)",
@@ -152,46 +154,47 @@ export const NoteGrid = ({
               onStatusChange={() => {}}
               onDelete={() => {}}
             />
-          </Box>
+          </Hb.Box>
         )
       }
     >
-      <Box>
+      <Hb.Box>
         {!Bom.isEmpty(pinnedNotes) && (
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="caption" sx={SECTION_HEADER_SX}>
+          <Hb.Box sx={{ mb: 3 }}>
+            <Hb.Text variant="caption" sx={SECTION_HEADER_SX}>
               고정됨
-            </Typography>
+            </Hb.Text>
             <Sortable.List items={pinnedNotes.map((n) => n.id)}>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
+              <Hb.Box
+                sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}
+              >
                 {pinnedNotes.map((note) => (
                   <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}
-              </Box>
+              </Hb.Box>
             </Sortable.List>
-          </Box>
+          </Hb.Box>
         )}
 
         {!Bom.isEmpty(otherNotes) && (
-          <Box>
+          <Hb.Box>
             {!Bom.isEmpty(pinnedNotes) && (
-              <Typography
-                variant="caption"
-                sx={{ ...SECTION_HEADER_SX, mt: 1 }}
-              >
+              <Hb.Text variant="caption" sx={{ ...SECTION_HEADER_SX, mt: 1 }}>
                 기타
-              </Typography>
+              </Hb.Text>
             )}
             <Sortable.List items={otherNotes.map((n) => n.id)}>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
+              <Hb.Box
+                sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}
+              >
                 {otherNotes.map((note) => (
                   <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}
-              </Box>
+              </Hb.Box>
             </Sortable.List>
-          </Box>
+          </Hb.Box>
         )}
-      </Box>
+      </Hb.Box>
     </Sortable.Root>
   );
 };

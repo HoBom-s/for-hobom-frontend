@@ -1,28 +1,13 @@
 import {
-  Box,
-  Button,
-  Chip,
-  Paper,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-  Avatar,
-} from "@mui/material";
-import {
   CheckCircleOutline,
   DoNotDisturbOutlined,
   HourglassEmptyOutlined,
   PersonOutline,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { adminUserQueries, type PendingUserType } from "@/entities/admin-user";
 import { useOverlay } from "@/shared/model";
-import { ConfirmDialog } from "@/shared/ui";
+import { Hb, ConfirmDialog } from "@/shared/ui";
 import { usePendingUserActions } from "../model/usePendingUserActions";
 
 export const PendingUsersTable = () => {
@@ -60,28 +45,28 @@ export const PendingUsersTable = () => {
   };
 
   return (
-    <Box>
-      <Stack
+    <Hb.Box>
+      <Hb.Stack
         direction="row"
         alignItems="center"
         justifyContent="space-between"
         sx={{ mb: 3 }}
       >
-        <Stack direction="row" alignItems="center" spacing={1.5}>
-          <Typography variant="h6" fontWeight={700}>
+        <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
+          <Hb.Text variant="h6" fontWeight={700}>
             승인 대기 사용자
-          </Typography>
-          <Chip
+          </Hb.Text>
+          <Hb.Chip
             label={users.length}
             size="small"
             color={users.length > 0 ? "warning" : "default"}
             sx={{ fontWeight: 600, minWidth: 28 }}
           />
-        </Stack>
-      </Stack>
+        </Hb.Stack>
+      </Hb.Stack>
 
       {users.length === 0 ? (
-        <Paper
+        <Hb.Paper
           variant="outlined"
           sx={{
             py: 8,
@@ -95,83 +80,81 @@ export const PendingUsersTable = () => {
           <HourglassEmptyOutlined
             sx={{ fontSize: 48, color: "text.disabled" }}
           />
-          <Typography variant="body1" color="text.secondary">
+          <Hb.Text variant="body1" color="text.secondary">
             승인 대기 중인 사용자가 없어요.
-          </Typography>
-        </Paper>
+          </Hb.Text>
+        </Hb.Paper>
       ) : (
-        <TableContainer component={Paper} variant="outlined">
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell scope="col">사용자</TableCell>
-                <TableCell scope="col">닉네임</TableCell>
-                <TableCell scope="col">이메일</TableCell>
-                <TableCell scope="col" align="right" sx={{ width: 200 }}>
+        <Hb.Table.Container component={Hb.Paper} variant="outlined">
+          <Hb.Table.Root>
+            <Hb.Table.Head>
+              <Hb.Table.Row>
+                <Hb.Table.Cell scope="col">사용자</Hb.Table.Cell>
+                <Hb.Table.Cell scope="col">닉네임</Hb.Table.Cell>
+                <Hb.Table.Cell scope="col">이메일</Hb.Table.Cell>
+                <Hb.Table.Cell scope="col" align="right" sx={{ width: 200 }}>
                   액션
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+                </Hb.Table.Cell>
+              </Hb.Table.Row>
+            </Hb.Table.Head>
+            <Hb.Table.Body>
               {users.map((user) => (
-                <TableRow
+                <Hb.Table.Row
                   key={user.id}
                   sx={{ "&:last-child td": { borderBottom: 0 } }}
                 >
-                  <TableCell>
-                    <Stack direction="row" alignItems="center" spacing={1.5}>
-                      <Avatar
+                  <Hb.Table.Cell>
+                    <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
+                      <Hb.Avatar
                         sx={{ width: 32, height: 32, bgcolor: "primary.main" }}
                       >
                         <PersonOutline sx={{ fontSize: 18 }} />
-                      </Avatar>
-                      <Typography variant="body2" fontWeight={500}>
+                      </Hb.Avatar>
+                      <Hb.Text variant="body2" fontWeight={500}>
                         {user.username}
-                      </Typography>
-                    </Stack>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{user.nickname}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2" color="text.secondary">
+                      </Hb.Text>
+                    </Hb.Stack>
+                  </Hb.Table.Cell>
+                  <Hb.Table.Cell>
+                    <Hb.Text variant="body2">{user.nickname}</Hb.Text>
+                  </Hb.Table.Cell>
+                  <Hb.Table.Cell>
+                    <Hb.Text variant="body2" color="text.secondary">
                       {user.email}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Stack
+                    </Hb.Text>
+                  </Hb.Table.Cell>
+                  <Hb.Table.Cell align="right">
+                    <Hb.Stack
                       direction="row"
                       spacing={1}
                       justifyContent="flex-end"
                     >
-                      <Button
+                      <Hb.Button
                         size="small"
-                        variant="outlined"
-                        color="success"
+                        variant="secondary"
                         startIcon={<CheckCircleOutline />}
                         onClick={() => openConfirmDialog("approve", user)}
                         disabled={isApproving || isRejecting}
                       >
                         승인
-                      </Button>
-                      <Button
+                      </Hb.Button>
+                      <Hb.Button
                         size="small"
-                        variant="outlined"
-                        color="error"
+                        variant="danger"
                         startIcon={<DoNotDisturbOutlined />}
                         onClick={() => openConfirmDialog("reject", user)}
                         disabled={isApproving || isRejecting}
                       >
                         거절
-                      </Button>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
+                      </Hb.Button>
+                    </Hb.Stack>
+                  </Hb.Table.Cell>
+                </Hb.Table.Row>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+            </Hb.Table.Body>
+          </Hb.Table.Root>
+        </Hb.Table.Container>
       )}
-    </Box>
+    </Hb.Box>
   );
 };

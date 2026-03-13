@@ -1,17 +1,5 @@
 import { useState } from "react";
 import {
-  Avatar,
-  Box,
-  Chip,
-  Divider,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@mui/material";
-import {
   InboxOutlined,
   MoreVertOutlined,
   DriveFileMoveOutlined,
@@ -19,7 +7,7 @@ import {
   SubdirectoryArrowRightOutlined,
   ChevronRightOutlined,
   ExpandMoreOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import {
   useUpdateIssue,
   PARENT_ISSUE_KINDS,
@@ -27,6 +15,7 @@ import {
   ISSUE_PRIORITY_REGISTRY,
   type IssueType,
 } from "@/entities/issue";
+import { Hb } from "@/shared/ui";
 import { useBacklogContext } from "../model/useBacklogContext";
 
 interface IssueRowProps {
@@ -76,7 +65,7 @@ export const IssueRow = ({
 
   return (
     <>
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -94,7 +83,7 @@ export const IssueRow = ({
         onClick={() => onIssueClick?.(issue.id)}
       >
         {childCount > 0 && onToggleCollapse ? (
-          <IconButton
+          <Hb.Button.Icon
             size="small"
             onClick={(e) => {
               e.stopPropagation();
@@ -107,14 +96,14 @@ export const IssueRow = ({
             ) : (
               <ExpandMoreOutlined sx={{ fontSize: 16 }} />
             )}
-          </IconButton>
+          </Hb.Button.Icon>
         ) : depth > 0 ? (
           <SubdirectoryArrowRightOutlined
             sx={{ fontSize: 14, color: "text.disabled", ml: -1.5 }}
           />
         ) : null}
         <kind.Icon sx={{ fontSize: 16, color: kind.color }} />
-        <Typography
+        <Hb.Text
           variant="caption"
           sx={{
             color: "text.disabled",
@@ -124,12 +113,12 @@ export const IssueRow = ({
           }}
         >
           {issue.issueKey}
-        </Typography>
-        <Typography variant="body2" sx={{ flex: 1, fontSize: 13 }} noWrap>
+        </Hb.Text>
+        <Hb.Text variant="body2" sx={{ flex: 1, fontSize: 13 }} noWrap>
           {issue.title}
-        </Typography>
+        </Hb.Text>
         {childCount > 0 && (
-          <Chip
+          <Hb.Chip
             label={`${childCount} 하위`}
             size="small"
             sx={{
@@ -142,7 +131,7 @@ export const IssueRow = ({
           />
         )}
         {progress && progress.total > 0 && (
-          <Chip
+          <Hb.Chip
             label={`${progress.completed}/${progress.total} 완료`}
             size="small"
             sx={{
@@ -158,7 +147,7 @@ export const IssueRow = ({
         )}
         <priority.Icon sx={{ fontSize: 16, color: priority.color }} />
         {issue.assignee && (
-          <Avatar
+          <Hb.Avatar
             sx={{
               width: 22,
               height: 22,
@@ -169,10 +158,10 @@ export const IssueRow = ({
             }}
           >
             {issue.assignee.charAt(0).toUpperCase()}
-          </Avatar>
+          </Hb.Avatar>
         )}
         {showMenu && (
-          <IconButton
+          <Hb.Button.Icon
             className="move-btn"
             size="small"
             onClick={(e) => {
@@ -187,11 +176,11 @@ export const IssueRow = ({
             }}
           >
             <MoreVertOutlined sx={{ fontSize: 16 }} />
-          </IconButton>
+          </Hb.Button.Icon>
         )}
-      </Box>
+      </Hb.Box>
 
-      <Menu
+      <Hb.Menu.Root
         anchorEl={menuEl}
         open={Boolean(menuEl)}
         onClose={() => setMenuEl(null)}
@@ -200,48 +189,48 @@ export const IssueRow = ({
         }}
       >
         {canAddChild && (
-          <MenuItem
+          <Hb.Menu.Item
             onClick={() => {
               onCreateChildIssue(issue.id);
               setMenuEl(null);
             }}
             sx={{ fontSize: 13, py: 0.8 }}
           >
-            <ListItemIcon sx={{ minWidth: 28 }}>
+            <Hb.List.ItemIcon sx={{ minWidth: 28 }}>
               <AddOutlined sx={{ fontSize: 16 }} />
-            </ListItemIcon>
-            <ListItemText
+            </Hb.List.ItemIcon>
+            <Hb.List.ItemText
               primary="하위 이슈 추가"
               slotProps={{ primary: { sx: { fontSize: 13 } } }}
             />
-          </MenuItem>
+          </Hb.Menu.Item>
         )}
-        {canAddChild && moveTargets.length > 0 && <Divider />}
+        {canAddChild && moveTargets.length > 0 && <Hb.Divider />}
         {moveTargets.length > 0 && (
-          <MenuItem disabled sx={{ fontSize: 11, py: 0.5, minHeight: 0 }}>
+          <Hb.Menu.Item disabled sx={{ fontSize: 11, py: 0.5, minHeight: 0 }}>
             이동
-          </MenuItem>
+          </Hb.Menu.Item>
         )}
         {moveTargets.map((t) => (
-          <MenuItem
+          <Hb.Menu.Item
             key={t.id ?? "backlog"}
             onClick={() => handleMove(t.id)}
             sx={{ fontSize: 13, py: 0.8 }}
           >
-            <ListItemIcon sx={{ minWidth: 28 }}>
+            <Hb.List.ItemIcon sx={{ minWidth: 28 }}>
               {t.id ? (
                 <DriveFileMoveOutlined sx={{ fontSize: 16 }} />
               ) : (
                 <InboxOutlined sx={{ fontSize: 16 }} />
               )}
-            </ListItemIcon>
-            <ListItemText
+            </Hb.List.ItemIcon>
+            <Hb.List.ItemText
               primary={t.label}
               slotProps={{ primary: { sx: { fontSize: 13 } } }}
             />
-          </MenuItem>
+          </Hb.Menu.Item>
         ))}
-      </Menu>
+      </Hb.Menu.Root>
     </>
   );
 };

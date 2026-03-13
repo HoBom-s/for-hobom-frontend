@@ -1,9 +1,9 @@
 import { useCallback, useMemo } from "react";
 import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
-import { Box, Typography } from "@mui/material";
-import { ErrorOutline } from "@mui/icons-material";
+import { ErrorOutline } from "hobom-design-system/icons";
 import { useContainerWidth } from "@/shared/model";
 import type { LogEndpointError } from "@/entities/log";
+import { Hb } from "@/shared/ui";
 import {
   COLUMNS,
   COL_WIDTH_RATIOS,
@@ -65,10 +65,10 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
   );
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         Top Error 엔드포인트
-      </Typography>
+      </Hb.Text>
       <div
         ref={containerRef}
         style={{
@@ -98,7 +98,7 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
           />
         )}
         {rowModel.rowCount === 0 && (
-          <Box
+          <Hb.Box
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -108,12 +108,12 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
             }}
           >
             <ErrorOutline sx={{ fontSize: 40, color: "#dadce0" }} />
-            <Typography variant="body2" color="text.disabled">
+            <Hb.Text variant="body2" color="text.disabled">
               에러가 발생한 엔드포인트가 없습니다
-            </Typography>
-          </Box>
+            </Hb.Text>
+          </Hb.Box>
         )}
       </div>
-    </Box>
+    </Hb.Box>
   );
 };

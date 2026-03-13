@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Avatar, Box, Chip, Typography } from "@mui/material";
+import { Hb } from "@/shared/ui";
 import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "./IssueRegistry";
 import type { IssueType } from "../api/issue.type";
 
@@ -23,7 +23,7 @@ export const IssueCard = memo(
     const priority = ISSUE_PRIORITY_REGISTRY[issue.priority];
 
     return (
-      <Box
+      <Hb.Box
         sx={{
           p: 1.5,
           bgcolor: "background.paper",
@@ -43,7 +43,7 @@ export const IssueCard = memo(
           userSelect: "none",
         }}
       >
-        <Typography
+        <Hb.Text
           variant="body2"
           fontWeight={500}
           sx={{
@@ -56,17 +56,17 @@ export const IssueCard = memo(
           }}
         >
           {issue.title}
-        </Typography>
+        </Hb.Text>
 
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
-            <Box
+          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
+            <Hb.Box
               sx={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -79,15 +79,15 @@ export const IssueCard = memo(
               }}
             >
               <kind.Icon sx={{ fontSize: 14 }} />
-            </Box>
-            <Typography
+            </Hb.Box>
+            <Hb.Text
               variant="caption"
               sx={{ color: "text.disabled", fontWeight: 500, fontSize: 11 }}
             >
               {issue.issueKey}
-            </Typography>
+            </Hb.Text>
             {parentIssueKey && (
-              <Chip
+              <Hb.Chip
                 label={`↳ ${parentIssueKey}`}
                 size="small"
                 sx={{
@@ -101,7 +101,7 @@ export const IssueCard = memo(
               />
             )}
             {childCount > 0 && (
-              <Chip
+              <Hb.Chip
                 label={`${childCount} 하위`}
                 size="small"
                 sx={{
@@ -115,7 +115,7 @@ export const IssueCard = memo(
               />
             )}
             {progress && progress.total > 0 && (
-              <Chip
+              <Hb.Chip
                 label={`${progress.completed}/${progress.total} 완료`}
                 size="small"
                 sx={{
@@ -134,12 +134,12 @@ export const IssueCard = memo(
                 }}
               />
             )}
-          </Box>
+          </Hb.Box>
 
-          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
             <priority.Icon sx={{ fontSize: 16, color: priority.color }} />
             {issue.assignee && (
-              <Avatar
+              <Hb.Avatar
                 sx={{
                   width: 22,
                   height: 22,
@@ -150,11 +150,11 @@ export const IssueCard = memo(
                 }}
               >
                 {issue.assignee.charAt(0).toUpperCase()}
-              </Avatar>
+              </Hb.Avatar>
             )}
-          </Box>
-        </Box>
-      </Box>
+          </Hb.Box>
+        </Hb.Box>
+      </Hb.Box>
     );
   },
 );

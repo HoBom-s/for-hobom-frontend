@@ -1,7 +1,6 @@
-import { Box, LinearProgress, Typography } from "@mui/material";
-
+import { Hb } from "@/shared/ui";
 export const LoginTransitionOverlay = () => (
-  <Box
+  <Hb.Box
     sx={{
       position: "fixed",
       inset: 0,
@@ -19,13 +18,13 @@ export const LoginTransitionOverlay = () => (
       },
     }}
   >
-    <Typography
+    <Hb.Text
       variant="h4"
       sx={{ fontWeight: 800, color: "white", letterSpacing: "-0.02em" }}
     >
       HoBom
-    </Typography>
-    <LinearProgress
+    </Hb.Text>
+    <Hb.Progress.Linear
       sx={{
         width: 240,
         borderRadius: 1,
@@ -33,8 +32,8 @@ export const LoginTransitionOverlay = () => (
         "& .MuiLinearProgress-bar": { bgcolor: "white" },
       }}
     />
-    <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.85)" }}>
+    <Hb.Text variant="body2" sx={{ color: "rgba(255,255,255,0.85)" }}>
       호봄 시스템으로 이동할게요.
-    </Typography>
-  </Box>
+    </Hb.Text>
+  </Hb.Box>
 );

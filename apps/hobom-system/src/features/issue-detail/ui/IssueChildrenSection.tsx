@@ -1,8 +1,8 @@
-import { Box, Chip, Divider, Typography } from "@mui/material";
-import { SubdirectoryArrowRightOutlined } from "@mui/icons-material";
+import { SubdirectoryArrowRightOutlined } from "hobom-design-system/icons";
 import { ISSUE_KIND_LABEL, ISSUE_KIND_REGISTRY } from "@/entities/issue";
 import { getStatusName, getStatusColor } from "@/entities/project";
 import { useProjectContext } from "@/shared/model";
+import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
 
 export const IssueChildrenSection = () => {
@@ -13,13 +13,13 @@ export const IssueChildrenSection = () => {
 
   return (
     <>
-      <Divider sx={{ my: 2 }} />
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-        <Typography variant="subtitle2" fontWeight={600} sx={{ fontSize: 13 }}>
+      <Hb.Divider sx={{ my: 2 }} />
+      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+        <Hb.Text variant="subtitle2" fontWeight={600} sx={{ fontSize: 13 }}>
           하위 이슈 ({childIssues.length})
-        </Typography>
+        </Hb.Text>
         {progress && progress.total > 0 && (
-          <Chip
+          <Hb.Chip
             label={`${progress.completed}/${progress.total} 완료`}
             size="small"
             sx={{
@@ -33,13 +33,13 @@ export const IssueChildrenSection = () => {
             }}
           />
         )}
-      </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+      </Hb.Box>
+      <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
         {childIssues.map((child) => {
           const statusColor = getStatusColor(statuses, child.status);
 
           return (
-            <Box
+            <Hb.Box
               key={child.id}
               role={onNavigateToIssue ? "button" : undefined}
               tabIndex={onNavigateToIssue ? 0 : undefined}
@@ -77,7 +77,7 @@ export const IssueChildrenSection = () => {
                 aria-hidden="true"
                 sx={{ fontSize: 14, color: "text.disabled" }}
               />
-              <Chip
+              <Hb.Chip
                 label={ISSUE_KIND_LABEL[child.type]}
                 size="small"
                 sx={{
@@ -88,7 +88,7 @@ export const IssueChildrenSection = () => {
                   color: ISSUE_KIND_REGISTRY[child.type].color,
                 }}
               />
-              <Typography
+              <Hb.Text
                 variant="caption"
                 sx={{
                   color: "text.disabled",
@@ -97,11 +97,11 @@ export const IssueChildrenSection = () => {
                 }}
               >
                 {child.issueKey}
-              </Typography>
-              <Typography variant="body2" sx={{ flex: 1, fontSize: 13 }} noWrap>
+              </Hb.Text>
+              <Hb.Text variant="body2" sx={{ flex: 1, fontSize: 13 }} noWrap>
                 {child.title}
-              </Typography>
-              <Chip
+              </Hb.Text>
+              <Hb.Chip
                 label={getStatusName(statuses, child.status)}
                 size="small"
                 sx={{
@@ -112,10 +112,10 @@ export const IssueChildrenSection = () => {
                   color: statusColor,
                 }}
               />
-            </Box>
+            </Hb.Box>
           );
         })}
-      </Box>
+      </Hb.Box>
     </>
   );
 };

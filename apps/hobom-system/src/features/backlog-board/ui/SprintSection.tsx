@@ -1,21 +1,13 @@
 import { useState } from "react";
 import {
-  Box,
-  Button,
-  Chip,
-  Collapse,
-  IconButton,
-  Paper,
-  Typography,
-} from "@mui/material";
-import {
   ExpandMore,
   ExpandLess,
   PlayArrowOutlined,
   CheckCircleOutline,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { getDescendantProgress, type IssueType } from "@/entities/issue";
 import { SPRINT_STATUS_LABEL, type SprintType } from "@/entities/sprint";
+import { Hb } from "@/shared/ui";
 import { useBacklogContext } from "../model/useBacklogContext";
 import { useCollapsibleTree } from "../model/useCollapsibleTree";
 import { useSprintActions } from "../model/useSprintActions";
@@ -36,7 +28,7 @@ export const SprintSection = ({
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <Paper
+    <Hb.Paper
       variant="outlined"
       sx={{
         borderRadius: 2.5,
@@ -44,7 +36,7 @@ export const SprintSection = ({
         borderColor: sprint.status === "ACTIVE" ? "#4680ff40" : "divider",
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -66,17 +58,17 @@ export const SprintSection = ({
         }}
         onClick={() => setExpanded(!expanded)}
       >
-        <IconButton size="small" sx={{ p: 0 }}>
+        <Hb.Button.Icon size="small" sx={{ p: 0 }}>
           {expanded ? (
             <ExpandMore sx={{ fontSize: 20 }} />
           ) : (
             <ExpandLess sx={{ fontSize: 20 }} />
           )}
-        </IconButton>
-        <Typography variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>
+        </Hb.Button.Icon>
+        <Hb.Text variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>
           {sprint.name}
-        </Typography>
-        <Chip
+        </Hb.Text>
+        <Hb.Chip
           label={SPRINT_STATUS_LABEL[sprint.status]}
           size="small"
           sx={{
@@ -88,18 +80,14 @@ export const SprintSection = ({
             letterSpacing: "0.02em",
           }}
         />
-        <Typography
-          variant="caption"
-          color="text.disabled"
-          sx={{ fontSize: 11 }}
-        >
+        <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
           {issues.length}건
-        </Typography>
-        <Box sx={{ flex: 1 }} />
+        </Hb.Text>
+        <Hb.Box sx={{ flex: 1 }} />
         {sprint.status === "PLANNING" && (
-          <Button
+          <Hb.Button
             size="small"
-            variant="contained"
+            variant="primary"
             startIcon={<PlayArrowOutlined sx={{ fontSize: 14 }} />}
             onClick={(e) => {
               e.stopPropagation();
@@ -117,12 +105,12 @@ export const SprintSection = ({
             }}
           >
             스프린트 시작
-          </Button>
+          </Hb.Button>
         )}
         {sprint.status === "ACTIVE" && (
-          <Button
+          <Hb.Button
             size="small"
-            variant="outlined"
+            variant="secondary"
             startIcon={<CheckCircleOutline sx={{ fontSize: 14 }} />}
             onClick={(e) => {
               e.stopPropagation();
@@ -138,27 +126,27 @@ export const SprintSection = ({
             }}
           >
             스프린트 완료
-          </Button>
+          </Hb.Button>
         )}
-      </Box>
-      <Collapse in={expanded}>
+      </Hb.Box>
+      <Hb.Collapse in={expanded}>
         {issues.length === 0 ? (
-          <Box sx={{ px: 2, py: 3, textAlign: "center" }}>
-            <Typography
+          <Hb.Box sx={{ px: 2, py: 3, textAlign: "center" }}>
+            <Hb.Text
               variant="body2"
               color="text.disabled"
               sx={{ fontSize: 13 }}
             >
               스프린트에 이슈가 없어요
-            </Typography>
-            <Typography
+            </Hb.Text>
+            <Hb.Text
               variant="caption"
               color="text.disabled"
               sx={{ fontSize: 11 }}
             >
               백로그 이슈의 ⋮ 메뉴에서 이 스프린트로 이동할 수 있어요
-            </Typography>
-          </Box>
+            </Hb.Text>
+          </Hb.Box>
         ) : (
           flatTree.map(({ issue, depth, childCount }) => {
             const progress =
@@ -183,7 +171,7 @@ export const SprintSection = ({
             );
           })
         )}
-      </Collapse>
-    </Paper>
+      </Hb.Collapse>
+    </Hb.Paper>
   );
 };

@@ -18,7 +18,7 @@ import {
   SmartToyOutlined,
   StickyNote2Outlined,
   TextSnippetOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { RoutesConfig } from "@/shared/config";
 import type { AppShellNavItem, NavEntry } from "@/shared/ui";
 

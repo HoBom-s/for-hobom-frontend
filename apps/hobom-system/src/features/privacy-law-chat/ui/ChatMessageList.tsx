@@ -1,12 +1,6 @@
 import { useEffect, useRef } from "react";
-import {
-  Avatar,
-  CircularProgress,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { GavelOutlined, PersonOutlined } from "@mui/icons-material";
+import { GavelOutlined, PersonOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import { ReferencedArticles } from "./ReferencedArticles";
 import type { ChatMessage } from "../model/useChatSession";
 
@@ -24,26 +18,26 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
 
   if (messages.length === 0 && !isPending) {
     return (
-      <Stack
+      <Hb.Stack
         alignItems="center"
         justifyContent="center"
         sx={{ flex: 1, py: 8 }}
       >
         <GavelOutlined sx={{ fontSize: 48, color: "text.disabled", mb: 2 }} />
-        <Typography variant="h6" color="text.secondary" gutterBottom>
+        <Hb.Text variant="h6" color="text.secondary" gutterBottom>
           개인정보보호법 AI 상담
-        </Typography>
-        <Typography variant="body2" color="text.disabled">
+        </Hb.Text>
+        <Hb.Text variant="body2" color="text.disabled">
           개인정보보호법에 대해 질문해보세요. 관련 조문을 참조하여 답변합니다.
-        </Typography>
-      </Stack>
+        </Hb.Text>
+      </Hb.Stack>
     );
   }
 
   return (
-    <Stack spacing={2} sx={{ flex: 1, overflow: "auto", py: 2 }}>
+    <Hb.Stack spacing={2} sx={{ flex: 1, overflow: "auto", py: 2 }}>
       {messages.map((msg) => (
-        <Stack
+        <Hb.Stack
           key={msg.id}
           direction="row"
           spacing={1.5}
@@ -52,7 +46,7 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
             flexDirection: msg.role === "user" ? "row-reverse" : "row",
           }}
         >
-          <Avatar
+          <Hb.Avatar
             sx={{
               width: 32,
               height: 32,
@@ -64,8 +58,8 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
             ) : (
               <GavelOutlined fontSize="small" />
             )}
-          </Avatar>
-          <Paper
+          </Hb.Avatar>
+          <Hb.Paper
             elevation={0}
             sx={{
               p: 2,
@@ -76,25 +70,25 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
               borderRadius: 2,
             }}
           >
-            <Typography
+            <Hb.Text
               variant="body2"
               sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
             >
               {msg.content}
-            </Typography>
+            </Hb.Text>
             {msg.referencedArticles && msg.referencedArticles.length > 0 && (
               <ReferencedArticles articles={msg.referencedArticles} />
             )}
-          </Paper>
-        </Stack>
+          </Hb.Paper>
+        </Hb.Stack>
       ))}
 
       {isPending && (
-        <Stack direction="row" spacing={1.5} alignItems="flex-start">
-          <Avatar sx={{ width: 32, height: 32, bgcolor: "grey.700" }}>
+        <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
+          <Hb.Avatar sx={{ width: 32, height: 32, bgcolor: "grey.700" }}>
             <GavelOutlined fontSize="small" />
-          </Avatar>
-          <Paper
+          </Hb.Avatar>
+          <Hb.Paper
             elevation={0}
             sx={{
               p: 2,
@@ -103,17 +97,17 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
               borderRadius: 2,
             }}
           >
-            <Stack direction="row" spacing={1} alignItems="center">
-              <CircularProgress size={16} />
-              <Typography variant="body2" color="text.secondary">
+            <Hb.Stack direction="row" spacing={1} alignItems="center">
+              <Hb.Progress.Circular size={16} />
+              <Hb.Text variant="body2" color="text.secondary">
                 답변 생성 중...
-              </Typography>
-            </Stack>
-          </Paper>
-        </Stack>
+              </Hb.Text>
+            </Hb.Stack>
+          </Hb.Paper>
+        </Hb.Stack>
       )}
 
       <div ref={bottomRef} />
-    </Stack>
+    </Hb.Stack>
   );
 };

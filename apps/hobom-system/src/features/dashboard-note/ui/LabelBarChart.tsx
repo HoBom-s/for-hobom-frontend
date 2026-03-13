@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -8,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Hb } from "@/shared/ui";
 
 interface LabelBarChartProps {
   data: { labelId: string; count: number }[];
@@ -15,10 +15,10 @@ interface LabelBarChartProps {
 
 export const LabelBarChart = ({ data }: LabelBarChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         라벨별 노트 수
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={data} layout="vertical" barSize={20}>
           <defs>
@@ -59,6 +59,6 @@ export const LabelBarChart = ({ data }: LabelBarChartProps) => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

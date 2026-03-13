@@ -1,22 +1,12 @@
 import type { MouseEvent } from "react";
 import { useState } from "react";
 import {
-  Box,
-  Card,
-  CardActionArea,
-  IconButton,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import {
   ArticleOutlined,
   MoreVertOutlined,
   EditOutlined,
   DeleteOutlined,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import type { SpaceType } from "../api/wiki-space.type";
 
 interface SpaceCardProps {
@@ -42,8 +32,8 @@ export const SpaceCard = ({
   const handleMenuClose = () => setAnchorEl(null);
 
   return (
-    <Card
-      variant="outlined"
+    <Hb.Card.Clickable
+      onClick={() => onClick(space.key)}
       sx={{
         borderRadius: 2,
         transition: "box-shadow 0.15s",
@@ -52,9 +42,11 @@ export const SpaceCard = ({
         "&:hover .space-card-menu": { opacity: 1 },
       }}
     >
-      <CardActionArea onClick={() => onClick(space.key)} sx={{ p: 2.5 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
-          <Box
+      <Hb.Card.Content sx={{ p: 2.5 }}>
+        <Hb.Box
+          sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}
+        >
+          <Hb.Box
             sx={{
               width: 36,
               height: 36,
@@ -66,18 +58,18 @@ export const SpaceCard = ({
             }}
           >
             <ArticleOutlined sx={{ color: "#fff", fontSize: 20 }} />
-          </Box>
-          <Box sx={{ minWidth: 0, flex: 1 }}>
-            <Typography variant="subtitle2" fontWeight={700} noWrap>
+          </Hb.Box>
+          <Hb.Box sx={{ minWidth: 0, flex: 1 }}>
+            <Hb.Text variant="subtitle2" fontWeight={700} noWrap>
               {space.name}
-            </Typography>
-            <Typography variant="caption" color="text.disabled">
+            </Hb.Text>
+            <Hb.Text variant="caption" color="text.disabled">
               {space.key}
-            </Typography>
-          </Box>
-        </Box>
+            </Hb.Text>
+          </Hb.Box>
+        </Hb.Box>
         {space.description && (
-          <Typography
+          <Hb.Text
             variant="body2"
             color="text.secondary"
             sx={{
@@ -89,13 +81,13 @@ export const SpaceCard = ({
             }}
           >
             {space.description}
-          </Typography>
+          </Hb.Text>
         )}
-      </CardActionArea>
+      </Hb.Card.Content>
 
       {(onEdit || onDelete) && (
         <>
-          <IconButton
+          <Hb.Button.Icon
             className="space-card-menu"
             size="small"
             aria-label="메뉴"
@@ -111,8 +103,8 @@ export const SpaceCard = ({
             }}
           >
             <MoreVertOutlined sx={{ fontSize: 16 }} />
-          </IconButton>
-          <Menu
+          </Hb.Button.Icon>
+          <Hb.Menu.Root
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
@@ -120,34 +112,36 @@ export const SpaceCard = ({
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             {onEdit && (
-              <MenuItem
+              <Hb.Menu.Item
                 onClick={() => {
                   handleMenuClose();
                   onEdit(space);
                 }}
               >
-                <ListItemIcon>
+                <Hb.List.ItemIcon>
                   <EditOutlined fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>수정</ListItemText>
-              </MenuItem>
+                </Hb.List.ItemIcon>
+                <Hb.List.ItemText>수정</Hb.List.ItemText>
+              </Hb.Menu.Item>
             )}
             {onDelete && (
-              <MenuItem
+              <Hb.Menu.Item
                 onClick={() => {
                   handleMenuClose();
                   onDelete(space);
                 }}
               >
-                <ListItemIcon>
+                <Hb.List.ItemIcon>
                   <DeleteOutlined fontSize="small" color="error" />
-                </ListItemIcon>
-                <ListItemText sx={{ color: "error.main" }}>삭제</ListItemText>
-              </MenuItem>
+                </Hb.List.ItemIcon>
+                <Hb.List.ItemText sx={{ color: "error.main" }}>
+                  삭제
+                </Hb.List.ItemText>
+              </Hb.Menu.Item>
             )}
-          </Menu>
+          </Hb.Menu.Root>
         </>
       )}
-    </Card>
+    </Hb.Card.Clickable>
   );
 };

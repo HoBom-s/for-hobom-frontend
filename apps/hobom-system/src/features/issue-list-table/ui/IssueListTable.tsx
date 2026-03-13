@@ -1,11 +1,3 @@
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  Menu,
-  MenuItem,
-  Select,
-} from "@mui/material";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useProjectContext } from "@/shared/model";
 import {
@@ -16,7 +8,7 @@ import {
   type IssuePriority,
 } from "@/entities/issue";
 import { getStatusColor } from "@/entities/project";
-import { EmptyState } from "@/shared/ui";
+import { Hb, EmptyState } from "@/shared/ui";
 import { useIssueListFilters } from "../model/useIssueListFilters";
 import { useStatusTransitionMenu } from "../model/useStatusTransitionMenu";
 import { IssueGrid } from "./IssueGrid";
@@ -51,27 +43,27 @@ export const IssueListTable = ({
     useStatusTransitionMenu(projectId, transitions);
 
   return (
-    <Box>
-      <Box sx={{ display: "flex", gap: 1.5, mb: 2, flexWrap: "wrap" }}>
-        <FormControl size="small" sx={{ minWidth: 120 }}>
-          <InputLabel shrink>상태</InputLabel>
-          <Select
+    <Hb.Box>
+      <Hb.Box sx={{ display: "flex", gap: 1.5, mb: 2, flexWrap: "wrap" }}>
+        <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+          <Hb.Form.Label shrink>상태</Hb.Form.Label>
+          <Hb.Form.Select
             value={statusFilter}
             label="상태"
             displayEmpty
             onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <MenuItem value="">전체</MenuItem>
+            <Hb.Menu.Item value="">전체</Hb.Menu.Item>
             {statuses.map((s) => (
-              <MenuItem key={s.id} value={s.id}>
+              <Hb.Menu.Item key={s.id} value={s.id}>
                 {s.name}
-              </MenuItem>
+              </Hb.Menu.Item>
             ))}
-          </Select>
-        </FormControl>
-        <FormControl size="small" sx={{ minWidth: 120 }}>
-          <InputLabel shrink>우선순위</InputLabel>
-          <Select
+          </Hb.Form.Select>
+        </Hb.Form.Control>
+        <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+          <Hb.Form.Label shrink>우선순위</Hb.Form.Label>
+          <Hb.Form.Select
             value={priorityFilter}
             label="우선순위"
             displayEmpty
@@ -79,31 +71,31 @@ export const IssueListTable = ({
               setPriorityFilter(e.target.value as IssuePriority | "")
             }
           >
-            <MenuItem value="">전체</MenuItem>
+            <Hb.Menu.Item value="">전체</Hb.Menu.Item>
             {Object.entries(ISSUE_PRIORITY_LABEL).map(([k, label]) => (
-              <MenuItem key={k} value={k}>
+              <Hb.Menu.Item key={k} value={k}>
                 {label}
-              </MenuItem>
+              </Hb.Menu.Item>
             ))}
-          </Select>
-        </FormControl>
-        <FormControl size="small" sx={{ minWidth: 120 }}>
-          <InputLabel shrink>유형</InputLabel>
-          <Select
+          </Hb.Form.Select>
+        </Hb.Form.Control>
+        <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+          <Hb.Form.Label shrink>유형</Hb.Form.Label>
+          <Hb.Form.Select
             value={typeFilter}
             label="유형"
             displayEmpty
             onChange={(e) => setTypeFilter(e.target.value as IssueKind | "")}
           >
-            <MenuItem value="">전체</MenuItem>
+            <Hb.Menu.Item value="">전체</Hb.Menu.Item>
             {Object.entries(ISSUE_KIND_LABEL).map(([k, label]) => (
-              <MenuItem key={k} value={k}>
+              <Hb.Menu.Item key={k} value={k}>
                 {label}
-              </MenuItem>
+              </Hb.Menu.Item>
             ))}
-          </Select>
-        </FormControl>
-      </Box>
+          </Hb.Form.Select>
+        </Hb.Form.Control>
+      </Hb.Box>
 
       {data.items.length === 0 ? (
         <EmptyState message="조건에 맞는 이슈가 없어요" />
@@ -121,7 +113,7 @@ export const IssueListTable = ({
         />
       )}
 
-      <Menu
+      <Hb.Menu.Root
         anchorEl={menuAnchor?.el}
         open={Boolean(menuAnchor)}
         onClose={closeMenu}
@@ -132,12 +124,12 @@ export const IssueListTable = ({
         }}
       >
         {menuAnchor?.transitions.map((t) => (
-          <MenuItem
+          <Hb.Menu.Item
             key={t.to}
             onClick={() => handleTransition(t)}
             sx={{ fontSize: 13, py: 0.8 }}
           >
-            <Box
+            <Hb.Box
               sx={{
                 width: 8,
                 height: 8,
@@ -148,9 +140,9 @@ export const IssueListTable = ({
               }}
             />
             {t.name}
-          </MenuItem>
+          </Hb.Menu.Item>
         ))}
-      </Menu>
-    </Box>
+      </Hb.Menu.Root>
+    </Hb.Box>
   );
 };

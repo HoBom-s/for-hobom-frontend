@@ -1,19 +1,4 @@
-import {
-  Box,
-  Button,
-  Chip,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined } from "hobom-design-system/icons";
 import {
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
@@ -23,6 +8,7 @@ import {
 } from "@/entities/issue";
 import type { SprintType } from "@/entities/sprint";
 import { ProjectLabelPicker } from "@/entities/project-label";
+import { Hb } from "@/shared/ui";
 import { useCreateIssueForm } from "../model/useCreateIssueForm";
 
 interface CreateIssueDialogProps {
@@ -55,12 +41,14 @@ export const CreateIssueDialog = ({
   });
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>
+    <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
+      <Hb.Dialog.Title>
         {defaultParentId ? "하위 이슈 만들기" : "이슈 만들기"}
-      </DialogTitle>
-      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <TextField
+      </Hb.Dialog.Title>
+      <Hb.Dialog.Content
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      >
+        <Hb.TextField
           label="제목"
           value={fields.title}
           onChange={(e) => fields.setTitle(e.target.value)}
@@ -68,7 +56,7 @@ export const CreateIssueDialog = ({
           size="small"
           sx={{ mt: 1 }}
         />
-        <TextField
+        <Hb.TextField
           label="설명"
           value={fields.description}
           onChange={(e) => fields.setDescription(e.target.value)}
@@ -77,24 +65,24 @@ export const CreateIssueDialog = ({
           rows={3}
           size="small"
         />
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <FormControl size="small" sx={{ flex: 1 }}>
-            <InputLabel>유형</InputLabel>
-            <Select
+        <Hb.Box sx={{ display: "flex", gap: 2 }}>
+          <Hb.Form.Control size="small" sx={{ flex: 1 }}>
+            <Hb.Form.Label>유형</Hb.Form.Label>
+            <Hb.Form.Select
               value={fields.kind}
               label="유형"
               onChange={(e) => fields.setKind(e.target.value as IssueKind)}
             >
               {Object.entries(ISSUE_KIND_LABEL).map(([k, label]) => (
-                <MenuItem key={k} value={k}>
+                <Hb.Menu.Item key={k} value={k}>
                   {label}
-                </MenuItem>
+                </Hb.Menu.Item>
               ))}
-            </Select>
-          </FormControl>
-          <FormControl size="small" sx={{ flex: 1 }}>
-            <InputLabel>우선순위</InputLabel>
-            <Select
+            </Hb.Form.Select>
+          </Hb.Form.Control>
+          <Hb.Form.Control size="small" sx={{ flex: 1 }}>
+            <Hb.Form.Label>우선순위</Hb.Form.Label>
+            <Hb.Form.Select
               value={fields.priority}
               label="우선순위"
               onChange={(e) =>
@@ -102,33 +90,33 @@ export const CreateIssueDialog = ({
               }
             >
               {Object.entries(ISSUE_PRIORITY_LABEL).map(([k, label]) => (
-                <MenuItem key={k} value={k}>
+                <Hb.Menu.Item key={k} value={k}>
                   {label}
-                </MenuItem>
+                </Hb.Menu.Item>
               ))}
-            </Select>
-          </FormControl>
-        </Box>
-        <Box sx={{ display: "flex", gap: 2 }}>
+            </Hb.Form.Select>
+          </Hb.Form.Control>
+        </Hb.Box>
+        <Hb.Box sx={{ display: "flex", gap: 2 }}>
           {activeSprints.length > 0 && (
-            <FormControl size="small" sx={{ flex: 1 }}>
-              <InputLabel>스프린트 (선택)</InputLabel>
-              <Select
+            <Hb.Form.Control size="small" sx={{ flex: 1 }}>
+              <Hb.Form.Label>스프린트 (선택)</Hb.Form.Label>
+              <Hb.Form.Select
                 value={fields.sprint}
                 label="스프린트 (선택)"
                 displayEmpty
                 onChange={(e) => fields.setSprint(e.target.value)}
               >
-                <MenuItem value="">없음</MenuItem>
+                <Hb.Menu.Item value="">없음</Hb.Menu.Item>
                 {activeSprints.map((s: SprintType) => (
-                  <MenuItem key={s.id} value={s.id}>
+                  <Hb.Menu.Item key={s.id} value={s.id}>
                     {s.name}
-                  </MenuItem>
+                  </Hb.Menu.Item>
                 ))}
-              </Select>
-            </FormControl>
+              </Hb.Form.Select>
+            </Hb.Form.Control>
           )}
-          <TextField
+          <Hb.TextField
             label="스토리 포인트"
             type="number"
             value={fields.storyPoints}
@@ -137,15 +125,15 @@ export const CreateIssueDialog = ({
             slotProps={{ htmlInput: { min: 0, step: 1 } }}
             sx={{ width: 140 }}
           />
-        </Box>
-        <Box>
-          <Typography
+        </Hb.Box>
+        <Hb.Box>
+          <Hb.Text
             variant="body2"
             sx={{ mb: 0.5, fontSize: 13, color: "text.secondary" }}
           >
             라벨
-          </Typography>
-          <Box
+          </Hb.Text>
+          <Hb.Box
             sx={{
               display: "flex",
               gap: 0.5,
@@ -159,7 +147,7 @@ export const CreateIssueDialog = ({
               if (!label) return null;
 
               return (
-                <Chip
+                <Hb.Chip
                   key={label.id}
                   label={label.name}
                   size="small"
@@ -178,7 +166,7 @@ export const CreateIssueDialog = ({
                 />
               );
             })}
-            <Chip
+            <Hb.Chip
               icon={<AddOutlined sx={{ fontSize: 14 }} />}
               label="추가"
               size="small"
@@ -191,7 +179,7 @@ export const CreateIssueDialog = ({
                 borderStyle: "dashed",
               }}
             />
-          </Box>
+          </Hb.Box>
           <ProjectLabelPicker
             anchorEl={labelAnchor}
             onClose={() => setLabelAnchor(null)}
@@ -205,26 +193,26 @@ export const CreateIssueDialog = ({
               );
             }}
           />
-        </Box>
+        </Hb.Box>
         <ParentIssueAutocomplete
           value={fields.parentIssue}
           options={parentCandidates}
           onChange={fields.setParentIssue}
         />
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2 }}>
-        <Button variant="outlined" color="inherit" onClick={onClose}>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions sx={{ px: 3, pb: 2 }}>
+        <Hb.Button variant="secondary" onClick={onClose}>
           취소
-        </Button>
-        <Button
-          variant="contained"
+        </Hb.Button>
+        <Hb.Button
+          variant="primary"
           onClick={handleSubmit}
           disabled={!fields.title.trim()}
           loading={isPending}
         >
           만들기
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
   );
 };

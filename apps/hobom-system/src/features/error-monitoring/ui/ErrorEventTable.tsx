@@ -1,6 +1,6 @@
-import { Box, Chip, Tooltip, Typography } from "@mui/material";
 import { useVirtualList } from "@/shared/model";
 import type { ErrorEventDto } from "@/entities/error-event";
+import { Hb } from "@/shared/ui";
 import { ERROR_TYPE_CHIP } from "./error-type-chip";
 
 const ROW_HEIGHT = 40;
@@ -35,20 +35,20 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
 
   if (data.length === 0) {
     return (
-      <Typography
+      <Hb.Text
         variant="body2"
         color="text.secondary"
         sx={{ py: 4, textAlign: "center" }}
       >
         조건에 맞는 에러가 없습니다
-      </Typography>
+      </Hb.Text>
     );
   }
 
   return (
-    <Box>
+    <Hb.Box>
       {/* Header */}
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -58,7 +58,7 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
         }}
       >
         {COLUMNS.map((col) => (
-          <Box
+          <Hb.Box
             key={col.label}
             sx={{
               ...HEADER_SX,
@@ -67,12 +67,12 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
             }}
           >
             {col.label}
-          </Box>
+          </Hb.Box>
         ))}
-      </Box>
+      </Hb.Box>
 
       {/* Virtual Rows */}
-      <Box
+      <Hb.Box
         {...containerProps}
         sx={{
           ...containerProps.style,
@@ -80,12 +80,12 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
           minHeight: 200,
         }}
       >
-        <Box sx={{ height: totalHeight, position: "relative" }}>
+        <Hb.Box sx={{ height: totalHeight, position: "relative" }}>
           {virtualItems.map(({ item: row, offsetTop }) => {
             const chip = ERROR_TYPE_CHIP[row.errorType];
 
             return (
-              <Box
+              <Hb.Box
                 key={row.id}
                 onClick={() => onRowClick(row)}
                 sx={{
@@ -101,8 +101,8 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                   "&:hover": { bgcolor: "action.hover" },
                 }}
               >
-                <Box sx={{ width: 160, px: 1.5 }}>
-                  <Typography
+                <Hb.Box sx={{ width: 160, px: 1.5 }}>
+                  <Hb.Text
                     variant="caption"
                     sx={{
                       fontVariantNumeric: "tabular-nums",
@@ -111,10 +111,10 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                     }}
                   >
                     {row.createdAt?.replace("T", " ").slice(0, 19) ?? "-"}
-                  </Typography>
-                </Box>
-                <Box sx={{ width: 90, px: 1.5 }}>
-                  <Chip
+                  </Hb.Text>
+                </Hb.Box>
+                <Hb.Box sx={{ width: 90, px: 1.5 }}>
+                  <Hb.Chip
                     label={chip.label}
                     size="small"
                     sx={{
@@ -125,10 +125,10 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                       color: chip.color,
                     }}
                   />
-                </Box>
-                <Box sx={{ width: 200, px: 1.5, overflow: "hidden" }}>
-                  <Tooltip title={row.screen} enterDelay={200}>
-                    <Typography
+                </Hb.Box>
+                <Hb.Box sx={{ width: 200, px: 1.5, overflow: "hidden" }}>
+                  <Hb.Tooltip title={row.screen} enterDelay={200}>
+                    <Hb.Text
                       variant="body2"
                       noWrap
                       sx={{
@@ -137,26 +137,26 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                       }}
                     >
                       {row.screen}
-                    </Typography>
-                  </Tooltip>
-                </Box>
-                <Box sx={{ flex: 1, px: 1.5, overflow: "hidden" }}>
-                  <Tooltip title={row.message} enterDelay={200}>
-                    <Typography variant="body2" noWrap sx={{ fontSize: 12 }}>
+                    </Hb.Text>
+                  </Hb.Tooltip>
+                </Hb.Box>
+                <Hb.Box sx={{ flex: 1, px: 1.5, overflow: "hidden" }}>
+                  <Hb.Tooltip title={row.message} enterDelay={200}>
+                    <Hb.Text variant="body2" noWrap sx={{ fontSize: 12 }}>
                       {row.message}
-                    </Typography>
-                  </Tooltip>
-                </Box>
-                <Box sx={{ width: 100, px: 1.5 }}>
-                  <Typography variant="body2" sx={{ fontSize: 12 }}>
+                    </Hb.Text>
+                  </Hb.Tooltip>
+                </Hb.Box>
+                <Hb.Box sx={{ width: 100, px: 1.5 }}>
+                  <Hb.Text variant="body2" sx={{ fontSize: 12 }}>
                     {row.nickname ?? "-"}
-                  </Typography>
-                </Box>
-              </Box>
+                  </Hb.Text>
+                </Hb.Box>
+              </Hb.Box>
             );
           })}
-        </Box>
-      </Box>
-    </Box>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

@@ -1,11 +1,10 @@
-import { Box, Button, Typography } from "@mui/material";
-import { ErrorOutline } from "@mui/icons-material";
+import { ErrorOutline } from "hobom-design-system/icons";
 import { AuthSignUpForm } from "@/features/submit-auth-signup";
-import { ErrorBoundary } from "@/shared/ui";
+import { ErrorBoundary, Hb } from "@/shared/ui";
 
 export default function AuthSignUpPage() {
   return (
-    <Box
+    <Hb.Box
       component="main"
       width="100%"
       height="100%"
@@ -14,7 +13,7 @@ export default function AuthSignUpPage() {
       alignItems="center"
       sx={{ bgcolor: "background.default" }}
     >
-      <Box
+      <Hb.Box
         sx={{
           width: "100%",
           maxWidth: 420,
@@ -24,8 +23,8 @@ export default function AuthSignUpPage() {
           gap: 3,
         }}
       >
-        <Box sx={{ textAlign: "center" }}>
-          <Typography
+        <Hb.Box sx={{ textAlign: "center" }}>
+          <Hb.Text
             variant="h4"
             sx={{
               fontWeight: 800,
@@ -35,13 +34,13 @@ export default function AuthSignUpPage() {
             }}
           >
             HoBom
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
+          </Hb.Text>
+          <Hb.Text variant="body2" color="text.secondary">
             HoBom System
-          </Typography>
-        </Box>
+          </Hb.Text>
+        </Hb.Box>
 
-        <Box
+        <Hb.Box
           sx={{
             width: "100%",
             bgcolor: "background.paper",
@@ -54,29 +53,29 @@ export default function AuthSignUpPage() {
           <ErrorBoundary fallback={<AuthSignUpPage.Fallback />}>
             <AuthSignUpForm />
           </ErrorBoundary>
-        </Box>
-      </Box>
-    </Box>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 }
 
 AuthSignUpPage.Fallback = () => {
   return (
-    <Box sx={{ textAlign: "center", py: 2 }}>
+    <Hb.Box sx={{ textAlign: "center", py: 2 }}>
       <ErrorOutline color="error" sx={{ fontSize: 48, mb: 1 }} />
-      <Typography variant="h6" fontWeight={600} gutterBottom>
+      <Hb.Text variant="h6" fontWeight={600} gutterBottom>
         앗!
-      </Typography>
-      <Typography variant="body2" color="text.secondary" mb={3}>
+      </Hb.Text>
+      <Hb.Text variant="body2" color="text.secondary" mb={3}>
         시스템에 문제가 생겼어요.
-      </Typography>
-      <Button
-        variant="contained"
+      </Hb.Text>
+      <Hb.Button
+        variant="primary"
         size="small"
         onClick={() => window.location.reload()}
       >
         다시 시도하기
-      </Button>
-    </Box>
+      </Hb.Button>
+    </Hb.Box>
   );
 };

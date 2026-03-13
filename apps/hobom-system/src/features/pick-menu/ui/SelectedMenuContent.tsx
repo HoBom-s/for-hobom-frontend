@@ -1,16 +1,9 @@
 import { type ReactNode, Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
 import { menuQueries, useTodayMenuId } from "@/entities/menu-recommendation";
 import { RoutesConfig } from "@/shared/config";
+import { Hb } from "@/shared/ui";
 import { useSelectTodayMenu } from "../model/useSelectTodayMenu";
 
 export const SelectedMenuContent = () => {
@@ -45,7 +38,7 @@ const Inner = () => {
     data == null;
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -53,7 +46,7 @@ const Inner = () => {
       }}
     >
       <SelectedMenuContent.Layout>
-        <Box
+        <Hb.Box
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -61,32 +54,32 @@ const Inner = () => {
           height="100%"
         >
           {showProgressCircle ? (
-            <Stack direction="column" alignItems="center" spacing={1.5}>
-              <CircularProgress size="48px" />
-              <Typography variant="body2" color="text.secondary">
+            <Hb.Stack direction="column" alignItems="center" spacing={1.5}>
+              <Hb.Progress.Circular size="48px" />
+              <Hb.Text variant="body2" color="text.secondary">
                 메뉴를 추첨할 동안 잠시만 기다려 주세요.
-              </Typography>
-            </Stack>
+              </Hb.Text>
+            </Hb.Stack>
           ) : (
-            <Stack direction="column" alignItems="center" spacing={1}>
-              <Typography
+            <Hb.Stack direction="column" alignItems="center" spacing={1}>
+              <Hb.Text
                 variant="body2"
                 sx={{ color: "text.secondary", mb: 0.5 }}
               >
                 오늘의 메뉴는
-              </Typography>
-              <Typography variant="h5" sx={{ fontWeight: 700 }}>
+              </Hb.Text>
+              <Hb.Text variant="h5" sx={{ fontWeight: 700 }}>
                 {data?.items.recommendedMenu.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
+              </Hb.Text>
+              <Hb.Text variant="body2" color="text.secondary">
                 {data?.items.recommendedMenu.registerPerson.username} 님이
                 등록한 메뉴
-              </Typography>
-            </Stack>
+              </Hb.Text>
+            </Hb.Stack>
           )}
-        </Box>
+        </Hb.Box>
       </SelectedMenuContent.Layout>
-      <Box
+      <Hb.Box
         sx={{
           px: 3,
           py: 2,
@@ -95,9 +88,9 @@ const Inner = () => {
           flexShrink: 0,
         }}
       >
-        <Button
+        <Hb.Button
           fullWidth
-          variant="contained"
+          variant="primary"
           disableElevation
           disabled={showProgressCircle}
           sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
@@ -106,14 +99,14 @@ const Inner = () => {
           }
         >
           확인
-        </Button>
-      </Box>
-    </Box>
+        </Hb.Button>
+      </Hb.Box>
+    </Hb.Box>
   );
 };
 
 SelectedMenuContent.Layout = ({ children }: { children: ReactNode }) => (
-  <Paper
+  <Hb.Paper
     elevation={0}
     sx={{
       flexGrow: 1,
@@ -123,5 +116,5 @@ SelectedMenuContent.Layout = ({ children }: { children: ReactNode }) => (
     }}
   >
     {children}
-  </Paper>
+  </Hb.Paper>
 );

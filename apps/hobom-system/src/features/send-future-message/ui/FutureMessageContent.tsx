@@ -1,13 +1,12 @@
 import { type ReactNode, Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Box } from "@mui/material";
 import { FutureMessageGrid } from "@/features/send-future-message/ui/FutureMessageGrid";
 import {
   futureMessageQueries,
   type FutureMessageSendStatusType,
 } from "@/entities/future-message";
 import { useRouterQuery } from "@/shared/model";
-import { HoBomSkeleton } from "@/shared/ui";
+import { Hb, HoBomSkeleton } from "@/shared/ui";
 
 export const FutureMessageContent = () => {
   const { query } = useRouterQuery();
@@ -18,11 +17,11 @@ export const FutureMessageContent = () => {
       key={status}
       fallback={
         <FutureMessageContent.Layout>
-          <Box sx={{ p: 2 }}>
+          <Hb.Box sx={{ p: 2 }}>
             {Array.from({ length: 8 }).map((_, i) => (
               <HoBomSkeleton.List key={i} />
             ))}
-          </Box>
+          </Hb.Box>
         </FutureMessageContent.Layout>
       }
     >
@@ -48,7 +47,7 @@ const Inner = () => {
 };
 
 FutureMessageContent.Layout = ({ children }: { children: ReactNode }) => (
-  <Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
+  <Hb.Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
     {children}
-  </Box>
+  </Hb.Box>
 );

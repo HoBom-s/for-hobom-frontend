@@ -1,20 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  Avatar,
-  Box,
-  Button,
-  ButtonBase,
-  Divider,
-  Popover,
-  Typography,
-} from "@mui/material";
-import { KeyboardArrowDownOutlined, Logout } from "@mui/icons-material";
+import { KeyboardArrowDownOutlined, Logout } from "hobom-design-system/icons";
 import { RoutesConfig } from "@/shared/config";
 import { useToast } from "@/shared/model";
 import { postAuthLogout } from "@/entities/auth";
 import { userQueries } from "@/entities/user";
+import { Hb } from "@/shared/ui";
 import { UserInfoSection } from "./UserInfoSection";
 import { UserDetailSection } from "./UserDetailSection";
 
@@ -50,7 +42,7 @@ export const UserProfileMenu = () => {
         onClick={(e) => setAnchorEl(e.currentTarget)}
       />
 
-      <Popover
+      <Hb.Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}
@@ -73,11 +65,11 @@ export const UserProfileMenu = () => {
           nickname={user.nickname}
           email={user.email}
         />
-        <Divider />
+        <Hb.Divider />
         <UserDetailSection user={user} />
-        <Divider />
+        <Hb.Divider />
         <LogoutSection isLoggingOut={isLoggingOut} onLogout={handleLogout} />
-      </Popover>
+      </Hb.Popover>
     </>
   );
 };
@@ -91,7 +83,7 @@ const ProfileTrigger = ({
   initial: string;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
 }) => (
-  <ButtonBase
+  <Hb.ButtonBase
     onClick={onClick}
     aria-label="사용자 메뉴"
     sx={{
@@ -105,7 +97,7 @@ const ProfileTrigger = ({
       "&:hover": { bgcolor: "action.hover" },
     }}
   >
-    <Avatar
+    <Hb.Avatar
       sx={{
         width: 28,
         height: 28,
@@ -115,8 +107,8 @@ const ProfileTrigger = ({
       }}
     >
       {initial}
-    </Avatar>
-    <Typography
+    </Hb.Avatar>
+    <Hb.Text
       variant="body2"
       sx={{
         fontWeight: 500,
@@ -125,9 +117,9 @@ const ProfileTrigger = ({
       }}
     >
       {nickname}
-    </Typography>
+    </Hb.Text>
     <KeyboardArrowDownOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
-  </ButtonBase>
+  </Hb.ButtonBase>
 );
 
 const LogoutSection = ({
@@ -137,11 +129,10 @@ const LogoutSection = ({
   isLoggingOut: boolean;
   onLogout: () => void;
 }) => (
-  <Box sx={{ px: 2.5, py: 1.5 }}>
-    <Button
+  <Hb.Box sx={{ px: 2.5, py: 1.5 }}>
+    <Hb.Button
       fullWidth
-      variant="outlined"
-      color="error"
+      variant="danger"
       size="small"
       startIcon={<Logout fontSize="small" />}
       loading={isLoggingOut}
@@ -149,6 +140,6 @@ const LogoutSection = ({
       sx={{ fontSize: "0.8125rem" }}
     >
       로그아웃
-    </Button>
-  </Box>
+    </Hb.Button>
+  </Hb.Box>
 );

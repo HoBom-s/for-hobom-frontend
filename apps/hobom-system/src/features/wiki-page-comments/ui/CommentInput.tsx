@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Box, TextField } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+import { Hb } from "@/shared/ui";
 
 interface CommentInputProps {
   onSubmit: (content: string) => void;
@@ -26,8 +25,8 @@ export const CommentInput = ({
   };
 
   return (
-    <Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
-      <TextField
+    <Hb.Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
+      <Hb.TextField
         fullWidth
         multiline
         minRows={1}
@@ -41,8 +40,8 @@ export const CommentInput = ({
         }}
         autoFocus={autoFocus}
       />
-      <LoadingButton
-        variant="contained"
+      <Hb.Button
+        variant="primary"
         size="small"
         onClick={handleSubmit}
         loading={loading}
@@ -50,7 +49,7 @@ export const CommentInput = ({
         sx={{ flexShrink: 0 }}
       >
         등록
-      </LoadingButton>
-    </Box>
+      </Hb.Button>
+    </Hb.Box>
   );
 };

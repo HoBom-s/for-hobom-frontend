@@ -1,5 +1,4 @@
 import { memo } from "react";
-import { Avatar, Chip } from "@mui/material";
 import {
   ISSUE_KIND_REGISTRY,
   ISSUE_PRIORITY_LABEL,
@@ -11,6 +10,7 @@ import {
   getStatusColor,
   type WorkflowStatus,
 } from "@/entities/project";
+import { Hb } from "@/shared/ui";
 import { type ColKey, BORDER_COLOR } from "./issue-list-constants";
 
 interface BodyCellProps {
@@ -112,7 +112,7 @@ export const BodyCell = memo(
             {...interactiveProps}
             onPointerDown={(e) => e.stopPropagation()}
           >
-            <Chip
+            <Hb.Chip
               label={getStatusName(statuses, row.status)}
               size="small"
               onClick={(e) => {
@@ -138,7 +138,7 @@ export const BodyCell = memo(
       case "priority":
         return (
           <div style={baseCellStyle} {...interactiveProps}>
-            <Chip
+            <Hb.Chip
               label={ISSUE_PRIORITY_LABEL[row.priority]}
               size="small"
               sx={{
@@ -156,7 +156,7 @@ export const BodyCell = memo(
         return (
           <div style={baseCellStyle} {...interactiveProps}>
             {row.assignee ? (
-              <Avatar
+              <Hb.Avatar
                 sx={{
                   width: 24,
                   height: 24,
@@ -167,7 +167,7 @@ export const BodyCell = memo(
                 }}
               >
                 {row.assignee.charAt(0).toUpperCase()}
-              </Avatar>
+              </Hb.Avatar>
             ) : (
               <span
                 style={{

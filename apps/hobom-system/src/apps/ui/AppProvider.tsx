@@ -1,10 +1,9 @@
 import { Fragment, type ReactElement } from "react";
 import { Bounce, ToastContainer } from "react-toastify";
-import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BottomSheetCTAProvider } from "@/shared/model";
 import { theme } from "@/shared/config";
-import { ErrorBoundary, OverlayProvider } from "@/shared/ui";
+import { Hb, ErrorBoundary, OverlayProvider } from "@/shared/ui";
 import { reportError } from "@/shared/lib";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -47,9 +46,9 @@ export const AppProvider = ({ children }: Props) => {
         autoClose={TOAST_AUTO_CLOSE_MS}
       />
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline enableColorScheme />
-          <GlobalStyles styles={COLOR_SCHEME_TRANSITION_STYLES} />
+        <Hb.ThemeProvider theme={theme}>
+          <Hb.CssBaseline enableColorScheme />
+          <Hb.GlobalStyles styles={COLOR_SCHEME_TRANSITION_STYLES} />
           <ErrorBoundary
             onError={(err, info) =>
               reportError(err, { componentStack: info.componentStack })
@@ -59,7 +58,7 @@ export const AppProvider = ({ children }: Props) => {
               <OverlayProvider>{children}</OverlayProvider>
             </BottomSheetCTAProvider>
           </ErrorBoundary>
-        </ThemeProvider>
+        </Hb.ThemeProvider>
       </QueryClientProvider>
     </Fragment>
   );

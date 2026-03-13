@@ -1,16 +1,5 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { SearchOutlined, RestartAltOutlined } from "@mui/icons-material";
+import { SearchOutlined, RestartAltOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 import { SERVICE_LABEL_MAP } from "../lib/log-dashboard.lib";
 import { useLogSearch } from "../model/useLogSearch";
 import { LogEntryTable } from "./LogEntryTable";
@@ -46,8 +35,8 @@ export const LogSearchSection = () => {
   } = useLogSearch();
 
   return (
-    <Box>
-      <Box
+    <Hb.Box>
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -55,20 +44,20 @@ export const LogSearchSection = () => {
           mb: 2,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <SearchOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
-          <Typography variant="body2" fontWeight={600}>
+          <Hb.Text variant="body2" fontWeight={600}>
             로그 검색
-          </Typography>
+          </Hb.Text>
           {totalCount > 0 && (
-            <Typography variant="caption" color="text.secondary">
+            <Hb.Text variant="caption" color="text.secondary">
               ({totalCount.toLocaleString()}건)
-            </Typography>
+            </Hb.Text>
           )}
-        </Box>
-      </Box>
+        </Hb.Box>
+      </Hb.Box>
 
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           width: "100%",
@@ -77,7 +66,7 @@ export const LogSearchSection = () => {
           mb: 2,
         }}
       >
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             alignItems: "center",
@@ -85,9 +74,9 @@ export const LogSearchSection = () => {
             flexWrap: "wrap",
           }}
         >
-          <FormControl size="small" sx={{ minWidth: 130 }}>
-            <InputLabel>서비스</InputLabel>
-            <Select
+          <Hb.Form.Control size="small" sx={{ minWidth: 130 }}>
+            <Hb.Form.Label>서비스</Hb.Form.Label>
+            <Hb.Form.Select
               label="서비스"
               value={filter.serviceType}
               onChange={(e) =>
@@ -95,29 +84,29 @@ export const LogSearchSection = () => {
               }
             >
               {SERVICE_OPTIONS.map((opt) => (
-                <MenuItem key={opt.value} value={opt.value}>
+                <Hb.Menu.Item key={opt.value} value={opt.value}>
                   {opt.label}
-                </MenuItem>
+                </Hb.Menu.Item>
               ))}
-            </Select>
-          </FormControl>
+            </Hb.Form.Select>
+          </Hb.Form.Control>
 
-          <FormControl size="small" sx={{ minWidth: 120 }}>
-            <InputLabel>Method</InputLabel>
-            <Select
+          <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+            <Hb.Form.Label>Method</Hb.Form.Label>
+            <Hb.Form.Select
               label="Method"
               value={filter.httpMethod}
               onChange={(e) => handleFilterChange("httpMethod", e.target.value)}
             >
               {METHOD_OPTIONS.map((opt) => (
-                <MenuItem key={opt.value} value={opt.value}>
+                <Hb.Menu.Item key={opt.value} value={opt.value}>
                   {opt.label}
-                </MenuItem>
+                </Hb.Menu.Item>
               ))}
-            </Select>
-          </FormControl>
+            </Hb.Form.Select>
+          </Hb.Form.Control>
 
-          <TextField
+          <Hb.TextField
             size="small"
             label="Status Code"
             type="number"
@@ -127,43 +116,42 @@ export const LogSearchSection = () => {
             slotProps={{ htmlInput: { min: 100, max: 599 } }}
           />
 
-          <Button
+          <Hb.Button
             size="small"
-            variant="outlined"
-            color="inherit"
+            variant="secondary"
             startIcon={<RestartAltOutlined sx={{ fontSize: 16 }} />}
             onClick={handleReset}
             sx={{ color: "text.secondary", textTransform: "none" }}
           >
             초기화
-          </Button>
-        </Box>
+          </Hb.Button>
+        </Hb.Box>
         {totalPages > 1 && (
-          <Box
+          <Hb.Box
             sx={{
               display: "flex",
               alignItems: "center",
               height: "100%",
             }}
           >
-            <Pagination
+            <Hb.Pagination
               count={totalPages}
               page={page + 1}
               onChange={(_, v) => setPage(v - 1)}
               shape="rounded"
               size="small"
             />
-          </Box>
+          </Hb.Box>
         )}
-      </Box>
+      </Hb.Box>
 
       {isLoading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-          <CircularProgress size={28} />
-        </Box>
+        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+          <Hb.Progress.Circular size={28} />
+        </Hb.Box>
       ) : (
         <LogEntryTable data={items} />
       )}
-    </Box>
+    </Hb.Box>
   );
 };

@@ -5,9 +5,8 @@ import {
   LocalizationProvider,
   StaticDatePicker,
   type PickersDayProps,
-} from "@mui/x-date-pickers";
-import { Box } from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+} from "hobom-design-system/date-pickers";
+import { AdapterDateFns } from "hobom-design-system/date-pickers";
 import { startOfMonth } from "date-fns";
 import { ko } from "date-fns/locale";
 import { Bom } from "hobom-utils";
@@ -18,7 +17,7 @@ import {
   getSelectedDate,
   normalizeTodoDateToUtcMidnight,
 } from "@/entities/daily-todo";
-import { HoBomSkeleton } from "@/shared/ui";
+import { Hb, HoBomSkeleton } from "@/shared/ui";
 import { useRouterQuery } from "@/shared/model";
 import { CalendarDay } from "./CalendarDay";
 
@@ -36,7 +35,7 @@ export const Calendar = () => {
   );
 
   return (
-    <Box>
+    <Hb.Box>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
         <StaticDatePicker
           displayStaticWrapperAs="desktop"
@@ -78,7 +77,7 @@ export const Calendar = () => {
           }}
         />
       </LocalizationProvider>
-    </Box>
+    </Hb.Box>
   );
 };
 

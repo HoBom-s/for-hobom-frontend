@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -9,6 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { Hb } from "@/shared/ui";
 
 interface CycleProgressBarProps {
   data: { cycle: string; total: number; completed: number }[];
@@ -28,10 +28,10 @@ export const CycleProgressBar = ({ data }: CycleProgressBarProps) => {
   }));
 
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         반복주기별 완료 현황
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={chartData} barSize={28}>
           <defs>
@@ -82,6 +82,6 @@ export const CycleProgressBar = ({ data }: CycleProgressBarProps) => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

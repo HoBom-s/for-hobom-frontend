@@ -1,12 +1,12 @@
-import { Box, Chip, CircularProgress, Typography } from "@mui/material";
 import {
   AlternateEmailOutlined,
   BadgeOutlined,
   PeopleOutline,
   PersonOutline,
-} from "@mui/icons-material";
+} from "hobom-design-system/icons";
 import { useQueries } from "@tanstack/react-query";
 import { userQueries } from "@/entities/user";
+import { Hb } from "@/shared/ui";
 
 interface UserDetailSectionProps {
   user: {
@@ -18,7 +18,7 @@ interface UserDetailSectionProps {
 }
 
 export const UserDetailSection = ({ user }: UserDetailSectionProps) => (
-  <Box
+  <Hb.Box
     sx={{
       px: 2.5,
       py: 2,
@@ -43,7 +43,7 @@ export const UserDetailSection = ({ user }: UserDetailSectionProps) => (
       value={user.email}
     />
     <FriendsRow friends={user.friends} />
-  </Box>
+  </Hb.Box>
 );
 
 const FriendsRow = ({ friends }: { friends: string[] }) => {
@@ -54,12 +54,12 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
   const isLoading = friendQueries.some((q) => q.isLoading);
 
   return (
-    <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
-      <Box sx={{ color: "text.secondary", pt: 0.25 }}>
+    <Hb.Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
+      <Hb.Box sx={{ color: "text.secondary", pt: 0.25 }}>
         <PeopleOutline sx={{ fontSize: 18 }} />
-      </Box>
-      <Box sx={{ minWidth: 0 }}>
-        <Typography
+      </Hb.Box>
+      <Hb.Box sx={{ minWidth: 0 }}>
+        <Hb.Text
           variant="caption"
           sx={{
             color: "text.secondary",
@@ -68,14 +68,14 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
           }}
         >
           친구
-        </Typography>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.25 }}>
+        </Hb.Text>
+        <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.25 }}>
           {friends.length > 0 ? (
             isLoading ? (
-              <CircularProgress size={16} />
+              <Hb.Progress.Circular size={16} />
             ) : (
               friendQueries.map((q, i) => (
-                <Chip
+                <Hb.Chip
                   key={friends[i]}
                   label={q.data?.items.nickname ?? friends[i]}
                   size="small"
@@ -85,16 +85,16 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
               ))
             )
           ) : (
-            <Typography
+            <Hb.Text
               variant="body2"
               sx={{ color: "text.disabled", fontSize: "0.8125rem" }}
             >
               없음
-            </Typography>
+            </Hb.Text>
           )}
-        </Box>
-      </Box>
-    </Box>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };
 
@@ -107,16 +107,16 @@ const InfoRow = ({
   label: string;
   value: string;
 }) => (
-  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-    <Box sx={{ color: "text.secondary" }}>{icon}</Box>
-    <Box sx={{ minWidth: 0 }}>
-      <Typography
+  <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+    <Hb.Box sx={{ color: "text.secondary" }}>{icon}</Hb.Box>
+    <Hb.Box sx={{ minWidth: 0 }}>
+      <Hb.Text
         variant="caption"
         sx={{ color: "text.secondary", fontSize: "0.6875rem", fontWeight: 500 }}
       >
         {label}
-      </Typography>
-      <Typography
+      </Hb.Text>
+      <Hb.Text
         variant="body2"
         sx={{
           fontWeight: 500,
@@ -127,7 +127,7 @@ const InfoRow = ({
         }}
       >
         {value}
-      </Typography>
-    </Box>
-  </Box>
+      </Hb.Text>
+    </Hb.Box>
+  </Hb.Box>
 );

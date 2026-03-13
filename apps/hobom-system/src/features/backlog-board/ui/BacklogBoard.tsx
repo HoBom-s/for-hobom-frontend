@@ -1,8 +1,7 @@
 import { useMemo } from "react";
-import { Box, Paper, Typography } from "@mui/material";
-import { InboxOutlined } from "@mui/icons-material";
+import { InboxOutlined } from "hobom-design-system/icons";
 import { useProjectContext, useVirtualList } from "@/shared/model";
-import { EmptyState } from "@/shared/ui";
+import { Hb, EmptyState } from "@/shared/ui";
 import { getDescendantProgress } from "@/entities/issue";
 import { BacklogContext } from "../model/useBacklogContext";
 import { useBacklogBoard } from "../model/useBacklogBoard";
@@ -44,16 +43,16 @@ export const BacklogBoard = ({
 
   return (
     <BacklogContext.Provider value={contextValue}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         {sprintGroups.map(({ sprint, issues }) => (
           <SprintSection key={sprint.id} sprint={sprint} issues={issues} />
         ))}
 
-        <Paper
+        <Hb.Paper
           variant="outlined"
           sx={{ borderRadius: 2.5, overflow: "hidden" }}
         >
-          <Box
+          <Hb.Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -64,32 +63,28 @@ export const BacklogBoard = ({
             }}
           >
             <InboxOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
-            <Typography
-              variant="subtitle2"
-              fontWeight={700}
-              sx={{ fontSize: 13 }}
-            >
+            <Hb.Text variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>
               백로그
-            </Typography>
-            <Typography
+            </Hb.Text>
+            <Hb.Text
               variant="caption"
               color="text.disabled"
               sx={{ fontSize: 11 }}
             >
               {backlogIssues.length}건
-            </Typography>
-          </Box>
+            </Hb.Text>
+          </Hb.Box>
           {backlogIssues.length === 0 ? (
             <EmptyState message="백로그에 이슈가 없어요" />
           ) : (
-            <Box
+            <Hb.Box
               {...containerProps}
               sx={{
                 ...containerProps.style,
                 maxHeight: "calc(100vh - 300px)",
               }}
             >
-              <Box sx={{ height: totalHeight, position: "relative" }}>
+              <Hb.Box sx={{ height: totalHeight, position: "relative" }}>
                 {virtualItems.map(({ item, offsetTop }) => {
                   const { issue, depth, childCount } = item;
                   const progress =
@@ -102,7 +97,7 @@ export const BacklogBoard = ({
                       : undefined;
 
                   return (
-                    <Box
+                    <Hb.Box
                       key={issue.id}
                       sx={{
                         position: "absolute",
@@ -119,14 +114,14 @@ export const BacklogBoard = ({
                         onToggleCollapse={toggleCollapse}
                         progress={progress}
                       />
-                    </Box>
+                    </Hb.Box>
                   );
                 })}
-              </Box>
-            </Box>
+              </Hb.Box>
+            </Hb.Box>
           )}
-        </Paper>
-      </Box>
+        </Hb.Paper>
+      </Hb.Box>
     </BacklogContext.Provider>
   );
 };

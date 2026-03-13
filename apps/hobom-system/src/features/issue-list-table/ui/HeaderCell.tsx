@@ -1,4 +1,8 @@
-import { UnfoldMore, ArrowUpward, ArrowDownward } from "@mui/icons-material";
+import {
+  UnfoldMore,
+  ArrowUpward,
+  ArrowDownward,
+} from "hobom-design-system/icons";
 import {
   COLUMNS,
   type ColKey,

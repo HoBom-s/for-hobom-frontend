@@ -1,25 +1,9 @@
 import { Suspense, useMemo } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Chip,
-  CircularProgress,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import { CloseOutlined, RestoreOutlined } from "@mui/icons-material";
+import { CloseOutlined, RestoreOutlined } from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { wikiPageQueries } from "@/entities/wiki-page";
 import { sanitizeHtml } from "@/shared/lib";
-import { ErrorBoundary, EmptyState } from "@/shared/ui";
+import { Hb, ErrorBoundary, EmptyState } from "@/shared/ui";
 import { useVersionHistory } from "../model/useVersionHistory";
 
 const DRAWER_WIDTH = 520;
@@ -38,7 +22,7 @@ export const VersionHistoryDrawer = ({
   pageId,
 }: VersionHistoryDrawerProps) => {
   return (
-    <Drawer
+    <Hb.Drawer
       anchor="right"
       open={open}
       onClose={onClose}
@@ -52,7 +36,7 @@ export const VersionHistoryDrawer = ({
         },
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -63,20 +47,20 @@ export const VersionHistoryDrawer = ({
           borderColor: "divider",
         }}
       >
-        <Typography variant="h6" fontWeight={700}>
+        <Hb.Text variant="h6" fontWeight={700}>
           버전 히스토리
-        </Typography>
-        <IconButton onClick={onClose} size="small" aria-label="닫기">
+        </Hb.Text>
+        <Hb.Button.Icon onClick={onClose} size="small" aria-label="닫기">
           <CloseOutlined fontSize="small" />
-        </IconButton>
-      </Box>
+        </Hb.Button.Icon>
+      </Hb.Box>
 
       <ErrorBoundary inline resetKey={`${spaceKey}/${pageId}`}>
         <Suspense
           fallback={
-            <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-              <CircularProgress size={28} />
-            </Box>
+            <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+              <Hb.Progress.Circular size={28} />
+            </Hb.Box>
           }
         >
           <VersionHistoryContent
@@ -86,7 +70,7 @@ export const VersionHistoryDrawer = ({
           />
         </Suspense>
       </ErrorBoundary>
-    </Drawer>
+    </Hb.Drawer>
   );
 };
 
@@ -116,19 +100,23 @@ const VersionHistoryContent = ({
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
-        <Typography variant="caption" fontWeight={600} color="text.secondary">
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Hb.Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
+        <Hb.Text variant="caption" fontWeight={600} color="text.secondary">
           버전 목록 ({totalCount})
-        </Typography>
-      </Box>
-      <List dense disablePadding sx={{ maxHeight: "40vh", overflow: "auto" }}>
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.List.Root
+        dense
+        disablePadding
+        sx={{ maxHeight: "40vh", overflow: "auto" }}
+      >
         {versions.map((version) => {
           const isSelected = selectedVersion?.id === version.id;
           const author = version.editedBy ?? "익명";
 
           return (
-            <ListItemButton
+            <Hb.List.ItemButton
               key={version.id}
               selected={isSelected}
               onClick={() => setSelectedVersion(version)}
@@ -151,8 +139,8 @@ const VersionHistoryContent = ({
                 "&:hover:not(.Mui-selected)": { bgcolor: "action.hover" },
               }}
             >
-              <ListItemAvatar sx={{ minWidth: 40 }}>
-                <Avatar
+              <Hb.List.ItemAvatar sx={{ minWidth: 40 }}>
+                <Hb.Avatar
                   sx={{
                     width: 28,
                     height: 28,
@@ -163,9 +151,9 @@ const VersionHistoryContent = ({
                   }}
                 >
                   v{version.version}
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
+                </Hb.Avatar>
+              </Hb.List.ItemAvatar>
+              <Hb.List.ItemText
                 primary={version.title}
                 secondary={`${author} · ${new Date(version.createdAt).toLocaleString("ko-KR")}`}
                 slotProps={{
@@ -178,8 +166,8 @@ const VersionHistoryContent = ({
                   },
                 }}
               />
-              <Tooltip title="이 버전으로 복원">
-                <IconButton
+              <Hb.Tooltip title="이 버전으로 복원">
+                <Hb.Button.Icon
                   size="small"
                   aria-label="이 버전으로 복원"
                   onClick={(e) => {
@@ -195,15 +183,15 @@ const VersionHistoryContent = ({
                   }}
                 >
                   <RestoreOutlined sx={{ fontSize: 16 }} />
-                </IconButton>
-              </Tooltip>
-            </ListItemButton>
+                </Hb.Button.Icon>
+              </Hb.Tooltip>
+            </Hb.List.ItemButton>
           );
         })}
         {hasNextPage && (
-          <Box sx={{ display: "flex", justifyContent: "center", py: 1 }}>
-            <Button
-              variant="text"
+          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 1 }}>
+            <Hb.Button
+              variant="ghost"
               size="small"
               onClick={() => fetchNextPage()}
               disabled={isFetchingNextPage}
@@ -214,23 +202,23 @@ const VersionHistoryContent = ({
               }}
             >
               {isFetchingNextPage ? (
-                <CircularProgress size={14} sx={{ mr: 0.5 }} />
+                <Hb.Progress.Circular size={14} sx={{ mr: 0.5 }} />
               ) : null}
               이전 버전 더보기 ({versions.length}/{totalCount})
-            </Button>
-          </Box>
+            </Hb.Button>
+          </Hb.Box>
         )}
-      </List>
+      </Hb.List.Root>
 
-      <Divider />
+      <Hb.Divider />
 
-      <Box sx={{ flex: 1, overflow: "auto" }}>
+      <Hb.Box sx={{ flex: 1, overflow: "auto" }}>
         {selectedVersion ? (
           <Suspense
             fallback={
-              <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-                <CircularProgress size={20} />
-              </Box>
+              <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+                <Hb.Progress.Circular size={20} />
+              </Hb.Box>
             }
           >
             <VersionPreview
@@ -240,14 +228,14 @@ const VersionHistoryContent = ({
             />
           </Suspense>
         ) : (
-          <Box sx={{ p: 4, textAlign: "center" }}>
-            <Typography variant="body2" color="text.disabled">
+          <Hb.Box sx={{ p: 4, textAlign: "center" }}>
+            <Hb.Text variant="body2" color="text.disabled">
               버전을 선택하여 미리보기
-            </Typography>
-          </Box>
+            </Hb.Text>
+          </Hb.Box>
         )}
-      </Box>
-    </Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };
 
@@ -270,8 +258,8 @@ const VersionPreview = ({
   );
 
   return (
-    <Box sx={{ px: 2.5, py: 2 }}>
-      <Box
+    <Hb.Box sx={{ px: 2.5, py: 2 }}>
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -279,17 +267,17 @@ const VersionPreview = ({
           mb: 2,
         }}
       >
-        <Chip
+        <Hb.Chip
           label={`v${version.version}`}
           size="small"
           color="primary"
           sx={{ fontWeight: 600, fontSize: "0.75rem" }}
         />
-        <Typography variant="subtitle2" fontWeight={600} noWrap>
+        <Hb.Text variant="subtitle2" fontWeight={600} noWrap>
           {version.title}
-        </Typography>
-      </Box>
-      <Box
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.Box
         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         sx={{
           fontSize: "0.8125rem",
@@ -319,6 +307,6 @@ const VersionPreview = ({
           },
         }}
       />
-    </Box>
+    </Hb.Box>
   );
 };

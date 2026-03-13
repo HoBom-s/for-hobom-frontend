@@ -1,5 +1,5 @@
-import { Box, Chip, Typography } from "@mui/material";
 import type { DescendantProgress } from "@/entities/issue";
+import { Hb } from "@/shared/ui";
 
 interface KanbanSwimlaneProps {
   epicKey: string | null;
@@ -14,8 +14,8 @@ export const KanbanSwimlane = ({
   progress,
   children,
 }: KanbanSwimlaneProps) => (
-  <Box sx={{ mb: 1.5 }}>
-    <Box
+  <Hb.Box sx={{ mb: 1.5 }}>
+    <Hb.Box
       sx={{
         display: "flex",
         alignItems: "center",
@@ -24,7 +24,7 @@ export const KanbanSwimlane = ({
         px: 0.5,
       }}
     >
-      <Typography
+      <Hb.Text
         variant="caption"
         sx={{
           fontWeight: 700,
@@ -34,16 +34,16 @@ export const KanbanSwimlane = ({
         }}
       >
         {epicKey ?? "에픽 없음"}
-      </Typography>
-      <Typography
+      </Hb.Text>
+      <Hb.Text
         variant="caption"
         sx={{ fontSize: 10, color: "text.secondary" }}
         noWrap
       >
         {epicTitle}
-      </Typography>
+      </Hb.Text>
       {progress && progress.total > 0 && (
-        <Chip
+        <Hb.Chip
           label={`${progress.completed}/${progress.total}`}
           size="small"
           sx={{
@@ -58,9 +58,9 @@ export const KanbanSwimlane = ({
           }}
         />
       )}
-    </Box>
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+    </Hb.Box>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
       {children}
-    </Box>
-  </Box>
+    </Hb.Box>
+  </Hb.Box>
 );

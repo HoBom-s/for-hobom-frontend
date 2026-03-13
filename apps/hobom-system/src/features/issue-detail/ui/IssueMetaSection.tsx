@@ -1,15 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import {
-  Avatar,
-  Box,
-  Chip,
-  FormControl,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined } from "hobom-design-system/icons";
 import { useQuery } from "@tanstack/react-query";
 import { useProjectContext, usePopoverState } from "@/shared/model";
 import {
@@ -23,6 +13,7 @@ import {
   projectLabelQueries,
   ProjectLabelPicker,
 } from "@/entities/project-label";
+import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
 
 const MetaRow = ({
@@ -32,15 +23,15 @@ const MetaRow = ({
   label: string;
   children: React.ReactNode;
 }) => (
-  <Box sx={{ display: "flex", alignItems: "center", py: 0.5 }}>
-    <Typography
+  <Hb.Box sx={{ display: "flex", alignItems: "center", py: 0.5 }}>
+    <Hb.Text
       variant="body2"
       sx={{ width: 100, color: "text.secondary", fontSize: 13, flexShrink: 0 }}
     >
       {label}
-    </Typography>
-    <Box sx={{ flex: 1 }}>{children}</Box>
-  </Box>
+    </Hb.Text>
+    <Hb.Box sx={{ flex: 1 }}>{children}</Hb.Box>
+  </Hb.Box>
 );
 
 const StoryPointsInput = ({
@@ -67,7 +58,7 @@ const StoryPointsInput = ({
 
   if (!editing) {
     return (
-      <Typography
+      <Hb.Text
         variant="body2"
         onClick={() => setEditing(true)}
         sx={{
@@ -78,12 +69,12 @@ const StoryPointsInput = ({
         }}
       >
         {value != null ? value : "-"}
-      </Typography>
+      </Hb.Text>
     );
   }
 
   return (
-    <TextField
+    <Hb.TextField
       autoFocus
       size="small"
       type="number"
@@ -145,9 +136,9 @@ export const IssueMetaSection = () => {
   const statusColor = getStatusColor(statuses, issue.status);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 2 }}>
+    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 2 }}>
       <MetaRow label="상태">
-        <Chip
+        <Hb.Chip
           label={getStatusName(statuses, issue.status)}
           size="small"
           onClick={statusMenu.open}
@@ -165,7 +156,7 @@ export const IssueMetaSection = () => {
         />
       </MetaRow>
       <MetaRow label="우선순위">
-        <Chip
+        <Hb.Chip
           label={ISSUE_PRIORITY_LABEL[issue.priority]}
           size="small"
           onClick={priorityMenu.open}
@@ -183,9 +174,9 @@ export const IssueMetaSection = () => {
         />
       </MetaRow>
       <MetaRow label="유형">
-        <Typography variant="body2" sx={{ fontSize: 13 }}>
+        <Hb.Text variant="body2" sx={{ fontSize: 13 }}>
           {ISSUE_KIND_LABEL[issue.type]}
-        </Typography>
+        </Hb.Text>
       </MetaRow>
       <MetaRow label="담당자">
         {(() => {
@@ -195,7 +186,7 @@ export const IssueMetaSection = () => {
             : null;
 
           return (
-            <Chip
+            <Hb.Chip
               label={assigneeName ?? "미할당"}
               size="small"
               role="button"
@@ -203,7 +194,7 @@ export const IssueMetaSection = () => {
               aria-haspopup="listbox"
               avatar={
                 assigneeName ? (
-                  <Avatar
+                  <Hb.Avatar
                     alt={assigneeName}
                     sx={{
                       width: 22,
@@ -215,7 +206,7 @@ export const IssueMetaSection = () => {
                     }}
                   >
                     {assigneeName.charAt(0).toUpperCase()}
-                  </Avatar>
+                  </Hb.Avatar>
                 ) : undefined
               }
               onClick={assigneeMenu.open}
@@ -232,7 +223,7 @@ export const IssueMetaSection = () => {
         })()}
       </MetaRow>
       <MetaRow label="라벨">
-        <Box
+        <Hb.Box
           sx={{
             display: "flex",
             gap: 0.5,
@@ -246,7 +237,7 @@ export const IssueMetaSection = () => {
             if (!label) return null;
 
             return (
-              <Chip
+              <Hb.Chip
                 key={label.id}
                 label={label.name}
                 size="small"
@@ -263,7 +254,7 @@ export const IssueMetaSection = () => {
               />
             );
           })}
-          <Chip
+          <Hb.Chip
             icon={<AddOutlined sx={{ fontSize: 14 }} />}
             label="추가"
             size="small"
@@ -276,7 +267,7 @@ export const IssueMetaSection = () => {
               borderStyle: "dashed",
             }}
           />
-        </Box>
+        </Hb.Box>
         <ProjectLabelPicker
           anchorEl={labelPopover.anchor}
           onClose={labelPopover.close}
@@ -286,8 +277,8 @@ export const IssueMetaSection = () => {
         />
       </MetaRow>
       <MetaRow label="스프린트">
-        <FormControl size="small" fullWidth>
-          <Select
+        <Hb.Form.Control size="small" fullWidth>
+          <Hb.Form.Select
             value={issue.sprint ?? ""}
             displayEmpty
             onChange={(e) =>
@@ -295,21 +286,21 @@ export const IssueMetaSection = () => {
             }
             sx={{ fontSize: 13, "& .MuiSelect-select": { py: 0.75 } }}
           >
-            <MenuItem value="" sx={{ fontSize: 13 }}>
-              <Typography
+            <Hb.Menu.Item value="" sx={{ fontSize: 13 }}>
+              <Hb.Text
                 variant="body2"
                 sx={{ fontSize: 13, color: "text.disabled" }}
               >
                 없음
-              </Typography>
-            </MenuItem>
+              </Hb.Text>
+            </Hb.Menu.Item>
             {activeSprints.map((s) => (
-              <MenuItem key={s.id} value={s.id} sx={{ fontSize: 13 }}>
+              <Hb.Menu.Item key={s.id} value={s.id} sx={{ fontSize: 13 }}>
                 {s.name}
-              </MenuItem>
+              </Hb.Menu.Item>
             ))}
-          </Select>
-        </FormControl>
+          </Hb.Form.Select>
+        </Hb.Form.Control>
       </MetaRow>
       <MetaRow label="스토리 포인트">
         <StoryPointsInput
@@ -319,9 +310,9 @@ export const IssueMetaSection = () => {
       </MetaRow>
       {issue.dueDate && (
         <MetaRow label="마감일">
-          <Typography variant="body2" sx={{ fontSize: 13 }}>
+          <Hb.Text variant="body2" sx={{ fontSize: 13 }}>
             {issue.dueDate}
-          </Typography>
+          </Hb.Text>
         </MetaRow>
       )}
       <MetaRow label="상위 이슈">
@@ -333,6 +324,6 @@ export const IssueMetaSection = () => {
           placeholder="상위 이슈 선택"
         />
       </MetaRow>
-    </Box>
+    </Hb.Box>
   );
 };

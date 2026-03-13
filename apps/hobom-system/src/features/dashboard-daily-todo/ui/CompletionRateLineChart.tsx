@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -8,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Hb } from "@/shared/ui";
 
 interface CompletionRateLineChartProps {
   data: { date: string; completionRate: number }[];
@@ -17,10 +17,10 @@ export const CompletionRateLineChart = ({
   data,
 }: CompletionRateLineChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         일별 완료율 추이
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -46,6 +46,6 @@ export const CompletionRateLineChart = ({
           />
         </LineChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

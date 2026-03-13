@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -9,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { ProjectIssueDashboardDto } from "@/entities/dashboard";
+import { Hb } from "@/shared/ui";
 
 interface PriorityDistributionChartProps {
   data: ProjectIssueDashboardDto["byPriority"];
@@ -18,10 +18,10 @@ export const PriorityDistributionChart = ({
   data,
 }: PriorityDistributionChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         우선순위별 분포
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={data} layout="vertical" barSize={20}>
           <defs>
@@ -68,6 +68,6 @@ export const PriorityDistributionChart = ({
           />
         </BarChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

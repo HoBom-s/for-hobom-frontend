@@ -1,5 +1,4 @@
-import type { SxProps, Theme } from "@mui/material";
-
+import type { SxProps, Theme } from "hobom-design-system";
 export const SUBTLE_SCROLLBAR_SX: SxProps<Theme> = (theme) => {
   const isDark = theme.palette.mode === "dark";
   const thumbColor = isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)";

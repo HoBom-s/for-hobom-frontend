@@ -1,9 +1,9 @@
-import { IconButton } from "@mui/material";
-import { EditOutlined, DeleteOutlined } from "@mui/icons-material";
+import { EditOutlined, DeleteOutlined } from "hobom-design-system/icons";
 import {
   isPendingMessageSendStatus,
   type FutureMessageType,
 } from "@/entities/future-message";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   row: FutureMessageType;
@@ -19,7 +19,7 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
       style={{ display: "flex", gap: 2 }}
       onPointerDown={(e) => e.stopPropagation()}
     >
-      <IconButton
+      <Hb.Button.Icon
         size="small"
         aria-label="편집"
         onPointerDown={(e) => e.stopPropagation()}
@@ -30,8 +30,8 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
         sx={{ color: "text.secondary", "&:hover": { color: "primary.main" } }}
       >
         <EditOutlined sx={{ fontSize: 16 }} />
-      </IconButton>
-      <IconButton
+      </Hb.Button.Icon>
+      <Hb.Button.Icon
         size="small"
         aria-label="삭제"
         onPointerDown={(e) => e.stopPropagation()}
@@ -42,7 +42,7 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
         sx={{ color: "text.secondary", "&:hover": { color: "error.main" } }}
       >
         <DeleteOutlined sx={{ fontSize: 16 }} />
-      </IconButton>
+      </Hb.Button.Icon>
     </div>
   );
 };

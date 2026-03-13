@@ -1,12 +1,11 @@
 import { Suspense, useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined } from "hobom-design-system/icons";
 import {
   useProjectList,
   ProjectGrid,
   CreateProjectDialog,
 } from "@/features/project-list";
-import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
+import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 
 const ProjectListContent = () => {
   const { projects } = useProjectList();
@@ -18,8 +17,8 @@ export const ProjectListWorkspace = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box
+    <Hb.Box sx={{ p: 3 }}>
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "flex-start",
@@ -27,16 +26,16 @@ export const ProjectListWorkspace = () => {
           mb: 4,
         }}
       >
-        <Box>
-          <Typography variant="h5" fontWeight={700} sx={{ mb: 0.5 }}>
+        <Hb.Box>
+          <Hb.Text variant="h5" fontWeight={700} sx={{ mb: 0.5 }}>
             프로젝트
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
+          </Hb.Text>
+          <Hb.Text variant="body2" color="text.secondary">
             팀의 프로젝트를 관리하고 이슈를 추적하세요.
-          </Typography>
-        </Box>
-        <Button
-          variant="contained"
+          </Hb.Text>
+        </Hb.Box>
+        <Hb.Button
+          variant="primary"
           startIcon={<AddOutlined />}
           onClick={() => setDialogOpen(true)}
           sx={{
@@ -48,8 +47,8 @@ export const ProjectListWorkspace = () => {
           }}
         >
           새 프로젝트
-        </Button>
-      </Box>
+        </Hb.Button>
+      </Hb.Box>
 
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
@@ -61,6 +60,6 @@ export const ProjectListWorkspace = () => {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
       />
-    </Box>
+    </Hb.Box>
   );
 };

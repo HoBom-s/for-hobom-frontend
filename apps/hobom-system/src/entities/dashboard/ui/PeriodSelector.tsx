@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Typography } from "@mui/material";
+import { Hb } from "@/shared/ui";
 import {
   PERIOD_LABEL,
   SYSTEM_PERIOD_LABEL,
@@ -26,7 +26,7 @@ export const PeriodSelector = (props: PeriodSelectorProps) => {
   const color = props.type === "system" ? "warning.main" : "primary.main";
 
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "inline-flex",
         gap: 0.75,
@@ -39,7 +39,7 @@ export const PeriodSelector = (props: PeriodSelectorProps) => {
         const isActive = props.period === key;
 
         return (
-          <ButtonBase
+          <Hb.ButtonBase
             key={key}
             onClick={() => {
               if (!isActive) props.onChange(key as never);
@@ -65,7 +65,7 @@ export const PeriodSelector = (props: PeriodSelectorProps) => {
                   }),
             }}
           >
-            <Typography
+            <Hb.Text
               variant="body2"
               sx={{
                 fontWeight: isActive ? 600 : 500,
@@ -74,10 +74,10 @@ export const PeriodSelector = (props: PeriodSelectorProps) => {
               }}
             >
               {label}
-            </Typography>
-          </ButtonBase>
+            </Hb.Text>
+          </Hb.ButtonBase>
         );
       })}
-    </Box>
+    </Hb.Box>
   );
 };

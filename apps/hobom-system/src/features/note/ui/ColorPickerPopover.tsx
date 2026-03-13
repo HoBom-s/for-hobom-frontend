@@ -1,6 +1,6 @@
-import { Box, IconButton, Popover } from "@mui/material";
-import { Check } from "@mui/icons-material";
+import { Check } from "hobom-design-system/icons";
 import { NOTE_COLORS } from "@/entities/note";
+import { Hb } from "@/shared/ui";
 
 interface ColorPickerPopoverProps {
   anchorEl: HTMLElement | null;
@@ -15,19 +15,19 @@ export const ColorPickerPopover = ({
   value,
   onChange,
 }: ColorPickerPopoverProps) => (
-  <Popover
+  <Hb.Popover
     open={!!anchorEl}
     anchorEl={anchorEl}
     onClose={onClose}
     anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
   >
-    <Box sx={{ display: "flex", gap: 0.5, p: 1.5 }}>
+    <Hb.Box sx={{ display: "flex", gap: 0.5, p: 1.5 }}>
       {Object.entries(NOTE_COLORS).map(([key, hex]) => {
         const selected = value === hex;
         const isWhite = hex === "#ffffff";
 
         return (
-          <IconButton
+          <Hb.Button.Icon
             key={key}
             onClick={() => {
               onChange(hex);
@@ -60,9 +60,9 @@ export const ColorPickerPopover = ({
                 }}
               />
             )}
-          </IconButton>
+          </Hb.Button.Icon>
         );
       })}
-    </Box>
-  </Popover>
+    </Hb.Box>
+  </Hb.Popover>
 );

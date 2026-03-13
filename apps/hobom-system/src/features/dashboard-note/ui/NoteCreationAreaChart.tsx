@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   AreaChart,
   Area,
@@ -8,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Hb } from "@/shared/ui";
 
 interface NoteCreationAreaChartProps {
   data: { date: string; count: number }[];
@@ -15,10 +15,10 @@ interface NoteCreationAreaChartProps {
 
 export const NoteCreationAreaChart = ({ data }: NoteCreationAreaChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         일별 노트 생성 추이
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <AreaChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -39,6 +39,6 @@ export const NoteCreationAreaChart = ({ data }: NoteCreationAreaChartProps) => {
           />
         </AreaChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

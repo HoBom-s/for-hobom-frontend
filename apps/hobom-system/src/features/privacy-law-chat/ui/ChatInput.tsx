@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { IconButton, Stack, TextField } from "@mui/material";
-import { SendOutlined } from "@mui/icons-material";
+import { SendOutlined } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 interface Props {
   onSend: (message: string) => void;
@@ -26,8 +26,8 @@ export const ChatInput = ({ onSend, disabled }: Props) => {
   };
 
   return (
-    <Stack direction="row" spacing={1} alignItems="flex-end">
-      <TextField
+    <Hb.Stack direction="row" spacing={1} alignItems="flex-end">
+      <Hb.TextField
         fullWidth
         multiline
         maxRows={4}
@@ -38,13 +38,13 @@ export const ChatInput = ({ onSend, disabled }: Props) => {
         disabled={disabled}
         size="small"
       />
-      <IconButton
-        color="primary"
+      <Hb.Button.Icon
+        sx={{ color: "primary.main" }}
         onClick={handleSend}
         disabled={disabled || !value.trim()}
       >
         <SendOutlined />
-      </IconButton>
-    </Stack>
+      </Hb.Button.Icon>
+    </Hb.Stack>
   );
 };

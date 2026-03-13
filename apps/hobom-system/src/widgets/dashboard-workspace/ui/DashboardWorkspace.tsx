@@ -1,8 +1,7 @@
 import { Suspense, useState, type ReactNode, type SyntheticEvent } from "react";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
-import { DashboardOutlined } from "@mui/icons-material";
+import { DashboardOutlined } from "hobom-design-system/icons";
 import { useRouterQuery } from "@/shared/model";
-import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
+import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import {
   PeriodSelector,
   PeriodModel,
@@ -55,8 +54,8 @@ export const DashboardWorkspace = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box
+    <Hb.Box sx={{ p: 3 }}>
+      <Hb.Box
         sx={{
           display: "flex",
           alignItems: "flex-start",
@@ -64,8 +63,8 @@ export const DashboardWorkspace = () => {
           mb: 3,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Box
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+          <Hb.Box
             sx={{
               width: 40,
               height: 40,
@@ -77,32 +76,33 @@ export const DashboardWorkspace = () => {
             }}
           >
             <DashboardOutlined sx={{ color: "#fff", fontSize: 22 }} />
-          </Box>
-          <Box>
-            <Typography variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+          </Hb.Box>
+          <Hb.Box>
+            <Hb.Text variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
               대시보드
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ color: "text.secondary", mt: 0.25 }}
-            >
+            </Hb.Text>
+            <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
               전체 활동과 서비스 현황을 한눈에 확인할 수 있어요.
-            </Typography>
-          </Box>
-        </Box>
+            </Hb.Text>
+          </Hb.Box>
+        </Hb.Box>
         <PeriodSelector period={period} onChange={setPeriod} />
-      </Box>
+      </Hb.Box>
 
-      <Tabs value={currentTab} onChange={handleTabChange} sx={{ mb: 2.5 }}>
+      <Hb.Tabs.Root
+        value={currentTab}
+        onChange={handleTabChange}
+        sx={{ mb: 2.5 }}
+      >
         {TAB_VALUES.map((tab) => (
-          <Tab
+          <Hb.Tabs.Item
             key={tab}
             value={tab}
             label={TAB_LABELS[tab]}
             sx={{ minHeight: 44 }}
           />
         ))}
-      </Tabs>
+      </Hb.Tabs.Root>
 
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
@@ -123,6 +123,6 @@ export const DashboardWorkspace = () => {
           </TabPanel>
         </Suspense>
       </ErrorBoundary>
-    </Box>
+    </Hb.Box>
   );
 };

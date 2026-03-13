@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import {
   PieChart,
   Pie,
@@ -8,6 +7,7 @@ import {
   Legend,
 } from "recharts";
 import { CHART_COLORS } from "@/entities/dashboard";
+import { Hb } from "@/shared/ui";
 
 interface CategoryDonutChartProps {
   data: {
@@ -20,10 +20,10 @@ interface CategoryDonutChartProps {
 
 export const CategoryDonutChart = ({ data }: CategoryDonutChartProps) => {
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
         카테고리별 분포
-      </Typography>
+      </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>
         <PieChart>
           <Pie
@@ -43,6 +43,6 @@ export const CategoryDonutChart = ({ data }: CategoryDonutChartProps) => {
           <Legend />
         </PieChart>
       </ResponsiveContainer>
-    </Box>
+    </Hb.Box>
   );
 };

@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import { LocalFireDepartment } from "@mui/icons-material";
+import { LocalFireDepartment } from "hobom-design-system/icons";
+import { Hb } from "@/shared/ui";
 
 interface StreakBadgeProps {
   currentStreak: number;
@@ -11,13 +11,13 @@ export const StreakBadge = ({
   longestStreak,
 }: StreakBadgeProps) => {
   return (
-    <Box
+    <Hb.Box
       sx={{
         display: "flex",
         gap: 2,
       }}
     >
-      <Box
+      <Hb.Box
         sx={{
           flex: 1,
           p: 2,
@@ -28,14 +28,14 @@ export const StreakBadge = ({
         }}
       >
         <LocalFireDepartment sx={{ color: "warning.main", fontSize: 32 }} />
-        <Typography variant="h4" fontWeight={700}>
+        <Hb.Text variant="h4" fontWeight={700}>
           {currentStreak}
-        </Typography>
-        <Typography variant="caption" color="text.secondary">
+        </Hb.Text>
+        <Hb.Text variant="caption" color="text.secondary">
           현재 연속
-        </Typography>
-      </Box>
-      <Box
+        </Hb.Text>
+      </Hb.Box>
+      <Hb.Box
         sx={{
           flex: 1,
           p: 2,
@@ -46,13 +46,13 @@ export const StreakBadge = ({
         }}
       >
         <LocalFireDepartment sx={{ color: "error.main", fontSize: 32 }} />
-        <Typography variant="h4" fontWeight={700}>
+        <Hb.Text variant="h4" fontWeight={700}>
           {longestStreak}
-        </Typography>
-        <Typography variant="caption" color="text.secondary">
+        </Hb.Text>
+        <Hb.Text variant="caption" color="text.secondary">
           최장 연속
-        </Typography>
-      </Box>
-    </Box>
+        </Hb.Text>
+      </Hb.Box>
+    </Hb.Box>
   );
 };

@@ -1,13 +1,12 @@
 import { Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Box, List, Typography } from "@mui/material";
-import { MenuBook } from "@mui/icons-material";
+import { MenuBook } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import {
   menuQueries,
   MenuRecommendationListItem,
 } from "@/entities/menu-recommendation";
-import { HoBomSkeleton } from "@/shared/ui";
+import { Hb, HoBomSkeleton } from "@/shared/ui";
 
 export const MenuRecommendationList = () => (
   <Suspense
@@ -25,7 +24,7 @@ const Inner = () => {
 
   if (itemList.length === 0) {
     return (
-      <Box
+      <Hb.Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -36,15 +35,15 @@ const Inner = () => {
         }}
       >
         <MenuBook sx={{ fontSize: 64, color: "#dadce0" }} />
-        <Typography variant="body1" sx={{ color: "text.disabled" }}>
+        <Hb.Text variant="body1" sx={{ color: "text.disabled" }}>
           등록된 메뉴가 없어요
-        </Typography>
-      </Box>
+        </Hb.Text>
+      </Hb.Box>
     );
   }
 
   return (
-    <List disablePadding>
+    <Hb.List.Root disablePadding>
       {itemList.map((item, index) => (
         <MenuRecommendationListItem
           key={item.id}
@@ -52,6 +51,6 @@ const Inner = () => {
           showDivider={index < itemList.length - 1}
         />
       ))}
-    </List>
+    </Hb.List.Root>
   );
 };

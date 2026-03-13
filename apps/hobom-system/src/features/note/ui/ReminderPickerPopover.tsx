@@ -1,14 +1,6 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  MenuItem,
-  Popover,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
 import type { NoteRecurrence } from "@/entities/note";
+import { Hb } from "@/shared/ui";
 
 const RECURRENCE_OPTIONS: { value: NoteRecurrence; label: string }[] = [
   { value: "NONE", label: "반복 없음" },
@@ -38,17 +30,17 @@ export const ReminderPickerPopover = ({
   };
 
   return (
-    <Popover
+    <Hb.Popover
       open={!!anchorEl}
       anchorEl={anchorEl}
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <Box sx={{ p: 1.5, minWidth: 240 }}>
-        <Typography variant="caption" fontWeight={600}>
+      <Hb.Box sx={{ p: 1.5, minWidth: 240 }}>
+        <Hb.Text variant="caption" fontWeight={600}>
           리마인더 설정
-        </Typography>
-        <TextField
+        </Hb.Text>
+        <Hb.TextField
           type="datetime-local"
           fullWidth
           size="small"
@@ -56,7 +48,7 @@ export const ReminderPickerPopover = ({
           onChange={(e) => setDate(e.target.value)}
           sx={{ mt: 1 }}
         />
-        <Select
+        <Hb.Form.Select
           value={recurrence}
           onChange={(e) => setRecurrence(e.target.value as NoteRecurrence)}
           size="small"
@@ -64,22 +56,22 @@ export const ReminderPickerPopover = ({
           sx={{ mt: 1 }}
         >
           {RECURRENCE_OPTIONS.map((opt) => (
-            <MenuItem key={opt.value} value={opt.value}>
+            <Hb.Menu.Item key={opt.value} value={opt.value}>
               {opt.label}
-            </MenuItem>
+            </Hb.Menu.Item>
           ))}
-        </Select>
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
-          <Button
+        </Hb.Form.Select>
+        <Hb.Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
+          <Hb.Button
             size="small"
             onClick={handleSet}
             disabled={!date}
             sx={{ textTransform: "none" }}
           >
             설정
-          </Button>
-        </Box>
-      </Box>
-    </Popover>
+          </Hb.Button>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Popover>
   );
 };

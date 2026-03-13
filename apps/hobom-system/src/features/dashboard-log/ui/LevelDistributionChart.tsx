@@ -1,6 +1,6 @@
-import { Box, Typography, LinearProgress } from "@mui/material";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import type { LogLevelCount } from "@/entities/log";
+import { Hb } from "@/shared/ui";
 
 const LEVEL_COLORS: Record<string, string> = {
   DEBUG: "#22d3ee",
@@ -31,11 +31,11 @@ export const LevelDistributionChart = ({
   const total = sorted.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <Box>
-      <Typography variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+    <Hb.Box>
+      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
         로그 레벨 분포
-      </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+      </Hb.Text>
+      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
         <ResponsiveContainer width={180} height={180}>
           <PieChart>
             <Pie
@@ -92,7 +92,7 @@ export const LevelDistributionChart = ({
             </text>
           </PieChart>
         </ResponsiveContainer>
-        <Box
+        <Hb.Box
           sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1.5 }}
         >
           {sorted.map((entry) => {
@@ -100,8 +100,8 @@ export const LevelDistributionChart = ({
             const color = LEVEL_COLORS[entry.level] ?? "#94baff";
 
             return (
-              <Box key={entry.level}>
-                <Box
+              <Hb.Box key={entry.level}>
+                <Hb.Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
@@ -109,8 +109,10 @@ export const LevelDistributionChart = ({
                     mb: 0.25,
                   }}
                 >
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <Box
+                  <Hb.Box
+                    sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                  >
+                    <Hb.Box
                       sx={{
                         width: 8,
                         height: 8,
@@ -119,14 +121,14 @@ export const LevelDistributionChart = ({
                         flexShrink: 0,
                       }}
                     />
-                    <Typography
+                    <Hb.Text
                       variant="body2"
                       sx={{ fontWeight: 600, fontSize: 12 }}
                     >
                       {entry.level}
-                    </Typography>
-                  </Box>
-                  <Typography
+                    </Hb.Text>
+                  </Hb.Box>
+                  <Hb.Text
                     variant="caption"
                     sx={{
                       color: "text.secondary",
@@ -134,9 +136,9 @@ export const LevelDistributionChart = ({
                     }}
                   >
                     {entry.count.toLocaleString()} ({pct.toFixed(1)}%)
-                  </Typography>
-                </Box>
-                <LinearProgress
+                  </Hb.Text>
+                </Hb.Box>
+                <Hb.Progress.Linear
                   variant="determinate"
                   value={pct}
                   sx={{
@@ -149,11 +151,11 @@ export const LevelDistributionChart = ({
                     },
                   }}
                 />
-              </Box>
+              </Hb.Box>
             );
           })}
-        </Box>
-      </Box>
-    </Box>
+        </Hb.Box>
+      </Hb.Box>
+    </Hb.Box>
   );
 };
