@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AddOutlined, DashboardOutlined } from "hobom-design-system/icons";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { useOverlay } from "@/shared/model";
 import { Hb, ConfirmDialog } from "@/shared/ui";
 import { boardQueries, useCreateBoard, useDeleteBoard, type BoardDto } from "@/entities/board";

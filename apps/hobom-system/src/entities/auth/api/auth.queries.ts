@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "hobom-data";
 import { fetchUsers } from "@/entities/auth/api/auth-login.api";
 
 export const authQueries = {

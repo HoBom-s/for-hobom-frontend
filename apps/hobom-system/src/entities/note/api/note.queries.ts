@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "hobom-data";
 import { CACHE_PROFILE } from "@/shared/config";
 import { fetchNotes, fetchNoteById } from "./note.api";
 import type { NoteStatus } from "../model/note.model";

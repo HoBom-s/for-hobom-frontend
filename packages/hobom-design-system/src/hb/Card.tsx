@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
   Card as MuiCard,
   type CardProps as MuiCardProps,
@@ -5,7 +6,6 @@ import {
   CardActions as MuiCardActions,
   CardActionArea,
 } from "@mui/material";
-import type { ReactNode } from "react";
 
 const Root = ({ variant = "outlined", ...props }: MuiCardProps) => (
   <MuiCard variant={variant} {...props} />

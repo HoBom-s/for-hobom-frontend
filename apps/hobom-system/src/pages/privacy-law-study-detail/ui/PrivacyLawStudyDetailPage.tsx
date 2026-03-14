@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowBackOutlined, QuizOutlined } from "hobom-design-system/icons";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { StudyMaterialContent, QuizCard } from "@/features/privacy-law-study";

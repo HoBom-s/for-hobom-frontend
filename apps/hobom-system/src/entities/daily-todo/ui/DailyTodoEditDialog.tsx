@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { Hb } from "@/shared/ui";
 import { todoQueries, useUpdateDailyTodo, type DailyTodoType } from "@/entities/daily-todo";

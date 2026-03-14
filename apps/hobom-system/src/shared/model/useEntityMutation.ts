@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { useToast } from "./useToast";
 import { getErrorMessage } from "../lib/get-error-message.lib";
-import type { MutationOptions } from "@tanstack/react-query";
+import type { MutationOptions } from "hobom-data";
 
 interface EntityMutationConfig<TData, TVariables> {
   mutation: MutationOptions<TData, Error, TVariables>;
@@ -36,16 +36,14 @@ export const useEntityMutation = <TData, TVariables>({
   successMessage,
   errorMessage,
 }: EntityMutationConfig<TData, TVariables>) => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openSuccessToast, openErrorToast } = useToast();
 
   return useMutation({
     ...mutation,
     onSuccess: async (...args) => {
       await mutation.onSuccess?.(...args);
-      await Promise.all(
-        invalidateKeys.map((key) => queryClient.invalidateQueries({ queryKey: key })),
-      );
+      await Promise.all(invalidateKeys.map((key) => dataLot.invalidateQueries({ queryKey: key })));
       if (successMessage) openSuccessToast({ message: successMessage });
     },
     onError: (...args) => {

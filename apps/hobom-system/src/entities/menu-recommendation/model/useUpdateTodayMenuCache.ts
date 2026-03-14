@@ -1,11 +1,11 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useDataLot } from "hobom-data";
 import { menuQueries } from "../api/menu-recommendation.queries";
 import { fetchTodayRecommendedMenu } from "../api/menu-recommendation.api";
 import { useTodayMenuId } from "./useTodayMenuIdContext";
 
 export const useUpdateTodayMenuCache = () => {
   const { todayMenuId } = useTodayMenuId();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
 
   return {
     updateCache: async () => {
@@ -13,7 +13,7 @@ export const useUpdateTodayMenuCache = () => {
       const data = await fetchTodayRecommendedMenu({ id: todayMenuId });
       const key = menuQueries.selectedTodayMenu({ id: todayMenuId }).queryKey;
 
-      queryClient.setQueryData(key, data);
+      dataLot.setQueryData(key, data);
     },
   };
 };

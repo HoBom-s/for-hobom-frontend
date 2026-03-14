@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { useParams } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import { ExamQuestionCard } from "@/features/privacy-law-exam";

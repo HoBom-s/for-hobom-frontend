@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useSuspenseQueries } from "@tanstack/react-query";
+import { useSuspenseQueries } from "hobom-data";
 import { issueQueries } from "@/entities/issue";
 import { sprintQueries } from "@/entities/sprint";
 import { groupIssuesBySprint } from "../lib/backlog-group.lib";

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { useToast } from "@/shared/model";
 import type { HttpResponseType } from "@/shared/api";
 import { noteQueries } from "../api/note.queries";
@@ -7,22 +7,20 @@ import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "./note.model";
 
 export const useToggleNotePin = (status?: NoteStatus) => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const queryOption = noteQueries.list(status);
   const { openSuccessToast } = useToast();
 
   return useMutation({
     ...noteMutations.togglePin(),
     onMutate: async ({ id }) => {
-      await queryClient.cancelQueries(queryOption);
-      const previous = queryClient.getQueryData<HttpResponseType<NoteItemType[]>>(
-        queryOption.queryKey,
-      );
+      await dataLot.cancelQueries(queryOption);
+      const previous = dataLot.getQueryData<HttpResponseType<NoteItemType[]>>(queryOption.queryKey);
 
       const targetNote = previous?.items.find((n) => n.id === id);
       const wasPinned = targetNote?.isPinned ?? false;
 
-      queryClient.setQueryData<HttpResponseType<NoteItemType[]>>(queryOption.queryKey, (old) => {
+      dataLot.setQueryData<HttpResponseType<NoteItemType[]>>(queryOption.queryKey, (old) => {
         if (!old) return old;
 
         return {
@@ -42,11 +40,11 @@ export const useToggleNotePin = (status?: NoteStatus) => {
     },
     onError: (_err, _vars, context) => {
       if (context?.previous) {
-        queryClient.setQueryData(queryOption.queryKey, context.previous);
+        dataLot.setQueryData(queryOption.queryKey, context.previous);
       }
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({
+      await dataLot.invalidateQueries({
         queryKey: noteQueries.notes(),
       });
     },

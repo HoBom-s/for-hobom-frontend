@@ -10,13 +10,13 @@ const setQueryDataMock = vi.fn();
 const invalidateQueriesMock = vi.fn();
 const openErrorToastMock = vi.fn();
 
-vi.mock("@tanstack/react-query", () => ({
+vi.mock("hobom-data", () => ({
   useMutation: (opts: Record<string, unknown>) => {
     const wrappedMutate = (...args: unknown[]) => mutateFnMock(opts, ...args);
 
     return { mutate: wrappedMutate, _opts: opts };
   },
-  useQueryClient: () => ({
+  useDataLot: () => ({
     cancelQueries: cancelQueriesMock,
     getQueryData: getQueryDataMock,
     setQueryData: setQueryDataMock,

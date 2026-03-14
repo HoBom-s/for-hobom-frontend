@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "hobom-data";
 import { CACHE_PROFILE } from "@/shared/config";
 import { fetchDailyTodos, fetchDailyTodosByDate } from "./daily-todo.api";
 import { fetchDailyTodoCategories } from "./daily-todo-category.api";

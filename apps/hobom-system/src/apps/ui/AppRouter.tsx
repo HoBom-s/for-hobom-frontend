@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
+import { useDataLot } from "hobom-data";
 import { RoutesConfig } from "@/shared/config";
 import { AppShell, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
@@ -122,22 +122,23 @@ const prefetchRoute = (path: string) => {
 
 const Shell = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
 
   const handlePrefetch = useCallback(
     (path: string) => {
       prefetchRoute(path);
       const queryPrefetchMap: Record<string, () => void> = {
-        [RoutesConfig.MAIN.DAILY_TODO]: () => queryClient.prefetchQuery(todoQueries.categories()),
+        [RoutesConfig.MAIN.DAILY_TODO]: () => dataLot.prefetchQuery(todoQueries.categories()),
         [RoutesConfig.MENU.RECOMMENDATION]: () =>
-          queryClient.prefetchQuery(menuQueries.recommendationList()),
-        [RoutesConfig.NOTES.LIST]: () => queryClient.prefetchQuery(noteQueries.list()),
-        [RoutesConfig.PROJECTS.LIST]: () => queryClient.prefetchQuery(projectQueries.list()),
-        [RoutesConfig.WIKI.SPACES]: () => queryClient.prefetchQuery(wikiSpaceQueries.list()),
+          dataLot.prefetchQuery(menuQueries.recommendationList()),
+        [RoutesConfig.NOTES.LIST]: () => dataLot.prefetchQuery(noteQueries.list()),
+        [RoutesConfig.PROJECTS.LIST]: () => dataLot.prefetchQuery(projectQueries.list()),
+        [RoutesConfig.WIKI.SPACES]: () => dataLot.prefetchQuery(wikiSpaceQueries.list()),
       };
+
       queryPrefetchMap[path]?.();
     },
-    [queryClient],
+    [dataLot],
   );
 
   return (
@@ -156,12 +157,12 @@ const Shell = ({ children }: { children: React.ReactNode }) => {
 
 export const AppRouter = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openWarnToast } = useToast();
 
   useEffect(() => {
     const handler = () => {
-      queryClient.clear();
+      dataLot.clear();
       openWarnToast({
         message: "인증이 필요해요. 로그인 페이지로 이동합니다.",
       });
@@ -171,7 +172,7 @@ export const AppRouter = () => {
     window.addEventListener(UNAUTHORIZED_EVENT, handler);
 
     return () => window.removeEventListener(UNAUTHORIZED_EVENT, handler);
-  }, [navigate, queryClient, openWarnToast]);
+  }, [navigate, dataLot, openWarnToast]);
 
   // 유휴 시간에 모든 페이지 청크 백그라운드 프리페치
   useEffect(() => {

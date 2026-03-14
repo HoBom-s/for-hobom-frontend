@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { notificationQueries, type ReadFilter } from "@/entities/notification";
 import { FILTER_PREDICATES } from "../lib/notification-filter.lib";

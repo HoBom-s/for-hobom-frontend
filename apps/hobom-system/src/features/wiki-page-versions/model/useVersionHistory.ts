@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "hobom-data";
 import { wikiPageQueries, useRestorePageVersion, type PageVersionType } from "@/entities/wiki-page";
 
 export const useVersionHistory = ({

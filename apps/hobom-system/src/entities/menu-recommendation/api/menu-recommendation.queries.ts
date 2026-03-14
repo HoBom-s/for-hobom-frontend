@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "hobom-data";
 import { fetchMenuRecommendationList, fetchTodayRecommendedMenu } from "./menu-recommendation.api";
 
 export const menuQueries = {

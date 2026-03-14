@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "hobom-data";
 import { postSelectTodayMenu, useUpdateTodayMenuCache } from "@/entities/menu-recommendation";
 import { useToast } from "@/shared/model";
 import { delayThen } from "@/shared/lib";

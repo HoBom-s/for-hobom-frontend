@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { wikiSpaceQueries, SpaceCard, type SpaceType } from "@/entities/wiki-space";
 import { Hb } from "@/shared/ui";
 

@@ -1,19 +1,19 @@
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { hashKey } from "../core/hash-key";
-import { QueryObserver } from "./query-observer";
+import { InfiniteQueryObserver } from "./infinite-query-observer";
 import { useDataLot } from "./use-data-lot";
-import type { QueryKey } from "../core/types";
-import type { UseSuspenseQueryOptions, UseSuspenseQueryResult } from "./types";
+import type { InfiniteData, InfiniteQueryOptions } from "../core/types";
+import type { UseSuspenseInfiniteQueryResult } from "./types";
 
-export function useSuspenseQuery<TData = unknown, TQueryKey extends QueryKey = QueryKey>(
-  options: UseSuspenseQueryOptions<TData, TQueryKey>,
-): UseSuspenseQueryResult<TData> {
+export function useSuspenseInfiniteQuery<TData = unknown, TPageParam = unknown>(
+  options: Omit<InfiniteQueryOptions<TData, TPageParam>, "enabled">,
+): UseSuspenseInfiniteQueryResult<TData, TPageParam> {
   const dataLot = useDataLot();
 
-  const observerRef = useRef<QueryObserver<TData> | null>(null);
+  const observerRef = useRef<InfiniteQueryObserver<TData, TPageParam> | null>(null);
 
   if (!observerRef.current) {
-    observerRef.current = new QueryObserver<TData>(dataLot, {
+    observerRef.current = new InfiniteQueryObserver<TData, TPageParam>(dataLot, {
       ...options,
       enabled: true,
     });
@@ -48,12 +48,20 @@ export function useSuspenseQuery<TData = unknown, TQueryKey extends QueryKey = Q
     throw state.error;
   }
 
+  const data = state.data as InfiniteData<TData, TPageParam>;
+  const lastPage = data.pages[data.pages.length - 1];
+  const hasNextPage =
+    lastPage !== undefined ? options.getNextPageParam(lastPage, data.pages) !== undefined : false;
+
   return {
-    data: state.data as TData,
+    data,
     error: null,
     status: "success",
     fetchStatus: state.fetchStatus,
     isFetching: state.fetchStatus === "fetching",
+    hasNextPage,
+    isFetchingNextPage: false,
+    fetchNextPage: () => observer.fetchNextPage(),
     refetch: () => query.fetch(),
   };
 }

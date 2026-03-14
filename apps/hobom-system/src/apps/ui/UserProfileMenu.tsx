@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { useSuspenseQuery, useDataLot } from "hobom-data";
 import { KeyboardArrowDownOutlined, Logout } from "hobom-design-system/icons";
 import { RoutesConfig } from "@/shared/config";
 import { useToast } from "@/shared/model";
@@ -12,7 +12,7 @@ import { UserDetailSection } from "./UserDetailSection";
 
 export const UserProfileMenu = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { data: user } = useSuspenseQuery(userQueries.me());
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -27,7 +27,7 @@ export const UserProfileMenu = () => {
     } finally {
       setIsLoggingOut(false);
       setAnchorEl(null);
-      queryClient.clear();
+      dataLot.clear();
       navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
     }
   };

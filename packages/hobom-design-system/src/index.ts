@@ -7,8 +7,8 @@ export { ErrorBoundary } from "./components/ErrorBoundary";
 export { Funnel, Step } from "./components/Funnel";
 export type { FunnelProps, StepProps } from "./components/Funnel";
 export { OverlayProvider, OverlayContext } from "./components/OverlayProvider";
-export { Sortable, arrayMove } from "./components/Sortable";
-export type { DragEndEvent, DragStartEvent } from "./components/Sortable";
+export { Sortable, arrayMove, useDroppable } from "./components/Sortable";
+export type { DragEndEvent, DragStartEvent, DragOverEvent } from "./components/Sortable";
 export { SuspenseLoader } from "./components/SuspenseLoader";
 
 import { SkeletonCard } from "./components/SkeletonCard";

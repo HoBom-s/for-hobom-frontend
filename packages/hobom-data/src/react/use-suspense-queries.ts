@@ -78,6 +78,7 @@ export function useSuspenseQueries(options: SuspenseQueriesOptions): SuspenseQue
   }
 
   const getSnapshot = () => cachedResultsRef.current!;
+
   useSyncExternalStore(subscribeAll, getSnapshot, getSnapshot);
 
   // All hooks called — now throw for Suspense if needed
@@ -102,5 +103,17 @@ export function useSuspenseQueries(options: SuspenseQueriesOptions): SuspenseQue
     throw errors[0];
   }
 
-  return cachedResultsRef.current;
+  // Read directly from query state — observer's cached result may be stale
+  // after Suspense throw (mount/useEffect never ran, so no subscription update).
+  return observers.map((observer) => {
+    const state = observer.getQuery().getState();
+    return {
+      data: state.data,
+      error: null,
+      status: "success" as const,
+      fetchStatus: state.fetchStatus,
+      isFetching: state.fetchStatus === "fetching",
+      refetch: () => observer.getQuery().fetch(),
+    };
+  });
 }

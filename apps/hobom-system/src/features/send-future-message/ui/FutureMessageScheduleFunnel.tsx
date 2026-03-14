@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { DatePicker } from "hobom-design-system/date-pickers";
 import { Bom } from "hobom-utils";
 import {
@@ -22,7 +22,7 @@ interface Props {
 export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
   const { setValue, watch, getValues } = useFormContext<FutureMessageSendSchemaType>();
   const { openWarnToast, openSuccessToast, openErrorToast } = useToast();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const sendFutureMessageMutationHandler = useMutation({
     mutationFn: postFutureMessage,
   });
@@ -72,7 +72,7 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
                 (payload) => {
                   sendFutureMessageMutationHandler.mutate(payload, {
                     onSuccess: async () => {
-                      await queryClient.invalidateQueries({
+                      await dataLot.invalidateQueries({
                         queryKey: futureMessageQueries.futureMessages(),
                       });
                       openSuccessToast({

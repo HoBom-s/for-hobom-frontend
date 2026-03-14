@@ -1,5 +1,5 @@
 import { QueryCache } from "./query-cache";
-import type { DefaultOptions, QueryFilters, QueryKey, Updater } from "./types";
+import type { DefaultOptions, QueryFilters, QueryKey, QueryOptions, Updater } from "./types";
 
 export class DataLot {
   private readonly queryCache: QueryCache;
@@ -49,7 +49,7 @@ export class DataLot {
     return newData;
   }
 
-  async invalidates(filters: QueryFilters): Promise<void> {
+  async invalidates(filters?: QueryFilters): Promise<void> {
     const queries = this.queryCache.findAll(filters);
     const refetchPromises = queries.map((query) => {
       if (query.getObserverCount() > 0) {
@@ -64,7 +64,27 @@ export class DataLot {
     await Promise.all(refetchPromises);
   }
 
-  async cancelQueries(filters: QueryFilters): Promise<void> {
+  async invalidateQueries(filters?: QueryFilters): Promise<void> {
+    return this.invalidates(filters);
+  }
+
+  async prefetchQuery<TData>(options: QueryOptions<TData>): Promise<void> {
+    const query = this.queryCache.build<TData>(
+      {
+        ...options,
+        staleTime: options.staleTime ?? this.defaultOptions.queries?.staleTime,
+        gcTime: options.gcTime ?? this.defaultOptions.queries?.gcTime,
+      },
+      this.defaultOptions.queries?.staleTime,
+      this.defaultOptions.queries?.gcTime,
+    );
+
+    if (query.isStale()) {
+      await query.fetch().catch(() => undefined);
+    }
+  }
+
+  async cancelQueries(filters?: QueryFilters): Promise<void> {
     const queries = this.queryCache.findAll(filters);
 
     for (const query of queries) {

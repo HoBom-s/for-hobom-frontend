@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { DataLotProvider } from "hobom-data";
 import { MemoryRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { ErrorBoundary } from "@/shared/ui";
-import { createTestQueryClient } from "@/test/create-wrapper";
+import { createTestDataLot } from "@/test/create-wrapper";
 
 vi.mock("@/shared/lib", () => ({
   reportError: vi.fn(),
@@ -45,7 +45,7 @@ describe("ErrorBoundary 통합: 라우트 연동", () => {
 
   it("자식 컴포넌트가 throw하면 인라인 fallback UI를 표시한다", () => {
     render(
-      <QueryClientProvider client={createTestQueryClient()}>
+      <DataLotProvider client={createTestDataLot()}>
         <MemoryRouter initialEntries={["/page-a"]}>
           <Routes>
             <Route
@@ -58,7 +58,7 @@ describe("ErrorBoundary 통합: 라우트 연동", () => {
             />
           </Routes>
         </MemoryRouter>
-      </QueryClientProvider>,
+      </DataLotProvider>,
     );
 
     expect(screen.getByText("문제가 발생했어요")).toBeDefined();
@@ -66,7 +66,7 @@ describe("ErrorBoundary 통합: 라우트 연동", () => {
 
   it("다른 라우트로 이동하면 에러 상태가 리셋된다", () => {
     render(
-      <QueryClientProvider client={createTestQueryClient()}>
+      <DataLotProvider client={createTestDataLot()}>
         <MemoryRouter initialEntries={["/page-a"]}>
           <NavButton to="/page-b" />
           <Routes>
@@ -88,7 +88,7 @@ describe("ErrorBoundary 통합: 라우트 연동", () => {
             />
           </Routes>
         </MemoryRouter>
-      </QueryClientProvider>,
+      </DataLotProvider>,
     );
 
     expect(screen.getByText("문제가 발생했어요")).toBeDefined();
@@ -99,9 +99,9 @@ describe("ErrorBoundary 통합: 라우트 연동", () => {
     expect(screen.queryByText("문제가 발생했어요")).toBeNull();
   });
 
-  it('"다시 시도" 버튼 클릭 시 queryClient.invalidateQueries를 호출하고 에러를 리셋한다', () => {
-    const queryClient = createTestQueryClient();
-    const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
+  it('"다시 시도" 버튼 클릭 시 dataLot.invalidateQueries를 호출하고 에러를 리셋한다', () => {
+    const dataLot = createTestDataLot();
+    const invalidateSpy = vi.spyOn(dataLot, "invalidateQueries");
 
     /**
      * React 18+ concurrent mode에서는 에러 발생 시 렌더를 재시도한다.
@@ -116,7 +116,7 @@ describe("ErrorBoundary 통합: 라우트 연동", () => {
     };
 
     render(
-      <QueryClientProvider client={queryClient}>
+      <DataLotProvider client={dataLot}>
         <MemoryRouter initialEntries={["/page-a"]}>
           <Routes>
             <Route
@@ -129,7 +129,7 @@ describe("ErrorBoundary 통합: 라우트 연동", () => {
             />
           </Routes>
         </MemoryRouter>
-      </QueryClientProvider>,
+      </DataLotProvider>,
     );
 
     expect(screen.getByText("문제가 발생했어요")).toBeDefined();

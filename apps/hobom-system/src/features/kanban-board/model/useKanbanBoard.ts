@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { issueQueries, buildIssueTree, type IssueType } from "@/entities/issue";
 import type { ColumnMap } from "../lib/kanban-dnd.lib";

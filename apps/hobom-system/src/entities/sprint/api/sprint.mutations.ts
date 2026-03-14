@@ -1,4 +1,4 @@
-import { mutationOptions } from "@tanstack/react-query";
+import { mutationOptions } from "hobom-data";
 import {
   postCreateSprint,
   patchUpdateSprint,

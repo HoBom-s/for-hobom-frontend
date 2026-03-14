@@ -1,4 +1,4 @@
-import type { QueryKey, QueryOptions, MutationOptions } from "../core/types";
+import type { QueryKey, QueryOptions, MutationOptions, InfiniteData } from "../core/types";
 
 export interface UseQueryOptions<
   TData = unknown,
@@ -67,4 +67,32 @@ export interface MutateCallbacks<TData = unknown, TError = Error, TVariables = v
   onSuccess?: (data: TData, variables: TVariables) => void;
   onError?: (error: TError, variables: TVariables) => void;
   onSettled?: (data: TData | undefined, error: TError | null, variables: TVariables) => void;
+}
+
+export interface UseInfiniteQueryResult<TData = unknown, TPageParam = unknown, TError = Error> {
+  data: InfiniteData<TData, TPageParam> | undefined;
+  error: TError | null;
+  status: "pending" | "success" | "error";
+  fetchStatus: "idle" | "fetching";
+  isLoading: boolean;
+  isFetching: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  isPending: boolean;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  fetchNextPage: () => Promise<void>;
+  refetch: () => Promise<InfiniteData<TData, TPageParam>>;
+}
+
+export interface UseSuspenseInfiniteQueryResult<TData = unknown, TPageParam = unknown> {
+  data: InfiniteData<TData, TPageParam>;
+  error: null;
+  status: "success";
+  fetchStatus: "idle" | "fetching";
+  isFetching: boolean;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  fetchNextPage: () => Promise<void>;
+  refetch: () => Promise<InfiniteData<TData, TPageParam>>;
 }

@@ -1,4 +1,4 @@
-import { mutationOptions } from "@tanstack/react-query";
+import { mutationOptions } from "hobom-data";
 import { postAskQuestion, postFetchLaw, postGenerateExam } from "./privacy-law.api";
 
 export const privacyLawMutations = {

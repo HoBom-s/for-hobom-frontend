@@ -2,7 +2,7 @@ import { createContext, useContext, type ReactNode } from "react";
 import {
   DndContext,
   DragOverlay,
-  closestCorners,
+  closestCenter,
   PointerSensor,
   useSensor,
   useSensors,
@@ -80,14 +80,23 @@ const Root = ({
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCorners}
+      collisionDetection={closestCenter}
       onDragStart={onDragStart}
       onDragOver={onDragOver}
       onDragEnd={onDragEnd}
       onDragCancel={onDragCancel}
     >
       {children}
-      {overlay !== undefined && <DragOverlay>{overlay}</DragOverlay>}
+      {overlay !== undefined && (
+        <DragOverlay
+          dropAnimation={{
+            duration: 200,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        >
+          {overlay}
+        </DragOverlay>
+      )}
     </DndContext>
   );
 };
@@ -113,6 +122,11 @@ const List = ({ children, items, strategy = "rect" }: ListProps) => (
 );
 
 /* ── Item ── */
+
+const SMOOTH_TRANSITION = {
+  duration: 200,
+  easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+};
 
 interface ItemProps {
   children: ReactNode;
@@ -142,13 +156,9 @@ const Item = ({
     transition,
     isDragging,
     isOver,
-  } = useSortable({ id });
+  } = useSortable({ id, transition: SMOOTH_TRANSITION });
 
-  const dragStyle: React.CSSProperties = isDragging
-    ? placeholderStyle
-      ? { ...placeholderStyle, opacity: 0, visibility: "hidden" as const }
-      : { opacity: 0.5, zIndex: 1 }
-    : {};
+  const dragStyle: React.CSSProperties = isDragging ? (placeholderStyle ?? { opacity: 0.4 }) : {};
 
   const hoverStyle: React.CSSProperties = isOver && !isDragging && overStyle ? overStyle : {};
 
@@ -163,11 +173,17 @@ const Item = ({
           ...style,
           transform: CSS.Translate.toString(transform),
           transition: transition ?? undefined,
+          willChange: transform ? "transform" : undefined,
+          backfaceVisibility: "hidden",
           ...dragStyle,
           ...hoverStyle,
         }}
       >
-        {children}
+        <div
+          style={isDragging && placeholderStyle ? { opacity: 0, pointerEvents: "none" } : undefined}
+        >
+          {children}
+        </div>
       </div>
     </SortableItemContext.Provider>
   );
@@ -201,4 +217,5 @@ const Handle = ({ children, className, style }: HandleProps) => {
 };
 
 export const Sortable = { Root, List, Item, Handle };
-export type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+export type { DragEndEvent, DragStartEvent, DragOverEvent } from "@dnd-kit/core";
+export { useDroppable } from "@dnd-kit/core";

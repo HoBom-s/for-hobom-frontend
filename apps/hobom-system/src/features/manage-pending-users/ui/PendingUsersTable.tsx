@@ -4,7 +4,7 @@ import {
   HourglassEmptyOutlined,
   PersonOutline,
 } from "hobom-design-system/icons";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { adminUserQueries, type PendingUserType } from "@/entities/admin-user";
 import { useOverlay } from "@/shared/model";
 import { Hb, ConfirmDialog } from "@/shared/ui";

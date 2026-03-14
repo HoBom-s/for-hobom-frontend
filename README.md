@@ -1,6 +1,6 @@
 # HoBom Frontend
 
-> Desktop backoffice application built with React 19 + TypeScript + Vite, following Feature-Sliced Design (FSD) architecture.
+> Desktop application built with React 19 + TypeScript + Vite, following Feature-Sliced Design (FSD) architecture.
 
 ---
 

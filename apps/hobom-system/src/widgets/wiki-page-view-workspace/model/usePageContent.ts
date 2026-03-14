@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSuspenseQueries } from "@tanstack/react-query";
+import { useSuspenseQueries } from "hobom-data";
 import { wikiPageQueries, useDeletePage } from "@/entities/wiki-page";
 import { userQueries } from "@/entities/user";
 

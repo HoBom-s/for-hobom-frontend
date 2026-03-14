@@ -13,7 +13,7 @@ vi.mock("react-router-dom", () => ({
 
 const useSuspenseQueriesMock = vi.fn();
 
-vi.mock("@tanstack/react-query", () => ({
+vi.mock("hobom-data", () => ({
   useSuspenseQueries: (opts: unknown) => useSuspenseQueriesMock(opts),
 }));
 

@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { useToast } from "@/shared/model";
-import type { NoteItemType } from "../api/note.type";
-import type { NoteStatus } from "../model/note.model";
 import { noteQueries } from "../api/note.queries";
 import { noteMutations } from "../api/note.mutations";
+import type { NoteItemType } from "../api/note.type";
+import type { NoteStatus } from "../model/note.model";
 
 const STATUS_LABEL = {
   ACTIVE: "활성",
@@ -12,7 +12,7 @@ const STATUS_LABEL = {
 } as const;
 
 export const useUpdateNoteStatus = (currentStatus?: NoteStatus) => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openSuccessToast, openErrorToast } = useToast();
 
   const queryKey = currentStatus ? noteQueries.list(currentStatus).queryKey : undefined;
@@ -22,10 +22,10 @@ export const useUpdateNoteStatus = (currentStatus?: NoteStatus) => {
     onMutate: async (variables) => {
       if (!queryKey) return;
 
-      await queryClient.cancelQueries({ queryKey });
-      const previousData = queryClient.getQueryData(queryKey);
+      await dataLot.cancelQueries({ queryKey });
+      const previousData = dataLot.getQueryData(queryKey);
 
-      queryClient.setQueryData<{ items: NoteItemType[] }>(queryKey, (old) => {
+      dataLot.setQueryData<{ items: NoteItemType[] }>(queryKey, (old) => {
         if (!old) return;
 
         return {
@@ -38,7 +38,7 @@ export const useUpdateNoteStatus = (currentStatus?: NoteStatus) => {
     },
     onError: (_err, _variables, context) => {
       if (queryKey && context?.previousData != null) {
-        queryClient.setQueryData(queryKey, context.previousData);
+        dataLot.setQueryData(queryKey, context.previousData);
       }
       openErrorToast({ message: "노트 상태를 변경하지 못했어요." });
     },
@@ -48,7 +48,7 @@ export const useUpdateNoteStatus = (currentStatus?: NoteStatus) => {
       openSuccessToast({ message: `노트를 ${label}(으)로 이동했어요.` });
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({
+      await dataLot.invalidateQueries({
         queryKey: noteQueries.notes(),
       });
     },

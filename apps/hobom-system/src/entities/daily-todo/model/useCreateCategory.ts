@@ -1,16 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { useToast } from "@/shared/model";
 import { todoQueries } from "@/entities/daily-todo";
 import { categoryMutations } from "../api/daily-todo-category.mutations";
 
 export const useCreateCategory = () => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openSuccessToast, openErrorToast } = useToast();
 
   return useMutation({
     ...categoryMutations.create(),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
+      await dataLot.invalidateQueries({
         queryKey: todoQueries.categories().queryKey,
       });
       openSuccessToast({ message: "카테고리를 생성했어요." });

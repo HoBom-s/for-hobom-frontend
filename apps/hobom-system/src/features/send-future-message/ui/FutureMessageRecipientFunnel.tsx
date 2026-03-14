@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { authQueries } from "@/entities/auth";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
 import { RoutesConfig } from "@/shared/config";

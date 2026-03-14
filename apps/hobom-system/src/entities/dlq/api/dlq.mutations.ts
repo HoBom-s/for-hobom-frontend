@@ -1,4 +1,4 @@
-import { mutationOptions } from "@tanstack/react-query";
+import { mutationOptions } from "hobom-data";
 import { retryDlqItem } from "./dlq.api";
 
 export const dlqMutations = {

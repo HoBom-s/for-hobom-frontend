@@ -2,7 +2,7 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { server } from "@/test/msw-server";
 import { setupMSW } from "@/test/setup";
-import { createWrapper, createTestQueryClient } from "@/test/create-wrapper";
+import { createWrapper, createTestDataLot } from "@/test/create-wrapper";
 import { useIssueDetailState } from "@/features/issue-detail/model/useIssueDetailState";
 import type { IssueType } from "@/entities/issue";
 import type { SprintType } from "@/entities/sprint";
@@ -231,11 +231,10 @@ describe("useIssueDetailState (integration)", () => {
   it("enabled=false이면 모든 쿼리가 미실행되어 데이터가 undefined이다", async () => {
     setupHandlers();
 
-    const queryClient = createTestQueryClient();
-    const fetchSpy = vi.spyOn(queryClient, "fetchQuery");
+    const dataLot = createTestDataLot();
 
     const { result } = renderHook(() => useIssueDetailState(PROJECT_ID, "issue-1", false), {
-      wrapper: createWrapper(queryClient),
+      wrapper: createWrapper(dataLot),
     });
 
     // 약간의 시간을 두고 확인 — 쿼리가 실행되지 않았는지
@@ -245,6 +244,9 @@ describe("useIssueDetailState (integration)", () => {
     expect(result.current.activeSprints).toEqual([]);
     expect(result.current.projectMembers).toEqual([]);
     expect(result.current.progress).toBeNull();
-    expect(fetchSpy).not.toHaveBeenCalled();
+    // enabled=false이므로 캐시에 쿼리 객체는 존재해도 모두 pending 상태
+    for (const query of dataLot.getQueryCache().findAll()) {
+      expect(query.getState().status).toBe("pending");
+    }
   });
 });

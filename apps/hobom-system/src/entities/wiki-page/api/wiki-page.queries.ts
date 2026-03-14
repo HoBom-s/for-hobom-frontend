@@ -1,4 +1,4 @@
-import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
+import { queryOptions, infiniteQueryOptions } from "hobom-data";
 import {
   fetchPageTree,
   fetchPageById,

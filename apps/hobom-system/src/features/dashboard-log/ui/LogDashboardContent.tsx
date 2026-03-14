@@ -1,4 +1,4 @@
-import { useSuspenseQueries } from "@tanstack/react-query";
+import { useSuspenseQueries } from "hobom-data";
 import {
   Http,
   ErrorOutline,

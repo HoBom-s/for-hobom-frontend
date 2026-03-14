@@ -1,17 +1,17 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DataLot, DataLotProvider } from "hobom-data";
 import { ErrorBoundary } from "./ErrorBoundary";
 
 const createWrapper = () => {
-  const queryClient = new QueryClient({
+  const dataLot = new DataLot({
     defaultOptions: { queries: { retry: false } },
   });
 
   return {
-    queryClient,
+    dataLot,
     Wrapper: ({ children }: { children: React.ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <DataLotProvider client={dataLot}>{children}</DataLotProvider>
     ),
   };
 };
@@ -93,9 +93,9 @@ describe("ErrorBoundary", () => {
     expect(screen.getByText("정상 렌더링")).toBeDefined();
   });
 
-  it("다시 시도 버튼 클릭 시 queryClient.invalidateQueries를 호출한다", () => {
-    const { queryClient, Wrapper } = createWrapper();
-    const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
+  it("다시 시도 버튼 클릭 시 dataLot.invalidateQueries를 호출한다", () => {
+    const { dataLot, Wrapper } = createWrapper();
+    const invalidateSpy = vi.spyOn(dataLot, "invalidateQueries");
 
     render(
       <Wrapper>

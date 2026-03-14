@@ -1,7 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { ReportProblemOutlined, RefreshOutlined } from "@mui/icons-material";
-import { useQueryClient, type QueryClient } from "@tanstack/react-query";
+import { useDataLot, type DataLot } from "hobom-data";
 
 interface Props {
   children: ReactNode;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 interface InternalProps extends Props {
-  queryClient: QueryClient;
+  dataLot: DataLot;
 }
 
 interface State {
@@ -41,7 +41,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
   }
 
   private handleReset = () => {
-    this.props.queryClient.invalidateQueries();
+    this.props.dataLot.invalidateQueries();
     this.setState({ hasError: false, error: null });
   };
 
@@ -159,11 +159,11 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
  *
  * - `resetKey` 변경 시 에러 상태를 자동 리셋
  * - `inline` 모드에서는 100vh 대신 콘텐츠 영역 내에서만 fallback 표시
- * - "다시 시도" 버튼 클릭 시 `queryClient.invalidateQueries()`를 호출하여 모든 쿼리를 재요청
+ * - "다시 시도" 버튼 클릭 시 `dataLot.invalidateQueries()`를 호출하여 모든 쿼리를 재요청
  * - 에러 발생 시 `reportError`를 통해 componentStack과 함께 로깅
  */
 export const ErrorBoundary = (props: Props) => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
 
-  return <ErrorBoundaryInner {...props} queryClient={queryClient} />;
+  return <ErrorBoundaryInner {...props} dataLot={dataLot} />;
 };

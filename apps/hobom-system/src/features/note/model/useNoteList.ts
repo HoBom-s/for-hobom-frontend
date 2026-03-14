@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { noteQueries } from "@/entities/note";
 import type { NoteStatus } from "@/entities/note";
 import { partitionNotesLib } from "../lib/partition-notes.lib.ts";

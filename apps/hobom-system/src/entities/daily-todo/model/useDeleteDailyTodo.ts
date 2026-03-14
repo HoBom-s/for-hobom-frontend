@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { useToast, useRouterQuery } from "@/shared/model";
 import type { HttpResponseType } from "@/shared/api";
@@ -17,7 +17,7 @@ const UNDO_DELAY = 5_000;
 export const useDeleteDailyTodo = () => {
   const { query } = useRouterQuery();
   const now = getNow();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openUndoToast, openErrorToast } = useToast();
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -37,8 +37,8 @@ export const useDeleteDailyTodo = () => {
     ...todoMutations.delete(),
     onSettled: async () => {
       await Promise.all([
-        queryClient.invalidateQueries(todoQueries.categories()),
-        queryClient.invalidateQueries(queryOption),
+        dataLot.invalidateQueries(todoQueries.categories()),
+        dataLot.invalidateQueries(queryOption),
       ]);
     },
     onError: () => {
@@ -50,9 +50,9 @@ export const useDeleteDailyTodo = () => {
 
   const mutate = useCallback(
     ({ id }: { id: string }) => {
-      const previousData = queryClient.getQueryData(queryKey);
+      const previousData = dataLot.getQueryData(queryKey);
 
-      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
+      dataLot.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
         if (!old) return;
 
         return {
@@ -68,7 +68,7 @@ export const useDeleteDailyTodo = () => {
         timerRef.current = undefined;
         rollbackRef.current = null;
         if (previousData != null) {
-          queryClient.setQueryData(queryKey, previousData);
+          dataLot.setQueryData(queryKey, previousData);
         }
       };
 
@@ -84,7 +84,7 @@ export const useDeleteDailyTodo = () => {
         onUndo: undo,
       });
     },
-    [queryClient, queryKey, apiDelete, openUndoToast],
+    [dataLot, queryKey, apiDelete, openUndoToast],
   );
 
   return { mutate, isPending: apiDelete.isPending };

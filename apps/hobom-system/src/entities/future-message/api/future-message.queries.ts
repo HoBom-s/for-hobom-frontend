@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "hobom-data";
 import { CACHE_PROFILE } from "@/shared/config";
 import { fetchFutureMessageByStatus } from "./future-message.api";
 import type { FutureMessageSendStatusType } from "../model/future-message-send-status.model";

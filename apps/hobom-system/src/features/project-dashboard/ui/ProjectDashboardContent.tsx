@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { dashboardQueries } from "@/entities/dashboard";
 import { sprintQueries } from "@/entities/sprint";
 import { useProjectContext } from "@/shared/model";

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "hobom-data";
 import { useToast } from "@/shared/model";
 import { useTodayMenuId } from "./useTodayMenuIdContext";
 import { menuMutations } from "../api/menu-recommendation.mutations";

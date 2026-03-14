@@ -42,7 +42,6 @@ export const DailyTodoWorkspace = () => {
         gap: 2,
       }}
     >
-      {/* 왼쪽: 캘린더 */}
       <Hb.Paper
         elevation={0}
         sx={{
@@ -58,8 +57,6 @@ export const DailyTodoWorkspace = () => {
           <Calendar />
         </Calendar.WithSuspense>
       </Hb.Paper>
-
-      {/* 오른쪽: 할 일 목록 */}
       <Hb.Paper
         elevation={0}
         sx={{
@@ -76,7 +73,9 @@ export const DailyTodoWorkspace = () => {
       >
         <DateHeader />
         <Hb.Box sx={{ flexGrow: 1, overflowY: "auto", minHeight: 0 }}>
-          <DailyTodoList />
+          <DailyTodoList.WithSuspense>
+            <DailyTodoList />
+          </DailyTodoList.WithSuspense>
         </Hb.Box>
       </Hb.Paper>
     </Hb.Box>

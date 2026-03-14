@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { useSuspenseQueries } from "@tanstack/react-query";
+import { useSuspenseQueries } from "hobom-data";
 import {
   projectQueries,
   buildStatusesFromColumns,

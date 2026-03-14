@@ -1,5 +1,5 @@
 import { type ReactNode, Suspense } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import {
   DayCalendarSkeleton,
   LocalizationProvider,

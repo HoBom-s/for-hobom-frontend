@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "hobom-data";
 import { fetchPendingUsers } from "./admin-user.api";
 
 export const adminUserQueries = {

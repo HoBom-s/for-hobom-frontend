@@ -1,5 +1,5 @@
 import { type ReactNode, Suspense } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { FutureMessageGrid } from "@/features/send-future-message/ui/FutureMessageGrid";
 import { futureMessageQueries, type FutureMessageSendStatusType } from "@/entities/future-message";
 import { useRouterQuery } from "@/shared/model";

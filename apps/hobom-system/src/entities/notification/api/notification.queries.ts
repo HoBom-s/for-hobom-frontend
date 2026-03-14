@@ -1,4 +1,4 @@
-import { infiniteQueryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions } from "hobom-data";
 import { fetchNotificationPage } from "./notification.api";
 
 export const notificationQueries = {

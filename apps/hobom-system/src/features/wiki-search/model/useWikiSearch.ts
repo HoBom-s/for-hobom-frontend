@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { wikiPageQueries } from "@/entities/wiki-page";
 
 export const useWikiSearch = (spaceKey: string) => {

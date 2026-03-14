@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { projectQueries } from "@/entities/project";
 import { Hb } from "@/shared/ui";
 import { GeneralSettingsSection } from "./GeneralSettingsSection";

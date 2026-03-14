@@ -5,7 +5,7 @@ import type { IssueType } from "@/entities/issue";
 const useQueryMock = vi.fn();
 const useProjectContextMock = vi.fn();
 
-vi.mock("@tanstack/react-query", () => ({
+vi.mock("hobom-data", () => ({
   useQuery: (opts: Record<string, unknown>) => useQueryMock(opts),
 }));
 

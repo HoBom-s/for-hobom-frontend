@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useDataLot, useSuspenseQuery } from "hobom-data";
 import { AssignmentOutlined, AddCircleOutline, QuizOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries, privacyLawMutations } from "@/entities/privacy-law";
 import { useToast } from "@/shared/model";
@@ -8,7 +8,7 @@ import { Hb } from "@/shared/ui";
 
 export const ExamList = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { data } = useSuspenseQuery(privacyLawQueries.exams());
   const toast = useToast();
   const exams = data.items;
@@ -16,7 +16,7 @@ export const ExamList = () => {
   const { mutate: generate, isPending } = useMutation({
     ...privacyLawMutations.generateExam(),
     onSuccess: (res) => {
-      queryClient.invalidateQueries({ queryKey: privacyLawQueries.all() });
+      dataLot.invalidateQueries({ queryKey: privacyLawQueries.all() });
       toast.openSuccessToast({
         message: "모의고사 문제를 생성했어요. 이동할게요.",
       });

@@ -1,4 +1,4 @@
-import { mutationOptions } from "@tanstack/react-query";
+import { mutationOptions } from "hobom-data";
 import { patchApproveUser, patchRejectUser } from "./admin-user.api";
 
 export const adminUserMutations = {

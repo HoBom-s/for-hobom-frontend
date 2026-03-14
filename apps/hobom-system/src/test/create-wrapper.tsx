@@ -1,18 +1,18 @@
 import type { ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DataLot, DataLotProvider } from "hobom-data";
 
-export const createTestQueryClient = () =>
-  new QueryClient({
+export const createTestDataLot = () =>
+  new DataLot({
     defaultOptions: {
       queries: { retry: false },
       mutations: { retry: false },
     },
   });
 
-export const createWrapper = (queryClient?: QueryClient) => {
-  const client = queryClient ?? createTestQueryClient();
+export const createWrapper = (dataLot?: DataLot) => {
+  const client = dataLot ?? createTestDataLot();
 
   return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={client}>{children}</QueryClientProvider>
+    <DataLotProvider client={client}>{children}</DataLotProvider>
   );
 };

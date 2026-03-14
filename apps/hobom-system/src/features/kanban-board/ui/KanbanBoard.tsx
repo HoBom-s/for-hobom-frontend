@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { ViewStreamOutlined } from "hobom-design-system/icons";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import {
   IssueCard,
   getDescendantProgress,
@@ -9,13 +9,18 @@ import {
 } from "@/entities/issue";
 import { boardQueries, DEFAULT_BOARD_COLUMNS, type BoardColumn } from "@/entities/board";
 import { useProjectContext } from "@/shared/model";
-import { Hb, Sortable, type DragEndEvent, type DragStartEvent } from "@/shared/ui";
+import {
+  Hb,
+  Sortable,
+  type DragEndEvent,
+  type DragStartEvent,
+  type DragOverEvent,
+} from "@/shared/ui";
 import { useKanbanBoard } from "../model/useKanbanBoard";
 import { useKanbanDnd } from "../model/useKanbanDnd";
 import { useKanbanFilters } from "../model/useKanbanFilters";
 import { KanbanContext } from "../model/useKanbanContext";
 import { KanbanColumn } from "./KanbanColumn";
-import type { DragOverEvent } from "@dnd-kit/core";
 
 interface KanbanBoardProps {
   projectId: string;

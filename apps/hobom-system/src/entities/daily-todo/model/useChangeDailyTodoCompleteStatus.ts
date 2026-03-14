@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { useToast } from "@/shared/model";
 import type { HttpResponseType } from "@/shared/api";
@@ -14,7 +14,7 @@ import { todoMutations } from "../api/daily-todo.mutations";
  * Update item's complete status by optimistic update
  */
 export const useChangeDailyTodoCompleteStatus = (dailyTodoItem: DailyTodoType) => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openSuccessToast, openErrorToast } = useToast();
 
   const queryOption = Bom.pipe(
@@ -28,10 +28,10 @@ export const useChangeDailyTodoCompleteStatus = (dailyTodoItem: DailyTodoType) =
   return useMutation({
     ...todoMutations.changeCompleteStatus(),
     onMutate: async ({ status }) => {
-      await queryClient.cancelQueries(queryOption);
-      const previousData = queryClient.getQueryData(queryKey);
+      await dataLot.cancelQueries(queryOption);
+      const previousData = dataLot.getQueryData(queryKey);
 
-      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
+      dataLot.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
         if (old == null) return;
 
         const items = Bom.prop(old, "items");
@@ -54,7 +54,7 @@ export const useChangeDailyTodoCompleteStatus = (dailyTodoItem: DailyTodoType) =
     },
     onError: (_err, _variables, context) => {
       if (context?.previousData != null) {
-        queryClient.setQueryData(queryKey, context.previousData);
+        dataLot.setQueryData(queryKey, context.previousData);
       }
       openErrorToast({ message: "상태를 변경하지 못했어요." });
     },
@@ -62,7 +62,7 @@ export const useChangeDailyTodoCompleteStatus = (dailyTodoItem: DailyTodoType) =
       openSuccessToast({ message: "상태를 변경했어요." });
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries(queryOption);
+      await dataLot.invalidateQueries(queryOption);
     },
   });
 };

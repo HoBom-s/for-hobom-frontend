@@ -3,7 +3,7 @@ import { http, HttpResponse } from "msw";
 import { toast } from "react-toastify";
 import { server } from "@/test/msw-server";
 import { setupMSW } from "@/test/setup";
-import { createWrapper, createTestQueryClient } from "@/test/create-wrapper";
+import { createWrapper, createTestDataLot } from "@/test/create-wrapper";
 import { useAssignIssue } from "@/entities/issue";
 import type { IssueType } from "@/entities/issue";
 import type { HttpResponseType } from "@/shared/api";
@@ -51,13 +51,13 @@ describe("useAssignIssue (integration)", () => {
       http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
-    const queryClient = createTestQueryClient();
+    const dataLot = createTestDataLot();
 
-    queryClient.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
-    const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
+    dataLot.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
+    const invalidateSpy = vi.spyOn(dataLot, "invalidateQueries");
 
     const { result } = renderHook(() => useAssignIssue(PROJECT_ID), {
-      wrapper: createWrapper(queryClient),
+      wrapper: createWrapper(dataLot),
     });
 
     result.current.mutate({
@@ -79,12 +79,12 @@ describe("useAssignIssue (integration)", () => {
       http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
-    const queryClient = createTestQueryClient();
+    const dataLot = createTestDataLot();
 
-    queryClient.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
+    dataLot.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
 
     const { result } = renderHook(() => useAssignIssue(PROJECT_ID), {
-      wrapper: createWrapper(queryClient),
+      wrapper: createWrapper(dataLot),
     });
 
     result.current.mutate({
@@ -94,7 +94,7 @@ describe("useAssignIssue (integration)", () => {
     });
 
     await waitFor(() => {
-      const cached = queryClient.getQueryData<HttpResponseType<IssueType[]>>([
+      const cached = dataLot.getQueryData<HttpResponseType<IssueType[]>>([
         "issues",
         "list",
         PROJECT_ID,
@@ -112,12 +112,12 @@ describe("useAssignIssue (integration)", () => {
       http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
-    const queryClient = createTestQueryClient();
+    const dataLot = createTestDataLot();
 
-    queryClient.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
+    dataLot.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
 
     const { result } = renderHook(() => useAssignIssue(PROJECT_ID), {
-      wrapper: createWrapper(queryClient),
+      wrapper: createWrapper(dataLot),
     });
 
     result.current.mutate({
@@ -130,7 +130,7 @@ describe("useAssignIssue (integration)", () => {
       expect(toast.error).toHaveBeenCalledWith("담당자를 변경하지 못했어요.");
     });
 
-    const cached = queryClient.getQueryData<HttpResponseType<IssueType[]>>([
+    const cached = dataLot.getQueryData<HttpResponseType<IssueType[]>>([
       "issues",
       "list",
       PROJECT_ID,
@@ -147,12 +147,12 @@ describe("useAssignIssue (integration)", () => {
       http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
-    const queryClient = createTestQueryClient();
+    const dataLot = createTestDataLot();
 
-    queryClient.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
+    dataLot.setQueryData(["issues", "list", PROJECT_ID], ISSUES_RESPONSE);
 
     const { result } = renderHook(() => useAssignIssue(PROJECT_ID), {
-      wrapper: createWrapper(queryClient),
+      wrapper: createWrapper(dataLot),
     });
 
     result.current.mutate({
@@ -165,7 +165,7 @@ describe("useAssignIssue (integration)", () => {
       expect(toast.error).toHaveBeenCalledWith("담당자를 변경하지 못했어요.");
     });
 
-    const cached = queryClient.getQueryData<HttpResponseType<IssueType[]>>([
+    const cached = dataLot.getQueryData<HttpResponseType<IssueType[]>>([
       "issues",
       "list",
       PROJECT_ID,

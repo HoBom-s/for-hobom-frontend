@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { menuQueries } from "@/entities/menu-recommendation";
 

@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { CloseOutlined, Replay } from "hobom-design-system/icons";
 import { dlqQueries } from "@/entities/dlq";
 import { Hb } from "@/shared/ui";

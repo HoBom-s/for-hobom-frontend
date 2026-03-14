@@ -1,6 +1,6 @@
 import { DeleteOutline } from "hobom-design-system/icons";
 import { useNavigate } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { useOverlay } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { Hb, ConfirmDialog } from "@/shared/ui";

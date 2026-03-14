@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { Speed, CheckCircle, ErrorOutline, HourglassEmpty } from "hobom-design-system/icons";
 import {
   DashboardPaper,

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { ArrowForwardOutlined, CompareArrowsOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";

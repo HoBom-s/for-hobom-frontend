@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AddOutlined } from "hobom-design-system/icons";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { Hb } from "@/shared/ui";
 import { projectLabelQueries } from "../api/project-label.queries";
 import { useCreateProjectLabel } from "../model/useCreateProjectLabel";

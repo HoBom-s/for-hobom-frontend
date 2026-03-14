@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { dlqQueries } from "@/entities/dlq";
 
 export const useDlqList = () => {

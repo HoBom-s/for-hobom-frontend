@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import {
   PARENT_ISSUE_KINDS,
   issueQueries,

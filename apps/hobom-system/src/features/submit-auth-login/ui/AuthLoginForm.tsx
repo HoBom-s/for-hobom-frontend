@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { NicknameField, PasswordField } from "@/features/submit-auth-login";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
@@ -20,7 +20,7 @@ export const AuthLoginForm = () => {
       password: "",
     },
   });
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { mutateAsync, isPending } = useMutation({ mutationFn: postAuthLogin });
   const { openWarnToast, openErrorToast } = useToast();
 
@@ -35,7 +35,7 @@ export const AuthLoginForm = () => {
       {
         onSuccess: async () => {
           resetUnauthorizedState();
-          queryClient.clear();
+          dataLot.clear();
           setIsTransitioning(true);
           await new Promise((resolve) => setTimeout(resolve, 2000));
           navigate(RoutesConfig.DASHBOARD.HOME);

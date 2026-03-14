@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { useToast, useRouterQuery } from "@/shared/model";
 import type { HttpResponseType } from "@/shared/api";
@@ -14,7 +14,7 @@ import { todoMutations } from "../api/daily-todo.mutations";
 export const useUpdateDailyTodoReaction = () => {
   const { query } = useRouterQuery();
   const now = getNow();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openErrorToast } = useToast();
 
   const date = Bom.pipe(getSelectedDate(query, now), formatDate);
@@ -24,10 +24,10 @@ export const useUpdateDailyTodoReaction = () => {
   return useMutation({
     ...todoMutations.changeReaction(),
     onMutate: async ({ id, reaction, reactionUserId }) => {
-      await queryClient.cancelQueries(queryOption);
-      const previousData = queryClient.getQueryData(queryKey);
+      await dataLot.cancelQueries(queryOption);
+      const previousData = dataLot.getQueryData(queryKey);
 
-      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
+      dataLot.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
         if (old == null) return;
         const items = old.items;
 
@@ -45,12 +45,12 @@ export const useUpdateDailyTodoReaction = () => {
     },
     onError: (_err, _variables, context) => {
       if (context?.previousData != null) {
-        queryClient.setQueryData(queryKey, context.previousData);
+        dataLot.setQueryData(queryKey, context.previousData);
       }
       openErrorToast({ message: "리액션을 변경하지 못했어요." });
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries(queryOption);
+      await dataLot.invalidateQueries(queryOption);
     },
   });
 };

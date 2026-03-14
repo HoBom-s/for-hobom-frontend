@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useQueries } from "@tanstack/react-query";
+import { useQueries } from "hobom-data";
 import { noteQueries, useAddNoteMember, useRemoveNoteMember } from "@/entities/note";
 import type { NoteItemType } from "@/entities/note";
 import { userQueries, type UserType } from "@/entities/user";

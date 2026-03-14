@@ -4,7 +4,7 @@ import {
   PeopleOutline,
   PersonOutline,
 } from "hobom-design-system/icons";
-import { useQueries } from "@tanstack/react-query";
+import { useQueries } from "hobom-data";
 import { userQueries } from "@/entities/user";
 import { Hb } from "@/shared/ui";
 

@@ -75,3 +75,27 @@ export interface QueryFilters {
 }
 
 export type Updater<TInput, TOutput> = TOutput | ((old: TInput) => TOutput);
+
+export interface InfiniteQueryOptions<
+  TData = unknown,
+  TPageParam = unknown,
+  TQueryKey extends QueryKey = QueryKey,
+> {
+  queryKey: TQueryKey;
+  queryFn: (context: QueryFnContext & { pageParam: TPageParam }) => Promise<TData>;
+  initialPageParam: TPageParam;
+  getNextPageParam: (lastPage: TData, allPages: TData[]) => TPageParam | undefined;
+  staleTime?: number;
+  gcTime?: number;
+  enabled?: boolean;
+  retry?: number | false;
+  retryDelay?: number | ((attempt: number) => number);
+  refetchOnWindowFocus?: boolean;
+  refetchOnReconnect?: boolean;
+  refetchInterval?: number;
+}
+
+export interface InfiniteData<TData, TPageParam = unknown> {
+  pages: TData[];
+  pageParams: TPageParam[];
+}

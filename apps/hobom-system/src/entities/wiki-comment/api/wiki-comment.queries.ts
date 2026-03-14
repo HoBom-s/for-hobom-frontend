@@ -1,4 +1,4 @@
-import { infiniteQueryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions } from "hobom-data";
 import { CACHE_PROFILE } from "@/shared/config";
 import { fetchComments } from "./wiki-comment.api";
 

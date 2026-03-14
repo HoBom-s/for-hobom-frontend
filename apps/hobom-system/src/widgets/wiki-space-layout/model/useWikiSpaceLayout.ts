@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { wikiSpaceQueries } from "@/entities/wiki-space";
 import { useCreatePage } from "@/entities/wiki-page";
 

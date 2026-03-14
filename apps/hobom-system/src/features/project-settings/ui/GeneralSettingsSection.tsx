@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SettingsOutlined } from "hobom-design-system/icons";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { projectQueries, useUpdateProject } from "@/entities/project";
 import { Hb } from "@/shared/ui";
 

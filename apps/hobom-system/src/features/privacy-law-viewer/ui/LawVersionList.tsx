@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSuspenseQuery, useMutation, useDataLot } from "hobom-data";
 import { CloudDownloadOutlined, GavelOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries, privacyLawMutations } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";
 
 export const LawVersionList = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { data } = useSuspenseQuery(privacyLawQueries.versions());
   const versions = data.items;
 
   const fetchMutation = useMutation({
     ...privacyLawMutations.fetch(),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      dataLot.invalidateQueries({
         queryKey: privacyLawQueries.all(),
       });
     },

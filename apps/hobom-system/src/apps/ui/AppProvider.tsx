@@ -1,6 +1,6 @@
 import { Fragment, type ReactElement } from "react";
 import { Slide, ToastContainer } from "react-toastify";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DataLot, DataLotProvider } from "hobom-data";
 import { BottomSheetCTAProvider } from "@/shared/model";
 import { theme, GLOBAL_STYLES } from "@/shared/config";
 import { Hb, ErrorBoundary, OverlayProvider } from "@/shared/ui";
@@ -12,7 +12,7 @@ const STALE_TIME = 5 * 60 * 1000;
 const GC_TIME = 10 * 60 * 1000;
 const TOAST_AUTO_CLOSE_MS = 2500;
 
-const queryClient = new QueryClient({
+const dataLot = new DataLot({
   defaultOptions: {
     queries: {
       staleTime: STALE_TIME,
@@ -41,7 +41,7 @@ export const AppProvider = ({ children }: Props) => {
         icon={false}
         closeButton={false}
       />
-      <QueryClientProvider client={queryClient}>
+      <DataLotProvider client={dataLot}>
         <Hb.ThemeProvider theme={theme}>
           <Hb.CssBaseline enableColorScheme />
           <Hb.GlobalStyles styles={GLOBAL_STYLES} />
@@ -53,7 +53,7 @@ export const AppProvider = ({ children }: Props) => {
             </BottomSheetCTAProvider>
           </ErrorBoundary>
         </Hb.ThemeProvider>
-      </QueryClientProvider>
+      </DataLotProvider>
     </Fragment>
   );
 };

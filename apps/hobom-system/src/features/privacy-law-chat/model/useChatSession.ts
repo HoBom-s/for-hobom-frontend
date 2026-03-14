@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useDataLot } from "hobom-data";
 import { privacyLawMutations, privacyLawQueries } from "@/entities/privacy-law";
 import type { QuestionHistory } from "@/entities/privacy-law";
 
@@ -29,7 +29,7 @@ const historyToMessages = (history: QuestionHistory[]): ChatMessage[] =>
   ]);
 
 export const useChatSession = () => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const [localMessages, setLocalMessages] = useState<ChatMessage[]>([]);
   const idCounter = useRef(0);
 
@@ -65,14 +65,14 @@ export const useChatSession = () => {
             };
 
             setLocalMessages((prev) => [...prev, assistantMsg]);
-            queryClient.invalidateQueries({
+            dataLot.invalidateQueries({
               queryKey: privacyLawQueries.questionHistory().queryKey,
             });
           },
         },
       );
     },
-    [mutation, queryClient],
+    [mutation, dataLot],
   );
 
   const clearMessages = useCallback(() => setLocalMessages([]), []);

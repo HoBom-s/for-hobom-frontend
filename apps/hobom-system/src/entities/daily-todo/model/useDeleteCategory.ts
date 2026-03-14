@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { useToast, useRouterQuery } from "@/shared/model";
 import { todoQueries, formatDate, getNow, getSelectedDate } from "@/entities/daily-todo";
@@ -7,7 +7,7 @@ import { categoryMutations } from "../api/daily-todo-category.mutations";
 export const useDeleteCategory = () => {
   const { query } = useRouterQuery();
   const now = getNow();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openSuccessToast, openErrorToast } = useToast();
 
   return useMutation({
@@ -16,10 +16,10 @@ export const useDeleteCategory = () => {
       const date = Bom.pipe(getSelectedDate(query, now), formatDate);
 
       await Promise.all([
-        queryClient.invalidateQueries({
+        dataLot.invalidateQueries({
           queryKey: todoQueries.categories().queryKey,
         }),
-        queryClient.invalidateQueries({
+        dataLot.invalidateQueries({
           queryKey: todoQueries.byDate(date).queryKey,
         }),
       ]);

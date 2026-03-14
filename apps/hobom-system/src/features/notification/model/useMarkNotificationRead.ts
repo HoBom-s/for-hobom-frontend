@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient, type InfiniteData } from "@tanstack/react-query";
+import { useMutation, useDataLot, type InfiniteData } from "hobom-data";
 import { Bom } from "hobom-utils";
 import {
   notificationQueries,
@@ -10,13 +10,13 @@ import {
 type PageData = InfiniteData<NotificationPageResponse, string | undefined>;
 
 export const useMarkNotificationRead = () => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
 
   return useMutation({
     ...notificationMutations.read(),
     mutationFn: patchNotificationRead,
     onSuccess: (_, id) => {
-      queryClient.setQueryData<PageData>(notificationQueries.pages().queryKey, (prev) => {
+      dataLot.setQueryData<PageData>(notificationQueries.pages().queryKey, (prev) => {
         if (!prev) return prev;
 
         return {

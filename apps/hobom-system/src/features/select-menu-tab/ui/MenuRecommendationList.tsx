@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { MenuBook } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import { menuQueries, MenuRecommendationListItem } from "@/entities/menu-recommendation";

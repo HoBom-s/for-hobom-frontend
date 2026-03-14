@@ -11,6 +11,7 @@ export {
   SuspenseLoader,
   Sortable,
   arrayMove,
+  useDroppable,
   EmptyState,
 } from "hobom-design-system";
 export type {
@@ -20,6 +21,7 @@ export type {
   StepProps,
   DragEndEvent,
   DragStartEvent,
+  DragOverEvent,
 } from "hobom-design-system";
 export { Hb, useColorScheme } from "hobom-design-system";
 export type { SxProps, Theme, SvgIconProps, SelectChangeEvent } from "hobom-design-system";

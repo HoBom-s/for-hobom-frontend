@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { render, screen, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
+import { DataLotProvider, useDataLot } from "hobom-data";
 import { MemoryRouter, Route, Routes, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { RoutesConfig } from "@/shared/config";
 import { useToast } from "@/shared/model";
-import { createTestQueryClient } from "@/test/create-wrapper";
+import { createTestDataLot } from "@/test/create-wrapper";
 
 const mockOpenWarnToast = vi.fn();
 
@@ -31,12 +31,12 @@ vi.mock("@/shared/model", async (importOriginal) => {
  */
 const AuthGuardHarness = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const { openWarnToast } = useToast();
 
   useEffect(() => {
     const handler = () => {
-      queryClient.clear();
+      dataLot.clear();
       openWarnToast({
         message: "인증이 필요해요. 로그인 페이지로 이동합니다.",
       });
@@ -46,7 +46,7 @@ const AuthGuardHarness = () => {
     window.addEventListener(UNAUTHORIZED_EVENT, handler);
 
     return () => window.removeEventListener(UNAUTHORIZED_EVENT, handler);
-  }, [navigate, queryClient, openWarnToast]);
+  }, [navigate, dataLot, openWarnToast]);
 
   return <Outlet />;
 };
@@ -71,7 +71,7 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
 
   it("UNAUTHORIZED_EVENT 발생 시 로그인 페이지로 리다이렉트한다", () => {
     render(
-      <QueryClientProvider client={createTestQueryClient()}>
+      <DataLotProvider client={createTestDataLot()}>
         <MemoryRouter initialEntries={[RoutesConfig.MAIN.DAILY_TODO]}>
           <Routes>
             <Route element={<AuthGuardHarness />}>
@@ -80,7 +80,7 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
             <Route path={RoutesConfig.AUTH.LOGIN} element={<LocationDisplay />} />
           </Routes>
         </MemoryRouter>
-      </QueryClientProvider>,
+      </DataLotProvider>,
     );
 
     expect(screen.getByText("할 일 페이지")).toBeDefined();
@@ -90,13 +90,13 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
     expect(screen.getByTestId("location").textContent).toBe(RoutesConfig.AUTH.LOGIN);
   });
 
-  it("UNAUTHORIZED_EVENT 발생 시 queryClient.clear()를 호출한다", () => {
-    const queryClient = createTestQueryClient();
+  it("UNAUTHORIZED_EVENT 발생 시 dataLot.clear()를 호출한다", () => {
+    const dataLot = createTestDataLot();
 
-    queryClient.setQueryData(["test-key"], { data: "cached" });
+    dataLot.setQueryData(["test-key"], { data: "cached" });
 
     render(
-      <QueryClientProvider client={queryClient}>
+      <DataLotProvider client={dataLot}>
         <MemoryRouter initialEntries={[RoutesConfig.MAIN.DAILY_TODO]}>
           <Routes>
             <Route element={<AuthGuardHarness />}>
@@ -105,19 +105,19 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
             <Route path={RoutesConfig.AUTH.LOGIN} element={<div>로그인</div>} />
           </Routes>
         </MemoryRouter>
-      </QueryClientProvider>,
+      </DataLotProvider>,
     );
 
-    expect(queryClient.getQueryData(["test-key"])).toEqual({ data: "cached" });
+    expect(dataLot.getQueryData(["test-key"])).toEqual({ data: "cached" });
 
     dispatchUnauthorized();
 
-    expect(queryClient.getQueryData(["test-key"])).toBeUndefined();
+    expect(dataLot.getQueryData(["test-key"])).toBeUndefined();
   });
 
   it("UNAUTHORIZED_EVENT 발생 시 경고 토스트를 표시한다", () => {
     render(
-      <QueryClientProvider client={createTestQueryClient()}>
+      <DataLotProvider client={createTestDataLot()}>
         <MemoryRouter initialEntries={[RoutesConfig.MAIN.DAILY_TODO]}>
           <Routes>
             <Route element={<AuthGuardHarness />}>
@@ -126,7 +126,7 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
             <Route path={RoutesConfig.AUTH.LOGIN} element={<div>로그인</div>} />
           </Routes>
         </MemoryRouter>
-      </QueryClientProvider>,
+      </DataLotProvider>,
     );
 
     dispatchUnauthorized();

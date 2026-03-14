@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useDataLot } from "hobom-data";
 import { useToast } from "@/shared/model";
 import type { HttpResponseType } from "@/shared/api";
 import { issueQueries } from "../api/issue.queries";
@@ -6,19 +6,17 @@ import { issueMutations } from "../api/issue.mutations";
 import type { IssueType } from "../api/issue.type";
 
 export const useAssignIssue = (projectId: string) => {
-  const queryClient = useQueryClient();
+  const dataLot = useDataLot();
   const queryOption = issueQueries.listByProject(projectId);
   const { openErrorToast } = useToast();
 
   return useMutation({
     ...issueMutations.assign(),
     onMutate: async ({ issueId, assignee }) => {
-      await queryClient.cancelQueries(queryOption);
-      const previous = queryClient.getQueryData<HttpResponseType<IssueType[]>>(
-        queryOption.queryKey,
-      );
+      await dataLot.cancelQueries(queryOption);
+      const previous = dataLot.getQueryData<HttpResponseType<IssueType[]>>(queryOption.queryKey);
 
-      queryClient.setQueryData<HttpResponseType<IssueType[]>>(queryOption.queryKey, (old) => {
+      dataLot.setQueryData<HttpResponseType<IssueType[]>>(queryOption.queryKey, (old) => {
         if (!old) return old;
 
         return {
@@ -31,12 +29,12 @@ export const useAssignIssue = (projectId: string) => {
     },
     onError: (_err, _vars, context) => {
       if (context?.previous) {
-        queryClient.setQueryData(queryOption.queryKey, context.previous);
+        dataLot.setQueryData(queryOption.queryKey, context.previous);
       }
       openErrorToast({ message: "담당자를 변경하지 못했어요." });
     },
     onSettled: async () => {
-      await queryClient.invalidateQueries({
+      await dataLot.invalidateQueries({
         queryKey: issueQueries.issues(),
       });
     },

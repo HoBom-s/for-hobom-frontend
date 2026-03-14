@@ -1,5 +1,4 @@
-import { useDroppable } from "@dnd-kit/core";
-import { Hb, Sortable } from "@/shared/ui";
+import { Hb, Sortable, useDroppable } from "@/shared/ui";
 import { IssueCard, getDescendantProgress, getRootEpic, type IssueType } from "@/entities/issue";
 import { getStatusConfig, type BoardColumn } from "@/entities/board";
 import { columnDroppableId } from "../lib/kanban-dnd.lib";

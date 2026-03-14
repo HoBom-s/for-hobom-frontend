@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { logQueries, type LogSearchParams } from "@/entities/log";
 
 const PAGE_SIZE = 20;

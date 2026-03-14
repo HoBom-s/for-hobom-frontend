@@ -1,4 +1,4 @@
-import { mutationOptions } from "@tanstack/react-query";
+import { mutationOptions } from "hobom-data";
 import { postCategory, patchCategory, deleteCategory } from "./daily-todo-category.api";
 
 export const categoryMutations = {

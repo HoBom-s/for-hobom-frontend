@@ -3,7 +3,7 @@ import { http, HttpResponse } from "msw";
 import { toast } from "react-toastify";
 import { server } from "@/test/msw-server";
 import { setupMSW } from "@/test/setup";
-import { createWrapper, createTestQueryClient } from "@/test/create-wrapper";
+import { createWrapper, createTestDataLot } from "@/test/create-wrapper";
 import { useCreateNote } from "@/entities/note";
 
 const API_BASE = vi.hoisted(() => "http://localhost:9999/api");
@@ -54,11 +54,11 @@ describe("useEntityMutation (via useCreateNote)", () => {
   it("성공 시 notes 쿼리를 무효화한다", async () => {
     server.use(http.post(`${API_BASE}/notes`, () => HttpResponse.json({ success: true })));
 
-    const queryClient = createTestQueryClient();
-    const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
+    const dataLot = createTestDataLot();
+    const invalidateSpy = vi.spyOn(dataLot, "invalidateQueries");
 
     const { result } = renderHook(() => useCreateNote(), {
-      wrapper: createWrapper(queryClient),
+      wrapper: createWrapper(dataLot),
     });
 
     result.current.mutate(CREATE_REQUEST);

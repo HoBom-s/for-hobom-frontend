@@ -3,7 +3,7 @@ import type { DataLot } from "../core/data-lot";
 
 export const DataLotContext = createContext<DataLot | null>(null);
 
-export interface DataLotProviderProps {
+interface DataLotProviderProps {
   client: DataLot;
   children: ReactNode;
 }

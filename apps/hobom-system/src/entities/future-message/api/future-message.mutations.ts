@@ -1,4 +1,4 @@
-import { mutationOptions } from "@tanstack/react-query";
+import { mutationOptions } from "hobom-data";
 import { patchFutureMessage, deleteFutureMessage } from "./future-message.api";
 
 export const futureMessageMutations = {

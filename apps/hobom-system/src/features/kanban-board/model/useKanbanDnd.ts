@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { arrayMove } from "@/shared/ui";
-import type { DragEndEvent, DragStartEvent } from "@/shared/ui";
+import type { DragEndEvent, DragStartEvent, DragOverEvent } from "@/shared/ui";
 import type { IssueType } from "@/entities/issue";
 import { findColumnOfIssue, resolveDropTarget, type ColumnMap } from "../lib/kanban-dnd.lib";
-import type { DragOverEvent } from "@dnd-kit/core";
 
 interface UseKanbanDndParams {
   groupedByStatus: ColumnMap;

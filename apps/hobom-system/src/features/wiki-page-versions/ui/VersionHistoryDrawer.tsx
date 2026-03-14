@@ -1,6 +1,6 @@
 import { Suspense, useMemo } from "react";
 import { CloseOutlined, RestoreOutlined } from "hobom-design-system/icons";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { wikiPageQueries } from "@/entities/wiki-page";
 import { sanitizeHtml } from "@/shared/lib";
 import { Hb, ErrorBoundary, EmptyState } from "@/shared/ui";

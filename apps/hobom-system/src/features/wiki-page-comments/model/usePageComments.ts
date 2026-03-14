@@ -1,4 +1,4 @@
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "hobom-data";
 import { wikiCommentQueries } from "@/entities/wiki-comment";
 import { buildCommentTree } from "../lib/build-comment-tree.lib";
 

@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { AddOutlined } from "hobom-design-system/icons";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { useProjectContext, usePopoverState } from "@/shared/model";
 import {
   ISSUE_KIND_LABEL,

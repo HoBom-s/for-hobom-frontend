@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { CheckCircleOutline, LightbulbOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";

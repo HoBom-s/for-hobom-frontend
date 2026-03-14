@@ -5,7 +5,7 @@ import type { IssueType } from "@/entities/issue";
 const useSuspenseQueriesMock = vi.fn();
 const groupIssuesBySprintMock = vi.fn();
 
-vi.mock("@tanstack/react-query", () => ({
+vi.mock("hobom-data", () => ({
   useSuspenseQueries: (opts: unknown) => useSuspenseQueriesMock(opts),
 }));
 

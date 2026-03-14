@@ -6,7 +6,7 @@ import {
   PersonRemoveOutlined,
   ShieldOutlined,
 } from "hobom-design-system/icons";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { useOverlay } from "@/shared/model";
 import { projectQueries, useAddMember, useRemoveMember } from "@/entities/project";
 import { userQueries, type UserType } from "@/entities/user";

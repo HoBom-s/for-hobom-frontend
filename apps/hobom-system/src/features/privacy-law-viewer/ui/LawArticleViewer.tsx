@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "hobom-data";
 import { ExpandMore, SearchOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import type { LawArticle } from "@/entities/privacy-law";

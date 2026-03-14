@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "hobom-data";
 import { NOTE_COLORS, useCreateNote, useUpdateNote } from "@/entities/note";
 import type { NoteItemType } from "@/entities/note";
 import { labelQueries } from "@/entities/label";
