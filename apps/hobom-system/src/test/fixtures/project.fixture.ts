@@ -1,8 +1,6 @@
 import type { ProjectType } from "@/entities/project";
 
-export const makeProject = (
-  overrides: Partial<ProjectType> = {},
-): ProjectType => ({
+export const makeProject = (overrides: Partial<ProjectType> = {}): ProjectType => ({
   id: "proj-1",
   key: "PROJ",
   name: "Test Project",

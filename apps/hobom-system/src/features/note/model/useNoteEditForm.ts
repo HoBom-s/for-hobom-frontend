@@ -11,11 +11,7 @@ interface UseNoteEditFormParams {
   onClose: () => void;
 }
 
-export const useNoteEditForm = ({
-  open,
-  note,
-  onClose,
-}: UseNoteEditFormParams) => {
+export const useNoteEditForm = ({ open, note, onClose }: UseNoteEditFormParams) => {
   const isEdit = !!note;
 
   const noteForm = useNoteForm(open, note);
@@ -26,14 +22,8 @@ export const useNoteEditForm = ({
     ...labelQueries.list(),
     enabled: open,
   });
-  const availableLabels = useMemo(
-    () => labelsData?.items ?? [],
-    [labelsData?.items],
-  );
-  const selectedLabelIds = useMemo(
-    () => new Set(noteForm.form.labels),
-    [noteForm.form.labels],
-  );
+  const availableLabels = useMemo(() => labelsData?.items ?? [], [labelsData?.items]);
+  const selectedLabelIds = useMemo(() => new Set(noteForm.form.labels), [noteForm.form.labels]);
   const labelMap = useMemo(
     () => Object.fromEntries(availableLabels.map((l) => [l.id, l.title])),
     [availableLabels],
@@ -41,9 +31,7 @@ export const useNoteEditForm = ({
 
   const [colorAnchor, setColorAnchor] = useState<HTMLElement | null>(null);
   const [labelAnchor, setLabelAnchor] = useState<HTMLElement | null>(null);
-  const [reminderAnchor, setReminderAnchor] = useState<HTMLElement | null>(
-    null,
-  );
+  const [reminderAnchor, setReminderAnchor] = useState<HTMLElement | null>(null);
 
   const handleSave = () => {
     if (!noteForm.hasContent) {
@@ -57,8 +45,7 @@ export const useNoteEditForm = ({
         {
           id: note.id,
           title: noteForm.form.title,
-          content:
-            noteForm.form.type === "TEXT" ? noteForm.form.content : undefined,
+          content: noteForm.form.type === "TEXT" ? noteForm.form.content : undefined,
           checklistItems: noteForm.filteredChecklist,
           color: noteForm.form.color,
           labels: noteForm.form.labels,
@@ -70,18 +57,11 @@ export const useNoteEditForm = ({
       createNote.mutate(
         {
           title: noteForm.form.title || undefined,
-          content:
-            noteForm.form.type === "TEXT"
-              ? noteForm.form.content || undefined
-              : undefined,
+          content: noteForm.form.type === "TEXT" ? noteForm.form.content || undefined : undefined,
           type: noteForm.form.type,
           checklistItems: noteForm.filteredChecklist,
-          color:
-            noteForm.form.color !== NOTE_COLORS.DEFAULT
-              ? noteForm.form.color
-              : undefined,
-          labels:
-            noteForm.form.labels.length > 0 ? noteForm.form.labels : undefined,
+          color: noteForm.form.color !== NOTE_COLORS.DEFAULT ? noteForm.form.color : undefined,
+          labels: noteForm.form.labels.length > 0 ? noteForm.form.labels : undefined,
           reminder: noteForm.form.reminder ?? undefined,
         },
         { onSuccess: onClose },

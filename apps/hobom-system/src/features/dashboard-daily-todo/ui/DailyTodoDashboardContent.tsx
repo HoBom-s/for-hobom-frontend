@@ -5,12 +5,7 @@ import {
   TrendingUp,
   Favorite,
 } from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  dashboardQueries,
-  KpiCard,
-  type PeriodType,
-} from "@/entities/dashboard";
+import { DashboardPaper, dashboardQueries, KpiCard, type PeriodType } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 import { CompletionRateLineChart } from "./CompletionRateLineChart";
 import { CategoryDonutChart } from "./CategoryDonutChart";
@@ -21,10 +16,7 @@ interface DailyTodoDashboardContentProps {
   date: string;
 }
 
-export const DailyTodoDashboardContent = ({
-  period,
-  date,
-}: DailyTodoDashboardContentProps) => {
+export const DailyTodoDashboardContent = ({ period, date }: DailyTodoDashboardContentProps) => {
   const { data } = useSuspenseQuery(dashboardQueries.dailyTodos(period, date));
   const d = data.items;
 

@@ -1,11 +1,4 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { CHART_COLORS } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 
@@ -13,9 +6,7 @@ interface NotificationCategoryDonutProps {
   data: { category: string; count: number }[];
 }
 
-export const NotificationCategoryDonut = ({
-  data,
-}: NotificationCategoryDonutProps) => {
+export const NotificationCategoryDonut = ({ data }: NotificationCategoryDonutProps) => {
   return (
     <Hb.Box>
       <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>

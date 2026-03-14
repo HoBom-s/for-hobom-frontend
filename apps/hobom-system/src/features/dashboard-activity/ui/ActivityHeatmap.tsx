@@ -10,13 +10,7 @@ interface ActivityHeatmapProps {
   data: HeatmapData[];
 }
 
-const LEVEL_COLORS = [
-  "#ebedf0",
-  "#c6e48b",
-  "#7bc96f",
-  "#239a3b",
-  "#196127",
-] as const;
+const LEVEL_COLORS = ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"] as const;
 
 const WEEKS = 20;
 const DAYS_PER_WEEK = 7;
@@ -56,12 +50,7 @@ export const ActivityHeatmap = ({ data }: ActivityHeatmapProps) => {
         }}
       >
         {cells.map((cell) => (
-          <Hb.Tooltip
-            key={cell.date}
-            title={`${cell.date}: ${cell.count}건`}
-            arrow
-            placement="top"
-          >
+          <Hb.Tooltip key={cell.date} title={`${cell.date}: ${cell.count}건`} arrow placement="top">
             <Hb.Box
               sx={{
                 width: 14,

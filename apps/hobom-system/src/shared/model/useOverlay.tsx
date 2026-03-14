@@ -29,10 +29,7 @@ export const useOverlay = () => {
 
   const onOpen = useCallback(
     (Overlay: OverlayElem) => {
-      created(
-        overlayUid,
-        <Overlay isOpen={true} onClose={handleClose} onExit={handleExit} />,
-      );
+      created(overlayUid, <Overlay isOpen={true} onClose={handleClose} onExit={handleExit} />);
     },
     [created, overlayUid, handleClose, handleExit],
   );

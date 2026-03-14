@@ -80,11 +80,7 @@ export const StatusCodeChart = ({ data }: StatusCodeChartProps) => {
       </Hb.Text>
       <ResponsiveContainer width="100%" height="100%" minHeight={200}>
         <BarChart data={data} barCategoryGap="25%">
-          <CartesianGrid
-            vertical={false}
-            stroke="#f0f0f0"
-            strokeDasharray="4 4"
-          />
+          <CartesianGrid vertical={false} stroke="#f0f0f0" strokeDasharray="4 4" />
           <XAxis
             dataKey="statusCode"
             tick={{ fontSize: 11, fill: "#8c8c8c" }}
@@ -95,14 +91,9 @@ export const StatusCodeChart = ({ data }: StatusCodeChartProps) => {
             tick={{ fontSize: 11, fill: "#8c8c8c" }}
             axisLine={false}
             tickLine={false}
-            tickFormatter={(v: number) =>
-              v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(v)
-            }
+            tickFormatter={(v: number) => (v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(v))}
           />
-          <Tooltip
-            content={<CustomTooltip />}
-            cursor={{ fill: "rgba(70,128,255,0.04)" }}
-          />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(70,128,255,0.04)" }} />
           <Bar
             dataKey="count"
             radius={[6, 6, 0, 0]}
@@ -111,10 +102,7 @@ export const StatusCodeChart = ({ data }: StatusCodeChartProps) => {
             animationDuration={600}
           >
             {data.map((entry) => (
-              <Cell
-                key={entry.statusCode}
-                fill={getStatusColor(entry.statusCode)}
-              />
+              <Cell key={entry.statusCode} fill={getStatusColor(entry.statusCode)} />
             ))}
           </Bar>
         </BarChart>

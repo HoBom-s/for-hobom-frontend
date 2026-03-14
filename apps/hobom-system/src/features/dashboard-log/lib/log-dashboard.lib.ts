@@ -33,13 +33,9 @@ export const computeKpiSummary = (items: LogStatusCount[]): KpiSummary => {
   const count4xx = items
     .filter((d) => d.statusCode >= 400 && d.statusCode < 500)
     .reduce((s, d) => s + d.count, 0);
-  const count5xx = items
-    .filter((d) => d.statusCode >= 500)
-    .reduce((s, d) => s + d.count, 0);
+  const count5xx = items.filter((d) => d.statusCode >= 500).reduce((s, d) => s + d.count, 0);
   const errorRate =
-    totalRequests > 0
-      ? (((count4xx + count5xx) / totalRequests) * 100).toFixed(1)
-      : "0.0";
+    totalRequests > 0 ? (((count4xx + count5xx) / totalRequests) * 100).toFixed(1) : "0.0";
 
   return { totalRequests, count4xx, count5xx, errorRate };
 };

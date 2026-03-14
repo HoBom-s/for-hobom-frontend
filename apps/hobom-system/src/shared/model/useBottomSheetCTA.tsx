@@ -21,15 +21,9 @@ interface BottomSheetContextType {
   onClose: () => void;
 }
 
-const BottomSheetCTAContext = createContext<BottomSheetContextType | null>(
-  null,
-);
+const BottomSheetCTAContext = createContext<BottomSheetContextType | null>(null);
 
-export const BottomSheetCTAProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const BottomSheetCTAProvider = ({ children }: { children: ReactNode }) => {
   const [sheet, setSheet] = useState<SheetOptions | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -80,12 +74,8 @@ export const BottomSheetCTAProvider = ({
     <BottomSheetCTAContext.Provider value={{ onOpen, onClose }}>
       {children}
       <BottomSheetCTA open={open} onClose={onClose} height={sheet?.height}>
-        {sheet?.title != null ? (
-          <BottomSheetCTA.Title>{sheet.title}</BottomSheetCTA.Title>
-        ) : null}
-        {sheet?.content != null ? (
-          <BottomSheetCTA.Body>{sheet.content}</BottomSheetCTA.Body>
-        ) : null}
+        {sheet?.title != null ? <BottomSheetCTA.Title>{sheet.title}</BottomSheetCTA.Title> : null}
+        {sheet?.content != null ? <BottomSheetCTA.Body>{sheet.content}</BottomSheetCTA.Body> : null}
         {sheet?.footer != null ? (
           <BottomSheetCTA.Footer>{sheet.footer}</BottomSheetCTA.Footer>
         ) : null}

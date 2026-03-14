@@ -74,9 +74,7 @@ export const ProjectLayout = () => {
         </Hb.Text>
 
         {/* Tab Navigation + Action Buttons */}
-        <Hb.Box
-          sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}
-        >
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}>
           {TABS.map((tab) => {
             const isActive = currentPath === tab.path;
 

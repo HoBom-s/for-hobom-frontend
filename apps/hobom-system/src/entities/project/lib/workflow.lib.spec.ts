@@ -51,9 +51,7 @@ describe("buildStatusesFromColumns", () => {
   });
 
   it("단일 컬럼이면 isDone이 true다", () => {
-    const result = buildStatusesFromColumns([
-      { statusId: "only", name: "Only", order: 0 },
-    ]);
+    const result = buildStatusesFromColumns([{ statusId: "only", name: "Only", order: 0 }]);
 
     expect(result[0].isDone).toBe(true);
   });
@@ -130,9 +128,7 @@ describe("getAvailableTransitions", () => {
     const result = getAvailableTransitions(TRANSITIONS, "in-progress");
 
     expect(result).toHaveLength(2);
-    expect(result.map((t) => t.to)).toEqual(
-      expect.arrayContaining(["done", "todo"]),
-    );
+    expect(result.map((t) => t.to)).toEqual(expect.arrayContaining(["done", "todo"]));
   });
 
   it("전환이 없으면 빈 배열을 반환한다", () => {

@@ -7,6 +7,4 @@ export const FutureMessageSendSchema = z.object({
   scheduledAt: z.string().min(1),
 });
 
-export type FutureMessageSendSchemaType = z.infer<
-  typeof FutureMessageSendSchema
->;
+export type FutureMessageSendSchemaType = z.infer<typeof FutureMessageSendSchema>;

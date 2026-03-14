@@ -1,9 +1,4 @@
-import {
-  COLUMNS,
-  HEADER_BG,
-  HEADER_TEXT,
-  RESIZE_HANDLE,
-} from "./endpoint-error-constants";
+import { COLUMNS, HEADER_BG, HEADER_TEXT, RESIZE_HANDLE } from "./endpoint-error-constants";
 import type { useColumnResize } from "@hobom-grid/react";
 import type { CellVM } from "@hobom-grid/core";
 
@@ -12,10 +7,7 @@ interface EndpointErrorHeaderCellProps {
   colResize: ReturnType<typeof useColumnResize>;
 }
 
-export const EndpointErrorHeaderCell = ({
-  cell,
-  colResize,
-}: EndpointErrorHeaderCellProps) => {
+export const EndpointErrorHeaderCell = ({ cell, colResize }: EndpointErrorHeaderCellProps) => {
   const col = COLUMNS[cell.colIndex];
   const isRight = col.key === "total" || col.key === "errors";
 
@@ -53,12 +45,10 @@ export const EndpointErrorHeaderCell = ({
           transition: "background-color 0.15s",
         }}
         onPointerEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor =
-            RESIZE_HANDLE;
+          (e.currentTarget as HTMLDivElement).style.backgroundColor = RESIZE_HANDLE;
         }}
         onPointerLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor =
-            "transparent";
+          (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
         }}
         onPointerDown={(e) => {
           e.stopPropagation();

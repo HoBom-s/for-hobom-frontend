@@ -37,9 +37,7 @@ class GrabSensor extends PointerSensor {
       handler: ({ nativeEvent: event }: { nativeEvent: PointerEvent }) => {
         const target = event.target as HTMLElement;
 
-        if (
-          target.closest("button, a, input, textarea, select, [data-no-dnd]")
-        ) {
+        if (target.closest("button, a, input, textarea, select, [data-no-dnd]")) {
           return false;
         }
 
@@ -56,9 +54,7 @@ interface SortableItemContextValue {
   listeners: SyntheticListenerMap | undefined;
 }
 
-const SortableItemContext = createContext<SortableItemContextValue | null>(
-  null,
-);
+const SortableItemContext = createContext<SortableItemContextValue | null>(null);
 
 /* ── Root ── */
 
@@ -79,9 +75,7 @@ const Root = ({
   onDragCancel,
   overlay,
 }: RootProps) => {
-  const sensors = useSensors(
-    useSensor(GrabSensor, { activationConstraint: { distance: 8 } }),
-  );
+  const sensors = useSensors(useSensor(GrabSensor, { activationConstraint: { distance: 8 } }));
 
   return (
     <DndContext
@@ -156,8 +150,7 @@ const Item = ({
       : { opacity: 0.5, zIndex: 1 }
     : {};
 
-  const hoverStyle: React.CSSProperties =
-    isOver && !isDragging && overStyle ? overStyle : {};
+  const hoverStyle: React.CSSProperties = isOver && !isDragging && overStyle ? overStyle : {};
 
   return (
     <SortableItemContext.Provider value={{ setActivatorNodeRef, listeners }}>
@@ -192,9 +185,7 @@ const Handle = ({ children, className, style }: HandleProps) => {
   const context = useContext(SortableItemContext);
 
   if (!context) {
-    throw new Error(
-      "Sortable.Handle must be used inside Sortable.Item with useHandle",
-    );
+    throw new Error("Sortable.Handle must be used inside Sortable.Item with useHandle");
   }
 
   return (

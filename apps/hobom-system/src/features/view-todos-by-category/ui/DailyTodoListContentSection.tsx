@@ -35,10 +35,7 @@ const CategoryProgress = ({ items }: { items: DailyTodoType[] }) => {
   );
 };
 
-export const DailyTodoListContentSection = ({
-  groupedTodos,
-  renderItem,
-}: Props) => {
+export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props) => {
   const [createOpen, setCreateOpen] = useState(false);
 
   return (
@@ -55,10 +52,7 @@ export const DailyTodoListContentSection = ({
           }}
         >
           <CheckCircleOutline sx={{ fontSize: 64, color: "#dadce0" }} />
-          <Hb.Text
-            variant="body1"
-            sx={{ color: "text.disabled", fontSize: "0.95rem" }}
-          >
+          <Hb.Text variant="body1" sx={{ color: "text.disabled", fontSize: "0.95rem" }}>
             오늘의 할 일이 없어요
           </Hb.Text>
         </Hb.Box>
@@ -90,10 +84,7 @@ export const DailyTodoListContentSection = ({
                 >
                   {item.categoryTitle}
                   <CategoryProgress items={item.todoItems} />
-                  <CategoryMenu
-                    categoryId={item.categoryId}
-                    categoryTitle={item.categoryTitle}
-                  />
+                  <CategoryMenu categoryId={item.categoryId} categoryTitle={item.categoryTitle} />
                   <Hb.Box sx={{ ml: "auto" }}>
                     <DailyTodoAddButton item={item} />
                   </Hb.Box>
@@ -117,10 +108,7 @@ export const DailyTodoListContentSection = ({
         </Hb.Button>
       </Hb.Box>
 
-      <CategoryCreateDialog
-        open={createOpen}
-        onClose={() => setCreateOpen(false)}
-      />
+      <CategoryCreateDialog open={createOpen} onClose={() => setCreateOpen(false)} />
     </>
   );
 };

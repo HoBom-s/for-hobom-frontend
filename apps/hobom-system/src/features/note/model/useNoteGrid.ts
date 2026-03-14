@@ -8,11 +8,7 @@ interface UseNoteGridParams {
   pinnedNotes: NoteItemType[];
   otherNotes: NoteItemType[];
   onTogglePin: (id: string) => void;
-  onReorder?: (
-    id: string,
-    order: number,
-    reorderedItems: NoteItemType[],
-  ) => void;
+  onReorder?: (id: string, order: number, reorderedItems: NoteItemType[]) => void;
 }
 
 export const useNoteGrid = ({
@@ -23,10 +19,7 @@ export const useNoteGrid = ({
 }: UseNoteGridParams) => {
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const allNotes = useMemo(
-    () => [...pinnedNotes, ...otherNotes],
-    [pinnedNotes, otherNotes],
-  );
+  const allNotes = useMemo(() => [...pinnedNotes, ...otherNotes], [pinnedNotes, otherNotes]);
 
   const activeNote = activeId ? allNotes.find((n) => n.id === activeId) : null;
 

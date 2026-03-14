@@ -8,19 +8,10 @@ import {
 } from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useOverlay } from "@/shared/model";
-import {
-  projectQueries,
-  useAddMember,
-  useRemoveMember,
-} from "@/entities/project";
+import { projectQueries, useAddMember, useRemoveMember } from "@/entities/project";
 import { userQueries, type UserType } from "@/entities/user";
 import { Hb } from "@/shared/ui";
-import {
-  ROLE_LABEL,
-  ROLE_COLOR,
-  getAvatarColor,
-  formatDate,
-} from "./project-settings-constants";
+import { ROLE_LABEL, ROLE_COLOR, getAvatarColor, formatDate } from "./project-settings-constants";
 import { AddMemberDialog } from "./AddMemberDialog";
 import { RemoveMemberDialog } from "./RemoveMemberDialog";
 
@@ -28,9 +19,7 @@ interface MemberSettingsSectionProps {
   projectId: string;
 }
 
-export const MemberSettingsSection = ({
-  projectId,
-}: MemberSettingsSectionProps) => {
+export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps) => {
   const { data } = useSuspenseQuery(projectQueries.detail(projectId));
   const project = data.items;
 
@@ -41,9 +30,7 @@ export const MemberSettingsSection = ({
   );
 
   const memberIds = new Set(project.members.map((m) => m.userId));
-  const availableUsers = usersData.items.filter(
-    (u: UserType) => !memberIds.has(u.id),
-  );
+  const availableUsers = usersData.items.filter((u: UserType) => !memberIds.has(u.id));
 
   const { mutate: addMember, isPending: isAdding } = useAddMember();
   const { mutate: removeMember, isPending: isRemoving } = useRemoveMember();
@@ -57,10 +44,7 @@ export const MemberSettingsSection = ({
         availableUsers={availableUsers}
         isPending={isAdding}
         onAdd={(userId, role) => {
-          addMember(
-            { projectId, userId, role },
-            { onSuccess: () => onClose() },
-          );
+          addMember({ projectId, userId, role }, { onSuccess: () => onClose() });
         }}
       />
     ));
@@ -131,9 +115,7 @@ export const MemberSettingsSection = ({
       <Hb.Box sx={{ p: 0 }}>
         {project.members.length === 0 ? (
           <Hb.Box sx={{ py: 6, textAlign: "center" }}>
-            <PeopleOutline
-              sx={{ fontSize: 48, color: "action.disabled", mb: 1 }}
-            />
+            <PeopleOutline sx={{ fontSize: 48, color: "action.disabled", mb: 1 }} />
             <Hb.Text variant="body2" color="text.disabled">
               멤버가 없어요
             </Hb.Text>
@@ -142,8 +124,7 @@ export const MemberSettingsSection = ({
           <Hb.Stack divider={<Hb.Divider />}>
             {project.members.map((member) => {
               const user = usersMap.get(member.userId);
-              const displayName =
-                user?.nickname ?? user?.username ?? member.userId;
+              const displayName = user?.nickname ?? user?.username ?? member.userId;
               const avatarColor = getAvatarColor(member.userId);
               const roleLabel = ROLE_LABEL[member.role] ?? member.role;
               const roleColor = ROLE_COLOR[member.role] ?? "#6b7280";
@@ -185,11 +166,7 @@ export const MemberSettingsSection = ({
                         {displayName}
                       </Hb.Text>
                       <Hb.Chip
-                        icon={
-                          <ShieldOutlined
-                            sx={{ fontSize: "13px !important" }}
-                          />
-                        }
+                        icon={<ShieldOutlined sx={{ fontSize: "13px !important" }} />}
                         label={roleLabel}
                         size="small"
                         sx={{
@@ -222,9 +199,7 @@ export const MemberSettingsSection = ({
                             gap: 0.3,
                           }}
                         >
-                          <CalendarTodayOutlined
-                            sx={{ fontSize: 11, color: "text.disabled" }}
-                          />
+                          <CalendarTodayOutlined sx={{ fontSize: 11, color: "text.disabled" }} />
                           <Hb.Text variant="caption" color="text.disabled">
                             {formatDate(member.joinedAt)}
                           </Hb.Text>
@@ -235,9 +210,7 @@ export const MemberSettingsSection = ({
                   <Hb.Tooltip title="멤버 제거">
                     <Hb.Button.Icon
                       size="small"
-                      onClick={() =>
-                        handleRemoveMember(member.userId, displayName)
-                      }
+                      onClick={() => handleRemoveMember(member.userId, displayName)}
                       sx={{
                         color: "text.disabled",
                         "&:hover": { color: "error.main" },

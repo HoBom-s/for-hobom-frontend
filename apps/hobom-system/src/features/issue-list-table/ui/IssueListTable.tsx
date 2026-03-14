@@ -18,10 +18,7 @@ interface IssueListTableProps {
   onIssueClick?: (issueId: string) => void;
 }
 
-export const IssueListTable = ({
-  projectId,
-  onIssueClick,
-}: IssueListTableProps) => {
+export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps) => {
   const { statuses, transitions } = useProjectContext();
   const { data } = useSuspenseQuery(issueQueries.listByProject(projectId));
 
@@ -39,8 +36,10 @@ export const IssueListTable = ({
     handleHeaderClick,
   } = useIssueListFilters();
 
-  const { menuAnchor, handleStatusClick, handleTransition, closeMenu } =
-    useStatusTransitionMenu(projectId, transitions);
+  const { menuAnchor, handleStatusClick, handleTransition, closeMenu } = useStatusTransitionMenu(
+    projectId,
+    transitions,
+  );
 
   return (
     <Hb.Box>
@@ -67,9 +66,7 @@ export const IssueListTable = ({
             value={priorityFilter}
             label="우선순위"
             displayEmpty
-            onChange={(e) =>
-              setPriorityFilter(e.target.value as IssuePriority | "")
-            }
+            onChange={(e) => setPriorityFilter(e.target.value as IssuePriority | "")}
           >
             <Hb.Menu.Item value="">전체</Hb.Menu.Item>
             {Object.entries(ISSUE_PRIORITY_LABEL).map(([k, label]) => (

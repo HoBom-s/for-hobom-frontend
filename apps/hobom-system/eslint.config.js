@@ -27,10 +27,7 @@ export default tseslint.config(baseIgnores, {
 
     // ── React ──
     ...reactHooks.configs.recommended.rules,
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
-    ],
+    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
 
     // ── FSD Architecture ──
     "fsd-boundaries/fsd-boundaries": "error",

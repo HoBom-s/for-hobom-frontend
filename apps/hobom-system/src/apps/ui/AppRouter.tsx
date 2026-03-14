@@ -1,11 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { RoutesConfig } from "@/shared/config";
 import { AppShell, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
@@ -99,10 +93,7 @@ const PrivacyLawExamDetailPage = lazy(pageImports.privacyLawExamDetail);
 
 const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.MAIN.DAILY_TODO]: [pageImports.dailyTodo],
-  [RoutesConfig.MENU.RECOMMENDATION]: [
-    pageImports.menuRecommendation,
-    pageImports.menuPick,
-  ],
+  [RoutesConfig.MENU.RECOMMENDATION]: [pageImports.menuRecommendation, pageImports.menuPick],
   [RoutesConfig.MESSAGE.RESERVATION]: [pageImports.futureMessage],
   [RoutesConfig.NOTES.LIST]: [pageImports.note],
   [RoutesConfig.PROJECTS.LIST]: [
@@ -122,10 +113,7 @@ const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
     pageImports.wikiSpaceLayout,
     pageImports.wikiSpaceHome,
   ],
-  [RoutesConfig.PRIVACY_LAW.HOME]: [
-    pageImports.privacyLawLayout,
-    pageImports.privacyLawVersions,
-  ],
+  [RoutesConfig.PRIVACY_LAW.HOME]: [pageImports.privacyLawLayout, pageImports.privacyLawVersions],
 };
 
 const prefetchRoute = (path: string) => {
@@ -140,16 +128,12 @@ const Shell = ({ children }: { children: React.ReactNode }) => {
     (path: string) => {
       prefetchRoute(path);
       const queryPrefetchMap: Record<string, () => void> = {
-        [RoutesConfig.MAIN.DAILY_TODO]: () =>
-          queryClient.prefetchQuery(todoQueries.categories()),
+        [RoutesConfig.MAIN.DAILY_TODO]: () => queryClient.prefetchQuery(todoQueries.categories()),
         [RoutesConfig.MENU.RECOMMENDATION]: () =>
           queryClient.prefetchQuery(menuQueries.recommendationList()),
-        [RoutesConfig.NOTES.LIST]: () =>
-          queryClient.prefetchQuery(noteQueries.list()),
-        [RoutesConfig.PROJECTS.LIST]: () =>
-          queryClient.prefetchQuery(projectQueries.list()),
-        [RoutesConfig.WIKI.SPACES]: () =>
-          queryClient.prefetchQuery(wikiSpaceQueries.list()),
+        [RoutesConfig.NOTES.LIST]: () => queryClient.prefetchQuery(noteQueries.list()),
+        [RoutesConfig.PROJECTS.LIST]: () => queryClient.prefetchQuery(projectQueries.list()),
+        [RoutesConfig.WIKI.SPACES]: () => queryClient.prefetchQuery(wikiSpaceQueries.list()),
       };
       queryPrefetchMap[path]?.();
     },
@@ -335,17 +319,11 @@ export const AppRouter = () => {
         >
           <Route index element={<Navigate to="versions" replace />} />
           <Route path="versions" element={<PrivacyLawVersionsPage />} />
-          <Route
-            path="versions/:versionId"
-            element={<PrivacyLawVersionDetailPage />}
-          />
+          <Route path="versions/:versionId" element={<PrivacyLawVersionDetailPage />} />
           <Route path="diffs" element={<PrivacyLawDiffsPage />} />
           <Route path="diffs/:diffId" element={<PrivacyLawDiffDetailPage />} />
           <Route path="study" element={<PrivacyLawStudyPage />} />
-          <Route
-            path="study/:materialId"
-            element={<PrivacyLawStudyDetailPage />}
-          />
+          <Route path="study/:materialId" element={<PrivacyLawStudyDetailPage />} />
           <Route path="chat" element={<PrivacyLawChatPage />} />
           <Route path="exams" element={<PrivacyLawExamsPage />} />
           <Route path="exams/:examId" element={<PrivacyLawExamDetailPage />} />

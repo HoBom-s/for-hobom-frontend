@@ -76,9 +76,7 @@ const setupHandlers = ({
       HttpResponse.json(wrapResponse(sprints)),
     ),
     http.get(`${API_BASE}/auth/me`, () => HttpResponse.json(wrapResponse(ME))),
-    http.get(`${API_BASE}/projects/:projectId`, () =>
-      HttpResponse.json(wrapResponse(project)),
-    ),
+    http.get(`${API_BASE}/projects/:projectId`, () => HttpResponse.json(wrapResponse(project))),
     http.get(`${API_BASE}/users`, () => HttpResponse.json(wrapResponse(users))),
   );
 };
@@ -107,10 +105,9 @@ describe("useIssueDetailState (integration)", () => {
 
     setupHandlers({ issues: [epic, story, task] });
 
-    const { result } = renderHook(
-      () => useIssueDetailState(PROJECT_ID, "story-1", true),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useIssueDetailState(PROJECT_ID, "story-1", true), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.issue?.id).toBe("story-1");
@@ -131,10 +128,9 @@ describe("useIssueDetailState (integration)", () => {
 
     setupHandlers({ issues: [epic, story, otherEpic] });
 
-    const { result } = renderHook(
-      () => useIssueDetailState(PROJECT_ID, "epic-1", true),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useIssueDetailState(PROJECT_ID, "epic-1", true), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.issue?.id).toBe("epic-1");
@@ -180,19 +176,15 @@ describe("useIssueDetailState (integration)", () => {
 
     setupHandlers({ sprints });
 
-    const { result } = renderHook(
-      () => useIssueDetailState(PROJECT_ID, "issue-1", true),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useIssueDetailState(PROJECT_ID, "issue-1", true), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.activeSprints).toHaveLength(2);
     });
 
-    expect(result.current.activeSprints.map((s) => s.id)).toEqual([
-      "sprint-1",
-      "sprint-3",
-    ]);
+    expect(result.current.activeSprints.map((s) => s.id)).toEqual(["sprint-1", "sprint-3"]);
   });
 
   it("progress를 doneStatusIds 기준으로 계산한다", async () => {
@@ -212,10 +204,9 @@ describe("useIssueDetailState (integration)", () => {
 
     setupHandlers({ issues: [epic, child1, child2] });
 
-    const { result } = renderHook(
-      () => useIssueDetailState(PROJECT_ID, "epic-1", true),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useIssueDetailState(PROJECT_ID, "epic-1", true), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.progress).toEqual({ completed: 1, total: 2 });
@@ -225,10 +216,9 @@ describe("useIssueDetailState (integration)", () => {
   it("projectMembers 닉네임을 resolve한다", async () => {
     setupHandlers();
 
-    const { result } = renderHook(
-      () => useIssueDetailState(PROJECT_ID, "issue-1", true),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useIssueDetailState(PROJECT_ID, "issue-1", true), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.projectMembers).toEqual([
@@ -244,10 +234,9 @@ describe("useIssueDetailState (integration)", () => {
     const queryClient = createTestQueryClient();
     const fetchSpy = vi.spyOn(queryClient, "fetchQuery");
 
-    const { result } = renderHook(
-      () => useIssueDetailState(PROJECT_ID, "issue-1", false),
-      { wrapper: createWrapper(queryClient) },
-    );
+    const { result } = renderHook(() => useIssueDetailState(PROJECT_ID, "issue-1", false), {
+      wrapper: createWrapper(queryClient),
+    });
 
     // 약간의 시간을 두고 확인 — 쿼리가 실행되지 않았는지
     await new Promise((r) => setTimeout(r, 100));

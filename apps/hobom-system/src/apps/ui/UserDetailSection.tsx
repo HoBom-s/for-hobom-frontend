@@ -32,11 +32,7 @@ export const UserDetailSection = ({ user }: UserDetailSectionProps) => (
       label="사용자명"
       value={user.username}
     />
-    <InfoRow
-      icon={<BadgeOutlined sx={{ fontSize: 18 }} />}
-      label="닉네임"
-      value={user.nickname}
-    />
+    <InfoRow icon={<BadgeOutlined sx={{ fontSize: 18 }} />} label="닉네임" value={user.nickname} />
     <InfoRow
       icon={<AlternateEmailOutlined sx={{ fontSize: 18 }} />}
       label="이메일"
@@ -85,10 +81,7 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
               ))
             )
           ) : (
-            <Hb.Text
-              variant="body2"
-              sx={{ color: "text.disabled", fontSize: "0.8125rem" }}
-            >
+            <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.8125rem" }}>
               없음
             </Hb.Text>
           )}

@@ -2,9 +2,7 @@ import { describe, it, expect } from "vitest";
 import { partitionNotesLib } from "./partition-notes.lib";
 import type { NoteItemType } from "../../../entities/note";
 
-const makeNote = (
-  overrides: Partial<NoteItemType> & { id: string },
-): NoteItemType => ({
+const makeNote = (overrides: Partial<NoteItemType> & { id: string }): NoteItemType => ({
   owner: "owner-1",
   title: "",
   content: "",

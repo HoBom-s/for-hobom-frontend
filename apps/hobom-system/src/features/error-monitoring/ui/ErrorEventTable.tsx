@@ -35,11 +35,7 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
 
   if (data.length === 0) {
     return (
-      <Hb.Text
-        variant="body2"
-        color="text.secondary"
-        sx={{ py: 4, textAlign: "center" }}
-      >
+      <Hb.Text variant="body2" color="text.secondary" sx={{ py: 4, textAlign: "center" }}>
         조건에 맞는 에러가 없습니다
       </Hb.Text>
     );

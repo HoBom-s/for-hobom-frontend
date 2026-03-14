@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  getAvailableTransitions,
-  type WorkflowTransition,
-} from "@/entities/project";
+import { getAvailableTransitions, type WorkflowTransition } from "@/entities/project";
 import { useTransitionIssue } from "@/entities/issue";
 
 interface MenuAnchorState {
@@ -11,10 +8,7 @@ interface MenuAnchorState {
   transitions: WorkflowTransition[];
 }
 
-export const useStatusTransitionMenu = (
-  projectId: string,
-  transitions: WorkflowTransition[],
-) => {
+export const useStatusTransitionMenu = (projectId: string, transitions: WorkflowTransition[]) => {
   const [menuAnchor, setMenuAnchor] = useState<MenuAnchorState | null>(null);
   const { mutate: transitionIssue } = useTransitionIssue(projectId);
 

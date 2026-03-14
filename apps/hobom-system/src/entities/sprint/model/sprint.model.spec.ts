@@ -1,9 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  SprintStatusModel,
-  SPRINT_STATUS_LABEL,
-  type SprintStatus,
-} from "./sprint.model";
+import { SprintStatusModel, SPRINT_STATUS_LABEL, type SprintStatus } from "./sprint.model";
 
 describe("SprintStatusModel", () => {
   it("유효한 스프린트 상태를 파싱한다", () => {

@@ -23,11 +23,7 @@ interface UseVirtualListParams<T> {
  * @returns `virtualItems` — 현재 뷰포트에 보이는 아이템 + overscan 목록
  * @returns `totalHeight` — 전체 리스트의 총 높이(px). 스크롤 영역 높이 지정에 사용.
  */
-export const useVirtualList = <T>({
-  items,
-  itemHeight,
-  overscan = 5,
-}: UseVirtualListParams<T>) => {
+export const useVirtualList = <T>({ items, itemHeight, overscan = 5 }: UseVirtualListParams<T>) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollTop, setScrollTop] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
@@ -67,10 +63,7 @@ export const useVirtualList = <T>({
   const virtualItems = useMemo((): VirtualItem<T>[] => {
     if (containerHeight === 0) return [];
 
-    const startIndex = Math.max(
-      0,
-      Math.floor(scrollTop / itemHeight) - overscan,
-    );
+    const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
     const endIndex = Math.min(
       items.length - 1,
       Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan,

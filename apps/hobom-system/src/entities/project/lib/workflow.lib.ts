@@ -33,15 +33,10 @@ export const buildTransitionsFromColumns = (
   return transitions;
 };
 
-export const getStatusName = (
-  statuses: WorkflowStatus[],
-  statusId: string,
-): string => statuses.find((s) => s.id === statusId)?.name ?? statusId;
+export const getStatusName = (statuses: WorkflowStatus[], statusId: string): string =>
+  statuses.find((s) => s.id === statusId)?.name ?? statusId;
 
-export const getStatusColor = (
-  statuses: WorkflowStatus[],
-  statusId: string,
-): string => {
+export const getStatusColor = (statuses: WorkflowStatus[], statusId: string): string => {
   const status = statuses.find((s) => s.id === statusId);
 
   if (!status) return "#6b7280";

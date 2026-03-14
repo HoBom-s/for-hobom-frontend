@@ -6,9 +6,7 @@ describe("createFunnelStateId", () => {
   });
 
   it("appends the full id string including slashes", () => {
-    expect(createFunnelStateId("/send?step=1")).toBe(
-      "funnel-state-id__/send?step=1",
-    );
+    expect(createFunnelStateId("/send?step=1")).toBe("funnel-state-id__/send?step=1");
   });
 });
 

@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Hb } from "@/shared/ui";
 
 interface RetryDistributionBarProps {
@@ -39,11 +31,7 @@ export const RetryDistributionBar = ({ data }: RetryDistributionBarProps) => {
             axisLine={false}
             tickLine={false}
           />
-          <YAxis
-            tick={{ fontSize: 11, fill: "#8c8c8c" }}
-            axisLine={false}
-            tickLine={false}
-          />
+          <YAxis tick={{ fontSize: 11, fill: "#8c8c8c" }} axisLine={false} tickLine={false} />
           <Tooltip
             cursor={{ fill: "rgba(229,138,0,0.06)" }}
             contentStyle={{
@@ -53,12 +41,7 @@ export const RetryDistributionBar = ({ data }: RetryDistributionBarProps) => {
               fontSize: 13,
             }}
           />
-          <Bar
-            dataKey="count"
-            name="건수"
-            fill="url(#retryBarOrange)"
-            radius={[6, 6, 0, 0]}
-          />
+          <Bar dataKey="count" name="건수" fill="url(#retryBarOrange)" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </Hb.Box>

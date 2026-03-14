@@ -1,9 +1,7 @@
 import type { CommentType } from "@/entities/wiki-comment";
 import { buildCommentTree } from "./build-comment-tree.lib";
 
-const makeComment = (
-  overrides: Partial<CommentType> & Pick<CommentType, "id">,
-): CommentType => ({
+const makeComment = (overrides: Partial<CommentType> & Pick<CommentType, "id">): CommentType => ({
   pageId: "page-1",
   parentCommentId: null,
   content: "test",
@@ -74,9 +72,7 @@ describe("buildCommentTree", () => {
   });
 
   it("preserves comment data in tree nodes", () => {
-    const comments = [
-      makeComment({ id: "1", content: "hello", author: "Alice" }),
-    ];
+    const comments = [makeComment({ id: "1", content: "hello", author: "Alice" })];
 
     const tree = buildCommentTree(comments);
 

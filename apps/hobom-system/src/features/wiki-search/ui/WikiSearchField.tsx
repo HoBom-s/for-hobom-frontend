@@ -12,10 +12,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
   const navigate = useNavigate();
   const { query, setQuery, results, searching } = useWikiSearch(spaceKey);
 
-  const handleSelect = (
-    _: unknown,
-    value: string | SearchResultType | null,
-  ) => {
+  const handleSelect = (_: unknown, value: string | SearchResultType | null) => {
     if (value && typeof value !== "string") {
       navigate(`/wiki/${spaceKey}/pages/${value.id}`);
       setQuery("");
@@ -26,9 +23,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
     <Hb.Autocomplete
       freeSolo
       options={results}
-      getOptionLabel={(option) =>
-        typeof option === "string" ? option : option.title
-      }
+      getOptionLabel={(option) => (typeof option === "string" ? option : option.title)}
       inputValue={query}
       onInputChange={(_, value) => setQuery(value)}
       onChange={handleSelect}
@@ -36,9 +31,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
       noOptionsText={query.length < 2 ? "2글자 이상 입력" : "결과 없음"}
       renderOption={({ key, ...props }, option) => (
         <li key={key} {...props}>
-          <Hb.Text variant="body2">
-            {(option as SearchResultType).title}
-          </Hb.Text>
+          <Hb.Text variant="body2">{(option as SearchResultType).title}</Hb.Text>
         </li>
       )}
       renderInput={(params) => (
@@ -50,9 +43,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
             input: {
               ...params.InputProps,
               startAdornment: (
-                <SearchOutlined
-                  sx={{ mr: 1, color: "text.disabled", fontSize: 20 }}
-                />
+                <SearchOutlined sx={{ mr: 1, color: "text.disabled", fontSize: 20 }} />
               ),
               endAdornment: (
                 <>

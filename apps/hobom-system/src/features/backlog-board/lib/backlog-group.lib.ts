@@ -15,9 +15,7 @@ export const groupIssuesBySprint = (
 
   const [sprintIssues, backlogIssues] = Bom.pipe(
     issues,
-    Bom.partition(
-      (issue: IssueType) => !!issue.sprint && sprintIds.has(issue.sprint),
-    ),
+    Bom.partition((issue: IssueType) => !!issue.sprint && sprintIds.has(issue.sprint)),
   );
 
   const grouped = Bom.pipe(

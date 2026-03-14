@@ -11,10 +11,7 @@ import { curry } from "../curry/curry";
  *
  * @category Object
  */
-export function omit<T extends object, K extends keyof T>(
-  data: T,
-  keys: readonly K[],
-): Omit<T, K>;
+export function omit<T extends object, K extends keyof T>(data: T, keys: readonly K[]): Omit<T, K>;
 export function omit<T extends object, K extends keyof T>(
   keys: readonly K[],
 ): (data: T) => Omit<T, K>;
@@ -22,13 +19,11 @@ export function omit(...args: readonly unknown[]): unknown {
   return curry(omitImpl, args);
 }
 
-function omitImpl<T extends object, K extends keyof T>(
-  data: T,
-  keys: readonly K[],
-): Omit<T, K> {
+function omitImpl<T extends object, K extends keyof T>(data: T, keys: readonly K[]): Omit<T, K> {
   const keysToOmit = new Set<PropertyKey>(keys);
 
-  return Object.fromEntries(
-    Object.entries(data).filter(([key]) => !keysToOmit.has(key)),
-  ) as Omit<T, K>;
+  return Object.fromEntries(Object.entries(data).filter(([key]) => !keysToOmit.has(key))) as Omit<
+    T,
+    K
+  >;
 }

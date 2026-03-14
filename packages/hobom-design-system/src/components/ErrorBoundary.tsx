@@ -58,9 +58,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
         <Box
           sx={{
             width: "100%",
-            ...(inline
-              ? { flex: 1, minHeight: 120, py: 4 }
-              : { height: "100vh" }),
+            ...(inline ? { flex: 1, minHeight: 120, py: 4 } : { height: "100vh" }),
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

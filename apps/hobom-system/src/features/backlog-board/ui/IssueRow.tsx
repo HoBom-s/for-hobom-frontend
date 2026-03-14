@@ -35,8 +35,7 @@ export const IssueRow = ({
   onToggleCollapse,
   progress,
 }: IssueRowProps) => {
-  const { sprints, projectId, onCreateChildIssue, onIssueClick } =
-    useBacklogContext();
+  const { sprints, projectId, onCreateChildIssue, onIssueClick } = useBacklogContext();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { mutate: updateIssue } = useUpdateIssue();
   const kind = ISSUE_KIND_REGISTRY[issue.type];
@@ -55,9 +54,7 @@ export const IssueRow = ({
     ...sprints
       .filter((s) => s.status !== "COMPLETED" && s.id !== issue.sprint)
       .map((s) => ({ id: s.id, label: s.name })),
-    ...(issue.sprint
-      ? [{ id: undefined as string | undefined, label: "백로그" }]
-      : []),
+    ...(issue.sprint ? [{ id: undefined as string | undefined, label: "백로그" }] : []),
   ];
 
   const canAddChild = PARENT_ISSUE_KINDS.has(issue.type) && onCreateChildIssue;
@@ -98,9 +95,7 @@ export const IssueRow = ({
             )}
           </Hb.Button.Icon>
         ) : depth > 0 ? (
-          <SubdirectoryArrowRightOutlined
-            sx={{ fontSize: 14, color: "text.disabled", ml: -1.5 }}
-          />
+          <SubdirectoryArrowRightOutlined sx={{ fontSize: 14, color: "text.disabled", ml: -1.5 }} />
         ) : null}
         <kind.Icon sx={{ fontSize: 16, color: kind.color }} />
         <Hb.Text
@@ -138,10 +133,8 @@ export const IssueRow = ({
               height: 18,
               fontSize: 10,
               fontWeight: 600,
-              bgcolor:
-                progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
-              color:
-                progress.completed === progress.total ? "#2ca87f" : "#e58a00",
+              bgcolor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
+              color: progress.completed === progress.total ? "#2ca87f" : "#e58a00",
             }}
           />
         )}
@@ -224,10 +217,7 @@ export const IssueRow = ({
                 <InboxOutlined sx={{ fontSize: 16 }} />
               )}
             </Hb.List.ItemIcon>
-            <Hb.List.ItemText
-              primary={t.label}
-              slotProps={{ primary: { sx: { fontSize: 13 } } }}
-            />
+            <Hb.List.ItemText primary={t.label} slotProps={{ primary: { sx: { fontSize: 13 } } }} />
           </Hb.Menu.Item>
         ))}
       </Hb.Menu.Root>

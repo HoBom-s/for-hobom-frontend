@@ -3,15 +3,11 @@ import type { HttpResponseType } from "@/shared/api";
 import type { DailyTodoType, ProgressType } from "./daily-todo.type.ts";
 
 export const fetchDailyTodos = async ({ date }: { date: string }) => {
-  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(
-    `/daily-todos?date=${date}`,
-  );
+  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos?date=${date}`);
 };
 
 export const fetchDailyTodosByDate = async ({ date }: { date: string }) => {
-  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(
-    `/daily-todos/by-date/${date}`,
-  );
+  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos/by-date/${date}`);
 };
 
 export const patchDailyTodoCompleteStatusChange = async ({
@@ -57,13 +53,7 @@ export const patchDailyTodo = async ({
   return await httpClient.patch(`/daily-todos/${id}`, body);
 };
 
-export const patchDailyTodoCycle = async ({
-  id,
-  cycle,
-}: {
-  id: string;
-  cycle: string;
-}) => {
+export const patchDailyTodoCycle = async ({ id, cycle }: { id: string; cycle: string }) => {
   return await httpClient.patch(`/daily-todos/${id}/cycle-status`, {
     cycle,
   });

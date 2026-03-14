@@ -147,10 +147,7 @@ describe("useTransitionIssue", () => {
 
       opts.onError(new Error("fail"), {}, { previous });
 
-      expect(setQueryDataMock).toHaveBeenCalledWith(
-        ["issues", "list", "proj-1"],
-        previous,
-      );
+      expect(setQueryDataMock).toHaveBeenCalledWith(["issues", "list", "proj-1"], previous);
       expect(openErrorToastMock).toHaveBeenCalledWith({
         message: "이슈 상태를 변경하지 못했어요.",
       });

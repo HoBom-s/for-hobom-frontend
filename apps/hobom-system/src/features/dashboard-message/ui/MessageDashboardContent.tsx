@@ -1,11 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Mail, Send, HourglassEmpty } from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  dashboardQueries,
-  KpiCard,
-  type PeriodType,
-} from "@/entities/dashboard";
+import { DashboardPaper, dashboardQueries, KpiCard, type PeriodType } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 import { UpcomingMessageTimeline } from "./UpcomingMessageTimeline";
 import { MonthlySentBarChart } from "./MonthlySentBarChart";
@@ -15,10 +10,7 @@ interface MessageDashboardContentProps {
   date: string;
 }
 
-export const MessageDashboardContent = ({
-  period,
-  date,
-}: MessageDashboardContentProps) => {
+export const MessageDashboardContent = ({ period, date }: MessageDashboardContentProps) => {
   const { data } = useSuspenseQuery(dashboardQueries.messages(period, date));
   const d = data.items;
 

@@ -3,10 +3,7 @@ import { InfoOutlined } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import { NOTIFICATION_CATEGORY } from "../lib/notification-category.lib";
 import { formatRelativeTime } from "../lib/format-relative-time.lib";
-import type {
-  NotificationCategory,
-  NotificationItemType,
-} from "../api/notification.type";
+import type { NotificationCategory, NotificationItemType } from "../api/notification.type";
 
 const CATEGORY_ICONS: Record<NotificationCategory, typeof InfoOutlined> = {
   SYSTEM: InfoOutlined,
@@ -17,10 +14,7 @@ interface Props {
   onClick?: (notification: NotificationItemType) => void;
 }
 
-export const NotificationItem = memo(function NotificationItem({
-  notification,
-  onClick,
-}: Props) {
+export const NotificationItem = memo(function NotificationItem({ notification, onClick }: Props) {
   const meta = NOTIFICATION_CATEGORY[notification.category];
   const Icon = CATEGORY_ICONS[notification.category];
 
@@ -35,14 +29,10 @@ export const NotificationItem = memo(function NotificationItem({
         py: 1.5,
         width: "100%",
         textAlign: "left",
-        bgcolor: notification.isRead
-          ? "transparent"
-          : "rgba(70, 128, 255, 0.04)",
+        bgcolor: notification.isRead ? "transparent" : "rgba(70, 128, 255, 0.04)",
         transition: "background-color 0.15s ease",
         "&:hover": {
-          bgcolor: notification.isRead
-            ? "rgba(0,0,0,0.02)"
-            : "rgba(70, 128, 255, 0.07)",
+          bgcolor: notification.isRead ? "rgba(0,0,0,0.02)" : "rgba(70, 128, 255, 0.07)",
         },
       }}
     >
@@ -62,9 +52,7 @@ export const NotificationItem = memo(function NotificationItem({
         <Icon sx={{ fontSize: 18, color: meta.color }} />
       </Hb.Box>
       <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
-        <Hb.Box
-          sx={{ display: "flex", alignItems: "center", gap: 0.75, mb: 0.25 }}
-        >
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.75, mb: 0.25 }}>
           <Hb.Text
             variant="body2"
             sx={{

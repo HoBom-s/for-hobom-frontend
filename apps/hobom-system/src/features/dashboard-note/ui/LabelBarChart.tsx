@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Hb } from "@/shared/ui";
 
 interface LabelBarChartProps {
@@ -51,12 +43,7 @@ export const LabelBarChart = ({ data }: LabelBarChartProps) => {
               fontSize: 13,
             }}
           />
-          <Bar
-            dataKey="count"
-            name="노트 수"
-            fill="url(#labelBarBlue)"
-            radius={[0, 6, 6, 0]}
-          />
+          <Bar dataKey="count" name="노트 수" fill="url(#labelBarBlue)" radius={[0, 6, 6, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </Hb.Box>

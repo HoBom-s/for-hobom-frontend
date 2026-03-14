@@ -16,12 +16,7 @@ interface SpaceCardProps {
   onDelete?: (space: SpaceType) => void;
 }
 
-export const SpaceCard = ({
-  space,
-  onClick,
-  onEdit,
-  onDelete,
-}: SpaceCardProps) => {
+export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleMenuOpen = (e: MouseEvent<HTMLButtonElement>) => {
@@ -43,9 +38,7 @@ export const SpaceCard = ({
       }}
     >
       <Hb.Card.Content sx={{ p: 2.5 }}>
-        <Hb.Box
-          sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}
-        >
+        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
           <Hb.Box
             sx={{
               width: 36,
@@ -134,9 +127,7 @@ export const SpaceCard = ({
                 <Hb.List.ItemIcon>
                   <DeleteOutlined fontSize="small" color="error" />
                 </Hb.List.ItemIcon>
-                <Hb.List.ItemText sx={{ color: "error.main" }}>
-                  삭제
-                </Hb.List.ItemText>
+                <Hb.List.ItemText sx={{ color: "error.main" }}>삭제</Hb.List.ItemText>
               </Hb.Menu.Item>
             )}
           </Hb.Menu.Root>

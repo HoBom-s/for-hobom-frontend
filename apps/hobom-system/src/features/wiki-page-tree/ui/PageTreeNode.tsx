@@ -1,10 +1,5 @@
 import { Fragment } from "react";
-import {
-  ExpandMore,
-  ChevronRight,
-  ArticleOutlined,
-  AddOutlined,
-} from "hobom-design-system/icons";
+import { ExpandMore, ChevronRight, ArticleOutlined, AddOutlined } from "hobom-design-system/icons";
 import type { PageTreeNode as PageTreeNodeType } from "@/entities/wiki-page";
 import { Hb } from "@/shared/ui";
 

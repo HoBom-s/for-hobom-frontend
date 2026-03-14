@@ -11,11 +11,7 @@ type LazyOp = LazyDefinition & ((input: unknown) => unknown);
 
 export function pipe<A>(value: A): A;
 export function pipe<A, B>(value: A, op1: (input: A) => B): B;
-export function pipe<A, B, C>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-): C;
+export function pipe<A, B, C>(value: A, op1: (input: A) => B, op2: (input: B) => C): C;
 export function pipe<A, B, C, D>(
   value: A,
   op1: (input: A) => B,
@@ -302,8 +298,6 @@ function prepareLazyOperation(op: LazyOp): PreparedLazyOperation {
 function isIterable(something: unknown): something is Iterable<unknown> {
   return (
     typeof something === "string" ||
-    (typeof something === "object" &&
-      something !== null &&
-      Symbol.iterator in something)
+    (typeof something === "object" && something !== null && Symbol.iterator in something)
   );
 }

@@ -1,9 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  wikiSpaceQueries,
-  SpaceCard,
-  type SpaceType,
-} from "@/entities/wiki-space";
+import { wikiSpaceQueries, SpaceCard, type SpaceType } from "@/entities/wiki-space";
 import { Hb } from "@/shared/ui";
 
 interface SpaceGridProps {
@@ -12,11 +8,7 @@ interface SpaceGridProps {
   onDelete?: (space: SpaceType) => void;
 }
 
-export const SpaceGrid = ({
-  onSpaceClick,
-  onEdit,
-  onDelete,
-}: SpaceGridProps) => {
+export const SpaceGrid = ({ onSpaceClick, onEdit, onDelete }: SpaceGridProps) => {
   const { data } = useSuspenseQuery(wikiSpaceQueries.list());
 
   return (

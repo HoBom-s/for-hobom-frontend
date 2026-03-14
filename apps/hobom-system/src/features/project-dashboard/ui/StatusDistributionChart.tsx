@@ -1,11 +1,4 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { CHART_COLORS } from "@/entities/dashboard";
 import type { ProjectIssueDashboardDto } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
@@ -14,9 +7,7 @@ interface StatusDistributionChartProps {
   data: ProjectIssueDashboardDto["byStatus"];
 }
 
-export const StatusDistributionChart = ({
-  data,
-}: StatusDistributionChartProps) => {
+export const StatusDistributionChart = ({ data }: StatusDistributionChartProps) => {
   return (
     <Hb.Box>
       <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>

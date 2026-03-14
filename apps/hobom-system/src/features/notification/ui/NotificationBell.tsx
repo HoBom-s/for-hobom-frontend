@@ -36,10 +36,7 @@ export const NotificationBell = () => {
         </Hb.Badge>
       </Hb.Button.Icon>
       {anchorEl != null && (
-        <NotificationPanel
-          anchorEl={anchorEl}
-          onClose={() => setAnchorEl(null)}
-        />
+        <NotificationPanel anchorEl={anchorEl} onClose={() => setAnchorEl(null)} />
       )}
     </>
   );

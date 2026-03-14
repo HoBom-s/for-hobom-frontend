@@ -8,10 +8,7 @@ export const EMPTY_MESSAGES: Record<ReadFilter, string> = {
   read: "읽은 알림이 없어요.",
 };
 
-export const FILTER_PREDICATES: Record<
-  ReadFilter,
-  (n: NotificationItemType) => boolean
-> = {
+export const FILTER_PREDICATES: Record<ReadFilter, (n: NotificationItemType) => boolean> = {
   all: () => true,
   unread: (n) => !n.isRead,
   read: (n) => n.isRead,

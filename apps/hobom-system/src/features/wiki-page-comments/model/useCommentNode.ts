@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  useCreateComment,
-  useUpdateComment,
-  useDeleteComment,
-} from "@/entities/wiki-comment";
+import { useCreateComment, useUpdateComment, useDeleteComment } from "@/entities/wiki-comment";
 
 export const useCommentNode = ({
   spaceKey,

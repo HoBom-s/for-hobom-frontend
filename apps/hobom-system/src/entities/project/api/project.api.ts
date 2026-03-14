@@ -1,10 +1,6 @@
 import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
-import type {
-  ProjectType,
-  CreateProjectRequest,
-  UpdateProjectRequest,
-} from "./project.type";
+import type { ProjectType, CreateProjectRequest, UpdateProjectRequest } from "./project.type";
 
 export const fetchProjects = async () => {
   return await httpClient.get<HttpResponseType<ProjectType[]>>("/projects/me");

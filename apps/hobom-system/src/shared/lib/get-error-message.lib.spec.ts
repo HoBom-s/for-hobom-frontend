@@ -8,9 +8,7 @@ describe("getErrorMessage", () => {
   it("TypeError이면 네트워크 에러 메시지를 반환한다", () => {
     const error = new TypeError("Failed to fetch");
 
-    expect(getErrorMessage(error, FALLBACK)).toBe(
-      "네트워크 연결을 확인해주세요.",
-    );
+    expect(getErrorMessage(error, FALLBACK)).toBe("네트워크 연결을 확인해주세요.");
   });
 
   it("AbortError이면 타임아웃 메시지를 반환한다", () => {

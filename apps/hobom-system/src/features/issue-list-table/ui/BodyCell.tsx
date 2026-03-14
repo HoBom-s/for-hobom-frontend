@@ -5,11 +5,7 @@ import {
   ISSUE_PRIORITY_REGISTRY,
   type IssueType,
 } from "@/entities/issue";
-import {
-  getStatusName,
-  getStatusColor,
-  type WorkflowStatus,
-} from "@/entities/project";
+import { getStatusName, getStatusColor, type WorkflowStatus } from "@/entities/project";
 import { Hb } from "@/shared/ui";
 import { type ColKey, BORDER_COLOR } from "./issue-list-constants";
 
@@ -18,11 +14,7 @@ interface BodyCellProps {
   row: IssueType;
   bg: string;
   statuses: WorkflowStatus[];
-  onStatusClick: (
-    e: React.MouseEvent<HTMLElement>,
-    issueId: string,
-    currentStatus: string,
-  ) => void;
+  onStatusClick: (e: React.MouseEvent<HTMLElement>, issueId: string, currentStatus: string) => void;
   onRowClick?: (issueId: string) => void;
 }
 
@@ -75,10 +67,7 @@ export const BodyCell = memo(
 
       case "type":
         return (
-          <div
-            style={{ ...baseCellStyle, justifyContent: "center" }}
-            {...interactiveProps}
-          >
+          <div style={{ ...baseCellStyle, justifyContent: "center" }} {...interactiveProps}>
             {(() => {
               const config = ISSUE_KIND_REGISTRY[row.type];
 

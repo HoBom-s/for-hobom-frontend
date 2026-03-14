@@ -18,11 +18,7 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
 
   if (messages.length === 0 && !isPending) {
     return (
-      <Hb.Stack
-        alignItems="center"
-        justifyContent="center"
-        sx={{ flex: 1, py: 8 }}
-      >
+      <Hb.Stack alignItems="center" justifyContent="center" sx={{ flex: 1, py: 8 }}>
         <GavelOutlined sx={{ fontSize: 48, color: "text.disabled", mb: 2 }} />
         <Hb.Text variant="h6" color="text.secondary" gutterBottom>
           개인정보보호법 AI 상담
@@ -70,10 +66,7 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
               borderRadius: 2,
             }}
           >
-            <Hb.Text
-              variant="body2"
-              sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
-            >
+            <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
               {msg.content}
             </Hb.Text>
             {msg.referencedArticles && msg.referencedArticles.length > 0 && (

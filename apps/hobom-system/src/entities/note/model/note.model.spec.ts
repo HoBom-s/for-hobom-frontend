@@ -1,9 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  NoteStatusModel,
-  NoteTypeModel,
-  NoteRecurrenceModel,
-} from "./note.model";
+import { NoteStatusModel, NoteTypeModel, NoteRecurrenceModel } from "./note.model";
 
 describe("NoteStatusModel", () => {
   it.each(["ACTIVE", "ARCHIVED", "TRASHED"])("parses valid status: %s", (s) => {
@@ -26,12 +22,9 @@ describe("NoteTypeModel", () => {
 });
 
 describe("NoteRecurrenceModel", () => {
-  it.each(["NONE", "DAILY", "WEEKLY", "MONTHLY"])(
-    "parses valid recurrence: %s",
-    (r) => {
-      expect(NoteRecurrenceModel.parse(r)).toBe(r);
-    },
-  );
+  it.each(["NONE", "DAILY", "WEEKLY", "MONTHLY"])("parses valid recurrence: %s", (r) => {
+    expect(NoteRecurrenceModel.parse(r)).toBe(r);
+  });
 
   it("rejects invalid recurrence", () => {
     expect(() => NoteRecurrenceModel.parse("YEARLY")).toThrow();

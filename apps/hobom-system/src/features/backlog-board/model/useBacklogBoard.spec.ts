@@ -86,10 +86,7 @@ describe("useBacklogBoard", () => {
   it("스프린트가 없으면 모든 이슈가 backlog으로 분류된다", () => {
     const issues = [makeIssue("i1"), makeIssue("i2")];
 
-    useSuspenseQueriesMock.mockReturnValue([
-      { data: { items: issues } },
-      { data: { items: [] } },
-    ]);
+    useSuspenseQueriesMock.mockReturnValue([{ data: { items: issues } }, { data: { items: [] } }]);
     groupIssuesBySprintMock.mockReturnValue({
       sprintGroups: [],
       backlogIssues: issues,
@@ -104,10 +101,7 @@ describe("useBacklogBoard", () => {
   it("sprints 원본을 반환한다", () => {
     const sprints = [makeSprint("s1"), makeSprint("s2")];
 
-    useSuspenseQueriesMock.mockReturnValue([
-      { data: { items: [] } },
-      { data: { items: sprints } },
-    ]);
+    useSuspenseQueriesMock.mockReturnValue([{ data: { items: [] } }, { data: { items: sprints } }]);
     groupIssuesBySprintMock.mockReturnValue({
       sprintGroups: [],
       backlogIssues: [],

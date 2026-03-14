@@ -19,12 +19,10 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
         cursor: "text",
         borderRadius: 2,
         border: "1px solid #e0e0e0",
-        boxShadow:
-          "0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)",
+        boxShadow: "0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)",
         transition: "box-shadow 0.08s linear",
         "&:hover": {
-          boxShadow:
-            "0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15)",
+          boxShadow: "0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15)",
         },
       }}
       onClick={onClick}
@@ -41,10 +39,7 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
       >
         메모 작성...
       </Hb.Text>
-      <Hb.Box
-        sx={{ display: "flex", gap: 0.25, ml: 2 }}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <Hb.Box sx={{ display: "flex", gap: 0.25, ml: 2 }} onClick={(e) => e.stopPropagation()}>
         <Hb.Tooltip title="체크리스트" arrow>
           <Hb.Button.Icon
             size="small"

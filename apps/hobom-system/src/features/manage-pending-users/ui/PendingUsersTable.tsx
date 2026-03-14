@@ -16,10 +16,7 @@ export const PendingUsersTable = () => {
   const { approve, reject, isApproving, isRejecting } = usePendingUserActions();
   const { onOpen } = useOverlay();
 
-  const openConfirmDialog = (
-    type: "approve" | "reject",
-    user: PendingUserType,
-  ) => {
+  const openConfirmDialog = (type: "approve" | "reject", user: PendingUserType) => {
     const isApproveAction = type === "approve";
 
     onOpen(({ isOpen, onClose }) => (
@@ -46,12 +43,7 @@ export const PendingUsersTable = () => {
 
   return (
     <Hb.Box>
-      <Hb.Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ mb: 3 }}
-      >
+      <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
         <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
           <Hb.Text variant="h6" fontWeight={700}>
             승인 대기 사용자
@@ -77,9 +69,7 @@ export const PendingUsersTable = () => {
             borderStyle: "dashed",
           }}
         >
-          <HourglassEmptyOutlined
-            sx={{ fontSize: 48, color: "text.disabled" }}
-          />
+          <HourglassEmptyOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
           <Hb.Text variant="body1" color="text.secondary">
             승인 대기 중인 사용자가 없어요.
           </Hb.Text>
@@ -99,15 +89,10 @@ export const PendingUsersTable = () => {
             </Hb.Table.Head>
             <Hb.Table.Body>
               {users.map((user) => (
-                <Hb.Table.Row
-                  key={user.id}
-                  sx={{ "&:last-child td": { borderBottom: 0 } }}
-                >
+                <Hb.Table.Row key={user.id} sx={{ "&:last-child td": { borderBottom: 0 } }}>
                   <Hb.Table.Cell>
                     <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
-                      <Hb.Avatar
-                        sx={{ width: 32, height: 32, bgcolor: "primary.main" }}
-                      >
+                      <Hb.Avatar sx={{ width: 32, height: 32, bgcolor: "primary.main" }}>
                         <PersonOutline sx={{ fontSize: 18 }} />
                       </Hb.Avatar>
                       <Hb.Text variant="body2" fontWeight={500}>
@@ -124,11 +109,7 @@ export const PendingUsersTable = () => {
                     </Hb.Text>
                   </Hb.Table.Cell>
                   <Hb.Table.Cell align="right">
-                    <Hb.Stack
-                      direction="row"
-                      spacing={1}
-                      justifyContent="flex-end"
-                    >
+                    <Hb.Stack direction="row" spacing={1} justifyContent="flex-end">
                       <Hb.Button
                         size="small"
                         variant="secondary"

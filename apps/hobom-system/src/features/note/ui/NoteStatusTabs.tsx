@@ -1,8 +1,4 @@
-import {
-  LightbulbOutlined,
-  ArchiveOutlined,
-  DeleteOutlined,
-} from "hobom-design-system/icons";
+import { LightbulbOutlined, ArchiveOutlined, DeleteOutlined } from "hobom-design-system/icons";
 import type { NoteStatus } from "@/entities/note";
 import { Hb } from "@/shared/ui";
 

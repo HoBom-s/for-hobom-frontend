@@ -1,11 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
 import { Hb, Sortable } from "@/shared/ui";
-import {
-  IssueCard,
-  getDescendantProgress,
-  getRootEpic,
-  type IssueType,
-} from "@/entities/issue";
+import { IssueCard, getDescendantProgress, getRootEpic, type IssueType } from "@/entities/issue";
 import { getStatusConfig, type BoardColumn } from "@/entities/board";
 import { columnDroppableId } from "../lib/kanban-dnd.lib";
 import { useKanbanContext } from "../model/useKanbanContext";
@@ -18,8 +13,7 @@ interface KanbanColumnProps {
 }
 
 export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
-  const { issueTree, doneStatusIds, swimlaneGroups, onAddIssue, onIssueClick } =
-    useKanbanContext();
+  const { issueTree, doneStatusIds, swimlaneGroups, onAddIssue, onIssueClick } = useKanbanContext();
 
   const { setNodeRef, isOver } = useDroppable({
     id: columnDroppableId(column.statusId),
@@ -61,11 +55,7 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             boxShadow: `0 0 0 3px ${config.color}28`,
           }}
         />
-        <Hb.Text
-          variant="body2"
-          fontWeight={700}
-          sx={{ letterSpacing: "-0.01em" }}
-        >
+        <Hb.Text variant="body2" fontWeight={700} sx={{ letterSpacing: "-0.01em" }}>
           {column.name}
         </Hb.Text>
         <Hb.Chip
@@ -103,8 +93,7 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
 
                   return (
                     issue.id === group.epicId ||
-                    getRootEpic(issue.id, issueTree.parentMap)?.id ===
-                      group.epicId
+                    getRootEpic(issue.id, issueTree.parentMap)?.id === group.epicId
                   );
                 });
 
@@ -118,19 +107,12 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
                     progress={group.progress}
                   >
                     {laneIssues.map((issue) =>
-                      renderIssueItem(
-                        issue,
-                        issueTree,
-                        doneStatusIds,
-                        onIssueClick,
-                      ),
+                      renderIssueItem(issue, issueTree, doneStatusIds, onIssueClick),
                     )}
                   </KanbanSwimlane>
                 );
               })
-            : issues.map((issue) =>
-                renderIssueItem(issue, issueTree, doneStatusIds, onIssueClick),
-              )}
+            : issues.map((issue) => renderIssueItem(issue, issueTree, doneStatusIds, onIssueClick))}
         </Hb.Box>
       </Sortable.List>
 

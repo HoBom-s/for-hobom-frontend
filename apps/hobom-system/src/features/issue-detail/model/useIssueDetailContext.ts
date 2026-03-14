@@ -1,10 +1,6 @@
 import type { MouseEvent } from "react";
 import { createSafeContext } from "@/shared/lib";
-import type {
-  IssueType,
-  IssuePriority,
-  DescendantProgress,
-} from "@/entities/issue";
+import type { IssueType, IssuePriority, DescendantProgress } from "@/entities/issue";
 import type { SprintType } from "@/entities/sprint";
 import type { WorkflowTransition } from "@/entities/project";
 

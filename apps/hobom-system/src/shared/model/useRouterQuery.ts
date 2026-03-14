@@ -18,10 +18,7 @@ export const useRouterQuery = () => {
   const query = new URLSearchParams(search);
 
   const updateQuery = useCallback(
-    (
-      newParams: Record<string, string | undefined>,
-      options: UpdateQueryOptions = {},
-    ) => {
+    (newParams: Record<string, string | undefined>, options: UpdateQueryOptions = {}) => {
       const next = applyParams(new URLSearchParams(search), newParams);
 
       navigate(buildPath(pathname, next), { replace: options.replace });

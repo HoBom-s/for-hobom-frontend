@@ -7,9 +7,7 @@ import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { StudyMaterialContent, QuizCard } from "@/features/privacy-law-study";
 
 const StudyDetailContent = ({ materialId }: { materialId: string }) => {
-  const { data } = useSuspenseQuery(
-    privacyLawQueries.studyMaterial(materialId),
-  );
+  const { data } = useSuspenseQuery(privacyLawQueries.studyMaterial(materialId));
   const material = data.items;
 
   return (

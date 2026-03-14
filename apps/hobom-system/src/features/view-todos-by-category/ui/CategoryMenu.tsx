@@ -39,11 +39,7 @@ export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
         </Hb.Menu.Item>
       </Hb.Menu.Root>
 
-      <Hb.Dialog.Root
-        open={editOpen}
-        onClose={() => setEditOpen(false)}
-        size="xs"
-      >
+      <Hb.Dialog.Root open={editOpen} onClose={() => setEditOpen(false)} size="xs">
         <Hb.Dialog.Title sx={{ pb: 1 }}>카테고리 수정</Hb.Dialog.Title>
         <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
           <Hb.TextField
@@ -62,19 +58,10 @@ export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
           />
         </Hb.Dialog.Content>
         <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
-          <Hb.Button
-            fullWidth
-            variant="secondary"
-            onClick={() => setEditOpen(false)}
-          >
+          <Hb.Button fullWidth variant="secondary" onClick={() => setEditOpen(false)}>
             취소
           </Hb.Button>
-          <Hb.Button
-            fullWidth
-            variant="primary"
-            loading={isUpdatePending}
-            onClick={handleEdit}
-          >
+          <Hb.Button fullWidth variant="primary" loading={isUpdatePending} onClick={handleEdit}>
             저장
           </Hb.Button>
         </Hb.Dialog.Actions>

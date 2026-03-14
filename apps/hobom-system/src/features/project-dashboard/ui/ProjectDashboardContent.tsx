@@ -9,12 +9,8 @@ import { SprintDashboardSection } from "./SprintDashboardSection";
 
 export const ProjectDashboardContent = () => {
   const { projectId } = useProjectContext();
-  const { data: issueData } = useSuspenseQuery(
-    dashboardQueries.projectIssues(projectId),
-  );
-  const { data: sprintsData } = useSuspenseQuery(
-    sprintQueries.listByProject(projectId),
-  );
+  const { data: issueData } = useSuspenseQuery(dashboardQueries.projectIssues(projectId));
+  const { data: sprintsData } = useSuspenseQuery(sprintQueries.listByProject(projectId));
 
   const sprints = sprintsData.items;
   const [selectedSprintId, setSelectedSprintId] = useState<string>("");
@@ -56,10 +52,7 @@ export const ProjectDashboardContent = () => {
       </Hb.Box>
 
       {selectedSprintId ? (
-        <SprintDashboardSection
-          projectId={projectId}
-          sprintId={selectedSprintId}
-        />
+        <SprintDashboardSection projectId={projectId} sprintId={selectedSprintId} />
       ) : (
         <Hb.Text variant="body2" color="text.secondary">
           스프린트를 선택하면 상세 대시보드를 확인할 수 있습니다.

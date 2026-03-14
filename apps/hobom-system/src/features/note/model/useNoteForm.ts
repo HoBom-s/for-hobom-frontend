@@ -48,12 +48,9 @@ export const useNoteForm = (open: boolean, note: NoteItemType | null) => {
     setForm(note ? fromNote(note) : INITIAL_STATE);
   }, [open, note]);
 
-  const setField = useCallback(
-    <K extends keyof NoteFormState>(key: K, value: NoteFormState[K]) => {
-      setForm((prev) => ({ ...prev, [key]: value }));
-    },
-    [],
-  );
+  const setField = useCallback(<K extends keyof NoteFormState>(key: K, value: NoteFormState[K]) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }, []);
 
   const toggleType = useCallback(() => {
     setForm(
@@ -78,27 +75,18 @@ export const useNoteForm = (open: boolean, note: NoteItemType | null) => {
   const addChecklistItem = useCallback(() => {
     setForm(
       update((prev) => ({
-        checklistItems: [
-          ...prev.checklistItems,
-          toChecklistItem("", prev.checklistItems.length),
-        ],
+        checklistItems: [...prev.checklistItems, toChecklistItem("", prev.checklistItems.length)],
       })),
     );
   }, []);
 
   const updateChecklistItem = useCallback(
-    (
-      index: number,
-      field: keyof ChecklistItemType,
-      value: string | boolean | number,
-    ) => {
+    (index: number, field: keyof ChecklistItemType, value: string | boolean | number) => {
       setForm(
         update((prev) => ({
           checklistItems: Bom.pipe(
             prev.checklistItems,
-            Bom.map((item, i) =>
-              i === index ? { ...item, [field]: value } : item,
-            ),
+            Bom.map((item, i) => (i === index ? { ...item, [field]: value } : item)),
           ),
         })),
       );
@@ -130,16 +118,13 @@ export const useNoteForm = (open: boolean, note: NoteItemType | null) => {
     );
   }, []);
 
-  const setReminder = useCallback(
-    (date: string, recurrence: NoteRecurrence) => {
-      setForm(
-        update(() => ({
-          reminder: { date: new Date(date).toISOString(), recurrence },
-        })),
-      );
-    },
-    [],
-  );
+  const setReminder = useCallback((date: string, recurrence: NoteRecurrence) => {
+    setForm(
+      update(() => ({
+        reminder: { date: new Date(date).toISOString(), recurrence },
+      })),
+    );
+  }, []);
 
   const clearReminder = useCallback(() => {
     setForm(update(() => ({ reminder: null })));

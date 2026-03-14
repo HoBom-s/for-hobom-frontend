@@ -21,17 +21,13 @@ const normalizeNote = (raw: RawNoteItemType): NoteItemType => ({
 
 export const fetchNotes = async (status?: NoteStatus) => {
   const query = status ? `?status=${status}` : "";
-  const res = await httpClient.get<HttpResponseType<RawNoteItemType[]>>(
-    `/notes${query}`,
-  );
+  const res = await httpClient.get<HttpResponseType<RawNoteItemType[]>>(`/notes${query}`);
 
   return { ...res, items: res.items.map(normalizeNote) };
 };
 
 export const fetchNoteById = async ({ id }: { id: string }) => {
-  const res = await httpClient.get<HttpResponseType<RawNoteItemType>>(
-    `/notes/${id}`,
-  );
+  const res = await httpClient.get<HttpResponseType<RawNoteItemType>>(`/notes/${id}`);
 
   return { ...res, items: normalizeNote(res.items) };
 };
@@ -40,10 +36,7 @@ export const postCreateNote = async (data: CreateNoteRequest) => {
   return await httpClient.post<void>(`/notes`, data);
 };
 
-export const patchUpdateNote = async ({
-  id,
-  ...data
-}: { id: string } & UpdateNoteRequest) => {
+export const patchUpdateNote = async ({ id, ...data }: { id: string } & UpdateNoteRequest) => {
   return await httpClient.patch<void>(`/notes/${id}`, data);
 };
 
@@ -62,10 +55,7 @@ export const patchToggleNotePin = async ({ id }: { id: string }) => {
   return await httpClient.patch(`/notes/${id}/pin`, {});
 };
 
-export const patchReorderNote = async ({
-  id,
-  order,
-}: { id: string } & ReorderNoteRequest) => {
+export const patchReorderNote = async ({ id, order }: { id: string } & ReorderNoteRequest) => {
   return await httpClient.patch(`/notes/${id}/order`, { order });
 };
 
@@ -73,13 +63,7 @@ export const deleteEmptyTrash = async () => {
   return await httpClient.delete(`/notes/trash`);
 };
 
-export const postAddNoteMember = async ({
-  noteId,
-  userId,
-}: {
-  noteId: string;
-  userId: string;
-}) => {
+export const postAddNoteMember = async ({ noteId, userId }: { noteId: string; userId: string }) => {
   return await httpClient.post(`/notes/${noteId}/members`, { userId });
 };
 

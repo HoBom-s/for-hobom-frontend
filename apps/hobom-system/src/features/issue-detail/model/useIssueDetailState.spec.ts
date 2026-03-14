@@ -106,9 +106,7 @@ describe("useIssueDetailState", () => {
 
     setupQueries([issue]);
 
-    const { result } = renderHook(() =>
-      useIssueDetailState("proj-1", "issue-1", true),
-    );
+    const { result } = renderHook(() => useIssueDetailState("proj-1", "issue-1", true));
 
     expect(result.current.issue?.id).toBe("issue-1");
   });
@@ -128,9 +126,7 @@ describe("useIssueDetailState", () => {
 
     setupQueries([epic, story, task]);
 
-    const { result } = renderHook(() =>
-      useIssueDetailState("proj-1", "story-1", true),
-    );
+    const { result } = renderHook(() => useIssueDetailState("proj-1", "story-1", true));
 
     expect(result.current.parentIssue?.id).toBe("epic-1");
     expect(result.current.childIssues.map((c) => c.id)).toEqual(["task-1"]);
@@ -147,9 +143,7 @@ describe("useIssueDetailState", () => {
 
     setupQueries([epic, story, otherEpic]);
 
-    const { result } = renderHook(() =>
-      useIssueDetailState("proj-1", "epic-1", true),
-    );
+    const { result } = renderHook(() => useIssueDetailState("proj-1", "epic-1", true));
 
     const parentIds = result.current.availableParents.map((p) => p.id);
 
@@ -164,9 +158,7 @@ describe("useIssueDetailState", () => {
 
     setupQueries([epic, task]);
 
-    const { result } = renderHook(() =>
-      useIssueDetailState("proj-1", "epic-1", true),
-    );
+    const { result } = renderHook(() => useIssueDetailState("proj-1", "epic-1", true));
 
     const parentIds = result.current.availableParents.map((p) => p.id);
 
@@ -183,14 +175,9 @@ describe("useIssueDetailState", () => {
       ],
     );
 
-    const { result } = renderHook(() =>
-      useIssueDetailState("proj-1", "issue-1", true),
-    );
+    const { result } = renderHook(() => useIssueDetailState("proj-1", "issue-1", true));
 
-    expect(result.current.activeSprints.map((s) => s.id)).toEqual([
-      "sprint-1",
-      "sprint-3",
-    ]);
+    expect(result.current.activeSprints.map((s) => s.id)).toEqual(["sprint-1", "sprint-3"]);
   });
 
   it("progress를 done status 기준으로 계산한다", () => {
@@ -210,9 +197,7 @@ describe("useIssueDetailState", () => {
 
     setupQueries([epic, child1, child2]);
 
-    const { result } = renderHook(() =>
-      useIssueDetailState("proj-1", "epic-1", true),
-    );
+    const { result } = renderHook(() => useIssueDetailState("proj-1", "epic-1", true));
 
     expect(result.current.progress).toEqual({ completed: 1, total: 2 });
   });
@@ -220,9 +205,7 @@ describe("useIssueDetailState", () => {
   it("issueId가 null이면 issue가 undefined이다", () => {
     setupQueries([makeIssue()]);
 
-    const { result } = renderHook(() =>
-      useIssueDetailState("proj-1", null, true),
-    );
+    const { result } = renderHook(() => useIssueDetailState("proj-1", null, true));
 
     expect(result.current.issue).toBeUndefined();
   });
@@ -245,9 +228,7 @@ describe("useIssueDetailState", () => {
         ],
       );
 
-      const { result } = renderHook(() =>
-        useIssueDetailState("proj-1", "issue-1", true),
-      );
+      const { result } = renderHook(() => useIssueDetailState("proj-1", "issue-1", true));
 
       expect(result.current.projectMembers).toEqual([
         { userId: "user-1", nickname: "홍길동" },
@@ -261,16 +242,12 @@ describe("useIssueDetailState", () => {
         [],
         { id: "user-1" },
         {
-          members: [
-            { userId: "unknown-user", role: "MEMBER", joinedAt: "2026-01-01" },
-          ],
+          members: [{ userId: "unknown-user", role: "MEMBER", joinedAt: "2026-01-01" }],
         },
         [{ id: "user-1", nickname: "홍길동" }],
       );
 
-      const { result } = renderHook(() =>
-        useIssueDetailState("proj-1", "issue-1", true),
-      );
+      const { result } = renderHook(() => useIssueDetailState("proj-1", "issue-1", true));
 
       expect(result.current.projectMembers).toEqual([
         { userId: "unknown-user", nickname: "unknown-user" },
@@ -290,9 +267,7 @@ describe("useIssueDetailState", () => {
         return { data: undefined };
       });
 
-      const { result } = renderHook(() =>
-        useIssueDetailState("proj-1", "issue-1", true),
-      );
+      const { result } = renderHook(() => useIssueDetailState("proj-1", "issue-1", true));
 
       expect(result.current.projectMembers).toEqual([]);
     });

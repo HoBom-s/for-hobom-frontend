@@ -78,12 +78,7 @@ describe("useNoteGrid", () => {
     it("allNotes가 pinned + unpinned 순서로 합쳐진다", () => {
       const { result } = setup();
 
-      expect(result.current.allNotes.map((n) => n.id)).toEqual([
-        "p1",
-        "p2",
-        "u1",
-        "u2",
-      ]);
+      expect(result.current.allNotes.map((n) => n.id)).toEqual(["p1", "p2", "u1", "u2"]);
     });
   });
 

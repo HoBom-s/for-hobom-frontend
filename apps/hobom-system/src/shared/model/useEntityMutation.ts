@@ -44,9 +44,7 @@ export const useEntityMutation = <TData, TVariables>({
     onSuccess: async (...args) => {
       await mutation.onSuccess?.(...args);
       await Promise.all(
-        invalidateKeys.map((key) =>
-          queryClient.invalidateQueries({ queryKey: key }),
-        ),
+        invalidateKeys.map((key) => queryClient.invalidateQueries({ queryKey: key })),
       );
       if (successMessage) openSuccessToast({ message: successMessage });
     },

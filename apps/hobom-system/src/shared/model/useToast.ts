@@ -15,13 +15,7 @@ export const useToast = () => {
     openErrorToast: ({ message }: { message: string }) => {
       error(message);
     },
-    openUndoToast: ({
-      message,
-      onUndo,
-    }: {
-      message: string;
-      onUndo: () => void;
-    }) => {
+    openUndoToast: ({ message, onUndo }: { message: string; onUndo: () => void }) => {
       toast(
         ({ closeToast }) =>
           createElement(

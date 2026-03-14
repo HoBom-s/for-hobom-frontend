@@ -28,16 +28,11 @@ export const useExamSession = (questions: ExamQuestion[]) => {
     finished: false,
   });
 
-  const currentQuestion = questions[state.currentIndex] as
-    | ExamQuestion
-    | undefined;
+  const currentQuestion = questions[state.currentIndex] as ExamQuestion | undefined;
   const currentAnswer = state.answers[state.currentIndex];
   const userAnswer = currentAnswer?.userAnswer ?? "";
   const revealed = currentAnswer?.revealed ?? false;
-  const isCorrect =
-    revealed && currentQuestion
-      ? checkCorrect(currentQuestion, userAnswer)
-      : false;
+  const isCorrect = revealed && currentQuestion ? checkCorrect(currentQuestion, userAnswer) : false;
 
   const score = useMemo(
     () =>

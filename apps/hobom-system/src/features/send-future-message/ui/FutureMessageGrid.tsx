@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
 import { MailOutline } from "hobom-design-system/icons";
-import {
-  useDeleteFutureMessage,
-  type FutureMessageType,
-} from "@/entities/future-message";
+import { useDeleteFutureMessage, type FutureMessageType } from "@/entities/future-message";
 import { useContainerWidth } from "@/shared/model";
 import { Hb } from "@/shared/ui";
 import {
@@ -18,14 +15,9 @@ import { GridHeaderCell } from "./GridHeaderCell";
 import { GridBodyCell } from "./GridBodyCell";
 import { FutureMessageEditDialog } from "./FutureMessageEditDialog";
 
-export const FutureMessageGrid = ({
-  messages,
-}: {
-  messages: FutureMessageType[];
-}) => {
+export const FutureMessageGrid = ({ messages }: { messages: FutureMessageType[] }) => {
   const [containerRef, containerWidth] = useContainerWidth();
-  const [editingMessage, setEditingMessage] =
-    useState<FutureMessageType | null>(null);
+  const [editingMessage, setEditingMessage] = useState<FutureMessageType | null>(null);
   const { mutate: mutateDelete } = useDeleteFutureMessage();
 
   if (messages.length === 0) {
@@ -41,10 +33,7 @@ export const FutureMessageGrid = ({
         }}
       >
         <MailOutline sx={{ fontSize: 64, color: "#dadce0" }} />
-        <Hb.Text
-          variant="body1"
-          sx={{ color: "text.disabled", fontSize: "0.95rem" }}
-        >
+        <Hb.Text variant="body1" sx={{ color: "text.disabled", fontSize: "0.95rem" }}>
           메시지가 없어요
         </Hb.Text>
       </Hb.Box>
@@ -106,12 +95,7 @@ const GridInner = ({
       headerRowCount={HEADER_ROW_COUNT}
       renderCell={(cell) => {
         if (cell.kind === "header") {
-          return (
-            <GridHeaderCell
-              colIndex={cell.colIndex}
-              onStartResize={colResize.startResize}
-            />
-          );
+          return <GridHeaderCell colIndex={cell.colIndex} onStartResize={colResize.startResize} />;
         }
 
         const bodyIndex = cell.rowIndex - HEADER_ROW_COUNT;

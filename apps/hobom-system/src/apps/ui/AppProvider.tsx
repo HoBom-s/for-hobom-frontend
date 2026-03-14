@@ -46,9 +46,7 @@ export const AppProvider = ({ children }: Props) => {
           <Hb.CssBaseline enableColorScheme />
           <Hb.GlobalStyles styles={GLOBAL_STYLES} />
           <ErrorBoundary
-            onError={(err, info) =>
-              reportError(err, { componentStack: info.componentStack })
-            }
+            onError={(err, info) => reportError(err, { componentStack: info.componentStack })}
           >
             <BottomSheetCTAProvider>
               <OverlayProvider>{children}</OverlayProvider>

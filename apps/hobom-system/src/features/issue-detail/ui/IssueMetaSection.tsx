@@ -9,20 +9,11 @@ import {
   ParentIssueAutocomplete,
 } from "@/entities/issue";
 import { getStatusName, getStatusColor } from "@/entities/project";
-import {
-  projectLabelQueries,
-  ProjectLabelPicker,
-} from "@/entities/project-label";
+import { projectLabelQueries, ProjectLabelPicker } from "@/entities/project-label";
 import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
 
-const MetaRow = ({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) => (
+const MetaRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <Hb.Box sx={{ display: "flex", alignItems: "center", py: 0.5 }}>
     <Hb.Text
       variant="body2"
@@ -121,9 +112,7 @@ export const IssueMetaSection = () => {
   const { statuses } = useProjectContext();
 
   const labelPopover = usePopoverState();
-  const { data: labelData } = useQuery(
-    projectLabelQueries.listByProject(projectId),
-  );
+  const { data: labelData } = useQuery(projectLabelQueries.listByProject(projectId));
   const labelMap = useMemo(
     () => new Map((labelData?.items ?? []).map((l) => [l.id, l])),
     [labelData?.items],
@@ -189,8 +178,7 @@ export const IssueMetaSection = () => {
       <MetaRow label="담당자">
         {(() => {
           const assigneeName = issue.assignee
-            ? (projectMembers.find((m) => m.userId === issue.assignee)
-                ?.nickname ?? issue.assignee)
+            ? (projectMembers.find((m) => m.userId === issue.assignee)?.nickname ?? issue.assignee)
             : null;
 
           return (
@@ -289,16 +277,11 @@ export const IssueMetaSection = () => {
           <Hb.Form.Select
             value={issue.sprint ?? ""}
             displayEmpty
-            onChange={(e) =>
-              updateField({ sprint: e.target.value || undefined })
-            }
+            onChange={(e) => updateField({ sprint: e.target.value || undefined })}
             sx={{ fontSize: 13, "& .MuiSelect-select": { py: 0.75 } }}
           >
             <Hb.Menu.Item value="" sx={{ fontSize: 13 }}>
-              <Hb.Text
-                variant="body2"
-                sx={{ fontSize: 13, color: "text.disabled" }}
-              >
+              <Hb.Text variant="body2" sx={{ fontSize: 13, color: "text.disabled" }}>
                 없음
               </Hb.Text>
             </Hb.Menu.Item>

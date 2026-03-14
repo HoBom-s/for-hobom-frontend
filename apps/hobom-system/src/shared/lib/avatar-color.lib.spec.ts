@@ -1,14 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { getAvatarColor } from "./avatar-color.lib";
 
-const AVATAR_COLORS = [
-  "#4680ff",
-  "#2ca87f",
-  "#e58a00",
-  "#7c3aed",
-  "#0891b2",
-  "#dc2626",
-];
+const AVATAR_COLORS = ["#4680ff", "#2ca87f", "#e58a00", "#7c3aed", "#0891b2", "#dc2626"];
 
 describe("getAvatarColor", () => {
   it("항상 사전 정의된 색상 중 하나를 반환한다", () => {

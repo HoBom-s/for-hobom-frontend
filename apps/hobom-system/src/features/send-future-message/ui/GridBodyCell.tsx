@@ -2,10 +2,7 @@ import {
   Schedule as ScheduleIcon,
   CheckCircle as CheckCircleIcon,
 } from "hobom-design-system/icons";
-import {
-  isPendingMessageSendStatus,
-  type FutureMessageType,
-} from "@/entities/future-message";
+import { isPendingMessageSendStatus, type FutureMessageType } from "@/entities/future-message";
 import { COLORS, type ColKey } from "../config/future-message-grid.config";
 import { formatDate, formatTime } from "../lib/future-message-format.lib";
 import { FutureMessageRowActions } from "./FutureMessageRowActions";
@@ -18,13 +15,7 @@ interface Props {
   onDelete: (id: string) => void;
 }
 
-export const GridBodyCell = ({
-  colKey,
-  row,
-  bodyIndex,
-  onEdit,
-  onDelete,
-}: Props) => {
+export const GridBodyCell = ({ colKey, row, bodyIndex, onEdit, onDelete }: Props) => {
   const bg = bodyIndex % 2 === 0 ? COLORS.rowEven : COLORS.rowOdd;
   const isPending = isPendingMessageSendStatus(row.sendStatus);
 
@@ -34,12 +25,7 @@ export const GridBodyCell = ({
         height: "100%",
         display: "flex",
         alignItems: "center",
-        padding:
-          colKey === "rowNum"
-            ? "0 0 0 16px"
-            : colKey === "actions"
-              ? "0 8px"
-              : "0 16px",
+        padding: colKey === "rowNum" ? "0 0 0 16px" : colKey === "actions" ? "0 8px" : "0 16px",
         backgroundColor: bg,
         borderBottom: `1px solid ${COLORS.border}`,
         boxSizing: "border-box",
@@ -122,11 +108,7 @@ export const GridBodyCell = ({
           </span>
         </div>
       ) : colKey === "actions" ? (
-        <FutureMessageRowActions
-          row={row}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
+        <FutureMessageRowActions row={row} onEdit={onEdit} onDelete={onDelete} />
       ) : (
         <span
           style={{

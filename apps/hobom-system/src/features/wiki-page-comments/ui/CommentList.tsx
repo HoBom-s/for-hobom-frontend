@@ -1,9 +1,5 @@
 import { Fragment } from "react";
-import {
-  ReplyOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from "hobom-design-system/icons";
+import { ReplyOutlined, EditOutlined, DeleteOutlined } from "hobom-design-system/icons";
 import type { UserType } from "@/entities/user";
 import { Hb } from "@/shared/ui";
 import { useCommentNode } from "../model/useCommentNode";
@@ -17,12 +13,7 @@ interface CommentListProps {
   userInfo: UserType;
 }
 
-export const CommentList = ({
-  comments,
-  spaceKey,
-  pageId,
-  userInfo,
-}: CommentListProps) => {
+export const CommentList = ({ comments, spaceKey, pageId, userInfo }: CommentListProps) => {
   return (
     <Hb.Box sx={{ display: "flex", flexDirection: "column" }}>
       {comments.map((comment) => (
@@ -47,13 +38,7 @@ interface CommentNodeProps {
   userInfo: UserType;
 }
 
-const CommentNode = ({
-  comment,
-  spaceKey,
-  pageId,
-  depth,
-  userInfo,
-}: CommentNodeProps) => {
+const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNodeProps) => {
   const {
     replying,
     setReplying,
@@ -129,11 +114,7 @@ const CommentNode = ({
               mb: 0.5,
             }}
           >
-            <Hb.Text
-              variant="body2"
-              fontWeight={600}
-              sx={{ color: "text.primary" }}
-            >
+            <Hb.Text variant="body2" fontWeight={600} sx={{ color: "text.primary" }}>
               {authorName}
             </Hb.Text>
             <Hb.Text variant="caption" color="text.disabled">
@@ -196,14 +177,8 @@ const CommentNode = ({
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
               />
-              <Hb.Box
-                sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}
-              >
-                <Hb.Button
-                  size="small"
-                  onClick={cancelEditing}
-                  sx={{ textTransform: "none" }}
-                >
+              <Hb.Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
+                <Hb.Button size="small" onClick={cancelEditing} sx={{ textTransform: "none" }}>
                   취소
                 </Hb.Button>
                 <Hb.Button

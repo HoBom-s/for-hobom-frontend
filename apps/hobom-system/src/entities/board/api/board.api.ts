@@ -1,19 +1,9 @@
 import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
-import type {
-  BoardDto,
-  CreateBoardRequest,
-  UpdateBoardRequest,
-} from "./board.type";
+import type { BoardDto, CreateBoardRequest, UpdateBoardRequest } from "./board.type";
 
-export const fetchBoardsByProject = async ({
-  projectId,
-}: {
-  projectId: string;
-}) => {
-  return await httpClient.get<HttpResponseType<BoardDto[]>>(
-    `/projects/${projectId}/boards`,
-  );
+export const fetchBoardsByProject = async ({ projectId }: { projectId: string }) => {
+  return await httpClient.get<HttpResponseType<BoardDto[]>>(`/projects/${projectId}/boards`);
 };
 
 export const fetchBoardById = async ({
@@ -40,10 +30,7 @@ export const patchUpdateBoard = async ({
   boardId,
   ...data
 }: { projectId: string; boardId: string } & UpdateBoardRequest) => {
-  return await httpClient.patch<void>(
-    `/projects/${projectId}/boards/${boardId}`,
-    data,
-  );
+  return await httpClient.patch<void>(`/projects/${projectId}/boards/${boardId}`, data);
 };
 
 export const deleteBoard = async ({
@@ -53,7 +40,5 @@ export const deleteBoard = async ({
   projectId: string;
   boardId: string;
 }) => {
-  return await httpClient.delete<void>(
-    `/projects/${projectId}/boards/${boardId}`,
-  );
+  return await httpClient.delete<void>(`/projects/${projectId}/boards/${boardId}`);
 };

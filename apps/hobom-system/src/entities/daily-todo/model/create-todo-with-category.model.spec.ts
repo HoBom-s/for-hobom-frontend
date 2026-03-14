@@ -72,10 +72,7 @@ describe("createTodosWithCategory", () => {
   });
 
   it("할일 배열이 비어있으면 모든 카테고리의 todoItems가 빈 배열이다", () => {
-    const categories = [
-      makeCategory({ id: "cat-1" }),
-      makeCategory({ id: "cat-2" }),
-    ];
+    const categories = [makeCategory({ id: "cat-1" }), makeCategory({ id: "cat-2" })];
 
     const result = createTodosWithCategory(categories, []);
 

@@ -1,9 +1,5 @@
 import type { LogStatusCount } from "@/entities/log";
-import {
-  getStatusColor,
-  getStatusLabel,
-  computeKpiSummary,
-} from "./log-dashboard.lib";
+import { getStatusColor, getStatusLabel, computeKpiSummary } from "./log-dashboard.lib";
 
 describe("getStatusColor", () => {
   it("returns green for 2xx", () => {

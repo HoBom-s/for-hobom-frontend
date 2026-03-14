@@ -2,20 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { arrayMove } from "@/shared/ui";
 import type { DragEndEvent, DragStartEvent } from "@/shared/ui";
 import type { IssueType } from "@/entities/issue";
-import {
-  findColumnOfIssue,
-  resolveDropTarget,
-  type ColumnMap,
-} from "../lib/kanban-dnd.lib";
+import { findColumnOfIssue, resolveDropTarget, type ColumnMap } from "../lib/kanban-dnd.lib";
 import type { DragOverEvent } from "@dnd-kit/core";
 
 interface UseKanbanDndParams {
   groupedByStatus: ColumnMap;
-  transitionIssue: (params: {
-    projectId: string;
-    issueId: string;
-    statusId: string;
-  }) => void;
+  transitionIssue: (params: { projectId: string; issueId: string; statusId: string }) => void;
   projectId: string;
 }
 
@@ -29,18 +21,15 @@ export const useKanbanDnd = ({
   const snapshotRef = useRef(columns);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const setColumns = useCallback(
-    (updater: ColumnMap | ((prev: ColumnMap) => ColumnMap)) => {
-      setColumnsState((prev) => {
-        const next = typeof updater === "function" ? updater(prev) : updater;
+  const setColumns = useCallback((updater: ColumnMap | ((prev: ColumnMap) => ColumnMap)) => {
+    setColumnsState((prev) => {
+      const next = typeof updater === "function" ? updater(prev) : updater;
 
-        columnsRef.current = next;
+      columnsRef.current = next;
 
-        return next;
-      });
-    },
-    [],
-  );
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     setColumns(groupedByStatus);

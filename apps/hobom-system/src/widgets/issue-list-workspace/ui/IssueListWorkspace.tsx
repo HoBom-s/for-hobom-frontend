@@ -14,10 +14,7 @@ export const IssueListWorkspace = () => {
   return (
     <ErrorBoundary inline>
       <Suspense fallback={<SuspenseLoader />}>
-        <IssueListTable
-          projectId={projectId}
-          onIssueClick={onOpenIssueDetail}
-        />
+        <IssueListTable projectId={projectId} onIssueClick={onOpenIssueDetail} />
       </Suspense>
     </ErrorBoundary>
   );

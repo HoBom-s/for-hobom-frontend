@@ -29,9 +29,7 @@ function flatMapImpl<T, U>(
   data: readonly T[],
   cb: (item: T, index: number, arr: readonly T[]) => readonly U[],
 ): U[] {
-  return (data as T[]).flatMap(
-    cb as unknown as (item: T, index: number, arr: T[]) => U[],
-  );
+  return (data as T[]).flatMap(cb as unknown as (item: T, index: number, arr: T[]) => U[]);
 }
 
 function lazyImpl<T, U>(

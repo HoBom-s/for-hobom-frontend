@@ -14,10 +14,7 @@ export const menuMutations = {
     }),
   addCandidatesTodayMenu: () =>
     mutationOptions({
-      mutationKey: [
-        ...menuMutations.menus(),
-        "addCandidatesTodayMenu",
-      ] as const,
+      mutationKey: [...menuMutations.menus(), "addCandidatesTodayMenu"] as const,
       mutationFn: putMenuRecommendationTodayMenu,
     }),
 } as const;

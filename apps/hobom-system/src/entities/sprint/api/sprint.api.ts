@@ -1,19 +1,9 @@
 import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
-import type {
-  SprintType,
-  CreateSprintRequest,
-  UpdateSprintRequest,
-} from "./sprint.type";
+import type { SprintType, CreateSprintRequest, UpdateSprintRequest } from "./sprint.type";
 
-export const fetchSprintsByProject = async ({
-  projectId,
-}: {
-  projectId: string;
-}) => {
-  return await httpClient.get<HttpResponseType<SprintType[]>>(
-    `/projects/${projectId}/sprints`,
-  );
+export const fetchSprintsByProject = async ({ projectId }: { projectId: string }) => {
+  return await httpClient.get<HttpResponseType<SprintType[]>>(`/projects/${projectId}/sprints`);
 };
 
 export const postCreateSprint = async ({
@@ -28,10 +18,7 @@ export const patchUpdateSprint = async ({
   sprintId,
   ...data
 }: { projectId: string; sprintId: string } & UpdateSprintRequest) => {
-  return await httpClient.patch<void>(
-    `/projects/${projectId}/sprints/${sprintId}`,
-    data,
-  );
+  return await httpClient.patch<void>(`/projects/${projectId}/sprints/${sprintId}`, data);
 };
 
 export const deleteSprint = async ({
@@ -51,10 +38,7 @@ export const postStartSprint = async ({
   projectId: string;
   sprintId: string;
 }) => {
-  return await httpClient.post<void>(
-    `/projects/${projectId}/sprints/${sprintId}/start`,
-    {},
-  );
+  return await httpClient.post<void>(`/projects/${projectId}/sprints/${sprintId}/start`, {});
 };
 
 export const postCompleteSprint = async ({
@@ -64,8 +48,5 @@ export const postCompleteSprint = async ({
   projectId: string;
   sprintId: string;
 }) => {
-  return await httpClient.post<void>(
-    `/projects/${projectId}/sprints/${sprintId}/complete`,
-    {},
-  );
+  return await httpClient.post<void>(`/projects/${projectId}/sprints/${sprintId}/complete`, {});
 };

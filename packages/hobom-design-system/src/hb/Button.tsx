@@ -32,10 +32,7 @@ interface IconButtonProps extends Omit<MuiIconButtonProps, "color"> {
 }
 
 const Icon = ({ variant = "default", ...props }: IconButtonProps) => (
-  <MuiIconButton
-    color={variant === "danger" ? "error" : "default"}
-    {...props}
-  />
+  <MuiIconButton color={variant === "danger" ? "error" : "default"} {...props} />
 );
 
 export const Button = Object.assign(ButtonBase, { Icon });

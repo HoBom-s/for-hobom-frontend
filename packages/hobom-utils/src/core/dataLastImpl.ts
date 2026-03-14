@@ -7,7 +7,5 @@ export function dataLastImpl(
 ): unknown {
   const dataLast = (data: unknown): unknown => fn(data, ...args);
 
-  return lazy === undefined
-    ? dataLast
-    : Object.assign(dataLast, { lazy, lazyArgs: args });
+  return lazy === undefined ? dataLast : Object.assign(dataLast, { lazy, lazyArgs: args });
 }

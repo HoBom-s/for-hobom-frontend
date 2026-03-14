@@ -1,9 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  ArrowForwardOutlined,
-  CompareArrowsOutlined,
-} from "hobom-design-system/icons";
+import { ArrowForwardOutlined, CompareArrowsOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";
 
@@ -32,28 +29,15 @@ export const LawDiffList = () => {
 
         return (
           <Hb.Card.Root key={diff.id} variant="outlined">
-            <Hb.Card.Clickable
-              onClick={() => navigate(`/privacy-law/diffs/${diff.id}`)}
-            >
+            <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/diffs/${diff.id}`)}>
               <Hb.Card.Content>
-                <Hb.Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
+                <Hb.Stack direction="row" alignItems="center" justifyContent="space-between">
                   <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
                     <CompareArrowsOutlined color="primary" fontSize="small" />
                     <Hb.Stack direction="row" alignItems="center" spacing={0.5}>
-                      <Hb.Text variant="subtitle2">
-                        {diff.fromProclamationDate}
-                      </Hb.Text>
-                      <ArrowForwardOutlined
-                        fontSize="small"
-                        sx={{ color: "text.secondary" }}
-                      />
-                      <Hb.Text variant="subtitle2">
-                        {diff.toProclamationDate}
-                      </Hb.Text>
+                      <Hb.Text variant="subtitle2">{diff.fromProclamationDate}</Hb.Text>
+                      <ArrowForwardOutlined fontSize="small" sx={{ color: "text.secondary" }} />
+                      <Hb.Text variant="subtitle2">{diff.toProclamationDate}</Hb.Text>
                     </Hb.Stack>
                   </Hb.Stack>
                   <Hb.Stack direction="row" spacing={0.5}>
@@ -66,11 +50,7 @@ export const LawDiffList = () => {
                         variant="outlined"
                       />
                     ))}
-                    <Hb.Chip
-                      label={`${diff.changes.length}건`}
-                      size="small"
-                      variant="outlined"
-                    />
+                    <Hb.Chip label={`${diff.changes.length}건`} size="small" variant="outlined" />
                   </Hb.Stack>
                 </Hb.Stack>
               </Hb.Card.Content>

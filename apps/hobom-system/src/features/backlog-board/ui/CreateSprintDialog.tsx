@@ -8,11 +8,7 @@ interface CreateSprintDialogProps {
   projectId: string;
 }
 
-export const CreateSprintDialog = ({
-  open,
-  onClose,
-  projectId,
-}: CreateSprintDialogProps) => {
+export const CreateSprintDialog = ({ open, onClose, projectId }: CreateSprintDialogProps) => {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -38,9 +34,7 @@ export const CreateSprintDialog = ({
   return (
     <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
       <Hb.Dialog.Title>스프린트 만들기</Hb.Dialog.Title>
-      <Hb.Dialog.Content
-        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-      >
+      <Hb.Dialog.Content sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Hb.TextField
           label="스프린트 이름"
           value={name}
@@ -68,9 +62,7 @@ export const CreateSprintDialog = ({
             size="small"
             slotProps={{ inputLabel: { shrink: true } }}
             error={!!isDateInvalid}
-            helperText={
-              isDateInvalid ? "종료일은 시작일 이후여야 해요" : undefined
-            }
+            helperText={isDateInvalid ? "종료일은 시작일 이후여야 해요" : undefined}
           />
         </Hb.Box>
       </Hb.Dialog.Content>

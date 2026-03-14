@@ -42,9 +42,7 @@ describe("useBoardItem", () => {
 
   describe("초기 상태", () => {
     it("isEditing이 false이다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       expect(result.current.isEditing).toBe(false);
     });
@@ -58,9 +56,7 @@ describe("useBoardItem", () => {
     });
 
     it("newStatusId, newStatusName이 비어있다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       expect(result.current.newStatusId).toBe("");
       expect(result.current.newStatusName).toBe("");
@@ -69,9 +65,7 @@ describe("useBoardItem", () => {
 
   describe("handleSaveName", () => {
     it("이름이 변경되면 updateBoard를 호출한다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.setEditName("새 이름"));
       act(() => result.current.handleSaveName());
@@ -108,9 +102,7 @@ describe("useBoardItem", () => {
 
   describe("handleAddColumn", () => {
     it("유효한 id와 name이면 syncColumns를 호출한다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.setNewStatusId("review"));
       act(() => result.current.setNewStatusName("리뷰"));
@@ -124,9 +116,7 @@ describe("useBoardItem", () => {
     });
 
     it("id가 비어있으면 호출하지 않는다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.setNewStatusName("리뷰"));
       act(() => result.current.handleAddColumn());
@@ -135,9 +125,7 @@ describe("useBoardItem", () => {
     });
 
     it("name이 비어있으면 호출하지 않는다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.setNewStatusId("review"));
       act(() => result.current.handleAddColumn());
@@ -146,9 +134,7 @@ describe("useBoardItem", () => {
     });
 
     it("중복 statusId이면 호출하지 않는다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.setNewStatusId("todo")); // 이미 존재
       act(() => result.current.setNewStatusName("중복"));
@@ -160,9 +146,7 @@ describe("useBoardItem", () => {
 
   describe("handleRemoveColumn", () => {
     it("해당 statusId 컬럼을 제거하고 syncColumns를 호출한다", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.handleRemoveColumn("in_progress"));
 
@@ -173,9 +157,7 @@ describe("useBoardItem", () => {
 
   describe("isDuplicate", () => {
     it("기존 statusId와 같으면 true", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.setNewStatusId("TODO")); // 대소문자 무시 (lowercase 변환)
 
@@ -183,9 +165,7 @@ describe("useBoardItem", () => {
     });
 
     it("새로운 statusId면 false", () => {
-      const { result } = renderHook(() =>
-        useBoardItem(makeBoard(), "project-1"),
-      );
+      const { result } = renderHook(() => useBoardItem(makeBoard(), "project-1"));
 
       act(() => result.current.setNewStatusId("review"));
 

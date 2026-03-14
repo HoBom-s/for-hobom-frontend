@@ -33,10 +33,7 @@ export const ISSUE_KIND_REGISTRY: Record<IssueKind, IssueKindConfig> = {
   SUBTASK: { Icon: AccountTreeOutlined, color: "#0891b2", bg: "#e0f7fa" },
 };
 
-export const ISSUE_PRIORITY_REGISTRY: Record<
-  IssuePriority,
-  IssuePriorityConfig
-> = {
+export const ISSUE_PRIORITY_REGISTRY: Record<IssuePriority, IssuePriorityConfig> = {
   CRITICAL: { Icon: KeyboardDoubleArrowUp, color: "#dc2626" },
   HIGH: { Icon: KeyboardArrowUp, color: "#e58a00" },
   MEDIUM: { Icon: Remove, color: "#9ca3af" },

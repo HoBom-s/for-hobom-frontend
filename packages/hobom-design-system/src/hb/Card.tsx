@@ -19,12 +19,7 @@ interface ClickableProps extends Omit<MuiCardProps, "onClick"> {
   children: ReactNode;
 }
 
-const Clickable = ({
-  onClick,
-  children,
-  variant = "outlined",
-  ...props
-}: ClickableProps) => (
+const Clickable = ({ onClick, children, variant = "outlined", ...props }: ClickableProps) => (
   <MuiCard variant={variant} {...props}>
     <CardActionArea onClick={onClick}>{children}</CardActionArea>
   </MuiCard>

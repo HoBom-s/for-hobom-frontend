@@ -16,8 +16,4 @@ export {
   useUpdateFutureMessage,
   useDeleteFutureMessage,
 };
-export type {
-  FutureMessageSendSchemaType,
-  FutureMessageSendStatusType,
-  FutureMessageType,
-};
+export type { FutureMessageSendSchemaType, FutureMessageSendStatusType, FutureMessageType };

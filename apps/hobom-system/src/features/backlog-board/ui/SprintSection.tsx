@@ -14,16 +14,9 @@ import { useSprintActions } from "../model/useSprintActions";
 import { STATUS_COLOR } from "./backlog-constants";
 import { IssueRow } from "./IssueRow";
 
-export const SprintSection = ({
-  sprint,
-  issues,
-}: {
-  sprint: SprintType;
-  issues: IssueType[];
-}) => {
+export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: IssueType[] }) => {
   const { projectId, doneStatusIds } = useBacklogContext();
-  const { issueTree, flatTree, collapsedIds, toggleCollapse } =
-    useCollapsibleTree(issues);
+  const { issueTree, flatTree, collapsedIds, toggleCollapse } = useCollapsibleTree(issues);
   const { handleStart, handleComplete } = useSprintActions(projectId, sprint);
   const [expanded, setExpanded] = useState(true);
 
@@ -59,11 +52,7 @@ export const SprintSection = ({
         onClick={() => setExpanded(!expanded)}
       >
         <Hb.Button.Icon size="small" sx={{ p: 0 }}>
-          {expanded ? (
-            <ExpandMore sx={{ fontSize: 20 }} />
-          ) : (
-            <ExpandLess sx={{ fontSize: 20 }} />
-          )}
+          {expanded ? <ExpandMore sx={{ fontSize: 20 }} /> : <ExpandLess sx={{ fontSize: 20 }} />}
         </Hb.Button.Icon>
         <Hb.Text variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>
           {sprint.name}
@@ -132,18 +121,10 @@ export const SprintSection = ({
       <Hb.Collapse in={expanded}>
         {issues.length === 0 ? (
           <Hb.Box sx={{ px: 2, py: 3, textAlign: "center" }}>
-            <Hb.Text
-              variant="body2"
-              color="text.disabled"
-              sx={{ fontSize: 13 }}
-            >
+            <Hb.Text variant="body2" color="text.disabled" sx={{ fontSize: 13 }}>
               스프린트에 이슈가 없어요
             </Hb.Text>
-            <Hb.Text
-              variant="caption"
-              color="text.disabled"
-              sx={{ fontSize: 11 }}
-            >
+            <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
               백로그 이슈의 ⋮ 메뉴에서 이 스프린트로 이동할 수 있어요
             </Hb.Text>
           </Hb.Box>
@@ -151,11 +132,7 @@ export const SprintSection = ({
           flatTree.map(({ issue, depth, childCount }) => {
             const progress =
               childCount > 0
-                ? getDescendantProgress(
-                    issue.id,
-                    issueTree.childrenMap,
-                    doneStatusIds,
-                  )
+                ? getDescendantProgress(issue.id, issueTree.childrenMap, doneStatusIds)
                 : undefined;
 
             return (

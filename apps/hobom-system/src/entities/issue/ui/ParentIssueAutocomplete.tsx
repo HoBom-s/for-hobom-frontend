@@ -28,9 +28,9 @@ export const ParentIssueAutocomplete = ({
     groupBy={(option) => ISSUE_KIND_LABEL[option.type]}
     onChange={(_e, newValue) => onChange(newValue)}
     renderGroup={(params) => {
-      const kind = Object.entries(ISSUE_KIND_LABEL).find(
-        ([, l]) => l === params.group,
-      )?.[0] as IssueKind | undefined;
+      const kind = Object.entries(ISSUE_KIND_LABEL).find(([, l]) => l === params.group)?.[0] as
+        | IssueKind
+        | undefined;
       const config = kind ? ISSUE_KIND_REGISTRY[kind] : null;
 
       return (
@@ -48,9 +48,7 @@ export const ParentIssueAutocomplete = ({
               zIndex: 1,
             }}
           >
-            {config && (
-              <config.Icon sx={{ fontSize: 14, color: config.color }} />
-            )}
+            {config && <config.Icon sx={{ fontSize: 14, color: config.color }} />}
             <Hb.Text
               variant="caption"
               sx={{
@@ -77,9 +75,7 @@ export const ParentIssueAutocomplete = ({
           {...props}
           sx={{ display: "flex", alignItems: "center", gap: 1, py: 0.75 }}
         >
-          <config.Icon
-            sx={{ fontSize: 16, color: config.color, flexShrink: 0 }}
-          />
+          <config.Icon sx={{ fontSize: 16, color: config.color, flexShrink: 0 }} />
           <Hb.Text
             variant="caption"
             sx={{
@@ -105,9 +101,7 @@ export const ParentIssueAutocomplete = ({
         </Hb.Menu.Item>
       );
     }}
-    renderInput={(params) => (
-      <Hb.TextField {...params} label={label} placeholder={placeholder} />
-    )}
+    renderInput={(params) => <Hb.TextField {...params} label={label} placeholder={placeholder} />}
     noOptionsText="선택 가능한 상위 이슈 없음"
     slotProps={{
       paper: { sx: { borderRadius: 2, boxShadow: 3 } },

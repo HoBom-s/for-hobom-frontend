@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import type { ProjectIssueDashboardDto } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 
@@ -52,12 +44,7 @@ export const TypeDistributionChart = ({ data }: TypeDistributionChartProps) => {
               fontSize: 13,
             }}
           />
-          <Bar
-            dataKey="count"
-            name="이슈 수"
-            fill="url(#typeBarGradient)"
-            radius={[0, 6, 6, 0]}
-          />
+          <Bar dataKey="count" name="이슈 수" fill="url(#typeBarGradient)" radius={[0, 6, 6, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </Hb.Box>

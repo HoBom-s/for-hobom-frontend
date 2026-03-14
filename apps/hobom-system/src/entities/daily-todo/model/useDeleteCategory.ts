@@ -1,12 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Bom } from "hobom-utils";
 import { useToast, useRouterQuery } from "@/shared/model";
-import {
-  todoQueries,
-  formatDate,
-  getNow,
-  getSelectedDate,
-} from "@/entities/daily-todo";
+import { todoQueries, formatDate, getNow, getSelectedDate } from "@/entities/daily-todo";
 import { categoryMutations } from "../api/daily-todo-category.mutations";
 
 export const useDeleteCategory = () => {

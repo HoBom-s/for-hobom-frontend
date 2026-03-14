@@ -11,10 +11,7 @@ interface ErrorEventDetailDialogProps {
 
 const InfoRow = ({ label, value }: { label: string; value: string | null }) => (
   <Hb.Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-    <Hb.Text
-      variant="body2"
-      sx={{ fontWeight: 600, minWidth: 80, color: "text.secondary" }}
-    >
+    <Hb.Text variant="body2" sx={{ fontWeight: 600, minWidth: 80, color: "text.secondary" }}>
       {label}
     </Hb.Text>
     <Hb.Text variant="body2" sx={{ wordBreak: "break-all" }}>
@@ -23,11 +20,7 @@ const InfoRow = ({ label, value }: { label: string; value: string | null }) => (
   </Hb.Box>
 );
 
-export const ErrorEventDetailDialog = ({
-  event,
-  open,
-  onClose,
-}: ErrorEventDetailDialogProps) => {
+export const ErrorEventDetailDialog = ({ event, open, onClose }: ErrorEventDetailDialogProps) => {
   if (!event) return null;
 
   const chip = ERROR_TYPE_CHIP[event.errorType];
@@ -66,17 +59,11 @@ export const ErrorEventDetailDialog = ({
         <InfoRow label="화면" value={event.screen} />
         <InfoRow label="사용자" value={event.nickname} />
         <InfoRow label="User Agent" value={event.userAgent} />
-        <InfoRow
-          label="발생 시간"
-          value={event.createdAt?.replace("T", " ").slice(0, 19) ?? "-"}
-        />
+        <InfoRow label="발생 시간" value={event.createdAt?.replace("T", " ").slice(0, 19) ?? "-"} />
 
         {event.stackTrace && (
           <Hb.Box sx={{ mt: 2 }}>
-            <Hb.Text
-              variant="body2"
-              sx={{ fontWeight: 600, color: "text.secondary", mb: 1 }}
-            >
+            <Hb.Text variant="body2" sx={{ fontWeight: 600, color: "text.secondary", mb: 1 }}>
               Stack Trace
             </Hb.Text>
             <Hb.Box

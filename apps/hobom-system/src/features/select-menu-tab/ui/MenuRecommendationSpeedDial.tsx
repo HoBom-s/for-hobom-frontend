@@ -57,9 +57,7 @@ export const MenuRecommendationSpeedDial = () => {
         </Hb.Text>
       ),
       content: (
-        <Hb.Box
-          sx={{ display: "flex", flexDirection: "column", gap: 2, px: 2 }}
-        >
+        <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 2, px: 2 }}>
           <Hb.TextField
             fullWidth
             size="small"
@@ -122,19 +120,16 @@ export const MenuRecommendationSpeedDial = () => {
             loading={menuRecommendationHandler.isPending}
             sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
             onClick={() => {
-              Bom.pipe(
-                getValues(),
-                validateMenuRecommendationInput,
-                (validationResult) =>
-                  handleValidationResult(
-                    validationResult,
-                    (err: Error) => openWarnToast({ message: err.message }),
-                    (requestBody: AddMenuRecommendationInput) => {
-                      menuRecommendationHandler.mutate(requestBody);
-                      reset();
-                      onClose();
-                    },
-                  ),
+              Bom.pipe(getValues(), validateMenuRecommendationInput, (validationResult) =>
+                handleValidationResult(
+                  validationResult,
+                  (err: Error) => openWarnToast({ message: err.message }),
+                  (requestBody: AddMenuRecommendationInput) => {
+                    menuRecommendationHandler.mutate(requestBody);
+                    reset();
+                    onClose();
+                  },
+                ),
               );
             }}
           >

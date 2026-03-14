@@ -1,17 +1,11 @@
 import { Suspense, useState } from "react";
 import { TextSnippetOutlined } from "hobom-design-system/icons";
-import {
-  PeriodSelector,
-  SystemPeriodModel,
-  type SystemPeriodType,
-} from "@/entities/dashboard";
+import { PeriodSelector, SystemPeriodModel, type SystemPeriodType } from "@/entities/dashboard";
 import { LogDashboardContent } from "@/features/dashboard-log";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 
 export const LogDashboardWorkspace = () => {
-  const [period, setPeriod] = useState<SystemPeriodType>(
-    SystemPeriodModel.LAST_24H,
-  );
+  const [period, setPeriod] = useState<SystemPeriodType>(SystemPeriodModel.LAST_24H);
 
   return (
     <Hb.Box sx={{ p: 3 }}>

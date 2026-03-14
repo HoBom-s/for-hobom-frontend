@@ -8,8 +8,7 @@ const groupNotificationsByDateMock = vi.fn();
 const useInfiniteScrollMock = vi.fn();
 
 vi.mock("@/entities/notification", () => ({
-  groupNotificationsByDate: (...args: unknown[]) =>
-    groupNotificationsByDateMock(...args),
+  groupNotificationsByDate: (...args: unknown[]) => groupNotificationsByDateMock(...args),
 }));
 
 vi.mock("@/features/notification", () => ({
@@ -24,9 +23,7 @@ vi.mock("@/shared/model", () => ({
 
 const { useNotificationCenter } = await import("./useNotificationCenter");
 
-const makeNotification = (
-  overrides: Partial<NotificationItemType> = {},
-): NotificationItemType => ({
+const makeNotification = (overrides: Partial<NotificationItemType> = {}): NotificationItemType => ({
   id: "n-1",
   category: "SYSTEM",
   title: "알림 제목",

@@ -23,10 +23,7 @@ export const postCreateIssueComment = async ({
   issueId,
   ...data
 }: { projectId: string; issueId: string } & CreateIssueCommentRequest) => {
-  return await httpClient.post<void>(
-    `/projects/${projectId}/issues/${issueId}/comments`,
-    data,
-  );
+  return await httpClient.post<void>(`/projects/${projectId}/issues/${issueId}/comments`, data);
 };
 
 export const patchUpdateIssueComment = async ({

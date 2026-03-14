@@ -47,11 +47,7 @@ export const CycleProgressBar = ({ data }: CycleProgressBarProps) => {
             axisLine={false}
             tickLine={false}
           />
-          <YAxis
-            tick={{ fontSize: 11, fill: "#8c8c8c" }}
-            axisLine={false}
-            tickLine={false}
-          />
+          <YAxis tick={{ fontSize: 11, fill: "#8c8c8c" }} axisLine={false} tickLine={false} />
           <Tooltip
             cursor={{ fill: "rgba(44,168,127,0.06)" }}
             contentStyle={{

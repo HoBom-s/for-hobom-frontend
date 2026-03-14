@@ -24,10 +24,7 @@ export const filterColumnsByEpic = (
   Bom.pipe(
     columns,
     Bom.mapValues((issues: IssueType[]) =>
-      issues.filter(
-        (issue) =>
-          issue.id === epicId || isDescendantOf(issue.id, epicId, parentMap),
-      ),
+      issues.filter((issue) => issue.id === epicId || isDescendantOf(issue.id, epicId, parentMap)),
     ),
   ) as ColumnMap;
 
@@ -56,11 +53,7 @@ export const buildSwimlaneGroups = (
         epicId,
         epicKey: epic?.issueKey ?? null,
         epicTitle: epic?.title ?? "",
-        progress: getDescendantProgress(
-          epicId,
-          issueTree.childrenMap,
-          doneStatusIds,
-        ),
+        progress: getDescendantProgress(epicId, issueTree.childrenMap, doneStatusIds),
       };
     }),
     Bom.sortBy((g: SwimlaneGroup) => {

@@ -1,8 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  TodayMenuCandidateSchema,
-  AddMenuRecommendationSchema,
-} from "./menu-recommendation.model";
+import { TodayMenuCandidateSchema, AddMenuRecommendationSchema } from "./menu-recommendation.model";
 
 describe("TodayMenuCandidateSchema", () => {
   const makeValidInput = () => ({

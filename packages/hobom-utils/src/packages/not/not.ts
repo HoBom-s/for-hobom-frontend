@@ -10,9 +10,7 @@
  *
  * @category Function
  */
-export function not<T>(
-  predicate: (value: T) => boolean,
-): (value: T) => boolean {
+export function not<T>(predicate: (value: T) => boolean): (value: T) => boolean {
   return (value) => !predicate(value);
 }
 

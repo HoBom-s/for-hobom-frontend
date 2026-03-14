@@ -1,14 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
-import {
-  AssignmentOutlined,
-  AddCircleOutline,
-  QuizOutlined,
-} from "hobom-design-system/icons";
+import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { AssignmentOutlined, AddCircleOutline, QuizOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries, privacyLawMutations } from "@/entities/privacy-law";
 import { useToast } from "@/shared/model";
 import { reportError } from "@/shared/lib";
@@ -52,21 +44,11 @@ export const ExamList = () => {
 
       {exams.map((exam) => (
         <Hb.Card.Root key={exam.id} variant="outlined">
-          <Hb.Card.Clickable
-            onClick={() => navigate(`/privacy-law/exams/${exam.id}`)}
-          >
+          <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/exams/${exam.id}`)}>
             <Hb.Card.Content>
-              <Hb.Stack
-                direction="row"
-                alignItems="flex-start"
-                justifyContent="space-between"
-              >
+              <Hb.Stack direction="row" alignItems="flex-start" justifyContent="space-between">
                 <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
-                  <AssignmentOutlined
-                    color="primary"
-                    fontSize="small"
-                    sx={{ mt: 0.25 }}
-                  />
+                  <AssignmentOutlined color="primary" fontSize="small" sx={{ mt: 0.25 }} />
                   <div>
                     <Hb.Text variant="subtitle2" gutterBottom>
                       {exam.title}

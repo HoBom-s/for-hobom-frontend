@@ -22,8 +22,7 @@ export const FutureMessageRecipientFunnel = ({ onNextStep }: Props) => {
 
 const Inner = ({ onNextStep }: Props) => {
   const navigate = useNavigate();
-  const { reset, setValue, watch } =
-    useFormContext<FutureMessageSendSchemaType>();
+  const { reset, setValue, watch } = useFormContext<FutureMessageSendSchemaType>();
   const { data: users } = useSuspenseQuery(authQueries.users());
 
   return (

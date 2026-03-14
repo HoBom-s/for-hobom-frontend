@@ -4,13 +4,7 @@ import { useSuspenseQueries } from "@tanstack/react-query";
 import { wikiPageQueries, useDeletePage } from "@/entities/wiki-page";
 import { userQueries } from "@/entities/user";
 
-export const usePageContent = ({
-  spaceKey,
-  pageId,
-}: {
-  spaceKey: string;
-  pageId: string;
-}) => {
+export const usePageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: string }) => {
   const navigate = useNavigate();
   const [editing, setEditing] = useState(false);
   const [versionDrawerOpen, setVersionDrawerOpen] = useState(false);

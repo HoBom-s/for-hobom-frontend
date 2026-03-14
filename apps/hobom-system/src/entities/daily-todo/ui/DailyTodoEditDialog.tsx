@@ -3,11 +3,7 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { Bom } from "hobom-utils";
 import { Hb } from "@/shared/ui";
-import {
-  todoQueries,
-  useUpdateDailyTodo,
-  type DailyTodoType,
-} from "@/entities/daily-todo";
+import { todoQueries, useUpdateDailyTodo, type DailyTodoType } from "@/entities/daily-todo";
 
 interface Props {
   item: DailyTodoType;
@@ -30,10 +26,7 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
     const title = watch("title").trim();
 
     if (Bom.isEmpty(title)) return;
-    mutate(
-      { id: item.id, title, category: editCategory },
-      { onSuccess: onClose },
-    );
+    mutate({ id: item.id, title, category: editCategory }, { onSuccess: onClose });
   };
 
   return (
@@ -67,12 +60,7 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
         <Hb.Button fullWidth variant="ghost" onClick={onClose}>
           취소
         </Hb.Button>
-        <Hb.Button
-          fullWidth
-          variant="primary"
-          loading={isPending}
-          onClick={handleSubmit}
-        >
+        <Hb.Button fullWidth variant="primary" loading={isPending} onClick={handleSubmit}>
           저장
         </Hb.Button>
       </Hb.Dialog.Actions>

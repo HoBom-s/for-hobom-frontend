@@ -40,10 +40,7 @@ export const IssueDetailDialog = ({
   const { issue } = state;
 
   const contextValue = useMemo(
-    () =>
-      issue
-        ? { ...state, issue, ...actions, projectId, onNavigateToIssue }
-        : null,
+    () => (issue ? { ...state, issue, ...actions, projectId, onNavigateToIssue } : null),
     [state, issue, actions, projectId, onNavigateToIssue],
   );
 
@@ -52,9 +49,7 @@ export const IssueDetailDialog = ({
       <Hb.Dialog.Root open={open && !!issue} onClose={onClose} size="sm">
         {issue && contextValue && (
           <IssueDetailContext.Provider value={contextValue}>
-            <Hb.Dialog.Title
-              sx={{ display: "flex", alignItems: "center", gap: 1, pr: 6 }}
-            >
+            <Hb.Dialog.Title sx={{ display: "flex", alignItems: "center", gap: 1, pr: 6 }}>
               <Hb.Chip
                 label={ISSUE_KIND_LABEL[issue.type]}
                 size="small"
@@ -66,10 +61,7 @@ export const IssueDetailDialog = ({
                   color: ISSUE_KIND_REGISTRY[issue.type].color,
                 }}
               />
-              <Hb.Text
-                variant="caption"
-                sx={{ color: "text.disabled", fontWeight: 600 }}
-              >
+              <Hb.Text variant="caption" sx={{ color: "text.disabled", fontWeight: 600 }}>
                 {issue.issueKey}
               </Hb.Text>
               <Hb.Button.Icon
@@ -93,11 +85,7 @@ export const IssueDetailDialog = ({
                 {issue.description && (
                   <>
                     <Hb.Divider sx={{ mb: 2 }} />
-                    <Hb.Text
-                      variant="subtitle2"
-                      fontWeight={600}
-                      sx={{ mb: 1, fontSize: 13 }}
-                    >
+                    <Hb.Text variant="subtitle2" fontWeight={600} sx={{ mb: 1, fontSize: 13 }}>
                       설명
                     </Hb.Text>
                     <Hb.Text
@@ -162,9 +150,7 @@ export const IssueDetailDialog = ({
           paper: { sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 } },
         }}
       >
-        {(
-          Object.entries(ISSUE_PRIORITY_LABEL) as [IssuePriority, string][]
-        ).map(([key, label]) => (
+        {(Object.entries(ISSUE_PRIORITY_LABEL) as [IssuePriority, string][]).map(([key, label]) => (
           <Hb.Menu.Item
             key={key}
             selected={issue?.priority === key}
@@ -205,15 +191,9 @@ export const IssueDetailDialog = ({
           sx={{ fontSize: 13, py: 0.8 }}
         >
           <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
-            <PersonOffOutlined
-              aria-hidden
-              sx={{ fontSize: 18, color: "text.disabled" }}
-            />
+            <PersonOffOutlined aria-hidden sx={{ fontSize: 18, color: "text.disabled" }} />
           </Hb.List.ItemIcon>
-          <Hb.List.ItemText
-            primary="미할당"
-            slotProps={{ primary: { sx: { fontSize: 13 } } }}
-          />
+          <Hb.List.ItemText primary="미할당" slotProps={{ primary: { sx: { fontSize: 13 } } }} />
         </Hb.Menu.Item>
         {state.projectMembers.map((member) => {
           const isSelected = issue?.assignee === member.userId;

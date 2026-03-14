@@ -26,11 +26,7 @@ interface LogEntryTableProps {
 export const LogEntryTable = ({ data }: LogEntryTableProps) => {
   if (data.length === 0) {
     return (
-      <Hb.Text
-        variant="body2"
-        color="text.secondary"
-        sx={{ py: 4, textAlign: "center" }}
-      >
+      <Hb.Text variant="body2" color="text.secondary" sx={{ py: 4, textAlign: "center" }}>
         조건에 맞는 로그가 없습니다
       </Hb.Text>
     );
@@ -105,10 +101,7 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                   />
                 </Hb.Table.Cell>
                 <Hb.Table.Cell sx={{ maxWidth: 200 }}>
-                  <Hb.Tooltip
-                    title={`${row.httpMethod} ${row.path}`}
-                    enterDelay={200}
-                  >
+                  <Hb.Tooltip title={`${row.httpMethod} ${row.path}`} enterDelay={200}>
                     <Hb.Text
                       variant="body2"
                       noWrap

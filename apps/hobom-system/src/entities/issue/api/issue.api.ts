@@ -8,14 +8,8 @@ import type {
   AssignIssueRequest,
 } from "./issue.type";
 
-export const fetchIssuesByProject = async ({
-  projectId,
-}: {
-  projectId: string;
-}) => {
-  return await httpClient.get<HttpResponseType<IssueType[]>>(
-    `/projects/${projectId}/issues`,
-  );
+export const fetchIssuesByProject = async ({ projectId }: { projectId: string }) => {
+  return await httpClient.get<HttpResponseType<IssueType[]>>(`/projects/${projectId}/issues`);
 };
 
 export const fetchIssueById = async ({
@@ -42,10 +36,7 @@ export const patchUpdateIssue = async ({
   issueId,
   ...data
 }: { projectId: string; issueId: string } & UpdateIssueRequest) => {
-  return await httpClient.patch<void>(
-    `/projects/${projectId}/issues/${issueId}`,
-    data,
-  );
+  return await httpClient.patch<void>(`/projects/${projectId}/issues/${issueId}`, data);
 };
 
 export const deleteIssue = async ({
@@ -63,10 +54,7 @@ export const postTransitionIssue = async ({
   issueId,
   ...data
 }: { projectId: string; issueId: string } & TransitionIssueRequest) => {
-  return await httpClient.post<void>(
-    `/projects/${projectId}/issues/${issueId}/transition`,
-    data,
-  );
+  return await httpClient.post<void>(`/projects/${projectId}/issues/${issueId}/transition`, data);
 };
 
 export const patchAssignIssue = async ({
@@ -74,8 +62,5 @@ export const patchAssignIssue = async ({
   issueId,
   ...data
 }: { projectId: string; issueId: string } & AssignIssueRequest) => {
-  return await httpClient.patch<void>(
-    `/projects/${projectId}/issues/${issueId}/assignee`,
-    data,
-  );
+  return await httpClient.patch<void>(`/projects/${projectId}/issues/${issueId}/assignee`, data);
 };

@@ -1,10 +1,6 @@
 import { useEntityMutation, useOverlay } from "@/shared/model";
 import { issueQueries } from "@/entities/issue";
-import {
-  sprintQueries,
-  sprintMutations,
-  type SprintType,
-} from "@/entities/sprint";
+import { sprintQueries, sprintMutations, type SprintType } from "@/entities/sprint";
 import { ConfirmDialog } from "@/shared/ui";
 
 export const useSprintActions = (projectId: string, sprint: SprintType) => {
@@ -17,14 +13,12 @@ export const useSprintActions = (projectId: string, sprint: SprintType) => {
     errorMessage: "스프린트를 시작하지 못했어요.",
   });
 
-  const { mutate: completeSprint, isPending: isCompleting } = useEntityMutation(
-    {
-      mutation: sprintMutations.complete(),
-      invalidateKeys: [sprintQueries.sprints(), issueQueries.issues()],
-      successMessage: "스프린트를 완료했어요.",
-      errorMessage: "스프린트를 완료하지 못했어요.",
-    },
-  );
+  const { mutate: completeSprint, isPending: isCompleting } = useEntityMutation({
+    mutation: sprintMutations.complete(),
+    invalidateKeys: [sprintQueries.sprints(), issueQueries.issues()],
+    successMessage: "스프린트를 완료했어요.",
+    errorMessage: "스프린트를 완료하지 못했어요.",
+  });
 
   const handleStart = () => {
     onOpen(({ isOpen, onClose }) => (
@@ -35,10 +29,7 @@ export const useSprintActions = (projectId: string, sprint: SprintType) => {
         description={`"${sprint.name}" 스프린트를 시작하시겠어요?`}
         isPending={isStarting}
         onConfirm={() => {
-          startSprint(
-            { projectId, sprintId: sprint.id },
-            { onSuccess: onClose },
-          );
+          startSprint({ projectId, sprintId: sprint.id }, { onSuccess: onClose });
         }}
       />
     ));
@@ -53,10 +44,7 @@ export const useSprintActions = (projectId: string, sprint: SprintType) => {
         description={`"${sprint.name}" 스프린트를 완료하시겠어요? 완료되지 않은 이슈는 백로그로 이동합니다.`}
         isPending={isCompleting}
         onConfirm={() => {
-          completeSprint(
-            { projectId, sprintId: sprint.id },
-            { onSuccess: onClose },
-          );
+          completeSprint({ projectId, sprintId: sprint.id }, { onSuccess: onClose });
         }}
       />
     ));

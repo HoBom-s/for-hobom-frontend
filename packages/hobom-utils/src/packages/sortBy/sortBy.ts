@@ -12,21 +12,13 @@ import { curry } from "../curry/curry";
  *
  * @category Array
  */
-export function sortBy<T>(
-  data: readonly T[],
-  fn: (item: T) => number | string,
-): T[];
-export function sortBy<T>(
-  fn: (item: T) => number | string,
-): (data: readonly T[]) => T[];
+export function sortBy<T>(data: readonly T[], fn: (item: T) => number | string): T[];
+export function sortBy<T>(fn: (item: T) => number | string): (data: readonly T[]) => T[];
 export function sortBy(...args: readonly unknown[]): unknown {
   return curry(sortByImpl, args);
 }
 
-function sortByImpl<T>(
-  data: readonly T[],
-  fn: (item: T) => number | string,
-): T[] {
+function sortByImpl<T>(data: readonly T[], fn: (item: T) => number | string): T[] {
   return [...data].sort((a, b) => {
     const ka = fn(a);
     const kb = fn(b);

@@ -4,10 +4,7 @@ export {
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
 } from "./model/issue.model";
-export {
-  ISSUE_KIND_REGISTRY,
-  ISSUE_PRIORITY_REGISTRY,
-} from "./ui/IssueRegistry";
+export { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "./ui/IssueRegistry";
 export { issueQueries } from "./api/issue.queries";
 export { useCreateIssue } from "./model/useCreateIssue";
 export { useUpdateIssue } from "./model/useUpdateIssue";

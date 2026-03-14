@@ -15,11 +15,7 @@ interface ReminderPickerPopoverProps {
   onSet: (date: string, recurrence: NoteRecurrence) => void;
 }
 
-export const ReminderPickerPopover = ({
-  anchorEl,
-  onClose,
-  onSet,
-}: ReminderPickerPopoverProps) => {
+export const ReminderPickerPopover = ({ anchorEl, onClose, onSet }: ReminderPickerPopoverProps) => {
   const [date, setDate] = useState("");
   const [recurrence, setRecurrence] = useState<NoteRecurrence>("NONE");
 

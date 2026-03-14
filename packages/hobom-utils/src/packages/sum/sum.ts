@@ -20,19 +20,13 @@ type Sum<T extends Iterable<bigint> | Iterable<number>> = T extends readonly []
  *
  * @category Number
  */
-export function sum<T extends Iterable<bigint> | Iterable<number>>(
-  data: T,
-): Sum<T>;
-export function sum(): <T extends Iterable<bigint> | Iterable<number>>(
-  data: T,
-) => Sum<T>;
+export function sum<T extends Iterable<bigint> | Iterable<number>>(data: T): Sum<T>;
+export function sum(): <T extends Iterable<bigint> | Iterable<number>>(data: T) => Sum<T>;
 export function sum(...args: readonly unknown[]): unknown {
   return curry(sumImplementation, args);
 }
 
-function sumImplementation<T extends Iterable<bigint> | Iterable<number>>(
-  data: T,
-): T[number] {
+function sumImplementation<T extends Iterable<bigint> | Iterable<number>>(data: T): T[number] {
   let out = typeof data[0] === "bigint" ? 0n : 0;
 
   for (const value of data) {

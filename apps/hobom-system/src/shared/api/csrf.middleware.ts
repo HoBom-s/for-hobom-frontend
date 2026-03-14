@@ -6,16 +6,12 @@ const CSRF_HEADER = "X-XSRF-TOKEN";
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 
 const getCsrfToken = (): string | null => {
-  const match = document.cookie.match(
-    new RegExp(`(?:^|;\\s*)${CSRF_COOKIE}=([^;]*)`),
-  );
+  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${CSRF_COOKIE}=([^;]*)`));
 
   return match ? decodeURIComponent(match[1]) : null;
 };
 
-export const applyCsrfHeader = (
-  headers: Record<string, string>,
-): Record<string, string> => {
+export const applyCsrfHeader = (headers: Record<string, string>): Record<string, string> => {
   const token = getCsrfToken();
 
   return token ? { ...headers, [CSRF_HEADER]: token } : headers;

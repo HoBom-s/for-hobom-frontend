@@ -23,11 +23,7 @@ interface NoteEditDialogProps {
   note?: NoteItemType | null;
 }
 
-export const NoteEditDialog = ({
-  open,
-  onClose,
-  note,
-}: NoteEditDialogProps) => {
+export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => {
   const noteArg = note ?? null;
 
   const {
@@ -98,23 +94,16 @@ export const NoteEditDialog = ({
         {form.type === "CHECKLIST" && (
           <Hb.Box>
             {form.checklistItems.map((item, idx) => (
-              <Hb.Box
-                key={idx}
-                sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
-              >
+              <Hb.Box key={idx} sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
                 <Hb.Checkbox
                   size="small"
                   checked={item.checked}
-                  onChange={(e) =>
-                    updateChecklistItem(idx, "checked", e.target.checked)
-                  }
+                  onChange={(e) => updateChecklistItem(idx, "checked", e.target.checked)}
                   sx={{ p: 0.5 }}
                 />
                 <Hb.InputBase
                   value={item.text}
-                  onChange={(e) =>
-                    updateChecklistItem(idx, "text", e.target.value)
-                  }
+                  onChange={(e) => updateChecklistItem(idx, "text", e.target.value)}
                   placeholder="항목 입력..."
                   sx={{ flex: 1, fontSize: 14 }}
                   onKeyDown={(e) => {
@@ -168,21 +157,13 @@ export const NoteEditDialog = ({
         )}
       </Hb.Dialog.Content>
 
-      <Hb.Dialog.Actions
-        sx={{ px: 2, pb: 1.5, justifyContent: "space-between" }}
-      >
+      <Hb.Dialog.Actions sx={{ px: 2, pb: 1.5, justifyContent: "space-between" }}>
         <Hb.Box sx={{ display: "flex", gap: 0.5 }}>
           {!isEdit && (
-            <Hb.Tooltip
-              title={
-                form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"
-              }
-            >
+            <Hb.Tooltip title={form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"}>
               <Hb.Button.Icon
                 size="small"
-                aria-label={
-                  form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"
-                }
+                aria-label={form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"}
                 onClick={toggleType}
               >
                 {form.type === "TEXT" ? (
@@ -249,11 +230,7 @@ export const NoteEditDialog = ({
           )}
         </Hb.Box>
 
-        <Hb.Button
-          onClick={handleSave}
-          loading={isPending}
-          sx={{ textTransform: "none" }}
-        >
+        <Hb.Button onClick={handleSave} loading={isPending} sx={{ textTransform: "none" }}>
           닫기
         </Hb.Button>
       </Hb.Dialog.Actions>

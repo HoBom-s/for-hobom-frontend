@@ -1,8 +1,4 @@
-import {
-  PickMenuContent,
-  PickMenuHeader,
-  SelectedMenuContent,
-} from "@/features/pick-menu";
+import { PickMenuContent, PickMenuHeader, SelectedMenuContent } from "@/features/pick-menu";
 import { useFunnel } from "@/shared/model";
 import { Hb } from "@/shared/ui";
 
@@ -16,14 +12,10 @@ export const PickMenuFunnel = () => {
   return (
     <Funnel>
       <Funnel.Step name="select-menu">
-        <Hb.Box
-          sx={{ display: "flex", flexDirection: "column", height: "100%" }}
-        >
+        <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
           <PickMenuHeader />
           <Hb.Box sx={{ flexGrow: 1, minHeight: 0 }}>
-            <PickMenuContent
-              onNextCallback={() => setState({ step: "pick" })}
-            />
+            <PickMenuContent onNextCallback={() => setState({ step: "pick" })} />
           </Hb.Box>
         </Hb.Box>
       </Funnel.Step>

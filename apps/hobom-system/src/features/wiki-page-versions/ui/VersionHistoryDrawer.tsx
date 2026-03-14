@@ -63,11 +63,7 @@ export const VersionHistoryDrawer = ({
             </Hb.Box>
           }
         >
-          <VersionHistoryContent
-            spaceKey={spaceKey}
-            pageId={pageId}
-            onClose={onClose}
-          />
+          <VersionHistoryContent spaceKey={spaceKey} pageId={pageId} onClose={onClose} />
         </Suspense>
       </ErrorBoundary>
     </Hb.Drawer>
@@ -106,11 +102,7 @@ const VersionHistoryContent = ({
           버전 목록 ({totalCount})
         </Hb.Text>
       </Hb.Box>
-      <Hb.List.Root
-        dense
-        disablePadding
-        sx={{ maxHeight: "40vh", overflow: "auto" }}
-      >
+      <Hb.List.Root dense disablePadding sx={{ maxHeight: "40vh", overflow: "auto" }}>
         {versions.map((version) => {
           const isSelected = selectedVersion?.id === version.id;
           const author = version.editedBy ?? "익명";
@@ -176,9 +168,7 @@ const VersionHistoryContent = ({
                   }}
                   disabled={isRestoring}
                   sx={{
-                    color: isSelected
-                      ? "rgba(255,255,255,0.8)"
-                      : "text.secondary",
+                    color: isSelected ? "rgba(255,255,255,0.8)" : "text.secondary",
                     ml: 0.5,
                   }}
                 >
@@ -201,9 +191,7 @@ const VersionHistoryContent = ({
                 fontSize: "0.75rem",
               }}
             >
-              {isFetchingNextPage ? (
-                <Hb.Progress.Circular size={14} sx={{ mr: 0.5 }} />
-              ) : null}
+              {isFetchingNextPage ? <Hb.Progress.Circular size={14} sx={{ mr: 0.5 }} /> : null}
               이전 버전 더보기 ({versions.length}/{totalCount})
             </Hb.Button>
           </Hb.Box>
@@ -248,14 +236,9 @@ const VersionPreview = ({
   pageId: string;
   versionNumber: number;
 }) => {
-  const { data } = useSuspenseQuery(
-    wikiPageQueries.version(spaceKey, pageId, versionNumber),
-  );
+  const { data } = useSuspenseQuery(wikiPageQueries.version(spaceKey, pageId, versionNumber));
   const version = data.items;
-  const sanitizedContent = useMemo(
-    () => sanitizeHtml(version.content),
-    [version.content],
-  );
+  const sanitizedContent = useMemo(() => sanitizeHtml(version.content), [version.content]);
 
   return (
     <Hb.Box sx={{ px: 2.5, py: 2 }}>

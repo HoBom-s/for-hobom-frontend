@@ -9,13 +9,7 @@ export const postCategory = async ({ title }: { title: string }) => {
   return await httpClient.post(`/categories`, { title });
 };
 
-export const patchCategory = async ({
-  id,
-  title,
-}: {
-  id: string;
-  title: string;
-}) => {
+export const patchCategory = async ({ id, title }: { id: string; title: string }) => {
   return await httpClient.patch(`/categories/${id}`, { title });
 };
 

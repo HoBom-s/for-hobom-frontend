@@ -1,10 +1,6 @@
 import { useCallback, useState } from "react";
 import type { DragEndEvent } from "@/shared/ui";
-import {
-  useUpdateBoard,
-  type BoardColumn,
-  type BoardDto,
-} from "@/entities/board";
+import { useUpdateBoard, type BoardColumn, type BoardDto } from "@/entities/board";
 import {
   useUpdateWorkflow,
   buildStatusesFromColumns,
@@ -71,9 +67,7 @@ export const useBoardItem = (board: BoardDto, projectId: string) => {
     const { active, over } = event;
 
     if (!over || active.id === over.id) return;
-    syncColumns(
-      reorderColumns(board.columns, String(active.id), String(over.id)),
-    );
+    syncColumns(reorderColumns(board.columns, String(active.id), String(over.id)));
   };
 
   return {
@@ -90,9 +84,6 @@ export const useBoardItem = (board: BoardDto, projectId: string) => {
     handleAddColumn,
     handleRemoveColumn,
     handleColumnReorder,
-    isDuplicate: isDuplicateStatusId(
-      board.columns,
-      newStatusId.trim().toLowerCase(),
-    ),
+    isDuplicate: isDuplicateStatusId(board.columns, newStatusId.trim().toLowerCase()),
   };
 };

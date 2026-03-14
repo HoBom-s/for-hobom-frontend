@@ -6,11 +6,7 @@ import type {
   UpdateProjectLabelRequest,
 } from "./project-label.type";
 
-export const fetchProjectLabels = async ({
-  projectId,
-}: {
-  projectId: string;
-}) => {
+export const fetchProjectLabels = async ({ projectId }: { projectId: string }) => {
   return await httpClient.get<HttpResponseType<ProjectLabelType[]>>(
     `/projects/${projectId}/labels`,
   );
@@ -28,10 +24,7 @@ export const patchUpdateProjectLabel = async ({
   labelId,
   ...data
 }: { projectId: string; labelId: string } & UpdateProjectLabelRequest) => {
-  return await httpClient.patch<void>(
-    `/projects/${projectId}/labels/${labelId}`,
-    data,
-  );
+  return await httpClient.patch<void>(`/projects/${projectId}/labels/${labelId}`, data);
 };
 
 export const deleteProjectLabel = async ({
@@ -41,7 +34,5 @@ export const deleteProjectLabel = async ({
   projectId: string;
   labelId: string;
 }) => {
-  return await httpClient.delete<void>(
-    `/projects/${projectId}/labels/${labelId}`,
-  );
+  return await httpClient.delete<void>(`/projects/${projectId}/labels/${labelId}`);
 };

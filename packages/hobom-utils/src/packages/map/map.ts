@@ -33,9 +33,7 @@ function mapImpl<T, U>(
   return data.map(cb);
 }
 
-function lazyImpl<T, U>(
-  cb: (item: T, index: number, arr: readonly T[]) => U,
-): Evaluator<T, U> {
+function lazyImpl<T, U>(cb: (item: T, index: number, arr: readonly T[]) => U): Evaluator<T, U> {
   return (item, index, arr) => ({
     done: false,
     hasNext: true,

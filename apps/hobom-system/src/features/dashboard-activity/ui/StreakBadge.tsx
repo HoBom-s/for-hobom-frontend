@@ -6,10 +6,7 @@ interface StreakBadgeProps {
   longestStreak: number;
 }
 
-export const StreakBadge = ({
-  currentStreak,
-  longestStreak,
-}: StreakBadgeProps) => {
+export const StreakBadge = ({ currentStreak, longestStreak }: StreakBadgeProps) => {
   return (
     <Hb.Box
       sx={{

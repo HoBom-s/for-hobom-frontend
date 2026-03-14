@@ -13,9 +13,7 @@ export const useKanbanBoard = (projectId: string, columnOrder: string[]) => {
       Bom.groupBy((issue: IssueType) => issue.status),
     );
 
-    return Object.fromEntries(
-      columnOrder.map((s) => [s, grouped[s] ?? []]),
-    ) as ColumnMap;
+    return Object.fromEntries(columnOrder.map((s) => [s, grouped[s] ?? []])) as ColumnMap;
   }, [data.items, columnOrder]);
 
   const issueTree = useMemo(() => buildIssueTree(data.items), [data.items]);

@@ -1,10 +1,6 @@
 import { type SetStateAction, useCallback, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {
-  createFunnelStateId,
-  createFunnelStorage,
-  type FunnelStorage,
-} from "@/shared/lib";
+import { createFunnelStateId, createFunnelStorage, type FunnelStorage } from "@/shared/lib";
 
 export const useFunnelState = <T extends Record<string, unknown>>(
   defaultValue: Partial<T>,
@@ -14,8 +10,7 @@ export const useFunnelState = <T extends Record<string, unknown>>(
   const { pathname, search } = location;
 
   const storage =
-    options?.storage ??
-    createFunnelStorage<T>(createFunnelStateId(`${pathname}${search}`));
+    options?.storage ?? createFunnelStorage<T>(createFunnelStateId(`${pathname}${search}`));
 
   const persistentStorage = useRef(storage).current;
 

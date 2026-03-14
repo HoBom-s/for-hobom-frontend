@@ -79,9 +79,7 @@ export const LogSearchSection = () => {
             <Hb.Form.Select
               label="서비스"
               value={filter.serviceType}
-              onChange={(e) =>
-                handleFilterChange("serviceType", e.target.value)
-              }
+              onChange={(e) => handleFilterChange("serviceType", e.target.value)}
             >
               {SERVICE_OPTIONS.map((opt) => (
                 <Hb.Menu.Item key={opt.value} value={opt.value}>

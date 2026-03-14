@@ -49,10 +49,9 @@ describe("useNoteForm", () => {
     });
 
     it("open=false이면 이전 상태를 유지한다", () => {
-      const { result, rerender } = renderHook(
-        ({ open, note }) => useNoteForm(open, note),
-        { initialProps: { open: true, note: null } },
-      );
+      const { result, rerender } = renderHook(({ open, note }) => useNoteForm(open, note), {
+        initialProps: { open: true, note: null },
+      });
 
       act(() => result.current.setField("title", "작성중"));
       rerender({ open: false, note: null });
@@ -61,15 +60,12 @@ describe("useNoteForm", () => {
     });
 
     it("open이 false→true로 바뀌면 폼이 리셋된다", () => {
-      const { result, rerender } = renderHook(
-        ({ open, note }) => useNoteForm(open, note),
-        {
-          initialProps: {
-            open: true as boolean,
-            note: null as NoteItemType | null,
-          },
+      const { result, rerender } = renderHook(({ open, note }) => useNoteForm(open, note), {
+        initialProps: {
+          open: true as boolean,
+          note: null as NoteItemType | null,
         },
-      );
+      });
 
       act(() => result.current.setField("title", "작성중"));
       rerender({ open: false, note: null });
@@ -145,9 +141,7 @@ describe("useNoteForm", () => {
 
       act(() => result.current.addChecklistItem());
 
-      expect(result.current.form.checklistItems).toHaveLength(
-        initialLength + 1,
-      );
+      expect(result.current.form.checklistItems).toHaveLength(initialLength + 1);
     });
 
     it("updateChecklistItem: 특정 아이템의 text를 업데이트한다", () => {
@@ -302,9 +296,7 @@ describe("useNoteForm", () => {
       // 중간 아이템(B)을 비운다
       act(() => result.current.updateChecklistItem(1, "text", ""));
 
-      expect(result.current.filteredChecklist!.map((i) => i.order)).toEqual([
-        0, 1,
-      ]);
+      expect(result.current.filteredChecklist!.map((i) => i.order)).toEqual([0, 1]);
     });
   });
 });

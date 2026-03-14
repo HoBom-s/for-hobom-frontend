@@ -1,32 +1,16 @@
 import { useMemo, useState } from "react";
-import {
-  groupNotificationsByDate,
-  type NotificationItemType,
-} from "@/entities/notification";
-import {
-  useNotificationList,
-  useMarkNotificationRead,
-  TAB_FILTERS,
-} from "@/features/notification";
+import { groupNotificationsByDate, type NotificationItemType } from "@/entities/notification";
+import { useNotificationList, useMarkNotificationRead, TAB_FILTERS } from "@/features/notification";
 import { useInfiniteScroll } from "@/shared/model";
 
 export const useNotificationCenter = () => {
   const [tab, setTab] = useState(0);
   const filter = TAB_FILTERS[tab];
-  const {
-    notifications,
-    unreadCount,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isPending,
-  } = useNotificationList(filter);
+  const { notifications, unreadCount, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
+    useNotificationList(filter);
   const markRead = useMarkNotificationRead();
 
-  const dateGroups = useMemo(
-    () => groupNotificationsByDate(notifications),
-    [notifications],
-  );
+  const dateGroups = useMemo(() => groupNotificationsByDate(notifications), [notifications]);
 
   const handleScroll = useInfiniteScroll({
     hasNextPage,

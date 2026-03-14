@@ -67,15 +67,9 @@ const NOTE = makeNote({
 const setupHandlers = (note: NoteItemType = NOTE) => {
   server.use(
     http.get(`${API_BASE}/auth/me`, () => HttpResponse.json(wrapResponse(ME))),
-    http.get(`${API_BASE}/users`, () =>
-      HttpResponse.json(wrapResponse(ALL_USERS)),
-    ),
-    http.get(`${API_BASE}/notes/:id`, () =>
-      HttpResponse.json(wrapResponse(toRawNote(note))),
-    ),
-    http.post(`${API_BASE}/notes/:noteId/members`, () =>
-      HttpResponse.json({ success: true }),
-    ),
+    http.get(`${API_BASE}/users`, () => HttpResponse.json(wrapResponse(ALL_USERS))),
+    http.get(`${API_BASE}/notes/:id`, () => HttpResponse.json(wrapResponse(toRawNote(note)))),
+    http.post(`${API_BASE}/notes/:noteId/members`, () => HttpResponse.json({ success: true })),
     http.delete(
       `${API_BASE}/notes/:noteId/members/:userId`,
       () => new HttpResponse(null, { status: 204 }),
@@ -93,10 +87,9 @@ describe("useNoteMemberShare", () => {
   it("owner일 때 isOwner === true", async () => {
     setupHandlers();
 
-    const { result } = renderHook(
-      () => useNoteMemberShare({ open: true, note: NOTE }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useNoteMemberShare({ open: true, note: NOTE }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.noteMembers).toHaveLength(2);
@@ -108,10 +101,9 @@ describe("useNoteMemberShare", () => {
   it("noteMembers가 멤버 id에 해당하는 UserType 배열로 resolve됨", async () => {
     setupHandlers();
 
-    const { result } = renderHook(
-      () => useNoteMemberShare({ open: true, note: NOTE }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useNoteMemberShare({ open: true, note: NOTE }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.noteMembers).toEqual([ALICE, BOB]);
@@ -121,10 +113,9 @@ describe("useNoteMemberShare", () => {
   it("availableUsers에서 이미 멤버인 유저와 owner 제외됨", async () => {
     setupHandlers();
 
-    const { result } = renderHook(
-      () => useNoteMemberShare({ open: true, note: NOTE }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useNoteMemberShare({ open: true, note: NOTE }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.availableUsers).toEqual([CHARLIE]);
@@ -134,10 +125,9 @@ describe("useNoteMemberShare", () => {
   it("handleAddMember → POST 요청 발생 + 성공 토스트", async () => {
     setupHandlers();
 
-    const { result } = renderHook(
-      () => useNoteMemberShare({ open: true, note: NOTE }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useNoteMemberShare({ open: true, note: NOTE }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.noteMembers).toHaveLength(2);
@@ -155,10 +145,9 @@ describe("useNoteMemberShare", () => {
   it("handleRemoveMember → DELETE 요청 발생 + 성공 토스트", async () => {
     setupHandlers();
 
-    const { result } = renderHook(
-      () => useNoteMemberShare({ open: true, note: NOTE }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useNoteMemberShare({ open: true, note: NOTE }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.noteMembers).toHaveLength(2);
@@ -181,10 +170,9 @@ describe("useNoteMemberShare", () => {
 
     setupHandlers(notOwnedNote);
 
-    const { result } = renderHook(
-      () => useNoteMemberShare({ open: true, note: notOwnedNote }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useNoteMemberShare({ open: true, note: notOwnedNote }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.noteMembers).toHaveLength(2);

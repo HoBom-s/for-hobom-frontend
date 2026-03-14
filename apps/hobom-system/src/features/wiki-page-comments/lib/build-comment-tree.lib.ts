@@ -4,9 +4,7 @@ export interface CommentTreeNode extends CommentType {
   children: CommentTreeNode[];
 }
 
-export const buildCommentTree = (
-  comments: CommentType[],
-): CommentTreeNode[] => {
+export const buildCommentTree = (comments: CommentType[]): CommentTreeNode[] => {
   const map = new Map<string, CommentTreeNode>();
   const roots: CommentTreeNode[] = [];
 

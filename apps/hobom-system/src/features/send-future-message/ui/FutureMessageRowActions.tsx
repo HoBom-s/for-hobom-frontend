@@ -1,8 +1,5 @@
 import { EditOutlined, DeleteOutlined } from "hobom-design-system/icons";
-import {
-  isPendingMessageSendStatus,
-  type FutureMessageType,
-} from "@/entities/future-message";
+import { isPendingMessageSendStatus, type FutureMessageType } from "@/entities/future-message";
 import { Hb } from "@/shared/ui";
 
 interface Props {
@@ -15,10 +12,7 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
   if (!isPendingMessageSendStatus(row.sendStatus)) return null;
 
   return (
-    <div
-      style={{ display: "flex", gap: 2 }}
-      onPointerDown={(e) => e.stopPropagation()}
-    >
+    <div style={{ display: "flex", gap: 2 }} onPointerDown={(e) => e.stopPropagation()}>
       <Hb.Button.Icon
         size="small"
         aria-label="편집"

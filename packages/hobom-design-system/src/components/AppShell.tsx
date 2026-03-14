@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore, MenuOutlined } from "@mui/icons-material";
 import { Bom } from "hobom-utils";
-import { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "./theme";
+import { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "../theme";
 
 export interface AppShellNavItem {
   /** 네비게이션 아이템의 고유 식별자. 활성 상태 판별에 사용. */
@@ -44,8 +44,7 @@ export interface AppShellNavSection {
 /** 독립 아이템 또는 섹션. navItems prop의 엘리먼트 타입. */
 export type NavEntry = AppShellNavItem | AppShellNavSection;
 
-const isSection = (entry: NavEntry): entry is AppShellNavSection =>
-  "items" in entry;
+const isSection = (entry: NavEntry): entry is AppShellNavSection => "items" in entry;
 
 /** children 포함 전체 아이템을 1차원 배열로 펼친다. */
 const flattenNavItems = (items: AppShellNavItem[]): AppShellNavItem[] =>
@@ -109,27 +108,18 @@ const NavList = ({
         const hasChildren = item.children && item.children.length > 0;
         const isGroupOpen = openGroups.has(item.value);
         const isActive = item.value === activeValue;
-        const isChildActive =
-          hasChildren && item.children!.some((c) => c.value === activeValue);
+        const isChildActive = hasChildren && item.children!.some((c) => c.value === activeValue);
 
         const button = (
           <ListItemButton
             key={item.value}
             selected={!hasChildren && isActive}
             aria-current={!hasChildren && isActive ? "page" : undefined}
-            onClick={() =>
-              hasChildren ? toggleGroup(item.value) : onNavigate(item.path)
-            }
+            onClick={() => (hasChildren ? toggleGroup(item.value) : onNavigate(item.path))}
             onMouseEnter={() => !hasChildren && onPrefetch?.(item.path)}
             sx={collapsed ? { justifyContent: "center", px: 1.5 } : undefined}
           >
-            <ListItemIcon
-              sx={
-                collapsed
-                  ? { minWidth: 0, justifyContent: "center" }
-                  : undefined
-              }
-            >
+            <ListItemIcon sx={collapsed ? { minWidth: 0, justifyContent: "center" } : undefined}>
               {item.icon}
             </ListItemIcon>
             {!collapsed && (
@@ -175,12 +165,7 @@ const NavList = ({
                 const childActive = child.value === activeValue;
 
                 return (
-                  <Tooltip
-                    key={child.value}
-                    title={child.label}
-                    placement="right"
-                    arrow
-                  >
+                  <Tooltip key={child.value} title={child.label} placement="right" arrow>
                     <ListItemButton
                       selected={childActive}
                       aria-current={childActive ? "page" : undefined}
@@ -188,9 +173,7 @@ const NavList = ({
                       onMouseEnter={() => onPrefetch?.(child.path)}
                       sx={{ justifyContent: "center", px: 1.5 }}
                     >
-                      <ListItemIcon
-                        sx={{ minWidth: 0, justifyContent: "center" }}
-                      >
+                      <ListItemIcon sx={{ minWidth: 0, justifyContent: "center" }}>
                         {child.icon}
                       </ListItemIcon>
                     </ListItemButton>
@@ -218,9 +201,7 @@ const NavList = ({
                       onMouseEnter={() => onPrefetch?.(child.path)}
                       sx={{ pl: 4.5 }}
                     >
-                      <ListItemIcon sx={{ minWidth: 28 }}>
-                        {child.icon}
-                      </ListItemIcon>
+                      <ListItemIcon sx={{ minWidth: 28 }}>{child.icon}</ListItemIcon>
                       <ListItemText
                         primary={child.label}
                         slotProps={{
@@ -285,10 +266,7 @@ export const AppShell = ({
 
   const currentWidth = drawerOpen ? DRAWER_WIDTH : DRAWER_WIDTH_COLLAPSED;
 
-  const allItems = [
-    ...flattenNavEntries(navItems),
-    ...flattenNavItems(bottomNavItems ?? []),
-  ];
+  const allItems = [...flattenNavEntries(navItems), ...flattenNavItems(bottomNavItems ?? [])];
   const firstItem = (() => {
     const first = navItems[0];
 
@@ -297,9 +275,7 @@ export const AppShell = ({
   const activeItem = Bom.pipe(
     location.pathname,
     (currentPath) => {
-      const sorted = [...allItems].sort(
-        (a, b) => b.path.length - a.path.length,
-      );
+      const sorted = [...allItems].sort((a, b) => b.path.length - a.path.length);
 
       return sorted.find((item) => currentPath.startsWith(item.path));
     },
@@ -337,11 +313,7 @@ export const AppShell = ({
         본문으로 건너뛰기
       </Box>
 
-      <AppBar
-        position="fixed"
-        elevation={0}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
+      <AppBar position="fixed" elevation={0} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar
           variant="dense"
           sx={{
@@ -377,10 +349,7 @@ export const AppShell = ({
             HoBom System
           </Typography>
           <Divider orientation="vertical" flexItem sx={{ my: 1.5 }} />
-          <Typography
-            variant="body1"
-            sx={{ fontWeight: 600, color: "text.primary" }}
-          >
+          <Typography variant="body1" sx={{ fontWeight: 600, color: "text.primary" }}>
             {activeItem.label}
           </Typography>
 

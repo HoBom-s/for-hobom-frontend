@@ -103,10 +103,7 @@ describe("useCollapsibleTree", () => {
 
       act(() => result.current.toggleCollapse("root"));
 
-      const lastCall =
-        flattenIssueTreeMock.mock.calls[
-          flattenIssueTreeMock.mock.calls.length - 1
-        ];
+      const lastCall = flattenIssueTreeMock.mock.calls[flattenIssueTreeMock.mock.calls.length - 1];
 
       expect(lastCall[1].has("root")).toBe(true);
     });

@@ -12,32 +12,23 @@ export const useReorderNote = (status?: NoteStatus) => {
 
   return useMutation({
     mutationKey: noteMutations.reorder().mutationKey,
-    mutationFn: ({
-      id,
-      order,
-    }: {
-      id: string;
-      order: number;
-      reorderedItems: NoteItemType[];
-    }) => patchReorderNote({ id, order }),
+    mutationFn: ({ id, order }: { id: string; order: number; reorderedItems: NoteItemType[] }) =>
+      patchReorderNote({ id, order }),
     onMutate: async ({ reorderedItems }) => {
       await queryClient.cancelQueries(queryOption);
-      const previous = queryClient.getQueryData<
-        HttpResponseType<NoteItemType[]>
-      >(queryOption.queryKey);
+      const previous = queryClient.getQueryData<HttpResponseType<NoteItemType[]>>(
+        queryOption.queryKey,
+      );
 
       const reorderedIds = new Set(reorderedItems.map((n) => n.id));
 
-      queryClient.setQueryData<HttpResponseType<NoteItemType[]>>(
-        queryOption.queryKey,
-        (old) => {
-          if (!old) return old;
+      queryClient.setQueryData<HttpResponseType<NoteItemType[]>>(queryOption.queryKey, (old) => {
+        if (!old) return old;
 
-          const untouched = old.items.filter((n) => !reorderedIds.has(n.id));
+        const untouched = old.items.filter((n) => !reorderedIds.has(n.id));
 
-          return { ...old, items: [...reorderedItems, ...untouched] };
-        },
-      );
+        return { ...old, items: [...reorderedItems, ...untouched] };
+      });
 
       return { previous };
     },

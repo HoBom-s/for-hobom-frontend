@@ -4,10 +4,6 @@
   "paths": {
     "@/*": ["src/*"]
   },
-  "ignoreDependencies": [
-    "hobom-design-system",
-    "hobom-utils",
-    "typescript-eslint"
-  ],
+  "ignoreDependencies": ["hobom-design-system", "hobom-utils", "typescript-eslint"],
   "ignoreBinaries": ["tsc", "eslint", "prettier"]
 }

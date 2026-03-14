@@ -25,11 +25,7 @@ interface IssueGridProps {
   sortKey: ColKey | null;
   sortDir: "asc" | "desc";
   onHeaderClick: (colKey: ColKey) => void;
-  onStatusClick: (
-    e: React.MouseEvent<HTMLElement>,
-    issueId: string,
-    currentStatus: string,
-  ) => void;
+  onStatusClick: (e: React.MouseEvent<HTMLElement>, issueId: string, currentStatus: string) => void;
   onRowClick?: (issueId: string) => void;
 }
 
@@ -114,16 +110,7 @@ export const IssueGrid = ({
         />
       );
     },
-    [
-      rowModel,
-      statuses,
-      sortKey,
-      sortDir,
-      onHeaderClick,
-      onStatusClick,
-      onRowClick,
-      colResize,
-    ],
+    [rowModel, statuses, sortKey, sortDir, onHeaderClick, onStatusClick, onRowClick, colResize],
   );
 
   return (
@@ -148,9 +135,7 @@ export const IssueGrid = ({
           style={{ width: "100%", height: gridHeight }}
         />
       )}
-      {rowModel.rowCount === 0 && (
-        <EmptyState message="조건에 맞는 이슈가 없어요" />
-      )}
+      {rowModel.rowCount === 0 && <EmptyState message="조건에 맞는 이슈가 없어요" />}
     </div>
   );
 };

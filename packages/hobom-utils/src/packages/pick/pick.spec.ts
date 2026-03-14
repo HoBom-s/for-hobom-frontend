@@ -11,10 +11,7 @@ describe("pick()", () => {
 
   test("data-last", () => {
     // Explicit type params needed: TypeScript can't distinguish array-as-keys from array-as-data
-    const result = pick<{ a: number; b: number; c: number }, "a" | "b">([
-      "a",
-      "b",
-    ])({
+    const result = pick<{ a: number; b: number; c: number }, "a" | "b">(["a", "b"])({
       a: 1,
       b: 2,
       c: 3,

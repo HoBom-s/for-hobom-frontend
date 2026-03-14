@@ -6,18 +6,12 @@ export const futureMessageMutations = {
 
   update: () =>
     mutationOptions({
-      mutationKey: [
-        ...futureMessageMutations.futureMessages(),
-        "update",
-      ] as const,
+      mutationKey: [...futureMessageMutations.futureMessages(), "update"] as const,
       mutationFn: patchFutureMessage,
     }),
   delete: () =>
     mutationOptions({
-      mutationKey: [
-        ...futureMessageMutations.futureMessages(),
-        "delete",
-      ] as const,
+      mutationKey: [...futureMessageMutations.futureMessages(), "delete"] as const,
       mutationFn: deleteFutureMessage,
     }),
 } as const;

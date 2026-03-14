@@ -45,9 +45,7 @@ describe("buildPath", () => {
   it("파라미터가 있으면 pathname?qs 형식을 반환한다", () => {
     const params = new URLSearchParams("tab=all&date=2026-01-01");
 
-    expect(buildPath("/issues", params)).toBe(
-      "/issues?tab=all&date=2026-01-01",
-    );
+    expect(buildPath("/issues", params)).toBe("/issues?tab=all&date=2026-01-01");
   });
 
   it("파라미터가 비어있으면 pathname만 반환한다", () => {

@@ -1,9 +1,7 @@
 import type { NoteItemType } from "@/entities/note";
 import type { RawNoteItemType } from "@/entities/note/api/note.type";
 
-export const makeNote = (
-  overrides: Partial<NoteItemType> = {},
-): NoteItemType => ({
+export const makeNote = (overrides: Partial<NoteItemType> = {}): NoteItemType => ({
   id: "note-1",
   owner: "user-1",
   title: "Test Note",

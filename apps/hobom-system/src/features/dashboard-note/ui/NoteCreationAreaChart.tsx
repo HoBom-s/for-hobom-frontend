@@ -22,11 +22,7 @@ export const NoteCreationAreaChart = ({ data }: NoteCreationAreaChartProps) => {
       <ResponsiveContainer width="100%" height={260}>
         <AreaChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="date"
-            tick={{ fontSize: 11 }}
-            tickFormatter={(v: string) => v.slice(5)}
-          />
+          <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={(v: string) => v.slice(5)} />
           <YAxis tick={{ fontSize: 11 }} />
           <Tooltip />
           <Area

@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Hb } from "@/shared/ui";
 
 interface ReadUnreadStackedBarProps {
@@ -35,11 +27,7 @@ export const ReadUnreadStackedBar = ({ data }: ReadUnreadStackedBarProps) => {
             axisLine={false}
             tickLine={false}
           />
-          <YAxis
-            tick={{ fontSize: 11, fill: "#8c8c8c" }}
-            axisLine={false}
-            tickLine={false}
-          />
+          <YAxis tick={{ fontSize: 11, fill: "#8c8c8c" }} axisLine={false} tickLine={false} />
           <Tooltip
             cursor={{ fill: "rgba(70,128,255,0.06)" }}
             labelFormatter={(v) => String(v).slice(5)}
@@ -50,12 +38,7 @@ export const ReadUnreadStackedBar = ({ data }: ReadUnreadStackedBarProps) => {
               fontSize: 13,
             }}
           />
-          <Bar
-            dataKey="count"
-            name="알림 수"
-            fill="url(#notifBarBlue)"
-            radius={[6, 6, 0, 0]}
-          />
+          <Bar dataKey="count" name="알림 수" fill="url(#notifBarBlue)" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </Hb.Box>

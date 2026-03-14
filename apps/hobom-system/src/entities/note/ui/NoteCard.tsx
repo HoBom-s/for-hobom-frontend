@@ -219,9 +219,7 @@ export const NoteCard = ({
           </Hb.Box>
         )}
 
-        {(note.reminder ||
-          note.labels?.length > 0 ||
-          note.members?.length > 0) && (
+        {(note.reminder || note.labels?.length > 0 || note.members?.length > 0) && (
           <Hb.Box sx={{ mt: 1.5, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
             {note.reminder && (
               <Hb.Chip
@@ -297,9 +295,7 @@ export const NoteCard = ({
                 sx={{
                   color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
                 }}
-                onClick={() =>
-                  onStatusChange(note.id, isArchived ? "ACTIVE" : "ARCHIVED")
-                }
+                onClick={() => onStatusChange(note.id, isArchived ? "ACTIVE" : "ARCHIVED")}
               >
                 {isArchived ? (
                   <UnarchiveOutlined sx={{ fontSize: 18 }} />

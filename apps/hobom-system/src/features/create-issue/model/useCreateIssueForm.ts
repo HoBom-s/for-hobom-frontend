@@ -54,9 +54,7 @@ export const useCreateIssueForm = ({
   );
   const allLabels = labelData?.items ?? [];
   const labelMap = new Map(allLabels.map((l) => [l.id, l]));
-  const parentCandidates = (issueData?.items ?? []).filter((i) =>
-    PARENT_ISSUE_KINDS.has(i.type),
-  );
+  const parentCandidates = (issueData?.items ?? []).filter((i) => PARENT_ISSUE_KINDS.has(i.type));
 
   useEffect(() => {
     if (!enabled || !defaultParentId || !issueData) return;
@@ -92,8 +90,7 @@ export const useCreateIssueForm = ({
         parent: parentIssue?.id,
         sprint: sprint || undefined,
         labels: selectedLabels.length > 0 ? selectedLabels : undefined,
-        storyPoints:
-          storyPoints !== "" && !isNaN(parsedSp) ? parsedSp : undefined,
+        storyPoints: storyPoints !== "" && !isNaN(parsedSp) ? parsedSp : undefined,
       },
       {
         onSuccess: () => {

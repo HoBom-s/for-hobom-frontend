@@ -117,9 +117,7 @@ describe("useKanbanDnd", () => {
       });
 
       expect(result.current.columns["todo"].length).toBe(1);
-      expect(
-        result.current.columns["in-progress"].some((i) => i.id === "i1"),
-      ).toBe(true);
+      expect(result.current.columns["in-progress"].some((i) => i.id === "i1")).toBe(true);
     });
 
     it("over가 없으면 아무것도 하지 않는다", () => {

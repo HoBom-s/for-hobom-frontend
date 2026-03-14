@@ -1,11 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { StickyNote2Outlined, Checklist } from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  dashboardQueries,
-  KpiCard,
-  type PeriodType,
-} from "@/entities/dashboard";
+import { DashboardPaper, dashboardQueries, KpiCard, type PeriodType } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 import { NoteStatusPieChart } from "./NoteStatusPieChart";
 import { LabelBarChart } from "./LabelBarChart";
@@ -16,10 +11,7 @@ interface NoteDashboardContentProps {
   date: string;
 }
 
-export const NoteDashboardContent = ({
-  period,
-  date,
-}: NoteDashboardContentProps) => {
+export const NoteDashboardContent = ({ period, date }: NoteDashboardContentProps) => {
   const { data } = useSuspenseQuery(dashboardQueries.notes(period, date));
   const d = data.items;
 

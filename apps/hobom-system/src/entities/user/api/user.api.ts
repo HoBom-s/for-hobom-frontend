@@ -7,8 +7,7 @@ export const fetchMe = async () => {
   return res.items;
 };
 
-export const fetchUsers = async () =>
-  await httpClient.get<HttpResponseType<UserType[]>>(`/users`);
+export const fetchUsers = async () => await httpClient.get<HttpResponseType<UserType[]>>(`/users`);
 
 export const fetchUserById = async ({ id }: { id: string }) =>
   await httpClient.get<HttpResponseType<UserType>>(`/users/${id}`);

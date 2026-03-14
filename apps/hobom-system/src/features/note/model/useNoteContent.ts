@@ -51,8 +51,7 @@ export const useNoteContent = (status: NoteStatus | undefined) => {
     openCreate,
     closeDialog,
     togglePin: (id: string) => togglePin.mutate({ id }),
-    updateStatus: (id: string, s: NoteStatus) =>
-      updateStatus.mutate({ id, status: s }),
+    updateStatus: (id: string, s: NoteStatus) => updateStatus.mutate({ id, status: s }),
     deleteNote: (id: string) => deleteNote.mutate({ id }),
     reorderNote: (id: string, order: number, reorderedItems: NoteItemType[]) =>
       reorderNote.mutate({ id, order, reorderedItems }),

@@ -6,8 +6,6 @@
  * @dataLast
  * @category Function
  */
-export function constant<T>(
-  v: T,
-): <Args extends readonly unknown[]>(...args: Args) => T {
+export function constant<T>(v: T): <Args extends readonly unknown[]>(...args: Args) => T {
   return () => v;
 }

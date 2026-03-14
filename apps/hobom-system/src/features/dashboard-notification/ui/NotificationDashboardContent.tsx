@@ -1,15 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  Notifications,
-  DoneAll,
-  MarkEmailUnread,
-} from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  dashboardQueries,
-  KpiCard,
-  type PeriodType,
-} from "@/entities/dashboard";
+import { Notifications, DoneAll, MarkEmailUnread } from "hobom-design-system/icons";
+import { DashboardPaper, dashboardQueries, KpiCard, type PeriodType } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 import { ReadUnreadStackedBar } from "./ReadUnreadStackedBar";
 import { UnreadAlertList } from "./UnreadAlertList";
@@ -24,9 +15,7 @@ export const NotificationDashboardContent = ({
   period,
   date,
 }: NotificationDashboardContentProps) => {
-  const { data } = useSuspenseQuery(
-    dashboardQueries.notifications(period, date),
-  );
+  const { data } = useSuspenseQuery(dashboardQueries.notifications(period, date));
   const d = data.items;
 
   return (

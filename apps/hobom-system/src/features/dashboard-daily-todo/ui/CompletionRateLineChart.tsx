@@ -13,9 +13,7 @@ interface CompletionRateLineChartProps {
   data: { date: string; completionRate: number }[];
 }
 
-export const CompletionRateLineChart = ({
-  data,
-}: CompletionRateLineChartProps) => {
+export const CompletionRateLineChart = ({ data }: CompletionRateLineChartProps) => {
   return (
     <Hb.Box>
       <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
@@ -24,19 +22,13 @@ export const CompletionRateLineChart = ({
       <ResponsiveContainer width="100%" height={260}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="date"
-            tick={{ fontSize: 11 }}
-            tickFormatter={(v: string) => v.slice(5)}
-          />
+          <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={(v: string) => v.slice(5)} />
           <YAxis
             domain={[0, 1]}
             tick={{ fontSize: 11 }}
             tickFormatter={(v: number) => `${Math.round(v * 100)}%`}
           />
-          <Tooltip
-            formatter={(v) => [`${Math.round(Number(v) * 100)}%`, "완료율"]}
-          />
+          <Tooltip formatter={(v) => [`${Math.round(Number(v) * 100)}%`, "완료율"]} />
           <Line
             type="monotone"
             dataKey="completionRate"

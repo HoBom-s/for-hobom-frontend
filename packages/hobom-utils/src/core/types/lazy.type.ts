@@ -1,10 +1,6 @@
 export type LazyResult<T> = LazyEmpty | LazyNext<T> | LazyMany<T>;
 
-type LazyFn = (
-  value: unknown,
-  index: number,
-  items: readonly unknown[],
-) => LazyResult<unknown>;
+type LazyFn = (value: unknown, index: number, items: readonly unknown[]) => LazyResult<unknown>;
 
 interface LazyMeta {
   readonly single?: boolean;

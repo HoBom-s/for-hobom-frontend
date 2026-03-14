@@ -66,13 +66,7 @@ export const baseConfig = {
     "import-x/order": [
       "warn",
       {
-        groups: [
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling", "index"],
-          "type",
-        ],
+        groups: ["builtin", "external", "internal", ["parent", "sibling", "index"], "type"],
         pathGroups: [
           { pattern: "react", group: "builtin", position: "before" },
           { pattern: "react-dom/**", group: "builtin", position: "before" },
@@ -112,22 +106,14 @@ export const baseConfig = {
       "error",
       {
         props: true,
-        ignorePropertyModificationsFor: [
-          "draft",
-          "acc",
-          "e",
-          "ctx",
-          "req",
-          "res",
-        ],
+        ignorePropertyModificationsFor: ["draft", "acc", "e", "ctx", "req", "res"],
       },
     ],
     "no-restricted-syntax": [
       "error",
       {
         selector: "ForInStatement",
-        message:
-          "for..in은 prototype 속성을 순회합니다. Object.keys/values/entries를 사용하세요.",
+        message: "for..in은 prototype 속성을 순회합니다. Object.keys/values/entries를 사용하세요.",
       },
     ],
 

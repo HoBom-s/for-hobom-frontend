@@ -1,12 +1,6 @@
 import { z } from "zod";
 
-export const IssueKindModel = z.enum([
-  "EPIC",
-  "STORY",
-  "TASK",
-  "BUG",
-  "SUBTASK",
-]);
+export const IssueKindModel = z.enum(["EPIC", "STORY", "TASK", "BUG", "SUBTASK"]);
 export type IssueKind = z.infer<typeof IssueKindModel>;
 
 export const IssuePriorityModel = z.enum(["CRITICAL", "HIGH", "MEDIUM", "LOW"]);

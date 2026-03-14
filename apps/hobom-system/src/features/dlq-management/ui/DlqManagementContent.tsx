@@ -64,17 +64,11 @@ export const DlqManagementContent = () => {
           <Hb.Progress.Circular size={28} />
         </Hb.Box>
       ) : items.length === 0 ? (
-        <Hb.Text
-          variant="body2"
-          color="text.secondary"
-          sx={{ py: 4, textAlign: "center" }}
-        >
+        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 4, textAlign: "center" }}>
           DLQ 항목이 없습니다
         </Hb.Text>
       ) : (
-        <Hb.Table.Container
-          sx={{ maxHeight: "calc(100vh - 280px)", overflow: "auto" }}
-        >
+        <Hb.Table.Container sx={{ maxHeight: "calc(100vh - 280px)", overflow: "auto" }}>
           <Hb.Table.Root stickyHeader size="small">
             <Hb.Table.Head>
               <Hb.Table.Row>

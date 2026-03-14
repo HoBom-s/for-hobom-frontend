@@ -15,21 +15,11 @@ import { curry } from "../curry/curry";
  */
 export function reduce<T, U>(
   data: readonly T[],
-  cb: (
-    previousValue: U,
-    currentValue: T,
-    currentIndex: number,
-    data: readonly T[],
-  ) => U,
+  cb: (previousValue: U, currentValue: T, currentIndex: number, data: readonly T[]) => U,
   initialValue: U,
 ): U;
 export function reduce<T, U>(
-  cb: (
-    previousValue: U,
-    currentValue: T,
-    currentIndex: number,
-    data: readonly T[],
-  ) => U,
+  cb: (previousValue: U, currentValue: T, currentIndex: number, data: readonly T[]) => U,
   initialValue: U,
 ): (data: readonly T[]) => U;
 export function reduce(...args: readonly unknown[]): unknown {
@@ -38,12 +28,7 @@ export function reduce(...args: readonly unknown[]): unknown {
 
 function reduceImpl<T, U>(
   data: readonly T[],
-  cb: (
-    previousValue: U,
-    currentValue: T,
-    currentIndex: number,
-    data: readonly T[],
-  ) => U,
+  cb: (previousValue: U, currentValue: T, currentIndex: number, data: readonly T[]) => U,
   initialValue: U,
 ): U {
   return data.reduce(cb, initialValue);

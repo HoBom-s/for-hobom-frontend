@@ -23,9 +23,7 @@ export const NoteContent = ({ status }: { status: NoteStatus | undefined }) => {
 
   return (
     <>
-      {status !== "TRASHED" && status !== "ARCHIVED" && (
-        <NoteCreateBar onClick={openCreate} />
-      )}
+      {status !== "TRASHED" && status !== "ARCHIVED" && <NoteCreateBar onClick={openCreate} />}
 
       {status === "TRASHED" && <NoteTrashActions />}
 

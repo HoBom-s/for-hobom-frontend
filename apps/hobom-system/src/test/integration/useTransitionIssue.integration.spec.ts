@@ -45,13 +45,10 @@ describe("useTransitionIssue (integration)", () => {
 
   it("성공 시 issues 쿼리를 무효화한다", async () => {
     server.use(
-      http.post(
-        `${API_BASE}/projects/:projectId/issues/:issueId/transition`,
-        () => HttpResponse.json({ success: true }),
+      http.post(`${API_BASE}/projects/:projectId/issues/:issueId/transition`, () =>
+        HttpResponse.json({ success: true }),
       ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();
@@ -78,17 +75,12 @@ describe("useTransitionIssue (integration)", () => {
     let capturedUrl = "";
 
     server.use(
-      http.post(
-        `${API_BASE}/projects/:projectId/issues/:issueId/transition`,
-        ({ request }) => {
-          capturedUrl = new URL(request.url).pathname;
+      http.post(`${API_BASE}/projects/:projectId/issues/:issueId/transition`, ({ request }) => {
+        capturedUrl = new URL(request.url).pathname;
 
-          return HttpResponse.json({ success: true });
-        },
-      ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+        return HttpResponse.json({ success: true });
+      }),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();
@@ -106,21 +98,16 @@ describe("useTransitionIssue (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(capturedUrl).toBe(
-        "/api/projects/proj-1/issues/issue-1/transition",
-      );
+      expect(capturedUrl).toBe("/api/projects/proj-1/issues/issue-1/transition");
     });
   });
 
   it("서버 에러(500) 시 캐시를 롤백하고 에러 토스트를 표시한다", async () => {
     server.use(
-      http.post(
-        `${API_BASE}/projects/:projectId/issues/:issueId/transition`,
-        () => HttpResponse.json(null, { status: 500 }),
+      http.post(`${API_BASE}/projects/:projectId/issues/:issueId/transition`, () =>
+        HttpResponse.json(null, { status: 500 }),
       ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();
@@ -138,9 +125,7 @@ describe("useTransitionIssue (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(toast.error).toHaveBeenCalledWith(
-        "이슈 상태를 변경하지 못했어요.",
-      );
+      expect(toast.error).toHaveBeenCalledWith("이슈 상태를 변경하지 못했어요.");
     });
 
     const cached = queryClient.getQueryData<HttpResponseType<IssueType[]>>([
@@ -154,13 +139,10 @@ describe("useTransitionIssue (integration)", () => {
 
   it("네트워크 에러 시 캐시를 롤백하고 에러 토스트를 표시한다", async () => {
     server.use(
-      http.post(
-        `${API_BASE}/projects/:projectId/issues/:issueId/transition`,
-        () => HttpResponse.error(),
+      http.post(`${API_BASE}/projects/:projectId/issues/:issueId/transition`, () =>
+        HttpResponse.error(),
       ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();
@@ -178,9 +160,7 @@ describe("useTransitionIssue (integration)", () => {
     });
 
     await waitFor(() => {
-      expect(toast.error).toHaveBeenCalledWith(
-        "이슈 상태를 변경하지 못했어요.",
-      );
+      expect(toast.error).toHaveBeenCalledWith("이슈 상태를 변경하지 못했어요.");
     });
 
     const cached = queryClient.getQueryData<HttpResponseType<IssueType[]>>([

@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Hb } from "@/shared/ui";
 
 interface ThroughputLineChartProps {
@@ -35,11 +27,7 @@ export const ThroughputLineChart = ({ data }: ThroughputLineChartProps) => {
             axisLine={false}
             tickLine={false}
           />
-          <YAxis
-            tick={{ fontSize: 11, fill: "#8c8c8c" }}
-            axisLine={false}
-            tickLine={false}
-          />
+          <YAxis tick={{ fontSize: 11, fill: "#8c8c8c" }} axisLine={false} tickLine={false} />
           <Tooltip
             labelFormatter={(v) => `${v}시`}
             cursor={{ fill: "rgba(70,128,255,0.06)" }}
@@ -50,12 +38,7 @@ export const ThroughputLineChart = ({ data }: ThroughputLineChartProps) => {
               fontSize: 13,
             }}
           />
-          <Bar
-            dataKey="count"
-            name="처리량"
-            fill="url(#barThroughput)"
-            radius={[6, 6, 0, 0]}
-          />
+          <Bar dataKey="count" name="처리량" fill="url(#barThroughput)" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </Hb.Box>

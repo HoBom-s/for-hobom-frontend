@@ -1,11 +1,4 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
+import { PieChart, Pie, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { CHART_COLORS } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 
@@ -19,6 +12,11 @@ interface CategoryDonutChartProps {
 }
 
 export const CategoryDonutChart = ({ data }: CategoryDonutChartProps) => {
+  const chartData = data.map((item, i) => ({
+    ...item,
+    fill: CHART_COLORS[i % CHART_COLORS.length],
+  }));
+
   return (
     <Hb.Box>
       <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
@@ -27,18 +25,15 @@ export const CategoryDonutChart = ({ data }: CategoryDonutChartProps) => {
       <ResponsiveContainer width="100%" height={260}>
         <PieChart>
           <Pie
-            data={data}
+            data={chartData}
             dataKey="total"
             nameKey="categoryTitle"
             cx="50%"
             cy="50%"
             innerRadius={50}
             outerRadius={90}
-          >
-            {data.map((_, i) => (
-              <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-            ))}
-          </Pie>
+            isAnimationActive={false}
+          />
           <Tooltip />
           <Legend />
         </PieChart>

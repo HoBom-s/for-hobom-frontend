@@ -8,9 +8,7 @@ interface Props {
 export const SuspenseLoader = ({ fullScreen = false }: Props) => (
   <Box
     sx={{
-      ...(fullScreen
-        ? { width: "100%", height: "100vh" }
-        : { position: "absolute", inset: 0 }),
+      ...(fullScreen ? { width: "100%", height: "100vh" } : { position: "absolute", inset: 0 }),
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",

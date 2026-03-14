@@ -36,12 +36,9 @@ export const useWikiSpaceLayout = () => {
     [navigate, spaceKey],
   );
 
-  const handleCreateChild = useCallback(
-    (parentId: string, parentTitle: string) => {
-      setCreateDialog({ open: true, parentPageId: parentId, parentTitle });
-    },
-    [],
-  );
+  const handleCreateChild = useCallback((parentId: string, parentTitle: string) => {
+    setCreateDialog({ open: true, parentPageId: parentId, parentTitle });
+  }, []);
 
   const handleCreatePage = (title: string) => {
     createPage.mutate(

@@ -2,10 +2,7 @@ import { describe, expect, it } from "vitest";
 import { groupNotificationsByDate } from "./group-notifications-by-date.lib";
 import type { NotificationItemType } from "../api/notification.type";
 
-const makeNotification = (
-  id: string,
-  createdAt: string,
-): NotificationItemType => ({
+const makeNotification = (id: string, createdAt: string): NotificationItemType => ({
   id,
   category: "SYSTEM",
   title: `title-${id}`,
@@ -66,12 +63,7 @@ describe("groupNotificationsByDate", () => {
 
     const groups = groupNotificationsByDate(items, NOW);
 
-    expect(groups.map((g) => g.label)).toEqual([
-      "오늘",
-      "어제",
-      "이번 주",
-      "이전",
-    ]);
+    expect(groups.map((g) => g.label)).toEqual(["오늘", "어제", "이번 주", "이전"]);
   });
 
   it("해당 그룹에 알림이 없으면 그 그룹을 제외한다", () => {

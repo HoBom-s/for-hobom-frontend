@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import type { ProjectIssueDashboardDto } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 
@@ -14,9 +6,7 @@ interface PriorityDistributionChartProps {
   data: ProjectIssueDashboardDto["byPriority"];
 }
 
-export const PriorityDistributionChart = ({
-  data,
-}: PriorityDistributionChartProps) => {
+export const PriorityDistributionChart = ({ data }: PriorityDistributionChartProps) => {
   return (
     <Hb.Box>
       <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
@@ -25,13 +15,7 @@ export const PriorityDistributionChart = ({
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={data} layout="vertical" barSize={20}>
           <defs>
-            <linearGradient
-              id="priorityBarGradient"
-              x1="0"
-              y1="0"
-              x2="1"
-              y2="0"
-            >
+            <linearGradient id="priorityBarGradient" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#4680ff" stopOpacity={0.6} />
               <stop offset="100%" stopColor="#4680ff" stopOpacity={1} />
             </linearGradient>

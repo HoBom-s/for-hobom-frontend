@@ -6,9 +6,7 @@ interface CreateIssueInlineFormProps {
   onSubmit: (title: string) => void;
 }
 
-export const CreateIssueInlineForm = ({
-  onSubmit,
-}: CreateIssueInlineFormProps) => {
+export const CreateIssueInlineForm = ({ onSubmit }: CreateIssueInlineFormProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
 

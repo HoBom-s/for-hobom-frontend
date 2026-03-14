@@ -2,14 +2,7 @@ import { useEffect } from "react";
 import { render, screen, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
-import {
-  MemoryRouter,
-  Route,
-  Routes,
-  Outlet,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { MemoryRouter, Route, Routes, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { RoutesConfig } from "@/shared/config";
 import { useToast } from "@/shared/model";
@@ -82,15 +75,9 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
         <MemoryRouter initialEntries={[RoutesConfig.MAIN.DAILY_TODO]}>
           <Routes>
             <Route element={<AuthGuardHarness />}>
-              <Route
-                path={RoutesConfig.MAIN.DAILY_TODO}
-                element={<div>할 일 페이지</div>}
-              />
+              <Route path={RoutesConfig.MAIN.DAILY_TODO} element={<div>할 일 페이지</div>} />
             </Route>
-            <Route
-              path={RoutesConfig.AUTH.LOGIN}
-              element={<LocationDisplay />}
-            />
+            <Route path={RoutesConfig.AUTH.LOGIN} element={<LocationDisplay />} />
           </Routes>
         </MemoryRouter>
       </QueryClientProvider>,
@@ -100,9 +87,7 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
 
     dispatchUnauthorized();
 
-    expect(screen.getByTestId("location").textContent).toBe(
-      RoutesConfig.AUTH.LOGIN,
-    );
+    expect(screen.getByTestId("location").textContent).toBe(RoutesConfig.AUTH.LOGIN);
   });
 
   it("UNAUTHORIZED_EVENT 발생 시 queryClient.clear()를 호출한다", () => {
@@ -115,10 +100,7 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
         <MemoryRouter initialEntries={[RoutesConfig.MAIN.DAILY_TODO]}>
           <Routes>
             <Route element={<AuthGuardHarness />}>
-              <Route
-                path={RoutesConfig.MAIN.DAILY_TODO}
-                element={<div>할 일 페이지</div>}
-              />
+              <Route path={RoutesConfig.MAIN.DAILY_TODO} element={<div>할 일 페이지</div>} />
             </Route>
             <Route path={RoutesConfig.AUTH.LOGIN} element={<div>로그인</div>} />
           </Routes>
@@ -139,10 +121,7 @@ describe("인증 가드 통합: UNAUTHORIZED_EVENT 플로우", () => {
         <MemoryRouter initialEntries={[RoutesConfig.MAIN.DAILY_TODO]}>
           <Routes>
             <Route element={<AuthGuardHarness />}>
-              <Route
-                path={RoutesConfig.MAIN.DAILY_TODO}
-                element={<div>할 일 페이지</div>}
-              />
+              <Route path={RoutesConfig.MAIN.DAILY_TODO} element={<div>할 일 페이지</div>} />
             </Route>
             <Route path={RoutesConfig.AUTH.LOGIN} element={<div>로그인</div>} />
           </Routes>

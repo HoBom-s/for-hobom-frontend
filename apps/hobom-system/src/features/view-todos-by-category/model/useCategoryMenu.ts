@@ -12,8 +12,7 @@ export const useCategoryMenu = ({
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [editOpen, setEditOpen] = useState(false);
   const [editTitle, setEditTitle] = useState(categoryTitle);
-  const { mutate: mutateUpdate, isPending: isUpdatePending } =
-    useUpdateCategory();
+  const { mutate: mutateUpdate, isPending: isUpdatePending } = useUpdateCategory();
   const { mutate: mutateDelete } = useDeleteCategory();
 
   const openMenu = (e: React.MouseEvent<HTMLElement>) => {
@@ -32,10 +31,7 @@ export const useCategoryMenu = ({
     const trimmed = editTitle.trim();
 
     if (Bom.isEmpty(trimmed)) return;
-    mutateUpdate(
-      { id: categoryId, title: trimmed },
-      { onSuccess: () => setEditOpen(false) },
-    );
+    mutateUpdate({ id: categoryId, title: trimmed }, { onSuccess: () => setEditOpen(false) });
   };
 
   const handleDelete = () => {

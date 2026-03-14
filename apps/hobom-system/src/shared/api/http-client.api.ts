@@ -8,21 +8,9 @@ const DEFAULT_TIMEOUT_MS = 30_000;
 interface HttpClient {
   use: (middleware: Middleware) => void;
   get: <T>(url: string, options?: RequestOptions) => Promise<T>;
-  post: <T>(
-    url: string,
-    body: unknown,
-    options?: Omit<RequestOptions, "json">,
-  ) => Promise<T>;
-  put: <T>(
-    url: string,
-    body: unknown,
-    options?: Omit<RequestOptions, "json">,
-  ) => Promise<T>;
-  patch: <T>(
-    url: string,
-    body: unknown,
-    options?: Omit<RequestOptions, "json">,
-  ) => Promise<T>;
+  post: <T>(url: string, body: unknown, options?: Omit<RequestOptions, "json">) => Promise<T>;
+  put: <T>(url: string, body: unknown, options?: Omit<RequestOptions, "json">) => Promise<T>;
+  patch: <T>(url: string, body: unknown, options?: Omit<RequestOptions, "json">) => Promise<T>;
   delete: <T>(url: string, options?: RequestOptions) => Promise<T>;
 }
 
@@ -38,10 +26,7 @@ interface HttpClient {
 export const createHttpClient = (baseUrl = ""): HttpClient => {
   const middlewares: Middleware[] = [];
 
-  const runMiddlewareHook = async (
-    hookName: keyof Middleware,
-    ctx: MiddlewareContext,
-  ) => {
+  const runMiddlewareHook = async (hookName: keyof Middleware, ctx: MiddlewareContext) => {
     for (const m of middlewares) {
       const fn = m[hookName];
 
@@ -49,11 +34,7 @@ export const createHttpClient = (baseUrl = ""): HttpClient => {
     }
   };
 
-  const request = async (
-    method: HttpMethod,
-    url: string,
-    options: RequestOptions = {},
-  ) => {
+  const request = async (method: HttpMethod, url: string, options: RequestOptions = {}) => {
     const { json, retry: maxRetry = 0, timeout, ...fetchOptions } = options;
     const fullUrl = baseUrl + url;
 
@@ -75,10 +56,7 @@ export const createHttpClient = (baseUrl = ""): HttpClient => {
     const controller = new AbortController();
 
     init.signal = init.signal ?? controller.signal;
-    const timeoutId = setTimeout(
-      () => controller.abort(),
-      timeout ?? DEFAULT_TIMEOUT_MS,
-    );
+    const timeoutId = setTimeout(() => controller.abort(), timeout ?? DEFAULT_TIMEOUT_MS);
 
     const ctx: MiddlewareContext = { input: fullUrl, init };
 
@@ -98,8 +76,7 @@ export const createHttpClient = (baseUrl = ""): HttpClient => {
             try {
               const body = await ctx.response.clone().json();
 
-              serverMessage =
-                typeof body?.message === "string" ? body.message : undefined;
+              serverMessage = typeof body?.message === "string" ? body.message : undefined;
             } catch {
               /* non-JSON or no message field */
             }

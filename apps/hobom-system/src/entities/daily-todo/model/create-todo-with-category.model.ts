@@ -1,9 +1,5 @@
 import { Bom } from "hobom-utils";
-import type {
-  CategoryType,
-  DailyTodoType,
-  DailyTodoWithCategoryType,
-} from "@/entities/daily-todo";
+import type { CategoryType, DailyTodoType, DailyTodoWithCategoryType } from "@/entities/daily-todo";
 
 const toDailyTodoWithCategory = (
   category: CategoryType,

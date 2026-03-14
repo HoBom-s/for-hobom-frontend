@@ -4,9 +4,7 @@ import { Bom } from "hobom-utils";
 import { menuQueries } from "@/entities/menu-recommendation";
 
 export const usePickMenuContentList = () => {
-  const [selectedMenuIds, setSelectedMenuIds] = useState<Set<string>>(
-    new Set(),
-  );
+  const [selectedMenuIds, setSelectedMenuIds] = useState<Set<string>>(new Set());
 
   const { data } = useSuspenseQuery(menuQueries.recommendationList());
   const itemList = Bom.prop(data, "items");

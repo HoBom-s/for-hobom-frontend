@@ -61,12 +61,7 @@ export const PageEditorContent = ({
           }}
           sx={{ flex: 1 }}
         />
-        <Hb.Button
-          variant="primary"
-          onClick={handleSave}
-          loading={saving}
-          size="small"
-        >
+        <Hb.Button variant="primary" onClick={handleSave} loading={saving} size="small">
           저장
         </Hb.Button>
       </Hb.Box>

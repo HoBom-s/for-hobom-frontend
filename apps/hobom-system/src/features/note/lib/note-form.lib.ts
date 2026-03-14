@@ -3,10 +3,7 @@ import { NOTE_COLORS } from "@/entities/note";
 import type { NoteItemType, ChecklistItemType } from "@/entities/note";
 import type { NoteFormState } from "../model/useNoteForm";
 
-export const toChecklistItem = (
-  text: string,
-  order: number,
-): ChecklistItemType => ({
+export const toChecklistItem = (text: string, order: number): ChecklistItemType => ({
   text,
   checked: false,
   order,

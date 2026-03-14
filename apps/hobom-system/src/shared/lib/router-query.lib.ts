@@ -11,10 +11,7 @@ export const applyParams = (
   return next;
 };
 
-export const buildPath = (
-  pathname: string,
-  params: URLSearchParams,
-): string => {
+export const buildPath = (pathname: string, params: URLSearchParams): string => {
   const qs = params.toString();
 
   return qs ? `${pathname}?${qs}` : pathname;

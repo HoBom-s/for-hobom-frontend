@@ -16,15 +16,11 @@ const BASE = "/privacy-law";
 // ── Versions ──
 
 export const fetchVersions = async () => {
-  return await httpClient.get<HttpResponseType<LawVersion[]>>(
-    `${BASE}/versions`,
-  );
+  return await httpClient.get<HttpResponseType<LawVersion[]>>(`${BASE}/versions`);
 };
 
 export const fetchVersionById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<LawVersion>>(
-    `${BASE}/versions/${id}`,
-  );
+  return await httpClient.get<HttpResponseType<LawVersion>>(`${BASE}/versions/${id}`);
 };
 
 // ── Diffs ──
@@ -40,30 +36,21 @@ export const fetchDiffById = async ({ id }: { id: string }) => {
 // ── Study Materials ──
 
 export const fetchStudyMaterials = async () => {
-  return await httpClient.get<HttpResponseType<StudyMaterial[]>>(
-    `${BASE}/study-materials`,
-  );
+  return await httpClient.get<HttpResponseType<StudyMaterial[]>>(`${BASE}/study-materials`);
 };
 
 export const fetchStudyMaterialById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<StudyMaterial>>(
-    `${BASE}/study-materials/${id}`,
-  );
+  return await httpClient.get<HttpResponseType<StudyMaterial>>(`${BASE}/study-materials/${id}`);
 };
 
 // ── Questions ──
 
 export const fetchQuestionHistory = async () => {
-  return await httpClient.get<HttpResponseType<QuestionHistory[]>>(
-    `${BASE}/questions`,
-  );
+  return await httpClient.get<HttpResponseType<QuestionHistory[]>>(`${BASE}/questions`);
 };
 
 export const postAskQuestion = async (data: AskQuestionRequest) => {
-  return await httpClient.post<HttpResponseType<AskQuestionResponse>>(
-    `${BASE}/ask`,
-    data,
-  );
+  return await httpClient.post<HttpResponseType<AskQuestionResponse>>(`${BASE}/ask`, data);
 };
 
 // ── Exams ──
@@ -73,9 +60,7 @@ export const fetchExams = async () => {
 };
 
 export const fetchExamById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<ExamSetDetail>>(
-    `${BASE}/exams/${id}`,
-  );
+  return await httpClient.get<HttpResponseType<ExamSetDetail>>(`${BASE}/exams/${id}`);
 };
 
 export const postGenerateExam = async () => {

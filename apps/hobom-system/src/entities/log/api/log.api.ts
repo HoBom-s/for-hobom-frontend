@@ -13,9 +13,7 @@ import type {
 const BASE = "/logs";
 
 export const fetchLogLevelSummary = (hours: number) =>
-  internalHttpClient.get<HttpResponseType<LogLevelCount[]>>(
-    `${BASE}/level-summary?hours=${hours}`,
-  );
+  internalHttpClient.get<HttpResponseType<LogLevelCount[]>>(`${BASE}/level-summary?hours=${hours}`);
 
 export const fetchLogServiceSummary = (hours: number) =>
   internalHttpClient.get<HttpResponseType<LogServiceCount[]>>(

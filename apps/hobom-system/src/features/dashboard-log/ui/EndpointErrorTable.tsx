@@ -53,13 +53,7 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
       if (!row) return null;
       const bg = bodyIndex % 2 === 0 ? ROW_EVEN : ROW_ODD;
 
-      return (
-        <EndpointErrorBodyCell
-          colKey={COLUMNS[cell.colIndex].key}
-          row={row}
-          bg={bg}
-        />
-      );
+      return <EndpointErrorBodyCell colKey={COLUMNS[cell.colIndex].key} row={row} bg={bg} />;
     },
     [rowModel, colResize],
   );

@@ -20,10 +20,7 @@ const DateHeader = () => {
         flexShrink: 0,
       }}
     >
-      <Hb.Text
-        variant="h5"
-        sx={{ fontWeight: 700, color: "text.primary", lineHeight: 1.3 }}
-      >
+      <Hb.Text variant="h5" sx={{ fontWeight: 700, color: "text.primary", lineHeight: 1.3 }}>
         {format(selected, "M월 d일 EEEE", { locale: ko })}
       </Hb.Text>
       <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>

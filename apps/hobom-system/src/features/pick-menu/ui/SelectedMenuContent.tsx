@@ -20,8 +20,7 @@ const Inner = () => {
   const { handler, status } = useSelectTodayMenu();
   const { data } = useQuery({
     ...menuQueries.selectedTodayMenu({ id: String(todayMenuId) }),
-    enabled:
-      todayMenuId != null && status === "done" && handler.status === "success",
+    enabled: todayMenuId != null && status === "done" && handler.status === "success",
   });
 
   useEffect(() => {
@@ -32,10 +31,7 @@ const Inner = () => {
   }, [todayMenuId]);
 
   const showProgressCircle =
-    todayMenuId == null ||
-    status === "loading" ||
-    handler.isPending ||
-    data == null;
+    todayMenuId == null || status === "loading" || handler.isPending || data == null;
 
   return (
     <Hb.Box
@@ -62,18 +58,14 @@ const Inner = () => {
             </Hb.Stack>
           ) : (
             <Hb.Stack direction="column" alignItems="center" spacing={1}>
-              <Hb.Text
-                variant="body2"
-                sx={{ color: "text.secondary", mb: 0.5 }}
-              >
+              <Hb.Text variant="body2" sx={{ color: "text.secondary", mb: 0.5 }}>
                 오늘의 메뉴는
               </Hb.Text>
               <Hb.Text variant="h5" sx={{ fontWeight: 700 }}>
                 {data?.items.recommendedMenu.name}
               </Hb.Text>
               <Hb.Text variant="body2" color="text.secondary">
-                {data?.items.recommendedMenu.registerPerson.username} 님이
-                등록한 메뉴
+                {data?.items.recommendedMenu.registerPerson.username} 님이 등록한 메뉴
               </Hb.Text>
             </Hb.Stack>
           )}
@@ -94,9 +86,7 @@ const Inner = () => {
           disableElevation
           disabled={showProgressCircle}
           sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
-          onClick={() =>
-            navigate(RoutesConfig.MENU.RECOMMENDATION, { replace: true })
-          }
+          onClick={() => navigate(RoutesConfig.MENU.RECOMMENDATION, { replace: true })}
         >
           확인
         </Hb.Button>

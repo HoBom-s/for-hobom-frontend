@@ -6,11 +6,7 @@ import {
   TrendingUp,
   DataUsageOutlined,
 } from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  dashboardQueries,
-  KpiCard,
-} from "@/entities/dashboard";
+import { DashboardPaper, dashboardQueries, KpiCard } from "@/entities/dashboard";
 import { Hb, SuspenseLoader } from "@/shared/ui";
 
 interface SprintDashboardSectionProps {
@@ -18,13 +14,8 @@ interface SprintDashboardSectionProps {
   sprintId: string;
 }
 
-const SprintDashboardInner = ({
-  projectId,
-  sprintId,
-}: SprintDashboardSectionProps) => {
-  const { data } = useSuspenseQuery(
-    dashboardQueries.sprint(projectId, sprintId),
-  );
+const SprintDashboardInner = ({ projectId, sprintId }: SprintDashboardSectionProps) => {
+  const { data } = useSuspenseQuery(dashboardQueries.sprint(projectId, sprintId));
   const { sprint, overview } = data.items;
   const completionPercent = Math.round(overview.completionRate * 100);
 

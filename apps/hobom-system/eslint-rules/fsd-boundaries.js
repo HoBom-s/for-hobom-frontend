@@ -1,142 +1,97 @@
 import path from "path";
 
-function getLayer(filePath) {
-  const parts = filePath.split(path.sep);
-  const srcIndex = parts.indexOf("src");
-  if (srcIndex >= 0 && parts.length > srcIndex + 1) {
-    return parts[srcIndex + 1];
-  }
-  return null;
-}
+const LAYERS = ["apps", "pages", "widgets", "features", "entities", "shared"];
 
-function getSlice(filePath) {
-  const parts = filePath.split(path.sep);
-  const srcIndex = parts.indexOf("src");
-  // layer -> slice
-  if (srcIndex >= 0 && parts.length > srcIndex + 2) {
-    return parts[srcIndex + 2];
-  }
-  return null;
-}
-
-// excepts packages/*
 const ALLOWED_IMPORTS = {
-  apps: ["pages", "widgets", "features", "entities", "shared", "packages"],
-  pages: ["widgets", "features", "entities", "shared", "packages"],
-  widgets: ["features", "entities", "shared", "packages"],
-  features: ["entities", "shared", "packages"],
-  entities: ["shared", "packages"],
-  shared: ["shared", "packages"],
+  apps: ["pages", "widgets", "features", "entities", "shared"],
+  pages: ["widgets", "features", "entities", "shared"],
+  widgets: ["features", "entities", "shared"],
+  features: ["entities", "shared"],
+  entities: ["shared"],
+  shared: ["shared"],
 };
+
+// shared, apps는 slice 개념이 없으므로 cross-segment import 허용
+const SLICELESS_LAYERS = new Set(["shared", "apps"]);
+
+function parseLocation(filePath) {
+  const parts = filePath.split(path.sep);
+  const srcIndex = parts.indexOf("src");
+  if (srcIndex < 0) return null;
+
+  const layer = parts[srcIndex + 1];
+  if (!layer || !(layer in ALLOWED_IMPORTS)) return null;
+
+  const slice = parts[srcIndex + 2] ?? null;
+
+  return { layer, slice };
+}
+
+function checkImport(context, node, importedLayer, importedSlice, current) {
+  // 같은 레이어 내 cross-slice 검사
+  if (importedLayer === current.layer) {
+    if (!SLICELESS_LAYERS.has(current.layer) && importedSlice && importedSlice !== current.slice) {
+      context.report({
+        node,
+        messageId: "crossSlice",
+        data: {
+          layer: current.layer,
+          from: current.slice,
+          to: importedSlice,
+        },
+      });
+    }
+
+    return;
+  }
+
+  // 상위 레이어 import 검사
+  if (!ALLOWED_IMPORTS[current.layer].includes(importedLayer)) {
+    context.report({
+      node,
+      messageId: "crossLayer",
+      data: {
+        currentLayer: current.layer,
+        importedLayer,
+      },
+    });
+  }
+}
 
 export const rule = {
   meta: {
     type: "problem",
     docs: {
-      description: "Enforce FSD import boundaries including slices",
-      category: "FSD",
-      recommended: false,
+      description: "Enforce FSD layer and slice import boundaries",
     },
     messages: {
-      forbiddenImport:
-        "'{{importLayer}}/{{importSlice}}' imports from '{{importedLayer}}/{{importedSlice}}' are not allowed.",
+      crossLayer: "'{{currentLayer}}' layer cannot import from '{{importedLayer}}'.",
+      crossSlice: "Cross-slice import in '{{layer}}': '{{from}}' cannot import from '{{to}}'.",
     },
     schema: [],
   },
 
   create(context) {
-    const currentFile = context.getFilename();
-    const currentLayer = getLayer(currentFile);
-    const currentSlice = getSlice(currentFile);
-
-    if (!currentLayer || !(currentLayer in ALLOWED_IMPORTS)) {
-      return {};
-    }
+    const current = parseLocation(context.filename);
+    if (!current) return {};
 
     return {
       ImportDeclaration(node) {
         const importPath = node.source.value;
         if (typeof importPath !== "string") return;
 
-        // '@/' alias import
         if (importPath.startsWith("@/")) {
-          const parts = importPath.slice(2).split("/");
-          const importedLayer = parts[0];
-          const importedSlice = parts[1] || null;
+          const [importedLayer, importedSlice] = importPath.slice(2).split("/");
+          checkImport(context, node, importedLayer, importedSlice ?? null, current);
 
-          if (importedLayer === currentLayer) {
-            // apps/shared have no slices — cross-segment imports are allowed
-            if (currentLayer !== "shared" && currentLayer !== "apps") {
-              if (importedSlice && importedSlice !== currentSlice) {
-                context.report({
-                  node,
-                  messageId: "forbiddenImport",
-                  data: {
-                    importLayer: currentLayer,
-                    importSlice: currentSlice,
-                    importedLayer,
-                    importedSlice,
-                  },
-                });
-              }
-            }
-            return;
-          }
-
-          // check another layer ALLOWED_IMPORTS
-          if (!ALLOWED_IMPORTS[currentLayer].includes(importedLayer)) {
-            context.report({
-              node,
-              messageId: "forbiddenImport",
-              data: {
-                importLayer: currentLayer,
-                importSlice: currentSlice,
-                importedLayer,
-                importedSlice,
-              },
-            });
-          }
           return;
         }
 
         if (importPath.startsWith(".")) {
-          const currentDir = path.dirname(currentFile);
-          const resolvedPath = path.resolve(currentDir, importPath);
-          const importedLayer = getLayer(resolvedPath);
-          const importedSlice = getSlice(resolvedPath);
-
-          if (importedLayer === currentLayer) {
-            // apps/shared have no slices — cross-segment imports are allowed
-            if (currentLayer !== "shared" && currentLayer !== "apps") {
-              if (importedSlice && importedSlice !== currentSlice) {
-                context.report({
-                  node,
-                  messageId: "forbiddenImport",
-                  data: {
-                    importLayer: currentLayer,
-                    importSlice: currentSlice,
-                    importedLayer,
-                    importedSlice,
-                  },
-                });
-              }
-            }
-            return;
-          }
-
-          if (!ALLOWED_IMPORTS[currentLayer].includes(importedLayer)) {
-            context.report({
-              node,
-              messageId: "forbiddenImport",
-              data: {
-                importLayer: currentLayer,
-                importSlice: currentSlice,
-                importedLayer,
-                importedSlice,
-              },
-            });
-          }
-          return;
+          const resolved = path.resolve(path.dirname(context.filename), importPath);
+          const imported = parseLocation(resolved);
+          if (!imported) return;
+          checkImport(context, node, imported.layer, imported.slice, current);
         }
       },
     };

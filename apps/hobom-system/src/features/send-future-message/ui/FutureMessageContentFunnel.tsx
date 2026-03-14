@@ -7,10 +7,7 @@ interface Props {
   onNextStep: () => void;
 }
 
-export const FutureMessageContentFunnel = ({
-  onPrevStep,
-  onNextStep,
-}: Props) => {
+export const FutureMessageContentFunnel = ({ onPrevStep, onNextStep }: Props) => {
   const { setValue, watch } = useFormContext<FutureMessageSendSchemaType>();
 
   return (
@@ -33,9 +30,7 @@ export const FutureMessageContentFunnel = ({
           value={watch("content")}
           onChange={(evt) => setValue("content", evt.target.value)}
         />
-        <Hb.Form.Helper>
-          전하고 싶은 말을 자유롭게 작성해 주세요.
-        </Hb.Form.Helper>
+        <Hb.Form.Helper>전하고 싶은 말을 자유롭게 작성해 주세요.</Hb.Form.Helper>
       </Hb.Form.Control>
 
       <Hb.Box display="flex" gap={1.5}>

@@ -67,10 +67,7 @@ export const AuthLoginForm = () => {
           display="flex"
           flexDirection="column"
           gap={2}
-          onSubmit={formMethods.handleSubmit(
-            handleValidFormSubmit,
-            handleInvalidFormSubmit,
-          )}
+          onSubmit={formMethods.handleSubmit(handleValidFormSubmit, handleInvalidFormSubmit)}
         >
           <Hb.Text variant="h6" fontWeight={700} mb={0.5}>
             로그인
@@ -93,11 +90,7 @@ export const AuthLoginForm = () => {
           </Hb.Button>
           <Hb.Text variant="body2" color="text.secondary" textAlign="center">
             계정이 없으신가요?{" "}
-            <Hb.Link
-              component={RouterLink}
-              to={RoutesConfig.AUTH.SIGN_UP}
-              underline="hover"
-            >
+            <Hb.Link component={RouterLink} to={RoutesConfig.AUTH.SIGN_UP} underline="hover">
               회원가입
             </Hb.Link>
           </Hb.Text>

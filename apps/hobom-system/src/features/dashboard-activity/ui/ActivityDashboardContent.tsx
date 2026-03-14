@@ -1,11 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { CalendarMonth, Today, TrendingUp } from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  dashboardQueries,
-  KpiCard,
-  type PeriodType,
-} from "@/entities/dashboard";
+import { DashboardPaper, dashboardQueries, KpiCard, type PeriodType } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
 import { ActivityHeatmap } from "./ActivityHeatmap";
 import { ModuleUsageRadar } from "./ModuleUsageRadar";
@@ -16,10 +11,7 @@ interface ActivityDashboardContentProps {
   date: string;
 }
 
-export const ActivityDashboardContent = ({
-  period,
-  date,
-}: ActivityDashboardContentProps) => {
+export const ActivityDashboardContent = ({ period, date }: ActivityDashboardContentProps) => {
   const { data } = useSuspenseQuery(dashboardQueries.activity(period, date));
   const d = data.items;
 
@@ -50,11 +42,7 @@ export const ActivityDashboardContent = ({
         />
       </Hb.Grid>
       <Hb.Grid size={{ xs: 12, sm: 6, md: 3 }}>
-        <KpiCard
-          label="최장 연속"
-          value={d.overview.longestStreak}
-          suffix="일"
-        />
+        <KpiCard label="최장 연속" value={d.overview.longestStreak} suffix="일" />
       </Hb.Grid>
 
       <Hb.Grid size={{ xs: 12, md: 8 }}>

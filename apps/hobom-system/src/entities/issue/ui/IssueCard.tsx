@@ -12,13 +12,7 @@ interface IssueCardProps {
 }
 
 export const IssueCard = memo(
-  ({
-    issue,
-    isDragOverlay,
-    parentIssueKey,
-    childCount = 0,
-    progress,
-  }: IssueCardProps) => {
+  ({ issue, isDragOverlay, parentIssueKey, childCount = 0, progress }: IssueCardProps) => {
     const kind = ISSUE_KIND_REGISTRY[issue.type];
     const priority = ISSUE_PRIORITY_REGISTRY[issue.priority];
 
@@ -30,9 +24,7 @@ export const IssueCard = memo(
           borderRadius: 2,
           borderLeft: `3px solid ${kind.color}`,
           cursor: isDragOverlay ? "grabbing" : "grab",
-          boxShadow: isDragOverlay
-            ? "0 12px 28px rgba(0,0,0,0.16)"
-            : "0 1px 3px rgba(0,0,0,0.06)",
+          boxShadow: isDragOverlay ? "0 12px 28px rgba(0,0,0,0.16)" : "0 1px 3px rgba(0,0,0,0.06)",
           "&:hover": isDragOverlay
             ? undefined
             : {
@@ -122,14 +114,8 @@ export const IssueCard = memo(
                   height: 18,
                   fontSize: 10,
                   fontWeight: 600,
-                  bgcolor:
-                    progress.completed === progress.total
-                      ? "#e8f5e9"
-                      : "#fff3e0",
-                  color:
-                    progress.completed === progress.total
-                      ? "#2ca87f"
-                      : "#e58a00",
+                  bgcolor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
+                  color: progress.completed === progress.total ? "#2ca87f" : "#e58a00",
                   "& .MuiChip-label": { px: 0.5 },
                 }}
               />

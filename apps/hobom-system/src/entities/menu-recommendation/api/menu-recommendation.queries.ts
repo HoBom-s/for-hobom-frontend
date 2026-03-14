@@ -1,8 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import {
-  fetchMenuRecommendationList,
-  fetchTodayRecommendedMenu,
-} from "./menu-recommendation.api";
+import { fetchMenuRecommendationList, fetchTodayRecommendedMenu } from "./menu-recommendation.api";
 
 export const menuQueries = {
   menus: () => ["menus"],

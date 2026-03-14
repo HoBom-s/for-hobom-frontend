@@ -121,10 +121,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
         컬럼
       </Hb.Text>
       <Sortable.Root onDragEnd={handleColumnReorder}>
-        <Sortable.List
-          items={board.columns.map((c) => c.statusId)}
-          strategy="vertical"
-        >
+        <Sortable.List items={board.columns.map((c) => c.statusId)} strategy="vertical">
           <Hb.Stack spacing={0.5}>
             {board.columns.map((col) => {
               const config = getStatusConfig(col.statusId);
@@ -165,11 +162,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                     <Hb.Text variant="body2" sx={{ flex: 1, fontSize: 13 }}>
                       {col.name}
                     </Hb.Text>
-                    <Hb.Text
-                      variant="caption"
-                      color="text.disabled"
-                      sx={{ fontSize: 11 }}
-                    >
+                    <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
                       {col.statusId}
                     </Hb.Text>
                     {col.wipLimit != null && (

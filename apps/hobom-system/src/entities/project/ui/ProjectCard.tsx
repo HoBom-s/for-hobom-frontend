@@ -2,14 +2,7 @@ import { PeopleOutline } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import type { ProjectType } from "../api/project.type";
 
-const PROJECT_COLORS = [
-  "#4680ff",
-  "#2ca87f",
-  "#7c3aed",
-  "#e58a00",
-  "#dc2626",
-  "#0891b2",
-];
+const PROJECT_COLORS = ["#4680ff", "#2ca87f", "#7c3aed", "#e58a00", "#dc2626", "#0891b2"];
 
 const getProjectColor = (key: string) => {
   let hash = 0;
@@ -64,11 +57,7 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             <Hb.Text variant="subtitle2" fontWeight={600} noWrap>
               {project.name}
             </Hb.Text>
-            <Hb.Text
-              variant="caption"
-              color="text.disabled"
-              sx={{ fontSize: 11 }}
-            >
+            <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
               {project.key}
             </Hb.Text>
           </Hb.Box>

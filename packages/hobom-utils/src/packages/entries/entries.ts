@@ -7,8 +7,6 @@
  *
  * @category Object
  */
-export function entries<T extends object>(
-  data: T,
-): [keyof T & string, T[keyof T]][] {
+export function entries<T extends object>(data: T): [keyof T & string, T[keyof T]][] {
   return Object.entries(data) as [keyof T & string, T[keyof T]][];
 }

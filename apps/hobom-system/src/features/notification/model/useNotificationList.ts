@@ -5,8 +5,9 @@ import { notificationQueries, type ReadFilter } from "@/entities/notification";
 import { FILTER_PREDICATES } from "../lib/notification-filter.lib";
 
 export const useNotificationList = (filter: ReadFilter = "all") => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
-    useInfiniteQuery(notificationQueries.pages());
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } = useInfiniteQuery(
+    notificationQueries.pages(),
+  );
 
   const allItems = useMemo(
     () => Bom.pipe(data?.pages ?? [], Bom.flatMap(Bom.prop("data"))),

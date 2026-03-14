@@ -50,9 +50,7 @@ export const CreateSpaceDialog = ({
             label="스페이스 키"
             placeholder="TEAM"
             value={key}
-            onChange={(e) =>
-              setKey(e.target.value.replace(/[^a-zA-Z0-9-]/g, ""))
-            }
+            onChange={(e) => setKey(e.target.value.replace(/[^a-zA-Z0-9-]/g, ""))}
             helperText="영문, 숫자, 하이픈만 사용 가능"
             slotProps={{ htmlInput: { maxLength: 20 } }}
           />

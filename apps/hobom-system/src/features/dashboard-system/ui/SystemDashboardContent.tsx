@@ -1,10 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  Speed,
-  CheckCircle,
-  ErrorOutline,
-  HourglassEmpty,
-} from "hobom-design-system/icons";
+import { Speed, CheckCircle, ErrorOutline, HourglassEmpty } from "hobom-design-system/icons";
 import {
   DashboardPaper,
   dashboardQueries,
@@ -20,9 +15,7 @@ interface SystemDashboardContentProps {
   period: SystemPeriodType;
 }
 
-export const SystemDashboardContent = ({
-  period,
-}: SystemDashboardContentProps) => {
+export const SystemDashboardContent = ({ period }: SystemDashboardContentProps) => {
   const { data } = useSuspenseQuery(dashboardQueries.system(period));
   const d = data.items;
 

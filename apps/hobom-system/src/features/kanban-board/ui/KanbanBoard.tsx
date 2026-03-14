@@ -7,18 +7,9 @@ import {
   useCreateIssue,
   useTransitionIssue,
 } from "@/entities/issue";
-import {
-  boardQueries,
-  DEFAULT_BOARD_COLUMNS,
-  type BoardColumn,
-} from "@/entities/board";
+import { boardQueries, DEFAULT_BOARD_COLUMNS, type BoardColumn } from "@/entities/board";
 import { useProjectContext } from "@/shared/model";
-import {
-  Hb,
-  Sortable,
-  type DragEndEvent,
-  type DragStartEvent,
-} from "@/shared/ui";
+import { Hb, Sortable, type DragEndEvent, type DragStartEvent } from "@/shared/ui";
 import { useKanbanBoard } from "../model/useKanbanBoard";
 import { useKanbanDnd } from "../model/useKanbanDnd";
 import { useKanbanFilters } from "../model/useKanbanFilters";
@@ -33,24 +24,16 @@ interface KanbanBoardProps {
 
 export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
   const { doneStatusIds: doneIds } = useProjectContext();
-  const { data: boardsData } = useSuspenseQuery(
-    boardQueries.listByProject(projectId),
-  );
+  const { data: boardsData } = useSuspenseQuery(boardQueries.listByProject(projectId));
   const boardColumns: BoardColumn[] = useMemo(() => {
     const kanban = boardsData.items.find((b) => b.type === "KANBAN");
 
     return kanban?.columns?.length ? kanban.columns : DEFAULT_BOARD_COLUMNS;
   }, [boardsData]);
 
-  const columnStatusIds = useMemo(
-    () => boardColumns.map((c) => c.statusId),
-    [boardColumns],
-  );
+  const columnStatusIds = useMemo(() => boardColumns.map((c) => c.statusId), [boardColumns]);
 
-  const { groupedByStatus, issueTree } = useKanbanBoard(
-    projectId,
-    columnStatusIds,
-  );
+  const { groupedByStatus, issueTree } = useKanbanBoard(projectId, columnStatusIds);
   const { mutate: createIssue } = useCreateIssue();
   const { mutate: transitionIssue } = useTransitionIssue(projectId);
 
@@ -78,14 +61,7 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
       onAddIssue: handleAddIssue,
       onIssueClick,
     }),
-    [
-      projectId,
-      issueTree,
-      doneIds,
-      filters.swimlaneGroups,
-      handleAddIssue,
-      onIssueClick,
-    ],
+    [projectId, issueTree, doneIds, filters.swimlaneGroups, handleAddIssue, onIssueClick],
   );
 
   return (
@@ -100,19 +76,11 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
             <IssueCard
               issue={dnd.activeIssue}
               isDragOverlay
-              parentIssueKey={
-                issueTree.parentMap.get(dnd.activeIssue.id)?.issueKey
-              }
-              childCount={
-                issueTree.childrenMap.get(dnd.activeIssue.id)?.length ?? 0
-              }
+              parentIssueKey={issueTree.parentMap.get(dnd.activeIssue.id)?.issueKey}
+              childCount={issueTree.childrenMap.get(dnd.activeIssue.id)?.length ?? 0}
               progress={
                 (issueTree.childrenMap.get(dnd.activeIssue.id)?.length ?? 0) > 0
-                  ? getDescendantProgress(
-                      dnd.activeIssue.id,
-                      issueTree.childrenMap,
-                      doneIds,
-                    )
+                  ? getDescendantProgress(dnd.activeIssue.id, issueTree.childrenMap, doneIds)
                   : undefined
               }
             />

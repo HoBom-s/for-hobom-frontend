@@ -1,15 +1,10 @@
 import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
-import type {
-  NotificationPageParams,
-  NotificationPageResponse,
-} from "./notification.type";
+import type { NotificationPageParams, NotificationPageResponse } from "./notification.type";
 
 const DEFAULT_PAGE_SIZE = 10;
 
-export const fetchNotificationPage = async (
-  params: NotificationPageParams = {},
-) => {
+export const fetchNotificationPage = async (params: NotificationPageParams = {}) => {
   const searchParams = new URLSearchParams();
 
   if (params.cursor) searchParams.set("cursor", params.cursor);

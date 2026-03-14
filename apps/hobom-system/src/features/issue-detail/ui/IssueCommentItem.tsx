@@ -119,9 +119,7 @@ export const IssueCommentItem = ({
               onChange={(e) => setEditBody(e.target.value)}
               autoFocus
             />
-            <Hb.Box
-              sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}
-            >
+            <Hb.Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
               <Hb.Button size="small" onClick={() => setEditing(false)}>
                 취소
               </Hb.Button>

@@ -30,23 +30,16 @@ export const useProjectLayout = () => {
   assertCondition(projectId, "projectId is required in route params");
 
   const [{ data }, { data: boardsData }] = useSuspenseQueries({
-    queries: [
-      projectQueries.detail(projectId),
-      boardQueries.listByProject(projectId),
-    ],
+    queries: [projectQueries.detail(projectId), boardQueries.listByProject(projectId)],
   });
   const project = data.items;
 
   const projectCtx = useMemo(() => {
     const kanban = boardsData.items.find((b) => b.type === "KANBAN");
-    const boardColumns = kanban?.columns?.length
-      ? kanban.columns
-      : DEFAULT_BOARD_COLUMNS;
+    const boardColumns = kanban?.columns?.length ? kanban.columns : DEFAULT_BOARD_COLUMNS;
     const workflow = project.workflow;
-    const statuses =
-      workflow?.statuses ?? buildStatusesFromColumns(boardColumns);
-    const transitions =
-      workflow?.transitions ?? buildTransitionsFromColumns(boardColumns);
+    const statuses = workflow?.statuses ?? buildStatusesFromColumns(boardColumns);
+    const transitions = workflow?.transitions ?? buildTransitionsFromColumns(boardColumns);
 
     return {
       projectId,
@@ -56,9 +49,7 @@ export const useProjectLayout = () => {
     };
   }, [projectId, project.workflow, boardsData]);
 
-  const currentPath = TABS.find((t) =>
-    location.pathname.includes(`/${t.path}`),
-  )?.path;
+  const currentPath = TABS.find((t) => location.pathname.includes(`/${t.path}`))?.path;
 
   const showIssueButton = TABS_WITH_ISSUE_BUTTON.has(currentPath ?? "");
   const showSprintButton = currentPath === "backlog";

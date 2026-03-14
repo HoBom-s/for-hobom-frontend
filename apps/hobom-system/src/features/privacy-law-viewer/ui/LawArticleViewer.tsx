@@ -18,21 +18,12 @@ const ArticleContent = ({ article }: { article: LawArticle }) => (
       <Hb.Stack spacing={0.5} sx={{ pl: 2 }}>
         {article.paragraphs.map((p) => (
           <Hb.Text key={p.no} variant="body2" color="text.secondary">
-            <Hb.Text
-              component="span"
-              variant="body2"
-              fontWeight={600}
-              color="text.primary"
-            >
+            <Hb.Text component="span" variant="body2" fontWeight={600} color="text.primary">
               {p.no}
             </Hb.Text>{" "}
             {p.content}
             {p.subItems.length > 0 && (
-              <Hb.Stack
-                component="span"
-                spacing={0.25}
-                sx={{ display: "block", pl: 2, mt: 0.5 }}
-              >
+              <Hb.Stack component="span" spacing={0.25} sx={{ display: "block", pl: 2, mt: 0.5 }}>
                 {p.subItems.map((sub) => (
                   <Hb.Text
                     key={sub.no}
@@ -59,10 +50,7 @@ export const LawArticleViewer = ({ versionId }: Props) => {
   const [search, setSearch] = useState("");
 
   const filtered = version.articles.filter(
-    (a) =>
-      a.articleNo.includes(search) ||
-      a.title.includes(search) ||
-      a.content.includes(search),
+    (a) => a.articleNo.includes(search) || a.title.includes(search) || a.content.includes(search),
   );
 
   return (
@@ -71,22 +59,14 @@ export const LawArticleViewer = ({ versionId }: Props) => {
         <Hb.Box>
           <Hb.Text variant="h6">{version.lawName}</Hb.Text>
           <Hb.Stack direction="row" spacing={1} mt={0.5}>
-            <Hb.Chip
-              label={`공포일 ${version.proclamationDate}`}
-              size="small"
-              variant="outlined"
-            />
+            <Hb.Chip label={`공포일 ${version.proclamationDate}`} size="small" variant="outlined" />
             <Hb.Chip
               label={`시행일 ${version.enforcementDate}`}
               size="small"
               color="primary"
               variant="outlined"
             />
-            <Hb.Chip
-              label={`${version.articles.length}개 조문`}
-              size="small"
-              variant="outlined"
-            />
+            <Hb.Chip label={`${version.articles.length}개 조문`} size="small" variant="outlined" />
           </Hb.Stack>
         </Hb.Box>
       </Hb.Stack>
@@ -99,10 +79,7 @@ export const LawArticleViewer = ({ versionId }: Props) => {
         slotProps={{
           input: {
             startAdornment: (
-              <SearchOutlined
-                fontSize="small"
-                sx={{ mr: 1, color: "text.secondary" }}
-              />
+              <SearchOutlined fontSize="small" sx={{ mr: 1, color: "text.secondary" }} />
             ),
           },
         }}
@@ -111,11 +88,7 @@ export const LawArticleViewer = ({ versionId }: Props) => {
 
       <Hb.Stack spacing={0.5}>
         {filtered.map((article) => (
-          <Hb.Accordion.Root
-            key={article.articleNo}
-            disableGutters
-            variant="outlined"
-          >
+          <Hb.Accordion.Root key={article.articleNo} disableGutters variant="outlined">
             <Hb.Accordion.Summary expandIcon={<ExpandMore />}>
               <Hb.Stack direction="row" alignItems="center" spacing={1}>
                 <Hb.Chip

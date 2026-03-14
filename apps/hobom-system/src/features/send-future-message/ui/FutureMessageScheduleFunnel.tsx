@@ -20,8 +20,7 @@ interface Props {
 }
 
 export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
-  const { setValue, watch, getValues } =
-    useFormContext<FutureMessageSendSchemaType>();
+  const { setValue, watch, getValues } = useFormContext<FutureMessageSendSchemaType>();
   const { openWarnToast, openSuccessToast, openErrorToast } = useToast();
   const queryClient = useQueryClient();
   const sendFutureMessageMutationHandler = useMutation({
@@ -64,37 +63,33 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
           onClick={() => {
             const futureMessageRequest = getValues();
 
-            Bom.pipe(
-              futureMessageRequest,
-              validateFutureMessageSendInput,
-              (validated) =>
-                handleValidationResult(
-                  validated,
-                  (error) => {
-                    openWarnToast({ message: error.message });
-                  },
-                  (payload) => {
-                    sendFutureMessageMutationHandler.mutate(payload, {
-                      onSuccess: async () => {
-                        await queryClient.invalidateQueries({
-                          queryKey: futureMessageQueries.futureMessages(),
-                        });
-                        openSuccessToast({
-                          message: "미래 메시지를 잘 예약했어요.",
-                        });
-                        navigate(
-                          `${RoutesConfig.MESSAGE.RESERVATION}?status=PENDING`,
-                          { replace: true },
-                        );
-                      },
-                      onError: () => {
-                        openErrorToast({
-                          message: "미래 메시지를 예약하지 못했어요.",
-                        });
-                      },
-                    });
-                  },
-                ),
+            Bom.pipe(futureMessageRequest, validateFutureMessageSendInput, (validated) =>
+              handleValidationResult(
+                validated,
+                (error) => {
+                  openWarnToast({ message: error.message });
+                },
+                (payload) => {
+                  sendFutureMessageMutationHandler.mutate(payload, {
+                    onSuccess: async () => {
+                      await queryClient.invalidateQueries({
+                        queryKey: futureMessageQueries.futureMessages(),
+                      });
+                      openSuccessToast({
+                        message: "미래 메시지를 잘 예약했어요.",
+                      });
+                      navigate(`${RoutesConfig.MESSAGE.RESERVATION}?status=PENDING`, {
+                        replace: true,
+                      });
+                    },
+                    onError: () => {
+                      openErrorToast({
+                        message: "미래 메시지를 예약하지 못했어요.",
+                      });
+                    },
+                  });
+                },
+              ),
             );
           }}
         >

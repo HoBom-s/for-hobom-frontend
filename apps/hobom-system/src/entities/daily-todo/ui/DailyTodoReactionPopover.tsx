@@ -8,11 +8,7 @@ interface Props {
   onSelect: (emoji: string) => void;
 }
 
-export const DailyTodoReactionPopover = ({
-  anchorEl,
-  onClose,
-  onSelect,
-}: Props) => (
+export const DailyTodoReactionPopover = ({ anchorEl, onClose, onSelect }: Props) => (
   <Hb.Popover
     open={Boolean(anchorEl)}
     anchorEl={anchorEl}

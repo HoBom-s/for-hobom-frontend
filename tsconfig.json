@@ -3,6 +3,7 @@
   "references": [
     { "path": "apps/hobom-system" },
     { "path": "packages/hobom-design-system" },
-    { "path": "packages/hobom-utils" }
+    { "path": "packages/hobom-utils" },
+    { "path": "packages/hobom-data" }
   ]
 }

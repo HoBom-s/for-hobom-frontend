@@ -1,14 +1,5 @@
-import {
-  UnfoldMore,
-  ArrowUpward,
-  ArrowDownward,
-} from "hobom-design-system/icons";
-import {
-  COLUMNS,
-  type ColKey,
-  HEADER_BG,
-  HEADER_TEXT,
-} from "./issue-list-constants";
+import { UnfoldMore, ArrowUpward, ArrowDownward } from "hobom-design-system/icons";
+import { COLUMNS, type ColKey, HEADER_BG, HEADER_TEXT } from "./issue-list-constants";
 import type { useColumnResize } from "@hobom-grid/react";
 import type { CellVM } from "@hobom-grid/core";
 
@@ -85,8 +76,7 @@ export const HeaderCell = ({
           (e.currentTarget as HTMLDivElement).style.backgroundColor = "#4680ff";
         }}
         onPointerLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor =
-            "transparent";
+          (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
         }}
         onPointerDown={(e) => {
           e.stopPropagation();

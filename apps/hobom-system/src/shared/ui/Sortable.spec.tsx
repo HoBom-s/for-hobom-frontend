@@ -90,8 +90,6 @@ describe("Sortable", () => {
           </Sortable.Handle>
         </Sortable.Root>,
       ),
-    ).toThrow(
-      "Sortable.Handle must be used inside Sortable.Item with useHandle",
-    );
+    ).toThrow("Sortable.Handle must be used inside Sortable.Item with useHandle");
   });
 });

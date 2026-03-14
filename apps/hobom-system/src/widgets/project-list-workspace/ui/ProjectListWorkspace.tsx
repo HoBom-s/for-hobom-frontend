@@ -1,10 +1,6 @@
 import { Suspense, useState } from "react";
 import { AddOutlined } from "hobom-design-system/icons";
-import {
-  useProjectList,
-  ProjectGrid,
-  CreateProjectDialog,
-} from "@/features/project-list";
+import { useProjectList, ProjectGrid, CreateProjectDialog } from "@/features/project-list";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 
 const ProjectListContent = () => {
@@ -56,10 +52,7 @@ export const ProjectListWorkspace = () => {
         </Suspense>
       </ErrorBoundary>
 
-      <CreateProjectDialog
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-      />
+      <CreateProjectDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </Hb.Box>
   );
 };

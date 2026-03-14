@@ -32,8 +32,7 @@ export const useQuizSession = (quizzes: Quiz[]) => {
   const currentAnswer = state.answers[state.currentIndex];
   const userAnswer = currentAnswer?.userAnswer ?? "";
   const revealed = currentAnswer?.revealed ?? false;
-  const isCorrect =
-    revealed && currentQuiz ? checkCorrect(currentQuiz, userAnswer) : false;
+  const isCorrect = revealed && currentQuiz ? checkCorrect(currentQuiz, userAnswer) : false;
 
   const score = useMemo(
     () =>

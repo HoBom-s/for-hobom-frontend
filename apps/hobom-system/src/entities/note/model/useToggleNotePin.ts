@@ -15,34 +15,29 @@ export const useToggleNotePin = (status?: NoteStatus) => {
     ...noteMutations.togglePin(),
     onMutate: async ({ id }) => {
       await queryClient.cancelQueries(queryOption);
-      const previous = queryClient.getQueryData<
-        HttpResponseType<NoteItemType[]>
-      >(queryOption.queryKey);
+      const previous = queryClient.getQueryData<HttpResponseType<NoteItemType[]>>(
+        queryOption.queryKey,
+      );
 
       const targetNote = previous?.items.find((n) => n.id === id);
       const wasPinned = targetNote?.isPinned ?? false;
 
-      queryClient.setQueryData<HttpResponseType<NoteItemType[]>>(
-        queryOption.queryKey,
-        (old) => {
-          if (!old) return old;
+      queryClient.setQueryData<HttpResponseType<NoteItemType[]>>(queryOption.queryKey, (old) => {
+        if (!old) return old;
 
-          return {
-            ...old,
-            items: old.items.map((note) =>
-              note.id === id ? { ...note, isPinned: !note.isPinned } : note,
-            ),
-          };
-        },
-      );
+        return {
+          ...old,
+          items: old.items.map((note) =>
+            note.id === id ? { ...note, isPinned: !note.isPinned } : note,
+          ),
+        };
+      });
 
       return { previous, wasPinned };
     },
     onSuccess: (_data, _vars, context) => {
       openSuccessToast({
-        message: context?.wasPinned
-          ? "메모 고정을 해제했어요."
-          : "메모를 고정했어요.",
+        message: context?.wasPinned ? "메모 고정을 해제했어요." : "메모를 고정했어요.",
       });
     },
     onError: (_err, _vars, context) => {

@@ -1,7 +1,4 @@
-import {
-  DragIndicatorOutlined,
-  LightbulbOutlined,
-} from "hobom-design-system/icons";
+import { DragIndicatorOutlined, LightbulbOutlined } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import { Hb, Sortable } from "@/shared/ui";
 import { NoteCard } from "@/entities/note";
@@ -39,11 +36,7 @@ interface NoteGridProps {
   onTogglePin: (id: string) => void;
   onStatusChange: (id: string, status: NoteStatus) => void;
   onDelete: (id: string) => void;
-  onReorder?: (
-    id: string,
-    order: number,
-    reorderedItems: NoteItemType[],
-  ) => void;
+  onReorder?: (id: string, order: number, reorderedItems: NoteItemType[]) => void;
 }
 
 const NoteItem = ({
@@ -94,8 +87,12 @@ export const NoteGrid = ({
   onDelete,
   onReorder,
 }: NoteGridProps) => {
-  const { activeNote, handleDragStart, handleDragEnd, handleDragCancel } =
-    useNoteGrid({ pinnedNotes, otherNotes, onTogglePin, onReorder });
+  const { activeNote, handleDragStart, handleDragEnd, handleDragCancel } = useNoteGrid({
+    pinnedNotes,
+    otherNotes,
+    onTogglePin,
+    onReorder,
+  });
 
   const sharedProps = {
     labelMap,
@@ -117,13 +114,8 @@ export const NoteGrid = ({
           gap: 1.5,
         }}
       >
-        <LightbulbOutlined
-          sx={{ fontSize: 96, color: "action.disabled", strokeWidth: 0.5 }}
-        />
-        <Hb.Text
-          variant="body1"
-          sx={{ color: "text.disabled", fontSize: "1rem", fontWeight: 400 }}
-        >
+        <LightbulbOutlined sx={{ fontSize: 96, color: "action.disabled", strokeWidth: 0.5 }} />
+        <Hb.Text variant="body1" sx={{ color: "text.disabled", fontSize: "1rem", fontWeight: 400 }}>
           추가한 메모가 여기에 표시됩니다.
         </Hb.Text>
       </Hb.Box>
@@ -166,9 +158,7 @@ export const NoteGrid = ({
               고정됨
             </Hb.Text>
             <Sortable.List items={pinnedNotes.map((n) => n.id)}>
-              <Hb.Box
-                sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}
-              >
+              <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
                 {pinnedNotes.map((note) => (
                   <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}
@@ -185,9 +175,7 @@ export const NoteGrid = ({
               </Hb.Text>
             )}
             <Sortable.List items={otherNotes.map((n) => n.id)}>
-              <Hb.Box
-                sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}
-              >
+              <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
                 {otherNotes.map((note) => (
                   <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}

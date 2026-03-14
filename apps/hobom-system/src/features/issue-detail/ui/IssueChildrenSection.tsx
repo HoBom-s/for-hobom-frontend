@@ -26,10 +26,8 @@ export const IssueChildrenSection = () => {
               height: 18,
               fontSize: 10,
               fontWeight: 600,
-              bgcolor:
-                progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
-              color:
-                progress.completed === progress.total ? "#2ca87f" : "#e58a00",
+              bgcolor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
+              color: progress.completed === progress.total ? "#2ca87f" : "#e58a00",
             }}
           />
         )}
@@ -43,11 +41,7 @@ export const IssueChildrenSection = () => {
               key={child.id}
               role={onNavigateToIssue ? "button" : undefined}
               tabIndex={onNavigateToIssue ? 0 : undefined}
-              aria-label={
-                onNavigateToIssue
-                  ? `${child.issueKey} ${child.title}`
-                  : undefined
-              }
+              aria-label={onNavigateToIssue ? `${child.issueKey} ${child.title}` : undefined}
               onClick={() => onNavigateToIssue?.(child.id)}
               onKeyDown={
                 onNavigateToIssue
@@ -67,9 +61,7 @@ export const IssueChildrenSection = () => {
                 py: 0.8,
                 borderRadius: 1.5,
                 cursor: onNavigateToIssue ? "pointer" : "default",
-                "&:hover": onNavigateToIssue
-                  ? { bgcolor: "action.hover" }
-                  : undefined,
+                "&:hover": onNavigateToIssue ? { bgcolor: "action.hover" } : undefined,
                 transition: "background 0.1s",
               }}
             >

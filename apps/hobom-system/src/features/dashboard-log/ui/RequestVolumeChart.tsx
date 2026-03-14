@@ -68,11 +68,7 @@ export const RequestVolumeChart = ({ data }: RequestVolumeChartProps) => {
               <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid
-            vertical={false}
-            stroke="#f0f0f0"
-            strokeDasharray="4 4"
-          />
+          <CartesianGrid vertical={false} stroke="#f0f0f0" strokeDasharray="4 4" />
           <XAxis
             dataKey="minute"
             tick={{ fontSize: 11, fill: "#8c8c8c" }}
@@ -85,9 +81,7 @@ export const RequestVolumeChart = ({ data }: RequestVolumeChartProps) => {
             tick={{ fontSize: 11, fill: "#8c8c8c" }}
             axisLine={false}
             tickLine={false}
-            tickFormatter={(v: number) =>
-              v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(v)
-            }
+            tickFormatter={(v: number) => (v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(v))}
           />
           <Tooltip
             content={<CustomTooltip />}

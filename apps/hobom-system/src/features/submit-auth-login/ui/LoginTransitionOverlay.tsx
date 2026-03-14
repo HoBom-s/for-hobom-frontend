@@ -18,10 +18,7 @@ export const LoginTransitionOverlay = () => (
       },
     }}
   >
-    <Hb.Text
-      variant="h4"
-      sx={{ fontWeight: 800, color: "white", letterSpacing: "-0.02em" }}
-    >
+    <Hb.Text variant="h4" sx={{ fontWeight: 800, color: "white", letterSpacing: "-0.02em" }}>
       HoBom
     </Hb.Text>
     <Hb.Progress.Linear

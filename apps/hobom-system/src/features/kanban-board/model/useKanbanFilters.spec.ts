@@ -15,10 +15,7 @@ vi.mock("hobom-utils", () => {
   const pipe = (...args: unknown[]) => {
     const [initial, ...fns] = args;
 
-    return (fns as ((v: unknown) => unknown)[]).reduce(
-      (acc, fn) => fn(acc),
-      initial,
-    );
+    return (fns as ((v: unknown) => unknown)[]).reduce((acc, fn) => fn(acc), initial);
   };
 
   return { Bom: { pipe, flatMap, filter } };
@@ -34,11 +31,7 @@ vi.mock("../lib/kanban-filter.lib", () => ({
 
 const { useKanbanFilters } = await import("./useKanbanFilters");
 
-const makeIssue = (
-  id: string,
-  status: string,
-  type = "TASK" as IssueType["type"],
-): IssueType =>
+const makeIssue = (id: string, status: string, type = "TASK" as IssueType["type"]): IssueType =>
   ({
     id,
     project: "proj-1",
@@ -117,11 +110,7 @@ describe("useKanbanFilters", () => {
 
       act(() => result.current.setEpicFilter("e1"));
 
-      expect(filterColumnsByEpicMock).toHaveBeenCalledWith(
-        columns,
-        "e1",
-        expect.any(Map),
-      );
+      expect(filterColumnsByEpicMock).toHaveBeenCalledWith(columns, "e1", expect.any(Map));
       expect(result.current.filteredColumns).toBe(filtered);
     });
 

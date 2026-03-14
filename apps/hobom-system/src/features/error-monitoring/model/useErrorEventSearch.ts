@@ -33,13 +33,10 @@ export const useErrorEventSearch = () => {
   const totalCount = data?.items.totalCount ?? 0;
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
-  const handleFilterChange = useCallback(
-    (key: keyof typeof INITIAL_FILTER, value: string) => {
-      setFilter((prev) => ({ ...prev, [key]: value }));
-      setPage(0);
-    },
-    [],
-  );
+  const handleFilterChange = useCallback((key: keyof typeof INITIAL_FILTER, value: string) => {
+    setFilter((prev) => ({ ...prev, [key]: value }));
+    setPage(0);
+  }, []);
 
   const handleReset = useCallback(() => {
     setFilter(INITIAL_FILTER);

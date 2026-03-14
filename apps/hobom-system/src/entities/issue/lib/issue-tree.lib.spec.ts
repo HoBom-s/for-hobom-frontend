@@ -8,9 +8,7 @@ import {
 } from "./issue-tree.lib";
 import type { IssueType } from "../api/issue.type";
 
-const makeIssue = (
-  overrides: Partial<IssueType> & Pick<IssueType, "id">,
-): IssueType => ({
+const makeIssue = (overrides: Partial<IssueType> & Pick<IssueType, "id">): IssueType => ({
   project: "proj-1",
   issueNumber: 1,
   issueKey: "P-1",

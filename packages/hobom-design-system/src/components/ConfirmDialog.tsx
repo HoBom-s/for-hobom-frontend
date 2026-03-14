@@ -40,12 +40,7 @@ export const ConfirmDialog = ({
       <Button variant="outlined" color="inherit" onClick={onClose}>
         취소
       </Button>
-      <Button
-        variant="contained"
-        color={confirmColor}
-        onClick={onConfirm}
-        loading={isPending}
-      >
+      <Button variant="contained" color={confirmColor} onClick={onConfirm} loading={isPending}>
         {confirmLabel}
       </Button>
     </DialogActions>

@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import {
-  postSelectTodayMenu,
-  useUpdateTodayMenuCache,
-} from "@/entities/menu-recommendation";
+import { postSelectTodayMenu, useUpdateTodayMenuCache } from "@/entities/menu-recommendation";
 import { useToast } from "@/shared/model";
 import { delayThen } from "@/shared/lib";
 
@@ -21,9 +18,7 @@ export const useSelectTodayMenu = () => {
       mutationFn: postSelectTodayMenu,
       onSuccess: () => {
         delayThen(DELAY_MS, updateCache)
-          .catch(() =>
-            openErrorToast({ message: "Failed to fetch updated menu!" }),
-          )
+          .catch(() => openErrorToast({ message: "Failed to fetch updated menu!" }))
           .finally(() => setStatus("done"));
       },
       onError: () => {

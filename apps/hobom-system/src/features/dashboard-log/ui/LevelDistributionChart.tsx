@@ -22,12 +22,8 @@ interface LevelDistributionChartProps {
   data: LogLevelCount[];
 }
 
-export const LevelDistributionChart = ({
-  data,
-}: LevelDistributionChartProps) => {
-  const sorted = [...data].sort(
-    (a, b) => levelIndex(a.level) - levelIndex(b.level),
-  );
+export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) => {
+  const sorted = [...data].sort((a, b) => levelIndex(a.level) - levelIndex(b.level));
   const total = sorted.reduce((sum, d) => sum + d.count, 0);
 
   return (
@@ -52,18 +48,12 @@ export const LevelDistributionChart = ({
               animationDuration={800}
             >
               {sorted.map((entry) => (
-                <Cell
-                  key={entry.level}
-                  fill={LEVEL_COLORS[entry.level] ?? "#94baff"}
-                />
+                <Cell key={entry.level} fill={LEVEL_COLORS[entry.level] ?? "#94baff"} />
               ))}
             </Pie>
             <Tooltip
               // @ts-expect-error recharts formatter type mismatch
-              formatter={(value: number, name: string) => [
-                value.toLocaleString(),
-                name,
-              ]}
+              formatter={(value: number, name: string) => [value.toLocaleString(), name]}
               contentStyle={{
                 borderRadius: 8,
                 border: "none",
@@ -92,9 +82,7 @@ export const LevelDistributionChart = ({
             </text>
           </PieChart>
         </ResponsiveContainer>
-        <Hb.Box
-          sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1.5 }}
-        >
+        <Hb.Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1.5 }}>
           {sorted.map((entry) => {
             const pct = total > 0 ? (entry.count / total) * 100 : 0;
             const color = LEVEL_COLORS[entry.level] ?? "#94baff";
@@ -109,9 +97,7 @@ export const LevelDistributionChart = ({
                     mb: 0.25,
                   }}
                 >
-                  <Hb.Box
-                    sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                  >
+                  <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <Hb.Box
                       sx={{
                         width: 8,
@@ -121,10 +107,7 @@ export const LevelDistributionChart = ({
                         flexShrink: 0,
                       }}
                     />
-                    <Hb.Text
-                      variant="body2"
-                      sx={{ fontWeight: 600, fontSize: 12 }}
-                    >
+                    <Hb.Text variant="body2" sx={{ fontWeight: 600, fontSize: 12 }}>
                       {entry.level}
                     </Hb.Text>
                   </Hb.Box>

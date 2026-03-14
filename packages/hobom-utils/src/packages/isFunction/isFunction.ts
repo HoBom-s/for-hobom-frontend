@@ -1,5 +1,4 @@
-type ExactlyFunction<T> =
-  Extract<T, Function> extends never ? Function : Extract<T, Function>;
+type ExactlyFunction<T> = Extract<T, Function> extends never ? Function : Extract<T, Function>;
 
 /**
  * A function that checks if the passed parameter is a Function.

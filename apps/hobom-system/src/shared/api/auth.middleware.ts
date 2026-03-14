@@ -54,10 +54,7 @@ export const authMiddleware: Middleware = {
       });
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(
-        () => controller.abort(),
-        DEFAULT_TIMEOUT_MS,
-      );
+      const timeoutId = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
 
       try {
         const retryInit: RequestInit = {

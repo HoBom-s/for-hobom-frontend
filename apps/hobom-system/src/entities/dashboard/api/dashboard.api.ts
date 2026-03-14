@@ -61,11 +61,7 @@ export const fetchNotificationDashboard = async ({
   );
 };
 
-export const fetchSystemDashboard = async ({
-  period,
-}: {
-  period: SystemPeriodType;
-}) => {
+export const fetchSystemDashboard = async ({ period }: { period: SystemPeriodType }) => {
   return await httpClient.get<HttpResponseType<SystemDashboardType>>(
     `/dashboard/system?period=${period}`,
   );
@@ -83,11 +79,7 @@ export const fetchActivityDashboard = async ({
   );
 };
 
-export const fetchProjectIssueDashboard = async ({
-  projectId,
-}: {
-  projectId: string;
-}) => {
+export const fetchProjectIssueDashboard = async ({ projectId }: { projectId: string }) => {
   return await httpClient.get<HttpResponseType<ProjectIssueDashboardDto>>(
     `/dashboard/projects/${projectId}/issues`,
   );

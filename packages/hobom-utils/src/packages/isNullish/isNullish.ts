@@ -7,8 +7,6 @@ import type { NarrowedType } from "../../core/types/narrowType.type";
  *
  * @category Guard
  */
-export function isNullish<T>(
-  v: T | null | undefined,
-): v is NarrowedType<T, null | undefined> {
+export function isNullish<T>(v: T | null | undefined): v is NarrowedType<T, null | undefined> {
   return v === null || v === undefined;
 }

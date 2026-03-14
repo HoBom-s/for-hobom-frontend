@@ -4,12 +4,8 @@ import { map } from "../map/map";
 
 describe("when()", () => {
   test("data-first", () => {
-    expect(
-      when("hello", (v: string) => v === "hello", constant("was true")),
-    ).toBe("was true");
-    expect(
-      when("hello", (v: string) => v === "hallo", constant("was true")),
-    ).toBe("hello");
+    expect(when("hello", (v: string) => v === "hello", constant("was true"))).toBe("was true");
+    expect(when("hello", (v: string) => v === "hallo", constant("was true"))).toBe("hello");
     expect(
       when(1, (v: number) => v === 1, {
         onFalse: constant("False"),

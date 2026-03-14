@@ -25,12 +25,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
 
   const handleLinkSubmit = useCallback(() => {
     if (!editor || !linkUrl) return;
-    editor
-      .chain()
-      .focus()
-      .extendMarkRange("link")
-      .setLink({ href: linkUrl })
-      .run();
+    editor.chain().focus().extendMarkRange("link").setLink({ href: linkUrl }).run();
     setLinkUrl("");
     setLinkDialogOpen(false);
   }, [editor, linkUrl]);
@@ -205,11 +200,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
         )}
       </Hb.Box>
 
-      <Hb.Dialog.Root
-        open={linkDialogOpen}
-        onClose={() => setLinkDialogOpen(false)}
-        size="xs"
-      >
+      <Hb.Dialog.Root open={linkDialogOpen} onClose={() => setLinkDialogOpen(false)} size="xs">
         <Hb.Dialog.Title>링크 추가</Hb.Dialog.Title>
         <Hb.Dialog.Content>
           <Hb.TextField
@@ -227,11 +218,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
         </Hb.Dialog.Content>
         <Hb.Dialog.Actions>
           <Hb.Button onClick={() => setLinkDialogOpen(false)}>취소</Hb.Button>
-          <Hb.Button
-            onClick={handleLinkSubmit}
-            variant="primary"
-            disabled={!linkUrl}
-          >
+          <Hb.Button onClick={handleLinkSubmit} variant="primary" disabled={!linkUrl}>
             확인
           </Hb.Button>
         </Hb.Dialog.Actions>

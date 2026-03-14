@@ -44,9 +44,7 @@ export const LogDashboardContent = ({ period }: LogDashboardContentProps) => {
     ],
   });
 
-  const { totalRequests, count4xx, count5xx, errorRate } = computeKpiSummary(
-    statusData.items,
-  );
+  const { totalRequests, count4xx, count5xx, errorRate } = computeKpiSummary(statusData.items);
 
   return (
     <Hb.Grid container spacing={2.5}>

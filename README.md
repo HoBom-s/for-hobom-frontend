@@ -1,41 +1,85 @@
-# for-hobom-frontend
+# HoBom Frontend
 
-> Frontend application built with modern web technologies, focusing on clean, maintainable, and scalable code architecture.
-
----
-
-## 🛠️ Tech Stack
-
-- **Vite**: Fast build tool and development server
-- **React**: UI library using function components and hooks
-- **TypeScript**: Static typing for safer and scalable code
-- **React Hook Form**: Easy and performant form management
-- **React Router DOM**: Declarative routing for React applications
-- **Fetch API**: Native browser API for HTTP requests
-- **Functional Programming**: Code style and patterns emphasizing immutability and pure functions
+> Desktop backoffice application built with React 19 + TypeScript + Vite, following Feature-Sliced Design (FSD) architecture.
 
 ---
 
-## ⚙️ Key Features & Highlights
+## Tech Stack
 
-- Component-based architecture with React function components and hooks
-- Form handling optimized with React Hook Form for performance and ease of use
-- Routing handled declaratively with React Router DOM
-- API communication via Fetch with functional programming principles applied for cleaner, predictable side effects
-- Modern build and dev environment powered by Vite
-- Type safety and developer experience enhanced with TypeScript
+- **React 19** + **TypeScript 5.9**
+- **Vite** — build & dev server
+- **MUI 7** — UI component library (Datta Able theme)
+- **React Router DOM** — client-side routing
+- **React Hook Form** + **Zod** — form management & validation
+- **Recharts** — data visualization
+- **Tiptap** — rich text editor
 
 ---
 
-## 🚀 Getting Started
+## Monorepo Structure
+
+pnpm workspace monorepo with the following packages:
+
+```
+apps/
+  hobom-system/          # Main backoffice application
+
+packages/
+  hobom-data/            # Data fetching library (custom React Query alternative)
+  hobom-utils/           # Functional utility library (pipe, map, filter, etc.)
+  hobom-design-system/   # Shared UI components, icons, date pickers
+```
+
+---
+
+## Getting Started
 
 ```bash
 # Install dependencies
-yarn
+pnpm install
 
 # Run development server
-yarn dev
+pnpm dev
 
 # Build for production
-yarn build
+pnpm build
 ```
+
+---
+
+## Scripts
+
+| Command              | Description                                      |
+| -------------------- | ------------------------------------------------ |
+| `pnpm dev`           | Start hobom-system dev server                    |
+| `pnpm build`         | Build hobom-system for production                |
+| `pnpm typecheck`     | Run TypeScript type checking across all packages |
+| `pnpm lint`          | Run ESLint across all packages                   |
+| `pnpm test`          | Run Vitest across all packages                   |
+| `pnpm test:coverage` | Run tests with coverage                          |
+| `pnpm format`        | Format code with Prettier                        |
+| `pnpm knip`          | Find unused dependencies and exports             |
+
+---
+
+## Architecture
+
+This project follows **Feature-Sliced Design (FSD)**:
+
+```
+src/
+  apps/        # App-level composition (router, providers)
+  pages/       # Route-level components
+  widgets/     # Page section compositions
+  features/    # User interactions and business scenarios
+  entities/    # Domain models and data access
+  shared/      # Reusable utilities, UI, config (no slices)
+```
+
+### Import Rules
+
+Each layer can only import from layers below it:
+
+`apps` > `pages` > `widgets` > `features` > `entities` > `shared`
+
+Cross-slice imports within the same layer are forbidden (enforced by custom ESLint rule).

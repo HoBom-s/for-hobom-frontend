@@ -17,12 +17,7 @@ function cloneImpl<T>(v: T, from: T[] = [], to: T[] = []): T {
   if (typeof v === "function") {
     return v;
   }
-  if (
-    v instanceof Date ||
-    v instanceof RegExp ||
-    typeof v !== "object" ||
-    v === null
-  ) {
+  if (v instanceof Date || v instanceof RegExp || typeof v !== "object" || v === null) {
     return structuredClone(v);
   }
 
@@ -39,11 +34,7 @@ function cloneImpl<T>(v: T, from: T[] = [], to: T[] = []): T {
   return cloneDeepObject(v, from, to);
 }
 
-function cloneDeepArray<T extends readonly unknown[]>(
-  v: T,
-  from: unknown[],
-  to: unknown[],
-): T {
+function cloneDeepArray<T extends readonly unknown[]>(v: T, from: unknown[], to: unknown[]): T {
   const copied: unknown[] = [];
 
   to.push(copied);
@@ -55,11 +46,7 @@ function cloneDeepArray<T extends readonly unknown[]>(
   return copied as unknown as T;
 }
 
-function cloneDeepObject<T extends object>(
-  v: T,
-  from: unknown[],
-  to: unknown[],
-): T {
+function cloneDeepObject<T extends object>(v: T, from: unknown[], to: unknown[]): T {
   const copied: Record<PropertyKey, unknown> = {};
 
   from.push(copied);

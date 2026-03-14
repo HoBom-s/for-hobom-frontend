@@ -13,26 +13,14 @@ export const StudyMaterialList = () => {
     <Hb.Stack spacing={2}>
       {materials.map((m) => (
         <Hb.Card.Root key={m.id} variant="outlined">
-          <Hb.Card.Clickable
-            onClick={() => navigate(`/privacy-law/study/${m.id}`)}
-          >
+          <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/study/${m.id}`)}>
             <Hb.Card.Content>
-              <Hb.Stack
-                direction="row"
-                alignItems="flex-start"
-                justifyContent="space-between"
-              >
+              <Hb.Stack direction="row" alignItems="flex-start" justifyContent="space-between">
                 <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
-                  <SchoolOutlined
-                    color="primary"
-                    fontSize="small"
-                    sx={{ mt: 0.25 }}
-                  />
+                  <SchoolOutlined color="primary" fontSize="small" sx={{ mt: 0.25 }} />
                   <Hb.Box>
                     <Hb.Text variant="subtitle2" gutterBottom>
-                      {m.summary.length > 80
-                        ? `${m.summary.slice(0, 80)}...`
-                        : m.summary}
+                      {m.summary.length > 80 ? `${m.summary.slice(0, 80)}...` : m.summary}
                     </Hb.Text>
                     <Hb.Text variant="caption" color="text.secondary">
                       핵심 포인트 {m.keyPoints.length}개

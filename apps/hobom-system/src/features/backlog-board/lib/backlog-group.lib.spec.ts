@@ -18,11 +18,7 @@ const makeIssue = (id: string, sprint?: string): IssueType =>
 describe("groupIssuesBySprint", () => {
   it("이슈를 스프린트별로 그룹화한다", () => {
     const sprints = [makeSprint("s1"), makeSprint("s2")];
-    const issues = [
-      makeIssue("i1", "s1"),
-      makeIssue("i2", "s2"),
-      makeIssue("i3", "s1"),
-    ];
+    const issues = [makeIssue("i1", "s1"), makeIssue("i2", "s2"), makeIssue("i3", "s1")];
 
     const result = groupIssuesBySprint(issues, sprints);
 

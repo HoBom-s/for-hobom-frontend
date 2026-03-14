@@ -70,9 +70,7 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
             </text>
           </PieChart>
         </ResponsiveContainer>
-        <Hb.Box
-          sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
-        >
+        <Hb.Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
           {data.map((entry, i) => {
             const pct = total > 0 ? (entry.count / total) * 100 : 0;
             const color = CHART_COLORS[i % CHART_COLORS.length];
@@ -108,10 +106,7 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
                   />
                 </Hb.Box>
                 <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Hb.Text
-                    variant="body2"
-                    sx={{ fontWeight: 600, fontSize: 13 }}
-                  >
+                  <Hb.Text variant="body2" sx={{ fontWeight: 600, fontSize: 13 }}>
                     {SERVICE_LABEL_MAP[entry.serviceType] ?? entry.serviceType}
                   </Hb.Text>
                   <Hb.Text

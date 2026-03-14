@@ -2,9 +2,7 @@ import { assertCondition } from "./assert.lib";
 
 describe("assertCondition", () => {
   it("throws for undefined", () => {
-    expect(() => assertCondition(undefined, "msg")).toThrow(
-      "Assertion failed: msg",
-    );
+    expect(() => assertCondition(undefined, "msg")).toThrow("Assertion failed: msg");
   });
 
   it("throws for null", () => {
@@ -12,9 +10,7 @@ describe("assertCondition", () => {
   });
 
   it("throws for false", () => {
-    expect(() => assertCondition(false, "msg")).toThrow(
-      "Assertion failed: msg",
-    );
+    expect(() => assertCondition(false, "msg")).toThrow("Assertion failed: msg");
   });
 
   it("throws for 0", () => {

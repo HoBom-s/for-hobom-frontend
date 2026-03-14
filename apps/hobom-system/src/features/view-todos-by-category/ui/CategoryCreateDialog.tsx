@@ -47,12 +47,7 @@ export const CategoryCreateDialog = ({ open, onClose }: Props) => {
         <Hb.Button fullWidth variant="secondary" onClick={handleClose}>
           취소
         </Hb.Button>
-        <Hb.Button
-          fullWidth
-          variant="primary"
-          loading={isPending}
-          onClick={handleSubmit}
-        >
+        <Hb.Button fullWidth variant="primary" loading={isPending} onClick={handleSubmit}>
           추가
         </Hb.Button>
       </Hb.Dialog.Actions>

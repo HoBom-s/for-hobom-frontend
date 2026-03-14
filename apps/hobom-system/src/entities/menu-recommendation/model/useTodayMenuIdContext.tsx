@@ -7,11 +7,7 @@ interface TodayMenuIdContextType {
 
 const TodayMenuIdContext = createContext<TodayMenuIdContextType | null>(null);
 
-export const TodayMenuIdContextProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const TodayMenuIdContextProvider = ({ children }: { children: ReactNode }) => {
   const [todayMenuId, setTodayMenuId] = useState<string | null>(null);
 
   return (

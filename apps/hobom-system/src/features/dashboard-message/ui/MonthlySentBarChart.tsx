@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Hb } from "@/shared/ui";
 
 interface MonthlySentBarChartProps {
@@ -34,11 +26,7 @@ export const MonthlySentBarChart = ({ data }: MonthlySentBarChartProps) => {
             axisLine={false}
             tickLine={false}
           />
-          <YAxis
-            tick={{ fontSize: 11, fill: "#8c8c8c" }}
-            axisLine={false}
-            tickLine={false}
-          />
+          <YAxis tick={{ fontSize: 11, fill: "#8c8c8c" }} axisLine={false} tickLine={false} />
           <Tooltip
             cursor={{ fill: "rgba(70,128,255,0.06)" }}
             contentStyle={{
@@ -48,12 +36,7 @@ export const MonthlySentBarChart = ({ data }: MonthlySentBarChartProps) => {
               fontSize: 13,
             }}
           />
-          <Bar
-            dataKey="count"
-            name="발송 수"
-            fill="url(#msgBarBlue)"
-            radius={[6, 6, 0, 0]}
-          />
+          <Bar dataKey="count" name="발송 수" fill="url(#msgBarBlue)" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </Hb.Box>

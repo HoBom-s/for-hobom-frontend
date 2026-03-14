@@ -110,15 +110,7 @@ describe("validateMenuRecommendationInput", () => {
   });
 
   it("accepts all valid menuKind values", () => {
-    const kinds = [
-      "KOREAN",
-      "JAPANESE",
-      "CHINESE",
-      "INDIAN",
-      "MEXICAN",
-      "AMERICAN",
-      "ITALIAN",
-    ];
+    const kinds = ["KOREAN", "JAPANESE", "CHINESE", "INDIAN", "MEXICAN", "AMERICAN", "ITALIAN"];
 
     for (const menuKind of kinds) {
       const result = validateMenuRecommendationInput({

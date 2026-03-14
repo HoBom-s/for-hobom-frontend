@@ -52,17 +52,14 @@ export const useDeleteDailyTodo = () => {
     ({ id }: { id: string }) => {
       const previousData = queryClient.getQueryData(queryKey);
 
-      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(
-        queryKey,
-        (old) => {
-          if (!old) return;
+      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
+        if (!old) return;
 
-          return {
-            ...old,
-            items: old.items.filter((item) => item.id !== id),
-          };
-        },
-      );
+        return {
+          ...old,
+          items: old.items.filter((item) => item.id !== id),
+        };
+      });
 
       if (timerRef.current) clearTimeout(timerRef.current);
 

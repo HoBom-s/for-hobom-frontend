@@ -54,17 +54,12 @@ export const UserProfileMenu = () => {
               width: 300,
               mt: 1,
               borderRadius: 2,
-              boxShadow:
-                "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
             },
           },
         }}
       >
-        <UserInfoSection
-          initial={initial}
-          nickname={user.nickname}
-          email={user.email}
-        />
+        <UserInfoSection initial={initial} nickname={user.nickname} email={user.email} />
         <Hb.Divider />
         <UserDetailSection user={user} />
         <Hb.Divider />

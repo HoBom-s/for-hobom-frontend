@@ -45,9 +45,7 @@ function forEachImpl<T>(
 }
 
 const lazyImplementation =
-  <T>(
-    cb: (value: T, index: number, data: readonly T[]) => void,
-  ): Evaluator<T> =>
+  <T>(cb: (value: T, index: number, data: readonly T[]) => void): Evaluator<T> =>
   (value, index, data) => {
     cb(value, index, data);
 

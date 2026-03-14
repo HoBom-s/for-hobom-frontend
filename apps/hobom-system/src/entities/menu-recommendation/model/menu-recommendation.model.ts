@@ -31,9 +31,7 @@ export type FoodType = keyof typeof FoodTypeModel;
 
 export const TodayMenuCandidateSchema = z.object({
   candidates: z.array(z.string().min(1)),
-  recommendationDate: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
+  recommendationDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
   recommendedMenu: z.string().optional(),
   todayMenuId: z.string().optional(),
 });
@@ -45,6 +43,4 @@ export const AddMenuRecommendationSchema = z.object({
   timeOfMeal: z.enum(enumValues(TimeOfMealModel)),
   foodType: z.enum(enumValues(FoodTypeModel)),
 });
-export type AddMenuRecommendationInput = z.infer<
-  typeof AddMenuRecommendationSchema
->;
+export type AddMenuRecommendationInput = z.infer<typeof AddMenuRecommendationSchema>;

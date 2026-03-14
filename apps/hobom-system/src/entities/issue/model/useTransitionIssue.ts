@@ -18,19 +18,16 @@ export const useTransitionIssue = (projectId: string) => {
         queryOption.queryKey,
       );
 
-      queryClient.setQueryData<HttpResponseType<IssueType[]>>(
-        queryOption.queryKey,
-        (old) => {
-          if (!old) return old;
+      queryClient.setQueryData<HttpResponseType<IssueType[]>>(queryOption.queryKey, (old) => {
+        if (!old) return old;
 
-          return {
-            ...old,
-            items: old.items.map((issue) =>
-              issue.id === issueId ? { ...issue, status: statusId } : issue,
-            ),
-          };
-        },
-      );
+        return {
+          ...old,
+          items: old.items.map((issue) =>
+            issue.id === issueId ? { ...issue, status: statusId } : issue,
+          ),
+        };
+      });
 
       return { previous };
     },

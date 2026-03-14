@@ -34,9 +34,7 @@ export const useChatSession = () => {
   const idCounter = useRef(0);
 
   const { data: historyData } = useQuery(privacyLawQueries.questionHistory());
-  const historyMessages = historyData
-    ? historyToMessages(historyData.items)
-    : [];
+  const historyMessages = historyData ? historyToMessages(historyData.items) : [];
 
   const messages = [...historyMessages, ...localMessages];
 

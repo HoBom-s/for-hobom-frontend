@@ -15,19 +15,9 @@ interface CommentsSectionProps {
 
 const validateComment = validateWithZod(CreateCommentSchema);
 
-export const CommentsSection = ({
-  spaceKey,
-  pageId,
-  userInfo,
-}: CommentsSectionProps) => {
-  const {
-    comments,
-    totalCount,
-    loadedCount,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = usePageComments(spaceKey, pageId);
+export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionProps) => {
+  const { comments, totalCount, loadedCount, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    usePageComments(spaceKey, pageId);
   const createComment = useCreateComment();
   const { openErrorToast } = useToast();
 
@@ -52,10 +42,7 @@ export const CommentsSection = ({
       <Hb.Text variant="subtitle1" fontWeight={600} sx={{ mb: 2 }}>
         댓글 {totalCount > 0 && `(${totalCount})`}
       </Hb.Text>
-      <CommentInput
-        onSubmit={handleCreateComment}
-        loading={createComment.isPending}
-      />
+      <CommentInput onSubmit={handleCreateComment} loading={createComment.isPending} />
       {loadedCount > 0 && (
         <Hb.Box sx={{ mt: 2 }}>
           <CommentList
@@ -73,9 +60,7 @@ export const CommentsSection = ({
                 disabled={isFetchingNextPage}
                 sx={{ textTransform: "none", color: "text.secondary" }}
               >
-                {isFetchingNextPage ? (
-                  <Hb.Progress.Circular size={16} sx={{ mr: 1 }} />
-                ) : null}
+                {isFetchingNextPage ? <Hb.Progress.Circular size={16} sx={{ mr: 1 }} /> : null}
                 댓글 더보기 ({loadedCount}/{totalCount})
               </Hb.Button>
             </Hb.Box>

@@ -23,24 +23,17 @@ interface Props {
   item: DailyTodoType;
 }
 
-export const DailyTodoListItem = memo(function DailyTodoListItem({
-  item,
-}: Props) {
+export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props) {
   const { mutate, isPending } = useChangeDailyTodoCompleteStatus(item);
-  const { mutate: mutateDelete, isPending: isDeletePending } =
-    useDeleteDailyTodo();
+  const { mutate: mutateDelete, isPending: isDeletePending } = useDeleteDailyTodo();
   const { mutate: mutateReaction } = useUpdateDailyTodoReaction();
   const { onOpen, onClose } = useBottomSheetCTA();
 
   const [editOpen, setEditOpen] = useState(false);
-  const [reactionAnchor, setReactionAnchor] = useState<HTMLElement | null>(
-    null,
-  );
+  const [reactionAnchor, setReactionAnchor] = useState<HTMLElement | null>(null);
 
   const handleChangeCompleteStatus = (id: string, status: ProgressType) => {
-    Bom.pipe(status, changeCompleteStatus, (newStatus) =>
-      mutate({ id, status: newStatus }),
-    );
+    Bom.pipe(status, changeCompleteStatus, (newStatus) => mutate({ id, status: newStatus }));
   };
 
   const handleReaction = (emoji: string) => {
@@ -81,20 +74,12 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({
                   ),
                   content: (
                     <Hb.Box sx={{ px: 2 }}>
-                      <Hb.Text
-                        gutterBottom
-                        variant="subtitle1"
-                        fontWeight="bold"
-                      >
+                      <Hb.Text gutterBottom variant="subtitle1" fontWeight="bold">
                         {formatDate(normalizeTodoDateToUtcMidnight(item.date))}
                       </Hb.Text>
                       <Hb.Stack direction="row" mt={1} spacing={1}>
                         <Hb.Chip
-                          color={
-                            isCompleteStatus(item.progress)
-                              ? "success"
-                              : "warning"
-                          }
+                          color={isCompleteStatus(item.progress) ? "success" : "warning"}
                           variant="outlined"
                           label={item.progress}
                           size="small"
@@ -102,9 +87,7 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({
                         <Hb.Chip
                           color="secondary"
                           variant="outlined"
-                          label={
-                            CYCLE_LABELS[item.cycle as CycleType] ?? item.cycle
-                          }
+                          label={CYCLE_LABELS[item.cycle as CycleType] ?? item.cycle}
                           size="small"
                         />
                       </Hb.Stack>
@@ -123,11 +106,7 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({
                       >
                         삭제하기
                       </Hb.Button>
-                      <Hb.Button
-                        fullWidth
-                        variant="primary"
-                        onClick={() => setEditOpen(true)}
-                      >
+                      <Hb.Button fullWidth variant="primary" onClick={() => setEditOpen(true)}>
                         수정하기
                       </Hb.Button>
                     </Hb.Box>
@@ -156,9 +135,7 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({
               disableRipple
               disabled={isPending}
               checked={isCompleteStatus(item.progress)}
-              onChange={() =>
-                handleChangeCompleteStatus(item.id, item.progress)
-              }
+              onChange={() => handleChangeCompleteStatus(item.id, item.progress)}
             />
           </Hb.List.ItemIcon>
           <Hb.List.ItemText
@@ -182,14 +159,9 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({
               primary: {
                 sx: {
                   fontSize: "0.925rem",
-                  textDecoration: isCompleteStatus(item.progress)
-                    ? "line-through"
-                    : "none",
-                  color: isCompleteStatus(item.progress)
-                    ? "text.disabled"
-                    : "text.primary",
-                  transition:
-                    "color 0.2s ease, text-decoration-color 0.2s ease",
+                  textDecoration: isCompleteStatus(item.progress) ? "line-through" : "none",
+                  color: isCompleteStatus(item.progress) ? "text.disabled" : "text.primary",
+                  transition: "color 0.2s ease, text-decoration-color 0.2s ease",
                 },
               },
             }}

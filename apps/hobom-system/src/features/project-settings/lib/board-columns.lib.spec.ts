@@ -1,11 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { BoardColumn } from "@/entities/board";
-import {
-  reorderColumns,
-  removeColumn,
-  addColumn,
-  isDuplicateStatusId,
-} from "./board-columns.lib";
+import { reorderColumns, removeColumn, addColumn, isDuplicateStatusId } from "./board-columns.lib";
 
 const col = (statusId: string, order: number): BoardColumn => ({
   statusId,
@@ -19,11 +14,7 @@ describe("reorderColumns", () => {
     const columns = [col("todo", 0), col("in_progress", 1), col("done", 2)];
     const result = reorderColumns(columns, "done", "todo");
 
-    expect(result.map((c) => c.statusId)).toEqual([
-      "done",
-      "todo",
-      "in_progress",
-    ]);
+    expect(result.map((c) => c.statusId)).toEqual(["done", "todo", "in_progress"]);
     expect(result.map((c) => c.order)).toEqual([0, 1, 2]);
   });
 

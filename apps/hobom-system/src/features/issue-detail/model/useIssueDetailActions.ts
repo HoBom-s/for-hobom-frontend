@@ -7,29 +7,21 @@ import {
   type IssueType,
   type IssuePriority,
 } from "@/entities/issue";
-import {
-  getAvailableTransitions,
-  type WorkflowTransition,
-} from "@/entities/project";
+import { getAvailableTransitions, type WorkflowTransition } from "@/entities/project";
 
 interface StatusMenuState {
   el: HTMLElement;
   transitions: WorkflowTransition[];
 }
 
-export const useIssueDetailActions = (
-  projectId: string,
-  issue: IssueType | undefined,
-) => {
+export const useIssueDetailActions = (projectId: string, issue: IssueType | undefined) => {
   const { transitions } = useProjectContext();
   const { mutate: transitionIssue } = useTransitionIssue(projectId);
   const { mutate: updateIssue } = useUpdateIssue();
   const { mutate: assignIssue } = useAssignIssue(projectId);
 
   // ── Status Menu ──
-  const [statusAnchor, setStatusAnchor] = useState<StatusMenuState | null>(
-    null,
-  );
+  const [statusAnchor, setStatusAnchor] = useState<StatusMenuState | null>(null);
 
   const statusMenu = {
     anchor: statusAnchor,
@@ -59,9 +51,7 @@ export const useIssueDetailActions = (
   };
 
   // ── Priority Menu ──
-  const [priorityAnchor, setPriorityAnchor] = useState<HTMLElement | null>(
-    null,
-  );
+  const [priorityAnchor, setPriorityAnchor] = useState<HTMLElement | null>(null);
 
   const priorityMenu = {
     anchor: priorityAnchor,
@@ -80,9 +70,7 @@ export const useIssueDetailActions = (
   };
 
   // ── Assignee Menu ──
-  const [assigneeAnchor, setAssigneeAnchor] = useState<HTMLElement | null>(
-    null,
-  );
+  const [assigneeAnchor, setAssigneeAnchor] = useState<HTMLElement | null>(null);
 
   const assigneeMenu = {
     anchor: assigneeAnchor,

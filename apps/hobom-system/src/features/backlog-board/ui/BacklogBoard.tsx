@@ -22,8 +22,7 @@ export const BacklogBoard = ({
 }: BacklogBoardProps) => {
   const { doneStatusIds } = useProjectContext();
   const { sprints, sprintGroups, backlogIssues } = useBacklogBoard(projectId);
-  const { issueTree, flatTree, collapsedIds, toggleCollapse } =
-    useCollapsibleTree(backlogIssues);
+  const { issueTree, flatTree, collapsedIds, toggleCollapse } = useCollapsibleTree(backlogIssues);
 
   const { containerProps, virtualItems, totalHeight } = useVirtualList({
     items: flatTree,
@@ -48,10 +47,7 @@ export const BacklogBoard = ({
           <SprintSection key={sprint.id} sprint={sprint} issues={issues} />
         ))}
 
-        <Hb.Paper
-          variant="outlined"
-          sx={{ borderRadius: 2.5, overflow: "hidden" }}
-        >
+        <Hb.Paper variant="outlined" sx={{ borderRadius: 2.5, overflow: "hidden" }}>
           <Hb.Box
             sx={{
               display: "flex",
@@ -66,11 +62,7 @@ export const BacklogBoard = ({
             <Hb.Text variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>
               백로그
             </Hb.Text>
-            <Hb.Text
-              variant="caption"
-              color="text.disabled"
-              sx={{ fontSize: 11 }}
-            >
+            <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
               {backlogIssues.length}건
             </Hb.Text>
           </Hb.Box>
@@ -89,11 +81,7 @@ export const BacklogBoard = ({
                   const { issue, depth, childCount } = item;
                   const progress =
                     childCount > 0
-                      ? getDescendantProgress(
-                          issue.id,
-                          issueTree.childrenMap,
-                          doneStatusIds,
-                        )
+                      ? getDescendantProgress(issue.id, issueTree.childrenMap, doneStatusIds)
                       : undefined;
 
                   return (

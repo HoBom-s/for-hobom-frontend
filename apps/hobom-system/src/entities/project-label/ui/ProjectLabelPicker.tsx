@@ -81,17 +81,9 @@ export const ProjectLabelPicker = ({
         라벨
       </Hb.Text>
 
-      <Hb.List.Root
-        dense
-        disablePadding
-        sx={{ maxHeight: 240, overflow: "auto" }}
-      >
+      <Hb.List.Root dense disablePadding sx={{ maxHeight: 240, overflow: "auto" }}>
         {labels.map((label) => (
-          <Hb.List.ItemButton
-            key={label.id}
-            onClick={() => onToggle(label.id)}
-            sx={{ py: 0.5 }}
-          >
+          <Hb.List.ItemButton key={label.id} onClick={() => onToggle(label.id)} sx={{ py: 0.5 }}>
             <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
               <Hb.Checkbox
                 size="small"
@@ -134,9 +126,7 @@ export const ProjectLabelPicker = ({
       <Hb.Divider />
 
       {creating ? (
-        <Hb.Box
-          sx={{ p: 1.5, display: "flex", flexDirection: "column", gap: 1 }}
-        >
+        <Hb.Box sx={{ p: 1.5, display: "flex", flexDirection: "column", gap: 1 }}>
           <Hb.TextField
             size="small"
             placeholder="라벨 이름"
@@ -170,18 +160,14 @@ export const ProjectLabelPicker = ({
                   borderRadius: "50%",
                   bgcolor: color,
                   cursor: "pointer",
-                  border:
-                    color === newColor ? "2px solid" : "2px solid transparent",
-                  borderColor:
-                    color === newColor ? "text.primary" : "transparent",
+                  border: color === newColor ? "2px solid" : "2px solid transparent",
+                  borderColor: color === newColor ? "text.primary" : "transparent",
                   transition: "border-color 0.1s ease",
                 }}
               />
             ))}
           </Hb.Box>
-          <Hb.Box
-            sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}
-          >
+          <Hb.Box sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}>
             <Hb.Button.Icon
               size="small"
               aria-label="라벨 생성 취소"
@@ -202,15 +188,9 @@ export const ProjectLabelPicker = ({
           </Hb.Box>
         </Hb.Box>
       ) : (
-        <Hb.List.ItemButton
-          onClick={() => setCreating(true)}
-          sx={{ py: 1, gap: 1 }}
-        >
+        <Hb.List.ItemButton onClick={() => setCreating(true)} sx={{ py: 1, gap: 1 }}>
           <AddOutlined sx={{ fontSize: 16, color: "text.secondary" }} />
-          <Hb.Text
-            variant="body2"
-            sx={{ fontSize: "0.8125rem", color: "text.secondary" }}
-          >
+          <Hb.Text variant="body2" sx={{ fontSize: "0.8125rem", color: "text.secondary" }}>
             새 라벨 만들기
           </Hb.Text>
         </Hb.List.ItemButton>

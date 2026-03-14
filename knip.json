@@ -1,7 +1,4 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "ignoreDependencies": [
-    "eslint-plugin-react-hooks",
-    "eslint-plugin-react-refresh"
-  ]
+  "ignoreDependencies": ["eslint-plugin-react-hooks", "eslint-plugin-react-refresh"]
 }

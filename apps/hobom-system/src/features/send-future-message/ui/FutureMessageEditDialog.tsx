@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  useUpdateFutureMessage,
-  type FutureMessageType,
-} from "@/entities/future-message";
+import { useUpdateFutureMessage, type FutureMessageType } from "@/entities/future-message";
 import { Hb } from "@/shared/ui";
 
 interface Props {
@@ -51,12 +48,7 @@ export const FutureMessageEditDialog = ({ message, open, onClose }: Props) => {
         <Hb.Button fullWidth variant="secondary" onClick={onClose}>
           취소
         </Hb.Button>
-        <Hb.Button
-          fullWidth
-          variant="primary"
-          loading={isPending}
-          onClick={handleSubmit}
-        >
+        <Hb.Button fullWidth variant="primary" loading={isPending} onClick={handleSubmit}>
           저장
         </Hb.Button>
       </Hb.Dialog.Actions>

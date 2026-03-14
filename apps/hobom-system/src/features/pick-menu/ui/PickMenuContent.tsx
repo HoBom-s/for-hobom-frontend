@@ -44,8 +44,7 @@ export const PickMenuContent = ({ onNextCallback }: Props) => {
 const Inner = ({ onNextCallback }: Props) => {
   const navigate = useNavigate();
   const { openWarnToast } = useToast();
-  const { selectedMenuIds, itemList, selectedItems, handleToggleId } =
-    usePickMenuContentList();
+  const { selectedMenuIds, itemList, selectedItems, handleToggleId } = usePickMenuContentList();
   const addCandidatesTodayMenu = useAddCandidatesTodayMenu(onNextCallback);
 
   return (

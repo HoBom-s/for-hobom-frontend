@@ -19,11 +19,7 @@ export const UnreadAlertList = ({ data }: UnreadAlertListProps) => {
         미확인 알림
       </Hb.Text>
       {data.length === 0 ? (
-        <Hb.Text
-          variant="body2"
-          color="text.secondary"
-          sx={{ py: 2, textAlign: "center" }}
-        >
+        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 2, textAlign: "center" }}>
           미확인 알림이 없습니다
         </Hb.Text>
       ) : (
@@ -38,9 +34,7 @@ export const UnreadAlertList = ({ data }: UnreadAlertListProps) => {
                 "&:last-child": { borderBottom: "none" },
               }}
             >
-              <NotificationsActive
-                sx={{ color: "warning.main", mr: 1.5, fontSize: 20 }}
-              />
+              <NotificationsActive sx={{ color: "warning.main", mr: 1.5, fontSize: 20 }} />
               <Hb.List.ItemText
                 primary={item.title}
                 secondary={item.createdAt.slice(0, 10)}

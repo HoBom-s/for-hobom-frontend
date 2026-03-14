@@ -13,11 +13,7 @@ interface EndpointErrorBodyCellProps {
   bg: string;
 }
 
-export const EndpointErrorBodyCell = ({
-  colKey,
-  row,
-  bg,
-}: EndpointErrorBodyCellProps) => {
+export const EndpointErrorBodyCell = ({ colKey, row, bg }: EndpointErrorBodyCellProps) => {
   const base: React.CSSProperties = {
     height: "100%",
     display: "flex",

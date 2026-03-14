@@ -36,12 +36,7 @@ export const ModuleUsageRadar = ({ data }: ModuleUsageRadarProps) => {
           <PolarGrid />
           <PolarAngleAxis dataKey="label" tick={{ fontSize: 12 }} />
           <PolarRadiusAxis tick={false} axisLine={false} />
-          <Radar
-            dataKey="percentage"
-            stroke="#4680ff"
-            fill="#4680ff"
-            fillOpacity={0.3}
-          />
+          <Radar dataKey="percentage" stroke="#4680ff" fill="#4680ff" fillOpacity={0.3} />
         </RadarChart>
       </ResponsiveContainer>
     </Hb.Box>

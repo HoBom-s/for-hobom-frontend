@@ -1,8 +1,4 @@
-import {
-  authMiddleware,
-  UNAUTHORIZED_EVENT,
-  resetUnauthorizedState,
-} from "./auth.middleware";
+import { authMiddleware, UNAUTHORIZED_EVENT, resetUnauthorizedState } from "./auth.middleware";
 import type { MiddlewareContext } from "./middleware.type";
 
 const mockFetch = vi.fn();

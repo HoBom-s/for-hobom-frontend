@@ -24,11 +24,5 @@ type IsBoundedString<T> = T extends string
     : false
   : false;
 
-export type BoundedRecord<
-  T,
-  TypeIfBoundedRecord = true,
-  TypeIfUnboundedRecord = false,
-> =
-  IsBoundedKey<KeysOfUnion<T>> extends true
-    ? TypeIfBoundedRecord
-    : TypeIfUnboundedRecord;
+export type BoundedRecord<T, TypeIfBoundedRecord = true, TypeIfUnboundedRecord = false> =
+  IsBoundedKey<KeysOfUnion<T>> extends true ? TypeIfBoundedRecord : TypeIfUnboundedRecord;

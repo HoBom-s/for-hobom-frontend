@@ -42,11 +42,7 @@ export const NotificationCenter = () => {
             }}
           >
             <Hb.Tabs.Item label="전체" />
-            <Hb.Tabs.Item
-              label={
-                unreadCount > 0 ? `읽지 않음 (${unreadCount})` : "읽지 않음"
-              }
-            />
+            <Hb.Tabs.Item label={unreadCount > 0 ? `읽지 않음 (${unreadCount})` : "읽지 않음"} />
             <Hb.Tabs.Item label="읽음" />
           </Hb.Tabs.Root>
         </Hb.Box>
@@ -73,13 +69,8 @@ export const NotificationCenter = () => {
                 gap: 1.5,
               }}
             >
-              <NotificationsNoneOutlined
-                sx={{ fontSize: 48, color: "text.disabled" }}
-              />
-              <Hb.Text
-                variant="body2"
-                sx={{ color: "text.disabled", fontSize: "0.875rem" }}
-              >
+              <NotificationsNoneOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
+              <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.875rem" }}>
                 {EMPTY_MESSAGES[filter]}
               </Hb.Text>
             </Hb.Box>
@@ -111,9 +102,7 @@ export const NotificationCenter = () => {
                 </Hb.Box>
               ))}
               {isFetchingNextPage && (
-                <Hb.Box
-                  sx={{ display: "flex", justifyContent: "center", py: 2 }}
-                >
+                <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
                   <Hb.Progress.Circular size={24} />
                 </Hb.Box>
               )}

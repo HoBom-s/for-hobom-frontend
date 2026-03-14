@@ -6,10 +6,7 @@ interface IssueCommentInputProps {
   loading?: boolean;
 }
 
-export const IssueCommentInput = ({
-  onSubmit,
-  loading,
-}: IssueCommentInputProps) => {
+export const IssueCommentInput = ({ onSubmit, loading }: IssueCommentInputProps) => {
   const [body, setBody] = useState("");
 
   const handleSubmit = () => {

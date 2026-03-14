@@ -25,10 +25,7 @@ export const LabelPickerPopover = ({
     const trimmed = newTitle.trim();
 
     if (!trimmed) return;
-    createLabel.mutate(
-      { title: trimmed },
-      { onSuccess: () => setNewTitle("") },
-    );
+    createLabel.mutate({ title: trimmed }, { onSuccess: () => setNewTitle("") });
   };
 
   return (
@@ -48,18 +45,10 @@ export const LabelPickerPopover = ({
         </Hb.Text>
 
         {labels.length > 0 && (
-          <Hb.List.Root
-            dense
-            disablePadding
-            sx={{ maxHeight: 200, overflow: "auto" }}
-          >
+          <Hb.List.Root dense disablePadding sx={{ maxHeight: 200, overflow: "auto" }}>
             {labels.map((label) => (
               <Hb.List.Item key={label.id} disablePadding>
-                <Hb.List.ItemButton
-                  onClick={() => onToggle(label.id)}
-                  dense
-                  sx={{ py: 0.25 }}
-                >
+                <Hb.List.ItemButton onClick={() => onToggle(label.id)} dense sx={{ py: 0.25 }}>
                   <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
                     <Hb.Checkbox
                       size="small"

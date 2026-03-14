@@ -1,8 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  CheckCircleOutline,
-  LightbulbOutlined,
-} from "hobom-design-system/icons";
+import { CheckCircleOutline, LightbulbOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";
 
@@ -11,9 +8,7 @@ interface Props {
 }
 
 export const StudyMaterialContent = ({ materialId }: Props) => {
-  const { data } = useSuspenseQuery(
-    privacyLawQueries.studyMaterial(materialId),
-  );
+  const { data } = useSuspenseQuery(privacyLawQueries.studyMaterial(materialId));
   const material = data.items;
 
   return (
@@ -49,8 +44,7 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
         <Hb.Stack direction="row" alignItems="center" spacing={1} mt={3}>
           <CheckCircleOutline color="primary" fontSize="small" />
           <Hb.Text variant="subtitle2" color="text.secondary">
-            이 학습 자료에 {material.quizzes.length}개의 퀴즈가 있어요. 아래에서
-            풀어보세요.
+            이 학습 자료에 {material.quizzes.length}개의 퀴즈가 있어요. 아래에서 풀어보세요.
           </Hb.Text>
         </Hb.Stack>
       )}

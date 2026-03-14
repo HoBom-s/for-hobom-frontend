@@ -5,8 +5,6 @@
  *
  * @category Guard
  */
-export function isTruthy<T>(
-  v: T,
-): v is Extract<T, 0 | null | undefined | false | ""> {
+export function isTruthy<T>(v: T): v is Extract<T, 0 | null | undefined | false | ""> {
   return Boolean(v);
 }

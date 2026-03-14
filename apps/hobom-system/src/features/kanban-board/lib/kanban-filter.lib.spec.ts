@@ -39,11 +39,7 @@ describe("filterColumnsByEpic", () => {
       TODO: [makeIssue("other")],
     };
 
-    const result = filterColumnsByEpic(
-      columns,
-      "nonexistent",
-      new Map<string, IssueType>(),
-    );
+    const result = filterColumnsByEpic(columns, "nonexistent", new Map<string, IssueType>());
 
     expect(result.TODO).toHaveLength(0);
   });
@@ -64,11 +60,7 @@ describe("buildSwimlaneGroups", () => {
       childrenMap: new Map([["epic1", [task]]]),
     };
 
-    const result = buildSwimlaneGroups(
-      [epic, task],
-      issueTree,
-      new Set<string>(),
-    );
+    const result = buildSwimlaneGroups([epic, task], issueTree, new Set<string>());
 
     expect(result).toHaveLength(1);
     expect(result[0].epicId).toBe("epic1");
@@ -105,11 +97,7 @@ describe("buildSwimlaneGroups", () => {
       childrenMap: new Map(),
     };
 
-    const result = buildSwimlaneGroups(
-      [orphan, epic],
-      issueTree,
-      new Set<string>(),
-    );
+    const result = buildSwimlaneGroups([orphan, epic], issueTree, new Set<string>());
 
     expect(result[result.length - 1].epicId).toBeNull();
   });

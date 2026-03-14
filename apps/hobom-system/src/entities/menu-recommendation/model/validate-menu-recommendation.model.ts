@@ -6,9 +6,7 @@ import {
   TodayMenuCandidateSchema,
 } from "./menu-recommendation.model";
 
-export const validateTodayMenuInput = (
-  input: unknown,
-): TodayMenuCandidateInput | Error => {
+export const validateTodayMenuInput = (input: unknown): TodayMenuCandidateInput | Error => {
   return validateWithZod(TodayMenuCandidateSchema)(input);
 };
 

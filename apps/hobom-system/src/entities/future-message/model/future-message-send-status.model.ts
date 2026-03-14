@@ -5,6 +5,5 @@ const FutureMessageSendStatus = {
 
 export type FutureMessageSendStatusType = keyof typeof FutureMessageSendStatus;
 
-export const isPendingMessageSendStatus = (
-  status: FutureMessageSendStatusType,
-) => FutureMessageSendStatus.PENDING === status;
+export const isPendingMessageSendStatus = (status: FutureMessageSendStatusType) =>
+  FutureMessageSendStatus.PENDING === status;

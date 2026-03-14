@@ -19,9 +19,7 @@ export const FutureMessageFunnel = () => {
   return (
     <Funnel>
       <Funnel.Step name="select-recipient">
-        <FutureMessageRecipientFunnel
-          onNextStep={() => setState({ step: "fill-title" })}
-        />
+        <FutureMessageRecipientFunnel onNextStep={() => setState({ step: "fill-title" })} />
       </Funnel.Step>
       <Funnel.Step name="fill-title">
         <FutureMessageTitleFunnel
@@ -36,9 +34,7 @@ export const FutureMessageFunnel = () => {
         />
       </Funnel.Step>
       <Funnel.Step name="select-scheduledAt">
-        <FutureMessageScheduleFunnel
-          onPrevStep={() => setState({ step: "fill-content" })}
-        />
+        <FutureMessageScheduleFunnel onPrevStep={() => setState({ step: "fill-content" })} />
       </Funnel.Step>
     </Funnel>
   );

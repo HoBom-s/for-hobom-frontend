@@ -1,10 +1,6 @@
 import { spaceHttpClient } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
-import type {
-  CommentType,
-  CreateCommentRequest,
-  UpdateCommentRequest,
-} from "./wiki-comment.type";
+import type { CommentType, CreateCommentRequest, UpdateCommentRequest } from "./wiki-comment.type";
 
 export const fetchComments = async ({
   spaceKey,
@@ -17,9 +13,7 @@ export const fetchComments = async ({
   offset?: number;
   limit?: number;
 }) => {
-  return await spaceHttpClient.get<
-    HttpResponseType<PaginatedItems<CommentType>>
-  >(
+  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<CommentType>>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/comments?offset=${offset}&limit=${limit}`,
   );
 };

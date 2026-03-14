@@ -1,9 +1,5 @@
 import { mutationOptions } from "@tanstack/react-query";
-import {
-  postCreateComment,
-  putUpdateComment,
-  deleteComment,
-} from "./wiki-comment.api";
+import { postCreateComment, putUpdateComment, deleteComment } from "./wiki-comment.api";
 
 export const wikiCommentMutations = {
   comments: () => ["wiki-comments"] as const,

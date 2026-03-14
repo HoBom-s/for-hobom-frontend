@@ -1,14 +1,6 @@
 import { Typography, type TypographyProps } from "@mui/material";
 
-type TextPreset =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "title"
-  | "subtitle"
-  | "body"
-  | "caption"
-  | "overline";
+type TextPreset = "h1" | "h2" | "h3" | "title" | "subtitle" | "body" | "caption" | "overline";
 
 const PRESET_MAP: Record<TextPreset, Partial<TypographyProps>> = {
   h1: { variant: "h4", fontWeight: 700 },

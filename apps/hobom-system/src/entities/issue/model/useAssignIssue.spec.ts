@@ -118,9 +118,7 @@ describe("useAssignIssue", () => {
       const { result } = renderHook(() => useAssignIssue("proj-1"));
       const opts = getOpts(result.current);
 
-      const original = makeResponse([
-        makeIssue({ id: "issue-1", assignee: "user-1" }),
-      ]);
+      const original = makeResponse([makeIssue({ id: "issue-1", assignee: "user-1" })]);
 
       getQueryDataMock.mockReturnValue(original);
       cancelQueriesMock.mockResolvedValue(undefined);
@@ -137,9 +135,7 @@ describe("useAssignIssue", () => {
       const { result } = renderHook(() => useAssignIssue("proj-1"));
       const opts = getOpts(result.current);
 
-      const original = makeResponse([
-        makeIssue({ id: "issue-1", assignee: "user-1" }),
-      ]);
+      const original = makeResponse([makeIssue({ id: "issue-1", assignee: "user-1" })]);
 
       getQueryDataMock.mockReturnValue(original);
       cancelQueriesMock.mockResolvedValue(undefined);
@@ -196,10 +192,7 @@ describe("useAssignIssue", () => {
 
       opts.onError(new Error("fail"), {}, { previous });
 
-      expect(setQueryDataMock).toHaveBeenCalledWith(
-        ["issues", "list", "proj-1"],
-        previous,
-      );
+      expect(setQueryDataMock).toHaveBeenCalledWith(["issues", "list", "proj-1"], previous);
       expect(openErrorToastMock).toHaveBeenCalledWith({
         message: "담당자를 변경하지 못했어요.",
       });

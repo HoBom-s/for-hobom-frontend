@@ -23,47 +23,29 @@ export function when<
   T,
   ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
-  OnTrue extends (
-    data: InferGuardType<Predicate, T>,
-    ...extraArgs: ExtraArgs
-  ) => unknown,
+  OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
 >(
   predicate: Predicate,
   onTrue: OnTrue,
-): (
-  data: T,
-  ...extraArgs: ExtraArgs
-) => Exclude<T, InferGuardType<Predicate>> | ReturnType<OnTrue>;
+): (data: T, ...extraArgs: ExtraArgs) => Exclude<T, InferGuardType<Predicate>> | ReturnType<OnTrue>;
 export function when<
   T,
   ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
-  OnTrue extends (
-    data: InferGuardType<Predicate, T>,
-    ...extraArgs: ExtraArgs
-  ) => unknown,
-  OnFalse extends (
-    data: Exclude<T, InferGuardType<Predicate>>,
-    ...extraArgs: ExtraArgs
-  ) => unknown,
+  OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
+  OnFalse extends (data: Exclude<T, InferGuardType<Predicate>>, ...extraArgs: ExtraArgs) => unknown,
 >(
   predicate: Predicate,
   branches: {
     readonly onTrue: OnTrue;
     readonly onFalse: OnFalse;
   },
-): (
-  data: T,
-  ...extraArgs: ExtraArgs
-) => ReturnType<OnFalse> | ReturnType<OnTrue>;
+): (data: T, ...extraArgs: ExtraArgs) => ReturnType<OnFalse> | ReturnType<OnTrue>;
 export function when<
   T,
   ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
-  OnTrue extends (
-    data: InferGuardType<Predicate, T>,
-    ...extraArgs: ExtraArgs
-  ) => unknown,
+  OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
 >(
   data: T,
   predicate: Predicate,
@@ -74,14 +56,8 @@ export function when<
   T,
   ExtraArgs extends any[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
-  OnTrue extends (
-    data: InferGuardType<Predicate, T>,
-    ...extraArgs: ExtraArgs
-  ) => unknown,
-  OnFalse extends (
-    data: Exclude<T, InferGuardType<Predicate>>,
-    ...extraArgs: ExtraArgs
-  ) => unknown,
+  OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
+  OnFalse extends (data: Exclude<T, InferGuardType<Predicate>>, ...extraArgs: ExtraArgs) => unknown,
 >(
   data: T,
   predicate: Predicate,

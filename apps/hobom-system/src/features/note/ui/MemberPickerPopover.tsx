@@ -39,11 +39,7 @@ export const MemberPickerPopover = ({
         </Hb.Text>
 
         {members.length > 0 ? (
-          <Hb.List.Root
-            dense
-            disablePadding
-            sx={{ maxHeight: 200, overflow: "auto" }}
-          >
+          <Hb.List.Root dense disablePadding sx={{ maxHeight: 200, overflow: "auto" }}>
             {members.map((user) => (
               <Hb.List.Item
                 key={user.id}
@@ -85,11 +81,7 @@ export const MemberPickerPopover = ({
             ))}
           </Hb.List.Root>
         ) : (
-          <Hb.Text
-            variant="body2"
-            color="text.disabled"
-            sx={{ px: 2, py: 1.5 }}
-          >
+          <Hb.Text variant="body2" color="text.disabled" sx={{ px: 2, py: 1.5 }}>
             공유된 멤버가 없어요
           </Hb.Text>
         )}
@@ -137,11 +129,7 @@ export const MemberPickerPopover = ({
               }}
               value={null}
               renderInput={(params) => (
-                <Hb.TextField
-                  {...params}
-                  placeholder="멤버 추가..."
-                  size="small"
-                />
+                <Hb.TextField {...params} placeholder="멤버 추가..." size="small" />
               )}
               noOptionsText="검색 결과가 없어요"
               blurOnSelect

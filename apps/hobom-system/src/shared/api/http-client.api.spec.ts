@@ -51,16 +51,12 @@ describe("createHttpClient", () => {
   });
 
   it("에러 응답 시 HttpError를 throw한다", async () => {
-    mockFetch.mockResolvedValueOnce(
-      jsonResponse({ message: "Not Found" }, 404),
-    );
+    mockFetch.mockResolvedValueOnce(jsonResponse({ message: "Not Found" }, 404));
     const client = createHttpClient("https://api.test");
 
     await expect(client.get("/missing")).rejects.toThrow(HttpError);
 
-    mockFetch.mockResolvedValueOnce(
-      jsonResponse({ message: "Not Found" }, 404),
-    );
+    mockFetch.mockResolvedValueOnce(jsonResponse({ message: "Not Found" }, 404));
     await expect(client.get("/missing")).rejects.toMatchObject({ status: 404 });
   });
 
@@ -68,18 +64,14 @@ describe("createHttpClient", () => {
     mockFetch.mockResolvedValueOnce(jsonResponse({ message: 12345 }, 500));
     const client = createHttpClient("https://api.test");
 
-    await expect(client.get("/fail")).rejects.toThrow(
-      "HTTP error! status: 500",
-    );
+    await expect(client.get("/fail")).rejects.toThrow("HTTP error! status: 500");
   });
 
   it("에러 응답의 body가 JSON이 아니면 기본 메시지를 사용한다", async () => {
     mockFetch.mockResolvedValueOnce(new Response("not json", { status: 502 }));
     const client = createHttpClient("https://api.test");
 
-    await expect(client.get("/fail")).rejects.toThrow(
-      "HTTP error! status: 502",
-    );
+    await expect(client.get("/fail")).rejects.toThrow("HTTP error! status: 502");
   });
 
   it("retry 옵션이 설정되면 실패 시 재시도한다", async () => {
@@ -95,9 +87,7 @@ describe("createHttpClient", () => {
   });
 
   it("retry 횟수 초과 시 마지막 에러를 throw한다", async () => {
-    mockFetch
-      .mockRejectedValueOnce(new Error("fail 1"))
-      .mockRejectedValueOnce(new Error("fail 2"));
+    mockFetch.mockRejectedValueOnce(new Error("fail 1")).mockRejectedValueOnce(new Error("fail 2"));
     const client = createHttpClient("https://api.test");
 
     await expect(client.get("/fail", { retry: 1 })).rejects.toThrow("fail 2");

@@ -17,13 +17,7 @@ export const fetchPageTree = async ({ spaceKey }: { spaceKey: string }) => {
   );
 };
 
-export const fetchPageById = async ({
-  spaceKey,
-  pageId,
-}: {
-  spaceKey: string;
-  pageId: string;
-}) => {
+export const fetchPageById = async ({ spaceKey, pageId }: { spaceKey: string; pageId: string }) => {
   return await spaceHttpClient.get<HttpResponseType<PageType>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}`,
   );
@@ -50,13 +44,7 @@ export const putUpdatePage = async ({
   );
 };
 
-export const deletePage = async ({
-  spaceKey,
-  pageId,
-}: {
-  spaceKey: string;
-  pageId: string;
-}) => {
+export const deletePage = async ({ spaceKey, pageId }: { spaceKey: string; pageId: string }) => {
   return await spaceHttpClient.delete<HttpResponseType<unknown>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}`,
   );
@@ -75,9 +63,7 @@ export const fetchPageVersions = async ({
   offset?: number;
   limit?: number;
 }) => {
-  return await spaceHttpClient.get<
-    HttpResponseType<PaginatedItems<PageVersionType>>
-  >(
+  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<PageVersionType>>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions?offset=${offset}&limit=${limit}`,
   );
 };
@@ -124,11 +110,9 @@ export const searchPages = async ({
   offset?: number;
   limit?: number;
 }) => {
-  const base = spaceKey
-    ? `/api/v1/search/spaces/${spaceKey}`
-    : "/api/v1/search";
+  const base = spaceKey ? `/api/v1/search/spaces/${spaceKey}` : "/api/v1/search";
 
-  return await spaceHttpClient.get<
-    HttpResponseType<PaginatedItems<SearchResultType>>
-  >(`${base}?q=${encodeURIComponent(q)}&offset=${offset}&limit=${limit}`);
+  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<SearchResultType>>>(
+    `${base}?q=${encodeURIComponent(q)}&offset=${offset}&limit=${limit}`,
+  );
 };

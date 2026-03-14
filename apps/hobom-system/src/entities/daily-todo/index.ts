@@ -5,14 +5,8 @@ import {
   getSelectedDate,
   normalizeTodoDateToUtcMidnight,
 } from "./lib/calendar-date.lib";
-import {
-  changeCompleteStatus,
-  isCompleteStatus,
-} from "./model/daily-todo-complete-status.model";
-import {
-  DailyTodoCycleModel,
-  CYCLE_LABELS,
-} from "./model/daily-todo-cycle.model";
+import { changeCompleteStatus, isCompleteStatus } from "./model/daily-todo-complete-status.model";
+import { DailyTodoCycleModel, CYCLE_LABELS } from "./model/daily-todo-cycle.model";
 import { createTodosWithCategory } from "./model/create-todo-with-category.model.ts";
 import { useChangeDailyTodoCompleteStatus } from "./model/useChangeDailyTodoCompleteStatus";
 import { useCreateDailyTodo } from "./model/useCreateDailyTodo";
@@ -55,10 +49,4 @@ export {
   useDeleteCategory,
 };
 
-export type {
-  DailyTodoType,
-  ProgressType,
-  CycleType,
-  DailyTodoWithCategoryType,
-  CategoryType,
-};
+export type { DailyTodoType, ProgressType, CycleType, DailyTodoWithCategoryType, CategoryType };

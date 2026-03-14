@@ -19,9 +19,7 @@ export const ErrorMonitoringContent = () => {
     handleReset,
   } = useErrorEventSearch();
 
-  const [selectedEvent, setSelectedEvent] = useState<ErrorEventDto | null>(
-    null,
-  );
+  const [selectedEvent, setSelectedEvent] = useState<ErrorEventDto | null>(null);
 
   return (
     <Hb.Box>

@@ -1,10 +1,5 @@
 import { mutationOptions } from "@tanstack/react-query";
-import {
-  postCreatePage,
-  putUpdatePage,
-  deletePage,
-  postRestorePageVersion,
-} from "./wiki-page.api";
+import { postCreatePage, putUpdatePage, deletePage, postRestorePageVersion } from "./wiki-page.api";
 
 export const wikiPageMutations = {
   pages: () => ["wiki-pages"] as const,

@@ -103,9 +103,7 @@ describe("reindex", () => {
   });
 
   it("기존 text/checked는 보존한다", () => {
-    const items: ChecklistItemType[] = [
-      { text: "할 일", checked: true, order: 7 },
-    ];
+    const items: ChecklistItemType[] = [{ text: "할 일", checked: true, order: 7 }];
     const result = reindex(items);
 
     expect(result[0]).toEqual({ text: "할 일", checked: true, order: 0 });
@@ -156,9 +154,7 @@ describe("fromNote", () => {
     const result = fromNote(note);
 
     expect(result.type).toBe("CHECKLIST");
-    expect(result.checklistItems).toEqual([
-      { text: "체크", checked: true, order: 0 },
-    ]);
+    expect(result.checklistItems).toEqual([{ text: "체크", checked: true, order: 0 }]);
   });
 
   it("color가 빈 문자열이면 DEFAULT 색상을 사용한다", () => {

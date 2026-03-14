@@ -3,21 +3,14 @@ import { AddOutlined, DashboardOutlined } from "hobom-design-system/icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useOverlay } from "@/shared/model";
 import { Hb, ConfirmDialog } from "@/shared/ui";
-import {
-  boardQueries,
-  useCreateBoard,
-  useDeleteBoard,
-  type BoardDto,
-} from "@/entities/board";
+import { boardQueries, useCreateBoard, useDeleteBoard, type BoardDto } from "@/entities/board";
 import { BoardItem } from "./BoardItem";
 
 interface BoardSettingsSectionProps {
   projectId: string;
 }
 
-export const BoardSettingsSection = ({
-  projectId,
-}: BoardSettingsSectionProps) => {
+export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) => {
   const { data } = useSuspenseQuery(boardQueries.listByProject(projectId));
   const boards = data.items;
 
@@ -49,10 +42,7 @@ export const BoardSettingsSection = ({
         confirmLabel="삭제"
         confirmColor="error"
         onConfirm={() => {
-          deleteBoard(
-            { projectId, boardId: board.id },
-            { onSuccess: () => onClose() },
-          );
+          deleteBoard({ projectId, boardId: board.id }, { onSuccess: () => onClose() });
         }}
       />
     ));

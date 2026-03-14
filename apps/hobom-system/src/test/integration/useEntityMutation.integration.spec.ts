@@ -38,11 +38,7 @@ describe("useEntityMutation (via useCreateNote)", () => {
   });
 
   it("성공 시 성공 토스트를 표시한다", async () => {
-    server.use(
-      http.post(`${API_BASE}/notes`, () =>
-        HttpResponse.json({ success: true }),
-      ),
-    );
+    server.use(http.post(`${API_BASE}/notes`, () => HttpResponse.json({ success: true })));
 
     const { result } = renderHook(() => useCreateNote(), {
       wrapper: createWrapper(),
@@ -56,11 +52,7 @@ describe("useEntityMutation (via useCreateNote)", () => {
   });
 
   it("성공 시 notes 쿼리를 무효화한다", async () => {
-    server.use(
-      http.post(`${API_BASE}/notes`, () =>
-        HttpResponse.json({ success: true }),
-      ),
-    );
+    server.use(http.post(`${API_BASE}/notes`, () => HttpResponse.json({ success: true })));
 
     const queryClient = createTestQueryClient();
     const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
@@ -95,11 +87,7 @@ describe("useEntityMutation (via useCreateNote)", () => {
   });
 
   it("HTTP 500 시 서버 오류 토스트를 표시한다", async () => {
-    server.use(
-      http.post(`${API_BASE}/notes`, () =>
-        HttpResponse.json(null, { status: 500 }),
-      ),
-    );
+    server.use(http.post(`${API_BASE}/notes`, () => HttpResponse.json(null, { status: 500 })));
 
     const { result } = renderHook(() => useCreateNote(), {
       wrapper: createWrapper(),
@@ -115,10 +103,7 @@ describe("useEntityMutation (via useCreateNote)", () => {
   it("HTTP 409 + 서버 메시지 시 서버 메시지를 그대로 표시한다", async () => {
     server.use(
       http.post(`${API_BASE}/notes`, () =>
-        HttpResponse.json(
-          { message: "이미 존재하는 노트입니다." },
-          { status: 409 },
-        ),
+        HttpResponse.json({ message: "이미 존재하는 노트입니다." }, { status: 409 }),
       ),
     );
 

@@ -1,10 +1,6 @@
 import { useState, useMemo } from "react";
 import { useQueries } from "@tanstack/react-query";
-import {
-  noteQueries,
-  useAddNoteMember,
-  useRemoveNoteMember,
-} from "@/entities/note";
+import { noteQueries, useAddNoteMember, useRemoveNoteMember } from "@/entities/note";
 import type { NoteItemType } from "@/entities/note";
 import { userQueries, type UserType } from "@/entities/user";
 
@@ -13,31 +9,27 @@ interface UseNoteMemberShareParams {
   note: NoteItemType | null;
 }
 
-export const useNoteMemberShare = ({
-  open,
-  note,
-}: UseNoteMemberShareParams) => {
+export const useNoteMemberShare = ({ open, note }: UseNoteMemberShareParams) => {
   const isEdit = !!note;
   const addMember = useAddNoteMember();
   const removeMember = useRemoveNoteMember();
 
-  const [{ data: meData }, { data: usersData }, { data: noteDetailData }] =
-    useQueries({
-      queries: [
-        {
-          ...userQueries.me(),
-          enabled: open,
-        },
-        {
-          ...userQueries.list(),
-          enabled: open && isEdit,
-        },
-        {
-          ...noteQueries.detail(note?.id ?? ""),
-          enabled: open && isEdit,
-        },
-      ],
-    });
+  const [{ data: meData }, { data: usersData }, { data: noteDetailData }] = useQueries({
+    queries: [
+      {
+        ...userQueries.me(),
+        enabled: open,
+      },
+      {
+        ...userQueries.list(),
+        enabled: open && isEdit,
+      },
+      {
+        ...noteQueries.detail(note?.id ?? ""),
+        enabled: open && isEdit,
+      },
+    ],
+  });
 
   const liveMembers = noteDetailData?.items?.members ?? note?.members ?? [];
 
@@ -47,10 +39,7 @@ export const useNoteMemberShare = ({
   );
   const isOwner = !!note && meData?.id === note.owner;
   const noteMembers = useMemo(
-    () =>
-      liveMembers
-        .map((id) => usersMap.get(id))
-        .filter((u): u is UserType => !!u),
+    () => liveMembers.map((id) => usersMap.get(id)).filter((u): u is UserType => !!u),
     [liveMembers, usersMap],
   );
   const memberIdSet = useMemo(() => new Set(liveMembers), [liveMembers]);

@@ -19,11 +19,7 @@ export const FailureTable = ({ data }: FailureTableProps) => {
         최근 실패 이벤트
       </Hb.Text>
       {data.length === 0 ? (
-        <Hb.Text
-          variant="body2"
-          color="text.secondary"
-          sx={{ py: 2, textAlign: "center" }}
-        >
+        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 2, textAlign: "center" }}>
           실패 이벤트가 없습니다
         </Hb.Text>
       ) : (

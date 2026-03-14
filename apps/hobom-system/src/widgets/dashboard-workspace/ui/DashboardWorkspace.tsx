@@ -2,24 +2,14 @@ import { Suspense, useState, type ReactNode, type SyntheticEvent } from "react";
 import { DashboardOutlined } from "hobom-design-system/icons";
 import { useRouterQuery } from "@/shared/model";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
-import {
-  PeriodSelector,
-  PeriodModel,
-  type PeriodType,
-} from "@/entities/dashboard";
+import { PeriodSelector, PeriodModel, type PeriodType } from "@/entities/dashboard";
 import { ActivityDashboardContent } from "@/features/dashboard-activity";
 import { DailyTodoDashboardContent } from "@/features/dashboard-daily-todo";
 import { NoteDashboardContent } from "@/features/dashboard-note";
 import { MessageDashboardContent } from "@/features/dashboard-message";
 import { NotificationDashboardContent } from "@/features/dashboard-notification";
 
-const TAB_VALUES = [
-  "activity",
-  "daily-todo",
-  "note",
-  "message",
-  "notification",
-] as const;
+const TAB_VALUES = ["activity", "daily-todo", "note", "message", "notification"] as const;
 
 type TabValue = (typeof TAB_VALUES)[number];
 
@@ -31,13 +21,7 @@ const TAB_LABELS: Record<TabValue, string> = {
   notification: "알림",
 };
 
-const TabPanel = ({
-  visible,
-  children,
-}: {
-  visible: boolean;
-  children: ReactNode;
-}) => {
+const TabPanel = ({ visible, children }: { visible: boolean; children: ReactNode }) => {
   if (!visible) return null;
 
   return <div role="tabpanel">{children}</div>;
@@ -89,18 +73,9 @@ export const DashboardWorkspace = () => {
         <PeriodSelector period={period} onChange={setPeriod} />
       </Hb.Box>
 
-      <Hb.Tabs.Root
-        value={currentTab}
-        onChange={handleTabChange}
-        sx={{ mb: 2.5 }}
-      >
+      <Hb.Tabs.Root value={currentTab} onChange={handleTabChange} sx={{ mb: 2.5 }}>
         {TAB_VALUES.map((tab) => (
-          <Hb.Tabs.Item
-            key={tab}
-            value={tab}
-            label={TAB_LABELS[tab]}
-            sx={{ minHeight: 44 }}
-          />
+          <Hb.Tabs.Item key={tab} value={tab} label={TAB_LABELS[tab]} sx={{ minHeight: 44 }} />
         ))}
       </Hb.Tabs.Root>
 

@@ -45,8 +45,7 @@ export default function AuthSignUpPage() {
             width: "100%",
             bgcolor: "background.paper",
             borderRadius: 3,
-            boxShadow:
-              "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
             p: 4,
           }}
         >
@@ -69,11 +68,7 @@ AuthSignUpPage.Fallback = () => {
       <Hb.Text variant="body2" color="text.secondary" mb={3}>
         시스템에 문제가 생겼어요.
       </Hb.Text>
-      <Hb.Button
-        variant="primary"
-        size="small"
-        onClick={() => window.location.reload()}
-      >
+      <Hb.Button variant="primary" size="small" onClick={() => window.location.reload()}>
         다시 시도하기
       </Hb.Button>
     </Hb.Box>

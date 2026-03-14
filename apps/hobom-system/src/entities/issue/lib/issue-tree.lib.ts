@@ -53,10 +53,7 @@ interface FlatTreeIssue {
  * 오버로드: `IssueType[]` 또는 `IssueTreeResult`를 입력으로 받는다.
  * `collapsedIds`에 포함된 이슈의 자식은 결과에서 제외된다 (UI 접힘 상태).
  */
-export function flattenIssueTree(
-  issues: IssueType[],
-  collapsedIds?: Set<string>,
-): FlatTreeIssue[];
+export function flattenIssueTree(issues: IssueType[], collapsedIds?: Set<string>): FlatTreeIssue[];
 export function flattenIssueTree(
   tree: IssueTreeResult,
   collapsedIds?: Set<string>,
@@ -65,9 +62,7 @@ export function flattenIssueTree(
   input: IssueType[] | IssueTreeResult,
   collapsedIds?: Set<string>,
 ): FlatTreeIssue[] {
-  const { roots, childrenMap } = Array.isArray(input)
-    ? buildIssueTree(input)
-    : input;
+  const { roots, childrenMap } = Array.isArray(input) ? buildIssueTree(input) : input;
   const result: FlatTreeIssue[] = [];
 
   const walk = (items: IssueType[], depth: number) => {
@@ -110,10 +105,7 @@ export const getDescendantProgress = (
         const sub = walk(child.id);
 
         return {
-          completed:
-            acc.completed +
-            (doneStatusIds.has(child.status) ? 1 : 0) +
-            sub.completed,
+          completed: acc.completed + (doneStatusIds.has(child.status) ? 1 : 0) + sub.completed,
           total: acc.total + 1 + sub.total,
         };
       },

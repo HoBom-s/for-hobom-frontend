@@ -1,9 +1,5 @@
 import { mutationOptions } from "@tanstack/react-query";
-import {
-  postCategory,
-  patchCategory,
-  deleteCategory,
-} from "./daily-todo-category.api";
+import { postCategory, patchCategory, deleteCategory } from "./daily-todo-category.api";
 
 export const categoryMutations = {
   categories: () => ["categories"] as const,

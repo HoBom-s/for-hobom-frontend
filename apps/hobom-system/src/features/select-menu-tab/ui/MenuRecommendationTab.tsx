@@ -73,13 +73,7 @@ export const MenuRecommendationTab = () => {
   );
 };
 
-const TabPanel = ({
-  visible,
-  children,
-}: {
-  visible: boolean;
-  children: ReactNode;
-}) => {
+const TabPanel = ({ visible, children }: { visible: boolean; children: ReactNode }) => {
   if (!visible) return null;
 
   return (

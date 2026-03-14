@@ -6,10 +6,7 @@ import { groupIssuesBySprint } from "../lib/backlog-group.lib";
 
 export const useBacklogBoard = (projectId: string) => {
   const [{ data: issueData }, { data: sprintData }] = useSuspenseQueries({
-    queries: [
-      issueQueries.listByProject(projectId),
-      sprintQueries.listByProject(projectId),
-    ],
+    queries: [issueQueries.listByProject(projectId), sprintQueries.listByProject(projectId)],
   });
 
   const sprints = sprintData.items;

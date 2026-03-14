@@ -1,9 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import {
-  buildIssueTree,
-  flattenIssueTree,
-  type IssueType,
-} from "@/entities/issue";
+import { buildIssueTree, flattenIssueTree, type IssueType } from "@/entities/issue";
 
 export const useCollapsibleTree = (issues: IssueType[]) => {
   const issueTree = useMemo(() => buildIssueTree(issues), [issues]);

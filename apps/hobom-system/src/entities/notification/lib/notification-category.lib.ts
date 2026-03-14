@@ -6,7 +6,6 @@ interface CategoryMeta {
   bgColor: string;
 }
 
-export const NOTIFICATION_CATEGORY: Record<NotificationCategory, CategoryMeta> =
-  {
-    SYSTEM: { label: "시스템", color: "#4680ff", bgColor: "#eef3ff" },
-  };
+export const NOTIFICATION_CATEGORY: Record<NotificationCategory, CategoryMeta> = {
+  SYSTEM: { label: "시스템", color: "#4680ff", bgColor: "#eef3ff" },
+};

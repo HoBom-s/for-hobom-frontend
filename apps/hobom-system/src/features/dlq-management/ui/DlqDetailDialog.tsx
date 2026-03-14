@@ -68,10 +68,7 @@ export const DlqDetailDialog = ({
               </Hb.Text>
             </Hb.Box>
 
-            <Hb.Text
-              variant="body2"
-              sx={{ fontWeight: 600, color: "text.secondary", mb: 1 }}
-            >
+            <Hb.Text variant="body2" sx={{ fontWeight: 600, color: "text.secondary", mb: 1 }}>
               Payload
             </Hb.Text>
             <Hb.Box

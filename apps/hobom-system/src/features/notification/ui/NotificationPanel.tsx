@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";
-import {
-  NotificationItem,
-  type NotificationItemType,
-} from "@/entities/notification";
+import { NotificationItem, type NotificationItemType } from "@/entities/notification";
 import { RoutesConfig, SUBTLE_SCROLLBAR_SX } from "@/shared/config";
 import { useInfiniteScroll } from "@/shared/model";
 import { Hb } from "@/shared/ui";
@@ -21,13 +18,8 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
   const [tab, setTab] = useState(0);
   const filter = TAB_FILTERS[tab];
 
-  const {
-    notifications,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isPending,
-  } = useNotificationList(filter);
+  const { notifications, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
+    useNotificationList(filter);
   const markRead = useMarkNotificationRead();
   const navigate = useNavigate();
 
@@ -53,8 +45,7 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
             mt: 1,
             borderRadius: 2,
             overflow: "hidden",
-            boxShadow:
-              "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
           },
         },
       }}
@@ -110,9 +101,7 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
               gap: 1,
             }}
           >
-            <NotificationsNoneOutlined
-              sx={{ fontSize: 40, color: "text.disabled" }}
-            />
+            <NotificationsNoneOutlined sx={{ fontSize: 40, color: "text.disabled" }} />
             <Hb.Text variant="body2" sx={{ color: "text.disabled" }}>
               {EMPTY_MESSAGES[filter]}
             </Hb.Text>

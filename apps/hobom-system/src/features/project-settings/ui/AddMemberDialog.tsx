@@ -48,11 +48,7 @@ export const AddMemberDialog = ({
                 {u.nickname.charAt(0).toUpperCase()}
               </Hb.Avatar>
               <Hb.Box>
-                <Hb.Text
-                  variant="body2"
-                  fontWeight={600}
-                  sx={{ lineHeight: 1.3 }}
-                >
+                <Hb.Text variant="body2" fontWeight={600} sx={{ lineHeight: 1.3 }}>
                   {u.nickname}
                 </Hb.Text>
                 <Hb.Text variant="caption" color="text.secondary">
@@ -76,11 +72,7 @@ export const AddMemberDialog = ({
         />
         <Hb.Form.Control size="small" fullWidth sx={{ mt: 2 }}>
           <Hb.Form.Label>역할</Hb.Form.Label>
-          <Hb.Form.Select
-            value={role}
-            label="역할"
-            onChange={(e) => setRole(e.target.value)}
-          >
+          <Hb.Form.Select value={role} label="역할" onChange={(e) => setRole(e.target.value)}>
             {Object.entries(ROLE_LABEL).map(([k, label]) => (
               <Hb.Menu.Item key={k} value={k}>
                 {label}

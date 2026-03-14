@@ -27,24 +27,19 @@ export const useUpdateDailyTodoReaction = () => {
       await queryClient.cancelQueries(queryOption);
       const previousData = queryClient.getQueryData(queryKey);
 
-      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(
-        queryKey,
-        (old) => {
-          if (old == null) return;
-          const items = old.items;
+      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
+        if (old == null) return;
+        const items = old.items;
 
-          if (!Array.isArray(items)) return;
+        if (!Array.isArray(items)) return;
 
-          return {
-            ...old,
-            items: items.map((item) =>
-              item.id === id
-                ? { ...item, reaction: { value: reaction, reactionUserId } }
-                : item,
-            ),
-          };
-        },
-      );
+        return {
+          ...old,
+          items: items.map((item) =>
+            item.id === id ? { ...item, reaction: { value: reaction, reactionUserId } } : item,
+          ),
+        };
+      });
 
       return { previousData };
     },

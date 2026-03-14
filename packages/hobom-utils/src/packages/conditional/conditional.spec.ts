@@ -12,9 +12,7 @@ describe("conditional()", () => {
   });
 
   test("data-first", () => {
-    expect(conditional("Bom", [(v) => v === "Bom", () => "Robin!"])).toBe(
-      "Robin!",
-    );
+    expect(conditional("Bom", [(v) => v === "Bom", () => "Robin!"])).toBe("Robin!");
     expect(
       conditional(
         "Bom",

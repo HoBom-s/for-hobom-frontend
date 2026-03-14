@@ -1,10 +1,7 @@
 import { type ReactNode, Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { FutureMessageGrid } from "@/features/send-future-message/ui/FutureMessageGrid";
-import {
-  futureMessageQueries,
-  type FutureMessageSendStatusType,
-} from "@/entities/future-message";
+import { futureMessageQueries, type FutureMessageSendStatusType } from "@/entities/future-message";
 import { useRouterQuery } from "@/shared/model";
 import { Hb, HoBomSkeleton } from "@/shared/ui";
 
@@ -47,7 +44,5 @@ const Inner = () => {
 };
 
 FutureMessageContent.Layout = ({ children }: { children: ReactNode }) => (
-  <Hb.Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
-    {children}
-  </Hb.Box>
+  <Hb.Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>{children}</Hb.Box>
 );

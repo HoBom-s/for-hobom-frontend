@@ -18,10 +18,7 @@ export const useDailyTodoList = () => {
 
   const todoItems = Bom.prop(todos, "items");
   const categoryItems = Bom.prop(categories, "items");
-  const groupedTodosWithCategory = createTodosWithCategory(
-    categoryItems,
-    todoItems,
-  );
+  const groupedTodosWithCategory = createTodosWithCategory(categoryItems, todoItems);
 
   return {
     todoItems,

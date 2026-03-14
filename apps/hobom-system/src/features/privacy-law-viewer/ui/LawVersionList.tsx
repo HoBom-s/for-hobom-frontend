@@ -1,13 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import {
-  useSuspenseQuery,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-import {
-  CloudDownloadOutlined,
-  GavelOutlined,
-} from "hobom-design-system/icons";
+import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { CloudDownloadOutlined, GavelOutlined } from "hobom-design-system/icons";
 import { privacyLawQueries, privacyLawMutations } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";
 
@@ -34,9 +27,7 @@ export const LawVersionList = () => {
           sx={{ textAlign: "center", py: 4, bgcolor: "background.default" }}
         >
           <Hb.Card.Content>
-            <GavelOutlined
-              sx={{ fontSize: 48, color: "text.disabled", mb: 1 }}
-            />
+            <GavelOutlined sx={{ fontSize: 48, color: "text.disabled", mb: 1 }} />
             <Hb.Text color="text.secondary" gutterBottom>
               등록된 법률 버전이 없습니다.
             </Hb.Text>
@@ -59,15 +50,9 @@ export const LawVersionList = () => {
 
       {versions.map((version) => (
         <Hb.Card.Root key={version.id} variant="outlined">
-          <Hb.Card.Clickable
-            onClick={() => navigate(`/privacy-law/versions/${version.id}`)}
-          >
+          <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/versions/${version.id}`)}>
             <Hb.Card.Content>
-              <Hb.Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Hb.Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
                   <GavelOutlined color="primary" fontSize="small" />
                   <Hb.Box>

@@ -1,8 +1,4 @@
-import type {
-  FoodType,
-  MenuKindType,
-  TimeOfMealType,
-} from "../model/menu-recommendation.model";
+import type { FoodType, MenuKindType, TimeOfMealType } from "../model/menu-recommendation.model";
 
 interface RegisterPersonType {
   id: string;

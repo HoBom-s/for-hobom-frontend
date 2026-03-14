@@ -20,10 +20,7 @@ export const MenuRecommendationContent = () => {
     >
       <Casino sx={{ fontSize: 64, color: "#dadce0" }} />
       <Hb.Box sx={{ textAlign: "center" }}>
-        <Hb.Text
-          variant="h6"
-          sx={{ fontWeight: 600, color: "text.primary", mb: 0.5 }}
-        >
+        <Hb.Text variant="h6" sx={{ fontWeight: 600, color: "text.primary", mb: 0.5 }}>
           오늘의 메뉴를 추첨해 보세요
         </Hb.Text>
         <Hb.Text variant="body2" sx={{ color: "text.secondary" }}>

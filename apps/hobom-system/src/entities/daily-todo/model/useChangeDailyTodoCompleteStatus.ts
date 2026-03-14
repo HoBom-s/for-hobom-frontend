@@ -13,9 +13,7 @@ import { todoMutations } from "../api/daily-todo.mutations";
 /**
  * Update item's complete status by optimistic update
  */
-export const useChangeDailyTodoCompleteStatus = (
-  dailyTodoItem: DailyTodoType,
-) => {
+export const useChangeDailyTodoCompleteStatus = (dailyTodoItem: DailyTodoType) => {
   const queryClient = useQueryClient();
   const { openSuccessToast, openErrorToast } = useToast();
 
@@ -33,29 +31,24 @@ export const useChangeDailyTodoCompleteStatus = (
       await queryClient.cancelQueries(queryOption);
       const previousData = queryClient.getQueryData(queryKey);
 
-      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(
-        queryKey,
-        (old) => {
-          if (old == null) return;
+      queryClient.setQueryData<HttpResponseType<DailyTodoType[]>>(queryKey, (old) => {
+        if (old == null) return;
 
-          const items = Bom.prop(old, "items");
+        const items = Bom.prop(old, "items");
 
-          if (!Array.isArray(items)) return;
+        if (!Array.isArray(items)) return;
 
-          const foundItem = items.find((item) => item.id === dailyTodoItem.id);
+        const foundItem = items.find((item) => item.id === dailyTodoItem.id);
 
-          if (Bom.isNullish(foundItem)) return;
+        if (Bom.isNullish(foundItem)) return;
 
-          return {
-            ...old,
-            items: items.map((item) =>
-              item.id === foundItem.id
-                ? { ...foundItem, progress: status }
-                : item,
-            ),
-          };
-        },
-      );
+        return {
+          ...old,
+          items: items.map((item) =>
+            item.id === foundItem.id ? { ...foundItem, progress: status } : item,
+          ),
+        };
+      });
 
       return { previousData };
     },

@@ -40,11 +40,7 @@ export const ColorPickerPopover = ({
               borderRadius: "50%",
               backgroundColor: hex,
               border: "2px solid",
-              borderColor: selected
-                ? "primary.main"
-                : isWhite
-                  ? "#dadce0"
-                  : "transparent",
+              borderColor: selected ? "primary.main" : isWhite ? "#dadce0" : "transparent",
               p: 0,
               minWidth: 0,
               "&:hover": {

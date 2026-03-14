@@ -8,9 +8,7 @@ interface GeneralSettingsSectionProps {
   projectId: string;
 }
 
-export const GeneralSettingsSection = ({
-  projectId,
-}: GeneralSettingsSectionProps) => {
+export const GeneralSettingsSection = ({ projectId }: GeneralSettingsSectionProps) => {
   const { data } = useSuspenseQuery(projectQueries.detail(projectId));
   const project = data.items;
 

@@ -1,9 +1,5 @@
 import { Suspense } from "react";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  HistoryOutlined,
-} from "hobom-design-system/icons";
+import { DeleteOutlined, EditOutlined, HistoryOutlined } from "hobom-design-system/icons";
 import { PageViewer } from "@/features/wiki-page-editor";
 import { CommentsSection } from "@/features/wiki-page-comments";
 import { VersionHistoryDrawer } from "@/features/wiki-page-versions";
@@ -11,13 +7,7 @@ import { Hb } from "@/shared/ui";
 import { usePageContent } from "../model/usePageContent";
 import { PageEditor } from "./PageEditor";
 
-export const PageContent = ({
-  spaceKey,
-  pageId,
-}: {
-  spaceKey: string;
-  pageId: string;
-}) => {
+export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: string }) => {
   const {
     editing,
     setEditing,
@@ -65,10 +55,7 @@ export const PageContent = ({
           }}
         >
           <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
-            <Hb.Text
-              variant="h4"
-              sx={{ fontWeight: 700, lineHeight: 1.3, mb: 0.75 }}
-            >
+            <Hb.Text variant="h4" sx={{ fontWeight: 700, lineHeight: 1.3, mb: 0.75 }}>
               {page.title}
             </Hb.Text>
             <Hb.Text variant="caption" color="text.disabled">
@@ -132,11 +119,7 @@ export const PageContent = ({
             </Hb.Box>
           }
         >
-          <CommentsSection
-            spaceKey={spaceKey}
-            pageId={pageId}
-            userInfo={userInfo}
-          />
+          <CommentsSection spaceKey={spaceKey} pageId={pageId} userInfo={userInfo} />
         </Suspense>
       </Hb.Paper>
 
@@ -146,10 +129,7 @@ export const PageContent = ({
         spaceKey={spaceKey}
         pageId={pageId}
       />
-      <Hb.Dialog.Root
-        open={deleteDialogOpen}
-        onClose={() => setDeleteDialogOpen(false)}
-      >
+      <Hb.Dialog.Root open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
         <Hb.Dialog.Title>페이지 삭제</Hb.Dialog.Title>
         <Hb.Dialog.Content>
           <Hb.Dialog.ContentText>
@@ -158,17 +138,10 @@ export const PageContent = ({
           </Hb.Dialog.ContentText>
         </Hb.Dialog.Content>
         <Hb.Dialog.Actions>
-          <Hb.Button
-            onClick={() => setDeleteDialogOpen(false)}
-            disabled={isDeleting}
-          >
+          <Hb.Button onClick={() => setDeleteDialogOpen(false)} disabled={isDeleting}>
             취소
           </Hb.Button>
-          <Hb.Button
-            onClick={handleDelete}
-            variant="danger"
-            loading={isDeleting}
-          >
+          <Hb.Button onClick={handleDelete} variant="danger" loading={isDeleting}>
             삭제
           </Hb.Button>
         </Hb.Dialog.Actions>

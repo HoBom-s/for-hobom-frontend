@@ -3,9 +3,7 @@ import { groupBy } from "./groupBy";
 
 describe("groupBy()", () => {
   test("data-first", () => {
-    expect(
-      groupBy([1, 2, 3, 4], (x) => (x % 2 === 0 ? "even" : "odd")),
-    ).toStrictEqual({
+    expect(groupBy([1, 2, 3, 4], (x) => (x % 2 === 0 ? "even" : "odd"))).toStrictEqual({
       odd: [1, 3],
       even: [2, 4],
     });

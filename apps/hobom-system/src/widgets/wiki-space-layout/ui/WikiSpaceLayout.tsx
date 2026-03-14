@@ -1,11 +1,7 @@
 import { Suspense } from "react";
 import { AddOutlined, ChevronRight } from "hobom-design-system/icons";
 import { Outlet } from "react-router-dom";
-import {
-  usePageTree,
-  PageTreeView,
-  CreatePageDialog,
-} from "@/features/wiki-page-tree";
+import { usePageTree, PageTreeView, CreatePageDialog } from "@/features/wiki-page-tree";
 import { WikiSearchField } from "@/features/wiki-search";
 import { Hb } from "@/shared/ui";
 import { useWikiSpaceLayout } from "../model/useWikiSpaceLayout";

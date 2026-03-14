@@ -1,15 +1,7 @@
-import {
-  differenceInMinutes,
-  differenceInHours,
-  differenceInDays,
-  format,
-} from "date-fns";
+import { differenceInMinutes, differenceInHours, differenceInDays, format } from "date-fns";
 import { ko } from "date-fns/locale";
 
-export const formatRelativeTime = (
-  dateString: string,
-  now = new Date(),
-): string => {
+export const formatRelativeTime = (dateString: string, now = new Date()): string => {
   const target = new Date(dateString);
   const diffMin = differenceInMinutes(now, target);
   const diffHour = differenceInHours(now, target);

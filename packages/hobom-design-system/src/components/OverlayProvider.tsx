@@ -1,11 +1,4 @@
-import {
-  Fragment,
-  createContext,
-  useCallback,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { Fragment, createContext, useCallback, useMemo, useState, type ReactNode } from "react";
 
 interface OverlayContextProps {
   created: (cId: string, elem: ReactNode) => void;
@@ -21,9 +14,7 @@ interface OverlayProviderProps {
 export const OverlayContext = createContext<OverlayContextProps | null>(null);
 
 export const OverlayProvider = ({ children }: OverlayProviderProps) => {
-  const [cIds, setCIds] = useState<OverlayContextState<string, ReactNode>>(
-    new Map(),
-  );
+  const [cIds, setCIds] = useState<OverlayContextState<string, ReactNode>>(new Map());
 
   const created = useCallback((cId: string, elem: ReactNode) => {
     setCIds((prev: OverlayContextState<string, ReactNode>) => {

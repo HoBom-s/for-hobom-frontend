@@ -1,9 +1,4 @@
-import {
-  CheckCircle,
-  Cancel,
-  NavigateNext,
-  Replay,
-} from "hobom-design-system/icons";
+import { CheckCircle, Cancel, NavigateNext, Replay } from "hobom-design-system/icons";
 import type { ExamQuestion } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";
 import { useExamSession } from "../model/useExamSession";
@@ -57,12 +52,8 @@ const OxInput = ({
           }}
         >
           {option}
-          {revealed && isAnswer && (
-            <CheckCircle fontSize="small" sx={{ ml: 0.5 }} />
-          )}
-          {revealed && selected && !isAnswer && (
-            <Cancel fontSize="small" sx={{ ml: 0.5 }} />
-          )}
+          {revealed && isAnswer && <CheckCircle fontSize="small" sx={{ ml: 0.5 }} />}
+          {revealed && selected && !isAnswer && <Cancel fontSize="small" sx={{ ml: 0.5 }} />}
         </Hb.Button>
       );
     })}
@@ -214,12 +205,7 @@ export const ExamQuestionCard = ({ questions }: Props) => {
                 ? "잘했습니다!"
                 : "다시 도전해보세요."}
           </Hb.Text>
-          <Hb.Button
-            variant="secondary"
-            startIcon={<Replay />}
-            onClick={reset}
-            sx={{ mt: 2 }}
-          >
+          <Hb.Button variant="secondary" startIcon={<Replay />} onClick={reset} sx={{ mt: 2 }}>
             다시 풀기
           </Hb.Button>
         </Hb.Card.Content>
@@ -232,22 +218,11 @@ export const ExamQuestionCard = ({ questions }: Props) => {
   return (
     <Hb.Card.Root variant="outlined">
       <Hb.Card.Content>
-        <Hb.Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          mb={2}
-        >
+        <Hb.Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
           <Hb.Stack direction="row" spacing={1}>
+            <Hb.Chip label={`${currentIndex + 1} / ${total}`} size="small" color="primary" />
             <Hb.Chip
-              label={`${currentIndex + 1} / ${total}`}
-              size="small"
-              color="primary"
-            />
-            <Hb.Chip
-              label={
-                QUIZ_TYPE_LABEL[currentQuestion.type] ?? currentQuestion.type
-              }
+              label={QUIZ_TYPE_LABEL[currentQuestion.type] ?? currentQuestion.type}
               size="small"
               variant="outlined"
             />
@@ -310,23 +285,13 @@ export const ExamQuestionCard = ({ questions }: Props) => {
           </Hb.Alert>
         )}
 
-        <Hb.Box
-          sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}
-        >
-          <Hb.Button
-            variant="secondary"
-            disabled={currentIndex === 0}
-            onClick={prev}
-          >
+        <Hb.Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
+          <Hb.Button variant="secondary" disabled={currentIndex === 0} onClick={prev}>
             이전
           </Hb.Button>
           <Hb.Stack direction="row" spacing={1}>
             {!revealed && (
-              <Hb.Button
-                variant="primary"
-                disabled={!userAnswer}
-                onClick={reveal}
-              >
+              <Hb.Button variant="primary" disabled={!userAnswer} onClick={reveal}>
                 정답 확인
               </Hb.Button>
             )}

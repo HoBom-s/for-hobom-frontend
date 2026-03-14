@@ -6,11 +6,7 @@ interface UserInfoSectionProps {
   email: string;
 }
 
-export const UserInfoSection = ({
-  initial,
-  nickname,
-  email,
-}: UserInfoSectionProps) => (
+export const UserInfoSection = ({ initial, nickname, email }: UserInfoSectionProps) => (
   <Hb.Box
     sx={{
       display: "flex",

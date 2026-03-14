@@ -15,9 +15,7 @@ export const useUpdateNoteStatus = (currentStatus?: NoteStatus) => {
   const queryClient = useQueryClient();
   const { openSuccessToast, openErrorToast } = useToast();
 
-  const queryKey = currentStatus
-    ? noteQueries.list(currentStatus).queryKey
-    : undefined;
+  const queryKey = currentStatus ? noteQueries.list(currentStatus).queryKey : undefined;
 
   return useMutation({
     ...noteMutations.updateStatus(),

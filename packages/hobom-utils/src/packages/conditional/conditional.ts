@@ -117,10 +117,7 @@ function conditional(...args: readonly unknown[]): unknown {
   return curryOn(isCase, conditionalImpl, ...args);
 }
 
-function conditionalImpl<In, Out>(
-  data: In,
-  ...cases: readonly Case<In, Out>[]
-): Out {
+function conditionalImpl<In, Out>(data: In, ...cases: readonly Case<In, Out>[]): Out {
   for (const [when, then] of cases) {
     if (when(data)) {
       return then(data);

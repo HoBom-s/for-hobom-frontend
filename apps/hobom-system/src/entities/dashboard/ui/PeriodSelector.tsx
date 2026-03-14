@@ -1,8 +1,5 @@
 import { Hb } from "@/shared/ui";
-import {
-  PERIOD_LABEL,
-  SYSTEM_PERIOD_LABEL,
-} from "../model/dashboard-period.model";
+import { PERIOD_LABEL, SYSTEM_PERIOD_LABEL } from "../model/dashboard-period.model";
 import type { PeriodType, SystemPeriodType } from "../api/dashboard.type";
 
 interface DefaultPeriodSelectorProps {
@@ -17,9 +14,7 @@ interface SystemPeriodSelectorProps {
   onChange: (period: SystemPeriodType) => void;
 }
 
-type PeriodSelectorProps =
-  | DefaultPeriodSelectorProps
-  | SystemPeriodSelectorProps;
+type PeriodSelectorProps = DefaultPeriodSelectorProps | SystemPeriodSelectorProps;
 
 export const PeriodSelector = (props: PeriodSelectorProps) => {
   const labels = props.type === "system" ? SYSTEM_PERIOD_LABEL : PERIOD_LABEL;

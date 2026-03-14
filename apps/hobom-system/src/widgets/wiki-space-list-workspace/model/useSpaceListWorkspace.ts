@@ -19,21 +19,13 @@ export const useSpaceListWorkspace = () => {
     navigate(`/wiki/${key}`);
   };
 
-  const handleCreateSpace = (data: {
-    key: string;
-    name: string;
-    description: string;
-  }) => {
+  const handleCreateSpace = (data: { key: string; name: string; description: string }) => {
     createMutation.mutate(data, {
       onSuccess: () => setCreateOpen(false),
     });
   };
 
-  const handleUpdateSpace = (data: {
-    key: string;
-    name: string;
-    description: string;
-  }) => {
+  const handleUpdateSpace = (data: { key: string; name: string; description: string }) => {
     updateMutation.mutate(data, {
       onSuccess: () => setEditSpace(null),
     });

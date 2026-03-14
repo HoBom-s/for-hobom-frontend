@@ -17,21 +17,14 @@ export const reorderColumns = (
   return reindex(arrayMove(columns, oldIdx, newIdx));
 };
 
-export const removeColumn = (
-  columns: BoardColumn[],
-  statusId: string,
-): BoardColumn[] => reindex(columns.filter((c) => c.statusId !== statusId));
+export const removeColumn = (columns: BoardColumn[], statusId: string): BoardColumn[] =>
+  reindex(columns.filter((c) => c.statusId !== statusId));
 
 export const addColumn = (
   columns: BoardColumn[],
   statusId: string,
   name: string,
-): BoardColumn[] => [
-  ...columns,
-  { statusId, name, wipLimit: null, order: columns.length },
-];
+): BoardColumn[] => [...columns, { statusId, name, wipLimit: null, order: columns.length }];
 
-export const isDuplicateStatusId = (
-  columns: BoardColumn[],
-  statusId: string,
-): boolean => columns.some((c) => c.statusId === statusId);
+export const isDuplicateStatusId = (columns: BoardColumn[], statusId: string): boolean =>
+  columns.some((c) => c.statusId === statusId);

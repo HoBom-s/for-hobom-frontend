@@ -1,11 +1,4 @@
-import {
-  type JSX,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { type JSX, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { assertCondition } from "@/shared/lib";
 import { Funnel, Step, type FunnelProps, type StepProps } from "@/shared/ui";
@@ -175,9 +168,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     (
       next:
         | Partial<State & { step: Steps[number] }>
-        | ((
-            next: Partial<State & { step: Steps[number] }>,
-          ) => State & { step: Steps[number] }),
+        | ((next: Partial<State & { step: Steps[number] }>) => State & { step: Steps[number] }),
     ) => void,
   ] {
     if (!initializedRef.current) {
@@ -191,9 +182,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
       setState as (
         next:
           | Partial<State & { step: Steps[number] }>
-          | ((
-              next: Partial<State & { step: Steps[number] }>,
-            ) => State & { step: Steps[number] }),
+          | ((next: Partial<State & { step: Steps[number] }>) => State & { step: Steps[number] }),
       ) => void,
     ];
   }

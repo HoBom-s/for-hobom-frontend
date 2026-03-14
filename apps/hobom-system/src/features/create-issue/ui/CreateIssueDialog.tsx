@@ -42,12 +42,8 @@ export const CreateIssueDialog = ({
 
   return (
     <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
-      <Hb.Dialog.Title>
-        {defaultParentId ? "하위 이슈 만들기" : "이슈 만들기"}
-      </Hb.Dialog.Title>
-      <Hb.Dialog.Content
-        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-      >
+      <Hb.Dialog.Title>{defaultParentId ? "하위 이슈 만들기" : "이슈 만들기"}</Hb.Dialog.Title>
+      <Hb.Dialog.Content sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Hb.TextField
           label="제목"
           value={fields.title}
@@ -85,9 +81,7 @@ export const CreateIssueDialog = ({
             <Hb.Form.Select
               value={fields.priority}
               label="우선순위"
-              onChange={(e) =>
-                fields.setPriority(e.target.value as IssuePriority)
-              }
+              onChange={(e) => fields.setPriority(e.target.value as IssuePriority)}
             >
               {Object.entries(ISSUE_PRIORITY_LABEL).map(([k, label]) => (
                 <Hb.Menu.Item key={k} value={k}>
@@ -127,10 +121,7 @@ export const CreateIssueDialog = ({
           />
         </Hb.Box>
         <Hb.Box>
-          <Hb.Text
-            variant="body2"
-            sx={{ mb: 0.5, fontSize: 13, color: "text.secondary" }}
-          >
+          <Hb.Text variant="body2" sx={{ mb: 0.5, fontSize: 13, color: "text.secondary" }}>
             라벨
           </Hb.Text>
           <Hb.Box
@@ -152,9 +143,7 @@ export const CreateIssueDialog = ({
                   label={label.name}
                   size="small"
                   onDelete={() =>
-                    fields.setSelectedLabels((prev) =>
-                      prev.filter((id) => id !== labelId),
-                    )
+                    fields.setSelectedLabels((prev) => prev.filter((id) => id !== labelId))
                   }
                   sx={{
                     height: 22,
@@ -187,9 +176,7 @@ export const CreateIssueDialog = ({
             selectedIds={new Set(fields.selectedLabels)}
             onToggle={(labelId) => {
               fields.setSelectedLabels((prev) =>
-                prev.includes(labelId)
-                  ? prev.filter((id) => id !== labelId)
-                  : [...prev, labelId],
+                prev.includes(labelId) ? prev.filter((id) => id !== labelId) : [...prev, labelId],
               );
             }}
           />

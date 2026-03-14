@@ -1,8 +1,4 @@
-export type {
-  PageTreeNode,
-  PageVersionType,
-  SearchResultType,
-} from "./api/wiki-page.type";
+export type { PageTreeNode, PageVersionType, SearchResultType } from "./api/wiki-page.type";
 export { wikiPageQueries } from "./api/wiki-page.queries";
 export { useCreatePage } from "./model/useCreatePage";
 export { useUpdatePage } from "./model/useUpdatePage";

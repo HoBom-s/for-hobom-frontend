@@ -1,9 +1,5 @@
 import { DeleteOutline } from "hobom-design-system/icons";
-import {
-  useChatSession,
-  ChatMessageList,
-  ChatInput,
-} from "@/features/privacy-law-chat";
+import { useChatSession, ChatMessageList, ChatInput } from "@/features/privacy-law-chat";
 import { Hb } from "@/shared/ui";
 
 const PrivacyLawChatPage = () => {
@@ -13,9 +9,8 @@ const PrivacyLawChatPage = () => {
     <Hb.Stack sx={{ height: "calc(100vh - 240px)", minHeight: 400 }}>
       <Hb.Alert severity="info" variant="outlined" sx={{ mb: 1.5 }}>
         <Hb.Text variant="caption" component="div">
-          <strong>Gemini Free Plan</strong> 사용 중 — 분당 15회 요청 / 일
-          1,500회 / 분당 100만 토큰 제한이 적용됩니다. 응답이 느리거나 실패할 수
-          있어요.
+          <strong>Gemini Free Plan</strong> 사용 중 — 분당 15회 요청 / 일 1,500회 / 분당 100만 토큰
+          제한이 적용됩니다. 응답이 느리거나 실패할 수 있어요.
         </Hb.Text>
       </Hb.Alert>
 

@@ -45,13 +45,10 @@ describe("useAssignIssue (integration)", () => {
 
   it("성공 시 담당자를 할당하고 issues 쿼리를 무효화한다", async () => {
     server.use(
-      http.patch(
-        `${API_BASE}/projects/:projectId/issues/:issueId/assignee`,
-        () => HttpResponse.json({ success: true }),
+      http.patch(`${API_BASE}/projects/:projectId/issues/:issueId/assignee`, () =>
+        HttpResponse.json({ success: true }),
       ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();
@@ -76,13 +73,10 @@ describe("useAssignIssue (integration)", () => {
 
   it("assignee를 undefined로 전달하면 미할당으로 변경한다", async () => {
     server.use(
-      http.patch(
-        `${API_BASE}/projects/:projectId/issues/:issueId/assignee`,
-        () => HttpResponse.json({ success: true }),
+      http.patch(`${API_BASE}/projects/:projectId/issues/:issueId/assignee`, () =>
+        HttpResponse.json({ success: true }),
       ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();
@@ -112,13 +106,10 @@ describe("useAssignIssue (integration)", () => {
 
   it("서버 에러(500) 시 캐시를 롤백하고 에러 토스트를 표시한다", async () => {
     server.use(
-      http.patch(
-        `${API_BASE}/projects/:projectId/issues/:issueId/assignee`,
-        () => HttpResponse.json(null, { status: 500 }),
+      http.patch(`${API_BASE}/projects/:projectId/issues/:issueId/assignee`, () =>
+        HttpResponse.json(null, { status: 500 }),
       ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();
@@ -150,13 +141,10 @@ describe("useAssignIssue (integration)", () => {
 
   it("네트워크 에러 시 캐시를 롤백하고 에러 토스트를 표시한다", async () => {
     server.use(
-      http.patch(
-        `${API_BASE}/projects/:projectId/issues/:issueId/assignee`,
-        () => HttpResponse.error(),
+      http.patch(`${API_BASE}/projects/:projectId/issues/:issueId/assignee`, () =>
+        HttpResponse.error(),
       ),
-      http.get(`${API_BASE}/projects/:projectId/issues`, () =>
-        HttpResponse.json(ISSUES_RESPONSE),
-      ),
+      http.get(`${API_BASE}/projects/:projectId/issues`, () => HttpResponse.json(ISSUES_RESPONSE)),
     );
 
     const queryClient = createTestQueryClient();

@@ -7,10 +7,7 @@ interface CreateProjectDialogProps {
   onClose: () => void;
 }
 
-export const CreateProjectDialog = ({
-  open,
-  onClose,
-}: CreateProjectDialogProps) => {
+export const CreateProjectDialog = ({ open, onClose }: CreateProjectDialogProps) => {
   const [key, setKey] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -38,9 +35,7 @@ export const CreateProjectDialog = ({
   return (
     <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
       <Hb.Dialog.Title>프로젝트 만들기</Hb.Dialog.Title>
-      <Hb.Dialog.Content
-        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-      >
+      <Hb.Dialog.Content sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Hb.TextField
           label="프로젝트 키"
           placeholder="PROJ"

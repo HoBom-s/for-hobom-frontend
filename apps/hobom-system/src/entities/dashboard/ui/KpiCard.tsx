@@ -11,24 +11,14 @@ interface KpiCardProps {
   icon?: ReactNode;
 }
 
-export const KpiCard = ({
-  label,
-  value,
-  suffix,
-  trend,
-  icon,
-}: KpiCardProps) => {
+export const KpiCard = ({ label, value, suffix, trend, icon }: KpiCardProps) => {
   return (
     <DashboardPaper sx={{ height: "100%" }}>
       <Hb.Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
         <Hb.Text variant="body2" color="text.secondary">
           {label}
         </Hb.Text>
-        {icon && (
-          <Hb.Box sx={{ color: "text.secondary", display: "flex" }}>
-            {icon}
-          </Hb.Box>
-        )}
+        {icon && <Hb.Box sx={{ color: "text.secondary", display: "flex" }}>{icon}</Hb.Box>}
       </Hb.Box>
       <Hb.Box sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
         <Hb.Text variant="h4" fontWeight={700}>
