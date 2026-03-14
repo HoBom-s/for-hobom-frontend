@@ -46,6 +46,7 @@ const pageImports = {
   wikiPageView: () => import("@/pages/wiki-page-view"),
   dashboardLog: () => import("@/pages/dashboard-log"),
   errorMonitoring: () => import("@/pages/error-monitoring"),
+  dlq: () => import("@/pages/dlq"),
   privacyLawLayout: () => import("@/pages/privacy-law-layout"),
   privacyLawVersions: () => import("@/pages/privacy-law-versions"),
   privacyLawVersionDetail: () => import("@/pages/privacy-law-version-detail"),
@@ -84,6 +85,7 @@ const WikiSpaceHomePage = lazy(pageImports.wikiSpaceHome);
 const WikiPageViewPage = lazy(pageImports.wikiPageView);
 const DashboardLogPage = lazy(pageImports.dashboardLog);
 const ErrorMonitoringPage = lazy(pageImports.errorMonitoring);
+const DlqPage = lazy(pageImports.dlq);
 const PrivacyLawLayoutPage = lazy(pageImports.privacyLawLayout);
 const PrivacyLawVersionsPage = lazy(pageImports.privacyLawVersions);
 const PrivacyLawVersionDetailPage = lazy(pageImports.privacyLawVersionDetail);
@@ -114,6 +116,7 @@ const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.DASHBOARD.SYSTEM]: [pageImports.dashboardSystem],
   [RoutesConfig.DASHBOARD.LOGS]: [pageImports.dashboardLog],
   [RoutesConfig.DASHBOARD.ERRORS]: [pageImports.errorMonitoring],
+  [RoutesConfig.DASHBOARD.DLQ]: [pageImports.dlq],
   [RoutesConfig.WIKI.SPACES]: [
     pageImports.wikiSpaces,
     pageImports.wikiSpaceLayout,
@@ -287,6 +290,14 @@ export const AppRouter = () => {
           element={
             <Shell>
               <ErrorMonitoringPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.DASHBOARD.DLQ}
+          element={
+            <Shell>
+              <DlqPage />
             </Shell>
           }
         />

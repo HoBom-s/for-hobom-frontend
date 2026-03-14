@@ -54,6 +54,7 @@ export const RoutesConfig = {
     SYSTEM: "/dashboard/system",
     LOGS: "/dashboard/logs",
     ERRORS: "/dashboard/errors",
+    DLQ: "/dashboard/dlq",
   },
   NOT_FOUND: {
     ALL: "*",
