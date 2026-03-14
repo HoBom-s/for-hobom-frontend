@@ -27,6 +27,7 @@ export const NoteTrashActions = () => {
       </Hb.Box>
       <Hb.Button
         size="small"
+        variant="ghost"
         startIcon={<DeleteForeverOutlined sx={{ fontSize: 16 }} />}
         onClick={() => emptyTrash.mutate()}
         disabled={emptyTrash.isPending}

@@ -41,6 +41,7 @@ const PrivacyLawStudyDetailPage = () => {
         onClick={() => navigate("/privacy-law/study")}
         sx={{ mb: 2 }}
         size="small"
+        variant="ghost"
       >
         목록으로
       </Hb.Button>

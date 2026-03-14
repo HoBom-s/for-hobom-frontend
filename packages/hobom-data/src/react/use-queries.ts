@@ -4,22 +4,27 @@ import { QueryObserver } from "./query-observer";
 import { useDataLot } from "./use-data-lot";
 import type { UseQueryOptions, UseQueryResult } from "./types";
 
-interface UseQueriesOptions {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  queries: UseQueryOptions<any, any, any>[];
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type UseQueriesResult = UseQueryResult<any, any>[];
+type InferQueryData<T> = T extends { queryFn: (...args: any[]) => Promise<infer TData> }
+  ? TData
+  : unknown;
 
-export function useQueries(options: UseQueriesOptions): UseQueriesResult {
+type MapQueryResults<T extends readonly unknown[]> = {
+  [K in keyof T]: UseQueryResult<InferQueryData<T[K]>>;
+};
+
+export function useQueries<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const T extends readonly UseQueryOptions<any, any, any>[],
+>(options: { queries: [...T] }): MapQueryResults<T> {
   const dataLot = useDataLot();
 
   const queriesHash = options.queries.map((q) => hashKey(q.queryKey)).join(",");
 
   const observersRef = useRef<QueryObserver[] | null>(null);
   const prevHashRef = useRef<string>("");
-  const cachedResultsRef = useRef<UseQueriesResult | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cachedResultsRef = useRef<UseQueryResult<any, any>[] | null>(null);
 
   if (!observersRef.current || prevHashRef.current !== queriesHash) {
     observersRef.current = options.queries.map(
@@ -43,7 +48,7 @@ export function useQueries(options: UseQueriesOptions): UseQueriesResult {
     };
   }, [observers]);
 
-  const buildResults = (): UseQueriesResult => observers.map((observer) => observer.getResult());
+  const buildResults = (): UseQueryResult[] => observers.map((observer) => observer.getResult());
 
   const subscribeAll = (onStoreChange: () => void) => {
     const unsubscribes = observers.map((obs) =>
@@ -68,5 +73,5 @@ export function useQueries(options: UseQueriesOptions): UseQueriesResult {
 
   useSyncExternalStore(subscribeAll, getSnapshot, getSnapshot);
 
-  return cachedResultsRef.current;
+  return cachedResultsRef.current as MapQueryResults<T>;
 }

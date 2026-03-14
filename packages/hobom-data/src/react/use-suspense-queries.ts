@@ -2,25 +2,29 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 import { hashKey } from "../core/hash-key";
 import { QueryObserver } from "./query-observer";
 import { useDataLot } from "./use-data-lot";
-import type { QueryKey } from "../core/types";
 import type { UseSuspenseQueryOptions, UseSuspenseQueryResult } from "./types";
 
-interface SuspenseQueriesOptions {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  queries: UseSuspenseQueryOptions<any, QueryKey>[];
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type SuspenseQueriesResult = UseSuspenseQueryResult<any>[];
+type InferQueryData<T> = T extends { queryFn: (...args: any[]) => Promise<infer TData> }
+  ? TData
+  : unknown;
 
-export function useSuspenseQueries(options: SuspenseQueriesOptions): SuspenseQueriesResult {
+type MapSuspenseResults<T extends readonly unknown[]> = {
+  [K in keyof T]: UseSuspenseQueryResult<InferQueryData<T[K]>>;
+};
+
+export function useSuspenseQueries<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const T extends readonly UseSuspenseQueryOptions<any, any>[],
+>(options: { queries: [...T] }): MapSuspenseResults<T> {
   const dataLot = useDataLot();
 
   const queriesHash = options.queries.map((q) => hashKey(q.queryKey)).join(",");
 
   const observersRef = useRef<QueryObserver[] | null>(null);
   const prevHashRef = useRef<string>("");
-  const cachedResultsRef = useRef<SuspenseQueriesResult | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cachedResultsRef = useRef<UseSuspenseQueryResult<any>[] | null>(null);
 
   if (!observersRef.current || prevHashRef.current !== queriesHash) {
     observersRef.current = options.queries.map(
@@ -44,7 +48,8 @@ export function useSuspenseQueries(options: SuspenseQueriesOptions): SuspenseQue
     };
   }, [observers]);
 
-  const buildResults = (): SuspenseQueriesResult =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const buildResults = (): UseSuspenseQueryResult<any>[] =>
     observers.map((observer) => {
       const result = observer.getResult();
 
@@ -107,6 +112,7 @@ export function useSuspenseQueries(options: SuspenseQueriesOptions): SuspenseQue
   // after Suspense throw (mount/useEffect never ran, so no subscription update).
   return observers.map((observer) => {
     const state = observer.getQuery().getState();
+
     return {
       data: state.data,
       error: null,
@@ -115,5 +121,5 @@ export function useSuspenseQueries(options: SuspenseQueriesOptions): SuspenseQue
       isFetching: state.fetchStatus === "fetching",
       refetch: () => observer.getQuery().fetch(),
     };
-  });
+  }) as MapSuspenseResults<T>;
 }

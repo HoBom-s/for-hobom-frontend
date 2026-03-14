@@ -250,6 +250,56 @@ describe("Query", () => {
     });
   });
 
+  describe("structural sharing", () => {
+    it("동일한 데이터를 반환하면 이전 참조를 유지한다", async () => {
+      let callCount = 0;
+      const query = createQuery({
+        queryFn: async () => {
+          callCount++;
+
+          return { items: [{ id: 1 }, { id: 2 }], total: 2 };
+        },
+        staleTime: 0,
+      });
+
+      await query.fetch();
+      const firstData = query.getState().data;
+
+      // 두 번째 fetch — 동일한 구조의 데이터 반환
+      await query.fetch();
+      const secondData = query.getState().data;
+
+      expect(callCount).toBe(2);
+      expect(secondData).toBe(firstData); // 참조 동일
+    });
+
+    it("데이터 일부가 변경되면 변경된 부분만 새 참조", async () => {
+      let done = false;
+      const query = createQuery({
+        queryFn: async () => ({
+          items: [
+            { id: 1, name: "a" },
+            { id: 2, name: done ? "changed" : "b" },
+          ],
+        }),
+        staleTime: 0,
+      });
+
+      await query.fetch();
+      const firstItems = (query.getState().data as { items: { id: number; name: string }[] }).items;
+      const firstItem0 = firstItems[0];
+
+      done = true;
+      await query.fetch();
+      const secondItems = (query.getState().data as { items: { id: number; name: string }[] })
+        .items;
+
+      expect(secondItems).not.toBe(firstItems); // 배열 자체는 변경
+      expect(secondItems[0]).toBe(firstItem0); // 첫 번째 아이템은 동일 → 참조 유지
+      expect(secondItems[1]).not.toBe(firstItems[1]); // 두 번째 아이템은 변경
+    });
+  });
+
   it("상태 변경 시 리스너에 알린다", async () => {
     const listener = vi.fn();
     const query = createQuery();

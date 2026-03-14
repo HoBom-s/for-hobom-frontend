@@ -448,7 +448,7 @@ describe("낙관적 업데이트", () => {
       mutationFn: () => Promise.reject(new Error("server-error")),
       onMutate: async () => {
         await client.cancelQueries({ queryKey: ["optimistic"] });
-        const previousData = client.getQueryData<string[]>(["optimistic"]);
+        const previousData = client.getQueryData<string[]>(["optimistic"]) ?? [];
 
         client.setQueryData<string[]>(["optimistic"], (old) => [...(old ?? []), "item-2"]);
 

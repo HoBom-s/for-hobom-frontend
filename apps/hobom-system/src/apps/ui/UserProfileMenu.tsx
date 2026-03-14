@@ -127,7 +127,7 @@ const LogoutSection = ({
   <Hb.Box sx={{ px: 2.5, py: 1.5 }}>
     <Hb.Button
       fullWidth
-      variant="danger"
+      variant="secondary"
       size="small"
       startIcon={<Logout fontSize="small" />}
       loading={isLoggingOut}

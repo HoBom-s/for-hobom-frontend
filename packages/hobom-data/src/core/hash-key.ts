@@ -1,5 +1,4 @@
-const isPlainObject = (value: unknown): value is Record<string, unknown> =>
-  value !== null && typeof value === "object" && Object.getPrototypeOf(value) === Object.prototype;
+import { isPlainObject } from "./is-plain-object";
 
 export const hashKey = (key: readonly unknown[]): string =>
   JSON.stringify(key, (_, val: unknown) =>

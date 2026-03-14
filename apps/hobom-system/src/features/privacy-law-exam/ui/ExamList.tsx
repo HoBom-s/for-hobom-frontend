@@ -33,7 +33,7 @@ export const ExamList = () => {
   return (
     <Hb.Stack spacing={2}>
       <Hb.Button
-        variant="primary"
+        variant="secondary"
         startIcon={<AddCircleOutline />}
         onClick={() => generate()}
         loading={isPending}

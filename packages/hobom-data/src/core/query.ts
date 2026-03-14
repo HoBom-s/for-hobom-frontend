@@ -1,3 +1,4 @@
+import { replaceEqualDeep } from "./structural-sharing";
 import { Subscribable } from "./subscribable";
 import type { QueryKey, QueryOptions, QueryState } from "./types";
 
@@ -108,10 +109,12 @@ export class Query<TData = unknown, TError = Error> extends Subscribable {
 
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
-        const data = await this.options.queryFn({
+        const rawData = await this.options.queryFn({
           queryKey: this.queryKey,
           signal: this.abortController!.signal,
         });
+
+        const data = replaceEqualDeep(this.state.data, rawData) as TData;
 
         this.setState({
           status: "success",

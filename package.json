@@ -9,8 +9,8 @@
     "typecheck": "pnpm -r --parallel typecheck",
     "lint": "pnpm -r --parallel lint",
     "lint:fix": "pnpm -r --parallel exec eslint --fix .",
-    "test": "pnpm -r --parallel test",
-    "test:coverage": "pnpm -r --parallel test:coverage",
+    "test": "pnpm -r --parallel exec vitest run",
+    "test:coverage": "pnpm -r --parallel exec vitest run --coverage",
     "format": "prettier . --write",
     "knip": "knip"
   },

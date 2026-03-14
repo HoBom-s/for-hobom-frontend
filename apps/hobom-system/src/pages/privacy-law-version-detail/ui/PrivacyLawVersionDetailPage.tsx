@@ -17,6 +17,7 @@ const PrivacyLawVersionDetailPage = () => {
         onClick={() => navigate("/privacy-law/versions")}
         sx={{ mb: 2 }}
         size="small"
+        variant="ghost"
       >
         목록으로
       </Hb.Button>
