@@ -1,11 +1,11 @@
 import { type ReactNode, useState } from "react";
 import { Add, CheckCircleOutline } from "hobom-design-system/icons";
 import {
-  DailyTodoAddButton,
   isCompleteStatus,
   type DailyTodoType,
   type DailyTodoWithCategoryType,
 } from "@/entities/daily-todo";
+import { DailyTodoAddButton } from "@/entities/daily-todo/ui";
 import { Hb } from "@/shared/ui";
 import { CategoryCreateDialog } from "./CategoryCreateDialog";
 import { CategoryMenu } from "./CategoryMenu";

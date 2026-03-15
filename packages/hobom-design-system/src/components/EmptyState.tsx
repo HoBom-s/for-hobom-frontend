@@ -7,7 +7,6 @@ interface EmptyStateProps {
 }
 
 /** 데이터가 없을 때 표시하는 빈 상태 컴포넌트. */
-/** 데이터가 없을 때 표시하는 빈 상태 컴포넌트. */
 export const EmptyState = ({ icon, message }: EmptyStateProps) => (
   <Box
     sx={{

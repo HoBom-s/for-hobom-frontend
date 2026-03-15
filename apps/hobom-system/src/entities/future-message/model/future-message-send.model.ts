@@ -1,10 +1,10 @@
-import { z } from "zod";
+import { HoBomSchema, type Infer } from "hobom-schema";
 
-export const FutureMessageSendSchema = z.object({
-  recipientId: z.string().min(1),
-  title: z.string().min(1),
-  content: z.string().min(1),
-  scheduledAt: z.string().min(1),
+export const FutureMessageSendSchema = HoBomSchema.object({
+  recipientId: HoBomSchema.string().min(1),
+  title: HoBomSchema.string().min(1),
+  content: HoBomSchema.string().min(1),
+  scheduledAt: HoBomSchema.string().min(1),
 });
 
-export type FutureMessageSendSchemaType = z.infer<typeof FutureMessageSendSchema>;
+export type FutureMessageSendSchemaType = Infer<typeof FutureMessageSendSchema>;

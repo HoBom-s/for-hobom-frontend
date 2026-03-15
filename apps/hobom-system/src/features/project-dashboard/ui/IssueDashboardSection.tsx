@@ -4,7 +4,8 @@ import {
   CheckCircleOutline,
   WarningAmberOutlined,
 } from "hobom-design-system/icons";
-import { DashboardPaper, KpiCard, type ProjectIssueDashboardDto } from "@/entities/dashboard";
+import type { ProjectIssueDashboardDto } from "@/entities/dashboard";
+import { DashboardPaper, KpiCard } from "@/entities/dashboard/ui";
 import { Hb } from "@/shared/ui";
 import { StatusDistributionChart } from "./StatusDistributionChart";
 import { PriorityDistributionChart } from "./PriorityDistributionChart";

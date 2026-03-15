@@ -1,5 +1,5 @@
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";
-import { NotificationItem } from "@/entities/notification";
+import { NotificationItem } from "@/entities/notification/ui";
 import { EMPTY_MESSAGES } from "@/features/notification";
 import { SUBTLE_SCROLLBAR_SX } from "@/shared/config";
 import { Hb } from "@/shared/ui";

@@ -2,11 +2,8 @@ import { type ReactNode, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Bom } from "hobom-utils";
-import {
-  MenuRecommendationListItem,
-  useAddCandidatesTodayMenu,
-  validateTodayMenuInput,
-} from "@/entities/menu-recommendation";
+import { useAddCandidatesTodayMenu, validateTodayMenuInput } from "@/entities/menu-recommendation";
+import { MenuRecommendationListItem } from "@/entities/menu-recommendation/ui";
 import { Hb, HoBomSkeleton } from "@/shared/ui";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";

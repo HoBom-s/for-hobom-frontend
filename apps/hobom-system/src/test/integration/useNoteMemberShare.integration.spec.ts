@@ -1,3 +1,4 @@
+// @vitest-environment happy-dom
 import { renderHook, waitFor, act } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { toast } from "react-toastify";

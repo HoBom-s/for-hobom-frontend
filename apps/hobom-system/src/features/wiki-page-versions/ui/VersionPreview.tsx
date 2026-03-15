@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useSuspenseQuery } from "hobom-data";
 import { wikiPageQueries } from "@/entities/wiki-page";
-import { sanitizeHtml } from "@/shared/lib";
+import { sanitizeHtml } from "@/shared/lib/sanitize-html.lib";
 import { Hb } from "@/shared/ui";
 
 interface VersionPreviewProps {

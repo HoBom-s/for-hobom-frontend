@@ -1,10 +1,10 @@
-import { z } from "zod";
+import { HoBomSchema, type Infer } from "hobom-schema";
 
-export const NoteStatusModel = z.enum(["ACTIVE", "ARCHIVED", "TRASHED"]);
-export type NoteStatus = z.infer<typeof NoteStatusModel>;
+export const NoteStatusModel = HoBomSchema.enum(["ACTIVE", "ARCHIVED", "TRASHED"]);
+export type NoteStatus = Infer<typeof NoteStatusModel>;
 
-export const NoteTypeModel = z.enum(["TEXT", "CHECKLIST"]);
-export type NoteType = z.infer<typeof NoteTypeModel>;
+export const NoteTypeModel = HoBomSchema.enum(["TEXT", "CHECKLIST"]);
+export type NoteType = Infer<typeof NoteTypeModel>;
 
-export const NoteRecurrenceModel = z.enum(["NONE", "DAILY", "WEEKLY", "MONTHLY"]);
-export type NoteRecurrence = z.infer<typeof NoteRecurrenceModel>;
+export const NoteRecurrenceModel = HoBomSchema.enum(["NONE", "DAILY", "WEEKLY", "MONTHLY"]);
+export type NoteRecurrence = Infer<typeof NoteRecurrenceModel>;

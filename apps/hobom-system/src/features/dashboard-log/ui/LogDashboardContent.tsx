@@ -5,12 +5,8 @@ import {
   ReportProblemOutlined,
   BugReportOutlined,
 } from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  KpiCard,
-  SYSTEM_PERIOD_HOURS,
-  type SystemPeriodType,
-} from "@/entities/dashboard";
+import { SYSTEM_PERIOD_HOURS, type SystemPeriodType } from "@/entities/dashboard";
+import { DashboardPaper, KpiCard } from "@/entities/dashboard/ui";
 import { logQueries } from "@/entities/log";
 import { Hb } from "@/shared/ui";
 import { computeKpiSummary } from "../lib/log-dashboard.lib";

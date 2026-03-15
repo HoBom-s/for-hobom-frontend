@@ -1,10 +1,10 @@
-import { z } from "zod";
+import { HoBomSchema, type Infer } from "hobom-schema";
 
-export const IssueKindModel = z.enum(["EPIC", "STORY", "TASK", "BUG", "SUBTASK"]);
-export type IssueKind = z.infer<typeof IssueKindModel>;
+export const IssueKindModel = HoBomSchema.enum(["EPIC", "STORY", "TASK", "BUG", "SUBTASK"]);
+export type IssueKind = Infer<typeof IssueKindModel>;
 
-export const IssuePriorityModel = z.enum(["CRITICAL", "HIGH", "MEDIUM", "LOW"]);
-export type IssuePriority = z.infer<typeof IssuePriorityModel>;
+export const IssuePriorityModel = HoBomSchema.enum(["CRITICAL", "HIGH", "MEDIUM", "LOW"]);
+export type IssuePriority = Infer<typeof IssuePriorityModel>;
 
 export const ISSUE_KIND_LABEL: Record<IssueKind, string> = {
   EPIC: "에픽",

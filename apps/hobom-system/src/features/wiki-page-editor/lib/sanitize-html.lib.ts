@@ -1,1 +1,1 @@
-export { sanitizeHtml } from "@/shared/lib";
+export { sanitizeHtml } from "@/shared/lib/sanitize-html.lib";

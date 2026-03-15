@@ -101,6 +101,9 @@ importers:
       hobom-design-system:
         specifier: workspace:*
         version: link:../../packages/hobom-design-system
+      hobom-schema:
+        specifier: workspace:*
+        version: link:../../packages/hobom-schema
       hobom-utils:
         specifier: workspace:*
         version: link:../../packages/hobom-utils
@@ -122,9 +125,6 @@ importers:
       recharts:
         specifier: ^3.7.0
         version: 3.8.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react-is@19.2.4)(react@19.2.4)(redux@5.0.1)
-      zod:
-        specifier: ^4.3.6
-        version: 4.3.6
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -186,6 +186,8 @@ importers:
       react-router-dom:
         specifier: ^7.6.1
         version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+
+  packages/hobom-schema: {}
 
   packages/hobom-utils:
     dependencies:

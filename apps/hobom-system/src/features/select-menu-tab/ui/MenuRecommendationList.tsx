@@ -2,7 +2,8 @@ import { Suspense } from "react";
 import { useSuspenseQuery } from "hobom-data";
 import { MenuBook } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
-import { menuQueries, MenuRecommendationListItem } from "@/entities/menu-recommendation";
+import { menuQueries } from "@/entities/menu-recommendation";
+import { MenuRecommendationListItem } from "@/entities/menu-recommendation/ui";
 import { Hb, HoBomSkeleton } from "@/shared/ui";
 
 export const MenuRecommendationList = () => (

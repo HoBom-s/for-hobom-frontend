@@ -1,6 +1,7 @@
 import { FolderOutlined } from "hobom-design-system/icons";
 import { useNavigate } from "react-router-dom";
-import { ProjectCard, type ProjectType } from "@/entities/project";
+import type { ProjectType } from "@/entities/project";
+import { ProjectCard } from "@/entities/project/ui";
 import { Hb } from "@/shared/ui";
 
 interface ProjectGridProps {

@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { HoBomSchema } from "hobom-schema";
 import { handleValidationResult, validateWithZod } from "./validate.lib";
 
-const TestSchema = z.object({
-  name: z.string().min(1),
-  age: z.number().positive(),
+const TestSchema = HoBomSchema.object({
+  name: HoBomSchema.string().min(1),
+  age: HoBomSchema.number().positive(),
 });
 
 describe("validateWithZod", () => {

@@ -1,10 +1,6 @@
 import { memo } from "react";
-import {
-  ISSUE_KIND_REGISTRY,
-  ISSUE_PRIORITY_LABEL,
-  ISSUE_PRIORITY_REGISTRY,
-  type IssueType,
-} from "@/entities/issue";
+import { ISSUE_PRIORITY_LABEL, type IssueType } from "@/entities/issue";
+import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "@/entities/issue/ui";
 import { getStatusName, getStatusColor, type WorkflowStatus } from "@/entities/project";
 import { Hb } from "@/shared/ui";
 import { type ColKey, BORDER_COLOR } from "./issue-list-constants";

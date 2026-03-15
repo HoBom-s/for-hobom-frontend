@@ -1,5 +1,6 @@
 import { SubdirectoryArrowRightOutlined } from "hobom-design-system/icons";
-import { ISSUE_KIND_LABEL, ISSUE_KIND_REGISTRY } from "@/entities/issue";
+import { ISSUE_KIND_LABEL } from "@/entities/issue";
+import { ISSUE_KIND_REGISTRY } from "@/entities/issue/ui";
 import { getStatusName, getStatusColor } from "@/entities/project";
 import { useProjectContext } from "@/shared/model";
 import { Hb } from "@/shared/ui";

@@ -8,7 +8,6 @@ import {
   validateTodayMenuInput,
   validateMenuRecommendationInput,
 } from "./model/validate-menu-recommendation.model";
-import { MenuRecommendationListItem } from "./ui/MenuRecommendationListItem";
 import { useTodayMenuId, TodayMenuIdContextProvider } from "./model/useTodayMenuIdContext";
 import type { AddMenuRecommendationInput } from "./model/menu-recommendation.model";
 import type { MenuRecommendationType } from "./api/menu-recommendation.type";
@@ -18,7 +17,6 @@ export {
   MenuKindModel,
   TimeOfMealModel,
   FoodTypeModel,
-  MenuRecommendationListItem,
   useAddCandidatesTodayMenu,
   validateTodayMenuInput,
   validateMenuRecommendationInput,

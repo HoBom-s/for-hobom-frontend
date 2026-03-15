@@ -1,11 +1,7 @@
 import { useSuspenseQuery } from "hobom-data";
 import { Speed, CheckCircle, ErrorOutline, HourglassEmpty } from "hobom-design-system/icons";
-import {
-  DashboardPaper,
-  dashboardQueries,
-  KpiCard,
-  type SystemPeriodType,
-} from "@/entities/dashboard";
+import { dashboardQueries, type SystemPeriodType } from "@/entities/dashboard";
+import { DashboardPaper, KpiCard } from "@/entities/dashboard/ui";
 import { Hb } from "@/shared/ui";
 import { ThroughputLineChart } from "./ThroughputLineChart";
 import { FailureTable } from "./FailureTable";

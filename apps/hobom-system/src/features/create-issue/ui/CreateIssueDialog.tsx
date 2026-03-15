@@ -2,12 +2,12 @@ import { AddOutlined } from "hobom-design-system/icons";
 import {
   ISSUE_KIND_LABEL,
   ISSUE_PRIORITY_LABEL,
-  ParentIssueAutocomplete,
   type IssueKind,
   type IssuePriority,
 } from "@/entities/issue";
+import { ParentIssueAutocomplete } from "@/entities/issue/ui";
 import type { SprintType } from "@/entities/sprint";
-import { ProjectLabelPicker } from "@/entities/project-label";
+import { ProjectLabelPicker } from "@/entities/project-label/ui";
 import { Hb } from "@/shared/ui";
 import { useCreateIssueForm } from "../model/useCreateIssueForm";
 

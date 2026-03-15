@@ -8,13 +8,8 @@ import {
   ChevronRightOutlined,
   ExpandMoreOutlined,
 } from "hobom-design-system/icons";
-import {
-  useUpdateIssue,
-  PARENT_ISSUE_KINDS,
-  ISSUE_KIND_REGISTRY,
-  ISSUE_PRIORITY_REGISTRY,
-  type IssueType,
-} from "@/entities/issue";
+import { useUpdateIssue, PARENT_ISSUE_KINDS, type IssueType } from "@/entities/issue";
+import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "@/entities/issue/ui";
 import { Hb } from "@/shared/ui";
 import { useBacklogContext } from "../model/useBacklogContext";
 

@@ -1,7 +1,7 @@
 import { DragIndicatorOutlined, LightbulbOutlined } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import { Hb, Sortable } from "@/shared/ui";
-import { NoteCard } from "@/entities/note";
+import { NoteCard } from "@/entities/note/ui";
 import type { NoteItemType, NoteStatus } from "@/entities/note";
 import { useNoteGrid } from "../model/useNoteGrid";
 

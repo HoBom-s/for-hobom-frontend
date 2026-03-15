@@ -1,6 +1,7 @@
 import { Suspense, useState } from "react";
 import { TextSnippetOutlined } from "hobom-design-system/icons";
-import { PeriodSelector, SystemPeriodModel, type SystemPeriodType } from "@/entities/dashboard";
+import { SystemPeriodModel, type SystemPeriodType } from "@/entities/dashboard";
+import { PeriodSelector } from "@/entities/dashboard/ui";
 import { LogDashboardContent } from "@/features/dashboard-log";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 

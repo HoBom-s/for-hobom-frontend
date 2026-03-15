@@ -2,14 +2,11 @@ import { useCallback, useMemo, useState } from "react";
 import { AddOutlined } from "hobom-design-system/icons";
 import { useQuery } from "hobom-data";
 import { useProjectContext, usePopoverState } from "@/shared/model";
-import {
-  ISSUE_KIND_LABEL,
-  ISSUE_PRIORITY_LABEL,
-  ISSUE_PRIORITY_REGISTRY,
-  ParentIssueAutocomplete,
-} from "@/entities/issue";
+import { ISSUE_KIND_LABEL, ISSUE_PRIORITY_LABEL } from "@/entities/issue";
+import { ISSUE_PRIORITY_REGISTRY, ParentIssueAutocomplete } from "@/entities/issue/ui";
 import { getStatusName, getStatusColor } from "@/entities/project";
-import { projectLabelQueries, ProjectLabelPicker } from "@/entities/project-label";
+import { projectLabelQueries } from "@/entities/project-label";
+import { ProjectLabelPicker } from "@/entities/project-label/ui";
 import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
 

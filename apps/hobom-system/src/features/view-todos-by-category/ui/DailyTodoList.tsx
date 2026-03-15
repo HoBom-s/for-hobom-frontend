@@ -1,5 +1,5 @@
 import { type ReactNode, Suspense } from "react";
-import { DailyTodoListItem } from "@/entities/daily-todo";
+import { DailyTodoListItem } from "@/entities/daily-todo/ui";
 import { Hb } from "@/shared/ui";
 import { DailyTodoListContentSection } from "./DailyTodoListContentSection";
 import { useDailyTodoList } from "../model/useDailyTodoList";

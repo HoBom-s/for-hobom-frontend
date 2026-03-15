@@ -10,6 +10,5 @@ export { useEmptyTrash } from "./model/useEmptyTrash";
 export { useReorderNote } from "./model/useReorderNote";
 export { useAddNoteMember } from "./model/useAddNoteMember";
 export { useRemoveNoteMember } from "./model/useRemoveNoteMember";
-export { NoteCard } from "./ui/NoteCard";
 
 export type { NoteItemType, ChecklistItemType, ReminderType } from "./api/note.type";

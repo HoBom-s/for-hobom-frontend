@@ -1,3 +1,4 @@
+// @vitest-environment happy-dom
 import { sanitizeHtml } from "./sanitize-html.lib";
 
 describe("sanitizeHtml", () => {

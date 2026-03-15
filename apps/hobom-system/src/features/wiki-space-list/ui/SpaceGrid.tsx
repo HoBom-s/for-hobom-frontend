@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from "hobom-data";
-import { wikiSpaceQueries, SpaceCard, type SpaceType } from "@/entities/wiki-space";
+import { wikiSpaceQueries, type SpaceType } from "@/entities/wiki-space";
+import { SpaceCard } from "@/entities/wiki-space/ui";
 import { Hb } from "@/shared/ui";
 
 interface SpaceGridProps {

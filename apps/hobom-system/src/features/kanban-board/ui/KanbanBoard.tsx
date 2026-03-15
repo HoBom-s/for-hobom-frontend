@@ -1,12 +1,8 @@
 import { useCallback, useMemo } from "react";
 import { ViewStreamOutlined } from "hobom-design-system/icons";
 import { useSuspenseQuery } from "hobom-data";
-import {
-  IssueCard,
-  getDescendantProgress,
-  useCreateIssue,
-  useTransitionIssue,
-} from "@/entities/issue";
+import { getDescendantProgress, useCreateIssue, useTransitionIssue } from "@/entities/issue";
+import { IssueCard } from "@/entities/issue/ui";
 import { boardQueries, DEFAULT_BOARD_COLUMNS, type BoardColumn } from "@/entities/board";
 import { useProjectContext } from "@/shared/model";
 import {

@@ -1,3 +1,4 @@
+// @vitest-environment happy-dom
 import { authMiddleware, UNAUTHORIZED_EVENT, resetUnauthorizedState } from "./auth.middleware";
 import type { MiddlewareContext } from "./middleware.type";
 

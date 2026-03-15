@@ -6,7 +6,8 @@ import {
   TrendingUp,
   DataUsageOutlined,
 } from "hobom-design-system/icons";
-import { DashboardPaper, dashboardQueries, KpiCard } from "@/entities/dashboard";
+import { dashboardQueries } from "@/entities/dashboard";
+import { DashboardPaper, KpiCard } from "@/entities/dashboard/ui";
 import { Hb, SuspenseLoader } from "@/shared/ui";
 
 interface SprintDashboardSectionProps {

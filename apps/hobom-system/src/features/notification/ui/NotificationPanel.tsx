@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";
-import { NotificationItem, type NotificationItemType } from "@/entities/notification";
+import type { NotificationItemType } from "@/entities/notification";
+import { NotificationItem } from "@/entities/notification/ui";
 import { RoutesConfig, SUBTLE_SCROLLBAR_SX } from "@/shared/config";
 import { useInfiniteScroll } from "@/shared/model";
 import { Hb } from "@/shared/ui";
@@ -132,6 +133,7 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
       <Hb.Box sx={{ px: 2, py: 1.5, textAlign: "center" }}>
         <Hb.Button
           size="small"
+          variant="ghost"
           onClick={() => {
             navigate(RoutesConfig.NOTIFICATION.LIST);
             onClose();

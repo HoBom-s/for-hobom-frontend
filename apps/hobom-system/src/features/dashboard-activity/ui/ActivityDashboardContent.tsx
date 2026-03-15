@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from "hobom-data";
 import { CalendarMonth, Today, TrendingUp } from "hobom-design-system/icons";
-import { DashboardPaper, dashboardQueries, KpiCard, type PeriodType } from "@/entities/dashboard";
+import { dashboardQueries, type PeriodType } from "@/entities/dashboard";
+import { DashboardPaper, KpiCard } from "@/entities/dashboard/ui";
 import { Hb } from "@/shared/ui";
 import { ActivityHeatmap } from "./ActivityHeatmap";
 import { ModuleUsageRadar } from "./ModuleUsageRadar";

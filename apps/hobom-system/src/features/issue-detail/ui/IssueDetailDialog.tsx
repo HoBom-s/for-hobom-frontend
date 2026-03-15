@@ -2,13 +2,8 @@ import { useMemo } from "react";
 import { CloseOutlined, PersonOffOutlined } from "hobom-design-system/icons";
 import { useProjectContext } from "@/shared/model";
 import { Hb, ErrorBoundary } from "@/shared/ui";
-import {
-  ISSUE_KIND_LABEL,
-  ISSUE_KIND_REGISTRY,
-  ISSUE_PRIORITY_LABEL,
-  ISSUE_PRIORITY_REGISTRY,
-  type IssuePriority,
-} from "@/entities/issue";
+import { ISSUE_KIND_LABEL, ISSUE_PRIORITY_LABEL, type IssuePriority } from "@/entities/issue";
+import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "@/entities/issue/ui";
 import { getStatusColor } from "@/entities/project";
 import { IssueDetailContext } from "../model/useIssueDetailContext";
 import { useIssueDetailState } from "../model/useIssueDetailState";
