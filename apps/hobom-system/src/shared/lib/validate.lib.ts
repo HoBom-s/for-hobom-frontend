@@ -18,9 +18,6 @@ export const validateWithSchema =
       : new Error(parsed.error.issues.map((i) => i.message).join(", "));
   };
 
-/** @deprecated `validateWithSchema`를 사용하세요. */
-export const validateWithZod = validateWithSchema;
-
 /**
  * `validateWithSchema` 반환값(T | Error)을 Result 패턴으로 분기하는 핸들러.
  * `result`가 `Error`이면 `onError`, 아니면 `onSuccess`를 호출한다.

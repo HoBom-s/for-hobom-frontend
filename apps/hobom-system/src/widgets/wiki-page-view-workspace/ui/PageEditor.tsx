@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { VisibilityOutlined } from "hobom-design-system/icons";
 import { useUpdatePage, UpdatePageSchema } from "@/entities/wiki-page";
-import { validateWithZod } from "@/shared/lib";
+import { validateWithSchema } from "@/shared/lib";
 import { useToast } from "@/shared/model";
 import { usePageEditor, PageEditorContent } from "@/features/wiki-page-editor";
 import { Hb } from "@/shared/ui";
 
-const validatePageUpdate = validateWithZod(UpdatePageSchema);
+const validatePageUpdate = validateWithSchema(UpdatePageSchema);
 
 export const PageEditor = ({
   spaceKey,

@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
+import { Grid, useClientRowModel, useColumnResize, usePagination } from "@hobom-grid/react";
 import type { IssueType } from "@/entities/issue";
 import type { WorkflowStatus } from "@/entities/project";
-import { EmptyState } from "@/shared/ui";
+import type { ProjectLabelType } from "@/entities/project-label";
+import { EmptyState, Hb } from "@/shared/ui";
 import {
   COLUMNS,
   type ColKey,
@@ -20,6 +21,8 @@ import type { CellVM } from "@hobom-grid/core";
 interface IssueGridProps {
   items: IssueType[];
   statuses: WorkflowStatus[];
+  labelMap: Map<string, ProjectLabelType>;
+  memberMap: Map<string, string>;
   filter: (row: IssueType) => boolean;
   sort: { key: keyof IssueType; direction: "asc" | "desc" }[];
   sortKey: ColKey | null;
@@ -32,6 +35,8 @@ interface IssueGridProps {
 export const IssueGrid = ({
   items,
   statuses,
+  labelMap,
+  memberMap,
   filter,
   sort,
   sortKey,
@@ -56,11 +61,13 @@ export const IssueGrid = ({
     return () => observer.disconnect();
   }, []);
 
-  const rowModel = useClientRowModel(items, {
+  const clientRowModel = useClientRowModel(items, {
     getId: (r) => r.id,
     filter,
     sort,
   });
+
+  const pagination = usePagination(clientRowModel, { initialPageSize: 20 });
 
   const initialWidths = useMemo(() => {
     if (containerWidth === 0) return {};
@@ -75,6 +82,7 @@ export const IssueGrid = ({
 
   const colResize = useColumnResize(initialWidths, MIN_COL_WIDTH);
 
+  const { rowModel } = pagination;
   const gridHeight = Math.min(40 + rowModel.rowCount * 40, 640);
 
   const renderCell = useCallback(
@@ -105,37 +113,88 @@ export const IssueGrid = ({
           row={row}
           bg={bg}
           statuses={statuses}
+          labelMap={labelMap}
+          memberMap={memberMap}
           onStatusClick={onStatusClick}
           onRowClick={onRowClick}
         />
       );
     },
-    [rowModel, statuses, sortKey, sortDir, onHeaderClick, onStatusClick, onRowClick, colResize],
+    [
+      rowModel,
+      statuses,
+      labelMap,
+      memberMap,
+      sortKey,
+      sortDir,
+      onHeaderClick,
+      onStatusClick,
+      onRowClick,
+      colResize,
+    ],
   );
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        width: "100%",
-        border: `1px solid ${BORDER_COLOR}`,
-        borderRadius: 8,
-        overflow: "hidden",
-      }}
-    >
-      {containerWidth > 0 && (
-        <Grid
-          rowCount={rowModel.rowCount}
-          colCount={COLUMNS.length}
-          defaultRowHeight={40}
-          defaultColWidth={Math.floor(containerWidth / COLUMNS.length)}
-          colSizes={colResize.colWidths}
-          headerRowCount={HEADER_ROW_COUNT}
-          renderCell={renderCell}
-          style={{ width: "100%", height: gridHeight }}
-        />
+    <Hb.Box>
+      <div
+        ref={containerRef}
+        style={{
+          width: "100%",
+          border: `1px solid ${BORDER_COLOR}`,
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
+        {containerWidth > 0 && (
+          <Grid
+            rowCount={rowModel.rowCount}
+            colCount={COLUMNS.length}
+            defaultRowHeight={40}
+            defaultColWidth={Math.floor(containerWidth / COLUMNS.length)}
+            colSizes={colResize.colWidths}
+            headerRowCount={HEADER_ROW_COUNT}
+            renderCell={renderCell}
+            style={{ width: "100%", height: gridHeight }}
+          />
+        )}
+        {rowModel.rowCount === 0 && <EmptyState message="조건에 맞는 이슈가 없어요" />}
+      </div>
+      {pagination.totalPages > 1 && (
+        <Hb.Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mt: 1.5,
+            px: 1,
+          }}
+        >
+          <Hb.Text variant="body2" color="text.secondary">
+            총 {pagination.totalRows}건
+          </Hb.Text>
+          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Hb.Button
+              size="small"
+              variant="secondary"
+              disabled={!pagination.canGoPrev}
+              onClick={pagination.goPrev}
+            >
+              이전
+            </Hb.Button>
+            <Hb.Text variant="body2">
+              {pagination.currentPage + 1} / {pagination.totalPages}
+            </Hb.Text>
+            <Hb.Button
+              size="small"
+              variant="secondary"
+              disabled={!pagination.canGoNext}
+              onClick={pagination.goNext}
+            >
+              다음
+            </Hb.Button>
+          </Hb.Box>
+        </Hb.Box>
       )}
-      {rowModel.rowCount === 0 && <EmptyState message="조건에 맞는 이슈가 없어요" />}
-    </div>
+    </Hb.Box>
   );
 };

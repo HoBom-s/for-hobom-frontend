@@ -16,8 +16,8 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@hobom-grid/core": "^0.1.2",
-    "@hobom-grid/react": "^0.1.2",
+    "@hobom-grid/core": "^0.2.0",
+    "@hobom-grid/react": "^0.2.0",
     "@tiptap/extension-link": "^3.20.0",
     "@tiptap/extension-placeholder": "^3.20.0",
     "@tiptap/extension-underline": "^3.20.0",

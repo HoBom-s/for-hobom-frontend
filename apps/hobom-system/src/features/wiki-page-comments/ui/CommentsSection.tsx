@@ -1,5 +1,5 @@
 import { useCreateComment, CreateCommentSchema } from "@/entities/wiki-comment";
-import { validateWithZod } from "@/shared/lib";
+import { validateWithSchema } from "@/shared/lib";
 import { useToast } from "@/shared/model";
 import type { UserType } from "@/entities/user";
 import { Hb } from "@/shared/ui";
@@ -13,7 +13,7 @@ interface CommentsSectionProps {
   userInfo: UserType;
 }
 
-const validateComment = validateWithZod(CreateCommentSchema);
+const validateComment = validateWithSchema(CreateCommentSchema);
 
 export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionProps) => {
   const { comments, totalCount, loadedCount, hasNextPage, fetchNextPage, isFetchingNextPage } =

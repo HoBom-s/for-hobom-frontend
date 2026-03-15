@@ -1,4 +1,7 @@
-import { useSuspenseQuery } from "hobom-data";
+import { useMemo } from "react";
+import { useQuery, useSuspenseQuery } from "hobom-data";
+import { useCsvExport } from "@hobom-grid/react";
+import { CloudDownloadOutlined } from "hobom-design-system/icons";
 import { useProjectContext } from "@/shared/model";
 import {
   issueQueries,
@@ -6,8 +9,11 @@ import {
   ISSUE_PRIORITY_LABEL,
   type IssueKind,
   type IssuePriority,
+  type IssueType,
 } from "@/entities/issue";
 import { getStatusColor } from "@/entities/project";
+import { projectLabelQueries } from "@/entities/project-label";
+import { userQueries } from "@/entities/user";
 import { Hb, EmptyState } from "@/shared/ui";
 import { useIssueListFilters } from "../model/useIssueListFilters";
 import { useStatusTransitionMenu } from "../model/useStatusTransitionMenu";
@@ -21,6 +27,16 @@ interface IssueListTableProps {
 export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps) => {
   const { statuses, transitions } = useProjectContext();
   const { data } = useSuspenseQuery(issueQueries.listByProject(projectId));
+  const { data: labelData } = useQuery(projectLabelQueries.listByProject(projectId));
+  const labelMap = useMemo(
+    () => new Map((labelData?.items ?? []).map((l) => [l.id, l])),
+    [labelData?.items],
+  );
+  const { data: usersData } = useQuery(userQueries.list());
+  const memberMap = useMemo(
+    () => new Map((usersData?.items ?? []).map((u) => [u.id, u.nickname])),
+    [usersData?.items],
+  );
 
   const {
     statusFilter,
@@ -41,9 +57,29 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
     transitions,
   );
 
+  const csvExport = useCsvExport<IssueType>({
+    columns: [
+      { label: "키", getValue: (r) => r.issueKey },
+      { label: "유형", getValue: (r) => r.type },
+      { label: "제목", getValue: (r) => r.title },
+      { label: "상태", getValue: (r) => r.status },
+      { label: "우선순위", getValue: (r) => r.priority },
+      {
+        label: "담당자",
+        getValue: (r) => (r.assignee ? (memberMap.get(r.assignee) ?? r.assignee) : ""),
+      },
+      {
+        label: "라벨",
+        getValue: (r) => r.labels.map((id) => labelMap.get(id)?.name ?? id).join(", "),
+      },
+      { label: "스토리 포인트", getValue: (r) => r.storyPoints ?? "" },
+      { label: "마감일", getValue: (r) => r.dueDate ?? "" },
+    ],
+  });
+
   return (
     <Hb.Box>
-      <Hb.Box sx={{ display: "flex", gap: 1.5, mb: 2, flexWrap: "wrap" }}>
+      <Hb.Box sx={{ display: "flex", gap: 1.5, mb: 2, flexWrap: "wrap", alignItems: "center" }}>
         <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
           <Hb.Form.Label shrink>상태</Hb.Form.Label>
           <Hb.Form.Select
@@ -92,6 +128,15 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
+        <Hb.Box sx={{ flex: 1 }} />
+        <Hb.Button
+          size="small"
+          variant="secondary"
+          startIcon={<CloudDownloadOutlined />}
+          onClick={() => csvExport.exportCsv(data.items, "issues.csv")}
+        >
+          CSV 내보내기
+        </Hb.Button>
       </Hb.Box>
 
       {data.items.length === 0 ? (
@@ -100,6 +145,8 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
         <IssueGrid
           items={data.items}
           statuses={statuses}
+          labelMap={labelMap}
+          memberMap={memberMap}
           filter={filter}
           sort={sort}
           sortKey={sortKey}

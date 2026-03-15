@@ -2,6 +2,7 @@ import { memo } from "react";
 import { ISSUE_PRIORITY_LABEL, type IssueType } from "@/entities/issue";
 import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "@/entities/issue/ui";
 import { getStatusName, getStatusColor, type WorkflowStatus } from "@/entities/project";
+import type { ProjectLabelType } from "@/entities/project-label";
 import { Hb } from "@/shared/ui";
 import { type ColKey, BORDER_COLOR } from "./issue-list-constants";
 
@@ -10,12 +11,23 @@ interface BodyCellProps {
   row: IssueType;
   bg: string;
   statuses: WorkflowStatus[];
+  labelMap: Map<string, ProjectLabelType>;
+  memberMap: Map<string, string>;
   onStatusClick: (e: React.MouseEvent<HTMLElement>, issueId: string, currentStatus: string) => void;
   onRowClick?: (issueId: string) => void;
 }
 
 export const BodyCell = memo(
-  ({ colKey, row, bg, statuses, onStatusClick, onRowClick }: BodyCellProps) => {
+  ({
+    colKey,
+    row,
+    bg,
+    statuses,
+    labelMap,
+    memberMap,
+    onStatusClick,
+    onRowClick,
+  }: BodyCellProps) => {
     const baseCellStyle: React.CSSProperties = {
       height: "100%",
       display: "flex",
@@ -137,22 +149,32 @@ export const BodyCell = memo(
           </div>
         );
 
-      case "assignee":
+      case "assignee": {
+        const nickname = row.assignee ? memberMap.get(row.assignee) : null;
+
         return (
-          <div style={baseCellStyle} {...interactiveProps}>
+          <div
+            style={{ ...baseCellStyle, justifyContent: "flex-end", gap: 6 }}
+            {...interactiveProps}
+          >
             {row.assignee ? (
-              <Hb.Avatar
-                sx={{
-                  width: 24,
-                  height: 24,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  bgcolor: "action.selected",
-                  color: "text.secondary",
-                }}
-              >
-                {row.assignee.charAt(0).toUpperCase()}
-              </Hb.Avatar>
+              <>
+                <Hb.Avatar
+                  sx={{
+                    width: 22,
+                    height: 22,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    bgcolor: "action.selected",
+                    color: "text.secondary",
+                  }}
+                >
+                  {(nickname ?? row.assignee).charAt(0).toUpperCase()}
+                </Hb.Avatar>
+                <span style={{ fontSize: 12, whiteSpace: "nowrap" }}>
+                  {nickname ?? row.assignee}
+                </span>
+              </>
             ) : (
               <span
                 style={{
@@ -165,6 +187,64 @@ export const BodyCell = memo(
             )}
           </div>
         );
+      }
+
+      case "labels":
+        return (
+          <div
+            style={{ ...baseCellStyle, gap: 4, justifyContent: "flex-end" }}
+            {...interactiveProps}
+          >
+            {row.labels.length > 0 ? (
+              row.labels.map((labelId) => {
+                const label = labelMap.get(labelId);
+
+                return (
+                  <Hb.Chip
+                    key={labelId}
+                    label={label?.name ?? labelId}
+                    size="small"
+                    sx={{
+                      height: 20,
+                      fontSize: 11,
+                      ...(label && {
+                        bgcolor: `${label.color}18`,
+                        color: label.color,
+                      }),
+                    }}
+                  />
+                );
+              })
+            ) : (
+              <span style={{ fontSize: 12, color: "var(--mui-palette-text-disabled)" }}>-</span>
+            )}
+          </div>
+        );
+
+      case "storyPoints":
+        return (
+          <div style={{ ...baseCellStyle, justifyContent: "flex-end" }} {...interactiveProps}>
+            <span style={{ fontSize: 13 }}>{row.storyPoints != null ? row.storyPoints : "-"}</span>
+          </div>
+        );
+
+      case "dueDate": {
+        const isOverdue = row.dueDate ? new Date(row.dueDate) < new Date() : false;
+
+        return (
+          <div style={{ ...baseCellStyle, justifyContent: "flex-end" }} {...interactiveProps}>
+            <span
+              style={{
+                fontSize: 12,
+                color: isOverdue ? "var(--mui-palette-error-main)" : undefined,
+                fontWeight: isOverdue ? 600 : undefined,
+              }}
+            >
+              {row.dueDate ? new Date(row.dueDate).toLocaleDateString("ko-KR") : "-"}
+            </span>
+          </div>
+        );
+      }
     }
   },
 );

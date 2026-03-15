@@ -1,5 +1,5 @@
 export { assertCondition } from "./assert.lib";
-export { validateWithZod, handleValidationResult } from "./validate.lib";
+export { validateWithSchema, handleValidationResult } from "./validate.lib";
 export { delayThen } from "./delay.lib";
 export { createFunnelStateId, createFunnelStorage } from "./funnel.lib";
 export type { FunnelStorage } from "./funnel.lib";

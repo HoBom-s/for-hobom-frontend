@@ -1,12 +1,15 @@
 /* ── 컬럼 정의 ─────────────────────────── */
 
 export const COLUMNS = [
-  { key: "issueKey" as const, label: "키", sortable: true },
-  { key: "type" as const, label: "유형", sortable: false },
-  { key: "title" as const, label: "제목", sortable: true },
-  { key: "status" as const, label: "상태", sortable: true },
-  { key: "priority" as const, label: "우선순위", sortable: true },
-  { key: "assignee" as const, label: "담당자", sortable: true },
+  { key: "issueKey" as const, label: "키", sortable: true, align: "left" as const },
+  { key: "type" as const, label: "유형", sortable: false, align: "center" as const },
+  { key: "title" as const, label: "제목", sortable: true, align: "left" as const },
+  { key: "status" as const, label: "상태", sortable: true, align: "left" as const },
+  { key: "priority" as const, label: "우선순위", sortable: true, align: "left" as const },
+  { key: "assignee" as const, label: "담당자", sortable: true, align: "right" as const },
+  { key: "labels" as const, label: "라벨", sortable: false, align: "right" as const },
+  { key: "storyPoints" as const, label: "SP", sortable: true, align: "right" as const },
+  { key: "dueDate" as const, label: "마감일", sortable: true, align: "right" as const },
 ];
 
 export type ColKey = (typeof COLUMNS)[number]["key"];
@@ -22,4 +25,4 @@ export const ROW_EVEN = "var(--mui-palette-background-paper)";
 export const ROW_ODD = "var(--mui-palette-action-hover)";
 export const BORDER_COLOR = "var(--mui-palette-divider)";
 
-export const COL_WIDTH_RATIOS = [0.12, 0.06, 0.38, 0.15, 0.14, 0.15];
+export const COL_WIDTH_RATIOS = [0.08, 0.05, 0.28, 0.1, 0.1, 0.1, 0.12, 0.07, 0.1];

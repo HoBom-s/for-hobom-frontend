@@ -66,11 +66,11 @@ importers:
   apps/hobom-system:
     dependencies:
       '@hobom-grid/core':
-        specifier: ^0.1.2
-        version: 0.1.2
+        specifier: ^0.2.0
+        version: 0.2.0
       '@hobom-grid/react':
-        specifier: ^0.1.2
-        version: 0.1.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^0.2.0
+        version: 0.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tiptap/extension-link':
         specifier: ^3.20.0
         version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))(@tiptap/pm@3.20.1)
@@ -561,11 +561,11 @@ packages:
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
 
-  '@hobom-grid/core@0.1.2':
-    resolution: {integrity: sha512-ll/TVVGunYS83qihF73rE9sbnU/RjPT6lDTG7fCEoz/cEcTIi/0ZxTPrz/bHy3GFm/1HssSiOwYe8pvuYvphFw==}
+  '@hobom-grid/core@0.2.0':
+    resolution: {integrity: sha512-MrtNf19RzHGiljcUg4ngCV17t5Sx/xNAw/ZRIfxNhpxzPhI6AQ2ddVg+WhU5QjTEJUGpxfJDtmEBF73XBSyqKA==}
 
-  '@hobom-grid/react@0.1.2':
-    resolution: {integrity: sha512-sues9h2Cs+/V2XKMNtorMKpncONB0AYDHczQYB6QvqMJSbauZksF20ZBkKY7vJK4HieDxocGHGjuF2E6pfP9bg==}
+  '@hobom-grid/react@0.2.0':
+    resolution: {integrity: sha512-qNWQk0CX/J6foOpHdcizikLMOD2+BXAgnwzIJiAFm/GLVVvCVZ5ZRdXN35N9LqqW1IUgUDbIMc+KklSHsJYwZg==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
@@ -3282,11 +3282,11 @@ snapshots:
   '@floating-ui/utils@0.2.11':
     optional: true
 
-  '@hobom-grid/core@0.1.2': {}
+  '@hobom-grid/core@0.2.0': {}
 
-  '@hobom-grid/react@0.1.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@hobom-grid/react@0.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@hobom-grid/core': 0.1.2
+      '@hobom-grid/core': 0.2.0
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 

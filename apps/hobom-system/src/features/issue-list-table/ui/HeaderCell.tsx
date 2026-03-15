@@ -37,6 +37,8 @@ export const HeaderCell = ({
         boxSizing: "border-box",
         userSelect: "none",
         cursor: col.sortable ? "pointer" : "default",
+        justifyContent:
+          col.align === "right" ? "flex-end" : col.align === "center" ? "center" : undefined,
         gap: 4,
       }}
       onPointerDown={(e) => {

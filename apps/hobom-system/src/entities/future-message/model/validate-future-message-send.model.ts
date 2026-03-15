@@ -1,4 +1,4 @@
-import { validateWithZod } from "@/shared/lib";
+import { validateWithSchema } from "@/shared/lib";
 import {
   FutureMessageSendSchema,
   type FutureMessageSendSchemaType,
@@ -7,5 +7,5 @@ import {
 export const validateFutureMessageSendInput = (
   input: unknown,
 ): FutureMessageSendSchemaType | Error => {
-  return validateWithZod(FutureMessageSendSchema)(input);
+  return validateWithSchema(FutureMessageSendSchema)(input);
 };

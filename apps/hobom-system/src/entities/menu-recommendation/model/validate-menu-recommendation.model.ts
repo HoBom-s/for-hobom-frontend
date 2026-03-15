@@ -1,4 +1,4 @@
-import { validateWithZod } from "@/shared/lib";
+import { validateWithSchema } from "@/shared/lib";
 import {
   type AddMenuRecommendationInput,
   AddMenuRecommendationSchema,
@@ -7,11 +7,11 @@ import {
 } from "./menu-recommendation.model";
 
 export const validateTodayMenuInput = (input: unknown): TodayMenuCandidateInput | Error => {
-  return validateWithZod(TodayMenuCandidateSchema)(input);
+  return validateWithSchema(TodayMenuCandidateSchema)(input);
 };
 
 export const validateMenuRecommendationInput = (
   input: unknown,
 ): AddMenuRecommendationInput | Error => {
-  return validateWithZod(AddMenuRecommendationSchema)(input);
+  return validateWithSchema(AddMenuRecommendationSchema)(input);
 };

@@ -1,39 +1,39 @@
 import { HoBomSchema } from "hobom-schema";
-import { handleValidationResult, validateWithZod } from "./validate.lib";
+import { handleValidationResult, validateWithSchema } from "./validate.lib";
 
 const TestSchema = HoBomSchema.object({
   name: HoBomSchema.string().min(1),
   age: HoBomSchema.number().positive(),
 });
 
-describe("validateWithZod", () => {
+describe("validateWithSchema", () => {
   it("returns parsed data on valid input", () => {
-    const result = validateWithZod(TestSchema)({ name: "Alice", age: 30 });
+    const result = validateWithSchema(TestSchema)({ name: "Alice", age: 30 });
 
     expect(result).toEqual({ name: "Alice", age: 30 });
   });
 
   it("returns Error when a required field is missing", () => {
-    const result = validateWithZod(TestSchema)({ name: "Alice" });
+    const result = validateWithSchema(TestSchema)({ name: "Alice" });
 
     expect(result).toBeInstanceOf(Error);
   });
 
   it("returns Error when a field fails its constraint", () => {
-    const result = validateWithZod(TestSchema)({ name: "", age: 30 });
+    const result = validateWithSchema(TestSchema)({ name: "", age: 30 });
 
     expect(result).toBeInstanceOf(Error);
   });
 
   it("returns Error with a non-empty message when multiple fields are invalid", () => {
-    const result = validateWithZod(TestSchema)({ name: "", age: -1 });
+    const result = validateWithSchema(TestSchema)({ name: "", age: -1 });
 
     expect(result).toBeInstanceOf(Error);
     expect((result as Error).message.length).toBeGreaterThan(0);
   });
 
   it("returns Error for completely wrong input type", () => {
-    const result = validateWithZod(TestSchema)(null);
+    const result = validateWithSchema(TestSchema)(null);
 
     expect(result).toBeInstanceOf(Error);
   });

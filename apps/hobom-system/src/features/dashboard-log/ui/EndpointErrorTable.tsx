@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
-import { Grid, useClientRowModel, useColumnResize } from "@hobom-grid/react";
-import { ErrorOutline } from "hobom-design-system/icons";
+import { Grid, useClientRowModel, useColumnResize, useCsvExport } from "@hobom-grid/react";
+import { ErrorOutline, CloudDownloadOutlined } from "hobom-design-system/icons";
 import { useContainerWidth } from "@/shared/model";
 import type { LogEndpointError } from "@/entities/log";
 import { Hb } from "@/shared/ui";
@@ -23,6 +23,20 @@ interface EndpointErrorTableProps {
 
 export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
   const [containerRef, containerWidth] = useContainerWidth();
+
+  const csvExport = useCsvExport<LogEndpointError>({
+    columns: [
+      { label: "Method", getValue: (r) => r.httpMethod },
+      { label: "Path", getValue: (r) => r.path },
+      { label: "Total", getValue: (r) => r.totalCount },
+      { label: "Errors", getValue: (r) => r.errorCount },
+      {
+        label: "Error Rate",
+        getValue: (r) => r.errorRate,
+        formatValue: (v) => `${(Number(v) * 100).toFixed(1)}%`,
+      },
+    ],
+  });
 
   const rowModel = useClientRowModel(data, {
     getId: (r) => `${r.httpMethod}-${r.path}`,
@@ -60,9 +74,18 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
 
   return (
     <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
-        Top Error 엔드포인트
-      </Hb.Text>
+      <Hb.Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+        <Hb.Text variant="body2" fontWeight={600}>
+          Top Error 엔드포인트
+        </Hb.Text>
+        <Hb.Button.Icon
+          size="small"
+          onClick={() => csvExport.exportCsv(data, "endpoint-errors.csv")}
+          sx={{ ml: 0.5 }}
+        >
+          <CloudDownloadOutlined sx={{ fontSize: 16 }} />
+        </Hb.Button.Icon>
+      </Hb.Box>
       <div
         ref={containerRef}
         style={{
