@@ -1,8 +1,13 @@
 import { Suspense } from "react";
-import { RestoreOutlined } from "hobom-design-system/icons";
+import {
+  RestoreOutlined,
+  CompareArrowsOutlined,
+  VisibilityOutlined,
+} from "hobom-design-system/icons";
 import { Hb, EmptyState } from "@/shared/ui";
 import { useVersionHistory } from "../model/useVersionHistory";
 import { VersionPreview } from "./VersionPreview";
+import { VersionDiffView } from "./VersionDiffView";
 
 interface VersionListProps {
   spaceKey: string;
@@ -19,6 +24,8 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
     isFetchingNextPage,
     selectedVersion,
     setSelectedVersion,
+    viewMode,
+    setViewMode,
     handleRestore,
     isRestoring,
   } = useVersionHistory({ spaceKey, pageId, onClose });
@@ -134,19 +141,76 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
 
       <Hb.Box sx={{ flex: 1, overflow: "auto" }}>
         {selectedVersion ? (
-          <Suspense
-            fallback={
-              <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-                <Hb.Progress.Circular size={20} />
-              </Hb.Box>
-            }
-          >
-            <VersionPreview
-              spaceKey={spaceKey}
-              pageId={pageId}
-              versionNumber={selectedVersion.version}
-            />
-          </Suspense>
+          <>
+            <Hb.Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                px: 2,
+                py: 1,
+                borderBottom: "1px solid",
+                borderColor: "divider",
+              }}
+            >
+              <Hb.Tooltip title="미리보기">
+                <Hb.Button.Icon
+                  size="small"
+                  aria-label="미리보기"
+                  aria-pressed={viewMode === "preview"}
+                  onClick={() => setViewMode("preview")}
+                  sx={{
+                    color: viewMode === "preview" ? "primary.main" : "text.disabled",
+                  }}
+                >
+                  <VisibilityOutlined sx={{ fontSize: 18 }} />
+                </Hb.Button.Icon>
+              </Hb.Tooltip>
+              <Hb.Tooltip title="이전 버전과 비교">
+                <span>
+                  <Hb.Button.Icon
+                    size="small"
+                    aria-label="이전 버전과 비교"
+                    aria-pressed={viewMode === "diff"}
+                    onClick={() => setViewMode("diff")}
+                    disabled={selectedVersion.version <= 1}
+                    sx={{
+                      color: viewMode === "diff" ? "primary.main" : "text.disabled",
+                    }}
+                  >
+                    <CompareArrowsOutlined sx={{ fontSize: 18 }} />
+                  </Hb.Button.Icon>
+                </span>
+              </Hb.Tooltip>
+              <Hb.Text variant="caption" color="text.disabled" sx={{ ml: 0.5 }}>
+                {viewMode === "diff"
+                  ? `v${selectedVersion.version - 1} → v${selectedVersion.version}`
+                  : `v${selectedVersion.version} 미리보기`}
+              </Hb.Text>
+            </Hb.Box>
+            <Suspense
+              fallback={
+                <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+                  <Hb.Progress.Circular size={20} />
+                </Hb.Box>
+              }
+            >
+              {viewMode === "diff" && selectedVersion.version > 1 ? (
+                <VersionDiffView
+                  spaceKey={spaceKey}
+                  pageId={pageId}
+                  fromVersion={selectedVersion.version - 1}
+                  toVersion={selectedVersion.version}
+                />
+              ) : (
+                <VersionPreview
+                  spaceKey={spaceKey}
+                  pageId={pageId}
+                  versionNumber={selectedVersion.version}
+                />
+              )}
+            </Suspense>
+          </>
         ) : (
           <Hb.Box sx={{ p: 4, textAlign: "center" }}>
             <Hb.Text variant="body2" color="text.disabled">

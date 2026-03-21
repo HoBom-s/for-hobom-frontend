@@ -1,3 +1,9 @@
+export interface PageLabelType {
+  id: string;
+  name: string;
+  color: string;
+}
+
 export interface PageType {
   id: string;
   spaceId: string;
@@ -7,6 +13,7 @@ export interface PageType {
   position: number;
   createdAt: string;
   updatedAt: string;
+  labels: PageLabelType[];
 }
 
 export interface PageTreeNode {
@@ -44,4 +51,39 @@ export interface SearchResultType {
   spaceId: string;
   title: string;
   updatedAt: string;
+}
+
+// ── Move / Copy ──
+
+export interface MovePageRequest {
+  targetSpaceKey: string;
+  parentPageId: string | null;
+}
+
+export interface CopyPageRequest {
+  targetSpaceKey: string;
+  parentPageId: string | null;
+}
+
+// ── Version Diff ──
+
+export type DiffChangeType = "ADDED" | "REMOVED" | "UNCHANGED";
+
+export interface DiffEntryType {
+  lineNumber: number;
+  type: DiffChangeType;
+  content: string;
+}
+
+// ── Trash ──
+
+export interface TrashPageType {
+  id: string;
+  spaceId: string;
+  parentPageId: string | null;
+  title: string;
+  position: number;
+  createdAt: string;
+  deletedAt: string | null;
+  deletedBy: string | null;
 }

@@ -1,0 +1,69 @@
+import { Suspense, useEffect, useState } from "react";
+import { Hb } from "@/shared/ui";
+import { SpaceSelect } from "./SpaceSelect";
+import { PageSelect } from "./PageSelect";
+
+interface CopyPageDialogProps {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (targetSpaceKey: string, parentPageId: string | null) => void;
+  loading?: boolean;
+  currentSpaceKey: string;
+}
+
+export const CopyPageDialog = ({
+  open,
+  onClose,
+  onSubmit,
+  loading = false,
+  currentSpaceKey,
+}: CopyPageDialogProps) => {
+  const [targetSpaceKey, setTargetSpaceKey] = useState(currentSpaceKey);
+  const [parentPageId, setParentPageId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (open) {
+      setTargetSpaceKey(currentSpaceKey);
+      setParentPageId(null);
+    }
+  }, [open, currentSpaceKey]);
+
+  const handleSubmit = () => {
+    if (loading) return;
+    onSubmit(targetSpaceKey, parentPageId);
+  };
+
+  const suspenseFallback = (
+    <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+      <Hb.Progress.Circular size={20} />
+    </Hb.Box>
+  );
+
+  return (
+    <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
+      <Hb.Dialog.Title>페이지 복사</Hb.Dialog.Title>
+      <Hb.Dialog.Content>
+        <Hb.Box sx={{ mt: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+          <Suspense fallback={suspenseFallback}>
+            <SpaceSelect selectedSpaceKey={targetSpaceKey} onSelect={setTargetSpaceKey} />
+          </Suspense>
+          <Suspense fallback={suspenseFallback}>
+            <PageSelect
+              spaceKey={targetSpaceKey}
+              selectedPageId={parentPageId}
+              onSelect={setParentPageId}
+            />
+          </Suspense>
+        </Hb.Box>
+      </Hb.Dialog.Content>
+      <Hb.Dialog.Actions>
+        <Hb.Button onClick={onClose} disabled={loading}>
+          취소
+        </Hb.Button>
+        <Hb.Button onClick={handleSubmit} variant="primary" loading={loading}>
+          복사
+        </Hb.Button>
+      </Hb.Dialog.Actions>
+    </Hb.Dialog.Root>
+  );
+};

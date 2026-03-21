@@ -19,6 +19,7 @@ export const useVersionHistory = ({
   const totalCount = data.pages.at(-1)?.items.totalCount ?? 0;
 
   const [selectedVersion, setSelectedVersion] = useState<PageVersionType | null>(null);
+  const [viewMode, setViewMode] = useState<"preview" | "diff">("preview");
   const restoreVersion = useRestorePageVersion();
 
   const handleRestore = (version: number) => {
@@ -33,6 +34,8 @@ export const useVersionHistory = ({
     isFetchingNextPage,
     selectedVersion,
     setSelectedVersion,
+    viewMode,
+    setViewMode,
     handleRestore,
     isRestoring: restoreVersion.isPending,
   };

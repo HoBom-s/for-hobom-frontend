@@ -33,6 +33,7 @@ export {
   CloseOutlined,
   Code,
   CompareArrowsOutlined,
+  ContentCopyOutlined,
   ContrastOutlined,
   DashboardOutlined,
   DataUsageOutlined,

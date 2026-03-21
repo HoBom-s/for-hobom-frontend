@@ -7,6 +7,10 @@ import type {
   CreatePageRequest,
   UpdatePageRequest,
   SearchResultType,
+  MovePageRequest,
+  CopyPageRequest,
+  DiffEntryType,
+  TrashPageType,
 } from "./wiki-page.type";
 
 // ── Pages ──
@@ -94,6 +98,89 @@ export const postRestorePageVersion = async ({
   return await spaceHttpClient.post<HttpResponseType<PageType>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/${version}/restore`,
     {},
+  );
+};
+
+// ── Move / Copy ──
+
+export const patchMovePage = async ({
+  spaceKey,
+  pageId,
+  ...data
+}: { spaceKey: string; pageId: string } & MovePageRequest) => {
+  return await spaceHttpClient.patch<HttpResponseType<PageType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/move`,
+    data,
+  );
+};
+
+export const postCopyPage = async ({
+  spaceKey,
+  pageId,
+  ...data
+}: { spaceKey: string; pageId: string } & CopyPageRequest) => {
+  return await spaceHttpClient.post<HttpResponseType<PageType>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/copy`,
+    data,
+  );
+};
+
+// ── Version Diff ──
+
+export const fetchVersionDiff = async ({
+  spaceKey,
+  pageId,
+  fromVersion,
+  toVersion,
+}: {
+  spaceKey: string;
+  pageId: string;
+  fromVersion: number;
+  toVersion: number;
+}) => {
+  return await spaceHttpClient.get<HttpResponseType<DiffEntryType[]>>(
+    `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/diff?from=${fromVersion}&to=${toVersion}`,
+  );
+};
+
+// ── Trash ──
+
+export const fetchTrashPages = async ({
+  spaceKey,
+  offset = 0,
+  limit = 20,
+}: {
+  spaceKey: string;
+  offset?: number;
+  limit?: number;
+}) => {
+  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<TrashPageType>>>(
+    `/api/v1/spaces/${spaceKey}/trash?offset=${offset}&limit=${limit}`,
+  );
+};
+
+export const postRestoreTrashPage = async ({
+  spaceKey,
+  pageId,
+}: {
+  spaceKey: string;
+  pageId: string;
+}) => {
+  return await spaceHttpClient.post<HttpResponseType<TrashPageType>>(
+    `/api/v1/spaces/${spaceKey}/trash/${pageId}/restore`,
+    {},
+  );
+};
+
+export const deleteTrashPagePermanently = async ({
+  spaceKey,
+  pageId,
+}: {
+  spaceKey: string;
+  pageId: string;
+}) => {
+  return await spaceHttpClient.delete<HttpResponseType<unknown>>(
+    `/api/v1/spaces/${spaceKey}/trash/${pageId}`,
   );
 };
 
