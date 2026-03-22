@@ -192,8 +192,8 @@ importers:
   packages/hobom-utils:
     dependencies:
       type-fest:
-        specifier: ^5.4.4
-        version: 5.4.4
+        specifier: ^5.5.0
+        version: 5.5.0
 
 packages:
 
@@ -2712,6 +2712,10 @@ packages:
 
   type-fest@5.4.4:
     resolution: {integrity: sha512-JnTrzGu+zPV3aXIUhnyWJj4z/wigMsdYajGLIYakqyOW1nPllzXEJee0QQbHj+CTIQtXGlAjuK0UY+2xTyjVAw==}
+    engines: {node: '>=20'}
+
+  type-fest@5.5.0:
+    resolution: {integrity: sha512-PlBfpQwiUvGViBNX84Yxwjsdhd1TUlXr6zjX7eoirtCPIr08NAmxwa+fcYBTeRQxHo9YC9wwF3m9i700sHma8g==}
     engines: {node: '>=20'}
 
   typescript-eslint@8.57.0:
@@ -5340,6 +5344,10 @@ snapshots:
       prelude-ls: 1.2.1
 
   type-fest@5.4.4:
+    dependencies:
+      tagged-tag: 1.0.0
+
+  type-fest@5.5.0:
     dependencies:
       tagged-tag: 1.0.0
 
