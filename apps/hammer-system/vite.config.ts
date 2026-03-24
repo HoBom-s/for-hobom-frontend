@@ -36,7 +36,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: 3001,
     proxy: {
       "/hammer-collectors": {
         target: "https://hobom-system.com/hammers/hammer-collectors",

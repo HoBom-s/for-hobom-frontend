@@ -1,7 +1,7 @@
 @Library('hobom-shared-lib') _
 hobomPipeline(
   serviceName:    'dev-for-hammer-frontend',
-  hostPort:       '3000',
+  hostPort:       '3001',
   containerPort:  '8080',
   memory:         '256m',
   cpus:           '0.5',
