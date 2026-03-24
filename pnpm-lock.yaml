@@ -63,6 +63,43 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(@types/node@25.5.0)(happy-dom@20.8.4)(msw@2.12.10(@types/node@25.5.0)(typescript@5.9.3))(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(yaml@2.8.2))
 
+  apps/hammer-system:
+    dependencies:
+      hobom-data:
+        specifier: workspace:*
+        version: link:../../packages/hobom-data
+      hobom-design-system:
+        specifier: workspace:*
+        version: link:../../packages/hobom-design-system
+      react:
+        specifier: ^19.1.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.2.4(react@19.2.4)
+      react-hook-form:
+        specifier: ^7.56.4
+        version: 7.71.2(react@19.2.4)
+      react-router-dom:
+        specifier: ^7.6.1
+        version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-toastify:
+        specifier: ^11.0.5
+        version: 11.0.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      recharts:
+        specifier: ^3.7.0
+        version: 3.8.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react-is@19.2.4)(react@19.2.4)(redux@5.0.1)
+    devDependencies:
+      '@types/node':
+        specifier: ^25.5.0
+        version: 25.5.0
+      '@vitejs/plugin-react-swc':
+        specifier: ^4.3.0
+        version: 4.3.0(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(yaml@2.8.2))
+      vite:
+        specifier: ^8.0.0
+        version: 8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(yaml@2.8.2)
+
   apps/hobom-system:
     dependencies:
       '@hobom-grid/core':
@@ -4000,7 +4037,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 22.19.15
+      '@types/node': 25.5.0
 
   '@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
