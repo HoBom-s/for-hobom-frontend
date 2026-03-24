@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ["date-fns", "react-hook-form"],
+    include: ["react-hook-form"],
   },
   resolve: {
     alias: {
