@@ -4,8 +4,10 @@
   "type": "module",
   "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "dev": "pnpm --filter hobom-system dev",
-    "build": "pnpm --filter hobom-system build",
+    "dev:hobom": "pnpm --filter hobom-system dev",
+    "dev:hammer": "pnpm --filter hammer-system dev",
+    "build:hobom": "pnpm --filter hobom-system build",
+    "build:hammer": "pnpm --filter hammer-system build",
     "typecheck": "pnpm -r --parallel typecheck",
     "lint": "pnpm -r --parallel lint",
     "lint:fix": "pnpm -r --parallel exec eslint --fix .",
