@@ -37,7 +37,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3001,
+    port: 3000,
     proxy: {
       "/hammer-collectors": {
         target: "https://hobom-system.com/hammers/hammer-collectors",
@@ -50,6 +50,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
         rewrite: (p) => p.replace(/^\/hammer-users/, ""),
+      },
+      "/hammer-supports": {
+        target: "https://hobom-system.com/hammers/hammer-supports",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) => p.replace(/^\/hammer-supports/, ""),
       },
     },
   },

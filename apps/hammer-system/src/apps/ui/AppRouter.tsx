@@ -12,12 +12,16 @@ const pageImports = {
   notFound: () => import("@/pages/not-found"),
   overview: () => import("@/pages/overview"),
   logExplorer: () => import("@/pages/log-explorer"),
+  notificationTemplates: () => import("@/pages/notification-templates"),
+  legalDocuments: () => import("@/pages/legal-documents"),
 };
 
 const AuthLoginPage = lazy(pageImports.authLogin);
 const NotFoundPage = lazy(pageImports.notFound);
 const OverviewPage = lazy(pageImports.overview);
 const LogExplorerPage = lazy(pageImports.logExplorer);
+const NotificationTemplatesPage = lazy(pageImports.notificationTemplates);
+const LegalDocumentsPage = lazy(pageImports.legalDocuments);
 
 const GuestOnly = ({ children }: { children: React.ReactNode }) => {
   if (getAccessToken()) {
@@ -110,6 +114,22 @@ export const AppRouter = () => {
           element={
             <Shell>
               <LogExplorerPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.NOTIFICATION_TEMPLATE.LIST}
+          element={
+            <Shell>
+              <NotificationTemplatesPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.LEGAL_DOCUMENT.LIST}
+          element={
+            <Shell>
+              <LegalDocumentsPage />
             </Shell>
           }
         />

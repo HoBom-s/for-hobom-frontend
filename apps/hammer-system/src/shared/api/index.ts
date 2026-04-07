@@ -1,6 +1,7 @@
 export {
   httpClient,
   userHttpClient,
+  supportHttpClient,
   setAccessToken,
   getAccessToken,
   UNAUTHORIZED_EVENT,
