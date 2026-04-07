@@ -20,10 +20,12 @@ const createConfiguredClient = (baseUrl: string) => {
 
 const httpClient = createConfiguredClient(env.VITE_APP_HAMMER_API_GATEWAY_URL);
 const userHttpClient = createConfiguredClient(env.VITE_APP_HAMMER_USER_URL);
+const supportHttpClient = createConfiguredClient(env.VITE_APP_HAMMER_SUPPORT_URL);
 
 export {
   httpClient,
   userHttpClient,
+  supportHttpClient,
   setAccessToken,
   getAccessToken,
   UNAUTHORIZED_EVENT,

@@ -51,6 +51,12 @@ export default defineConfig({
         secure: true,
         rewrite: (p) => p.replace(/^\/hammer-users/, ""),
       },
+      "/hammer-supports": {
+        target: "https://hobom-system.com/hammers/hammer-supports",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) => p.replace(/^\/hammer-supports/, ""),
+      },
     },
   },
 });
