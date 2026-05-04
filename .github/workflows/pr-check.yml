@@ -34,7 +34,7 @@ jobs:
         run: pnpm test:coverage
 
       - name: Run build
-        run: pnpm build:hobom && pnpm build:hammer
+        run: pnpm build:hobom
 
       - name: Run lint
         run: pnpm lint

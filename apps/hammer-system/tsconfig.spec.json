@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.app.json",
-  "include": ["src"],
-  "exclude": [],
-  "compilerOptions": {
-    "types": ["node", "vitest/globals"],
-    "noEmit": true
-  }
-}
