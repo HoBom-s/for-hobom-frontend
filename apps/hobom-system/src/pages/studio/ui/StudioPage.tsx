@@ -1,5 +1,6 @@
 import { Hb } from "@/shared/ui";
 import { Canvas } from "@/widgets/canvas";
+import { CodePanel } from "@/widgets/code-panel";
 import { Inspector } from "@/widgets/inspector";
 import { useStudioEditor } from "../model/useStudioEditor";
 
@@ -31,8 +32,13 @@ export default function StudioPage() {
         <Canvas document={document} selectedId={selectedId} onSelect={selectNode} />
       </Hb.Box>
 
-      <Pane label="속성 · 코드" width={320} border="left">
+      <Pane label="속성 · 코드" width={360} border="left">
         <Inspector node={selectedNode} onChange={updateProp} />
+        <Hb.Divider sx={{ my: 1 }} />
+        <Hb.Text variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
+          코드
+        </Hb.Text>
+        <CodePanel document={document} />
       </Pane>
     </Hb.Stack>
   );
