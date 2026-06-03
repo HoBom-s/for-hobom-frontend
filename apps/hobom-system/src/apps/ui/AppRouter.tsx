@@ -34,6 +34,7 @@ const pageImports = {
   projectDashboard: () => import("@/pages/project-dashboard"),
   projectSettings: () => import("@/pages/project-settings"),
   adminUsers: () => import("@/pages/admin-users"),
+  studio: () => import("@/pages/studio"),
   wikiSpaces: () => import("@/pages/wiki-spaces"),
   wikiSpaceLayout: () => import("@/pages/wiki-space-layout"),
   wikiSpaceHome: () => import("@/pages/wiki-space-home"),
@@ -73,6 +74,7 @@ const ProjectIssuesPage = lazy(pageImports.projectIssues);
 const ProjectDashboardPage = lazy(pageImports.projectDashboard);
 const ProjectSettingsPage = lazy(pageImports.projectSettings);
 const AdminUsersPage = lazy(pageImports.adminUsers);
+const StudioPage = lazy(pageImports.studio);
 const WikiSpacesPage = lazy(pageImports.wikiSpaces);
 const WikiSpaceLayoutPage = lazy(pageImports.wikiSpaceLayout);
 const WikiSpaceHomePage = lazy(pageImports.wikiSpaceHome);
@@ -291,6 +293,14 @@ export const AppRouter = () => {
           element={
             <Shell>
               <AdminUsersPage />
+            </Shell>
+          }
+        />
+        <Route
+          path={RoutesConfig.STUDIO.HOME}
+          element={
+            <Shell>
+              <StudioPage />
             </Shell>
           }
         />
