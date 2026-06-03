@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { Hb } from "@/shared/ui";
-import { createSampleDocument } from "@/entities/document";
 import { Canvas } from "@/widgets/canvas";
+import { Inspector } from "@/widgets/inspector";
+import { useStudioEditor } from "../model/useStudioEditor";
 
 /**
  * HoBom Studio — 디자인 시스템 기반 웹 캔버스 진입점.
  * 좌: 컴포넌트 팔레트 / 중앙: 캔버스 / 우: 인스펙터+코드.
  */
 export default function StudioPage() {
-  const [document] = useState(createSampleDocument);
+  const { document, selectedId, selectedNode, selectNode, updateProp } = useStudioEditor();
 
   return (
     <Hb.Stack direction="row" sx={{ height: "100%", minHeight: 0 }}>
@@ -28,13 +28,11 @@ export default function StudioPage() {
           justifyContent: "center",
         }}
       >
-        <Canvas document={document} />
+        <Canvas document={document} selectedId={selectedId} onSelect={selectNode} />
       </Hb.Box>
 
       <Pane label="속성 · 코드" width={320} border="left">
-        <Hb.Text variant="body2" color="text.secondary">
-          Inspector + 코드 스니펫 (예정)
-        </Hb.Text>
+        <Inspector node={selectedNode} onChange={updateProp} />
       </Pane>
     </Hb.Stack>
   );
