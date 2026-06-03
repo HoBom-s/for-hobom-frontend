@@ -10,7 +10,7 @@ describe("Inspector", () => {
   it("선택된 노드가 없으면 안내 문구를 보여준다", () => {
     render(<Inspector node={undefined} onChange={vi.fn()} />);
 
-    expect(screen.getByText("노드를 선택하세요")).toBeDefined();
+    expect(screen.getByText("요소를 선택하세요")).toBeDefined();
   });
 
   it("매니페스트의 enum 옵션을 버튼으로 렌더한다", () => {
