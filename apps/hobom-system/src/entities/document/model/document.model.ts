@@ -9,15 +9,15 @@
  * 매니페스트와 엮는 로직(렌더/검증)은 상위 레이어(widgets)에 둔다.
  */
 
-export type NodeId = string;
+type NodeId = string;
 
 /** 매니페스트의 ComponentKey와 같은 의미. 동일 레이어 의존 금지로 string 별칭만 둔다. */
-export type ComponentKey = string;
+type ComponentKey = string;
 
 /** prop 값으로 허용되는 원시 타입. (토큰 참조 등은 추후 확장) */
-export type PropValue = string | boolean | number;
+type PropValue = string | boolean | number;
 
-export type NodeProps = Record<string, PropValue>;
+type NodeProps = Record<string, PropValue>;
 
 /** 원시 텍스트 노드. */
 export interface TextNode {
