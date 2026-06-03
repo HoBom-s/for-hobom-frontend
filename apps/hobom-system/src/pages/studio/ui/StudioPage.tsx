@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { Hb } from "@/shared/ui";
+import { createSampleDocument } from "@/entities/document";
+import { Canvas } from "@/widgets/canvas";
 
 /**
  * HoBom Studio — 디자인 시스템 기반 웹 캔버스 진입점.
  * 좌: 컴포넌트 팔레트 / 중앙: 캔버스 / 우: 인스펙터+코드.
- * 현재는 3-pane 레이아웃 골격만.
  */
 export default function StudioPage() {
+  const [document] = useState(createSampleDocument);
+
   return (
     <Hb.Stack direction="row" sx={{ height: "100%", minHeight: 0 }}>
       <Pane label="컴포넌트" width={240} border="right">
@@ -24,9 +28,7 @@ export default function StudioPage() {
           justifyContent: "center",
         }}
       >
-        <Hb.Text variant="body2" color="text.secondary">
-          캔버스 (Document Model 렌더러)
-        </Hb.Text>
+        <Canvas document={document} />
       </Hb.Box>
 
       <Pane label="속성 · 코드" width={320} border="left">
