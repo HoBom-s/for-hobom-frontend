@@ -16,6 +16,7 @@ import { SkeletonList } from "./components/SkeletonList";
 export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };
 
 export { theme, DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "./theme";
+export { createTheme } from "@mui/material";
 
 export { Hb } from "./hb";
 

@@ -2,71 +2,119 @@ import { Hb } from "@/shared/ui";
 import { Canvas } from "@/widgets/canvas";
 import { CodePanel } from "@/widgets/code-panel";
 import { Inspector } from "@/widgets/inspector";
+import { LayersPanel } from "@/widgets/layers-panel";
 import { useStudioEditor } from "../model/useStudioEditor";
+import { studioTheme } from "../config/studio-theme";
 
 /**
  * HoBom Studio — 디자인 시스템 기반 웹 캔버스 진입점.
- * 좌: 컴포넌트 팔레트 / 중앙: 캔버스 / 우: 인스펙터+코드.
+ * 좌: 레이어 / 중앙: 캔버스(아트보드) / 우: 속성 + 코드. (디자인 툴 류 다크 UI)
  */
 export default function StudioPage() {
   const { document, selectedId, selectedNode, selectNode, updateProp } = useStudioEditor();
 
   return (
-    <Hb.Stack direction="row" sx={{ height: "100%", minHeight: 0 }}>
-      <Pane label="컴포넌트" width={240} border="right">
-        <Hb.Text variant="body2" color="text.secondary">
-          매니페스트 기반 Insert 팔레트 (예정)
-        </Hb.Text>
-      </Pane>
-
-      <Hb.Box
+    <Hb.ThemeProvider theme={studioTheme}>
+      <Hb.Stack
+        direction="row"
         sx={{
-          flex: 1,
-          minWidth: 0,
+          height: "100%",
+          minHeight: 0,
           bgcolor: "background.default",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          color: "text.primary",
         }}
       >
-        <Canvas document={document} selectedId={selectedId} onSelect={selectNode} />
-      </Hb.Box>
+        <Panel title="Layers" width={232} side="right">
+          <LayersPanel document={document} selectedId={selectedId} onSelect={selectNode} />
+        </Panel>
 
-      <Pane label="속성 · 코드" width={360} border="left">
-        <Inspector node={selectedNode} onChange={updateProp} />
-        <Hb.Divider sx={{ my: 1 }} />
-        <Hb.Text variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
-          코드
-        </Hb.Text>
-        <CodePanel document={document} />
-      </Pane>
-    </Hb.Stack>
+        <Hb.Stack
+          sx={{
+            flex: 1,
+            minWidth: 0,
+            minHeight: 0,
+            p: 4,
+            gap: 1,
+            overflow: "auto",
+          }}
+        >
+          <Hb.Text sx={{ fontSize: 11, color: "text.secondary", flexShrink: 0 }}>Frame</Hb.Text>
+          <Hb.Box
+            sx={{
+              flex: 1,
+              minHeight: 320,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              p: 4,
+              bgcolor: "#ffffff",
+              borderRadius: 1,
+              boxShadow: "0 8px 30px rgba(0, 0, 0, 0.35)",
+            }}
+          >
+            <Canvas document={document} selectedId={selectedId} onSelect={selectNode} />
+          </Hb.Box>
+        </Hb.Stack>
+
+        <Panel width={280} side="left">
+          <Inspector node={selectedNode} onChange={updateProp} />
+          <Hb.Divider />
+          <Hb.Box sx={{ p: 1.5 }}>
+            <CodePanel document={document} />
+          </Hb.Box>
+        </Panel>
+      </Hb.Stack>
+    </Hb.ThemeProvider>
   );
 }
 
-interface PaneProps {
-  label: string;
+interface PanelProps {
+  title?: string;
   width: number;
-  border: "left" | "right";
+  side: "left" | "right";
   children: React.ReactNode;
 }
 
-function Pane({ label, width, border, children }: PaneProps) {
+/** 좌/우 사이드 패널. 선택적 sticky 헤더 + 스크롤 본문. */
+function Panel({ title, width, side, children }: PanelProps) {
   return (
     <Hb.Stack
       sx={{
         width,
         flexShrink: 0,
+        minWidth: 0,
         bgcolor: "background.paper",
-        [`border${border === "right" ? "Right" : "Left"}`]: 1,
+        [side === "right" ? "borderRight" : "borderLeft"]: 1,
         borderColor: "divider",
-        p: 2,
-        gap: 1,
+        overflow: "auto",
       }}
     >
-      <Hb.Text variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
-        {label}
-      </Hb.Text>
+      {title && (
+        <Hb.Box
+          sx={{
+            px: 1.5,
+            py: 1,
+            position: "sticky",
+            top: 0,
+            zIndex: 1,
+            bgcolor: "background.paper",
+            borderBottom: 1,
+            borderColor: "divider",
+          }}
+        >
+          <Hb.Text
+            sx={{
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: 0.5,
+              textTransform: "uppercase",
+              color: "text.secondary",
+            }}
+          >
+            {title}
+          </Hb.Text>
+        </Hb.Box>
+      )}
       {children}
     </Hb.Stack>
   );
