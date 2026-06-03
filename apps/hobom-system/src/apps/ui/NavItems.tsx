@@ -5,6 +5,7 @@ import {
   BugReportOutlined,
   Replay,
   CompareArrowsOutlined,
+  BrushOutlined,
   DashboardOutlined,
   FolderOutlined,
   GavelOutlined,
@@ -29,6 +30,12 @@ export const NAV_ITEMS: NavEntry[] = [
     label: "대시보드",
     path: RoutesConfig.DASHBOARD.HOME,
     icon: <DashboardOutlined fontSize="small" />,
+  },
+  {
+    value: "STUDIO",
+    label: "스튜디오",
+    path: RoutesConfig.STUDIO.HOME,
+    icon: <BrushOutlined fontSize="small" />,
   },
   {
     section: "DAILY",

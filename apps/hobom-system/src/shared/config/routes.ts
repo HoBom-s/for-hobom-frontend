@@ -46,6 +46,9 @@ export const RoutesConfig = {
     EXAMS: "/privacy-law/exams",
     EXAM_DETAIL: "/privacy-law/exams/:examId",
   },
+  STUDIO: {
+    HOME: "/studio",
+  },
   ADMIN: {
     USERS: "/admin/users",
   },
