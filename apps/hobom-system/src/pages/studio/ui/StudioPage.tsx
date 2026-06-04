@@ -19,6 +19,7 @@ export default function StudioPage() {
     selectNode,
     updateProp,
     updateStyle,
+    resizeNode,
     insertComponent,
     deleteSelected,
   } = useStudioEditor();
@@ -66,7 +67,12 @@ export default function StudioPage() {
               boxShadow: "0 8px 30px rgba(0, 0, 0, 0.35)",
             }}
           >
-            <Canvas document={document} selectedId={selectedId} onSelect={selectNode} />
+            <Canvas
+              document={document}
+              selectedId={selectedId}
+              onSelect={selectNode}
+              onResize={resizeNode}
+            />
           </Hb.Box>
         </Hb.Stack>
 
