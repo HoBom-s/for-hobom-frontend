@@ -52,6 +52,7 @@ interface PropFieldProps {
 }
 
 const labelSx = { fontSize: 11, color: "text.secondary" } as const;
+const inputSx = { "& .MuiInputBase-input": { fontSize: 12, py: 0.75 } } as const;
 
 /** prop 한 개를 spec.kind에 맞는 컨트롤로 렌더한다. slot은 편집 대상이 아니다. */
 function PropField({ name, spec, value, onChange }: PropFieldProps) {
@@ -73,6 +74,40 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
           sx={{ p: 0 }}
           checked={Boolean(value)}
           onChange={(event) => onChange(name, event.target.checked)}
+        />
+      </Hb.Stack>
+    );
+  }
+
+  if (spec.kind === "string") {
+    return (
+      <Hb.Stack gap={0.5} sx={{ minWidth: 0 }}>
+        <Hb.Text sx={labelSx}>{name}</Hb.Text>
+        <Hb.TextField
+          size="small"
+          value={value === undefined ? "" : String(value)}
+          onChange={(event) => onChange(name, event.target.value)}
+          sx={inputSx}
+        />
+      </Hb.Stack>
+    );
+  }
+
+  if (spec.kind === "number") {
+    return (
+      <Hb.Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ minHeight: 24 }}
+      >
+        <Hb.Text sx={labelSx}>{name}</Hb.Text>
+        <Hb.TextField
+          size="small"
+          type="number"
+          value={value === undefined ? "" : String(value)}
+          onChange={(event) => onChange(name, Number(event.target.value))}
+          sx={{ ...inputSx, width: 72 }}
         />
       </Hb.Stack>
     );

@@ -11,6 +11,8 @@
 /** prop 한 개의 편집/생성 스펙. `kind`로 구분되는 discriminated union. */
 export type PropSpec =
   | { kind: "enum"; values: readonly string[]; default: string }
+  | { kind: "string"; default: string }
+  | { kind: "number"; default: number }
   | { kind: "boolean"; default: boolean }
   | { kind: "slot"; accepts: readonly NodeKind[] };
 

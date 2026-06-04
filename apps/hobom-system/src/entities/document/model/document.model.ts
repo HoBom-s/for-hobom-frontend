@@ -47,16 +47,84 @@ export const isComponentNode = (node: DocumentNode): node is ComponentNode =>
   node.type !== "text";
 
 /**
- * 스켈레톤 검증용 샘플 문서: "저장" 라벨을 가진 primary 버튼 1개.
+ * 샘플 문서: 카탈로그 전반을 보여주는 회원가입 카드 폼.
+ * Stack 중첩(세로/가로) · Card · Text · TextField · Chip · Divider · Button 변형을 포함한다.
  * id는 결정론적으로 고정한다(테스트·스냅샷 안정성).
  */
 export const createSampleDocument = (): StudioDocument => ({
   children: [
     {
-      id: "n_btn",
-      type: "Hb.Button",
-      props: { variant: "primary", disabled: false },
-      children: [{ id: "n_btn_label", type: "text", value: "저장" }],
+      id: "n_root",
+      type: "Hb.Stack",
+      props: { direction: "column", gap: 3 },
+      children: [
+        {
+          id: "n_title",
+          type: "Hb.Text",
+          props: { variant: "h6" },
+          children: [{ id: "n_title_text", type: "text", value: "회원 가입" }],
+        },
+        {
+          id: "n_card",
+          type: "Hb.Card.Root",
+          props: { variant: "outlined" },
+          children: [
+            {
+              id: "n_card_body",
+              type: "Hb.Stack",
+              props: { direction: "column", gap: 2 },
+              children: [
+                { id: "n_name", type: "Hb.TextField", props: { label: "이름" }, children: [] },
+                {
+                  id: "n_email",
+                  type: "Hb.TextField",
+                  props: { label: "이메일", placeholder: "you@example.com" },
+                  children: [],
+                },
+                { id: "n_div", type: "Hb.Divider", props: {}, children: [] },
+                {
+                  id: "n_chips",
+                  type: "Hb.Stack",
+                  props: { direction: "row", gap: 1 },
+                  children: [
+                    {
+                      id: "n_chip_role",
+                      type: "Hb.Chip",
+                      props: { label: "관리자", variant: "outlined" },
+                      children: [],
+                    },
+                    {
+                      id: "n_chip_status",
+                      type: "Hb.Chip",
+                      props: { label: "활성", variant: "filled" },
+                      children: [],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "n_actions",
+          type: "Hb.Stack",
+          props: { direction: "row", gap: 1 },
+          children: [
+            {
+              id: "n_cancel",
+              type: "Hb.Button",
+              props: { variant: "ghost" },
+              children: [{ id: "n_cancel_label", type: "text", value: "취소" }],
+            },
+            {
+              id: "n_btn",
+              type: "Hb.Button",
+              props: { variant: "primary", disabled: false },
+              children: [{ id: "n_btn_label", type: "text", value: "저장" }],
+            },
+          ],
+        },
+      ],
     },
   ],
 });

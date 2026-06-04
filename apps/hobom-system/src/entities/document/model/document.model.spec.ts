@@ -27,20 +27,35 @@ describe("document.model 타입 가드", () => {
 });
 
 describe("createSampleDocument", () => {
-  it("primary 버튼 1개와 텍스트 자식을 가진다", () => {
+  it("Stack 루트에 카탈로그 컴포넌트들을 중첩해 담는다", () => {
     const doc = createSampleDocument();
 
     expect(doc.children).toHaveLength(1);
 
-    const [button] = doc.children;
+    const [root] = doc.children;
 
-    expect(isComponentNode(button)).toBe(true);
-    if (!isComponentNode(button)) return;
+    expect(isComponentNode(root) && root.type).toBe("Hb.Stack");
 
-    expect(button.type).toBe("Hb.Button");
-    expect(button.props.variant).toBe("primary");
-    expect(button.children).toHaveLength(1);
-    expect(isTextNode(button.children[0])).toBe(true);
+    const types: string[] = [];
+    const walk = (node: DocumentNode) => {
+      if (!isComponentNode(node)) return;
+      types.push(node.type);
+      node.children.forEach(walk);
+    };
+
+    walk(root);
+
+    expect(types).toEqual(
+      expect.arrayContaining([
+        "Hb.Stack",
+        "Hb.Text",
+        "Hb.Card.Root",
+        "Hb.TextField",
+        "Hb.Chip",
+        "Hb.Divider",
+        "Hb.Button",
+      ]),
+    );
   });
 
   it("호출마다 동일한 트리를 반환한다(결정론적 id)", () => {

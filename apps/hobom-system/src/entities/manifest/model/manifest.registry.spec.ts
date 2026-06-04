@@ -14,6 +14,22 @@ describe("manifest.registry", () => {
     expect(listManifests()).toEqual(Object.values(MANIFEST_REGISTRY));
   });
 
+  it("확장된 컴포넌트 카탈로그를 모두 등록한다", () => {
+    const names = listManifests().map((manifest) => manifest.name);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        "Hb.Stack",
+        "Hb.Text",
+        "Hb.Button",
+        "Hb.TextField",
+        "Hb.Chip",
+        "Hb.Card.Root",
+        "Hb.Divider",
+      ]),
+    );
+  });
+
   it("레지스트리 키는 매니페스트의 name과 일치한다", () => {
     for (const [key, manifest] of Object.entries(MANIFEST_REGISTRY)) {
       expect(key).toBe(manifest.name);

@@ -1,10 +1,15 @@
 // @vitest-environment happy-dom
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { createSampleDocument } from "@/entities/document";
+import type { DocumentNode } from "@/entities/document";
 import { Inspector } from "./Inspector";
 
-const buttonNode = createSampleDocument().children[0];
+const buttonNode: DocumentNode = {
+  id: "btn",
+  type: "Hb.Button",
+  props: { variant: "primary", disabled: false },
+  children: [{ id: "btn_label", type: "text", value: "저장" }],
+};
 
 describe("Inspector", () => {
   it("선택된 노드가 없으면 안내 문구를 보여준다", () => {
