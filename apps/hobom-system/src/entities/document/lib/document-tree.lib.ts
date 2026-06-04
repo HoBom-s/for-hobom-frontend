@@ -52,3 +52,41 @@ export const updateNodeProps = (
 
   return { ...doc, children: doc.children.map(mapNode) };
 };
+
+/**
+ * 노드를 부모의 자식 끝에 삽입한 새 문서를 반환한다(불변).
+ * `parentId`가 null이면 문서 루트에 삽입한다.
+ */
+export const insertNode = (
+  doc: StudioDocument,
+  parentId: NodeId | null,
+  node: DocumentNode,
+): StudioDocument => {
+  if (parentId === null) {
+    return { ...doc, children: [...doc.children, node] };
+  }
+
+  const mapNode = (current: DocumentNode): DocumentNode => {
+    if (!isComponentNode(current)) {
+      return current;
+    }
+
+    const children = current.children.map(mapNode);
+
+    return current.id === parentId
+      ? { ...current, children: [...children, node] }
+      : { ...current, children };
+  };
+
+  return { ...doc, children: doc.children.map(mapNode) };
+};
+
+/** id에 해당하는 노드를 제거한 새 문서를 반환한다(불변, 깊이 우선). */
+export const removeNode = (doc: StudioDocument, id: NodeId): StudioDocument => {
+  const filterNodes = (nodes: DocumentNode[]): DocumentNode[] =>
+    nodes
+      .filter((node) => node.id !== id)
+      .map((node) => (isComponentNode(node) ? { ...node, children: filterNodes(node.children) } : node));
+
+  return { ...doc, children: filterNodes(doc.children) };
+};

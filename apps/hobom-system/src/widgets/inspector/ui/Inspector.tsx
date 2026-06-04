@@ -1,3 +1,4 @@
+import { DeleteOutline } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import { getManifest, type PropSpec } from "@/entities/manifest";
 import { isComponentNode, type DocumentNode, type PropValue } from "@/entities/document";
@@ -5,10 +6,11 @@ import { isComponentNode, type DocumentNode, type PropValue } from "@/entities/d
 interface InspectorProps {
   node: DocumentNode | undefined;
   onChange: (prop: string, value: PropValue) => void;
+  onDelete: () => void;
 }
 
 /** 선택된 노드의 prop을 매니페스트 기반 컨트롤로 편집한다(피그마식 속성 패널). */
-export function Inspector({ node, onChange }: InspectorProps) {
+export function Inspector({ node, onChange, onDelete }: InspectorProps) {
   if (!node || !isComponentNode(node)) {
     return (
       <Hb.Box sx={{ p: 2 }}>
@@ -21,7 +23,22 @@ export function Inspector({ node, onChange }: InspectorProps) {
 
   return (
     <Hb.Box sx={{ p: 1.5 }}>
-      <Hb.Text sx={{ fontSize: 13, fontWeight: 600, mb: 1.5 }}>{node.type}</Hb.Text>
+      <Hb.Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ mb: 1.5 }}
+      >
+        <Hb.Text sx={{ fontSize: 13, fontWeight: 600 }}>{node.type}</Hb.Text>
+        <Hb.Button.Icon
+          size="small"
+          aria-label="삭제"
+          onClick={onDelete}
+          sx={{ p: 0.25, color: "text.secondary" }}
+        >
+          <DeleteOutline sx={{ fontSize: 16 }} />
+        </Hb.Button.Icon>
+      </Hb.Stack>
 
       {!manifest ? (
         <Hb.Text sx={{ fontSize: 12, color: "error.main" }}>
