@@ -26,12 +26,19 @@ export interface TextNode {
   value: string;
 }
 
+/** 흐름 안에서의 사이징 오버라이드(px). 코드 생성 시 sx로 직렬화된다. */
+export interface NodeStyle {
+  width?: number;
+  height?: number;
+}
+
 /** 디자인 시스템 컴포넌트 노드. */
 export interface ComponentNode {
   id: NodeId;
   type: ComponentKey;
   props: NodeProps;
   children: DocumentNode[];
+  style?: NodeStyle;
 }
 
 export type DocumentNode = TextNode | ComponentNode;

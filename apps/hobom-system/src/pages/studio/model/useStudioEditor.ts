@@ -8,8 +8,10 @@ import {
   isComponentNode,
   removeNode,
   updateNodeProps,
+  updateNodeStyle,
   type DocumentNode,
   type NodeId,
+  type NodeStyle,
   type PropValue,
 } from "@/entities/document";
 import { acceptsComponentChildren, createComponentNode } from "../lib/create-component-node.lib";
@@ -63,6 +65,17 @@ export function useStudioEditor() {
     [selectedNode],
   );
 
+  const updateStyle = useCallback(
+    (key: keyof NodeStyle, value: number | undefined) => {
+      if (!selectedId) {
+        return;
+      }
+
+      setDocument((doc) => updateNodeStyle(doc, selectedId, key, value));
+    },
+    [selectedId],
+  );
+
   const deleteSelected = useCallback(() => {
     if (!selectedId) {
       return;
@@ -78,6 +91,7 @@ export function useStudioEditor() {
     selectedNode,
     selectNode,
     updateProp,
+    updateStyle,
     insertComponent,
     deleteSelected,
   };

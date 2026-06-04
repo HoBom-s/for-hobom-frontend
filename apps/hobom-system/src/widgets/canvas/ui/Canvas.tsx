@@ -53,7 +53,7 @@ function NodeView({ node, selectedId, onSelect }: NodeViewProps) {
         outlineOffset: 2,
       }}
     >
-      <Component {...node.props}>
+      <Component {...node.props} sx={node.style}>
         {node.children.map((child) => (
           <NodeView key={child.id} node={child} selectedId={selectedId} onSelect={onSelect} />
         ))}

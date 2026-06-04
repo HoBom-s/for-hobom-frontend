@@ -3,6 +3,7 @@ import {
   type ComponentNode,
   type DocumentNode,
   type NodeId,
+  type NodeStyle,
   type PropValue,
   type StudioDocument,
 } from "../model/document.model";
@@ -89,4 +90,39 @@ export const removeNode = (doc: StudioDocument, id: NodeId): StudioDocument => {
       .map((node) => (isComponentNode(node) ? { ...node, children: filterNodes(node.children) } : node));
 
   return { ...doc, children: filterNodes(doc.children) };
+};
+
+/**
+ * 노드의 사이징(style) 한 키를 바꾼 새 문서를 반환한다(불변).
+ * `value`가 undefined면 해당 키를 제거한다(미설정).
+ */
+export const updateNodeStyle = (
+  doc: StudioDocument,
+  id: NodeId,
+  key: keyof NodeStyle,
+  value: number | undefined,
+): StudioDocument => {
+  const mapNode = (node: DocumentNode): DocumentNode => {
+    if (!isComponentNode(node)) {
+      return node;
+    }
+
+    const next: ComponentNode = { ...node, children: node.children.map(mapNode) };
+
+    if (node.id !== id) {
+      return next;
+    }
+
+    const style: NodeStyle = { ...node.style };
+
+    if (value === undefined) {
+      delete style[key];
+    } else {
+      style[key] = value;
+    }
+
+    return { ...next, style };
+  };
+
+  return { ...doc, children: doc.children.map(mapNode) };
 };
