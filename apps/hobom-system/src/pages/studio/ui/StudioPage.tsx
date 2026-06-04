@@ -1,6 +1,7 @@
 import { Hb } from "@/shared/ui";
 import { Canvas } from "@/widgets/canvas";
 import { CodePanel } from "@/widgets/code-panel";
+import { InsertPalette } from "@/widgets/insert-palette";
 import { Inspector } from "@/widgets/inspector";
 import { LayersPanel } from "@/widgets/layers-panel";
 import { useStudioEditor } from "../model/useStudioEditor";
@@ -8,10 +9,11 @@ import { studioTheme } from "../config/studio-theme";
 
 /**
  * HoBom Studio — 디자인 시스템 기반 웹 캔버스 진입점.
- * 좌: 레이어 / 중앙: 캔버스(아트보드) / 우: 속성 + 코드. (디자인 툴 류 다크 UI)
+ * 좌: 삽입+레이어 / 중앙: 캔버스(아트보드) / 우: 속성 + 코드. (디자인 툴 류 다크 UI)
  */
 export default function StudioPage() {
-  const { document, selectedId, selectedNode, selectNode, updateProp } = useStudioEditor();
+  const { document, selectedId, selectedNode, selectNode, updateProp, insertComponent, deleteSelected } =
+    useStudioEditor();
 
   return (
     <Hb.ThemeProvider theme={studioTheme}>
@@ -24,7 +26,11 @@ export default function StudioPage() {
           color: "text.primary",
         }}
       >
-        <Panel title="Layers" width={232} side="right">
+        <Panel width={232} side="right">
+          <SectionHeader>삽입</SectionHeader>
+          <InsertPalette onInsert={insertComponent} />
+          <Hb.Divider />
+          <SectionHeader>레이어</SectionHeader>
           <LayersPanel document={document} selectedId={selectedId} onSelect={selectNode} />
         </Panel>
 
@@ -57,7 +63,7 @@ export default function StudioPage() {
         </Hb.Stack>
 
         <Panel width={280} side="left">
-          <Inspector node={selectedNode} onChange={updateProp} />
+          <Inspector node={selectedNode} onChange={updateProp} onDelete={deleteSelected} />
           <Hb.Divider />
           <Hb.Box sx={{ p: 1.5 }}>
             <CodePanel document={document} />
@@ -69,14 +75,13 @@ export default function StudioPage() {
 }
 
 interface PanelProps {
-  title?: string;
   width: number;
   side: "left" | "right";
   children: React.ReactNode;
 }
 
-/** 좌/우 사이드 패널. 선택적 sticky 헤더 + 스크롤 본문. */
-function Panel({ title, width, side, children }: PanelProps) {
+/** 좌/우 사이드 패널 — 스크롤 본문 컨테이너. */
+function Panel({ width, side, children }: PanelProps) {
   return (
     <Hb.Stack
       sx={{
@@ -89,33 +94,26 @@ function Panel({ title, width, side, children }: PanelProps) {
         overflow: "auto",
       }}
     >
-      {title && (
-        <Hb.Box
-          sx={{
-            px: 1.5,
-            py: 1,
-            position: "sticky",
-            top: 0,
-            zIndex: 1,
-            bgcolor: "background.paper",
-            borderBottom: 1,
-            borderColor: "divider",
-          }}
-        >
-          <Hb.Text
-            sx={{
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: 0.5,
-              textTransform: "uppercase",
-              color: "text.secondary",
-            }}
-          >
-            {title}
-          </Hb.Text>
-        </Hb.Box>
-      )}
       {children}
     </Hb.Stack>
+  );
+}
+
+/** 패널 내 섹션 헤더(작은 대문자 라벨). */
+function SectionHeader({ children }: { children: React.ReactNode }) {
+  return (
+    <Hb.Box sx={{ px: 1.5, py: 1, borderBottom: 1, borderColor: "divider" }}>
+      <Hb.Text
+        sx={{
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: 0.5,
+          textTransform: "uppercase",
+          color: "text.secondary",
+        }}
+      >
+        {children}
+      </Hb.Text>
+    </Hb.Box>
   );
 }

@@ -1,2 +1,2 @@
-export type { PropSpec } from "./model/manifest.model";
-export { getManifest } from "./model/manifest.registry";
+export type { ComponentKey, ComponentManifest, PropSpec } from "./model/manifest.model";
+export { getManifest, listManifests } from "./model/manifest.registry";
