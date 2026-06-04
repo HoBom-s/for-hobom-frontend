@@ -47,6 +47,22 @@ describe("generateJsx", () => {
     expect(generateJsx(doc)).toContain("<Hb.Button disabled>저장</Hb.Button>");
   });
 
+  it("사이징(style)이 있으면 sx로 출력한다", () => {
+    const doc: StudioDocument = {
+      children: [
+        {
+          id: "b",
+          type: "Hb.Button",
+          props: {},
+          children: [{ id: "t", type: "text", value: "저장" }],
+          style: { width: 200 },
+        },
+      ],
+    };
+
+    expect(generateJsx(doc)).toContain("<Hb.Button sx={{ width: 200 }}>저장</Hb.Button>");
+  });
+
   it("자식이 없으면 self-closing 태그", () => {
     const doc: StudioDocument = {
       children: [{ id: "b", type: "Hb.Button", props: { variant: "danger" }, children: [] }],

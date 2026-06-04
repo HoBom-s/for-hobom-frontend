@@ -12,8 +12,16 @@ import { studioTheme } from "../config/studio-theme";
  * 좌: 삽입+레이어 / 중앙: 캔버스(아트보드) / 우: 속성 + 코드. (디자인 툴 류 다크 UI)
  */
 export default function StudioPage() {
-  const { document, selectedId, selectedNode, selectNode, updateProp, insertComponent, deleteSelected } =
-    useStudioEditor();
+  const {
+    document,
+    selectedId,
+    selectedNode,
+    selectNode,
+    updateProp,
+    updateStyle,
+    insertComponent,
+    deleteSelected,
+  } = useStudioEditor();
 
   return (
     <Hb.ThemeProvider theme={studioTheme}>
@@ -63,7 +71,12 @@ export default function StudioPage() {
         </Hb.Stack>
 
         <Panel width={280} side="left">
-          <Inspector node={selectedNode} onChange={updateProp} onDelete={deleteSelected} />
+          <Inspector
+            node={selectedNode}
+            onChange={updateProp}
+            onStyleChange={updateStyle}
+            onDelete={deleteSelected}
+          />
           <Hb.Divider />
           <Hb.Box sx={{ p: 1.5 }}>
             <CodePanel document={document} />

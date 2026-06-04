@@ -3,6 +3,7 @@ import {
   isComponentNode,
   isTextNode,
   type DocumentNode,
+  type NodeStyle,
   type PropValue,
   type StudioDocument,
 } from "@/entities/document";
@@ -37,6 +38,21 @@ const serializeProp = (
   return `${name}={${value}}`;
 };
 
+/** 사이징(style)을 sx 속성 문자열로 직렬화한다. 빈 값이면 null. */
+const serializeSx = (style: NodeStyle | undefined): string | null => {
+  if (!style) {
+    return null;
+  }
+
+  const entries = Object.entries(style).filter(([, value]) => value !== undefined);
+
+  if (entries.length === 0) {
+    return null;
+  }
+
+  return `sx={{ ${entries.map(([key, value]) => `${key}: ${value}`).join(", ")} }}`;
+};
+
 /** 노드 하나를 JSX 문자열로 직렬화한다. 재귀적. */
 const serializeNode = (node: DocumentNode, indent: string): string => {
   if (isTextNode(node)) {
@@ -54,6 +70,13 @@ const serializeNode = (node: DocumentNode, indent: string): string => {
     .filter(([, spec]) => spec.kind !== "slot")
     .map(([name, spec]) => serializeProp(name, node.props[name], spec))
     .filter((attr): attr is string => attr !== null);
+
+  const sx = serializeSx(node.style);
+
+  if (sx) {
+    attrs.push(sx);
+  }
+
   const attrString = attrs.length ? ` ${attrs.join(" ")}` : "";
 
   if (node.children.length === 0) {

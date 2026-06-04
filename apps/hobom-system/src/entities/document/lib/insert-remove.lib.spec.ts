@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { isComponentNode, type DocumentNode, type StudioDocument } from "../model/document.model";
-import { findNode, insertNode, removeNode  } from "./document-tree.lib";
+import { findNode, insertNode, removeNode, updateNodeStyle } from "./document-tree.lib";
 import { createNodeId } from "./create-node-id.lib";
 
 const button = (id: string): DocumentNode => ({ id, type: "Hb.Button", props: {}, children: [] });
@@ -42,6 +42,23 @@ describe("removeNode", () => {
 
   it("최상위 노드를 제거한다", () => {
     expect(removeNode(baseDoc(), "stack").children).toHaveLength(0);
+  });
+});
+
+describe("updateNodeStyle", () => {
+  it("사이징 키를 설정한다", () => {
+    const next = updateNodeStyle(baseDoc(), "a", "width", 200);
+    const node = findNode(next, "a");
+
+    expect(node && isComponentNode(node) && node.style?.width).toBe(200);
+  });
+
+  it("undefined면 키를 제거한다", () => {
+    const withWidth = updateNodeStyle(baseDoc(), "a", "width", 200);
+    const cleared = updateNodeStyle(withWidth, "a", "width", undefined);
+    const node = findNode(cleared, "a");
+
+    expect(node && isComponentNode(node) && node.style?.width).toBeUndefined();
   });
 });
 

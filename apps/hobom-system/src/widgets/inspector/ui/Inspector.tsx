@@ -1,16 +1,22 @@
 import { DeleteOutline } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import { getManifest, type PropSpec } from "@/entities/manifest";
-import { isComponentNode, type DocumentNode, type PropValue } from "@/entities/document";
+import {
+  isComponentNode,
+  type DocumentNode,
+  type NodeStyle,
+  type PropValue,
+} from "@/entities/document";
 
 interface InspectorProps {
   node: DocumentNode | undefined;
   onChange: (prop: string, value: PropValue) => void;
+  onStyleChange: (key: keyof NodeStyle, value: number | undefined) => void;
   onDelete: () => void;
 }
 
-/** 선택된 노드의 prop을 매니페스트 기반 컨트롤로 편집한다(피그마식 속성 패널). */
-export function Inspector({ node, onChange, onDelete }: InspectorProps) {
+/** 선택된 노드의 prop·사이징을 매니페스트 기반 컨트롤로 편집한다(피그마식 속성 패널). */
+export function Inspector({ node, onChange, onStyleChange, onDelete }: InspectorProps) {
   if (!node || !isComponentNode(node)) {
     return (
       <Hb.Box sx={{ p: 2 }}>
@@ -57,7 +63,60 @@ export function Inspector({ node, onChange, onDelete }: InspectorProps) {
           ))}
         </Hb.Stack>
       )}
+
+      <Hb.Divider sx={{ my: 1.5 }} />
+
+      <Hb.Text
+        sx={{
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: 0.5,
+          textTransform: "uppercase",
+          color: "text.secondary",
+          mb: 1,
+        }}
+      >
+        사이징
+      </Hb.Text>
+      <Hb.Stack gap={1.25}>
+        <SizeField label="W" value={node.style?.width} onChange={(v) => onStyleChange("width", v)} />
+        <SizeField
+          label="H"
+          value={node.style?.height}
+          onChange={(v) => onStyleChange("height", v)}
+        />
+      </Hb.Stack>
     </Hb.Box>
+  );
+}
+
+interface SizeFieldProps {
+  label: string;
+  value: number | undefined;
+  onChange: (value: number | undefined) => void;
+}
+
+/** 사이징(W/H) 숫자 입력 행. 비우면 미설정(auto). */
+function SizeField({ label, value, onChange }: SizeFieldProps) {
+  return (
+    <Hb.Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{ minHeight: 24 }}
+    >
+      <Hb.Text sx={labelSx}>{label}</Hb.Text>
+      <Hb.TextField
+        size="small"
+        type="number"
+        placeholder="auto"
+        value={value === undefined ? "" : String(value)}
+        onChange={(event) =>
+          onChange(event.target.value === "" ? undefined : Number(event.target.value))
+        }
+        sx={{ ...inputSx, width: 72 }}
+      />
+    </Hb.Stack>
   );
 }
 
