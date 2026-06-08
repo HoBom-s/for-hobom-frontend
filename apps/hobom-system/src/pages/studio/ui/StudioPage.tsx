@@ -20,6 +20,7 @@ export default function StudioPage() {
     updateProp,
     updateStyle,
     resizeNode,
+    reorderNode,
     insertComponent,
     deleteSelected,
   } = useStudioEditor();
@@ -40,7 +41,12 @@ export default function StudioPage() {
           <InsertPalette onInsert={insertComponent} />
           <Hb.Divider />
           <SectionHeader>레이어</SectionHeader>
-          <LayersPanel document={document} selectedId={selectedId} onSelect={selectNode} />
+          <LayersPanel
+            document={document}
+            selectedId={selectedId}
+            onSelect={selectNode}
+            onReorder={reorderNode}
+          />
         </Panel>
 
         <Hb.Stack

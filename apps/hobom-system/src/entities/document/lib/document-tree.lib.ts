@@ -126,3 +126,78 @@ export const updateNodeStyle = (
 
   return { ...doc, children: doc.children.map(mapNode) };
 };
+
+/** 노드의 부모 id를 찾는다. 최상위면 null, 없으면 undefined. */
+export const findParentId = (doc: StudioDocument, id: NodeId): NodeId | null | undefined => {
+  if (doc.children.some((node) => node.id === id)) {
+    return null;
+  }
+
+  const visit = (nodes: DocumentNode[]): NodeId | undefined => {
+    for (const node of nodes) {
+      if (!isComponentNode(node)) {
+        continue;
+      }
+
+      if (node.children.some((child) => child.id === id)) {
+        return node.id;
+      }
+
+      const found = visit(node.children);
+
+      if (found !== undefined) {
+        return found;
+      }
+    }
+
+    return undefined;
+  };
+
+  return visit(doc.children);
+};
+
+/** parentId(null=루트)의 직계 자식 목록을 반환한다. */
+export const getSiblings = (doc: StudioDocument, parentId: NodeId | null): DocumentNode[] => {
+  if (parentId === null) {
+    return doc.children;
+  }
+
+  const parent = findNode(doc, parentId);
+
+  return parent && isComponentNode(parent) ? parent.children : [];
+};
+
+/** parentId(null=루트)의 자식 순서를 from→to로 바꾼 새 문서를 반환한다(불변). */
+export const reorderChildren = (
+  doc: StudioDocument,
+  parentId: NodeId | null,
+  from: number,
+  to: number,
+): StudioDocument => {
+  const reorder = (nodes: DocumentNode[]): DocumentNode[] => {
+    const next = nodes.slice();
+    const [moved] = next.splice(from, 1);
+
+    next.splice(to, 0, moved);
+
+    return next;
+  };
+
+  if (parentId === null) {
+    return { ...doc, children: reorder(doc.children) };
+  }
+
+  const mapNode = (node: DocumentNode): DocumentNode => {
+    if (!isComponentNode(node)) {
+      return node;
+    }
+
+    if (node.id === parentId) {
+      return { ...node, children: reorder(node.children) };
+    }
+
+    return { ...node, children: node.children.map(mapNode) };
+  };
+
+  return { ...doc, children: doc.children.map(mapNode) };
+};
