@@ -76,6 +76,22 @@ export function useStudioEditor() {
     [selectedId],
   );
 
+  const resizeNode = useCallback((id: NodeId, size: { width?: number; height?: number }) => {
+    setDocument((doc) => {
+      let next = doc;
+
+      if (size.width !== undefined) {
+        next = updateNodeStyle(next, id, "width", size.width);
+      }
+
+      if (size.height !== undefined) {
+        next = updateNodeStyle(next, id, "height", size.height);
+      }
+
+      return next;
+    });
+  }, []);
+
   const deleteSelected = useCallback(() => {
     if (!selectedId) {
       return;
@@ -92,6 +108,7 @@ export function useStudioEditor() {
     selectNode,
     updateProp,
     updateStyle,
+    resizeNode,
     insertComponent,
     deleteSelected,
   };
