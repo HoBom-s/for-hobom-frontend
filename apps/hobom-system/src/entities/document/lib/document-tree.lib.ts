@@ -1,3 +1,4 @@
+import { Bom } from "hobom-utils";
 import {
   isComponentNode,
   type ComponentNode,
@@ -8,28 +9,18 @@ import {
   type StudioDocument,
 } from "../model/document.model";
 
-/** 문서 트리에서 id로 노드를 찾는다(깊이 우선). 없으면 undefined. */
-export const findNode = (doc: StudioDocument, id: NodeId): DocumentNode | undefined => {
-  const visit = (nodes: DocumentNode[]): DocumentNode | undefined => {
-    for (const node of nodes) {
-      if (node.id === id) {
-        return node;
-      }
+/** 트리를 깊이 우선으로 평탄화한다(모든 노드를 한 줄로). */
+const flatten = (nodes: DocumentNode[]): DocumentNode[] =>
+  Bom.flatMap(nodes, (node) =>
+    isComponentNode(node) ? [node, ...flatten(node.children)] : [node],
+  );
 
-      if (isComponentNode(node)) {
-        const found = visit(node.children);
-
-        if (found) {
-          return found;
-        }
-      }
-    }
-
-    return undefined;
-  };
-
-  return visit(doc.children);
-};
+/** 문서 트리에서 id로 노드를 찾는다. 없으면 undefined. */
+export const findNode = (doc: StudioDocument, id: NodeId): DocumentNode | undefined =>
+  Bom.pipe(
+    flatten(doc.children),
+    Bom.find((node) => node.id === id),
+  );
 
 /**
  * 특정 노드의 prop 하나를 바꾼 새 문서를 반환한다(불변 업데이트).
@@ -129,31 +120,14 @@ export const updateNodeStyle = (
 
 /** 노드의 부모 id를 찾는다. 최상위면 null, 없으면 undefined. */
 export const findParentId = (doc: StudioDocument, id: NodeId): NodeId | null | undefined => {
-  if (doc.children.some((node) => node.id === id)) {
+  if (Bom.some(doc.children, (node) => node.id === id)) {
     return null;
   }
 
-  const visit = (nodes: DocumentNode[]): NodeId | undefined => {
-    for (const node of nodes) {
-      if (!isComponentNode(node)) {
-        continue;
-      }
-
-      if (node.children.some((child) => child.id === id)) {
-        return node.id;
-      }
-
-      const found = visit(node.children);
-
-      if (found !== undefined) {
-        return found;
-      }
-    }
-
-    return undefined;
-  };
-
-  return visit(doc.children);
+  return Bom.pipe(
+    flatten(doc.children),
+    Bom.find((node) => isComponentNode(node) && Bom.some(node.children, (child) => child.id === id)),
+  )?.id;
 };
 
 /** parentId(null=루트)의 직계 자식 목록을 반환한다. */
