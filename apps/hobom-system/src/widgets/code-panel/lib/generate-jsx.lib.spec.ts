@@ -71,6 +71,32 @@ describe("generateJsx", () => {
     expect(generateJsx(doc)).toContain('<Hb.Button variant="danger" />');
   });
 
+  it("컨테이너 레이아웃 prop(정렬/패딩)을 출력한다", () => {
+    const doc: StudioDocument = {
+      children: [
+        {
+          id: "s",
+          type: "Hb.Stack",
+          props: {
+            direction: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 2,
+            padding: 3,
+          },
+          children: [],
+        },
+      ],
+    };
+    const code = generateJsx(doc);
+
+    expect(code).toContain('direction="row"');
+    expect(code).toContain('justifyContent="space-between"');
+    expect(code).toContain('alignItems="center"');
+    expect(code).toContain("padding={3}");
+    expect(code).not.toContain("gap"); // 기본값(2) → 생략
+  });
+
   it("미등록 컴포넌트는 주석으로 표시한다", () => {
     const doc: StudioDocument = {
       children: [{ id: "x", type: "Hb.Unknown", props: {}, children: [] }],
