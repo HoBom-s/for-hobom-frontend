@@ -1,4 +1,10 @@
-import { Hb } from "@/shared/ui";
+import { useCallback } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { ArrowBackOutlined } from "hobom-design-system/icons";
+import { Hb, EditableLabel } from "@/shared/ui";
+import { RoutesConfig } from "@/shared/config";
+import { useWorkspace } from "@/features/workspace";
+import type { StudioDocument } from "@/entities/document";
 import { Canvas } from "@/widgets/canvas";
 import { CodePanel } from "@/widgets/code-panel";
 import { InsertPalette } from "@/widgets/insert-palette";
@@ -9,12 +15,39 @@ import { useStudioKeyboard } from "../model/useStudioKeyboard";
 import { studioTheme } from "../config/studio-theme";
 
 /**
- * HoBom Studio — 디자인 시스템 기반 웹 캔버스 진입점.
- * 좌: 삽입+레이어 / 중앙: 캔버스(아트보드) / 우: 속성 + 코드. (디자인 툴 류 다크 UI)
+ * HoBom Studio 에디터 — 워크스페이스 Item(:itemId)의 문서를 로드해 편집한다.
+ * 문서는 워크스페이스 store에 저장되고, 편집은 store로 흐른다.
  */
 export default function StudioPage() {
+  const { itemId } = useParams();
+  const { getItem, getDocument } = useWorkspace();
+
+  const item = itemId ? getItem(itemId) : undefined;
+  const document = itemId ? getDocument(itemId) : undefined;
+
+  if (!item || !document) {
+    return <Navigate to={RoutesConfig.STUDIO.HOME} replace />;
+  }
+
+  return <StudioEditor itemId={item.id} name={item.name} document={document} />;
+}
+
+interface StudioEditorProps {
+  itemId: string;
+  name: string;
+  document: StudioDocument;
+}
+
+function StudioEditor({ itemId, name, document }: StudioEditorProps) {
+  const navigate = useNavigate();
+  const { updateDocument, renameItem } = useWorkspace();
+
+  const setDocument = useCallback(
+    (updater: (prev: StudioDocument) => StudioDocument) => updateDocument(itemId, updater),
+    [updateDocument, itemId],
+  );
+
   const {
-    document,
     selectedId,
     selectedNode,
     selectNode,
@@ -25,7 +58,7 @@ export default function StudioPage() {
     reorderNode,
     insertComponent,
     deleteSelected,
-  } = useStudioEditor();
+  } = useStudioEditor(document, setDocument);
 
   useStudioKeyboard({ onDelete: deleteSelected, onDeselect: clearSelection });
 
@@ -41,6 +74,28 @@ export default function StudioPage() {
         }}
       >
         <Panel width={232} side="right">
+          <Hb.Stack
+            direction="row"
+            alignItems="center"
+            gap={0.5}
+            sx={{ px: 1, py: 1, borderBottom: 1, borderColor: "divider" }}
+          >
+            <Hb.Button.Icon
+              size="small"
+              aria-label="워크스페이스로"
+              onClick={() => navigate(RoutesConfig.STUDIO.HOME)}
+              sx={{ p: 0.25, color: "text.secondary" }}
+            >
+              <ArrowBackOutlined sx={{ fontSize: 18 }} />
+            </Hb.Button.Icon>
+            <EditableLabel
+              value={name}
+              onCommit={(next) => renameItem(itemId, next)}
+              textSx={{ fontSize: 12, fontWeight: 600, minWidth: 0 }}
+              inputSx={{ fontSize: 12, fontWeight: 600 }}
+            />
+          </Hb.Stack>
+
           <SectionHeader>삽입</SectionHeader>
           <InsertPalette onInsert={insertComponent} />
           <Hb.Divider />

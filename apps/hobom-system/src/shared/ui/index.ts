@@ -24,4 +24,5 @@ export type {
   DragOverEvent,
 } from "hobom-design-system";
 export { Hb, useColorScheme } from "hobom-design-system";
+export { EditableLabel } from "./EditableLabel";
 export type { SxProps, Theme, SvgIconProps, SelectChangeEvent } from "hobom-design-system";

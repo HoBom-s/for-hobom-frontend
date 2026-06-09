@@ -48,6 +48,7 @@ export const RoutesConfig = {
   },
   STUDIO: {
     HOME: "/studio",
+    EDITOR: "/studio/:itemId",
   },
   ADMIN: {
     USERS: "/admin/users",
