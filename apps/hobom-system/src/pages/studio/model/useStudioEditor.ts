@@ -32,6 +32,8 @@ export function useStudioEditor() {
 
   const selectNode = useCallback((id: NodeId) => setSelectedId(id), []);
 
+  const clearSelection = useCallback(() => setSelectedId(undefined), []);
+
   const updateProp = useCallback(
     (prop: string, value: PropValue) => {
       if (!selectedId) {
@@ -112,6 +114,7 @@ export function useStudioEditor() {
     selectedId,
     selectedNode,
     selectNode,
+    clearSelection,
     updateProp,
     updateStyle,
     resizeNode,
