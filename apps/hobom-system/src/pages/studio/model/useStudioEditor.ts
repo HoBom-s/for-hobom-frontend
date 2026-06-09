@@ -4,9 +4,12 @@ import {
   createNodeId,
   createSampleDocument,
   findNode,
+  findParentId,
+  getSiblings,
   insertNode,
   isComponentNode,
   removeNode,
+  reorderChildren,
   updateNodeProps,
   updateNodeStyle,
   type DocumentNode,
@@ -92,6 +95,27 @@ export function useStudioEditor() {
     });
   }, []);
 
+  /** 같은 부모 안에서만 순서변경한다(흐름 D&D, v1). */
+  const reorderNode = useCallback((activeId: NodeId, overId: NodeId) => {
+    setDocument((doc) => {
+      const parent = findParentId(doc, activeId);
+
+      if (parent === undefined || parent !== findParentId(doc, overId)) {
+        return doc;
+      }
+
+      const siblings = getSiblings(doc, parent);
+      const from = siblings.findIndex((node) => node.id === activeId);
+      const to = siblings.findIndex((node) => node.id === overId);
+
+      if (from === -1 || to === -1) {
+        return doc;
+      }
+
+      return reorderChildren(doc, parent, from, to);
+    });
+  }, []);
+
   const deleteSelected = useCallback(() => {
     if (!selectedId) {
       return;
@@ -109,6 +133,7 @@ export function useStudioEditor() {
     updateProp,
     updateStyle,
     resizeNode,
+    reorderNode,
     insertComponent,
     deleteSelected,
   };

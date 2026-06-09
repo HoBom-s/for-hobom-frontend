@@ -1,3 +1,4 @@
+import { Bom } from "hobom-utils";
 import type { ComponentManifest } from "@/entities/manifest";
 import type { ComponentNode, NodeId, PropValue } from "@/entities/document";
 
@@ -16,17 +17,17 @@ export function createComponentNode(
   createId: () => NodeId,
 ): ComponentNode {
   const id = createId();
-  const props: Record<string, PropValue> = {};
-  let acceptsText = false;
 
-  for (const [name, spec] of Object.entries(manifest.props)) {
-    if (spec.kind === "slot") {
-      acceptsText = spec.accepts.includes("text");
-      continue;
-    }
+  const props: Record<string, PropValue> = Object.fromEntries(
+    Bom.flatMap(Object.entries(manifest.props), ([name, spec]) =>
+      spec.kind === "slot" ? [] : [[name, spec.default] as const],
+    ),
+  );
 
-    props[name] = spec.default;
-  }
+  const acceptsText = Bom.some(
+    Object.values(manifest.props),
+    (spec) => spec.kind === "slot" && spec.accepts.includes("text"),
+  );
 
   const children = acceptsText
     ? [{ id: createId(), type: "text" as const, value: DEFAULT_TEXT[manifest.name] ?? "텍스트" }]
@@ -37,6 +38,7 @@ export function createComponentNode(
 
 /** 컴포넌트를 자식으로 받는 컨테이너인지(slot이 text 외의 노드를 허용). */
 export const acceptsComponentChildren = (manifest: ComponentManifest): boolean =>
-  Object.values(manifest.props).some(
-    (spec) => spec.kind === "slot" && spec.accepts.some((accept) => accept !== "text"),
+  Bom.some(
+    Object.values(manifest.props),
+    (spec) => spec.kind === "slot" && Bom.some(spec.accepts, (accept) => accept !== "text"),
   );
