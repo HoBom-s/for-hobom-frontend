@@ -9,11 +9,9 @@ export type {
 export { createSampleDocument, isComponentNode, isTextNode } from "./model/document.model";
 export {
   findNode,
-  findParentId,
-  getSiblings,
   insertNode,
+  moveNode,
   removeNode,
-  reorderChildren,
   updateNodeProps,
   updateNodeStyle,
 } from "./lib/document-tree.lib";

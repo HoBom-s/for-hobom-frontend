@@ -1,3 +1,4 @@
+import { Bom } from "hobom-utils";
 import { DragIndicatorOutlined } from "hobom-design-system/icons";
 import { Hb, Sortable } from "@/shared/ui";
 import {
@@ -16,8 +17,25 @@ interface LayersPanelProps {
   onReorder: (activeId: NodeId, overId: NodeId) => void;
 }
 
-/** 문서 트리를 레이어 목록으로 보여준다. 핸들 드래그로 같은 부모 안에서 순서변경. */
+interface FlatLayer {
+  node: DocumentNode;
+  depth: number;
+}
+
+/** 트리를 깊이 우선으로 평탄화한다(들여쓰기 깊이 포함). */
+const flattenLayers = (nodes: DocumentNode[], depth: number): FlatLayer[] =>
+  Bom.flatMap(nodes, (node) => [
+    { node, depth },
+    ...(isComponentNode(node) ? flattenLayers(node.children, depth + 1) : []),
+  ]);
+
+/**
+ * 문서 트리를 단일 평탄 리스트의 레이어 목록으로 보여준다(들여쓰기로 계층 표현).
+ * 단일 SortableContext라 충돌 감지가 안정적 — 핸들 드래그로 순서변경 및 다른 부모로 이동.
+ */
 export function LayersPanel({ document, selectedId, onSelect, onReorder }: LayersPanelProps) {
+  const layers = flattenLayers(document.children, 0);
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
@@ -28,34 +46,16 @@ export function LayersPanel({ document, selectedId, onSelect, onReorder }: Layer
 
   return (
     <Sortable.Root onDragEnd={handleDragEnd}>
-      <Hb.Box sx={{ py: 0.5 }}>
-        <LayerList
-          nodes={document.children}
-          depth={0}
-          selectedId={selectedId}
-          onSelect={onSelect}
-        />
-      </Hb.Box>
+      <Sortable.List items={layers.map((layer) => layer.node.id)} strategy="vertical">
+        <Hb.Box sx={{ py: 0.5 }}>
+          {layers.map(({ node, depth }) => (
+            <Sortable.Item key={node.id} id={node.id} useHandle>
+              <LayerRow node={node} depth={depth} selectedId={selectedId} onSelect={onSelect} />
+            </Sortable.Item>
+          ))}
+        </Hb.Box>
+      </Sortable.List>
     </Sortable.Root>
-  );
-}
-
-interface LayerListProps {
-  nodes: DocumentNode[];
-  depth: number;
-  selectedId?: NodeId;
-  onSelect: (id: NodeId) => void;
-}
-
-function LayerList({ nodes, depth, selectedId, onSelect }: LayerListProps) {
-  return (
-    <Sortable.List items={nodes.map((node) => node.id)} strategy="vertical">
-      {nodes.map((node) => (
-        <Sortable.Item key={node.id} id={node.id} useHandle>
-          <LayerRow node={node} depth={depth} selectedId={selectedId} onSelect={onSelect} />
-        </Sortable.Item>
-      ))}
-    </Sortable.List>
   );
 }
 
@@ -71,49 +71,38 @@ function LayerRow({ node, depth, selectedId, onSelect }: LayerRowProps) {
   const label = isTextNode(node) ? `"${node.value}"` : node.type.replace(/^Hb\./, "");
 
   return (
-    <>
+    <Hb.Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 0.5,
+        pl: `${4 + depth * 14}px`,
+        pr: 1,
+        py: 0.5,
+        bgcolor: isSelected ? "action.selected" : "transparent",
+        "&:hover": { bgcolor: isSelected ? "action.selected" : "action.hover" },
+      }}
+    >
+      <Sortable.Handle>
+        <DragIndicatorOutlined
+          sx={{ fontSize: 16, color: "text.disabled", cursor: "grab", display: "block" }}
+        />
+      </Sortable.Handle>
       <Hb.Box
+        onClick={() => onSelect(node.id)}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 0.5,
-          pl: `${4 + depth * 14}px`,
-          pr: 1,
-          py: 0.5,
-          bgcolor: isSelected ? "action.selected" : "transparent",
-          "&:hover": { bgcolor: isSelected ? "action.selected" : "action.hover" },
+          flex: 1,
+          minWidth: 0,
+          fontSize: 12,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          color: isSelected ? "text.primary" : "text.secondary",
         }}
       >
-        <Sortable.Handle>
-          <DragIndicatorOutlined
-            sx={{ fontSize: 16, color: "text.disabled", cursor: "grab", display: "block" }}
-          />
-        </Sortable.Handle>
-        <Hb.Box
-          onClick={() => onSelect(node.id)}
-          sx={{
-            flex: 1,
-            minWidth: 0,
-            fontSize: 12,
-            cursor: "pointer",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            color: isSelected ? "text.primary" : "text.secondary",
-          }}
-        >
-          {label}
-        </Hb.Box>
+        {label}
       </Hb.Box>
-
-      {isComponentNode(node) && node.children.length > 0 && (
-        <LayerList
-          nodes={node.children}
-          depth={depth + 1}
-          selectedId={selectedId}
-          onSelect={onSelect}
-        />
-      )}
-    </>
+    </Hb.Box>
   );
 }

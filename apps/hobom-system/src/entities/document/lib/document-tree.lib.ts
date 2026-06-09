@@ -175,3 +175,74 @@ export const reorderChildren = (
 
   return { ...doc, children: doc.children.map(mapNode) };
 };
+
+/** parentId(null=루트)의 index 위치에 노드를 끼워 넣은 새 문서를 반환한다(불변). */
+const insertNodeAt = (
+  doc: StudioDocument,
+  parentId: NodeId | null,
+  index: number,
+  node: DocumentNode,
+): StudioDocument => {
+  const insertInto = (children: DocumentNode[]): DocumentNode[] => {
+    const next = children.slice();
+
+    next.splice(index, 0, node);
+
+    return next;
+  };
+
+  if (parentId === null) {
+    return { ...doc, children: insertInto(doc.children) };
+  }
+
+  const mapNode = (node_: DocumentNode): DocumentNode => {
+    if (!isComponentNode(node_)) {
+      return node_;
+    }
+
+    if (node_.id === parentId) {
+      return { ...node_, children: insertInto(node_.children) };
+    }
+
+    return { ...node_, children: node_.children.map(mapNode) };
+  };
+
+  return { ...doc, children: doc.children.map(mapNode) };
+};
+
+/**
+ * 노드를 over 위치로 옮긴 새 문서를 반환한다(불변).
+ * 같은 부모면 순서변경, 다른 부모면 그 부모로 이동(re-parenting).
+ * 자기 자신의 하위로는 이동하지 않는다(순환 방지).
+ */
+export const moveNode = (doc: StudioDocument, activeId: NodeId, overId: NodeId): StudioDocument => {
+  if (activeId === overId) {
+    return doc;
+  }
+
+  const node = findNode(doc, activeId);
+  const activeParent = findParentId(doc, activeId);
+  const overParent = findParentId(doc, overId);
+
+  if (!node || activeParent === undefined || overParent === undefined) {
+    return doc;
+  }
+
+  if (isComponentNode(node) && Bom.some(flatten(node.children), (child) => child.id === overId)) {
+    return doc;
+  }
+
+  if (activeParent === overParent) {
+    const siblings = getSiblings(doc, activeParent);
+    const from = Bom.findIndex(siblings, (sibling) => sibling.id === activeId);
+    const to = Bom.findIndex(siblings, (sibling) => sibling.id === overId);
+
+    return from < 0 || to < 0 ? doc : reorderChildren(doc, activeParent, from, to);
+  }
+
+  const removed = removeNode(doc, activeId);
+  const siblings = getSiblings(removed, overParent);
+  const overIndex = Bom.findIndex(siblings, (sibling) => sibling.id === overId);
+
+  return insertNodeAt(removed, overParent, overIndex < 0 ? siblings.length : overIndex, node);
+};
