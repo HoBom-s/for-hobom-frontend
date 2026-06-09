@@ -5,6 +5,7 @@ import { InsertPalette } from "@/widgets/insert-palette";
 import { Inspector } from "@/widgets/inspector";
 import { LayersPanel } from "@/widgets/layers-panel";
 import { useStudioEditor } from "../model/useStudioEditor";
+import { useStudioKeyboard } from "../model/useStudioKeyboard";
 import { studioTheme } from "../config/studio-theme";
 
 /**
@@ -17,6 +18,7 @@ export default function StudioPage() {
     selectedId,
     selectedNode,
     selectNode,
+    clearSelection,
     updateProp,
     updateStyle,
     resizeNode,
@@ -24,6 +26,8 @@ export default function StudioPage() {
     insertComponent,
     deleteSelected,
   } = useStudioEditor();
+
+  useStudioKeyboard({ onDelete: deleteSelected, onDeselect: clearSelection });
 
   return (
     <Hb.ThemeProvider theme={studioTheme}>
@@ -50,6 +54,7 @@ export default function StudioPage() {
         </Panel>
 
         <Hb.Stack
+          onClick={clearSelection}
           sx={{
             flex: 1,
             minWidth: 0,
