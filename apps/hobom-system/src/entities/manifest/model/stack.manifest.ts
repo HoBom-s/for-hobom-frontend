@@ -7,7 +7,18 @@ export const stackManifest: ComponentManifest = {
   category: "layout",
   props: {
     direction: { kind: "enum", values: ["row", "column"], default: "column" },
+    justifyContent: {
+      kind: "enum",
+      values: ["flex-start", "center", "flex-end", "space-between"],
+      default: "flex-start",
+    },
+    alignItems: {
+      kind: "enum",
+      values: ["flex-start", "center", "flex-end", "stretch"],
+      default: "stretch",
+    },
     gap: { kind: "number", default: 2 },
+    padding: { kind: "number", default: 0 },
     children: { kind: "slot", accepts: ["*"] },
   },
 };
