@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { isComponentNode, type DocumentNode, type StudioDocument } from "../model/document.model";
-import { findNode, findParentId, getSiblings, reorderChildren } from "./document-tree.lib";
+import {
+  findNode,
+  findParentId,
+  getSiblings,
+  moveNode,
+  reorderChildren,
+} from "./document-tree.lib";
 
 const leaf = (id: string): DocumentNode => ({ id, type: "Hb.Button", props: {}, children: [] });
 
@@ -62,5 +68,36 @@ describe("reorderChildren", () => {
       "b",
       "c",
     ]);
+  });
+});
+
+describe("moveNode", () => {
+  const twoGroups = (): StudioDocument => ({
+    children: [
+      { id: "g1", type: "Hb.Stack", props: {}, children: [leaf("a"), leaf("b")] },
+      { id: "g2", type: "Hb.Stack", props: {}, children: [leaf("c")] },
+    ],
+  });
+
+  const childIds = (doc: StudioDocument, parentId: string) => {
+    const parent = findNode(doc, parentId);
+
+    return parent && isComponentNode(parent) ? parent.children.map((n) => n.id) : [];
+  };
+
+  it("다른 부모로 이동한다(re-parenting)", () => {
+    const next = moveNode(twoGroups(), "a", "c");
+
+    expect(findParentId(next, "a")).toBe("g2");
+    expect(childIds(next, "g2")).toEqual(["a", "c"]);
+    expect(childIds(next, "g1")).toEqual(["b"]);
+  });
+
+  it("같은 부모면 순서변경", () => {
+    expect(childIds(moveNode(twoGroups(), "a", "b"), "g1")).toEqual(["b", "a"]);
+  });
+
+  it("자기 하위로는 이동하지 않는다(순환 방지)", () => {
+    expect(moveNode(twoGroups(), "g1", "a")).toEqual(twoGroups());
   });
 });
