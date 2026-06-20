@@ -34,6 +34,8 @@ const pageImports = {
   projectDashboard: () => import("@/pages/project-dashboard"),
   projectSettings: () => import("@/pages/project-settings"),
   adminUsers: () => import("@/pages/admin-users"),
+  studioLayout: () => import("@/pages/studio-layout"),
+  studioWorkspace: () => import("@/pages/studio-workspace"),
   studio: () => import("@/pages/studio"),
   wikiSpaces: () => import("@/pages/wiki-spaces"),
   wikiSpaceLayout: () => import("@/pages/wiki-space-layout"),
@@ -74,6 +76,8 @@ const ProjectIssuesPage = lazy(pageImports.projectIssues);
 const ProjectDashboardPage = lazy(pageImports.projectDashboard);
 const ProjectSettingsPage = lazy(pageImports.projectSettings);
 const AdminUsersPage = lazy(pageImports.adminUsers);
+const StudioLayoutPage = lazy(pageImports.studioLayout);
+const WorkspacePage = lazy(pageImports.studioWorkspace);
 const StudioPage = lazy(pageImports.studio);
 const WikiSpacesPage = lazy(pageImports.wikiSpaces);
 const WikiSpaceLayoutPage = lazy(pageImports.wikiSpaceLayout);
@@ -300,10 +304,13 @@ export const AppRouter = () => {
           path={RoutesConfig.STUDIO.HOME}
           element={
             <Shell>
-              <StudioPage />
+              <StudioLayoutPage />
             </Shell>
           }
-        />
+        >
+          <Route index element={<WorkspacePage />} />
+          <Route path=":itemId" element={<StudioPage />} />
+        </Route>
         <Route
           path={RoutesConfig.PROJECTS.LIST}
           element={
