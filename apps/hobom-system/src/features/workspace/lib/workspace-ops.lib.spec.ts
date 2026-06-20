@@ -3,6 +3,8 @@ import {
   addDesign,
   addFolder,
   itemsInFolder,
+  removeDesign,
+  removeFolder,
   renameFolder,
   renameItem,
   setItemDocument,
@@ -50,5 +52,20 @@ describe("workspace-ops", () => {
 
   it("renameItem은 아이템 이름을 바꾼다", () => {
     expect(renameItem(doc(), "i1", "메인 폼").items[0].name).toBe("메인 폼");
+  });
+
+  it("removeDesign은 아이템과 문서를 제거한다", () => {
+    const next = removeDesign(doc(), "i1");
+
+    expect(next.items).toHaveLength(0);
+    expect(next.documents.i1).toBeUndefined();
+  });
+
+  it("removeFolder는 폴더와 그 안의 아이템·문서를 cascade 제거한다", () => {
+    const next = removeFolder(doc(), "f1");
+
+    expect(next.folders).toHaveLength(0);
+    expect(next.items).toHaveLength(0);
+    expect(next.documents.i1).toBeUndefined();
   });
 });

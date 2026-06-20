@@ -12,6 +12,8 @@ export interface WorkspaceContextValue {
   createDesign: (folderId: FolderId, name: string) => ItemId;
   renameFolder: (id: FolderId, name: string) => void;
   renameItem: (id: ItemId, name: string) => void;
+  deleteFolder: (id: FolderId) => void;
+  deleteDesign: (id: ItemId) => void;
   updateDocument: (id: ItemId, updater: (prev: StudioDocument) => StudioDocument) => void;
 }
 

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { AddOutlined, FolderOutlined } from "hobom-design-system/icons";
+import { AddOutlined, DeleteOutline, FolderOutlined } from "hobom-design-system/icons";
 import { Hb, EditableLabel } from "@/shared/ui";
 import { useWorkspace } from "@/features/workspace";
 import type { FolderId, ItemId } from "@/entities/workspace";
@@ -8,7 +8,15 @@ import type { FolderId, ItemId } from "@/entities/workspace";
 /** 워크스페이스 브라우저 — 좌측 폴더 / 우측 아이템 그리드. 아이템 클릭 시 에디터로 이동. */
 export default function WorkspacePage() {
   const navigate = useNavigate();
-  const { folders, itemsInFolder, createFolder, createDesign, renameFolder } = useWorkspace();
+  const {
+    folders,
+    itemsInFolder,
+    createFolder,
+    createDesign,
+    renameFolder,
+    deleteFolder,
+    deleteDesign,
+  } = useWorkspace();
   const [activeFolderId, setActiveFolderId] = useState<FolderId | undefined>(folders[0]?.id);
 
   const activeFolder = folders.find((folder) => folder.id === activeFolderId) ?? folders[0];
@@ -24,6 +32,20 @@ export default function WorkspacePage() {
     }
 
     openItem(createDesign(activeFolder.id, `디자인 ${items.length + 1}`));
+  };
+
+  const handleDeleteFolder = (event: MouseEvent, id: FolderId) => {
+    event.stopPropagation();
+    deleteFolder(id);
+
+    if (id === activeFolderId) {
+      setActiveFolderId(folders.find((folder) => folder.id !== id)?.id);
+    }
+  };
+
+  const handleDeleteDesign = (event: MouseEvent, id: ItemId) => {
+    event.stopPropagation();
+    deleteDesign(id);
   };
 
   return (
@@ -62,6 +84,7 @@ export default function WorkspacePage() {
               cursor: "pointer",
               bgcolor: folder.id === activeFolder?.id ? "action.selected" : "transparent",
               "&:hover": { bgcolor: "action.hover" },
+              "&:hover .row-action": { opacity: 1 },
             }}
           >
             <FolderOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
@@ -71,6 +94,15 @@ export default function WorkspacePage() {
               textSx={{ fontSize: 14 }}
             />
             <Hb.Box sx={{ flex: 1 }} />
+            <Hb.Button.Icon
+              size="small"
+              className="row-action"
+              aria-label="폴더 삭제"
+              onClick={(event) => handleDeleteFolder(event, folder.id)}
+              sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
+            >
+              <DeleteOutline sx={{ fontSize: 16 }} />
+            </Hb.Button.Icon>
           </Hb.Stack>
         ))}
       </Hb.Stack>
@@ -96,10 +128,30 @@ export default function WorkspacePage() {
                 sx={{
                   width: 200,
                   p: 1.5,
+                  position: "relative",
                   cursor: "pointer",
                   "&:hover": { borderColor: "primary.main" },
+                  "&:hover .card-action": { opacity: 1 },
                 }}
               >
+                <Hb.Button.Icon
+                  size="small"
+                  className="card-action"
+                  aria-label="디자인 삭제"
+                  onClick={(event) => handleDeleteDesign(event, item.id)}
+                  sx={{
+                    position: "absolute",
+                    top: 6,
+                    right: 6,
+                    bgcolor: "background.paper",
+                    opacity: 0,
+                    transition: "opacity 0.12s",
+                    "&:hover": { bgcolor: "background.paper" },
+                  }}
+                >
+                  <DeleteOutline sx={{ fontSize: 16 }} />
+                </Hb.Button.Icon>
+
                 <Hb.Box sx={{ height: 120, bgcolor: "background.default", borderRadius: 1, mb: 1 }} />
                 <Hb.Text variant="body2" sx={{ fontWeight: 600, px: 0.25 }}>
                   {item.name}
