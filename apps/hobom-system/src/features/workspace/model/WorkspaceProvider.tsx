@@ -5,6 +5,8 @@ import {
   addDesign,
   addFolder,
   itemsInFolder as itemsInFolderOp,
+  removeDesign as removeDesignOp,
+  removeFolder as removeFolderOp,
   renameFolder as renameFolderOp,
   renameItem as renameItemOp,
   setItemDocument as setItemDocumentOp,
@@ -46,6 +48,14 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
     setState((prev) => renameItemOp(prev, id, name));
   }, []);
 
+  const deleteFolder = useCallback((id: FolderId) => {
+    setState((prev) => removeFolderOp(prev, id));
+  }, []);
+
+  const deleteDesign = useCallback((id: ItemId) => {
+    setState((prev) => removeDesignOp(prev, id));
+  }, []);
+
   const updateDocument = useCallback(
     (id: ItemId, updater: (prev: StudioDocument) => StudioDocument) => {
       setState((prev) => {
@@ -68,9 +78,20 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
       createDesign,
       renameFolder,
       renameItem,
+      deleteFolder,
+      deleteDesign,
       updateDocument,
     }),
-    [state, createFolder, createDesign, renameFolder, renameItem, updateDocument],
+    [
+      state,
+      createFolder,
+      createDesign,
+      renameFolder,
+      renameItem,
+      deleteFolder,
+      deleteDesign,
+      updateDocument,
+    ],
   );
 
   return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
