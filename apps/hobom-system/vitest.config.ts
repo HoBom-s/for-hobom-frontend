@@ -1,7 +1,16 @@
 import * as path from "path";
 import { defineConfig } from "vitest/config";
+import stylex from "@stylexjs/unplugin";
 
 export default defineConfig({
+  // StyleX must compile design-system source pulled in by tests too, so the
+  // package is inlined (Vite externalizes node_modules by default) and the
+  // plugin runs over it — otherwise `stylex.defineVars` throws at runtime.
+  plugins: [
+    stylex.vite({
+      unstable_moduleResolution: { type: "commonJS", rootDir: path.resolve(__dirname, "../..") },
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
@@ -10,6 +19,11 @@ export default defineConfig({
   test: {
     globals: true,
     include: ["src/**/*.{spec,test}.{ts,tsx}"],
+    server: {
+      deps: {
+        inline: ["hobom-design-system"],
+      },
+    },
     typecheck: {
       tsconfig: "./tsconfig.spec.json",
     },
