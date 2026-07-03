@@ -1,6 +1,6 @@
 import { createTheme, type PaletteOptions } from "@mui/material";
-import { primitives, semantic } from "./tokens";
-import type { SemanticTokens } from "./tokens";
+import { primitives, semantic } from "../tokens";
+import type { SemanticTokens } from "../tokens";
 
 /** Side Drawer expanded width (px). Must stay in sync with AppShell. */
 export const DRAWER_WIDTH = primitives.layout.drawerWidth;

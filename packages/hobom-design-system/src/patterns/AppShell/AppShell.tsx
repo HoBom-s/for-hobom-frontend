@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore, MenuOutlined } from "@mui/icons-material";
 import { Bom } from "hobom-utils";
-import { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "../theme";
+import { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "../../foundations/theme";
 
 export interface AppShellNavItem {
   /** 네비게이션 아이템의 고유 식별자. 활성 상태 판별에 사용. */
