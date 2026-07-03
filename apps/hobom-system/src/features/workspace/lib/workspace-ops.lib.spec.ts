@@ -1,10 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
   addDesign,
+  addFavorite,
   addFolder,
   itemsInFolder,
   removeDesign,
+  removeFavorite,
   removeFolder,
+  renameFavorite,
   renameFolder,
   renameItem,
   setItemDocument,
@@ -15,6 +18,7 @@ const doc = (): WorkspaceState => ({
   folders: [{ id: "f1", name: "내 작업" }],
   items: [{ id: "i1", name: "샘플", folderId: "f1" }],
   documents: { i1: { children: [] } },
+  favorites: [],
 });
 
 describe("workspace-ops", () => {
@@ -67,5 +71,30 @@ describe("workspace-ops", () => {
     expect(next.folders).toHaveLength(0);
     expect(next.items).toHaveLength(0);
     expect(next.documents.i1).toBeUndefined();
+  });
+
+  it("addFavorite은 즐겨찾기를 추가하고 같은 디자인 중복은 막는다", () => {
+    const once = addFavorite(doc(), { id: "fav1", designId: "i1", label: "샘플" });
+    const twice = addFavorite(once, { id: "fav2", designId: "i1", label: "또" });
+
+    expect(twice.favorites).toHaveLength(1);
+  });
+
+  it("renameFavorite은 라벨을 바꾼다", () => {
+    const withFav = addFavorite(doc(), { id: "fav1", designId: "i1", label: "샘플" });
+
+    expect(renameFavorite(withFav, "fav1", "즐겨").favorites[0].label).toBe("즐겨");
+  });
+
+  it("디자인 삭제 시 그 즐겨찾기도 제거된다", () => {
+    const withFav = addFavorite(doc(), { id: "fav1", designId: "i1", label: "샘플" });
+
+    expect(removeDesign(withFav, "i1").favorites).toHaveLength(0);
+  });
+
+  it("removeFavorite은 즐겨찾기를 제거한다", () => {
+    const withFav = addFavorite(doc(), { id: "fav1", designId: "i1", label: "샘플" });
+
+    expect(removeFavorite(withFav, "fav1").favorites).toHaveLength(0);
   });
 });
