@@ -10,12 +10,12 @@
       "default": "./src/index.ts"
     },
     "./icons": {
-      "types": "./src/icons.ts",
-      "default": "./src/icons.ts"
+      "types": "./src/icons/index.ts",
+      "default": "./src/icons/index.ts"
     },
     "./date-pickers": {
-      "types": "./src/date-pickers.ts",
-      "default": "./src/date-pickers.ts"
+      "types": "./src/date-pickers/index.ts",
+      "default": "./src/date-pickers/index.ts"
     }
   },
   "scripts": {
