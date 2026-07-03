@@ -1,111 +1,68 @@
-import { createTheme } from "@mui/material";
+import { createTheme, type PaletteOptions } from "@mui/material";
+import { primitives, semantic } from "./tokens";
+import type { SemanticTokens } from "./tokens";
 
-/** 사이드 Drawer 펼침 너비(px). AppShell과 동기화 필요. */
-export const DRAWER_WIDTH = 240;
-/** 사이드 Drawer 접힘 너비(px). */
-export const DRAWER_WIDTH_COLLAPSED = 64;
-/** 상단 AppBar 높이(px). main 콘텐츠 영역 offset에 사용. */
-export const APPBAR_HEIGHT = 56;
+/** Side Drawer expanded width (px). Must stay in sync with AppShell. */
+export const DRAWER_WIDTH = primitives.layout.drawerWidth;
+/** Side Drawer collapsed width (px). */
+export const DRAWER_WIDTH_COLLAPSED = primitives.layout.drawerWidthCollapsed;
+/** Top AppBar height (px). Used as the main content offset. */
+export const APPBAR_HEIGHT = primitives.layout.appbarHeight;
+
+/** Map a semantic token set to an MUI palette (1:1, lossless). */
+const toPalette = ({ color: c }: SemanticTokens): PaletteOptions => ({
+  primary: {
+    main: c.brand.main,
+    light: c.brand.light,
+    dark: c.brand.dark,
+    contrastText: c.brand.contrast,
+  },
+  secondary: { main: c.neutral.main, contrastText: c.neutral.contrast },
+  success: { main: c.success.main, light: c.success.subtle },
+  warning: { main: c.warning.main, light: c.warning.subtle },
+  error: { main: c.danger.main },
+  background: { default: c.bg.canvas, paper: c.bg.surface },
+  text: { primary: c.text.primary, secondary: c.text.secondary },
+  divider: c.border.default,
+});
 
 /**
- * MUI 테마. light/dark 스킴을 `data-mui-color-scheme` 속성으로 전환한다.
- * Datta Able 디자인 시스템 기반 (Primary: #4680ff, Sidebar: #1d2630).
+ * MUI theme. Switches light/dark via the `data-mui-color-scheme` attribute.
+ *
+ * All colors, typography, radii and shadows are sourced from the token layer
+ * (`./tokens`) rather than hardcoded here. MUI is the only consumer of these
+ * tokens today; this file is the single point that will be removed once
+ * components no longer depend on MUI.
  */
 export const theme = createTheme({
   cssVariables: { colorSchemeSelector: "data-mui-color-scheme" },
   colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          main: "#4680ff",
-          light: "#94baff",
-          dark: "#2a5bd7",
-          contrastText: "#ffffff",
-        },
-        secondary: {
-          main: "#5b6a98",
-          contrastText: "#ffffff",
-        },
-        success: {
-          main: "#2ca87f",
-          light: "#e8f5e9",
-        },
-        warning: {
-          main: "#e58a00",
-          light: "#fff3e0",
-        },
-        error: {
-          main: "#dc2626",
-        },
-        background: {
-          default: "#f0f2f5",
-          paper: "#ffffff",
-        },
-        text: {
-          primary: "#2d3748",
-          secondary: "#4a5568",
-        },
-        divider: "#d0d5dd",
-      },
-    },
-    dark: {
-      palette: {
-        primary: {
-          main: "#5b93ff",
-          light: "#94baff",
-          dark: "#3a6de0",
-          contrastText: "#ffffff",
-        },
-        secondary: {
-          main: "#8a9bc8",
-          contrastText: "#ffffff",
-        },
-        success: {
-          main: "#34c793",
-          light: "#1a3a2a",
-        },
-        warning: {
-          main: "#f5a623",
-          light: "#3a2d1a",
-        },
-        error: {
-          main: "#ef4444",
-        },
-        background: {
-          default: "#111827",
-          paper: "#1e293b",
-        },
-        text: {
-          primary: "#e2e8f0",
-          secondary: "#94a3b8",
-        },
-        divider: "#334155",
-      },
-    },
+    light: { palette: toPalette(semantic.light) },
+    dark: { palette: toPalette(semantic.dark) },
   },
   typography: {
-    fontFamily: `'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif`,
+    fontFamily: primitives.fontFamily,
     h6: {
-      fontSize: "1rem",
-      fontWeight: 600,
+      fontSize: primitives.fontSize.md,
+      fontWeight: primitives.fontWeight.semibold,
     },
     body1: {
-      fontSize: "0.875rem",
+      fontSize: primitives.fontSize.base,
     },
     body2: {
-      fontSize: "0.8125rem",
+      fontSize: primitives.fontSize.sm,
     },
     button: {
       textTransform: "none",
-      fontSize: "0.875rem",
-      fontWeight: 500,
+      fontSize: primitives.fontSize.base,
+      fontWeight: primitives.fontWeight.medium,
     },
     caption: {
-      fontSize: "0.75rem",
+      fontSize: primitives.fontSize.xs,
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: primitives.radius.md,
   },
   components: {
     MuiAppBar: {
@@ -113,7 +70,7 @@ export const theme = createTheme({
         root: ({ theme }) => ({
           backgroundColor: theme.vars.palette.background.paper,
           color: theme.vars.palette.text.primary,
-          boxShadow: "0 1px 0 rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
+          boxShadow: primitives.shadow.appbar,
         }),
       },
     },
@@ -122,16 +79,16 @@ export const theme = createTheme({
         paper: {
           width: DRAWER_WIDTH,
           boxSizing: "border-box",
-          backgroundColor: "#1d2630",
+          backgroundColor: primitives.color.sidebar,
           border: "none",
-          boxShadow: "2px 0 8px rgba(0,0,0,0.15)",
+          boxShadow: primitives.shadow.drawer,
         },
       },
     },
     MuiListItemButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: primitives.radius.md,
           marginBottom: 4,
           paddingTop: 10,
           paddingBottom: 10,
@@ -142,10 +99,10 @@ export const theme = createTheme({
             color: "rgba(255, 255, 255, 0.9)",
           },
           "&.Mui-selected": {
-            backgroundColor: "#4680ff",
-            color: "#ffffff",
+            backgroundColor: primitives.color.brand[500],
+            color: primitives.color.white,
             "&:hover": {
-              backgroundColor: "#3a6de0",
+              backgroundColor: primitives.color.brand[600],
             },
           },
         },
@@ -165,18 +122,18 @@ export const theme = createTheme({
           backgroundImage: "none",
         },
         elevation1: {
-          boxShadow: "0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.03)",
+          boxShadow: primitives.shadow.elevation1,
         },
         elevation2: {
-          boxShadow: "0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04)",
+          boxShadow: primitives.shadow.elevation2,
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          fontWeight: 500,
+          borderRadius: primitives.radius.md,
+          fontWeight: primitives.fontWeight.medium,
           boxShadow: "none",
           "&:hover": {
             boxShadow: "none",
@@ -185,7 +142,7 @@ export const theme = createTheme({
         contained: {
           boxShadow: "none",
           "&:hover": {
-            boxShadow: "0 4px 12px rgba(70, 128, 255, 0.35)",
+            boxShadow: primitives.shadow.brandGlow,
           },
         },
       },
@@ -193,8 +150,8 @@ export const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 6,
-          fontWeight: 500,
+          borderRadius: primitives.radius.sm,
+          fontWeight: primitives.fontWeight.medium,
         },
       },
     },
@@ -202,8 +159,8 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: "none",
-          fontWeight: 500,
-          fontSize: "0.875rem",
+          fontWeight: primitives.fontWeight.medium,
+          fontSize: primitives.fontSize.base,
         },
       },
     },
@@ -222,7 +179,7 @@ export const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: primitives.radius.md,
         },
       },
     },
