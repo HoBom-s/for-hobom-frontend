@@ -32,5 +32,22 @@ export default tseslint.config(baseIgnores, {
 
     // ── FSD Architecture ──
     "fsd-boundaries/fsd-boundaries": "error",
+
+    // ── Design system boundary ──
+    // The app must consume UI through hobom-design-system, never the
+    // underlying styling engine directly. This keeps product code decoupled
+    // from the engine so it can be swapped without app changes.
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        patterns: [
+          {
+            group: ["@mui", "@mui/*", "@emotion", "@emotion/*"],
+            message:
+              "Import from 'hobom-design-system' instead of the styling engine directly.",
+          },
+        ],
+      },
+    ],
   },
 });

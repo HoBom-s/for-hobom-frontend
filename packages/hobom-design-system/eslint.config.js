@@ -22,4 +22,23 @@ export default tseslint.config(baseIgnores, {
     "react-hooks/refs": "off",
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
   },
+}, {
+  // The public barrel must stay engine-free. Components may wrap the engine
+  // internally, but the styling/theme surface is re-exported only through
+  // foundations/styling.ts — the single place that touches it publicly.
+  files: ["src/index.ts"],
+  rules: {
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        patterns: [
+          {
+            group: ["@mui", "@mui/*"],
+            message:
+              "Keep the public barrel engine-free. Re-export from foundations/styling.ts instead.",
+          },
+        ],
+      },
+    ],
+  },
 });
