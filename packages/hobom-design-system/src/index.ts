@@ -16,13 +16,9 @@ import { SkeletonList } from "./patterns/SkeletonList";
 export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };
 
 export { theme, DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "./foundations/theme";
-export { createTheme } from "@mui/material";
 
 export { Hb } from "./components";
 
-// MUI types re-export
-export type { SxProps, Theme, SelectChangeEvent } from "@mui/material";
-export type { SvgIconProps } from "@mui/material";
-
-// MUI hooks re-export
-export { useColorScheme } from "@mui/material/styles";
+// Styling & theming surface (see foundations/styling.ts).
+export { createTheme, useColorScheme } from "./foundations/styling";
+export type { SxProps, Theme, SelectChangeEvent, SvgIconProps } from "./foundations/styling";
