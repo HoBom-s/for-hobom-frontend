@@ -1,12 +1,15 @@
 import { useCallback, useMemo, useState, type ReactNode } from "react";
 import { createSampleDocument, type StudioDocument } from "@/entities/document";
-import type { FolderId, ItemId } from "@/entities/workspace";
+import type { FavoriteId, FolderId, ItemId } from "@/entities/workspace";
 import {
   addDesign,
+  addFavorite as addFavoriteOp,
   addFolder,
   itemsInFolder as itemsInFolderOp,
   removeDesign as removeDesignOp,
+  removeFavorite as removeFavoriteOp,
   removeFolder as removeFolderOp,
+  renameFavorite as renameFavoriteOp,
   renameFolder as renameFolderOp,
   renameItem as renameItemOp,
   setItemDocument as setItemDocumentOp,
@@ -18,6 +21,7 @@ const createInitialState = (): WorkspaceState => ({
   folders: [{ id: "f_default", name: "내 작업" }],
   items: [{ id: "i_sample", name: "샘플 폼", folderId: "f_default" }],
   documents: { i_sample: createSampleDocument() },
+  favorites: [],
 });
 
 /** 워크스페이스 인메모리 store. 폴더·아이템·문서를 보관하고 ops를 제공한다. */
@@ -56,6 +60,20 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
     setState((prev) => removeDesignOp(prev, id));
   }, []);
 
+  const addFavorite = useCallback((designId: ItemId, label: string) => {
+    const id = `fav_${crypto.randomUUID()}`;
+
+    setState((prev) => addFavoriteOp(prev, { id, designId, label }));
+  }, []);
+
+  const removeFavorite = useCallback((id: FavoriteId) => {
+    setState((prev) => removeFavoriteOp(prev, id));
+  }, []);
+
+  const renameFavorite = useCallback((id: FavoriteId, label: string) => {
+    setState((prev) => renameFavoriteOp(prev, id, label));
+  }, []);
+
   const updateDocument = useCallback(
     (id: ItemId, updater: (prev: StudioDocument) => StudioDocument) => {
       setState((prev) => {
@@ -71,6 +89,7 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
     () => ({
       folders: state.folders,
       items: state.items,
+      favorites: state.favorites,
       itemsInFolder: (folderId) => itemsInFolderOp(state, folderId),
       getItem: (id) => state.items.find((item) => item.id === id),
       getDocument: (id) => state.documents[id],
@@ -80,6 +99,9 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
       renameItem,
       deleteFolder,
       deleteDesign,
+      addFavorite,
+      removeFavorite,
+      renameFavorite,
       updateDocument,
     }),
     [
@@ -90,6 +112,9 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
       renameItem,
       deleteFolder,
       deleteDesign,
+      addFavorite,
+      removeFavorite,
+      renameFavorite,
       updateDocument,
     ],
   );

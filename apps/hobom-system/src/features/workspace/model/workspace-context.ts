@@ -1,10 +1,18 @@
 import { createContext, useContext } from "react";
 import type { StudioDocument } from "@/entities/document";
-import type { Folder, FolderId, ItemId, WorkspaceItem } from "@/entities/workspace";
+import type {
+  Favorite,
+  FavoriteId,
+  Folder,
+  FolderId,
+  ItemId,
+  WorkspaceItem,
+} from "@/entities/workspace";
 
 export interface WorkspaceContextValue {
   folders: Folder[];
   items: WorkspaceItem[];
+  favorites: Favorite[];
   itemsInFolder: (folderId: FolderId) => WorkspaceItem[];
   getItem: (id: ItemId) => WorkspaceItem | undefined;
   getDocument: (id: ItemId) => StudioDocument | undefined;
@@ -14,6 +22,9 @@ export interface WorkspaceContextValue {
   renameItem: (id: ItemId, name: string) => void;
   deleteFolder: (id: FolderId) => void;
   deleteDesign: (id: ItemId) => void;
+  addFavorite: (designId: ItemId, label: string) => void;
+  removeFavorite: (id: FavoriteId) => void;
+  renameFavorite: (id: FavoriteId, label: string) => void;
   updateDocument: (id: ItemId, updater: (prev: StudioDocument) => StudioDocument) => void;
 }
 
