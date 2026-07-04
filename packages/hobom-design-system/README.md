@@ -138,6 +138,18 @@ exported for shells that need to align with the drawer/appbar.
 Keep business logic out of components — extract it into hooks in the consuming
 feature, and keep pure helpers unit-tested.
 
+## Storybook
+
+Components are developed and reviewed in isolation in Storybook. Stories are
+co-located with each component as `<Name>.stories.tsx`. StyleX is wired into the
+Storybook Vite builder (`.storybook/main.ts`), so token-styled components render
+correctly.
+
+```bash
+pnpm --filter hobom-design-system storybook        # dev server on :6006
+pnpm --filter hobom-design-system build-storybook  # static build
+```
+
 ## Scripts
 
 ```bash
