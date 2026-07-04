@@ -1,9 +1,19 @@
 import * as path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import stylex from "@stylexjs/unplugin";
 
 export default defineConfig({
-  plugins: [react()],
+  // StyleX must run before react to preserve Fast Refresh. `unstable_moduleResolution`
+  // in ESM mode lets the plugin resolve StyleX vars imported from the workspace
+  // design-system package.
+  plugins: [
+    stylex.vite({
+      useCSSLayers: true,
+      unstable_moduleResolution: { type: "commonJS", rootDir: path.resolve(__dirname, "../..") },
+    }),
+    react(),
+  ],
   optimizeDeps: {
     include: ["date-fns", "zod", "react-hook-form"],
   },
