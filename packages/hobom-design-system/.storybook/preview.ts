@@ -6,6 +6,8 @@ const preview: Preview = {
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     layout: "centered",
+    // Fail story tests on accessibility violations (axe).
+    a11y: { test: "error" },
   },
 };
 

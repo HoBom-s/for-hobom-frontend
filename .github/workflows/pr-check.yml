@@ -30,6 +30,9 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      - name: Install Playwright browser
+        run: pnpm --filter hobom-design-system exec playwright install --with-deps chromium
+
       - name: Run test
         run: pnpm test:coverage
 

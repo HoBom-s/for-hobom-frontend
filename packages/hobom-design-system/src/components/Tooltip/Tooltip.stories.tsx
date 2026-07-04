@@ -1,3 +1,4 @@
+import { expect, screen, userEvent, waitFor } from "storybook/test";
 import { Tooltip } from "./Tooltip";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -38,4 +39,23 @@ export const Placements: Story = {
       ))}
     </div>
   ),
+};
+
+// Interaction test: hover opens the tooltip; Escape closes it. The content is
+// portaled to the body, so it is queried via `screen`, not the canvas.
+export const OpensOnHover: Story = {
+  play: async ({ canvas, step }) => {
+    const trigger = canvas.getByRole("button", { name: "Hover me" });
+
+    await step("hover shows the tooltip", async () => {
+      await userEvent.hover(trigger);
+      await waitFor(() => expect(screen.getByRole("tooltip")).toHaveTextContent("Tooltip text"));
+      await expect(trigger).toHaveAttribute("aria-describedby");
+    });
+
+    await step("Escape closes it", async () => {
+      await userEvent.keyboard("{Escape}");
+      await waitFor(() => expect(screen.queryByRole("tooltip")).not.toBeInTheDocument());
+    });
+  },
 };
