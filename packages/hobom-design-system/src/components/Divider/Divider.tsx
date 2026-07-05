@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { scheme } from "../../foundations/tokens/theme.stylex";
 
 interface DividerProps {
   /** Line direction. Defaults to `"horizontal"`. */
@@ -14,7 +13,7 @@ interface DividerProps {
 const styles = stylex.create({
   base: {
     border: "none",
-    backgroundColor: scheme.border,
+    backgroundColor: "var(--hb-color-border)",
     flexShrink: 0,
   },
   horizontal: { width: "100%", height: 1 },

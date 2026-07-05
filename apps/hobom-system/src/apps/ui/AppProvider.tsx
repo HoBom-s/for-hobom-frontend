@@ -3,7 +3,7 @@ import { Slide, ToastContainer } from "react-toastify";
 import { DataLot, DataLotProvider } from "hobom-data";
 import { BottomSheetCTAProvider } from "@/shared/model";
 import { theme, GLOBAL_STYLES } from "@/shared/config";
-import { Hb, ErrorBoundary, OverlayProvider } from "@/shared/ui";
+import { Hb, ErrorBoundary, OverlayProvider, ColorSchemeVars } from "@/shared/ui";
 import { reportError } from "@/shared/lib";
 import { ColorSchemeBridge } from "./ColorSchemeBridge";
 
@@ -46,6 +46,7 @@ export const AppProvider = ({ children }: Props) => {
         <Hb.ThemeProvider theme={theme}>
           <Hb.CssBaseline enableColorScheme />
           <Hb.GlobalStyles styles={GLOBAL_STYLES} />
+          <ColorSchemeVars />
           <ColorSchemeBridge />
           <ErrorBoundary
             onError={(err, info) => reportError(err, { componentStack: info.componentStack })}
