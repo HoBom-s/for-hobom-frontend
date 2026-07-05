@@ -140,7 +140,11 @@ export const LawDiffViewer = ({ diffId }: Props) => {
           variant="outlined"
         />
       </Hb.Stack>
-      <Hb.Divider sx={{ mb: 2 }} />
+      <Hb.Divider
+        style={{
+          marginBottom: 16,
+        }}
+      />
       <Hb.Stack spacing={2}>
         {diff.changes.map((change, i) => (
           <ChangeCard key={`${change.articleNo}-${i}`} change={change} />

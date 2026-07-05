@@ -73,13 +73,21 @@ export const IssueDetailDialog = ({
                 <Hb.Text variant="h6" fontWeight={700} sx={{ mb: 2 }}>
                   {issue.title}
                 </Hb.Text>
-                <Hb.Divider sx={{ mb: 2 }} />
+                <Hb.Divider
+                  style={{
+                    marginBottom: 16,
+                  }}
+                />
 
                 <IssueMetaSection />
 
                 {issue.description && (
                   <>
-                    <Hb.Divider sx={{ mb: 2 }} />
+                    <Hb.Divider
+                      style={{
+                        marginBottom: 16,
+                      }}
+                    />
                     <Hb.Text variant="subtitle2" fontWeight={600} sx={{ mb: 1, fontSize: 13 }}>
                       설명
                     </Hb.Text>
@@ -103,7 +111,6 @@ export const IssueDetailDialog = ({
           </IssueDetailContext.Provider>
         )}
       </Hb.Dialog.Root>
-
       {/* Status Menu */}
       <Hb.Menu.Root
         anchorEl={actions.statusMenu.anchor?.el}
@@ -134,7 +141,6 @@ export const IssueDetailDialog = ({
           </Hb.Menu.Item>
         ))}
       </Hb.Menu.Root>
-
       {/* Priority Menu */}
       <Hb.Menu.Root
         anchorEl={actions.priorityMenu.anchor}
@@ -166,7 +172,6 @@ export const IssueDetailDialog = ({
           </Hb.Menu.Item>
         ))}
       </Hb.Menu.Root>
-
       {/* Assignee Menu */}
       <Hb.Menu.Root
         anchorEl={actions.assigneeMenu.anchor}

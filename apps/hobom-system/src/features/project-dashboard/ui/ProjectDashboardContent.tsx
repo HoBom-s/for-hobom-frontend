@@ -21,9 +21,12 @@ export const ProjectDashboardContent = () => {
         이슈 개요
       </Hb.Text>
       <IssueDashboardSection data={issueData.items} />
-
-      <Hb.Divider sx={{ my: 3 }} />
-
+      <Hb.Divider
+        style={{
+          marginTop: 24,
+          marginBottom: 24,
+        }}
+      />
       <Hb.Box
         sx={{
           display: "flex",
@@ -50,7 +53,6 @@ export const ProjectDashboardContent = () => {
           </Hb.Form.Select>
         </Hb.Form.Control>
       </Hb.Box>
-
       {selectedSprintId ? (
         <SprintDashboardSection projectId={projectId} sprintId={selectedSprintId} />
       ) : (

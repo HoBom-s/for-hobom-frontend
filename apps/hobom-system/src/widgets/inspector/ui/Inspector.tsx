@@ -29,12 +29,7 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
 
   return (
     <Hb.Box sx={{ p: 1.5 }}>
-      <Hb.Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ mb: 1.5 }}
-      >
+      <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1.5 }}>
         <Hb.Text sx={{ fontSize: 13, fontWeight: 600 }}>{node.type}</Hb.Text>
         <Hb.Button.Icon
           size="small"
@@ -45,11 +40,8 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
           <DeleteOutline sx={{ fontSize: 16 }} />
         </Hb.Button.Icon>
       </Hb.Stack>
-
       {!manifest ? (
-        <Hb.Text sx={{ fontSize: 12, color: "error.main" }}>
-          미등록 컴포넌트: {node.type}
-        </Hb.Text>
+        <Hb.Text sx={{ fontSize: 12, color: "error.main" }}>미등록 컴포넌트: {node.type}</Hb.Text>
       ) : (
         <Hb.Stack gap={1.25}>
           {Object.entries(manifest.props).map(([name, spec]) => (
@@ -63,9 +55,12 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
           ))}
         </Hb.Stack>
       )}
-
-      <Hb.Divider sx={{ my: 1.5 }} />
-
+      <Hb.Divider
+        style={{
+          marginTop: 12,
+          marginBottom: 12,
+        }}
+      />
       <Hb.Text
         sx={{
           fontSize: 11,
@@ -79,7 +74,11 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
         사이징
       </Hb.Text>
       <Hb.Stack gap={1.25}>
-        <SizeField label="W" value={node.style?.width} onChange={(v) => onStyleChange("width", v)} />
+        <SizeField
+          label="W"
+          value={node.style?.width}
+          onChange={(v) => onStyleChange("width", v)}
+        />
         <SizeField
           label="H"
           value={node.style?.height}

@@ -49,13 +49,16 @@ export const IssueCommentsSection = () => {
 
   return (
     <>
-      <Hb.Divider sx={{ my: 2 }} />
+      <Hb.Divider
+        style={{
+          marginTop: 16,
+          marginBottom: 16,
+        }}
+      />
       <Hb.Text variant="subtitle2" fontWeight={600} sx={{ mb: 1.5, fontSize: 13 }}>
         댓글 {comments.length > 0 && `(${comments.length})`}
       </Hb.Text>
-
       <IssueCommentInput onSubmit={handleCreate} loading={createComment.isPending} />
-
       {comments.length > 0 && (
         <Hb.Box sx={{ mt: 1 }}>
           {comments.map((comment) => (

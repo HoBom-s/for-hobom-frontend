@@ -22,11 +22,14 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
           {material.summary}
         </Hb.Text>
       </Hb.Paper>
-
       <Hb.Text variant="h6" gutterBottom>
         핵심 포인트
       </Hb.Text>
-      <Hb.Divider sx={{ mb: 1 }} />
+      <Hb.Divider
+        style={{
+          marginBottom: 8,
+        }}
+      />
       <Hb.List.Root disablePadding>
         {material.keyPoints.map((point, i) => (
           <Hb.List.Item key={i} disableGutters>
@@ -39,7 +42,6 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
           </Hb.List.Item>
         ))}
       </Hb.List.Root>
-
       {material.quizzes.length > 0 && (
         <Hb.Stack direction="row" alignItems="center" spacing={1} mt={3}>
           <CheckCircleOutline color="primary" fontSize="small" />

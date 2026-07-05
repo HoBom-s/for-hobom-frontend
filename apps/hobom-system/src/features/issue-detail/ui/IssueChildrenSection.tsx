@@ -14,7 +14,12 @@ export const IssueChildrenSection = () => {
 
   return (
     <>
-      <Hb.Divider sx={{ my: 2 }} />
+      <Hb.Divider
+        style={{
+          marginTop: 16,
+          marginBottom: 16,
+        }}
+      />
       <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
         <Hb.Text variant="subtitle2" fontWeight={600} sx={{ fontSize: 13 }}>
           하위 이슈 ({childIssues.length})
