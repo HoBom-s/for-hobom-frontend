@@ -52,7 +52,10 @@ export const PendingUsersTable = () => {
             label={users.length}
             size="small"
             color={users.length > 0 ? "warning" : "default"}
-            sx={{ fontWeight: 600, minWidth: 28 }}
+            style={{
+              fontWeight: 600,
+              minWidth: 28,
+            }}
           />
         </Hb.Stack>
       </Hb.Stack>

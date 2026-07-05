@@ -34,13 +34,12 @@ export const EndpointErrorBodyCell = ({ colKey, row, bg }: EndpointErrorBodyCell
           <Hb.Chip
             label={row.httpMethod}
             size="small"
-            sx={{
+            tone={color}
+            style={{
               height: 22,
               fontSize: 11,
               fontWeight: 700,
               letterSpacing: "0.02em",
-              bgcolor: `${color}14`,
-              color,
               border: `1px solid ${color}40`,
             }}
           />

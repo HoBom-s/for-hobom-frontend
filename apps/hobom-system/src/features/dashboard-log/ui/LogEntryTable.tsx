@@ -73,11 +73,11 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                   <Hb.Chip
                     label={row.level}
                     size="small"
-                    sx={{
+                    style={{
                       height: 22,
                       fontSize: 11,
                       fontWeight: 700,
-                      bgcolor: levelStyle.bg,
+                      backgroundColor: levelStyle.bg,
                       color: levelStyle.text,
                     }}
                   />
@@ -91,11 +91,11 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                   <Hb.Chip
                     label={row.httpMethod}
                     size="small"
-                    sx={{
+                    style={{
                       height: 22,
                       fontSize: 11,
                       fontWeight: 600,
-                      bgcolor: `${METHOD_COLOR[row.httpMethod] ?? "#94a3b8"}18`,
+                      backgroundColor: `${METHOD_COLOR[row.httpMethod] ?? "#94a3b8"}18`,
                       color: METHOD_COLOR[row.httpMethod] ?? "#94a3b8",
                     }}
                   />
@@ -125,16 +125,18 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                   <Hb.Chip
                     label={row.statusCode}
                     size="small"
-                    sx={{
+                    style={{
                       height: 22,
                       fontSize: 11,
                       fontWeight: 600,
-                      bgcolor:
+
+                      backgroundColor:
                         row.statusCode >= 500
                           ? "#f8717118"
                           : row.statusCode >= 400
                             ? "#fb923c18"
                             : "#34d39918",
+
                       color:
                         row.statusCode >= 500
                           ? "#f87171"

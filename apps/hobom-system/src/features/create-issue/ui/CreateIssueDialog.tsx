@@ -145,11 +145,11 @@ export const CreateIssueDialog = ({
                   onDelete={() =>
                     fields.setSelectedLabels((prev) => prev.filter((id) => id !== labelId))
                   }
-                  sx={{
+                  style={{
                     height: 22,
                     fontSize: 11,
                     fontWeight: 500,
-                    bgcolor: `${label.color}18`,
+                    backgroundColor: `${label.color}18`,
                     color: label.color,
                   }}
                 />
@@ -161,7 +161,7 @@ export const CreateIssueDialog = ({
               size="small"
               variant="outlined"
               onClick={(e) => setLabelAnchor(e.currentTarget)}
-              sx={{
+              style={{
                 height: 22,
                 fontSize: 11,
                 cursor: "pointer",

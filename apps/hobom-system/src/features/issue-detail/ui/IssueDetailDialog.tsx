@@ -48,11 +48,11 @@ export const IssueDetailDialog = ({
               <Hb.Chip
                 label={ISSUE_KIND_LABEL[issue.type]}
                 size="small"
-                sx={{
+                style={{
                   height: 22,
                   fontSize: 11,
                   fontWeight: 700,
-                  bgcolor: `${ISSUE_KIND_REGISTRY[issue.type].color}18`,
+                  backgroundColor: `${ISSUE_KIND_REGISTRY[issue.type].color}18`,
                   color: ISSUE_KIND_REGISTRY[issue.type].color,
                 }}
               />

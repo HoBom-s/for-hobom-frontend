@@ -45,7 +45,14 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
       }}
     >
       <Hb.Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
-        <Hb.Chip label={change.articleNo} size="small" color="primary" sx={{ fontWeight: 600 }} />
+        <Hb.Chip
+          label={change.articleNo}
+          size="small"
+          color="primary"
+          style={{
+            fontWeight: 600,
+          }}
+        />
         <Hb.Chip
           icon={config.icon}
           label={config.label}

@@ -76,12 +76,12 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             <Hb.Chip
               label={board.type}
               size="small"
-              sx={{
+              style={{
                 height: 20,
                 fontSize: 10,
                 fontWeight: 700,
-                bgcolor: "action.selected",
-                color: "text.secondary",
+                backgroundColor: "var(--hb-color-border)",
+                color: "var(--hb-color-text-secondary)",
               }}
             />
           </Hb.Box>
@@ -110,7 +110,6 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
           </Hb.Tooltip>
         </Hb.Box>
       </Hb.Box>
-
       {/* 컬럼 목록 (드래그 정렬) */}
       <Hb.Text
         variant="caption"
@@ -169,11 +168,11 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                       <Hb.Chip
                         label={`WIP ${col.wipLimit}`}
                         size="small"
-                        sx={{
+                        style={{
                           height: 18,
                           fontSize: 10,
                           fontWeight: 600,
-                          bgcolor: "action.selected",
+                          backgroundColor: "var(--hb-color-border)",
                         }}
                       />
                     )}
@@ -195,7 +194,6 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
           </Hb.Stack>
         </Sortable.List>
       </Sortable.Root>
-
       {/* 컬럼 추가 */}
       <Hb.Box sx={{ display: "flex", gap: 0.5, mt: 1 }}>
         <Hb.TextField

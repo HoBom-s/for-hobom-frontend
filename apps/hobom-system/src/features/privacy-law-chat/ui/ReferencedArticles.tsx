@@ -21,7 +21,10 @@ export const ReferencedArticles = ({ articles }: Props) => (
         label={article}
         size="small"
         variant="outlined"
-        sx={{ height: 22, fontSize: "0.7rem" }}
+        style={{
+          height: 22,
+          fontSize: "0.7rem",
+        }}
       />
     ))}
   </Hb.Stack>

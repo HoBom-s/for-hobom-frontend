@@ -76,13 +76,13 @@ export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) =
           <Hb.Chip
             label={boards.length}
             size="small"
-            sx={{
+            style={{
               height: 20,
               minWidth: 20,
               fontSize: 11,
               fontWeight: 700,
-              bgcolor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
-              color: "primary.main",
+              backgroundColor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
+              color: "var(--hb-color-accent)",
             }}
           />
         </Hb.Box>

@@ -111,12 +111,12 @@ export const IssueRow = ({
           <Hb.Chip
             label={`${childCount} 하위`}
             size="small"
-            sx={{
+            style={{
               height: 18,
               fontSize: 10,
               fontWeight: 600,
-              bgcolor: "action.selected",
-              color: "text.secondary",
+              backgroundColor: "var(--hb-color-border)",
+              color: "var(--hb-color-text-secondary)",
             }}
           />
         )}
@@ -124,11 +124,11 @@ export const IssueRow = ({
           <Hb.Chip
             label={`${progress.completed}/${progress.total} 완료`}
             size="small"
-            sx={{
+            style={{
               height: 18,
               fontSize: 10,
               fontWeight: 600,
-              bgcolor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
+              backgroundColor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
               color: progress.completed === progress.total ? "#2ca87f" : "#e58a00",
             }}
           />
@@ -167,7 +167,6 @@ export const IssueRow = ({
           </Hb.Button.Icon>
         )}
       </Hb.Box>
-
       <Hb.Menu.Root
         anchorEl={menuEl}
         open={Boolean(menuEl)}

@@ -70,7 +70,6 @@ export const LawArticleViewer = ({ versionId }: Props) => {
           </Hb.Stack>
         </Hb.Box>
       </Hb.Stack>
-
       <Hb.TextField
         placeholder="조문 검색..."
         size="small"
@@ -85,7 +84,6 @@ export const LawArticleViewer = ({ versionId }: Props) => {
         }}
         sx={{ mb: 2, width: 320 }}
       />
-
       <Hb.Stack spacing={0.5}>
         {filtered.map((article) => (
           <Hb.Accordion.Root key={article.articleNo} disableGutters variant="outlined">
@@ -95,7 +93,10 @@ export const LawArticleViewer = ({ versionId }: Props) => {
                   label={article.articleNo}
                   size="small"
                   color="primary"
-                  sx={{ fontWeight: 600, minWidth: 64 }}
+                  style={{
+                    fontWeight: 600,
+                    minWidth: 64,
+                  }}
                 />
                 <Hb.Text variant="subtitle2">{article.title}</Hb.Text>
               </Hb.Stack>

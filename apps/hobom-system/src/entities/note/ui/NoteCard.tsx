@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from "react";
+import { type CSSProperties, type ReactNode, useState } from "react";
 import {
   PushPin,
   PushPinOutlined,
@@ -13,14 +13,13 @@ import { Hb } from "@/shared/ui";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
 
-const META_CHIP_SX = (isCustomColor: boolean) =>
-  ({
-    height: 24,
-    fontSize: "0.6875rem",
-    bgcolor: isCustomColor ? "rgba(0,0,0,0.08)" : "action.hover",
-    color: isCustomColor ? "rgba(0,0,0,0.7)" : undefined,
-    border: "none",
-  }) as const;
+const metaChipStyle = (isCustomColor: boolean): CSSProperties => ({
+  height: 24,
+  fontSize: "0.6875rem",
+  backgroundColor: isCustomColor ? "rgba(0,0,0,0.08)" : "var(--hb-color-border)",
+  color: isCustomColor ? "rgba(0,0,0,0.7)" : undefined,
+  border: "none",
+});
 
 interface NoteCardProps {
   note: NoteItemType;
@@ -226,7 +225,7 @@ export const NoteCard = ({
                 icon={<NotificationsActiveOutlined sx={{ fontSize: 14 }} />}
                 label={new Date(note.reminder.date).toLocaleDateString("ko-KR")}
                 size="small"
-                sx={META_CHIP_SX(isCustomColor)}
+                style={metaChipStyle(isCustomColor)}
               />
             )}
             {note.members?.length > 0 && (
@@ -235,7 +234,7 @@ export const NoteCard = ({
                 label={note.members.length}
                 size="small"
                 aria-label={`공유 멤버 ${note.members.length}명`}
-                sx={META_CHIP_SX(isCustomColor)}
+                style={metaChipStyle(isCustomColor)}
               />
             )}
             {note.labels?.map((label) => (
@@ -243,7 +242,7 @@ export const NoteCard = ({
                 key={label}
                 label={labelMap?.[label] ?? label}
                 size="small"
-                sx={META_CHIP_SX(isCustomColor)}
+                style={metaChipStyle(isCustomColor)}
               />
             ))}
           </Hb.Box>

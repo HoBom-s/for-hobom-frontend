@@ -91,12 +91,11 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             icon={<PeopleOutline sx={{ fontSize: 14 }} />}
             label={`${project.members.length}명`}
             size="small"
-            sx={{
+            style={{
               height: 22,
               fontSize: 11,
               fontWeight: 500,
-              bgcolor: "action.selected",
-              "& .MuiChip-icon": { ml: 0.5 },
+              backgroundColor: "var(--hb-color-border)",
             }}
           />
         </Hb.Box>

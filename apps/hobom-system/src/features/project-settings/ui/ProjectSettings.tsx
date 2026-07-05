@@ -44,12 +44,12 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
             <Hb.Chip
               label={project.key}
               size="small"
-              sx={{
+              style={{
                 height: 22,
                 fontSize: 11,
                 fontWeight: 700,
-                bgcolor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
-                color: "primary.main",
+                backgroundColor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
+                color: "var(--hb-color-accent)",
               }}
             />
           </Hb.Box>
@@ -58,7 +58,6 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
           </Hb.Text>
         </Hb.Box>
       </Hb.Box>
-
       {/* 2-column 레이아웃 */}
       <Hb.Box sx={{ display: "flex", gap: 3, alignItems: "flex-start" }}>
         {/* 좌측: 일반 + 위험 구역 */}

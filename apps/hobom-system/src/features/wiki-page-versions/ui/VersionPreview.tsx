@@ -29,7 +29,10 @@ export const VersionPreview = ({ spaceKey, pageId, versionNumber }: VersionPrevi
           label={`v${version.version}`}
           size="small"
           color="primary"
-          sx={{ fontWeight: 600, fontSize: "0.75rem" }}
+          style={{
+            fontWeight: 600,
+            fontSize: "0.75rem",
+          }}
         />
         <Hb.Text variant="subtitle2" fontWeight={600} noWrap>
           {version.title}

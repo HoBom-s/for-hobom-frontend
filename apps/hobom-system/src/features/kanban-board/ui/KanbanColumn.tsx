@@ -61,13 +61,12 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
         <Hb.Chip
           label={issues.length}
           size="small"
-          sx={{
+          style={{
             height: 20,
             fontSize: 11,
             fontWeight: 700,
-            bgcolor: config.bg,
+            backgroundColor: config.bg,
             color: config.color,
-            "& .MuiChip-label": { px: 0.75 },
           }}
         />
       </Hb.Box>

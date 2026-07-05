@@ -41,11 +41,11 @@ export const ErrorEventDetailDialog = ({ event, open, onClose }: ErrorEventDetai
           <Hb.Chip
             label={chip.label}
             size="small"
-            sx={{
+            style={{
               height: 22,
               fontSize: 11,
               fontWeight: 700,
-              bgcolor: chip.bg,
+              backgroundColor: chip.bg,
               color: chip.color,
             }}
           />

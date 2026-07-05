@@ -66,7 +66,6 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
           </Hb.Box>
         ))}
       </Hb.Box>
-
       {/* Virtual Rows */}
       <Hb.Box
         {...containerProps}
@@ -113,11 +112,11 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                   <Hb.Chip
                     label={chip.label}
                     size="small"
-                    sx={{
+                    style={{
                       height: 22,
                       fontSize: 11,
                       fontWeight: 700,
-                      bgcolor: chip.bg,
+                      backgroundColor: chip.bg,
                       color: chip.color,
                     }}
                   />

@@ -44,19 +44,13 @@ export const NoteStatusTabs = ({ value, onChange }: NoteStatusTabsProps) => (
           label={item.label}
           onClick={() => onChange(item.value)}
           variant={selected ? "filled" : "outlined"}
-          sx={{
+          style={{
             fontWeight: 500,
             fontSize: "0.8125rem",
-            px: 0.5,
-            borderColor: selected ? "transparent" : "#dadce0",
-            bgcolor: selected ? "#e8f0fe" : "transparent",
-            color: selected ? "primary.dark" : "text.secondary",
-            "& .MuiChip-icon": {
-              color: selected ? "primary.dark" : "text.secondary",
-            },
-            "&:hover": {
-              bgcolor: selected ? "#d2e3fc" : "action.hover",
-            },
+            paddingInline: 8,
+            borderColor: selected ? "transparent" : "var(--hb-color-border)",
+            backgroundColor: selected ? "#e8f0fe" : "transparent",
+            color: selected ? "var(--hb-color-accent)" : "var(--hb-color-text-secondary)",
           }}
         />
       );
