@@ -20,7 +20,7 @@ export const useDeleteDailyTodo = () => {
   const dataLot = useDataLot();
   const { openUndoToast, openErrorToast } = useToast();
 
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const rollbackRef = useRef<(() => void) | null>(null);
 
   const date = Bom.pipe(getSelectedDate(query, now), formatDate);

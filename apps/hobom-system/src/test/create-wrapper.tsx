@@ -5,7 +5,6 @@ export const createTestDataLot = () =>
   new DataLot({
     defaultOptions: {
       queries: { retry: false },
-      mutations: { retry: false },
     },
   });
 

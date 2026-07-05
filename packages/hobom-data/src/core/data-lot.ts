@@ -22,20 +22,23 @@ export class DataLot {
     return this.queryCache.get<TData>(queryKey)?.getState().data;
   }
 
-  setQueryData<TData>(queryKey: QueryKey, updater: Updater<TData | undefined, TData>): TData {
+  setQueryData<TData>(
+    queryKey: QueryKey,
+    updater: Updater<TData | undefined, TData | undefined>,
+  ): TData | undefined {
     let query = this.queryCache.get<TData>(queryKey);
     const prevData = query?.getState().data;
 
     const newData =
       typeof updater === "function"
-        ? (updater as (old: TData | undefined) => TData)(prevData)
+        ? (updater as (old: TData | undefined) => TData | undefined)(prevData)
         : updater;
 
     if (!query) {
       query = this.queryCache.build<TData>(
         {
           queryKey,
-          queryFn: () => Promise.resolve(newData),
+          queryFn: () => Promise.resolve(newData as TData),
           staleTime: this.defaultOptions.queries?.staleTime,
           gcTime: this.defaultOptions.queries?.gcTime,
         },
@@ -44,7 +47,7 @@ export class DataLot {
       );
     }
 
-    query.setData(newData);
+    query.setData(newData as TData);
 
     return newData;
   }

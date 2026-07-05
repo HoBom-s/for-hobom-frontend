@@ -124,6 +124,7 @@ describe("fromNote", () => {
     checklistItems: [],
     color: "#fff475",
     labels: ["label-1", "label-2"],
+    members: [],
     reminder: null,
     isPinned: false,
     status: "ACTIVE",

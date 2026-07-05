@@ -1,7 +1,6 @@
 // @vitest-environment happy-dom
 import { renderHook } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import type { HttpResponseType } from "@/shared/api";
 import type { IssueType } from "../api/issue.type";
 
 const mutateFnMock = vi.fn();
@@ -49,6 +48,11 @@ vi.mock("../api/issue.mutations", () => ({
 
 const { useTransitionIssue } = await import("./useTransitionIssue");
 
+// The mock `useMutation` exposes the passed options as `_opts`; the real hook's
+// return type does not, so this typed accessor bridges the test-only shape.
+type MutationOpts = Record<string, (...args: unknown[]) => unknown>;
+const optsOf = (current: unknown): MutationOpts => (current as { _opts: MutationOpts })._opts;
+
 const makeIssue = (overrides: Partial<IssueType> = {}): IssueType =>
   ({
     id: "issue-1",
@@ -77,18 +81,18 @@ describe("useTransitionIssue", () => {
   it("useMutation에 올바른 queryOption을 설정한다", () => {
     const { result } = renderHook(() => useTransitionIssue("proj-1"));
 
-    expect(result.current._opts).toBeDefined();
-    expect(result.current._opts.onMutate).toBeTypeOf("function");
-    expect(result.current._opts.onError).toBeTypeOf("function");
-    expect(result.current._opts.onSettled).toBeTypeOf("function");
+    expect(optsOf(result.current)).toBeDefined();
+    expect(optsOf(result.current).onMutate).toBeTypeOf("function");
+    expect(optsOf(result.current).onError).toBeTypeOf("function");
+    expect(optsOf(result.current).onSettled).toBeTypeOf("function");
   });
 
   describe("onMutate (optimistic update)", () => {
     it("쿼리를 취소하고 이전 데이터를 반환한다", async () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
-      const previous: HttpResponseType<IssueType[]> = {
+      const previous = {
         items: [makeIssue()],
       };
 
@@ -108,9 +112,9 @@ describe("useTransitionIssue", () => {
 
     it("캐시에 새 status를 즉시 반영한다", async () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
-      const original: HttpResponseType<IssueType[]> = {
+      const original = {
         items: [makeIssue({ id: "issue-1", status: "todo" })],
       };
 
@@ -127,7 +131,7 @@ describe("useTransitionIssue", () => {
 
     it("old가 없으면 캐시를 변경하지 않는다", async () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       getQueryDataMock.mockReturnValue(undefined);
       cancelQueriesMock.mockResolvedValue(undefined);
@@ -143,7 +147,7 @@ describe("useTransitionIssue", () => {
   describe("onError (rollback)", () => {
     it("이전 데이터로 롤백하고 에러 토스트를 띄운다", () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
       const previous = { items: [makeIssue()] };
 
       opts.onError(new Error("fail"), {}, { previous });
@@ -156,7 +160,7 @@ describe("useTransitionIssue", () => {
 
     it("context가 없으면 rollback을 건너뛴다", () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       opts.onError(new Error("fail"), {}, undefined);
 
@@ -168,7 +172,7 @@ describe("useTransitionIssue", () => {
   describe("onSettled", () => {
     it("issues 쿼리를 invalidate한다", async () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       await opts.onSettled();
 

@@ -65,13 +65,18 @@ vi.mock("../api/daily-todo.mutations", () => ({
 
 const { useChangeDailyTodoCompleteStatus } = await import("./useChangeDailyTodoCompleteStatus");
 
+// The mock `useMutation` exposes the passed options as `_opts`; the real hook's
+// return type does not, so this typed accessor bridges the test-only shape.
+type MutationOpts = Record<string, (...args: unknown[]) => unknown>;
+const optsOf = (current: unknown): MutationOpts => (current as { _opts: MutationOpts })._opts;
+
 const makeTodo = (overrides: Partial<DailyTodoType> = {}): DailyTodoType =>
   ({
     id: "todo-1",
     title: "테스트 할일",
     date: "2026-03-08",
     reaction: null,
-    progress: "NOT_STARTED",
+    progress: "PROGRESS",
     cycle: "DAILY",
     owner: { id: "user-1", username: "test", nickname: "테스트" },
     category: { id: "cat-1", title: "기본", ownerId: "user-1" },
@@ -93,7 +98,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
     it("이전 데이터를 저장하고 캐시를 업데이트한다", async () => {
       const todo = makeTodo();
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       const previous = { items: [makeTodo()] };
 
@@ -107,20 +112,20 @@ describe("useChangeDailyTodoCompleteStatus", () => {
     });
 
     it("캐시의 progress를 새 status로 업데이트한다", async () => {
-      const todo = makeTodo({ id: "todo-1", progress: "NOT_STARTED" });
+      const todo = makeTodo({ id: "todo-1", progress: "PROGRESS" });
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       cancelQueriesMock.mockResolvedValue(undefined);
       getQueryDataMock.mockReturnValue({
-        items: [makeTodo({ id: "todo-1", progress: "NOT_STARTED" })],
+        items: [makeTodo({ id: "todo-1", progress: "PROGRESS" })],
       });
 
       await opts.onMutate({ status: "DONE" });
 
       const updater = setQueryDataMock.mock.calls[0][1];
       const updated = updater({
-        items: [makeTodo({ id: "todo-1", progress: "NOT_STARTED" })],
+        items: [makeTodo({ id: "todo-1", progress: "PROGRESS" })],
       });
 
       expect(updated.items[0].progress).toBe("DONE");
@@ -129,7 +134,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
     it("old가 null이면 캐시를 변경하지 않는다", async () => {
       const todo = makeTodo();
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       cancelQueriesMock.mockResolvedValue(undefined);
       getQueryDataMock.mockReturnValue(null);
@@ -146,7 +151,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
     it("이전 데이터로 롤백하고 에러 토스트를 표시한다", () => {
       const todo = makeTodo();
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
       const previousData = { items: [makeTodo()] };
 
       opts.onError(new Error("fail"), {}, { previousData });
@@ -162,7 +167,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
     it("성공 토스트를 표시한다", () => {
       const todo = makeTodo();
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       opts.onSuccess();
 
@@ -176,7 +181,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
     it("쿼리를 invalidate한다", async () => {
       const todo = makeTodo();
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
-      const opts = result.current._opts;
+      const opts = optsOf(result.current);
 
       await opts.onSettled();
 

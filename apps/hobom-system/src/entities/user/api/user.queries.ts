@@ -3,7 +3,8 @@ import { CACHE_PROFILE } from "@/shared/config";
 import { fetchMe, fetchUsers, fetchUserById } from "./user.api";
 
 export const userQueries = {
-  users: () => queryOptions({ queryKey: ["users"] }),
+  // Key-only namespace (no fetch); consumed solely via `.queryKey`.
+  users: () => ({ queryKey: ["users"] }),
   me: () =>
     queryOptions({
       queryKey: [...userQueries.users().queryKey, "me"],

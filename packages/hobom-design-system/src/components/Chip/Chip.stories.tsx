@@ -14,7 +14,10 @@ const meta = {
   },
   argTypes: {
     variant: { control: "inline-radio", options: ["filled", "outlined", "soft"] },
-    color: { control: "inline-radio", options: ["default", "primary", "secondary"] },
+    color: {
+      control: "inline-radio",
+      options: ["default", "primary", "secondary", "success", "warning", "error"],
+    },
     size: { control: "inline-radio", options: ["small", "medium"] },
   },
 } satisfies Meta<typeof Chip>;
@@ -54,7 +57,13 @@ export const StatusChips: Story = {
             key={c.label}
             label={c.label}
             size="small"
-            style={{ height: 22, fontSize: 11, fontWeight: 700, backgroundColor: c.bg, color: c.fg }}
+            style={{
+              height: 22,
+              fontSize: 11,
+              fontWeight: 700,
+              backgroundColor: c.bg,
+              color: c.fg,
+            }}
           />
         ))}
       </div>

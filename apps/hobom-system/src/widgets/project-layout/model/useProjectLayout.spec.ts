@@ -24,16 +24,16 @@ vi.mock("@/entities/project", () => ({
       queryKey: ["projects", "detail", projectId],
     }),
   },
-  buildStatusesFromColumns: (cols: unknown[]) =>
-    cols.map((c: Record<string, unknown>, i: number) => ({
+  buildStatusesFromColumns: (cols: Record<string, unknown>[]) =>
+    cols.map((c, i) => ({
       id: c.statusId,
       name: c.name,
       isDone: false,
       order: i,
     })),
-  buildTransitionsFromColumns: (cols: unknown[]) =>
-    cols.flatMap((c: Record<string, unknown>) =>
-      (cols as Record<string, unknown>[])
+  buildTransitionsFromColumns: (cols: Record<string, unknown>[]) =>
+    cols.flatMap((c) =>
+      cols
         .filter((t) => t.statusId !== c.statusId)
         .map((t) => ({ from: c.statusId, to: t.statusId, name: "" })),
     ),

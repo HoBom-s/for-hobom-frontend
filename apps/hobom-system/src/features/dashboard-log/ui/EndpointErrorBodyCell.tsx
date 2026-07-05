@@ -48,24 +48,7 @@ export const EndpointErrorBodyCell = ({ colKey, row, bg }: EndpointErrorBodyCell
     }
     case "path":
       return (
-        <Hb.Tooltip
-          title={row.path}
-          placement="bottom-start"
-          enterDelay={100}
-          slotProps={{
-            popper: {
-              modifiers: [{ name: "offset", options: { offset: [0, -8] } }],
-            },
-            tooltip: {
-              sx: {
-                fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-                fontSize: 12,
-                maxWidth: 480,
-                wordBreak: "break-all",
-              },
-            },
-          }}
-        >
+        <Hb.Tooltip title={row.path} placement="bottom-start" enterDelay={100}>
           <div style={base}>
             <span
               style={{
