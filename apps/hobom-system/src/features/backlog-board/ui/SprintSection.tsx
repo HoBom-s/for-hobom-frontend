@@ -60,11 +60,11 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
         <Hb.Chip
           label={SPRINT_STATUS_LABEL[sprint.status]}
           size="small"
-          sx={{
+          style={{
             height: 20,
             fontSize: 10,
             fontWeight: 700,
-            bgcolor: `${STATUS_COLOR[sprint.status]}18`,
+            backgroundColor: `${STATUS_COLOR[sprint.status]}18`,
             color: STATUS_COLOR[sprint.status],
             letterSpacing: "0.02em",
           }}

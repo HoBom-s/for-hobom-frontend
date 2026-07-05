@@ -59,24 +59,30 @@ export const MenuRecommendationListItem = memo(function MenuRecommendationListIt
               <Hb.Chip
                 label={MENU_KIND_LABEL[item.menuKind] ?? item.menuKind}
                 size="small"
-                sx={{
+                style={{
                   height: 22,
                   fontSize: 11,
                   fontWeight: 500,
-                  bgcolor: MENU_KIND_COLORS[item.menuKind] ?? "#f5f5f5",
+                  backgroundColor: MENU_KIND_COLORS[item.menuKind] ?? "#f5f5f5",
                 }}
               />
               <Hb.Chip
                 label={TIME_LABEL[item.timeOfMeal] ?? item.timeOfMeal}
                 size="small"
                 variant="outlined"
-                sx={{ height: 22, fontSize: 11 }}
+                style={{
+                  height: 22,
+                  fontSize: 11,
+                }}
               />
               <Hb.Chip
                 label={FOOD_TYPE_LABEL[item.foodType] ?? item.foodType}
                 size="small"
                 variant="outlined"
-                sx={{ height: 22, fontSize: 11 }}
+                style={{
+                  height: 22,
+                  fontSize: 11,
+                }}
               />
             </Hb.Box>
           }

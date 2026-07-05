@@ -24,11 +24,11 @@ const CategoryProgress = ({ items }: { items: DailyTodoType[] }) => {
     <Hb.Chip
       size="small"
       label={`${done}/${total}`}
-      sx={{
+      style={{
         height: 20,
         fontSize: "0.6875rem",
         fontWeight: 500,
-        bgcolor: done === total ? "success.main" : "action.selected",
+        backgroundColor: done === total ? "success.main" : "action.selected",
         color: done === total ? "success.contrastText" : "text.secondary",
       }}
     />

@@ -92,13 +92,13 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
           <Hb.Chip
             label={project.members.length}
             size="small"
-            sx={{
+            style={{
               height: 20,
               minWidth: 20,
               fontSize: 11,
               fontWeight: 700,
-              bgcolor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
-              color: "primary.main",
+              backgroundColor: "color-mix(in srgb, var(--hb-color-accent) 10%, transparent)",
+              color: "var(--hb-color-accent)",
             }}
           />
         </Hb.Box>
@@ -172,17 +172,11 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
                         {displayName}
                       </Hb.Text>
                       <Hb.Chip
-                        icon={<ShieldOutlined sx={{ fontSize: "13px !important" }} />}
+                        icon={<ShieldOutlined sx={{ fontSize: 13 }} />}
                         label={roleLabel}
                         size="small"
-                        sx={{
-                          height: 22,
-                          fontSize: 11,
-                          fontWeight: 600,
-                          bgcolor: `${roleColor}14`,
-                          color: roleColor,
-                          "& .MuiChip-icon": { color: roleColor },
-                        }}
+                        tone={roleColor}
+                        style={{ height: 22, fontSize: 11, fontWeight: 600 }}
                       />
                     </Hb.Box>
                     <Hb.Box

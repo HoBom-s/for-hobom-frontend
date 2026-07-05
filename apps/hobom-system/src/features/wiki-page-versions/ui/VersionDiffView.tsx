@@ -97,7 +97,10 @@ export const VersionDiffView = ({
           label={`v${fromVersion}`}
           size="small"
           variant="outlined"
-          sx={{ fontWeight: 600, fontSize: "0.75rem" }}
+          style={{
+            fontWeight: 600,
+            fontSize: "0.75rem",
+          }}
         />
         <Hb.Text variant="caption" color="text.disabled">
           →
@@ -106,7 +109,10 @@ export const VersionDiffView = ({
           label={`v${toVersion}`}
           size="small"
           color="primary"
-          sx={{ fontWeight: 600, fontSize: "0.75rem" }}
+          style={{
+            fontWeight: 600,
+            fontSize: "0.75rem",
+          }}
         />
       </Hb.Box>
       <Hb.Box

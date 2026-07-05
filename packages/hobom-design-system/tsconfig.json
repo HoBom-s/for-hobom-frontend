@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src"],
+  "include": ["src", "vitest.config.ts", ".storybook/**/*"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx"],
   "compilerOptions": {
     "jsx": "react-jsx",

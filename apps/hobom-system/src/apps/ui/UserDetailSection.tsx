@@ -76,7 +76,10 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
                   label={q.data?.items.nickname ?? friends[i]}
                   size="small"
                   variant="outlined"
-                  sx={{ fontSize: "0.75rem", height: 24 }}
+                  style={{
+                    fontSize: "0.75rem",
+                    height: 24,
+                  }}
                 />
               ))
             )

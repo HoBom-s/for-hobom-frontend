@@ -37,12 +37,11 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
               { onSuccess: invalidatePageDetail },
             )
           }
-          sx={{
-            bgcolor: label.color,
+          style={{
+            backgroundColor: label.color,
             color: "#fff",
             fontWeight: 500,
             fontSize: "0.75rem",
-            "& .MuiChip-deleteIcon": { color: "rgba(255,255,255,0.7)" },
           }}
         />
       ))}

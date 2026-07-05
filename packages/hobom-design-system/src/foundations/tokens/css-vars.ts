@@ -62,4 +62,7 @@ function declarations(values: Record<Role, string>): string {
  */
 export const colorSchemeCss =
   `:root{${declarations(valuesFor(semantic.light))}}` +
-  `[${SCHEME_ATTR}="dark"]{${declarations(valuesFor(semantic.dark))}}`;
+  `[${SCHEME_ATTR}="dark"]{${declarations(valuesFor(semantic.dark))}}` +
+  // Tonal Chip hover: deepen the tint. The base tint is inline; only :hover
+  // needs a rule (currentColor is the chip's tone).
+  `[data-hb-chip-tonal]:hover{background-color:color-mix(in srgb,currentColor 22%,transparent)}`;

@@ -136,17 +136,8 @@ export const IssueMetaSection = () => {
           label={getStatusName(statuses, issue.status)}
           size="small"
           onClick={statusMenu.open}
-          sx={{
-            height: 22,
-            fontSize: 11,
-            fontWeight: 600,
-            bgcolor: `${statusColor}18`,
-            color: statusColor,
-            cursor: "pointer",
-            "&:hover": {
-              bgcolor: `${statusColor}28`,
-            },
-          }}
+          tone={statusColor}
+          style={{ height: 22, fontSize: 11, fontWeight: 600 }}
         />
       </MetaRow>
       <MetaRow label="우선순위">
@@ -154,17 +145,8 @@ export const IssueMetaSection = () => {
           label={ISSUE_PRIORITY_LABEL[issue.priority]}
           size="small"
           onClick={priorityMenu.open}
-          sx={{
-            height: 22,
-            fontSize: 11,
-            fontWeight: 500,
-            bgcolor: `${ISSUE_PRIORITY_REGISTRY[issue.priority].color}18`,
-            color: ISSUE_PRIORITY_REGISTRY[issue.priority].color,
-            cursor: "pointer",
-            "&:hover": {
-              bgcolor: `${ISSUE_PRIORITY_REGISTRY[issue.priority].color}28`,
-            },
-          }}
+          tone={ISSUE_PRIORITY_REGISTRY[issue.priority].color}
+          style={{ height: 22, fontSize: 11, fontWeight: 500 }}
         />
       </MetaRow>
       <MetaRow label="유형">
@@ -203,13 +185,13 @@ export const IssueMetaSection = () => {
                 ) : undefined
               }
               onClick={assigneeMenu.open}
-              sx={{
+              style={{
                 height: 22,
                 fontSize: 11,
                 fontWeight: 500,
-                cursor: "pointer",
-                color: issue.assignee ? "text.primary" : "text.disabled",
-                "&:hover": { bgcolor: "action.hover" },
+                color: issue.assignee
+                  ? "var(--hb-color-text-primary)"
+                  : "var(--hb-color-text-secondary)",
               }}
             />
           );
@@ -235,15 +217,8 @@ export const IssueMetaSection = () => {
                 label={label.name}
                 size="small"
                 onClick={labelPopover.open}
-                sx={{
-                  height: 22,
-                  fontSize: 11,
-                  fontWeight: 500,
-                  bgcolor: `${label.color}18`,
-                  color: label.color,
-                  cursor: "pointer",
-                  "&:hover": { bgcolor: `${label.color}28` },
-                }}
+                tone={label.color}
+                style={{ height: 22, fontSize: 11, fontWeight: 500 }}
               />
             );
           })}
@@ -253,7 +228,7 @@ export const IssueMetaSection = () => {
             size="small"
             variant="outlined"
             onClick={labelPopover.open}
-            sx={{
+            style={{
               height: 22,
               fontSize: 11,
               cursor: "pointer",

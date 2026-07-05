@@ -146,10 +146,10 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
                   <Hb.Chip
                     label={CYCLE_LABELS[item.cycle as CycleType] ?? item.cycle}
                     size="small"
-                    sx={{
+                    style={{
                       height: 20,
                       fontSize: "0.6875rem",
-                      bgcolor: "action.selected",
+                      backgroundColor: "var(--hb-color-border)",
                     }}
                   />
                 )}
@@ -188,13 +188,11 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
           )}
         </Hb.List.ItemButton>
       </Hb.List.Item>
-
       <DailyTodoReactionPopover
         anchorEl={reactionAnchor}
         onClose={() => setReactionAnchor(null)}
         onSelect={handleReaction}
       />
-
       <DailyTodoEditDialog
         item={item}
         open={editOpen}

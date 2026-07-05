@@ -156,11 +156,12 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
             label={`${new Date(form.reminder.date).toLocaleDateString("ko-KR")} ${form.reminder.recurrence !== "NONE" ? `(${form.reminder.recurrence})` : ""}`}
             size="small"
             onDelete={clearReminder}
-            sx={{ mt: 1 }}
+            style={{
+              marginTop: 8,
+            }}
           />
         )}
       </Hb.Dialog.Content>
-
       <Hb.Dialog.Actions sx={{ px: 2, pb: 1.5, justifyContent: "space-between" }}>
         <Hb.Box sx={{ display: "flex", gap: 0.5 }}>
           {!isEdit && (
@@ -228,14 +229,12 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
           닫기
         </Hb.Button>
       </Hb.Dialog.Actions>
-
       <ColorPickerPopover
         anchorEl={colorAnchor}
         onClose={() => setColorAnchor(null)}
         value={form.color}
         onChange={(color) => setField("color", color)}
       />
-
       <LabelPickerPopover
         anchorEl={labelAnchor}
         onClose={() => setLabelAnchor(null)}
@@ -243,13 +242,11 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
         selectedIds={selectedLabelIds}
         onToggle={toggleLabel}
       />
-
       <ReminderPickerPopover
         anchorEl={reminderAnchor}
         onClose={() => setReminderAnchor(null)}
         onSet={setReminder}
       />
-
       <MemberPickerPopover
         anchorEl={memberAnchor}
         onClose={() => setMemberAnchor(null)}

@@ -37,13 +37,12 @@ export const KanbanSwimlane = ({ epicKey, epicTitle, progress, children }: Kanba
         <Hb.Chip
           label={`${progress.completed}/${progress.total}`}
           size="small"
-          sx={{
+          style={{
             height: 16,
             fontSize: 9,
             fontWeight: 600,
-            bgcolor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
+            backgroundColor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
             color: progress.completed === progress.total ? "#2ca87f" : "#e58a00",
-            "& .MuiChip-label": { px: 0.5 },
           }}
         />
       )}

@@ -28,11 +28,11 @@ export const IssueChildrenSection = () => {
           <Hb.Chip
             label={`${progress.completed}/${progress.total} 완료`}
             size="small"
-            sx={{
+            style={{
               height: 18,
               fontSize: 10,
               fontWeight: 600,
-              bgcolor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
+              backgroundColor: progress.completed === progress.total ? "#e8f5e9" : "#fff3e0",
               color: progress.completed === progress.total ? "#2ca87f" : "#e58a00",
             }}
           />
@@ -78,11 +78,11 @@ export const IssueChildrenSection = () => {
               <Hb.Chip
                 label={ISSUE_KIND_LABEL[child.type]}
                 size="small"
-                sx={{
+                style={{
                   height: 20,
                   fontSize: 10,
                   fontWeight: 700,
-                  bgcolor: `${ISSUE_KIND_REGISTRY[child.type].color}18`,
+                  backgroundColor: `${ISSUE_KIND_REGISTRY[child.type].color}18`,
                   color: ISSUE_KIND_REGISTRY[child.type].color,
                 }}
               />
@@ -102,11 +102,11 @@ export const IssueChildrenSection = () => {
               <Hb.Chip
                 label={getStatusName(statuses, child.status)}
                 size="small"
-                sx={{
+                style={{
                   height: 20,
                   fontSize: 10,
                   fontWeight: 600,
-                  bgcolor: `${statusColor}18`,
+                  backgroundColor: `${statusColor}18`,
                   color: statusColor,
                 }}
               />

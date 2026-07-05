@@ -116,17 +116,8 @@ export const BodyCell = memo(
                 e.stopPropagation();
                 onStatusClick(e, row.id, row.status);
               }}
-              sx={{
-                height: 22,
-                fontSize: 11,
-                fontWeight: 600,
-                bgcolor: `${color}18`,
-                color,
-                cursor: "pointer",
-                "&:hover": {
-                  bgcolor: `${color}28`,
-                },
-              }}
+              tone={color}
+              style={{ height: 22, fontSize: 11, fontWeight: 600 }}
             />
           </div>
         );
@@ -138,11 +129,11 @@ export const BodyCell = memo(
             <Hb.Chip
               label={ISSUE_PRIORITY_LABEL[row.priority]}
               size="small"
-              sx={{
+              style={{
                 height: 22,
                 fontSize: 11,
                 fontWeight: 500,
-                bgcolor: `${ISSUE_PRIORITY_REGISTRY[row.priority].color}18`,
+                backgroundColor: `${ISSUE_PRIORITY_REGISTRY[row.priority].color}18`,
                 color: ISSUE_PRIORITY_REGISTRY[row.priority].color,
               }}
             />
@@ -204,14 +195,8 @@ export const BodyCell = memo(
                     key={labelId}
                     label={label?.name ?? labelId}
                     size="small"
-                    sx={{
-                      height: 20,
-                      fontSize: 11,
-                      ...(label && {
-                        bgcolor: `${label.color}18`,
-                        color: label.color,
-                      }),
-                    }}
+                    tone={label?.color}
+                    style={{ height: 20, fontSize: 11 }}
                   />
                 );
               })
