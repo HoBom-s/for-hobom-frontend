@@ -1,13 +1,11 @@
-import type { CSSProperties } from "react";
+import type { HTMLAttributes } from "react";
 import * as stylex from "@stylexjs/stylex";
 
-interface DividerProps {
+interface DividerProps extends HTMLAttributes<HTMLDivElement> {
   /** Line direction. Defaults to `"horizontal"`. */
   orientation?: "horizontal" | "vertical";
   /** For a vertical divider inside a flex row, stretch to the row's height. */
   flexItem?: boolean;
-  className?: string;
-  style?: CSSProperties;
 }
 
 const styles = stylex.create({
@@ -26,6 +24,7 @@ export const Divider = ({
   flexItem = false,
   className,
   style,
+  ...rest
 }: DividerProps) => {
   const isVertical = orientation === "vertical";
   const sx = stylex.props(
@@ -38,6 +37,7 @@ export const Divider = ({
     <div
       role="separator"
       aria-orientation={orientation}
+      {...rest}
       className={[sx.className, className].filter(Boolean).join(" ")}
       style={{ ...sx.style, ...style }}
     />

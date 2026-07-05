@@ -19,19 +19,7 @@ export const NotificationBell = () => {
           "&:hover": { bgcolor: "rgba(0,0,0,0.04)" },
         }}
       >
-        <Hb.Badge
-          badgeContent={unreadCount}
-          max={99}
-          color="error"
-          sx={{
-            "& .MuiBadge-badge": {
-              fontSize: "0.625rem",
-              height: 16,
-              minWidth: 16,
-              px: 0.5,
-            },
-          }}
-        >
+        <Hb.Badge badgeContent={unreadCount} max={99} color="error">
           <NotificationsNoneOutlined sx={{ fontSize: 22 }} />
         </Hb.Badge>
       </Hb.Button.Icon>
