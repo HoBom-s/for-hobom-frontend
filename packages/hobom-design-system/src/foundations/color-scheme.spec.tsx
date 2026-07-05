@@ -1,22 +1,13 @@
 // @vitest-environment happy-dom
 import { renderHook } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import * as stylex from "@stylexjs/stylex";
-import { darkTheme } from "./tokens/theme.stylex";
+import { SCHEME_ATTR } from "./tokens/css-vars";
 import { useColorSchemeStyles } from "./color-scheme";
 
-const darkClasses = (stylex.props(darkTheme).className ?? "").split(" ").filter(Boolean);
-
 describe("useColorSchemeStyles", () => {
-  it("applies a non-empty dark theme class", () => {
-    expect(darkClasses.length).toBeGreaterThan(0);
-  });
-
-  it("adds the dark theme class to <html> when dark", () => {
+  it("sets the scheme attribute on <html> when dark", () => {
     renderHook(() => useColorSchemeStyles(true));
-    for (const c of darkClasses) {
-      expect(document.documentElement.classList.contains(c)).toBe(true);
-    }
+    expect(document.documentElement.getAttribute(SCHEME_ATTR)).toBe("dark");
   });
 
   it("removes it when switched to light", () => {
@@ -25,8 +16,6 @@ describe("useColorSchemeStyles", () => {
     });
 
     rerender({ dark: false });
-    for (const c of darkClasses) {
-      expect(document.documentElement.classList.contains(c)).toBe(false);
-    }
+    expect(document.documentElement.hasAttribute(SCHEME_ATTR)).toBe(false);
   });
 });

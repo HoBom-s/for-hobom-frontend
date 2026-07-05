@@ -1,11 +1,12 @@
 import * as stylex from "@stylexjs/stylex";
-import { darkTheme, scheme } from "../src/foundations/tokens/theme.stylex";
+import { ColorSchemeVars } from "../src/foundations/color-scheme";
+import { SCHEME_ATTR } from "../src/foundations/tokens/css-vars";
 import type { Preview } from "@storybook/react-vite";
 
 const styles = stylex.create({
   root: {
-    backgroundColor: scheme.canvas,
-    color: scheme.textPrimary,
+    backgroundColor: "var(--hb-color-canvas)",
+    color: "var(--hb-color-text-primary)",
     padding: 32,
     borderRadius: 8,
     minWidth: 200,
@@ -35,7 +36,8 @@ const preview: Preview = {
       const isDark = context.globals.colorScheme === "dark";
 
       return (
-        <div {...stylex.props(isDark && darkTheme, styles.root)}>
+        <div {...{ [SCHEME_ATTR]: isDark ? "dark" : undefined }} {...stylex.props(styles.root)}>
+          <ColorSchemeVars />
           <Story />
         </div>
       );

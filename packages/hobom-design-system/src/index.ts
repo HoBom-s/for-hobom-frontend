@@ -16,7 +16,7 @@ import { SkeletonList } from "./patterns/SkeletonList";
 export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };
 
 export { theme, DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "./foundations/theme";
-export { useColorSchemeStyles } from "./foundations/color-scheme";
+export { ColorSchemeVars, useColorSchemeStyles } from "./foundations/color-scheme";
 
 export { Hb } from "./components";
 
