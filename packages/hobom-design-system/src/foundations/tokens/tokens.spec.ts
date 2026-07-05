@@ -13,6 +13,7 @@ import { semantic } from "./semantic";
 describe("semantic ↔ theme.ts palette zero-pixel", () => {
   it("light", () => {
     const c = semantic.light.color;
+
     expect(c.brand.main).toBe("#4680ff");
     expect(c.brand.light).toBe("#94baff");
     expect(c.brand.dark).toBe("#2a5bd7");
@@ -33,6 +34,7 @@ describe("semantic ↔ theme.ts palette zero-pixel", () => {
 
   it("dark", () => {
     const c = semantic.dark.color;
+
     expect(c.brand.main).toBe("#5b93ff");
     expect(c.brand.light).toBe("#94baff");
     expect(c.brand.dark).toBe("#3a6de0");
