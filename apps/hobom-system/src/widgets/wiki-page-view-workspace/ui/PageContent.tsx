@@ -148,11 +148,17 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
           </Hb.Box>
         </Hb.Box>
 
-        <Hb.Divider sx={{ mx: 3.5, my: 1.5 }} />
+        <Hb.Divider
+          style={{
+            marginLeft: 28,
+            marginRight: 28,
+            marginTop: 12,
+            marginBottom: 12,
+          }}
+        />
 
         <PageViewer content={page.content} />
       </Hb.Paper>
-
       <Hb.Paper
         elevation={0}
         sx={{
@@ -172,7 +178,6 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
           <CommentsSection spaceKey={spaceKey} pageId={pageId} userInfo={userInfo} />
         </Suspense>
       </Hb.Paper>
-
       <VersionHistoryDrawer
         open={versionDrawerOpen}
         onClose={() => setVersionDrawerOpen(false)}
@@ -196,7 +201,6 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
           </Hb.Button>
         </Hb.Dialog.Actions>
       </Hb.Dialog.Root>
-
       <MovePageDialog
         open={moveDialogOpen}
         onClose={() => setMoveDialogOpen(false)}
@@ -205,7 +209,6 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
         currentSpaceKey={spaceKey}
         currentPageId={pageId}
       />
-
       <CopyPageDialog
         open={copyDialogOpen}
         onClose={() => setCopyDialogOpen(false)}

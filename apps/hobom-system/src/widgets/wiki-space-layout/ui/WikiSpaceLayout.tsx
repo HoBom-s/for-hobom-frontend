@@ -170,7 +170,6 @@ export const WikiSpaceLayout = () => {
           {space.name}
         </Hb.Text>
       </Hb.Box>
-
       <Hb.Box
         sx={{
           display: "flex",
@@ -184,9 +183,11 @@ export const WikiSpaceLayout = () => {
         </Hb.Text>
         <WikiSearchField spaceKey={spaceKey} />
       </Hb.Box>
-
-      <Hb.Divider sx={{ mb: 0 }} />
-
+      <Hb.Divider
+        style={{
+          marginBottom: 0,
+        }}
+      />
       <Hb.Box sx={{ display: "flex", minHeight: "calc(100vh - 200px)" }}>
         <Hb.Box
           sx={{
@@ -270,7 +271,6 @@ export const WikiSpaceLayout = () => {
           <Outlet context={{ spaceKey }} />
         </Hb.Box>
       </Hb.Box>
-
       <CreatePageDialog
         open={createDialog.open}
         onClose={handleCloseDialog}
@@ -278,7 +278,6 @@ export const WikiSpaceLayout = () => {
         loading={isCreating}
         parentTitle={createDialog.parentTitle}
       />
-
       <TrashDrawer
         open={trashDrawerOpen}
         onClose={() => setTrashDrawerOpen(false)}

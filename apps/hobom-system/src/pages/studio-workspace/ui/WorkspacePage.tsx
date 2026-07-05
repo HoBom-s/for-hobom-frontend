@@ -86,7 +86,12 @@ export default function WorkspacePage() {
                 onRemove={() => removeFavorite(favorite.id)}
               />
             ))}
-            <Hb.Divider sx={{ my: 1 }} />
+            <Hb.Divider
+              style={{
+                marginTop: 8,
+                marginBottom: 8,
+              }}
+            />
           </>
         )}
 
@@ -135,7 +140,6 @@ export default function WorkspacePage() {
           </Hb.Stack>
         ))}
       </Hb.Stack>
-
       <Hb.Box sx={{ flex: 1, minWidth: 0, p: 3, overflow: "auto" }}>
         <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
           <Hb.Text variant="h6">{activeFolder?.name ?? "워크스페이스"}</Hb.Text>

@@ -137,7 +137,14 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           </Hb.Tooltip>
         ))}
 
-        <Hb.Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+        <Hb.Divider
+          orientation="vertical"
+          flexItem
+          style={{
+            marginLeft: 4,
+            marginRight: 4,
+          }}
+        />
 
         {headingItems.map((item) => (
           <Hb.Tooltip key={item.label} title={`제목 ${item.label}`}>
@@ -158,7 +165,14 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           </Hb.Tooltip>
         ))}
 
-        <Hb.Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+        <Hb.Divider
+          orientation="vertical"
+          flexItem
+          style={{
+            marginLeft: 4,
+            marginRight: 4,
+          }}
+        />
 
         {blockItems.map((item) => (
           <Hb.Tooltip key={item.label} title={item.label}>
@@ -173,7 +187,14 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           </Hb.Tooltip>
         ))}
 
-        <Hb.Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+        <Hb.Divider
+          orientation="vertical"
+          flexItem
+          style={{
+            marginLeft: 4,
+            marginRight: 4,
+          }}
+        />
 
         <Hb.Tooltip title="링크 추가">
           <Hb.Button.Icon
@@ -199,7 +220,6 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
           </Hb.Tooltip>
         )}
       </Hb.Box>
-
       <Hb.Dialog.Root open={linkDialogOpen} onClose={() => setLinkDialogOpen(false)} size="xs">
         <Hb.Dialog.Title>링크 추가</Hb.Dialog.Title>
         <Hb.Dialog.Content>

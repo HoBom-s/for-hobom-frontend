@@ -142,7 +142,11 @@ export const ProjectLayout = () => {
           )}
         </Hb.Box>
 
-        <Hb.Divider sx={{ mb: 2.5 }} />
+        <Hb.Divider
+          style={{
+            marginBottom: 20,
+          }}
+        />
 
         <Outlet
           context={{
