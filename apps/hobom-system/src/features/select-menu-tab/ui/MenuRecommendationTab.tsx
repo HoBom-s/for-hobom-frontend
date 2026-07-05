@@ -19,16 +19,17 @@ export const MenuRecommendationTab = () => {
   return (
     <Hb.Paper
       elevation={0}
-      sx={{
+      style={{
         flex: 1,
-        mx: 3,
-        mb: 3,
+        marginLeft: 24,
+        marginRight: 24,
+        marginBottom: 24,
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
         border: "1px solid",
-        borderColor: "divider",
-        borderRadius: 2,
+        borderColor: "var(--hb-color-border)",
+        borderRadius: 16,
       }}
     >
       <Hb.Box
@@ -60,7 +61,6 @@ export const MenuRecommendationTab = () => {
         </Hb.Tabs.Root>
         {tab === "list" && <MenuRecommendationSpeedDial />}
       </Hb.Box>
-
       <Hb.Box sx={{ flex: 1, overflow: "auto" }}>
         <TabPanel visible={tab === "recommendation"}>
           <MenuRecommendationContent />

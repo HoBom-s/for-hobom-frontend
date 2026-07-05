@@ -44,13 +44,13 @@ export const DailyTodoWorkspace = () => {
     >
       <Hb.Paper
         elevation={0}
-        sx={{
+        style={{
           overflow: "hidden",
           flexShrink: 0,
           alignSelf: "flex-start",
           border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 2,
+          borderColor: "var(--hb-color-border)",
+          borderRadius: 16,
         }}
       >
         <Calendar.WithSuspense>
@@ -59,7 +59,7 @@ export const DailyTodoWorkspace = () => {
       </Hb.Paper>
       <Hb.Paper
         elevation={0}
-        sx={{
+        style={{
           flexGrow: 1,
           overflow: "hidden",
           display: "flex",
@@ -67,8 +67,8 @@ export const DailyTodoWorkspace = () => {
           minHeight: 0,
           height: "100%",
           border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 2,
+          borderColor: "var(--hb-color-border)",
+          borderRadius: 16,
         }}
       >
         <DateHeader />

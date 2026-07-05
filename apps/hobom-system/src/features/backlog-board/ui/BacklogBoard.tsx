@@ -47,7 +47,13 @@ export const BacklogBoard = ({
           <SprintSection key={sprint.id} sprint={sprint} issues={issues} />
         ))}
 
-        <Hb.Paper variant="outlined" sx={{ borderRadius: 2.5, overflow: "hidden" }}>
+        <Hb.Paper
+          variant="outlined"
+          style={{
+            borderRadius: 20,
+            overflow: "hidden",
+          }}
+        >
           <Hb.Box
             sx={{
               display: "flex",

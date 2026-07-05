@@ -38,7 +38,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
   const config = CHANGE_CONFIG[change.changeType];
 
   return (
-    <Hb.Paper variant="outlined" sx={{ p: 2 }}>
+    <Hb.Paper
+      variant="outlined"
+      style={{
+        padding: 16,
+      }}
+    >
       <Hb.Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
         <Hb.Chip label={change.articleNo} size="small" color="primary" sx={{ fontWeight: 600 }} />
         <Hb.Chip
@@ -49,7 +54,6 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
           variant="outlined"
         />
       </Hb.Stack>
-
       {change.changeType === "MODIFIED" && (
         <Hb.Stack spacing={1}>
           <Hb.Box
@@ -86,7 +90,6 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
           </Hb.Box>
         </Hb.Stack>
       )}
-
       {change.changeType === "ADDED" && change.after && (
         <Hb.Box
           sx={{
@@ -102,7 +105,6 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
           </Hb.Text>
         </Hb.Box>
       )}
-
       {change.changeType === "DELETED" && change.before && (
         <Hb.Box
           sx={{

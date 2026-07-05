@@ -47,11 +47,11 @@ export const PageEditor = ({
   return (
     <Hb.Paper
       elevation={0}
-      sx={{
-        m: 2,
+      style={{
+        margin: 16,
         border: "1px solid",
-        borderColor: "divider",
-        borderRadius: 2,
+        borderColor: "var(--hb-color-border)",
+        borderRadius: 16,
         display: "flex",
         flexDirection: "column",
         minHeight: "calc(100vh - 280px)",

@@ -25,7 +25,13 @@ export const NotificationCenter = () => {
           알림
         </Hb.Text>
       </Hb.Box>
-      <Hb.Paper elevation={1} sx={{ borderRadius: 2, overflow: "hidden" }}>
+      <Hb.Paper
+        elevation={1}
+        style={{
+          borderRadius: 16,
+          overflow: "hidden",
+        }}
+      >
         <Hb.Box sx={{ px: 2 }}>
           <Hb.Tabs.Root
             value={tab}

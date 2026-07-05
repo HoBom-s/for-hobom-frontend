@@ -8,7 +8,7 @@ import {
   AddOutlined,
   CloseOutlined,
 } from "hobom-design-system/icons";
-import type { NoteItemType } from "@/entities/note";
+import { NOTE_COLORS, type NoteItemType } from "@/entities/note";
 import { Hb } from "@/shared/ui";
 import { useNoteEditForm } from "../model/useNoteEditForm";
 import { useNoteMemberShare } from "../model/useNoteMemberShare";
@@ -66,7 +66,11 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
       onClose={handleSave}
       size="sm"
       PaperProps={{
-        sx: { backgroundColor: form.color, borderRadius: 2 },
+        sx: {
+          backgroundColor:
+            form.color === NOTE_COLORS.DEFAULT ? "var(--hb-color-surface)" : form.color,
+          borderRadius: 2,
+        },
       }}
     >
       <Hb.Dialog.Content sx={{ pb: 1 }}>

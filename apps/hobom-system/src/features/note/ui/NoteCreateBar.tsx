@@ -1,33 +1,35 @@
 import { CheckBoxOutlined, BrushOutlined } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import { Hb } from "@/shared/ui";
 
 interface NoteCreateBarProps {
   onClick: () => void;
 }
 
+const styles = stylex.create({
+  bar: {
+    display: "flex",
+    alignItems: "center",
+    paddingInline: 16,
+    paddingBlock: 10,
+    maxWidth: 600,
+    marginInline: "auto",
+    marginBottom: 32,
+    cursor: "text",
+    borderRadius: 16,
+    backgroundColor: "var(--hb-color-surface)",
+    border: "1px solid #e0e0e0",
+    transition: "box-shadow 0.08s linear",
+    boxShadow: {
+      default: "0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)",
+      ":hover": "0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15)",
+    },
+  },
+});
+
 export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
   return (
-    <Hb.Paper
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        px: 2,
-        py: 1.25,
-        maxWidth: 600,
-        mx: "auto",
-        mb: 4,
-        cursor: "text",
-        borderRadius: 2,
-        border: "1px solid #e0e0e0",
-        boxShadow: "0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)",
-        transition: "box-shadow 0.08s linear",
-        "&:hover": {
-          boxShadow: "0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15)",
-        },
-      }}
-      onClick={onClick}
-      elevation={0}
-    >
+    <div {...stylex.props(styles.bar)} onClick={onClick}>
       <Hb.Text
         sx={{
           flex: 1,
@@ -61,6 +63,6 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
           </Hb.Button.Icon>
         </Hb.Tooltip>
       </Hb.Box>
-    </Hb.Paper>
+    </div>
   );
 };

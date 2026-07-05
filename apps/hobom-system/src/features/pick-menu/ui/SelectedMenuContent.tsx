@@ -98,11 +98,13 @@ const Inner = () => {
 SelectedMenuContent.Layout = ({ children }: { children: ReactNode }) => (
   <Hb.Paper
     elevation={0}
-    sx={{
+    style={{
       flexGrow: 1,
       overflowY: "auto",
-      px: 3,
-      py: 1,
+      paddingLeft: 24,
+      paddingRight: 24,
+      paddingTop: 8,
+      paddingBottom: 8,
     }}
   >
     {children}

@@ -23,10 +23,10 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
   return (
     <Hb.Paper
       variant="outlined"
-      sx={{
-        borderRadius: 2.5,
+      style={{
+        borderRadius: 20,
         overflow: "hidden",
-        borderColor: sprint.status === "ACTIVE" ? "#4680ff40" : "divider",
+        borderColor: sprint.status === "ACTIVE" ? "#4680ff40" : "var(--hb-color-border)",
       }}
     >
       <Hb.Box

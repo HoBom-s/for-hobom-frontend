@@ -65,7 +65,13 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
   };
 
   return (
-    <Hb.Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
+    <Hb.Paper
+      variant="outlined"
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+      }}
+    >
       <Hb.Box
         sx={{
           px: 3,

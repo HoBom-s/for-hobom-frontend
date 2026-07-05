@@ -18,17 +18,16 @@ export const FutureMessageWorkspace = () => {
       }}
     >
       <FutureMessageHeader />
-
       <Hb.Paper
         elevation={0}
-        sx={{
+        style={{
           flex: 1,
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
           border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 2,
+          borderColor: "var(--hb-color-border)",
+          borderRadius: 16,
         }}
       >
         <FutureMessageStatusTab />

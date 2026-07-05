@@ -13,7 +13,7 @@ interface KpiCardProps {
 
 export const KpiCard = ({ label, value, suffix, trend, icon }: KpiCardProps) => {
   return (
-    <DashboardPaper sx={{ height: "100%" }}>
+    <DashboardPaper style={{ height: "100%" }}>
       <Hb.Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
         <Hb.Text variant="body2" color="text.secondary">
           {label}
