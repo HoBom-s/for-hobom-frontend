@@ -216,17 +216,7 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
                 aria-label="멤버 공유"
                 onClick={(e) => setMemberAnchor(e.currentTarget)}
               >
-                <Hb.Badge
-                  badgeContent={noteMembers.length || undefined}
-                  color="primary"
-                  sx={{
-                    "& .MuiBadge-badge": {
-                      fontSize: 10,
-                      height: 16,
-                      minWidth: 16,
-                    },
-                  }}
-                >
+                <Hb.Badge badgeContent={noteMembers.length || undefined} color="primary">
                   <PersonAddOutlined fontSize="small" />
                 </Hb.Badge>
               </Hb.Button.Icon>
