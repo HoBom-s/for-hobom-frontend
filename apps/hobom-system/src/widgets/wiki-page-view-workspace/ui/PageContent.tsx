@@ -53,10 +53,10 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
     <Hb.Box sx={{ p: 2 }}>
       <Hb.Paper
         elevation={0}
-        sx={{
+        style={{
           border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 2,
+          borderColor: "var(--hb-color-border)",
+          borderRadius: 16,
           overflow: "hidden",
         }}
       >
@@ -161,11 +161,11 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
       </Hb.Paper>
       <Hb.Paper
         elevation={0}
-        sx={{
-          mt: 2,
+        style={{
+          marginTop: 16,
           border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 2,
+          borderColor: "var(--hb-color-border)",
+          borderRadius: 16,
         }}
       >
         <Suspense

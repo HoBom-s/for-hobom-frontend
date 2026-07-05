@@ -51,10 +51,10 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
   return (
     <Hb.Paper
       variant="outlined"
-      sx={{
-        borderRadius: 2,
+      style={{
+        borderRadius: 16,
         overflow: "hidden",
-        borderColor: "error.light",
+        borderColor: "var(--hb-color-danger)",
       }}
     >
       <Hb.Box

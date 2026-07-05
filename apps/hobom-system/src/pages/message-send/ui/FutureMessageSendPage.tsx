@@ -41,11 +41,11 @@ export default function FutureMessageSendPage() {
 const Layout = ({ children }: { children: ReactNode }) => (
   <Hb.Paper
     elevation={2}
-    sx={{
+    style={{
       width: "100%",
       maxWidth: 520,
-      p: 4,
-      borderRadius: 3,
+      padding: 32,
+      borderRadius: 24,
     }}
   >
     {children}

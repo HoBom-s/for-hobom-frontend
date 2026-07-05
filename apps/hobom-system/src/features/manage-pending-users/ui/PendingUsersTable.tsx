@@ -56,16 +56,16 @@ export const PendingUsersTable = () => {
           />
         </Hb.Stack>
       </Hb.Stack>
-
       {users.length === 0 ? (
         <Hb.Paper
           variant="outlined"
-          sx={{
-            py: 8,
+          style={{
+            paddingTop: 64,
+            paddingBottom: 64,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 1.5,
+            gap: 12,
             borderStyle: "dashed",
           }}
         >

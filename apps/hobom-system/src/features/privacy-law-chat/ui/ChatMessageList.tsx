@@ -57,13 +57,14 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
           </Hb.Avatar>
           <Hb.Paper
             elevation={0}
-            sx={{
-              p: 2,
+            style={{
+              padding: 16,
               maxWidth: "70%",
-              bgcolor: msg.role === "user" ? "primary.50" : "background.paper",
-              border: 1,
-              borderColor: msg.role === "user" ? "primary.200" : "divider",
-              borderRadius: 2,
+              backgroundColor: msg.role === "user" ? "#eef3ff" : "var(--hb-color-surface)",
+              borderWidth: 1,
+              borderStyle: "solid",
+              borderColor: msg.role === "user" ? "#94baff" : "var(--hb-color-border)",
+              borderRadius: 16,
             }}
           >
             <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
@@ -75,7 +76,6 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
           </Hb.Paper>
         </Hb.Stack>
       ))}
-
       {isPending && (
         <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
           <Hb.Avatar sx={{ width: 32, height: 32, bgcolor: "grey.700" }}>
@@ -83,11 +83,12 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
           </Hb.Avatar>
           <Hb.Paper
             elevation={0}
-            sx={{
-              p: 2,
-              border: 1,
-              borderColor: "divider",
-              borderRadius: 2,
+            style={{
+              padding: 16,
+              borderWidth: 1,
+              borderStyle: "solid",
+              borderColor: "var(--hb-color-border)",
+              borderRadius: 16,
             }}
           >
             <Hb.Stack direction="row" spacing={1} alignItems="center">
@@ -99,7 +100,6 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
           </Hb.Paper>
         </Hb.Stack>
       )}
-
       <div ref={bottomRef} />
     </Hb.Stack>
   );

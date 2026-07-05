@@ -49,7 +49,13 @@ export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) =
   };
 
   return (
-    <Hb.Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
+    <Hb.Paper
+      variant="outlined"
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+      }}
+    >
       <Hb.Box
         sx={{
           px: 3,
@@ -81,7 +87,6 @@ export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) =
           />
         </Hb.Box>
       </Hb.Box>
-
       <Hb.Box sx={{ p: 3 }}>
         {/* 보드 생성 */}
         <Hb.Box sx={{ display: "flex", gap: 1, mb: boards.length > 0 ? 2 : 0 }}>

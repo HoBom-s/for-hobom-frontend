@@ -13,7 +13,13 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
 
   return (
     <Hb.Box>
-      <Hb.Paper variant="outlined" sx={{ p: 3, mb: 3 }}>
+      <Hb.Paper
+        variant="outlined"
+        style={{
+          padding: 24,
+          marginBottom: 24,
+        }}
+      >
         <Hb.Stack direction="row" alignItems="center" spacing={1} mb={2}>
           <LightbulbOutlined color="warning" />
           <Hb.Text variant="h6">요약</Hb.Text>

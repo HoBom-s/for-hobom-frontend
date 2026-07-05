@@ -66,11 +66,13 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
         >
           <Hb.Paper
             variant="outlined"
-            sx={{
+            style={{
               textAlign: "center",
-              px: 5,
-              py: 4,
-              borderRadius: 2,
+              paddingLeft: 40,
+              paddingRight: 40,
+              paddingTop: 32,
+              paddingBottom: 32,
+              borderRadius: 16,
               maxWidth: 420,
               width: "100%",
             }}

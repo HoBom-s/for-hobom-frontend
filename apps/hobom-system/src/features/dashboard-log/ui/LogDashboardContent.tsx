@@ -95,12 +95,12 @@ export const LogDashboardContent = ({ period }: LogDashboardContentProps) => {
       </Hb.Grid>
 
       <Hb.Grid size={{ xs: 12, md: 7 }}>
-        <DashboardPaper sx={{ height: "100%" }}>
+        <DashboardPaper style={{ height: "100%" }}>
           <EndpointErrorTable data={endpointData.items} />
         </DashboardPaper>
       </Hb.Grid>
       <Hb.Grid size={{ xs: 12, md: 5 }}>
-        <DashboardPaper sx={{ height: "100%" }}>
+        <DashboardPaper style={{ height: "100%" }}>
           <StatusCodeChart data={statusData.items} />
         </DashboardPaper>
       </Hb.Grid>
