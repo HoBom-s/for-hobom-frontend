@@ -5,6 +5,7 @@ import { BottomSheetCTAProvider } from "@/shared/model";
 import { theme, GLOBAL_STYLES } from "@/shared/config";
 import { Hb, ErrorBoundary, OverlayProvider } from "@/shared/ui";
 import { reportError } from "@/shared/lib";
+import { ColorSchemeBridge } from "./ColorSchemeBridge";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -45,6 +46,7 @@ export const AppProvider = ({ children }: Props) => {
         <Hb.ThemeProvider theme={theme}>
           <Hb.CssBaseline enableColorScheme />
           <Hb.GlobalStyles styles={GLOBAL_STYLES} />
+          <ColorSchemeBridge />
           <ErrorBoundary
             onError={(err, info) => reportError(err, { componentStack: info.componentStack })}
           >
