@@ -86,7 +86,7 @@ describe("partitionNotes", () => {
 
     partitionNotesLib(notes);
 
-    expect(notes[0]!.id).toBe(original[0]!.id);
-    expect(notes[1]!.id).toBe(original[1]!.id);
+    expect(notes[0]?.id).toBe(original[0]?.id);
+    expect(notes[1]?.id).toBe(original[1]?.id);
   });
 });

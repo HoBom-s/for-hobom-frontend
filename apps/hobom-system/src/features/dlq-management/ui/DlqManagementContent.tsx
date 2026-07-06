@@ -16,6 +16,82 @@ export const DlqManagementContent = () => {
     });
   };
 
+  const renderTable = () => {
+    if (isLoading) {
+      return (
+        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+          <Hb.Progress.Circular size={28} />
+        </Hb.Box>
+      );
+    }
+
+    if (items.length === 0) {
+      return (
+        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 4, textAlign: "center" }}>
+          DLQ 항목이 없습니다
+        </Hb.Text>
+      );
+    }
+
+    return (
+      <Hb.Table.Container sx={{ maxHeight: "calc(100vh - 280px)", overflow: "auto" }}>
+        <Hb.Table.Root stickyHeader size="small">
+          <Hb.Table.Head>
+            <Hb.Table.Row>
+              <Hb.Table.Cell
+                sx={{
+                  fontWeight: 600,
+                  fontSize: 11,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                Key
+              </Hb.Table.Cell>
+              <Hb.Table.Cell sx={{ width: 100 }} align="center">
+                액션
+              </Hb.Table.Cell>
+            </Hb.Table.Row>
+          </Hb.Table.Head>
+          <Hb.Table.Body>
+            {items.map((key) => (
+              <Hb.Table.Row
+                key={key}
+                hover
+                sx={{ cursor: "pointer" }}
+                onClick={() => setSelectedKey(key)}
+              >
+                <Hb.Table.Cell
+                  sx={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: 12,
+                    wordBreak: "break-all",
+                  }}
+                >
+                  {key}
+                </Hb.Table.Cell>
+                <Hb.Table.Cell align="center">
+                  <Hb.Tooltip title="재시도 처리">
+                    <Hb.Button.Icon
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRetry(key);
+                      }}
+                      disabled={retryMutation.isPending}
+                    >
+                      <Replay sx={{ fontSize: 16 }} />
+                    </Hb.Button.Icon>
+                  </Hb.Tooltip>
+                </Hb.Table.Cell>
+              </Hb.Table.Row>
+            ))}
+          </Hb.Table.Body>
+        </Hb.Table.Root>
+      </Hb.Table.Container>
+    );
+  };
+
   return (
     <Hb.Box sx={{ p: 3 }}>
       {/* Header */}
@@ -59,71 +135,7 @@ export const DlqManagementContent = () => {
       </Hb.Box>
 
       {/* Table */}
-      {isLoading ? (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-          <Hb.Progress.Circular size={28} />
-        </Hb.Box>
-      ) : items.length === 0 ? (
-        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 4, textAlign: "center" }}>
-          DLQ 항목이 없습니다
-        </Hb.Text>
-      ) : (
-        <Hb.Table.Container sx={{ maxHeight: "calc(100vh - 280px)", overflow: "auto" }}>
-          <Hb.Table.Root stickyHeader size="small">
-            <Hb.Table.Head>
-              <Hb.Table.Row>
-                <Hb.Table.Cell
-                  sx={{
-                    fontWeight: 600,
-                    fontSize: 11,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  Key
-                </Hb.Table.Cell>
-                <Hb.Table.Cell sx={{ width: 100 }} align="center">
-                  액션
-                </Hb.Table.Cell>
-              </Hb.Table.Row>
-            </Hb.Table.Head>
-            <Hb.Table.Body>
-              {items.map((key) => (
-                <Hb.Table.Row
-                  key={key}
-                  hover
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => setSelectedKey(key)}
-                >
-                  <Hb.Table.Cell
-                    sx={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: 12,
-                      wordBreak: "break-all",
-                    }}
-                  >
-                    {key}
-                  </Hb.Table.Cell>
-                  <Hb.Table.Cell align="center">
-                    <Hb.Tooltip title="재시도 처리">
-                      <Hb.Button.Icon
-                        size="small"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRetry(key);
-                        }}
-                        disabled={retryMutation.isPending}
-                      >
-                        <Replay sx={{ fontSize: 16 }} />
-                      </Hb.Button.Icon>
-                    </Hb.Tooltip>
-                  </Hb.Table.Cell>
-                </Hb.Table.Row>
-              ))}
-            </Hb.Table.Body>
-          </Hb.Table.Root>
-        </Hb.Table.Container>
-      )}
+      {renderTable()}
 
       {/* Detail Dialog */}
       <DlqDetailDialog

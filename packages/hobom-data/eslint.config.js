@@ -20,6 +20,8 @@ export default tseslint.config(baseIgnores, {
     ...baseConfig.rules,
     ...reactHooks.configs.recommended.rules,
     "react-hooks/refs": "off",
-    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+    // Library source (context + provider + hook colocated); Fast Refresh is an
+    // app-HMR heuristic that doesn't apply to published package source.
+    "react-refresh/only-export-components": "off",
   },
 });

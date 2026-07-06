@@ -38,15 +38,16 @@ export const BottomSheetCTAProvider = ({ children }: { children: ReactNode }) =>
   }, []);
 
   const processNext = () => {
-    if (queue.current.length > 0) {
-      const next = queue.current.shift()!;
+    const next = queue.current.shift();
 
-      setSheet(next);
-      setOpen(true);
-      isShowing.current = true;
-    } else {
+    if (next === undefined) {
       isShowing.current = false;
+
+      return;
     }
+    setSheet(next);
+    setOpen(true);
+    isShowing.current = true;
   };
 
   const onOpen = useCallback((options: SheetOptions) => {
@@ -84,6 +85,9 @@ export const BottomSheetCTAProvider = ({ children }: { children: ReactNode }) =>
   );
 };
 
+// Context, provider, and hook are intentionally colocated; Fast Refresh is an
+// HMR heuristic that doesn't apply to this consumer hook export.
+// eslint-disable-next-line react-refresh/only-export-components
 export const useBottomSheetCTA = () => {
   const ctx = useContext(BottomSheetCTAContext);
 

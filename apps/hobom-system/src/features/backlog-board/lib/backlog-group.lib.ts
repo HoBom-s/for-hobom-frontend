@@ -13,14 +13,14 @@ export const groupIssuesBySprint = (
 ): { sprintGroups: SprintGroup[]; backlogIssues: IssueType[] } => {
   const sprintIds = new Set(sprints.map((s) => s.id));
 
-  const [sprintIssues, backlogIssues] = Bom.pipe(
-    issues,
-    Bom.partition((issue: IssueType) => !!issue.sprint && sprintIds.has(issue.sprint)),
-  );
+  const isSprintIssue = (issue: IssueType): issue is IssueType & { sprint: string } =>
+    !!issue.sprint && sprintIds.has(issue.sprint);
+
+  const [sprintIssues, backlogIssues] = Bom.pipe(issues, Bom.partition(isSprintIssue));
 
   const grouped = Bom.pipe(
     sprintIssues,
-    Bom.groupBy((i: IssueType) => i.sprint!),
+    Bom.groupBy((i) => i.sprint),
   );
 
   const sprintGroups = sprints.map((sprint) => ({

@@ -49,6 +49,32 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
 
   const isLoading = friendQueries.some((q) => q.isLoading);
 
+  const renderFriends = () => {
+    if (friends.length === 0) {
+      return (
+        <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.8125rem" }}>
+          없음
+        </Hb.Text>
+      );
+    }
+    if (isLoading) {
+      return <Hb.Progress.Circular size={16} />;
+    }
+
+    return friendQueries.map((q, i) => (
+      <Hb.Chip
+        key={friends[i]}
+        label={q.data?.items.nickname ?? friends[i]}
+        size="small"
+        variant="outlined"
+        style={{
+          fontSize: "0.75rem",
+          height: 24,
+        }}
+      />
+    ));
+  };
+
   return (
     <Hb.Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
       <Hb.Box sx={{ color: "text.secondary", pt: 0.25 }}>
@@ -66,28 +92,7 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
           친구
         </Hb.Text>
         <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.25 }}>
-          {friends.length > 0 ? (
-            isLoading ? (
-              <Hb.Progress.Circular size={16} />
-            ) : (
-              friendQueries.map((q, i) => (
-                <Hb.Chip
-                  key={friends[i]}
-                  label={q.data?.items.nickname ?? friends[i]}
-                  size="small"
-                  variant="outlined"
-                  style={{
-                    fontSize: "0.75rem",
-                    height: 24,
-                  }}
-                />
-              ))
-            )
-          ) : (
-            <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.8125rem" }}>
-              없음
-            </Hb.Text>
-          )}
+          {renderFriends()}
         </Hb.Box>
       </Hb.Box>
     </Hb.Box>

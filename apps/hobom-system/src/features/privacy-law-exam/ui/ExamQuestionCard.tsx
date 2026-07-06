@@ -90,6 +90,25 @@ const FillBlankInput = ({
   </Hb.Stack>
 );
 
+const choiceBorderColor = (revealed: boolean, isAnswer: boolean, selected: boolean): string => {
+  if (revealed) {
+    if (isAnswer) return "success.main";
+    if (selected) return "error.main";
+
+    return "divider";
+  }
+
+  return selected ? "primary.main" : "divider";
+};
+
+const choiceBgColor = (revealed: boolean, isAnswer: boolean, selected: boolean): string => {
+  if (!revealed) return "transparent";
+  if (isAnswer) return "success.50";
+  if (selected) return "error.50";
+
+  return "transparent";
+};
+
 const MultipleChoiceInput = ({
   choices,
   value,
@@ -142,22 +161,8 @@ const MultipleChoiceInput = ({
             py: 0.5,
             borderRadius: 1,
             border: 1,
-            borderColor: revealed
-              ? isAnswer
-                ? "success.main"
-                : selected
-                  ? "error.main"
-                  : "divider"
-              : selected
-                ? "primary.main"
-                : "divider",
-            bgcolor: revealed
-              ? isAnswer
-                ? "success.50"
-                : selected
-                  ? "error.50"
-                  : "transparent"
-              : "transparent",
+            borderColor: choiceBorderColor(revealed, isAnswer, selected),
+            bgcolor: choiceBgColor(revealed, isAnswer, selected),
           }}
         />
       );
@@ -169,6 +174,13 @@ const QUIZ_TYPE_LABEL: Record<string, string> = {
   OX: "OX 퀴즈",
   FILL_BLANK: "빈칸 채우기",
   MULTIPLE_CHOICE: "객관식",
+};
+
+const scoreMessage = (score: number, total: number): string => {
+  if (score === total) return "완벽합니다!";
+  if (score >= total * 0.7) return "잘했습니다!";
+
+  return "다시 도전해보세요.";
 };
 
 export const ExamQuestionCard = ({ questions }: Props) => {
@@ -199,11 +211,7 @@ export const ExamQuestionCard = ({ questions }: Props) => {
             {score} / {total}
           </Hb.Text>
           <Hb.Text variant="body2" color="text.secondary" gutterBottom>
-            {score === total
-              ? "완벽합니다!"
-              : score >= total * 0.7
-                ? "잘했습니다!"
-                : "다시 도전해보세요."}
+            {scoreMessage(score, total)}
           </Hb.Text>
           <Hb.Button variant="secondary" startIcon={<Replay />} onClick={reset} sx={{ mt: 2 }}>
             다시 풀기

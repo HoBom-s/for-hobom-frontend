@@ -6,8 +6,8 @@ import { privacyLawQueries } from "@/entities/privacy-law";
 import { ExamQuestionCard } from "@/features/privacy-law-exam";
 
 const ExamDetail = () => {
-  const { examId } = useParams<{ examId: string }>();
-  const { data } = useSuspenseQuery(privacyLawQueries.exam(examId!));
+  const { examId = "" } = useParams<{ examId: string }>();
+  const { data } = useSuspenseQuery(privacyLawQueries.exam(examId));
   const exam = data.items;
 
   return (

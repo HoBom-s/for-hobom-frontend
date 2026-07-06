@@ -19,6 +19,17 @@ const LEVEL_COLOR: Record<string, { bg: string; text: string }> = {
   FATAL: { bg: "#f472b618", text: "#f472b6" },
 };
 
+const statusChipStyle = (statusCode: number): { bg: string; text: string } => {
+  if (statusCode >= 500) {
+    return { bg: "#f8717118", text: "#f87171" };
+  }
+  if (statusCode >= 400) {
+    return { bg: "#fb923c18", text: "#fb923c" };
+  }
+
+  return { bg: "#34d39918", text: "#34d399" };
+};
+
 interface LogEntryTableProps {
   data: LogEntry[];
 }
@@ -66,6 +77,7 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
               bg: "#f3f4f6",
               text: "#6b7280",
             };
+            const statusStyle = statusChipStyle(row.statusCode);
 
             return (
               <Hb.Table.Row key={row.id} hover>
@@ -130,19 +142,9 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                       fontSize: 11,
                       fontWeight: 600,
 
-                      backgroundColor:
-                        row.statusCode >= 500
-                          ? "#f8717118"
-                          : row.statusCode >= 400
-                            ? "#fb923c18"
-                            : "#34d39918",
+                      backgroundColor: statusStyle.bg,
 
-                      color:
-                        row.statusCode >= 500
-                          ? "#f87171"
-                          : row.statusCode >= 400
-                            ? "#fb923c"
-                            : "#34d399",
+                      color: statusStyle.text,
                     }}
                   />
                 </Hb.Table.Cell>

@@ -21,7 +21,7 @@ import type { InferGuardType } from "../../core/types/inferGuardType";
  */
 export function when<
   T,
-  ExtraArgs extends any[],
+  ExtraArgs extends unknown[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
 >(
@@ -30,7 +30,7 @@ export function when<
 ): (data: T, ...extraArgs: ExtraArgs) => Exclude<T, InferGuardType<Predicate>> | ReturnType<OnTrue>;
 export function when<
   T,
-  ExtraArgs extends any[],
+  ExtraArgs extends unknown[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
   OnFalse extends (data: Exclude<T, InferGuardType<Predicate>>, ...extraArgs: ExtraArgs) => unknown,
@@ -43,7 +43,7 @@ export function when<
 ): (data: T, ...extraArgs: ExtraArgs) => ReturnType<OnFalse> | ReturnType<OnTrue>;
 export function when<
   T,
-  ExtraArgs extends any[],
+  ExtraArgs extends unknown[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
 >(
@@ -54,7 +54,7 @@ export function when<
 ): Exclude<T, InferGuardType<Predicate>> | ReturnType<OnTrue>;
 export function when<
   T,
-  ExtraArgs extends any[],
+  ExtraArgs extends unknown[],
   Predicate extends (data: T, ...extraArgs: ExtraArgs) => boolean,
   OnTrue extends (data: InferGuardType<Predicate, T>, ...extraArgs: ExtraArgs) => unknown,
   OnFalse extends (data: Exclude<T, InferGuardType<Predicate>>, ...extraArgs: ExtraArgs) => unknown,
@@ -78,7 +78,7 @@ export function when(...args: readonly unknown[]): unknown {
   return whenImpl(...args);
 }
 
-function whenImpl<T, ExtraArgs extends any[], WhenTrue, WhenFalse>(
+function whenImpl<T, ExtraArgs extends unknown[], WhenTrue, WhenFalse>(
   data: T,
   predicate: (data: T, ...extraArgs: ExtraArgs) => boolean,
   onTrueOrBranches:

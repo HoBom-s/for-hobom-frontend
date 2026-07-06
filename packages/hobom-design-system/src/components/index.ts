@@ -9,7 +9,6 @@ import { TextField } from "./TextField";
 import { Chip } from "./Chip";
 import { Dialog } from "./Dialog";
 import { Card } from "./Card";
-
 // Batch 2 — passthrough
 import { Tooltip } from "./Tooltip";
 import { Avatar } from "./Avatar";
@@ -26,7 +25,6 @@ import { Collapse } from "./Collapse";
 import { InputBase } from "./InputBase";
 import { Drawer } from "./Drawer";
 import { ToggleButton } from "./ToggleButton";
-
 // Batch 2 — compound
 import { Progress } from "./Progress";
 import { Menu } from "./Menu";
@@ -36,7 +34,6 @@ import { Form } from "./Form";
 import { Table } from "./Table";
 import { Radio } from "./Radio";
 import { Accordion } from "./Accordion";
-
 // Batch 2 — infra
 import { CssBaseline, GlobalStyles, ThemeProvider } from "./Infra";
 

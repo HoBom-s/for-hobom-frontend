@@ -13,7 +13,9 @@ export const buildCommentTree = (comments: CommentType[]): CommentTreeNode[] => 
   }
 
   for (const comment of comments) {
-    const node = map.get(comment.id)!;
+    const node = map.get(comment.id);
+
+    if (!node) continue;
 
     if (comment.parentCommentId) {
       const parent = map.get(comment.parentCommentId);

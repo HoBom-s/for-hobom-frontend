@@ -55,6 +55,34 @@ export const IssueRow = ({
   const canAddChild = PARENT_ISSUE_KINDS.has(issue.type) && onCreateChildIssue;
   const showMenu = moveTargets.length > 0 || canAddChild;
 
+  const renderLeadingCell = () => {
+    if (childCount > 0 && onToggleCollapse) {
+      return (
+        <Hb.Button.Icon
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleCollapse(issue.id);
+          }}
+          sx={{ p: 0, ml: -0.5, color: "text.disabled" }}
+        >
+          {isCollapsed ? (
+            <ChevronRightOutlined sx={{ fontSize: 16 }} />
+          ) : (
+            <ExpandMoreOutlined sx={{ fontSize: 16 }} />
+          )}
+        </Hb.Button.Icon>
+      );
+    }
+    if (depth > 0) {
+      return (
+        <SubdirectoryArrowRightOutlined sx={{ fontSize: 14, color: "text.disabled", ml: -1.5 }} />
+      );
+    }
+
+    return null;
+  };
+
   return (
     <>
       <Hb.Box
@@ -74,24 +102,7 @@ export const IssueRow = ({
         }}
         onClick={() => onIssueClick?.(issue.id)}
       >
-        {childCount > 0 && onToggleCollapse ? (
-          <Hb.Button.Icon
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleCollapse(issue.id);
-            }}
-            sx={{ p: 0, ml: -0.5, color: "text.disabled" }}
-          >
-            {isCollapsed ? (
-              <ChevronRightOutlined sx={{ fontSize: 16 }} />
-            ) : (
-              <ExpandMoreOutlined sx={{ fontSize: 16 }} />
-            )}
-          </Hb.Button.Icon>
-        ) : depth > 0 ? (
-          <SubdirectoryArrowRightOutlined sx={{ fontSize: 14, color: "text.disabled", ml: -1.5 }} />
-        ) : null}
+        {renderLeadingCell()}
         <kind.Icon sx={{ fontSize: 16, color: kind.color }} />
         <Hb.Text
           variant="caption"

@@ -32,10 +32,7 @@ function groupByImpl<T>(
   for (const [index, item] of data.entries()) {
     const key = fn(item, index, data);
 
-    if (result[key] === undefined) {
-      result[key] = [];
-    }
-    result[key]!.push(item);
+    (result[key] ??= []).push(item);
   }
 
   return result;

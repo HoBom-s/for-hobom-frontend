@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
-  const { register, watch } = useForm<{ title: string }>({
+  const { register, getValues } = useForm<{ title: string }>({
     defaultValues: { title: item.title },
   });
   const [editCategory, setEditCategory] = useState(item.category.id);
@@ -23,7 +23,7 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
   });
 
   const handleSubmit = () => {
-    const title = watch("title").trim();
+    const title = getValues("title").trim();
 
     if (Bom.isEmpty(title)) return;
     mutate({ id: item.id, title, category: editCategory }, { onSuccess: onClose });

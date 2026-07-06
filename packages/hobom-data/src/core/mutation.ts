@@ -54,7 +54,7 @@ export class Mutation<TData = unknown, TError = Error, TVariables = void, TConte
         error: null,
       };
 
-      await this.options.onSuccess?.(data, variables, context!);
+      await this.options.onSuccess?.(data, variables, context);
       await this.options.onSettled?.(data, null, variables, context);
 
       return data;

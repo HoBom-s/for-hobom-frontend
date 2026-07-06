@@ -31,6 +31,56 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
     threshold: 100,
   });
 
+  const renderList = () => {
+    if (isPending) {
+      return (
+        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+          <Hb.Progress.Circular size={24} />
+        </Hb.Box>
+      );
+    }
+    if (notifications.length === 0) {
+      return (
+        <Hb.Box
+          sx={{
+            py: 6,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <NotificationsNoneOutlined sx={{ fontSize: 40, color: "text.disabled" }} />
+          <Hb.Text variant="body2" sx={{ color: "text.disabled" }}>
+            {EMPTY_MESSAGES[filter]}
+          </Hb.Text>
+        </Hb.Box>
+      );
+    }
+
+    return (
+      <>
+        {notifications.map((notification) => (
+          <NotificationItem
+            key={notification.id}
+            notification={notification}
+            onClick={(n: NotificationItemType) => {
+              if (!n.isRead) {
+                markRead.mutate(n.id);
+              }
+              onClose();
+            }}
+          />
+        ))}
+        {isFetchingNextPage && (
+          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+            <Hb.Progress.Circular size={20} />
+          </Hb.Box>
+        )}
+      </>
+    );
+  };
+
   return (
     <Hb.Popover
       open={Boolean(anchorEl)}
@@ -88,46 +138,7 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
             "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
         }}
       >
-        {isPending ? (
-          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-            <Hb.Progress.Circular size={24} />
-          </Hb.Box>
-        ) : notifications.length === 0 ? (
-          <Hb.Box
-            sx={{
-              py: 6,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 1,
-            }}
-          >
-            <NotificationsNoneOutlined sx={{ fontSize: 40, color: "text.disabled" }} />
-            <Hb.Text variant="body2" sx={{ color: "text.disabled" }}>
-              {EMPTY_MESSAGES[filter]}
-            </Hb.Text>
-          </Hb.Box>
-        ) : (
-          <>
-            {notifications.map((notification) => (
-              <NotificationItem
-                key={notification.id}
-                notification={notification}
-                onClick={(n: NotificationItemType) => {
-                  if (!n.isRead) {
-                    markRead.mutate(n.id);
-                  }
-                  onClose();
-                }}
-              />
-            ))}
-            {isFetchingNextPage && (
-              <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
-                <Hb.Progress.Circular size={20} />
-              </Hb.Box>
-            )}
-          </>
-        )}
+        {renderList()}
       </Hb.Box>
       <Hb.Divider />
       <Hb.Box sx={{ px: 2, py: 1.5, textAlign: "center" }}>

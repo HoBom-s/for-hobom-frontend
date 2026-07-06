@@ -11,7 +11,7 @@ interface CreateDialogState {
 }
 
 export const useWikiSpaceLayout = () => {
-  const { spaceKey, pageId } = useParams<{
+  const { spaceKey = "", pageId } = useParams<{
     spaceKey: string;
     pageId: string;
   }>();
@@ -22,7 +22,7 @@ export const useWikiSpaceLayout = () => {
   });
   const createPage = useCreatePage();
 
-  const { data } = useSuspenseQuery(wikiSpaceQueries.detail(spaceKey!));
+  const { data } = useSuspenseQuery(wikiSpaceQueries.detail(spaceKey));
   const space = data.items;
 
   const handleNavigateToWiki = useCallback(() => {
@@ -43,7 +43,7 @@ export const useWikiSpaceLayout = () => {
   const handleCreatePage = (title: string) => {
     createPage.mutate(
       {
-        spaceKey: spaceKey!,
+        spaceKey,
         title,
         content: "",
         parentPageId: createDialog.parentPageId,

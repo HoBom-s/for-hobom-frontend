@@ -69,7 +69,7 @@ export function useQueries<
     cachedResultsRef.current = buildResults();
   }
 
-  const getSnapshot = () => cachedResultsRef.current!;
+  const getSnapshot = () => cachedResultsRef.current ?? buildResults();
 
   useSyncExternalStore(subscribeAll, getSnapshot, getSnapshot);
 

@@ -13,7 +13,7 @@ import stylistic from "@stylistic/eslint-plugin";
  * export default tseslint.config(...baseConfig, { … });
  */
 export const baseIgnores = {
-  ignores: ["**/dist", "**/coverage", "**/node_modules"],
+  ignores: ["**/dist", "**/coverage", "**/node_modules", "**/storybook-static"],
 };
 
 export const baseConfig = {

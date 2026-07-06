@@ -7,6 +7,8 @@ interface LazyMeta {
 }
 
 export interface LazyDefinition {
+  // Lazy factory of any arity; see curry.ts for why `any` args are required here.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly lazy: LazyMeta & ((...args: any) => LazyFn);
   readonly lazyArgs: readonly unknown[];
 }
