@@ -71,6 +71,9 @@ importers:
       '@hobom-grid/react':
         specifier: ^0.2.0
         version: 0.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@stylexjs/stylex':
+        specifier: ^0.19.0
+        version: 0.19.0
       '@tiptap/extension-link':
         specifier: ^3.20.0
         version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))(@tiptap/pm@3.20.1)

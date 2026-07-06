@@ -88,7 +88,11 @@ export const MenuRecommendationListItem = memo(function MenuRecommendationListIt
           }
         />
       </Hb.List.Item>
-      {showDivider && <Hb.Divider component="li" />}
+      {showDivider && (
+        <li>
+          <Hb.Divider />
+        </li>
+      )}
     </>
   );
 });

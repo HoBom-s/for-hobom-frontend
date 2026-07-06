@@ -2,7 +2,7 @@ import type { CSSProperties, HTMLAttributes, MouseEvent, ReactElement, ReactNode
 import * as stylex from "@stylexjs/stylex";
 
 type ChipVariant = "filled" | "outlined" | "soft";
-type ChipColor = "default" | "primary" | "secondary";
+type ChipColor = "default" | "primary" | "secondary" | "success" | "warning" | "error";
 type ChipSize = "small" | "medium";
 
 interface ChipProps extends Omit<HTMLAttributes<HTMLDivElement>, "color"> {
@@ -66,11 +66,17 @@ const COLORS = {
   default: "var(--hb-color-border)",
   primary: "var(--hb-color-accent)",
   secondary: "var(--hb-color-text-secondary)",
+  success: "var(--hb-color-success)",
+  warning: "var(--hb-color-warning)",
+  error: "var(--hb-color-danger)",
 } as const;
 const ON_FILLED = {
   default: "var(--hb-color-text-primary)",
   primary: "var(--hb-color-accent-contrast)",
   secondary: "var(--hb-color-accent-contrast)",
+  success: "var(--hb-color-accent-contrast)",
+  warning: "var(--hb-color-accent-contrast)",
+  error: "var(--hb-color-accent-contrast)",
 } as const;
 
 // Surface colors are inline (runtime-computed) so consumer `style` can override
