@@ -75,7 +75,13 @@ interface StatusCodeChartProps {
 export const StatusCodeChart = ({ data }: StatusCodeChartProps) => {
   return (
     <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         HTTP 상태 코드 분포
       </Hb.Text>
       <ResponsiveContainer width="100%" height="100%" minHeight={200}>

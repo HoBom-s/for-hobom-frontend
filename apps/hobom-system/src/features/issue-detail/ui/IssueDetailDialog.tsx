@@ -56,7 +56,13 @@ export const IssueDetailDialog = ({
                   color: ISSUE_KIND_REGISTRY[issue.type].color,
                 }}
               />
-              <Hb.Text variant="caption" sx={{ color: "text.disabled", fontWeight: 600 }}>
+              <Hb.Text
+                variant="caption"
+                style={{
+                  color: "var(--hb-color-text-disabled)",
+                  fontWeight: 600,
+                }}
+              >
                 {issue.issueKey}
               </Hb.Text>
               <Hb.Button.Icon
@@ -70,7 +76,13 @@ export const IssueDetailDialog = ({
             </Hb.Dialog.Title>
             <Hb.Dialog.Content sx={{ pt: 0 }}>
               <ErrorBoundary inline resetKey={issueId ?? ""}>
-                <Hb.Text variant="h6" fontWeight={700} sx={{ mb: 2 }}>
+                <Hb.Text
+                  variant="h6"
+                  fontWeight={700}
+                  style={{
+                    marginBottom: 16,
+                  }}
+                >
                   {issue.title}
                 </Hb.Text>
                 <Hb.Divider
@@ -88,14 +100,21 @@ export const IssueDetailDialog = ({
                         marginBottom: 16,
                       }}
                     />
-                    <Hb.Text variant="subtitle2" fontWeight={600} sx={{ mb: 1, fontSize: 13 }}>
+                    <Hb.Text
+                      variant="subtitle2"
+                      fontWeight={600}
+                      style={{
+                        marginBottom: 8,
+                        fontSize: 13,
+                      }}
+                    >
                       설명
                     </Hb.Text>
                     <Hb.Text
                       variant="body2"
-                      sx={{
+                      style={{
                         fontSize: 13,
-                        color: "text.secondary",
+                        color: "var(--hb-color-text-secondary)",
                         whiteSpace: "pre-wrap",
                       }}
                     >

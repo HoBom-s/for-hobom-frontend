@@ -11,7 +11,13 @@ interface Props {
 
 const ArticleContent = ({ article }: { article: LawArticle }) => (
   <Hb.Box>
-    <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", mb: 1 }}>
+    <Hb.Text
+      variant="body2"
+      style={{
+        whiteSpace: "pre-wrap",
+        marginBottom: 8,
+      }}
+    >
       {article.content}
     </Hb.Text>
     {article.paragraphs.length > 0 && (
@@ -30,7 +36,7 @@ const ArticleContent = ({ article }: { article: LawArticle }) => (
                     variant="body2"
                     color="text.secondary"
                     component="span"
-                    display="block"
+                    style={{ display: "block" }}
                   >
                     {sub.no} {sub.content}
                   </Hb.Text>
@@ -107,7 +113,10 @@ export const LawArticleViewer = ({ versionId }: Props) => {
           </Hb.Accordion.Root>
         ))}
         {filtered.length === 0 && (
-          <Hb.Text color="text.secondary" textAlign="center" py={4}>
+          <Hb.Text
+            color="text.secondary"
+            style={{ textAlign: "center", paddingTop: 32, paddingBottom: 32 }}
+          >
             검색 결과가 없습니다.
           </Hb.Text>
         )}

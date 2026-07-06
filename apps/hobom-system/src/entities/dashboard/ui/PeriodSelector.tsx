@@ -62,7 +62,7 @@ export const PeriodSelector = (props: PeriodSelectorProps) => {
           >
             <Hb.Text
               variant="body2"
-              sx={{
+              style={{
                 fontWeight: isActive ? 600 : 500,
                 fontSize: "0.8125rem",
                 lineHeight: 1.5,

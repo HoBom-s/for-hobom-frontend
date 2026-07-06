@@ -71,11 +71,24 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
           }}
         >
           <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
-            <Hb.Text variant="h4" sx={{ fontWeight: 700, lineHeight: 1.3, mb: 0.75 }}>
+            <Hb.Text
+              variant="h4"
+              style={{
+                fontWeight: 700,
+                lineHeight: 1.3,
+                marginBottom: 6,
+              }}
+            >
               {page.title}
             </Hb.Text>
             <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
-              <Hb.Text variant="caption" color="text.disabled" sx={{ flexShrink: 0 }}>
+              <Hb.Text
+                variant="caption"
+                color="text.disabled"
+                style={{
+                  flexShrink: 0,
+                }}
+              >
                 마지막 수정{" "}
                 {new Date(page.updatedAt).toLocaleDateString("ko-KR", {
                   year: "numeric",

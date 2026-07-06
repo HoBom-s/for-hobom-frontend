@@ -14,11 +14,23 @@ const SpaceHomeContent = ({ spaceKey }: { spaceKey: string }) => {
 
   return (
     <Hb.Box sx={{ px: 3, py: 3 }}>
-      <Hb.Text variant="h5" fontWeight={700} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="h5"
+        fontWeight={700}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         {space.name}
       </Hb.Text>
       {space.description && (
-        <Hb.Text variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        <Hb.Text
+          variant="body1"
+          color="text.secondary"
+          style={{
+            marginBottom: 32,
+          }}
+        >
           {space.description}
         </Hb.Text>
       )}

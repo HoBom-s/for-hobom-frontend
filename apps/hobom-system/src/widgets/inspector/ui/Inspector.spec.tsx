@@ -13,13 +13,17 @@ const buttonNode: DocumentNode = {
 
 describe("Inspector", () => {
   it("선택된 노드가 없으면 안내 문구를 보여준다", () => {
-    render(<Inspector node={undefined} onChange={vi.fn()} onStyleChange={vi.fn()} onDelete={vi.fn()} />);
+    render(
+      <Inspector node={undefined} onChange={vi.fn()} onStyleChange={vi.fn()} onDelete={vi.fn()} />,
+    );
 
     expect(screen.getByText("요소를 선택하세요")).toBeDefined();
   });
 
   it("매니페스트의 enum 옵션을 버튼으로 렌더한다", () => {
-    render(<Inspector node={buttonNode} onChange={vi.fn()} onStyleChange={vi.fn()} onDelete={vi.fn()} />);
+    render(
+      <Inspector node={buttonNode} onChange={vi.fn()} onStyleChange={vi.fn()} onDelete={vi.fn()} />,
+    );
 
     for (const variant of ["primary", "secondary", "danger", "ghost"]) {
       expect(screen.getByRole("button", { name: variant })).toBeDefined();
@@ -29,7 +33,14 @@ describe("Inspector", () => {
   it("enum 옵션 클릭 시 onChange(prop, value)를 호출한다", () => {
     const onChange = vi.fn();
 
-    render(<Inspector node={buttonNode} onChange={onChange} onStyleChange={vi.fn()} onDelete={vi.fn()} />);
+    render(
+      <Inspector
+        node={buttonNode}
+        onChange={onChange}
+        onStyleChange={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
 
     fireEvent.click(screen.getByRole("button", { name: "danger" }));
 
@@ -37,7 +48,9 @@ describe("Inspector", () => {
   });
 
   it("boolean prop은 체크박스로 렌더한다", () => {
-    render(<Inspector node={buttonNode} onChange={vi.fn()} onStyleChange={vi.fn()} onDelete={vi.fn()} />);
+    render(
+      <Inspector node={buttonNode} onChange={vi.fn()} onStyleChange={vi.fn()} onDelete={vi.fn()} />,
+    );
 
     expect(screen.getByRole("checkbox")).toBeDefined();
   });

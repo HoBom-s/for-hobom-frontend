@@ -28,7 +28,13 @@ export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) =>
 
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         로그 레벨 분포
       </Hb.Text>
       <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
@@ -107,14 +113,20 @@ export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) =>
                         flexShrink: 0,
                       }}
                     />
-                    <Hb.Text variant="body2" sx={{ fontWeight: 600, fontSize: 12 }}>
+                    <Hb.Text
+                      variant="body2"
+                      style={{
+                        fontWeight: 600,
+                        fontSize: 12,
+                      }}
+                    >
                       {entry.level}
                     </Hb.Text>
                   </Hb.Box>
                   <Hb.Text
                     variant="caption"
-                    sx={{
-                      color: "text.secondary",
+                    style={{
+                      color: "var(--hb-color-text-secondary)",
                       fontVariantNumeric: "tabular-nums",
                     }}
                   >

@@ -29,16 +29,27 @@ export const ErrorMonitoringWorkspace = () => {
             <BugReportOutlined sx={{ color: "#fff", fontSize: 22 }} />
           </Hb.Box>
           <Hb.Box>
-            <Hb.Text variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+            <Hb.Text
+              variant="h5"
+              style={{
+                fontWeight: 700,
+                lineHeight: 1.3,
+              }}
+            >
               에러 모니터링
             </Hb.Text>
-            <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                color: "var(--hb-color-text-secondary)",
+                marginTop: 2,
+              }}
+            >
               클라이언트 및 서버 에러를 수집하고 모니터링할 수 있어요.
             </Hb.Text>
           </Hb.Box>
         </Hb.Box>
       </Hb.Box>
-
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
           <ErrorMonitoringContent />

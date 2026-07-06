@@ -105,10 +105,10 @@ const ProfileTrigger = ({
     </Hb.Avatar>
     <Hb.Text
       variant="body2"
-      sx={{
+      style={{
         fontWeight: 500,
         fontSize: "0.8125rem",
-        color: "text.primary",
+        color: "var(--hb-color-text-primary)",
       }}
     >
       {nickname}

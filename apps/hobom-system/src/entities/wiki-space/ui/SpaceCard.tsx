@@ -65,7 +65,7 @@ export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) 
           <Hb.Text
             variant="body2"
             color="text.secondary"
-            sx={{
+            style={{
               fontSize: "0.8125rem",
               display: "-webkit-box",
               WebkitLineClamp: 2,
@@ -77,7 +77,6 @@ export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) 
           </Hb.Text>
         )}
       </Hb.Card.Content>
-
       {(onEdit || onDelete) && (
         <>
           <Hb.Button.Icon

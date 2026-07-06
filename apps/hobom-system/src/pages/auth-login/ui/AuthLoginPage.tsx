@@ -28,11 +28,11 @@ export default function AuthLoginPage() {
         <Hb.Box sx={{ textAlign: "center" }}>
           <Hb.Text
             variant="h4"
-            sx={{
+            style={{
               fontWeight: 800,
-              color: "primary.main",
+              color: "var(--hb-color-accent)",
               letterSpacing: "-0.02em",
-              mb: 0.5,
+              marginBottom: 4,
             }}
           >
             HoBom
@@ -68,7 +68,7 @@ AuthLoginPage.Fallback = () => {
       <Hb.Text variant="h6" fontWeight={600} gutterBottom>
         앗!
       </Hb.Text>
-      <Hb.Text variant="body2" color="text.secondary" mb={3}>
+      <Hb.Text variant="body2" color="text.secondary" style={{ marginBottom: 24 }}>
         시스템에 문제가 생겼어요.
       </Hb.Text>
       <Hb.Button variant="primary" size="small" onClick={() => window.location.reload()}>

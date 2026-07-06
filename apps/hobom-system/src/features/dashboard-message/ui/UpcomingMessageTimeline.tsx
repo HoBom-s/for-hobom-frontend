@@ -21,11 +21,25 @@ const getDDay = (scheduledAt: string) => {
 export const UpcomingMessageTimeline = ({ data }: UpcomingMessageTimelineProps) => {
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 8,
+        }}
+      >
         예정된 메시지
       </Hb.Text>
       {data.length === 0 ? (
-        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 2, textAlign: "center" }}>
+        <Hb.Text
+          variant="body2"
+          color="text.secondary"
+          style={{
+            paddingTop: 16,
+            paddingBottom: 16,
+            textAlign: "center",
+          }}
+        >
           예정된 메시지가 없습니다
         </Hb.Text>
       ) : (

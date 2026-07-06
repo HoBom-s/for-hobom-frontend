@@ -59,7 +59,10 @@ export const LawDiffList = () => {
         );
       })}
       {diffs.length === 0 && (
-        <Hb.Text color="text.secondary" textAlign="center" py={4}>
+        <Hb.Text
+          color="text.secondary"
+          style={{ textAlign: "center", paddingTop: 32, paddingBottom: 32 }}
+        >
           변경 이력이 없습니다.
         </Hb.Text>
       )}

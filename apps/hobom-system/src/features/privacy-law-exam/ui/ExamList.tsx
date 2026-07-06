@@ -72,7 +72,10 @@ export const ExamList = () => {
       ))}
 
       {exams.length === 0 && (
-        <Hb.Text color="text.secondary" textAlign="center" py={4}>
+        <Hb.Text
+          color="text.secondary"
+          style={{ textAlign: "center", paddingTop: 32, paddingBottom: 32 }}
+        >
           모의고사 이력이 없습니다. 위 버튼으로 새 모의고사를 생성해보세요.
         </Hb.Text>
       )}

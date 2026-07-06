@@ -54,7 +54,6 @@ const SprintDashboardInner = ({ projectId, sprintId }: SprintDashboardSectionPro
           icon={<DataUsageOutlined fontSize="small" />}
         />
       </Hb.Grid>
-
       <Hb.Grid size={12}>
         <DashboardPaper>
           <Hb.Box
@@ -74,7 +73,12 @@ const SprintDashboardInner = ({ projectId, sprintId }: SprintDashboardSectionPro
             {sprint.startDate} ~ {sprint.endDate}
           </Hb.Text>
           {sprint.goal && (
-            <Hb.Text variant="body2" sx={{ mt: 1 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                marginTop: 8,
+              }}
+            >
               목표: {sprint.goal}
             </Hb.Text>
           )}

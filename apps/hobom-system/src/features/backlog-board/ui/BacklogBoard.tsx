@@ -65,10 +65,22 @@ export const BacklogBoard = ({
             }}
           >
             <InboxOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
-            <Hb.Text variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>
+            <Hb.Text
+              variant="subtitle2"
+              fontWeight={700}
+              style={{
+                fontSize: 13,
+              }}
+            >
               백로그
             </Hb.Text>
-            <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
+            <Hb.Text
+              variant="caption"
+              color="text.disabled"
+              style={{
+                fontSize: 11,
+              }}
+            >
               {backlogIssues.length}건
             </Hb.Text>
           </Hb.Box>

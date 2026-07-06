@@ -28,14 +28,19 @@ const Inner = ({ onNextStep }: Props) => {
   return (
     <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
       <Hb.Box>
-        <Hb.Text fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+        <Hb.Text
+          fontWeight={700}
+          style={{
+            fontSize: 22,
+            marginBottom: 4,
+          }}
+        >
           받는 사람을 선택해 주세요
         </Hb.Text>
         <Hb.Text variant="body2" color="text.secondary">
           누구에게 메시지를 보낼까요?
         </Hb.Text>
       </Hb.Box>
-
       <Hb.Form.Control fullWidth>
         <Hb.Form.Label>받는 사람</Hb.Form.Label>
         <Hb.Form.Select
@@ -53,7 +58,6 @@ const Inner = ({ onNextStep }: Props) => {
         </Hb.Form.Select>
         <Hb.Form.Helper>목록에서 선택해 주세요.</Hb.Form.Helper>
       </Hb.Form.Control>
-
       <Hb.Box display="flex" gap={1.5}>
         <Hb.Button
           fullWidth

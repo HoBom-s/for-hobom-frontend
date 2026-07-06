@@ -31,9 +31,9 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
   return (
     <div {...stylex.props(styles.bar)} onClick={onClick}>
       <Hb.Text
-        sx={{
+        style={{
           flex: 1,
-          color: "text.secondary",
+          color: "var(--hb-color-text-secondary)",
           fontSize: "0.875rem",
           fontWeight: 500,
           userSelect: "none",

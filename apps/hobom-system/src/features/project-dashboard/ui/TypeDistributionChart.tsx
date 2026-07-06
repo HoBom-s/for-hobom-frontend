@@ -9,7 +9,13 @@ interface TypeDistributionChartProps {
 export const TypeDistributionChart = ({ data }: TypeDistributionChartProps) => {
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         유형별 분포
       </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>

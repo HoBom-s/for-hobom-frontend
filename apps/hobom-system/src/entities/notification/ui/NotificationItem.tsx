@@ -55,7 +55,7 @@ export const NotificationItem = memo(function NotificationItem({ notification, o
         <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.75, mb: 0.25 }}>
           <Hb.Text
             variant="body2"
-            sx={{
+            style={{
               fontWeight: notification.isRead ? 400 : 600,
               fontSize: "0.8125rem",
               lineHeight: 1.4,
@@ -98,23 +98,23 @@ export const NotificationItem = memo(function NotificationItem({ notification, o
         </Hb.Box>
         <Hb.Text
           variant="body2"
-          sx={{
-            color: "text.secondary",
+          style={{
+            color: "var(--hb-color-text-secondary)",
             fontSize: "0.75rem",
             lineHeight: 1.4,
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
-            mb: 0.5,
+            marginBottom: 4,
           }}
         >
           {notification.body}
         </Hb.Text>
         <Hb.Text
           variant="caption"
-          sx={{
-            color: "text.disabled",
+          style={{
+            color: "var(--hb-color-text-disabled)",
             fontSize: "0.6875rem",
           }}
         >

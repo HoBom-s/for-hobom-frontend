@@ -33,7 +33,13 @@ export const MemberPickerPopover = ({
         <Hb.Text
           variant="caption"
           fontWeight={600}
-          sx={{ px: 2, pt: 1.5, pb: 0.5, display: "block" }}
+          style={{
+            paddingLeft: 16,
+            paddingRight: 16,
+            paddingTop: 12,
+            paddingBottom: 4,
+            display: "block",
+          }}
         >
           공유 멤버
         </Hb.Text>
@@ -81,7 +87,16 @@ export const MemberPickerPopover = ({
             ))}
           </Hb.List.Root>
         ) : (
-          <Hb.Text variant="body2" color="text.disabled" sx={{ px: 2, py: 1.5 }}>
+          <Hb.Text
+            variant="body2"
+            color="text.disabled"
+            style={{
+              paddingLeft: 16,
+              paddingRight: 16,
+              paddingTop: 12,
+              paddingBottom: 12,
+            }}
+          >
             공유된 멤버가 없어요
           </Hb.Text>
         )}
@@ -119,7 +134,7 @@ export const MemberPickerPopover = ({
                   >
                     {u.nickname.charAt(0).toUpperCase()}
                   </Hb.Avatar>
-                  <Hb.Text variant="body2" fontSize="0.8125rem">
+                  <Hb.Text variant="body2" style={{ fontSize: "0.8125rem" }}>
                     {u.nickname}
                   </Hb.Text>
                 </Hb.Box>

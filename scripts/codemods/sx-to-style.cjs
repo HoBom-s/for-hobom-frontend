@@ -36,6 +36,7 @@ const THEME_COLOR = {
   "background.default": "var(--hb-color-canvas)",
   "text.primary": "var(--hb-color-text-primary)",
   "text.secondary": "var(--hb-color-text-secondary)",
+  "text.disabled": "var(--hb-color-text-disabled)",
   "primary.main": "var(--hb-color-accent)",
   "error.main": "var(--hb-color-danger)",
   "error.light": "var(--hb-color-danger)",

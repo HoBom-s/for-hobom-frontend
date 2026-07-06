@@ -15,14 +15,25 @@ export const FutureMessageHeader = () => {
       }}
     >
       <Hb.Box>
-        <Hb.Text variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+        <Hb.Text
+          variant="h5"
+          style={{
+            fontWeight: 700,
+            lineHeight: 1.3,
+          }}
+        >
           미래 메시지
         </Hb.Text>
-        <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+        <Hb.Text
+          variant="body2"
+          style={{
+            color: "var(--hb-color-text-secondary)",
+            marginTop: 2,
+          }}
+        >
           상대에게 전하고 싶은 말을 예약해보세요
         </Hb.Text>
       </Hb.Box>
-
       <Hb.Button
         variant="primary"
         startIcon={<Add />}

@@ -11,10 +11,22 @@ interface ErrorEventDetailDialogProps {
 
 const InfoRow = ({ label, value }: { label: string; value: string | null }) => (
   <Hb.Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-    <Hb.Text variant="body2" sx={{ fontWeight: 600, minWidth: 80, color: "text.secondary" }}>
+    <Hb.Text
+      variant="body2"
+      style={{
+        fontWeight: 600,
+        minWidth: 80,
+        color: "var(--hb-color-text-secondary)",
+      }}
+    >
       {label}
     </Hb.Text>
-    <Hb.Text variant="body2" sx={{ wordBreak: "break-all" }}>
+    <Hb.Text
+      variant="body2"
+      style={{
+        wordBreak: "break-all",
+      }}
+    >
       {value ?? "-"}
     </Hb.Text>
   </Hb.Box>
@@ -35,7 +47,12 @@ export const ErrorEventDetailDialog = ({ event, open, onClose }: ErrorEventDetai
         }}
       >
         <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Hb.Text variant="h6" sx={{ fontWeight: 700 }}>
+          <Hb.Text
+            variant="h6"
+            style={{
+              fontWeight: 700,
+            }}
+          >
             에러 상세
           </Hb.Text>
           <Hb.Chip
@@ -63,7 +80,14 @@ export const ErrorEventDetailDialog = ({ event, open, onClose }: ErrorEventDetai
 
         {event.stackTrace && (
           <Hb.Box sx={{ mt: 2 }}>
-            <Hb.Text variant="body2" sx={{ fontWeight: 600, color: "text.secondary", mb: 1 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                fontWeight: 600,
+                color: "var(--hb-color-text-secondary)",
+                marginBottom: 8,
+              }}
+            >
               Stack Trace
             </Hb.Text>
             <Hb.Box

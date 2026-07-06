@@ -52,7 +52,13 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
   const renderFriends = () => {
     if (friends.length === 0) {
       return (
-        <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.8125rem" }}>
+        <Hb.Text
+          variant="body2"
+          style={{
+            color: "var(--hb-color-text-disabled)",
+            fontSize: "0.8125rem",
+          }}
+        >
           없음
         </Hb.Text>
       );
@@ -83,8 +89,8 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
       <Hb.Box sx={{ minWidth: 0 }}>
         <Hb.Text
           variant="caption"
-          sx={{
-            color: "text.secondary",
+          style={{
+            color: "var(--hb-color-text-secondary)",
             fontSize: "0.6875rem",
             fontWeight: 500,
           }}
@@ -113,13 +119,17 @@ const InfoRow = ({
     <Hb.Box sx={{ minWidth: 0 }}>
       <Hb.Text
         variant="caption"
-        sx={{ color: "text.secondary", fontSize: "0.6875rem", fontWeight: 500 }}
+        style={{
+          color: "var(--hb-color-text-secondary)",
+          fontSize: "0.6875rem",
+          fontWeight: 500,
+        }}
       >
         {label}
       </Hb.Text>
       <Hb.Text
         variant="body2"
-        sx={{
+        style={{
           fontWeight: 500,
           fontSize: "0.8125rem",
           overflow: "hidden",

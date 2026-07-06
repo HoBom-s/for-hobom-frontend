@@ -33,17 +33,28 @@ export const SystemDashboardWorkspace = () => {
             <MonitorHeartOutlined sx={{ color: "#fff", fontSize: 22 }} />
           </Hb.Box>
           <Hb.Box>
-            <Hb.Text variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+            <Hb.Text
+              variant="h5"
+              style={{
+                fontWeight: 700,
+                lineHeight: 1.3,
+              }}
+            >
               시스템 모니터링
             </Hb.Text>
-            <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                color: "var(--hb-color-text-secondary)",
+                marginTop: 2,
+              }}
+            >
               이벤트 처리 상태와 실패 현황을 모니터링할 수 있어요.
             </Hb.Text>
           </Hb.Box>
         </Hb.Box>
         <PeriodSelector type="system" period={period} onChange={setPeriod} />
       </Hb.Box>
-
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
           <SystemDashboardContent period={period} />

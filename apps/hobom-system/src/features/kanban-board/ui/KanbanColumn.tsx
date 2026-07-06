@@ -55,7 +55,13 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             boxShadow: `0 0 0 3px ${config.color}28`,
           }}
         />
-        <Hb.Text variant="body2" fontWeight={700} sx={{ letterSpacing: "-0.01em" }}>
+        <Hb.Text
+          variant="body2"
+          fontWeight={700}
+          style={{
+            letterSpacing: "-0.01em",
+          }}
+        >
           {column.name}
         </Hb.Text>
         <Hb.Chip
@@ -70,7 +76,6 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
           }}
         />
       </Hb.Box>
-
       <Sortable.List items={issues.map((i) => i.id)} strategy="vertical">
         <Hb.Box
           sx={{
@@ -114,7 +119,6 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             : issues.map((issue) => renderIssueItem(issue, issueTree, doneStatusIds, onIssueClick))}
         </Hb.Box>
       </Sortable.List>
-
       <CreateIssueInlineForm onSubmit={onAddIssue} />
     </Hb.Box>
   );

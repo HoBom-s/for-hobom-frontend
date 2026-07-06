@@ -33,7 +33,13 @@ export const FutureMessageGrid = ({ messages }: { messages: FutureMessageType[] 
         }}
       >
         <MailOutline sx={{ fontSize: 64, color: "#dadce0" }} />
-        <Hb.Text variant="body1" sx={{ color: "text.disabled", fontSize: "0.95rem" }}>
+        <Hb.Text
+          variant="body1"
+          style={{
+            color: "var(--hb-color-text-disabled)",
+            fontSize: "0.95rem",
+          }}
+        >
           메시지가 없어요
         </Hb.Text>
       </Hb.Box>

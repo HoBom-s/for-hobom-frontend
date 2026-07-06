@@ -17,12 +17,12 @@ export function CodePanel({ document }: CodePanelProps) {
     <Hb.Stack gap={1} sx={{ minWidth: 0 }}>
       <Hb.Stack direction="row" alignItems="center" gap={0.5}>
         <Hb.Text
-          sx={{
+          style={{
             fontSize: 11,
             fontWeight: 600,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: "text.secondary",
+            color: "var(--hb-color-text-secondary)",
           }}
         >
           코드
@@ -36,7 +36,6 @@ export function CodePanel({ document }: CodePanelProps) {
           {copied ? <Check sx={{ fontSize: 16 }} /> : <ContentCopyOutlined sx={{ fontSize: 16 }} />}
         </Hb.Button.Icon>
       </Hb.Stack>
-
       <Hb.Box
         component="pre"
         sx={{

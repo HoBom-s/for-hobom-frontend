@@ -92,10 +92,23 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
             >
               <ReportProblemOutlined sx={{ color: "#fff", fontSize: 24 }} />
             </Hb.Box>
-            <Hb.Text variant="subtitle1" fontWeight={700} sx={{ mb: 0.5 }}>
+            <Hb.Text
+              variant="subtitle1"
+              fontWeight={700}
+              style={{
+                marginBottom: 4,
+              }}
+            >
               문제가 발생했어요
             </Hb.Text>
-            <Hb.Text variant="body2" color="text.secondary" sx={{ fontSize: 13, lineHeight: 1.6 }}>
+            <Hb.Text
+              variant="body2"
+              color="text.secondary"
+              style={{
+                fontSize: 13,
+                lineHeight: 1.6,
+              }}
+            >
               요청을 처리하는 중 오류가 발생했어요.
               <br />
               잠시 후 다시 시도해 주세요.
@@ -114,7 +127,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
                 <Hb.Text
                   variant="caption"
                   color="error"
-                  sx={{
+                  style={{
                     display: "block",
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-all",

@@ -17,7 +17,13 @@ export const ProjectDashboardContent = () => {
 
   return (
     <Hb.Box>
-      <Hb.Text variant="h6" fontWeight={700} sx={{ mb: 2.5 }}>
+      <Hb.Text
+        variant="h6"
+        fontWeight={700}
+        style={{
+          marginBottom: 20,
+        }}
+      >
         이슈 개요
       </Hb.Text>
       <IssueDashboardSection data={issueData.items} />

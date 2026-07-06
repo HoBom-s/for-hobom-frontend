@@ -106,8 +106,8 @@ export const IssueRow = ({
         <kind.Icon sx={{ fontSize: 16, color: kind.color }} />
         <Hb.Text
           variant="caption"
-          sx={{
-            color: "text.disabled",
+          style={{
+            color: "var(--hb-color-text-disabled)",
             fontWeight: 600,
             minWidth: 72,
             fontSize: 12,
@@ -115,7 +115,14 @@ export const IssueRow = ({
         >
           {issue.issueKey}
         </Hb.Text>
-        <Hb.Text variant="body2" sx={{ flex: 1, fontSize: 13 }} noWrap>
+        <Hb.Text
+          variant="body2"
+          style={{
+            flex: 1,
+            fontSize: 13,
+          }}
+          noWrap
+        >
           {issue.title}
         </Hb.Text>
         {childCount > 0 && (

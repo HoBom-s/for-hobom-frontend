@@ -51,7 +51,13 @@ export const WikiSpaceListWorkspace = () => {
         }}
       >
         <Hb.Box>
-          <Hb.Text variant="h5" fontWeight={700} sx={{ mb: 0.5 }}>
+          <Hb.Text
+            variant="h5"
+            fontWeight={700}
+            style={{
+              marginBottom: 4,
+            }}
+          >
             위키
           </Hb.Text>
           <Hb.Text variant="body2" color="text.secondary">
@@ -73,7 +79,6 @@ export const WikiSpaceListWorkspace = () => {
           새 스페이스
         </Hb.Button>
       </Hb.Box>
-
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
           <SpaceGrid
@@ -83,14 +88,12 @@ export const WikiSpaceListWorkspace = () => {
           />
         </Suspense>
       </ErrorBoundary>
-
       <CreateSpaceDialog
         open={createOpen}
         onClose={() => setCreateOpen(false)}
         onSubmit={handleCreateSpace}
         loading={isCreating}
       />
-
       <EditSpaceDialog
         open={Boolean(editSpace)}
         onClose={() => setEditSpace(null)}

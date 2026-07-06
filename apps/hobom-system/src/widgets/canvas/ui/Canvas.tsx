@@ -29,7 +29,10 @@ type ResizeAxis = "x" | "y" | "both";
  */
 const HANDLES: { axis: ResizeAxis; sx: Record<string, unknown> }[] = [
   { axis: "x", sx: { right: -10, top: "50%", transform: "translateY(-50%)", cursor: "ew-resize" } },
-  { axis: "y", sx: { bottom: -10, left: "50%", transform: "translateX(-50%)", cursor: "ns-resize" } },
+  {
+    axis: "y",
+    sx: { bottom: -10, left: "50%", transform: "translateX(-50%)", cursor: "ns-resize" },
+  },
   { axis: "both", sx: { right: -10, bottom: -10, cursor: "nwse-resize" } },
 ];
 

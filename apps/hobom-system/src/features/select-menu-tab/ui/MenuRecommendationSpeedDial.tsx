@@ -52,7 +52,12 @@ export const MenuRecommendationSpeedDial = () => {
   const handleOpen = () => {
     onOpen({
       title: (
-        <Hb.Text variant="subtitle1" sx={{ fontWeight: 700 }}>
+        <Hb.Text
+          variant="subtitle1"
+          style={{
+            fontWeight: 700,
+          }}
+        >
           메뉴 추가하기
         </Hb.Text>
       ),

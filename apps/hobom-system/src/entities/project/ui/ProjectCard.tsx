@@ -57,7 +57,13 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             <Hb.Text variant="subtitle2" fontWeight={600} noWrap>
               {project.name}
             </Hb.Text>
-            <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
+            <Hb.Text
+              variant="caption"
+              color="text.disabled"
+              style={{
+                fontSize: 11,
+              }}
+            >
               {project.key}
             </Hb.Text>
           </Hb.Box>
@@ -67,8 +73,8 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           <Hb.Text
             variant="body2"
             color="text.secondary"
-            sx={{
-              mb: 1.5,
+            style={{
+              marginBottom: 12,
               fontSize: 12,
               display: "-webkit-box",
               WebkitBoxOrient: "vertical",

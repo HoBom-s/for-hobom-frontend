@@ -31,7 +31,7 @@ export interface SemanticTokens {
     warning: SemanticStatus;
     danger: { main: string };
     bg: { canvas: string; surface: string; sidebar: string };
-    text: { primary: string; secondary: string; onAccent: string };
+    text: { primary: string; secondary: string; disabled: string; onAccent: string };
     border: { default: string };
   };
 }
@@ -56,6 +56,7 @@ const light: SemanticTokens = {
     text: {
       primary: p.color.neutralWarm[700],
       secondary: p.color.neutralWarm[500],
+      disabled: "rgba(0, 0, 0, 0.38)",
       onAccent: p.color.white,
     },
     border: { default: p.color.neutralWarm[200] },
@@ -82,6 +83,7 @@ const dark: SemanticTokens = {
     text: {
       primary: p.color.slate[200],
       secondary: p.color.slate[400],
+      disabled: "rgba(255, 255, 255, 0.5)",
       onAccent: p.color.white,
     },
     border: { default: p.color.slate[700] },

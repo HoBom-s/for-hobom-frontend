@@ -35,7 +35,15 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
 
   if (data.length === 0) {
     return (
-      <Hb.Text variant="body2" color="text.secondary" sx={{ py: 4, textAlign: "center" }}>
+      <Hb.Text
+        variant="body2"
+        color="text.secondary"
+        style={{
+          paddingTop: 32,
+          paddingBottom: 32,
+          textAlign: "center",
+        }}
+      >
         조건에 맞는 에러가 없습니다
       </Hb.Text>
     );
@@ -99,9 +107,9 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                 <Hb.Box sx={{ width: 160, px: 1.5 }}>
                   <Hb.Text
                     variant="caption"
-                    sx={{
+                    style={{
                       fontVariantNumeric: "tabular-nums",
-                      color: "text.secondary",
+                      color: "var(--hb-color-text-secondary)",
                       whiteSpace: "nowrap",
                     }}
                   >
@@ -126,7 +134,7 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                     <Hb.Text
                       variant="body2"
                       noWrap
-                      sx={{
+                      style={{
                         fontFamily: "'JetBrains Mono', monospace",
                         fontSize: 11,
                       }}
@@ -137,13 +145,24 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                 </Hb.Box>
                 <Hb.Box sx={{ flex: 1, px: 1.5, overflow: "hidden" }}>
                   <Hb.Tooltip title={row.message} enterDelay={200}>
-                    <Hb.Text variant="body2" noWrap sx={{ fontSize: 12 }}>
+                    <Hb.Text
+                      variant="body2"
+                      noWrap
+                      style={{
+                        fontSize: 12,
+                      }}
+                    >
                       {row.message}
                     </Hb.Text>
                   </Hb.Tooltip>
                 </Hb.Box>
                 <Hb.Box sx={{ width: 100, px: 1.5 }}>
-                  <Hb.Text variant="body2" sx={{ fontSize: 12 }}>
+                  <Hb.Text
+                    variant="body2"
+                    style={{
+                      fontSize: 12,
+                    }}
+                  >
                     {row.nickname ?? "-"}
                   </Hb.Text>
                 </Hb.Box>

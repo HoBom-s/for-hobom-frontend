@@ -39,7 +39,13 @@ export const LabelPickerPopover = ({
         <Hb.Text
           variant="caption"
           fontWeight={600}
-          sx={{ px: 2, pt: 1.5, pb: 0.5, display: "block" }}
+          style={{
+            paddingLeft: 16,
+            paddingRight: 16,
+            paddingTop: 12,
+            paddingBottom: 4,
+            display: "block",
+          }}
         >
           라벨 선택
         </Hb.Text>

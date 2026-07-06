@@ -119,7 +119,15 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
             overflow: "auto",
           }}
         >
-          <Hb.Text sx={{ fontSize: 11, color: "text.secondary", flexShrink: 0 }}>Frame</Hb.Text>
+          <Hb.Text
+            style={{
+              fontSize: 11,
+              color: "var(--hb-color-text-secondary)",
+              flexShrink: 0,
+            }}
+          >
+            Frame
+          </Hb.Text>
           <Hb.Box
             sx={{
               flex: 1,
@@ -189,12 +197,12 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
     <Hb.Box sx={{ px: 1.5, py: 1, borderBottom: 1, borderColor: "divider" }}>
       <Hb.Text
-        sx={{
+        style={{
           fontSize: 11,
           fontWeight: 600,
           letterSpacing: 0.5,
           textTransform: "uppercase",
-          color: "text.secondary",
+          color: "var(--hb-color-text-secondary)",
         }}
       >
         {children}

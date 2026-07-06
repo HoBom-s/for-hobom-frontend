@@ -24,7 +24,14 @@ export const ProjectGrid = ({ projects }: ProjectGridProps) => {
         }}
       >
         <FolderOutlined sx={{ fontSize: 96, color: "#dadce0", strokeWidth: 0.5 }} />
-        <Hb.Text variant="body1" sx={{ color: "text.disabled", fontSize: "1rem", fontWeight: 400 }}>
+        <Hb.Text
+          variant="body1"
+          style={{
+            color: "var(--hb-color-text-disabled)",
+            fontSize: "1rem",
+            fontWeight: 400,
+          }}
+        >
           프로젝트가 없어요. 새 프로젝트를 만들어 보세요.
         </Hb.Text>
       </Hb.Box>

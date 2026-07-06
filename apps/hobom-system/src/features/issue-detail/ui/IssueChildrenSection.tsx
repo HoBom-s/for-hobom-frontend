@@ -21,7 +21,13 @@ export const IssueChildrenSection = () => {
         }}
       />
       <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-        <Hb.Text variant="subtitle2" fontWeight={600} sx={{ fontSize: 13 }}>
+        <Hb.Text
+          variant="subtitle2"
+          fontWeight={600}
+          style={{
+            fontSize: 13,
+          }}
+        >
           하위 이슈 ({childIssues.length})
         </Hb.Text>
         {progress && progress.total > 0 && (
@@ -88,15 +94,22 @@ export const IssueChildrenSection = () => {
               />
               <Hb.Text
                 variant="caption"
-                sx={{
-                  color: "text.disabled",
+                style={{
+                  color: "var(--hb-color-text-disabled)",
                   fontWeight: 600,
                   fontSize: 12,
                 }}
               >
                 {child.issueKey}
               </Hb.Text>
-              <Hb.Text variant="body2" sx={{ flex: 1, fontSize: 13 }} noWrap>
+              <Hb.Text
+                variant="body2"
+                style={{
+                  flex: 1,
+                  fontSize: 13,
+                }}
+                noWrap
+              >
                 {child.title}
               </Hb.Text>
               <Hb.Chip

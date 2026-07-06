@@ -39,7 +39,13 @@ export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionP
 
   return (
     <Hb.Box sx={{ px: 3, py: 2 }}>
-      <Hb.Text variant="subtitle1" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="subtitle1"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         댓글 {totalCount > 0 && `(${totalCount})`}
       </Hb.Text>
       <CommentInput onSubmit={handleCreateComment} loading={createComment.isPending} />

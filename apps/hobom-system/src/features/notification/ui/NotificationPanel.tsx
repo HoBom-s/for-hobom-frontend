@@ -51,7 +51,12 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
           }}
         >
           <NotificationsNoneOutlined sx={{ fontSize: 40, color: "text.disabled" }} />
-          <Hb.Text variant="body2" sx={{ color: "text.disabled" }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              color: "var(--hb-color-text-disabled)",
+            }}
+          >
             {EMPTY_MESSAGES[filter]}
           </Hb.Text>
         </Hb.Box>
@@ -102,7 +107,13 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
       }}
     >
       <Hb.Box sx={{ px: 2, pt: 2, pb: 0 }}>
-        <Hb.Text variant="h6" sx={{ fontWeight: 700, fontSize: "1rem" }}>
+        <Hb.Text
+          variant="h6"
+          style={{
+            fontWeight: 700,
+            fontSize: "1rem",
+          }}
+        >
           알림
         </Hb.Text>
       </Hb.Box>

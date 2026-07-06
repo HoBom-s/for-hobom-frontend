@@ -68,13 +68,13 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
               onClick={() =>
                 onOpen({
                   title: (
-                    <Hb.Text variant="subtitle1" mt={1}>
+                    <Hb.Text variant="subtitle1" style={{ marginTop: 8 }}>
                       {item.title}
                     </Hb.Text>
                   ),
                   content: (
                     <Hb.Box sx={{ px: 2 }}>
-                      <Hb.Text gutterBottom variant="subtitle1" fontWeight="bold">
+                      <Hb.Text gutterBottom variant="subtitle1" style={{ fontWeight: "bold" }}>
                         {formatDate(normalizeTodoDateToUtcMidnight(item.date))}
                       </Hb.Text>
                       <Hb.Stack direction="row" mt={1} spacing={1}>

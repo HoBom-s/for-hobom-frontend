@@ -39,12 +39,19 @@ export const DlqDetailDialog = ({
     return (
       <>
         <Hb.Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-          <Hb.Text variant="body2" sx={{ fontWeight: 600, minWidth: 40, color: "text.secondary" }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              fontWeight: 600,
+              minWidth: 40,
+              color: "var(--hb-color-text-secondary)",
+            }}
+          >
             Key
           </Hb.Text>
           <Hb.Text
             variant="body2"
-            sx={{
+            style={{
               wordBreak: "break-all",
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: 12,
@@ -53,8 +60,14 @@ export const DlqDetailDialog = ({
             {detail.key}
           </Hb.Text>
         </Hb.Box>
-
-        <Hb.Text variant="body2" sx={{ fontWeight: 600, color: "text.secondary", mb: 1 }}>
+        <Hb.Text
+          variant="body2"
+          style={{
+            fontWeight: 600,
+            color: "var(--hb-color-text-secondary)",
+            marginBottom: 8,
+          }}
+        >
           Payload
         </Hb.Text>
         <Hb.Box
@@ -86,16 +99,19 @@ export const DlqDetailDialog = ({
           justifyContent: "space-between",
         }}
       >
-        <Hb.Text variant="h6" sx={{ fontWeight: 700 }}>
+        <Hb.Text
+          variant="h6"
+          style={{
+            fontWeight: 700,
+          }}
+        >
           DLQ 상세
         </Hb.Text>
         <Hb.Button.Icon onClick={onClose} size="small">
           <CloseOutlined fontSize="small" />
         </Hb.Button.Icon>
       </Hb.Dialog.Title>
-
       <Hb.Dialog.Content dividers>{renderContent()}</Hb.Dialog.Content>
-
       <Hb.Dialog.Actions>
         <Hb.Button variant="secondary" onClick={onClose}>
           닫기

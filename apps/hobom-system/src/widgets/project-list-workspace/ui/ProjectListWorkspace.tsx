@@ -23,7 +23,13 @@ export const ProjectListWorkspace = () => {
         }}
       >
         <Hb.Box>
-          <Hb.Text variant="h5" fontWeight={700} sx={{ mb: 0.5 }}>
+          <Hb.Text
+            variant="h5"
+            fontWeight={700}
+            style={{
+              marginBottom: 4,
+            }}
+          >
             프로젝트
           </Hb.Text>
           <Hb.Text variant="body2" color="text.secondary">
@@ -45,13 +51,11 @@ export const ProjectListWorkspace = () => {
           새 프로젝트
         </Hb.Button>
       </Hb.Box>
-
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
           <ProjectListContent />
         </Suspense>
       </ErrorBoundary>
-
       <CreateProjectDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </Hb.Box>
   );

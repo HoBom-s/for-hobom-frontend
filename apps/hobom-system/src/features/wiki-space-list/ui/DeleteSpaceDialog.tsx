@@ -29,12 +29,23 @@ export const DeleteSpaceDialog = ({
     <Hb.Dialog.Root open={isOpen} onClose={handleClose} size="xs">
       <Hb.Dialog.Title>스페이스 삭제</Hb.Dialog.Title>
       <Hb.Dialog.Content>
-        <Hb.Text variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        <Hb.Text
+          variant="body2"
+          color="text.secondary"
+          style={{
+            marginBottom: 16,
+          }}
+        >
           <strong>&quot;{space.name}&quot;</strong> 스페이스를 삭제할까요?
           <br />
           스페이스 내 모든 페이지와 댓글이 함께 삭제돼요.
         </Hb.Text>
-        <Hb.Text variant="body2" sx={{ mb: 1 }}>
+        <Hb.Text
+          variant="body2"
+          style={{
+            marginBottom: 8,
+          }}
+        >
           확인을 위해 스페이스 키 <strong>{space.key}</strong>를 입력하세요.
         </Hb.Text>
         <Hb.TextField

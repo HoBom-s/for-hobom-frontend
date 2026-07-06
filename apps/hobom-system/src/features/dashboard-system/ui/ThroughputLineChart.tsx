@@ -8,7 +8,13 @@ interface ThroughputLineChartProps {
 export const ThroughputLineChart = ({ data }: ThroughputLineChartProps) => {
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         시간대별 처리량
       </Hb.Text>
       <ResponsiveContainer width="100%" height={300}>

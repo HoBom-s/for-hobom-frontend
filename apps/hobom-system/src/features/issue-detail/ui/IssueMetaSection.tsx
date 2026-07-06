@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { AddOutlined } from "hobom-design-system/icons";
 import { useQuery } from "hobom-data";
+import * as stylex from "@stylexjs/stylex";
 import { useProjectContext, usePopoverState } from "@/shared/model";
 import { ISSUE_KIND_LABEL, ISSUE_PRIORITY_LABEL } from "@/entities/issue";
 import { ISSUE_PRIORITY_REGISTRY, ParentIssueAutocomplete } from "@/entities/issue/ui";
@@ -10,11 +11,26 @@ import { ProjectLabelPicker } from "@/entities/project-label/ui";
 import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
 
+const styles = stylex.create({
+  editable: {
+    fontSize: 13,
+    cursor: "pointer",
+    ":hover": { color: "var(--hb-color-accent)" },
+  },
+  filled: { color: "var(--hb-color-text-primary)" },
+  empty: { color: "var(--hb-color-text-disabled)" },
+});
+
 const MetaRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <Hb.Box sx={{ display: "flex", alignItems: "center", py: 0.5 }}>
     <Hb.Text
       variant="body2"
-      sx={{ width: 100, color: "text.secondary", fontSize: 13, flexShrink: 0 }}
+      style={{
+        width: 100,
+        color: "var(--hb-color-text-secondary)",
+        fontSize: 13,
+        flexShrink: 0,
+      }}
     >
       {label}
     </Hb.Text>
@@ -57,12 +73,7 @@ const StoryPointsInput = ({
             setEditing(true);
           }
         }}
-        sx={{
-          fontSize: 13,
-          cursor: "pointer",
-          color: value != null ? "text.primary" : "text.disabled",
-          "&:hover": { color: "primary.main" },
-        }}
+        {...stylex.props(styles.editable, value != null ? styles.filled : styles.empty)}
       >
         {value != null ? value : "-"}
       </Hb.Text>
@@ -150,7 +161,12 @@ export const IssueMetaSection = () => {
         />
       </MetaRow>
       <MetaRow label="유형">
-        <Hb.Text variant="body2" sx={{ fontSize: 13 }}>
+        <Hb.Text
+          variant="body2"
+          style={{
+            fontSize: 13,
+          }}
+        >
           {ISSUE_KIND_LABEL[issue.type]}
         </Hb.Text>
       </MetaRow>
@@ -253,7 +269,13 @@ export const IssueMetaSection = () => {
             sx={{ fontSize: 13, "& .MuiSelect-select": { py: 0.75 } }}
           >
             <Hb.Menu.Item value="" sx={{ fontSize: 13 }}>
-              <Hb.Text variant="body2" sx={{ fontSize: 13, color: "text.disabled" }}>
+              <Hb.Text
+                variant="body2"
+                style={{
+                  fontSize: 13,
+                  color: "var(--hb-color-text-disabled)",
+                }}
+              >
                 없음
               </Hb.Text>
             </Hb.Menu.Item>
@@ -273,7 +295,12 @@ export const IssueMetaSection = () => {
       </MetaRow>
       {issue.dueDate && (
         <MetaRow label="마감일">
-          <Hb.Text variant="body2" sx={{ fontSize: 13 }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              fontSize: 13,
+            }}
+          >
             {issue.dueDate}
           </Hb.Text>
         </MetaRow>

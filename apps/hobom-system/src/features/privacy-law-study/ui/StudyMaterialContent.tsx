@@ -24,7 +24,12 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
           <LightbulbOutlined color="warning" />
           <Hb.Text variant="h6">요약</Hb.Text>
         </Hb.Stack>
-        <Hb.Text variant="body1" sx={{ whiteSpace: "pre-wrap" }}>
+        <Hb.Text
+          variant="body1"
+          style={{
+            whiteSpace: "pre-wrap",
+          }}
+        >
           {material.summary}
         </Hb.Text>
       </Hb.Paper>
