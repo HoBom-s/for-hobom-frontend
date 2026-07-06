@@ -8,7 +8,8 @@ import {
   validateTodayMenuInput,
   validateMenuRecommendationInput,
 } from "./model/validate-menu-recommendation.model";
-import { useTodayMenuId, TodayMenuIdContextProvider } from "./model/useTodayMenuIdContext";
+import { useTodayMenuId } from "./model/useTodayMenuIdContext";
+import { TodayMenuIdContextProvider } from "./model/TodayMenuIdContextProvider";
 import type { AddMenuRecommendationInput } from "./model/menu-recommendation.model";
 import type { MenuRecommendationType } from "./api/menu-recommendation.type";
 

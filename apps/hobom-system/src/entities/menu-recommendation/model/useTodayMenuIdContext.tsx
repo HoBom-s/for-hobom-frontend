@@ -1,25 +1,14 @@
-import { createContext, type ReactNode, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 
-interface TodayMenuIdContextType {
+export interface TodayMenuIdContextType {
   todayMenuId: string | null;
   setTodayMenuId: (id: string) => void;
 }
 
-const TodayMenuIdContext = createContext<TodayMenuIdContextType | null>(null);
+// Kept in this component-free module so its identity survives Fast Refresh (see
+// the note in shared/model/useBottomSheetCTA for the failure this avoids).
+export const TodayMenuIdContext = createContext<TodayMenuIdContextType | null>(null);
 
-export const TodayMenuIdContextProvider = ({ children }: { children: ReactNode }) => {
-  const [todayMenuId, setTodayMenuId] = useState<string | null>(null);
-
-  return (
-    <TodayMenuIdContext.Provider value={{ todayMenuId, setTodayMenuId }}>
-      {children}
-    </TodayMenuIdContext.Provider>
-  );
-};
-
-// Context, provider, and hook are intentionally colocated; Fast Refresh is an
-// HMR heuristic that doesn't apply to this consumer hook export.
-// eslint-disable-next-line react-refresh/only-export-components
 export const useTodayMenuId = () => {
   const ctx = useContext(TodayMenuIdContext);
 
