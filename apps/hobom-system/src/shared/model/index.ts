@@ -1,4 +1,5 @@
-export { useBottomSheetCTA, BottomSheetCTAProvider } from "./useBottomSheetCTA";
+export { useBottomSheetCTA } from "./useBottomSheetCTA";
+export { BottomSheetCTAProvider } from "./BottomSheetCTAProvider";
 export { useFunnel } from "./useFunnel";
 export { useInfiniteScroll } from "./useInfiniteScroll";
 export { useOverlay } from "./useOverlay";
