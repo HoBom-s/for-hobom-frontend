@@ -83,7 +83,13 @@ const AddTodoDialog = ({
     <Hb.Dialog.Root open={isOpen} onClose={handleClose} size="xs">
       <Hb.Dialog.Title sx={{ pb: 1 }}>
         할 일 추가
-        <Hb.Text variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+        <Hb.Text
+          variant="body2"
+          color="text.secondary"
+          style={{
+            marginTop: 4,
+          }}
+        >
           {item.categoryTitle}
         </Hb.Text>
       </Hb.Dialog.Title>

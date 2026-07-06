@@ -143,7 +143,12 @@ const MultipleChoiceInput = ({
           control={<Hb.Radio.Root size="small" />}
           label={
             <Hb.Stack direction="row" alignItems="center" spacing={1}>
-              <Hb.Text variant="body2" sx={{ color }}>
+              <Hb.Text
+                variant="body2"
+                style={{
+                  color,
+                }}
+              >
                 {choice}
               </Hb.Text>
               {revealed && isAnswer && (

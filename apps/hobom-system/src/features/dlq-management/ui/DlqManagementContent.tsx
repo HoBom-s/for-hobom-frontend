@@ -27,7 +27,15 @@ export const DlqManagementContent = () => {
 
     if (items.length === 0) {
       return (
-        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 4, textAlign: "center" }}>
+        <Hb.Text
+          variant="body2"
+          color="text.secondary"
+          style={{
+            paddingTop: 32,
+            paddingBottom: 32,
+            textAlign: "center",
+          }}
+        >
           DLQ 항목이 없습니다
         </Hb.Text>
       );
@@ -118,25 +126,41 @@ export const DlqManagementContent = () => {
             <Replay sx={{ color: "#fff", fontSize: 22 }} />
           </Hb.Box>
           <Hb.Box>
-            <Hb.Text variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+            <Hb.Text
+              variant="h5"
+              style={{
+                fontWeight: 700,
+                lineHeight: 1.3,
+              }}
+            >
               DLQ 관리
             </Hb.Text>
-            <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                color: "var(--hb-color-text-secondary)",
+                marginTop: 2,
+              }}
+            >
               처리 실패한 메시지를 조회하고 재시도할 수 있어요.
             </Hb.Text>
           </Hb.Box>
         </Hb.Box>
 
         {items.length > 0 && (
-          <Hb.Text variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          <Hb.Text
+            variant="body2"
+            color="text.secondary"
+            style={{
+              marginTop: 8,
+            }}
+          >
             총 {items.length.toLocaleString()}건
           </Hb.Text>
         )}
       </Hb.Box>
-
       {/* Table */}
       {renderTable()}
-
       {/* Detail Dialog */}
       <DlqDetailDialog
         dlqKey={selectedKey}

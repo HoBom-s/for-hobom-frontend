@@ -8,7 +8,13 @@ interface LabelBarChartProps {
 export const LabelBarChart = ({ data }: LabelBarChartProps) => {
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         라벨별 노트 수
       </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>

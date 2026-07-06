@@ -6,12 +6,21 @@ import {
   LabelOutlined,
 } from "hobom-design-system/icons";
 import { Outlet } from "react-router-dom";
+import * as stylex from "@stylexjs/stylex";
 import { usePageTree, PageTreeView, CreatePageDialog } from "@/features/wiki-page-tree";
 import { TrashPageList } from "@/features/wiki-page-trash";
 import { LabelList } from "@/features/wiki-label-manager";
 import { WikiSearchField } from "@/features/wiki-search";
 import { Hb, ErrorBoundary } from "@/shared/ui";
 import { useWikiSpaceLayout } from "../model/useWikiSpaceLayout";
+
+const styles = stylex.create({
+  crumb: {
+    color: "var(--hb-color-text-disabled)",
+    cursor: "pointer",
+    ":hover": { color: "var(--hb-color-accent)" },
+  },
+});
 
 const SIDEBAR_WIDTH = 260;
 
@@ -154,15 +163,7 @@ export const WikiSpaceLayout = () => {
   return (
     <Hb.Box sx={{ p: 3 }}>
       <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
-        <Hb.Text
-          variant="caption"
-          sx={{
-            color: "text.disabled",
-            cursor: "pointer",
-            "&:hover": { color: "primary.main" },
-          }}
-          onClick={handleNavigateToWiki}
-        >
+        <Hb.Text variant="caption" {...stylex.props(styles.crumb)} onClick={handleNavigateToWiki}>
           위키
         </Hb.Text>
         <ChevronRight sx={{ fontSize: 14, color: "text.disabled" }} />

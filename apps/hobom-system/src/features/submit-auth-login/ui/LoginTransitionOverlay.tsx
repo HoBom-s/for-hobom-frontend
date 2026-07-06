@@ -18,7 +18,14 @@ export const LoginTransitionOverlay = () => (
       },
     }}
   >
-    <Hb.Text variant="h4" sx={{ fontWeight: 800, color: "white", letterSpacing: "-0.02em" }}>
+    <Hb.Text
+      variant="h4"
+      style={{
+        fontWeight: 800,
+        color: "white",
+        letterSpacing: "-0.02em",
+      }}
+    >
       HoBom
     </Hb.Text>
     <Hb.Progress.Linear
@@ -29,7 +36,12 @@ export const LoginTransitionOverlay = () => (
         "& .MuiLinearProgress-bar": { bgcolor: "white" },
       }}
     />
-    <Hb.Text variant="body2" sx={{ color: "rgba(255,255,255,0.85)" }}>
+    <Hb.Text
+      variant="body2"
+      style={{
+        color: "rgba(255,255,255,0.85)",
+      }}
+    >
       호봄 시스템으로 이동할게요.
     </Hb.Text>
   </Hb.Box>

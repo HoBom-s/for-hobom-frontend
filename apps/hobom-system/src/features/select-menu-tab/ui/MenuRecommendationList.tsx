@@ -33,7 +33,12 @@ const Inner = () => {
         }}
       >
         <MenuBook sx={{ fontSize: 64, color: "#dadce0" }} />
-        <Hb.Text variant="body1" sx={{ color: "text.disabled" }}>
+        <Hb.Text
+          variant="body1"
+          style={{
+            color: "var(--hb-color-text-disabled)",
+          }}
+        >
           등록된 메뉴가 없어요
         </Hb.Text>
       </Hb.Box>

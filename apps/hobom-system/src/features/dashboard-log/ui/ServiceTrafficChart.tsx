@@ -13,7 +13,13 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
 
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         서비스별 트래픽
       </Hb.Text>
       <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
@@ -106,13 +112,21 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
                   />
                 </Hb.Box>
                 <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Hb.Text variant="body2" sx={{ fontWeight: 600, fontSize: 13 }}>
+                  <Hb.Text
+                    variant="body2"
+                    style={{
+                      fontWeight: 600,
+                      fontSize: 13,
+                    }}
+                  >
                     {SERVICE_LABEL_MAP[entry.serviceType] ?? entry.serviceType}
                   </Hb.Text>
                   <Hb.Text
                     variant="caption"
                     color="text.secondary"
-                    sx={{ fontVariantNumeric: "tabular-nums" }}
+                    style={{
+                      fontVariantNumeric: "tabular-nums",
+                    }}
                   >
                     {entry.count.toLocaleString()} · {pct.toFixed(1)}%
                   </Hb.Text>

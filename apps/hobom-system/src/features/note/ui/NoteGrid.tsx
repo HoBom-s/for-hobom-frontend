@@ -8,15 +8,15 @@ import { useNoteGrid } from "../model/useNoteGrid";
 const CARD_WIDTH = 240;
 const GAP = 12;
 
-const SECTION_HEADER_SX = {
-  color: "text.secondary",
+const SECTION_HEADER_STYLE: React.CSSProperties = {
+  color: "var(--hb-color-text-secondary)",
   fontWeight: 500,
   fontSize: "0.6875rem",
   letterSpacing: "0.05em",
   textTransform: "uppercase",
-  mb: 1,
+  marginBottom: 8,
   display: "block",
-} as const;
+};
 
 const PLACEHOLDER_STYLE: React.CSSProperties = {
   border: "2px dashed var(--mui-palette-divider)",
@@ -115,7 +115,14 @@ export const NoteGrid = ({
         }}
       >
         <LightbulbOutlined sx={{ fontSize: 96, color: "action.disabled", strokeWidth: 0.5 }} />
-        <Hb.Text variant="body1" sx={{ color: "text.disabled", fontSize: "1rem", fontWeight: 400 }}>
+        <Hb.Text
+          variant="body1"
+          style={{
+            color: "var(--hb-color-text-disabled)",
+            fontSize: "1rem",
+            fontWeight: 400,
+          }}
+        >
           추가한 메모가 여기에 표시됩니다.
         </Hb.Text>
       </Hb.Box>
@@ -154,7 +161,7 @@ export const NoteGrid = ({
       <Hb.Box>
         {!Bom.isEmpty(pinnedNotes) && (
           <Hb.Box sx={{ mb: 3 }}>
-            <Hb.Text variant="caption" sx={SECTION_HEADER_SX}>
+            <Hb.Text variant="caption" style={SECTION_HEADER_STYLE}>
               고정됨
             </Hb.Text>
             <Sortable.List items={pinnedNotes.map((n) => n.id)}>
@@ -170,7 +177,7 @@ export const NoteGrid = ({
         {!Bom.isEmpty(otherNotes) && (
           <Hb.Box>
             {!Bom.isEmpty(pinnedNotes) && (
-              <Hb.Text variant="caption" sx={{ ...SECTION_HEADER_SX, mt: 1 }}>
+              <Hb.Text variant="caption" style={{ ...SECTION_HEADER_STYLE, marginTop: 8 }}>
                 기타
               </Hb.Text>
             )}

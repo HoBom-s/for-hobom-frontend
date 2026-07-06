@@ -69,7 +69,9 @@ export const CreateLabelDialog = ({
           variant="caption"
           fontWeight={600}
           color="text.secondary"
-          sx={{ mb: 1 }}
+          style={{
+            marginBottom: 8,
+          }}
           id="color-picker-label"
         >
           색상

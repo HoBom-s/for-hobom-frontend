@@ -63,23 +63,33 @@ export const DashboardWorkspace = () => {
             <DashboardOutlined sx={{ color: "#fff", fontSize: 22 }} />
           </Hb.Box>
           <Hb.Box>
-            <Hb.Text variant="h5" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+            <Hb.Text
+              variant="h5"
+              style={{
+                fontWeight: 700,
+                lineHeight: 1.3,
+              }}
+            >
               대시보드
             </Hb.Text>
-            <Hb.Text variant="body2" sx={{ color: "text.secondary", mt: 0.25 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                color: "var(--hb-color-text-secondary)",
+                marginTop: 2,
+              }}
+            >
               전체 활동과 서비스 현황을 한눈에 확인할 수 있어요.
             </Hb.Text>
           </Hb.Box>
         </Hb.Box>
         <PeriodSelector period={period} onChange={setPeriod} />
       </Hb.Box>
-
       <Hb.Tabs.Root value={currentTab} onChange={handleTabChange} sx={{ mb: 2.5 }}>
         {TAB_VALUES.map((tab) => (
           <Hb.Tabs.Item key={tab} value={tab} label={TAB_LABELS[tab]} sx={{ minHeight: 44 }} />
         ))}
       </Hb.Tabs.Root>
-
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
           <TabPanel visible={currentTab === "activity"}>

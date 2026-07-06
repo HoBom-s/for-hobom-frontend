@@ -55,7 +55,14 @@ export const IssueCommentsSection = () => {
           marginBottom: 16,
         }}
       />
-      <Hb.Text variant="subtitle2" fontWeight={600} sx={{ mb: 1.5, fontSize: 13 }}>
+      <Hb.Text
+        variant="subtitle2"
+        fontWeight={600}
+        style={{
+          marginBottom: 12,
+          fontSize: 13,
+        }}
+      >
         댓글 {comments.length > 0 && `(${comments.length})`}
       </Hb.Text>
       <IssueCommentInput onSubmit={handleCreate} loading={createComment.isPending} />

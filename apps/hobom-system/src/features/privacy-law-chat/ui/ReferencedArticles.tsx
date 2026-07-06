@@ -10,7 +10,11 @@ export const ReferencedArticles = ({ articles }: Props) => (
     <Hb.Text
       variant="caption"
       color="text.secondary"
-      sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 4,
+      }}
     >
       <ArticleOutlined sx={{ fontSize: 14 }} />
       참조 조문:

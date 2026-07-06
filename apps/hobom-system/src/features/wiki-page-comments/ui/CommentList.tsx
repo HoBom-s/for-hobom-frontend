@@ -114,7 +114,13 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
               mb: 0.5,
             }}
           >
-            <Hb.Text variant="body2" fontWeight={600} sx={{ color: "text.primary" }}>
+            <Hb.Text
+              variant="body2"
+              fontWeight={600}
+              style={{
+                color: "var(--hb-color-text-primary)",
+              }}
+            >
               {authorName}
             </Hb.Text>
             <Hb.Text variant="caption" color="text.disabled">
@@ -195,9 +201,9 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
           ) : (
             <Hb.Text
               variant="body2"
-              sx={{
+              style={{
                 whiteSpace: "pre-wrap",
-                color: "text.primary",
+                color: "var(--hb-color-text-primary)",
                 lineHeight: 1.6,
               }}
             >
@@ -217,7 +223,6 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
           )}
         </Hb.Box>
       </Hb.Box>
-
       {comment.children.map((child) => (
         <CommentNode
           key={child.id}

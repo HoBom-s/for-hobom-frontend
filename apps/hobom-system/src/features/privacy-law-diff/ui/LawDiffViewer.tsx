@@ -75,7 +75,13 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
             <Hb.Text variant="caption" color="error.main" fontWeight={600}>
               변경 전
             </Hb.Text>
-            <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", mt: 0.5 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                whiteSpace: "pre-wrap",
+                marginTop: 4,
+              }}
+            >
               {change.before}
             </Hb.Text>
           </Hb.Box>
@@ -91,7 +97,13 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
             <Hb.Text variant="caption" color="success.main" fontWeight={600}>
               변경 후
             </Hb.Text>
-            <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", mt: 0.5 }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                whiteSpace: "pre-wrap",
+                marginTop: 4,
+              }}
+            >
               {change.after}
             </Hb.Text>
           </Hb.Box>
@@ -107,7 +119,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
             borderColor: "success.main",
           }}
         >
-          <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              whiteSpace: "pre-wrap",
+            }}
+          >
             {change.after}
           </Hb.Text>
         </Hb.Box>
@@ -123,7 +140,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
             textDecoration: "line-through",
           }}
         >
-          <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              whiteSpace: "pre-wrap",
+            }}
+          >
             {change.before}
           </Hb.Text>
         </Hb.Box>

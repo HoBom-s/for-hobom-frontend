@@ -38,8 +38,8 @@ export const IssueCard = memo(
         <Hb.Text
           variant="body2"
           fontWeight={500}
-          sx={{
-            mb: 1,
+          style={{
+            marginBottom: 8,
             lineHeight: 1.4,
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",
@@ -49,7 +49,6 @@ export const IssueCard = memo(
         >
           {issue.title}
         </Hb.Text>
-
         <Hb.Box
           sx={{
             display: "flex",
@@ -74,7 +73,11 @@ export const IssueCard = memo(
             </Hb.Box>
             <Hb.Text
               variant="caption"
-              sx={{ color: "text.disabled", fontWeight: 500, fontSize: 11 }}
+              style={{
+                color: "var(--hb-color-text-disabled)",
+                fontWeight: 500,
+                fontSize: 11,
+              }}
             >
               {issue.issueKey}
             </Hb.Text>

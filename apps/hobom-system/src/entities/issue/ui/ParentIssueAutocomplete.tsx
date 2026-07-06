@@ -51,7 +51,7 @@ export const ParentIssueAutocomplete = ({
             {config && <config.Icon sx={{ fontSize: 14, color: config.color }} />}
             <Hb.Text
               variant="caption"
-              sx={{
+              style={{
                 fontWeight: 700,
                 fontSize: 11,
                 color: config?.color ?? "text.secondary",
@@ -78,10 +78,10 @@ export const ParentIssueAutocomplete = ({
           <config.Icon sx={{ fontSize: 16, color: config.color, flexShrink: 0 }} />
           <Hb.Text
             variant="caption"
-            sx={{
+            style={{
               fontWeight: 600,
               fontSize: 11,
-              color: "text.disabled",
+              color: "var(--hb-color-text-disabled)",
               flexShrink: 0,
             }}
           >
@@ -89,7 +89,7 @@ export const ParentIssueAutocomplete = ({
           </Hb.Text>
           <Hb.Text
             variant="body2"
-            sx={{
+            style={{
               fontSize: 13,
               overflow: "hidden",
               textOverflow: "ellipsis",

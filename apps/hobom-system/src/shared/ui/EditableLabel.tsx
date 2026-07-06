@@ -1,10 +1,10 @@
-import { useState, type KeyboardEvent } from "react";
+import { useState, type CSSProperties, type KeyboardEvent } from "react";
 import { Hb, type SxProps, type Theme } from "hobom-design-system";
 
 interface EditableLabelProps {
   value: string;
   onCommit: (value: string) => void;
-  textSx?: SxProps<Theme>;
+  textSx?: CSSProperties;
   inputSx?: SxProps<Theme>;
 }
 
@@ -59,7 +59,7 @@ export function EditableLabel({ value, onCommit, textSx, inputSx }: EditableLabe
   }
 
   return (
-    <Hb.Text onDoubleClick={start} sx={{ cursor: "default", ...textSx }}>
+    <Hb.Text onDoubleClick={start} style={{ cursor: "default", ...textSx }}>
       {value}
     </Hb.Text>
   );

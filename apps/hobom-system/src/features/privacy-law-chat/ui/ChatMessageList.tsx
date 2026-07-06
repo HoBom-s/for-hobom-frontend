@@ -67,7 +67,13 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
               borderRadius: 16,
             }}
           >
-            <Hb.Text variant="body2" sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+            <Hb.Text
+              variant="body2"
+              style={{
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+              }}
+            >
               {msg.content}
             </Hb.Text>
             {msg.referencedArticles && msg.referencedArticles.length > 0 && (

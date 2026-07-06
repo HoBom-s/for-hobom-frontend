@@ -16,7 +16,13 @@ interface NoteCreationAreaChartProps {
 export const NoteCreationAreaChart = ({ data }: NoteCreationAreaChartProps) => {
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 8,
+        }}
+      >
         일별 노트 생성 추이
       </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>

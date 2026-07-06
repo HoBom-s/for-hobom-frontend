@@ -15,11 +15,25 @@ interface FailureTableProps {
 export const FailureTable = ({ data }: FailureTableProps) => {
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 8,
+        }}
+      >
         최근 실패 이벤트
       </Hb.Text>
       {data.length === 0 ? (
-        <Hb.Text variant="body2" color="text.secondary" sx={{ py: 2, textAlign: "center" }}>
+        <Hb.Text
+          variant="body2"
+          color="text.secondary"
+          style={{
+            paddingTop: 16,
+            paddingBottom: 16,
+            textAlign: "center",
+          }}
+        >
           실패 이벤트가 없습니다
         </Hb.Text>
       ) : (
@@ -40,7 +54,12 @@ export const FailureTable = ({ data }: FailureTableProps) => {
               {data.map((row) => (
                 <Hb.Table.Row key={row.eventId}>
                   <Hb.Table.Cell>
-                    <Hb.Text variant="caption" sx={{ fontFamily: "monospace" }}>
+                    <Hb.Text
+                      variant="caption"
+                      style={{
+                        fontFamily: "monospace",
+                      }}
+                    >
                       {row.eventId.slice(0, 8)}
                     </Hb.Text>
                   </Hb.Table.Cell>
@@ -48,7 +67,13 @@ export const FailureTable = ({ data }: FailureTableProps) => {
                     <Hb.Text variant="body2">{row.eventType}</Hb.Text>
                   </Hb.Table.Cell>
                   <Hb.Table.Cell>
-                    <Hb.Text variant="body2" noWrap sx={{ maxWidth: 200 }}>
+                    <Hb.Text
+                      variant="body2"
+                      noWrap
+                      style={{
+                        maxWidth: 200,
+                      }}
+                    >
                       {row.lastError ?? "-"}
                     </Hb.Text>
                   </Hb.Table.Cell>

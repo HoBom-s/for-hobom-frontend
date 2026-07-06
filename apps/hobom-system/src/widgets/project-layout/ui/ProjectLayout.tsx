@@ -8,6 +8,7 @@ import {
   AddOutlined,
 } from "hobom-design-system/icons";
 import { Outlet } from "react-router-dom";
+import * as stylex from "@stylexjs/stylex";
 import { ProjectContext } from "@/shared/model";
 import { CreateIssueDialog } from "@/features/create-issue";
 import { CreateSprintDialog } from "@/features/backlog-board";
@@ -15,6 +16,14 @@ import { IssueDetailDialog } from "@/features/issue-detail";
 import { Hb } from "@/shared/ui";
 import { useProjectLayout, TABS } from "../model/useProjectLayout";
 import { useProjectDialogs } from "../model/useProjectDialogs";
+
+const styles = stylex.create({
+  crumb: {
+    color: "var(--hb-color-text-disabled)",
+    cursor: "pointer",
+    ":hover": { color: "var(--hb-color-accent)" },
+  },
+});
 
 const TAB_ICONS: Record<string, React.ReactNode> = {
   board: <ViewKanbanOutlined sx={{ fontSize: 18 }} />,
@@ -54,11 +63,7 @@ export const ProjectLayout = () => {
         <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
           <Hb.Text
             variant="caption"
-            sx={{
-              color: "text.disabled",
-              cursor: "pointer",
-              "&:hover": { color: "primary.main" },
-            }}
+            {...stylex.props(styles.crumb)}
             onClick={handleNavigateToProjects}
           >
             프로젝트
@@ -69,7 +74,13 @@ export const ProjectLayout = () => {
           </Hb.Text>
         </Hb.Box>
 
-        <Hb.Text variant="h5" fontWeight={700} sx={{ mb: 2 }}>
+        <Hb.Text
+          variant="h5"
+          fontWeight={700}
+          style={{
+            marginBottom: 16,
+          }}
+        >
           {project.name}
         </Hb.Text>
 

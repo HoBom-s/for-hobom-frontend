@@ -121,7 +121,14 @@ export const CreateIssueDialog = ({
           />
         </Hb.Box>
         <Hb.Box>
-          <Hb.Text variant="body2" sx={{ mb: 0.5, fontSize: 13, color: "text.secondary" }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              marginBottom: 4,
+              fontSize: 13,
+              color: "var(--hb-color-text-secondary)",
+            }}
+          >
             라벨
           </Hb.Text>
           <Hb.Box

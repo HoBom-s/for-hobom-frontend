@@ -115,7 +115,10 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
         variant="caption"
         color="text.secondary"
         fontWeight={600}
-        sx={{ mb: 0.5, display: "block" }}
+        style={{
+          marginBottom: 4,
+          display: "block",
+        }}
       >
         컬럼
       </Hb.Text>
@@ -158,10 +161,22 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                         flexShrink: 0,
                       }}
                     />
-                    <Hb.Text variant="body2" sx={{ flex: 1, fontSize: 13 }}>
+                    <Hb.Text
+                      variant="body2"
+                      style={{
+                        flex: 1,
+                        fontSize: 13,
+                      }}
+                    >
                       {col.name}
                     </Hb.Text>
-                    <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
+                    <Hb.Text
+                      variant="caption"
+                      color="text.disabled"
+                      style={{
+                        fontSize: 11,
+                      }}
+                    >
                       {col.statusId}
                     </Hb.Text>
                     {col.wipLimit != null && (

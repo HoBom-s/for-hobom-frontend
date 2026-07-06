@@ -74,7 +74,14 @@ export default function WorkspacePage() {
       >
         {favorites.length > 0 && (
           <>
-            <Hb.Text variant="caption" color="text.secondary" sx={{ fontWeight: 600, mb: 0.5 }}>
+            <Hb.Text
+              variant="caption"
+              color="text.secondary"
+              style={{
+                fontWeight: 600,
+                marginBottom: 4,
+              }}
+            >
               즐겨찾기
             </Hb.Text>
             {favorites.map((favorite) => (
@@ -96,7 +103,13 @@ export default function WorkspacePage() {
         )}
 
         <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-          <Hb.Text variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
+          <Hb.Text
+            variant="caption"
+            color="text.secondary"
+            style={{
+              fontWeight: 600,
+            }}
+          >
             폴더
           </Hb.Text>
           <Hb.Button.Icon size="small" aria-label="새 폴더" onClick={handleNewFolder}>
@@ -200,7 +213,6 @@ export default function WorkspacePage() {
                       <PushPinOutlined sx={{ fontSize: 16 }} />
                     )}
                   </Hb.Button.Icon>
-
                   <Hb.Button.Icon
                     size="small"
                     className="card-action"
@@ -218,11 +230,17 @@ export default function WorkspacePage() {
                   >
                     <DeleteOutline sx={{ fontSize: 16 }} />
                   </Hb.Button.Icon>
-
                   <Hb.Box
                     sx={{ height: 120, bgcolor: "background.default", borderRadius: 1, mb: 1 }}
                   />
-                  <Hb.Text variant="body2" sx={{ fontWeight: 600, px: 0.25 }}>
+                  <Hb.Text
+                    variant="body2"
+                    style={{
+                      fontWeight: 600,
+                      paddingLeft: 2,
+                      paddingRight: 2,
+                    }}
+                  >
                     {item.name}
                   </Hb.Text>
                 </Hb.Card.Root>
@@ -301,7 +319,7 @@ function FavoriteRow({ label, onOpen, onRename, onRemove }: FavoriteRowProps) {
     >
       <PushPin sx={{ fontSize: 16, color: "primary.main" }} />
       <Hb.Text
-        sx={{
+        style={{
           flex: 1,
           minWidth: 0,
           fontSize: 14,

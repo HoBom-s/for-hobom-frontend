@@ -13,14 +13,19 @@ export const FutureMessageContentFunnel = ({ onPrevStep, onNextStep }: Props) =>
   return (
     <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
       <Hb.Box>
-        <Hb.Text fontWeight={700} sx={{ fontSize: 22, mb: 0.5 }}>
+        <Hb.Text
+          fontWeight={700}
+          style={{
+            fontSize: 22,
+            marginBottom: 4,
+          }}
+        >
           내용을 입력해 주세요
         </Hb.Text>
         <Hb.Text variant="body2" color="text.secondary">
           어떤 내용으로 보낼까요?
         </Hb.Text>
       </Hb.Box>
-
       <Hb.Form.Control fullWidth>
         <Hb.TextField
           fullWidth
@@ -32,7 +37,6 @@ export const FutureMessageContentFunnel = ({ onPrevStep, onNextStep }: Props) =>
         />
         <Hb.Form.Helper>전하고 싶은 말을 자유롭게 작성해 주세요.</Hb.Form.Helper>
       </Hb.Form.Control>
-
       <Hb.Box display="flex" gap={1.5}>
         <Hb.Button fullWidth variant="secondary" onClick={onPrevStep}>
           이전

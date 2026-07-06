@@ -28,13 +28,19 @@ export const UserInfoSection = ({ initial, nickname, email }: UserInfoSectionPro
       {initial}
     </Hb.Avatar>
     <Hb.Box sx={{ minWidth: 0 }}>
-      <Hb.Text variant="body1" sx={{ fontWeight: 700, fontSize: "0.9375rem" }}>
+      <Hb.Text
+        variant="body1"
+        style={{
+          fontWeight: 700,
+          fontSize: "0.9375rem",
+        }}
+      >
         {nickname}
       </Hb.Text>
       <Hb.Text
         variant="body2"
-        sx={{
-          color: "text.secondary",
+        style={{
+          color: "var(--hb-color-text-secondary)",
           fontSize: "0.75rem",
           overflow: "hidden",
           textOverflow: "ellipsis",

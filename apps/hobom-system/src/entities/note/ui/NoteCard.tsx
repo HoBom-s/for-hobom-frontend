@@ -136,12 +136,12 @@ export const NoteCard = ({
         {title && (
           <Hb.Text
             variant="subtitle2"
-            sx={{
-              fontWeight: 500,
+            fontWeight={500}
+            style={{
               fontSize: "0.875rem",
               lineHeight: 1.5,
-              pr: note.isPinned || hovered ? 3.5 : 0,
-              mb: 0.5,
+              paddingRight: note.isPinned || hovered ? 28 : 0,
+              marginBottom: 4,
               wordBreak: "break-word",
               color: isCustomColor ? "#2d3748" : undefined,
             }}
@@ -153,7 +153,7 @@ export const NoteCard = ({
         {!hasChecklist && content && (
           <Hb.Text
             variant="body2"
-            sx={{
+            style={{
               color: isCustomColor ? "rgba(0,0,0,0.65)" : "text.secondary",
               fontSize: "0.8125rem",
               lineHeight: 1.5,
@@ -195,7 +195,7 @@ export const NoteCard = ({
                   />
                   <Hb.Text
                     variant="body2"
-                    sx={{
+                    style={{
                       fontSize: "0.8125rem",
                       textDecoration: item.checked ? "line-through" : "none",
                       color: checklistTextColor(isCustomColor, item.checked),
@@ -209,10 +209,10 @@ export const NoteCard = ({
             {note.checklistItems.length > 8 && (
               <Hb.Text
                 variant="caption"
-                sx={{
-                  color: "text.disabled",
-                  ml: 3.5,
-                  mt: 0.25,
+                style={{
+                  color: "var(--hb-color-text-disabled)",
+                  marginLeft: 28,
+                  marginTop: 2,
                   display: "block",
                 }}
               >
@@ -252,7 +252,6 @@ export const NoteCard = ({
           </Hb.Box>
         )}
       </Hb.Card.Content>
-
       <Hb.Card.Actions
         sx={{
           pt: 0,

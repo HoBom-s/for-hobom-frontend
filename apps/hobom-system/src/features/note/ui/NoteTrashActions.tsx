@@ -21,7 +21,13 @@ export const NoteTrashActions = () => {
     >
       <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
         <InfoOutlined sx={{ fontSize: 18, color: "#b06000" }} />
-        <Hb.Text variant="body2" sx={{ color: "#5f3700", fontSize: "0.8125rem" }}>
+        <Hb.Text
+          variant="body2"
+          style={{
+            color: "#5f3700",
+            fontSize: "0.8125rem",
+          }}
+        >
           휴지통의 메모는 7일 후 자동으로 삭제돼요.
         </Hb.Text>
       </Hb.Box>

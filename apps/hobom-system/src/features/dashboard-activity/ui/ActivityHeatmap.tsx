@@ -37,7 +37,13 @@ export const ActivityHeatmap = ({ data }: ActivityHeatmapProps) => {
 
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 1.5 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 12,
+        }}
+      >
         활동 히트맵
       </Hb.Text>
       <Hb.Box

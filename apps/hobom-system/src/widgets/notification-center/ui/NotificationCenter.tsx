@@ -38,7 +38,13 @@ export const NotificationCenter = () => {
           }}
         >
           <NotificationsNoneOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
-          <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.875rem" }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              color: "var(--hb-color-text-disabled)",
+              fontSize: "0.875rem",
+            }}
+          >
             {EMPTY_MESSAGES[filter]}
           </Hb.Text>
         </Hb.Box>
@@ -52,10 +58,10 @@ export const NotificationCenter = () => {
             <Hb.Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
               <Hb.Text
                 variant="caption"
-                sx={{
+                style={{
                   fontWeight: 600,
                   fontSize: "0.6875rem",
-                  color: "text.secondary",
+                  color: "var(--hb-color-text-secondary)",
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
                 }}
@@ -84,7 +90,13 @@ export const NotificationCenter = () => {
   return (
     <Hb.Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
       <Hb.Box sx={{ mb: 2.5 }}>
-        <Hb.Text variant="h6" sx={{ fontWeight: 700, fontSize: "1.125rem" }}>
+        <Hb.Text
+          variant="h6"
+          style={{
+            fontWeight: 700,
+            fontSize: "1.125rem",
+          }}
+        >
           알림
         </Hb.Text>
       </Hb.Box>

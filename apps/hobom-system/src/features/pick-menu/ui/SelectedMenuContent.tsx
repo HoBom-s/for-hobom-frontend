@@ -59,10 +59,21 @@ const Inner = () => {
             </Hb.Stack>
           ) : (
             <Hb.Stack direction="column" alignItems="center" spacing={1}>
-              <Hb.Text variant="body2" sx={{ color: "text.secondary", mb: 0.5 }}>
+              <Hb.Text
+                variant="body2"
+                style={{
+                  color: "var(--hb-color-text-secondary)",
+                  marginBottom: 4,
+                }}
+              >
                 오늘의 메뉴는
               </Hb.Text>
-              <Hb.Text variant="h5" sx={{ fontWeight: 700 }}>
+              <Hb.Text
+                variant="h5"
+                style={{
+                  fontWeight: 700,
+                }}
+              >
                 {data?.items.recommendedMenu.name}
               </Hb.Text>
               <Hb.Text variant="body2" color="text.secondary">

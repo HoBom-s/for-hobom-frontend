@@ -29,7 +29,13 @@ export const CycleProgressBar = ({ data }: CycleProgressBarProps) => {
 
   return (
     <Hb.Box>
-      <Hb.Text variant="body2" fontWeight={600} sx={{ mb: 2 }}>
+      <Hb.Text
+        variant="body2"
+        fontWeight={600}
+        style={{
+          marginBottom: 16,
+        }}
+      >
         반복주기별 완료 현황
       </Hb.Text>
       <ResponsiveContainer width="100%" height={260}>

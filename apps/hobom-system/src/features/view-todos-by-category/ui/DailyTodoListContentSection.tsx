@@ -52,7 +52,13 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
           }}
         >
           <CheckCircleOutline sx={{ fontSize: 64, color: "#dadce0" }} />
-          <Hb.Text variant="body1" sx={{ color: "text.disabled", fontSize: "0.95rem" }}>
+          <Hb.Text
+            variant="body1"
+            style={{
+              color: "var(--hb-color-text-disabled)",
+              fontSize: "0.95rem",
+            }}
+          >
             오늘의 할 일이 없어요
           </Hb.Text>
         </Hb.Box>
@@ -96,7 +102,6 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
           ))}
         </Hb.Box>
       )}
-
       <Hb.Box sx={{ px: 2.5, py: 1.5 }}>
         <Hb.Button
           size="small"
@@ -107,7 +112,6 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
           카테고리 추가
         </Hb.Button>
       </Hb.Box>
-
       <CategoryCreateDialog open={createOpen} onClose={() => setCreateOpen(false)} />
     </>
   );

@@ -21,7 +21,7 @@ export const KanbanSwimlane = ({ epicKey, epicTitle, progress, children }: Kanba
     >
       <Hb.Text
         variant="caption"
-        sx={{
+        style={{
           fontWeight: 700,
           fontSize: 10,
           color: epicKey ? "#7c3aed" : "text.disabled",
@@ -30,7 +30,14 @@ export const KanbanSwimlane = ({ epicKey, epicTitle, progress, children }: Kanba
       >
         {epicKey ?? "에픽 없음"}
       </Hb.Text>
-      <Hb.Text variant="caption" sx={{ fontSize: 10, color: "text.secondary" }} noWrap>
+      <Hb.Text
+        variant="caption"
+        style={{
+          fontSize: 10,
+          color: "var(--hb-color-text-secondary)",
+        }}
+        noWrap
+      >
         {epicTitle}
       </Hb.Text>
       {progress && progress.total > 0 && (

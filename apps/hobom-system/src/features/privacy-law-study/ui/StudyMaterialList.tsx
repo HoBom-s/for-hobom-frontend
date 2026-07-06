@@ -40,7 +40,10 @@ export const StudyMaterialList = () => {
         </Hb.Card.Root>
       ))}
       {materials.length === 0 && (
-        <Hb.Text color="text.secondary" textAlign="center" py={4}>
+        <Hb.Text
+          color="text.secondary"
+          style={{ textAlign: "center", paddingTop: 32, paddingBottom: 32 }}
+        >
           학습 자료가 없습니다.
         </Hb.Text>
       )}

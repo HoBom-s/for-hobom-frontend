@@ -70,17 +70,17 @@ export const ProjectLabelPicker = ({
       <Hb.Text
         variant="caption"
         fontWeight={600}
-        sx={{
-          px: 2,
-          pt: 1.5,
-          pb: 0.5,
+        style={{
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 12,
+          paddingBottom: 4,
           display: "block",
-          color: "text.secondary",
+          color: "var(--hb-color-text-secondary)",
         }}
       >
         라벨
       </Hb.Text>
-
       <Hb.List.Root dense disablePadding sx={{ maxHeight: 240, overflow: "auto" }}>
         {labels.map((label) => (
           <Hb.List.ItemButton key={label.id} onClick={() => onToggle(label.id)} sx={{ py: 0.5 }}>
@@ -116,15 +116,20 @@ export const ProjectLabelPicker = ({
           <Hb.Text
             variant="body2"
             color="text.disabled"
-            sx={{ px: 2, py: 2, textAlign: "center", fontSize: "0.8125rem" }}
+            style={{
+              paddingLeft: 16,
+              paddingRight: 16,
+              paddingTop: 16,
+              paddingBottom: 16,
+              textAlign: "center",
+              fontSize: "0.8125rem",
+            }}
           >
             라벨이 없어요
           </Hb.Text>
         )}
       </Hb.List.Root>
-
       <Hb.Divider />
-
       {creating ? (
         <Hb.Box sx={{ p: 1.5, display: "flex", flexDirection: "column", gap: 1 }}>
           <Hb.TextField
@@ -190,7 +195,13 @@ export const ProjectLabelPicker = ({
       ) : (
         <Hb.List.ItemButton onClick={() => setCreating(true)} sx={{ py: 1, gap: 1 }}>
           <AddOutlined sx={{ fontSize: 16, color: "text.secondary" }} />
-          <Hb.Text variant="body2" sx={{ fontSize: "0.8125rem", color: "text.secondary" }}>
+          <Hb.Text
+            variant="body2"
+            style={{
+              fontSize: "0.8125rem",
+              color: "var(--hb-color-text-secondary)",
+            }}
+          >
             새 라벨 만들기
           </Hb.Text>
         </Hb.List.ItemButton>

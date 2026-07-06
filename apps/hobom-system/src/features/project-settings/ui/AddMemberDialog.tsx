@@ -48,7 +48,13 @@ export const AddMemberDialog = ({
                 {u.nickname.charAt(0).toUpperCase()}
               </Hb.Avatar>
               <Hb.Box>
-                <Hb.Text variant="body2" fontWeight={600} sx={{ lineHeight: 1.3 }}>
+                <Hb.Text
+                  variant="body2"
+                  fontWeight={600}
+                  style={{
+                    lineHeight: 1.3,
+                  }}
+                >
                   {u.nickname}
                 </Hb.Text>
                 <Hb.Text variant="caption" color="text.secondary">

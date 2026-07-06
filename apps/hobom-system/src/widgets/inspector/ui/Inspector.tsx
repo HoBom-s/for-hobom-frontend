@@ -20,7 +20,14 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
   if (!node || !isComponentNode(node)) {
     return (
       <Hb.Box sx={{ p: 2 }}>
-        <Hb.Text sx={{ fontSize: 12, color: "text.secondary" }}>요소를 선택하세요</Hb.Text>
+        <Hb.Text
+          style={{
+            fontSize: 12,
+            color: "var(--hb-color-text-secondary)",
+          }}
+        >
+          요소를 선택하세요
+        </Hb.Text>
       </Hb.Box>
     );
   }
@@ -30,7 +37,14 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
   return (
     <Hb.Box sx={{ p: 1.5 }}>
       <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1.5 }}>
-        <Hb.Text sx={{ fontSize: 13, fontWeight: 600 }}>{node.type}</Hb.Text>
+        <Hb.Text
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
+          {node.type}
+        </Hb.Text>
         <Hb.Button.Icon
           size="small"
           aria-label="삭제"
@@ -41,7 +55,14 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
         </Hb.Button.Icon>
       </Hb.Stack>
       {!manifest ? (
-        <Hb.Text sx={{ fontSize: 12, color: "error.main" }}>미등록 컴포넌트: {node.type}</Hb.Text>
+        <Hb.Text
+          style={{
+            fontSize: 12,
+            color: "var(--hb-color-danger)",
+          }}
+        >
+          미등록 컴포넌트: {node.type}
+        </Hb.Text>
       ) : (
         <Hb.Stack gap={1.25}>
           {Object.entries(manifest.props).map(([name, spec]) => (
@@ -62,13 +83,13 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
         }}
       />
       <Hb.Text
-        sx={{
+        style={{
           fontSize: 11,
           fontWeight: 600,
           letterSpacing: 0.5,
           textTransform: "uppercase",
-          color: "text.secondary",
-          mb: 1,
+          color: "var(--hb-color-text-secondary)",
+          marginBottom: 8,
         }}
       >
         사이징
@@ -104,7 +125,7 @@ function SizeField({ label, value, onChange }: SizeFieldProps) {
       justifyContent="space-between"
       sx={{ minHeight: 24 }}
     >
-      <Hb.Text sx={labelSx}>{label}</Hb.Text>
+      <Hb.Text style={labelStyle}>{label}</Hb.Text>
       <Hb.TextField
         size="small"
         type="number"
@@ -126,7 +147,7 @@ interface PropFieldProps {
   onChange: (prop: string, value: PropValue) => void;
 }
 
-const labelSx = { fontSize: 11, color: "text.secondary" } as const;
+const labelStyle = { fontSize: 11, color: "var(--hb-color-text-secondary)" } as const;
 const inputSx = { "& .MuiInputBase-input": { fontSize: 12, py: 0.75 } } as const;
 
 /** prop 한 개를 spec.kind에 맞는 컨트롤로 렌더한다. slot은 편집 대상이 아니다. */
@@ -143,7 +164,7 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
         justifyContent="space-between"
         sx={{ minHeight: 24 }}
       >
-        <Hb.Text sx={labelSx}>{name}</Hb.Text>
+        <Hb.Text style={labelStyle}>{name}</Hb.Text>
         <Hb.Checkbox
           size="small"
           sx={{ p: 0 }}
@@ -157,7 +178,7 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
   if (spec.kind === "string") {
     return (
       <Hb.Stack gap={0.5} sx={{ minWidth: 0 }}>
-        <Hb.Text sx={labelSx}>{name}</Hb.Text>
+        <Hb.Text style={labelStyle}>{name}</Hb.Text>
         <Hb.TextField
           size="small"
           value={value === undefined ? "" : String(value)}
@@ -176,7 +197,7 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
         justifyContent="space-between"
         sx={{ minHeight: 24 }}
       >
-        <Hb.Text sx={labelSx}>{name}</Hb.Text>
+        <Hb.Text style={labelStyle}>{name}</Hb.Text>
         <Hb.TextField
           size="small"
           type="number"
@@ -190,7 +211,7 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
 
   return (
     <Hb.Stack gap={0.5} sx={{ minWidth: 0 }}>
-      <Hb.Text sx={labelSx}>{name}</Hb.Text>
+      <Hb.Text style={labelStyle}>{name}</Hb.Text>
       <Hb.Box
         sx={{
           display: "flex",

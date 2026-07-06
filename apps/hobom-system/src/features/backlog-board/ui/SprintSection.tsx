@@ -54,7 +54,13 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
         <Hb.Button.Icon size="small" sx={{ p: 0 }}>
           {expanded ? <ExpandMore sx={{ fontSize: 20 }} /> : <ExpandLess sx={{ fontSize: 20 }} />}
         </Hb.Button.Icon>
-        <Hb.Text variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>
+        <Hb.Text
+          variant="subtitle2"
+          fontWeight={700}
+          style={{
+            fontSize: 13,
+          }}
+        >
           {sprint.name}
         </Hb.Text>
         <Hb.Chip
@@ -69,7 +75,13 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
             letterSpacing: "0.02em",
           }}
         />
-        <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
+        <Hb.Text
+          variant="caption"
+          color="text.disabled"
+          style={{
+            fontSize: 11,
+          }}
+        >
           {issues.length}건
         </Hb.Text>
         <Hb.Box sx={{ flex: 1 }} />
@@ -121,10 +133,22 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
       <Hb.Collapse in={expanded}>
         {issues.length === 0 ? (
           <Hb.Box sx={{ px: 2, py: 3, textAlign: "center" }}>
-            <Hb.Text variant="body2" color="text.disabled" sx={{ fontSize: 13 }}>
+            <Hb.Text
+              variant="body2"
+              color="text.disabled"
+              style={{
+                fontSize: 13,
+              }}
+            >
               스프린트에 이슈가 없어요
             </Hb.Text>
-            <Hb.Text variant="caption" color="text.disabled" sx={{ fontSize: 11 }}>
+            <Hb.Text
+              variant="caption"
+              color="text.disabled"
+              style={{
+                fontSize: 11,
+              }}
+            >
               백로그 이슈의 ⋮ 메뉴에서 이 스프린트로 이동할 수 있어요
             </Hb.Text>
           </Hb.Box>

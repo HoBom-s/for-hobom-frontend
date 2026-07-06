@@ -53,10 +53,15 @@ export const IssueCommentItem = ({
       >
         {initial}
       </Hb.Avatar>
-
       <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
         <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
-          <Hb.Text variant="body2" fontWeight={600} sx={{ fontSize: 13 }}>
+          <Hb.Text
+            variant="body2"
+            fontWeight={600}
+            style={{
+              fontSize: 13,
+            }}
+          >
             {authorName}
           </Hb.Text>
           <Hb.Text variant="caption" color="text.disabled">
@@ -136,9 +141,9 @@ export const IssueCommentItem = ({
         ) : (
           <Hb.Text
             variant="body2"
-            sx={{
+            style={{
               whiteSpace: "pre-wrap",
-              color: "text.primary",
+              color: "var(--hb-color-text-primary)",
               lineHeight: 1.6,
               fontSize: 13,
             }}

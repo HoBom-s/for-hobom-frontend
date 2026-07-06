@@ -136,9 +136,7 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
           </Hb.Box>
         )}
       </Hb.List.Root>
-
       <Hb.Divider />
-
       <Hb.Box sx={{ flex: 1, overflow: "auto" }}>
         {selectedVersion ? (
           <>
@@ -182,7 +180,13 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
                   </Hb.Button.Icon>
                 </span>
               </Hb.Tooltip>
-              <Hb.Text variant="caption" color="text.disabled" sx={{ ml: 0.5 }}>
+              <Hb.Text
+                variant="caption"
+                color="text.disabled"
+                style={{
+                  marginLeft: 4,
+                }}
+              >
                 {viewMode === "diff"
                   ? `v${selectedVersion.version - 1} → v${selectedVersion.version}`
                   : `v${selectedVersion.version} 미리보기`}

@@ -69,10 +69,10 @@ export const AuthLoginForm = () => {
           gap={2}
           onSubmit={formMethods.handleSubmit(handleValidFormSubmit, handleInvalidFormSubmit)}
         >
-          <Hb.Text variant="h6" fontWeight={700} mb={0.5}>
+          <Hb.Text variant="h6" fontWeight={700} style={{ marginBottom: 4 }}>
             로그인
           </Hb.Text>
-          <Hb.Text variant="body2" color="text.secondary" mb={1}>
+          <Hb.Text variant="body2" color="text.secondary" style={{ marginBottom: 8 }}>
             HoBom 시스템에 오신 것을 환영해요.
             <br />
             로그인을 진행해 주세요.
@@ -88,7 +88,7 @@ export const AuthLoginForm = () => {
           >
             로그인
           </Hb.Button>
-          <Hb.Text variant="body2" color="text.secondary" textAlign="center">
+          <Hb.Text variant="body2" color="text.secondary" style={{ textAlign: "center" }}>
             계정이 없으신가요?{" "}
             <Hb.Link component={RouterLink} to={RoutesConfig.AUTH.SIGN_UP} underline="hover">
               회원가입
