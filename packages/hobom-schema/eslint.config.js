@@ -5,6 +5,5 @@ export default tseslint.config(baseIgnores, {
   ...baseConfig,
   rules: {
     ...baseConfig.rules,
-    "@typescript-eslint/no-explicit-any": "warn",
   },
 });

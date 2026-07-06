@@ -28,6 +28,7 @@ const styles = stylex.create({
 function elevationStyle(elevation: number) {
   if (elevation <= 0) return styles.elev0;
   if (elevation === 1) return styles.elev1;
+
   return styles.elev2;
 }
 

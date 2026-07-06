@@ -18,6 +18,7 @@ const Inner = () => {
   const navigate = useNavigate();
   const { todayMenuId } = useTodayMenuId();
   const { handler, status } = useSelectTodayMenu();
+  const { mutate: selectTodayMenu } = handler;
   const { data } = useQuery({
     ...menuQueries.selectedTodayMenu({ id: String(todayMenuId) }),
     enabled: todayMenuId != null && status === "done" && handler.status === "success",
@@ -27,8 +28,8 @@ const Inner = () => {
     if (todayMenuId == null) {
       return;
     }
-    handler.mutate({ id: todayMenuId });
-  }, [todayMenuId]);
+    selectTodayMenu({ id: todayMenuId });
+  }, [todayMenuId, selectTodayMenu]);
 
   const showProgressCircle =
     todayMenuId == null || status === "loading" || handler.isPending || data == null;

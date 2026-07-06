@@ -105,8 +105,8 @@ describe("useNoteForm", () => {
 
       expect(result.current.form.type).toBe("CHECKLIST");
       expect(result.current.form.checklistItems).toHaveLength(2);
-      expect(result.current.form.checklistItems[0]!.text).toBe("사과");
-      expect(result.current.form.checklistItems[1]!.text).toBe("바나나");
+      expect(result.current.form.checklistItems[0]?.text).toBe("사과");
+      expect(result.current.form.checklistItems[1]?.text).toBe("바나나");
       expect(result.current.form.content).toBe("");
     });
 
@@ -117,7 +117,7 @@ describe("useNoteForm", () => {
 
       expect(result.current.form.type).toBe("CHECKLIST");
       expect(result.current.form.checklistItems).toHaveLength(1);
-      expect(result.current.form.checklistItems[0]!.text).toBe("");
+      expect(result.current.form.checklistItems[0]?.text).toBe("");
     });
 
     it("CHECKLIST → TEXT: 체크리스트를 텍스트로 변환한다", () => {
@@ -151,7 +151,7 @@ describe("useNoteForm", () => {
       act(() => result.current.toggleType());
       act(() => result.current.updateChecklistItem(0, "text", "할 일"));
 
-      expect(result.current.form.checklistItems[0]!.text).toBe("할 일");
+      expect(result.current.form.checklistItems[0]?.text).toBe("할 일");
     });
 
     it("updateChecklistItem: 특정 아이템의 checked를 업데이트한다", () => {
@@ -160,7 +160,7 @@ describe("useNoteForm", () => {
       act(() => result.current.toggleType());
       act(() => result.current.updateChecklistItem(0, "checked", true));
 
-      expect(result.current.form.checklistItems[0]!.checked).toBe(true);
+      expect(result.current.form.checklistItems[0]?.checked).toBe(true);
     });
 
     it("removeChecklistItem: 특정 인덱스의 아이템을 제거한다", () => {
@@ -174,8 +174,8 @@ describe("useNoteForm", () => {
       act(() => result.current.removeChecklistItem(1));
 
       expect(result.current.form.checklistItems).toHaveLength(2);
-      expect(result.current.form.checklistItems[0]!.text).toBe("A");
-      expect(result.current.form.checklistItems[1]!.text).toBe("C");
+      expect(result.current.form.checklistItems[0]?.text).toBe("A");
+      expect(result.current.form.checklistItems[1]?.text).toBe("C");
     });
   });
 
@@ -216,7 +216,7 @@ describe("useNoteForm", () => {
       act(() => result.current.setReminder("2026-03-01", "WEEKLY"));
 
       expect(result.current.form.reminder).not.toBeNull();
-      expect(result.current.form.reminder!.recurrence).toBe("WEEKLY");
+      expect(result.current.form.reminder?.recurrence).toBe("WEEKLY");
     });
 
     it("clearReminder: 리마인더를 제거한다", () => {
@@ -286,7 +286,7 @@ describe("useNoteForm", () => {
       // index 1은 빈 텍스트
 
       expect(result.current.filteredChecklist).toHaveLength(1);
-      expect(result.current.filteredChecklist![0]!.text).toBe("유효");
+      expect(result.current.filteredChecklist?.[0]?.text).toBe("유효");
     });
 
     it("필터링 후 order가 재인덱싱된다", () => {
@@ -297,7 +297,7 @@ describe("useNoteForm", () => {
       // 중간 아이템(B)을 비운다
       act(() => result.current.updateChecklistItem(1, "text", ""));
 
-      expect(result.current.filteredChecklist!.map((i) => i.order)).toEqual([0, 1]);
+      expect(result.current.filteredChecklist?.map((i) => i.order)).toEqual([0, 1]);
     });
   });
 });

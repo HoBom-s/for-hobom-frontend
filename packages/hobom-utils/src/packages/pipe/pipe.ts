@@ -170,8 +170,11 @@ export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
 ): P;
 export function pipe(
   input: unknown,
+  // Operations accept the running value whose type is only known to the typed
+  // overloads above; `unknown` here would break param contravariance.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...operations: readonly (LazyOp | ((value: any) => unknown))[]
-): any {
+): unknown {
   let output = input;
 
   const lazyOperations = operations.map((op) =>
@@ -184,9 +187,11 @@ export function pipe(
     const lazyOperation = lazyOperations[operationIndex];
 
     if (lazyOperation === undefined || !isIterable(output)) {
-      const operation = operations[operationIndex]!;
+      const operation = operations[operationIndex];
 
-      output = operation(output);
+      if (operation !== undefined) {
+        output = operation(output);
+      }
       operationIndex += 1;
 
       continue;
@@ -218,7 +223,7 @@ export function pipe(
       }
     }
 
-    const { isSingle } = lazySequence.at(-1)!;
+    const isSingle = lazySequence.at(-1)?.isSingle ?? false;
 
     output = isSingle ? accumulator[0] : accumulator;
     operationIndex += lazySequence.length;
@@ -239,7 +244,7 @@ function processItem(
   }
 
   let currentItem = item;
-  let lazyResult: LazyResult<any> = { done: false, hasNext: false };
+  let lazyResult: LazyResult<unknown> = { done: false, hasNext: false };
   let isDone = false;
 
   for (const [operationsIndex, lazyFn] of lazySequence.entries()) {

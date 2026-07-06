@@ -18,6 +18,69 @@ export const NotificationCenter = () => {
     handleMarkRead,
   } = useNotificationCenter();
 
+  const renderGroups = () => {
+    if (isPending) {
+      return (
+        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+          <Hb.Progress.Circular size={28} />
+        </Hb.Box>
+      );
+    }
+    if (dateGroups.length === 0) {
+      return (
+        <Hb.Box
+          sx={{
+            py: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 1.5,
+          }}
+        >
+          <NotificationsNoneOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
+          <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.875rem" }}>
+            {EMPTY_MESSAGES[filter]}
+          </Hb.Text>
+        </Hb.Box>
+      );
+    }
+
+    return (
+      <>
+        {dateGroups.map((group) => (
+          <Hb.Box key={group.label}>
+            <Hb.Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
+              <Hb.Text
+                variant="caption"
+                sx={{
+                  fontWeight: 600,
+                  fontSize: "0.6875rem",
+                  color: "text.secondary",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                {group.label}
+              </Hb.Text>
+            </Hb.Box>
+            {group.items.map((notification) => (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+                onClick={handleMarkRead}
+              />
+            ))}
+          </Hb.Box>
+        ))}
+        {isFetchingNextPage && (
+          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+            <Hb.Progress.Circular size={24} />
+          </Hb.Box>
+        )}
+      </>
+    );
+  };
+
   return (
     <Hb.Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
       <Hb.Box sx={{ mb: 2.5 }}>
@@ -61,59 +124,7 @@ export const NotificationCenter = () => {
             ...SUBTLE_SCROLLBAR_SX,
           }}
         >
-          {isPending ? (
-            <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-              <Hb.Progress.Circular size={28} />
-            </Hb.Box>
-          ) : dateGroups.length === 0 ? (
-            <Hb.Box
-              sx={{
-                py: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 1.5,
-              }}
-            >
-              <NotificationsNoneOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
-              <Hb.Text variant="body2" sx={{ color: "text.disabled", fontSize: "0.875rem" }}>
-                {EMPTY_MESSAGES[filter]}
-              </Hb.Text>
-            </Hb.Box>
-          ) : (
-            <>
-              {dateGroups.map((group) => (
-                <Hb.Box key={group.label}>
-                  <Hb.Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
-                    <Hb.Text
-                      variant="caption"
-                      sx={{
-                        fontWeight: 600,
-                        fontSize: "0.6875rem",
-                        color: "text.secondary",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                      }}
-                    >
-                      {group.label}
-                    </Hb.Text>
-                  </Hb.Box>
-                  {group.items.map((notification) => (
-                    <NotificationItem
-                      key={notification.id}
-                      notification={notification}
-                      onClick={handleMarkRead}
-                    />
-                  ))}
-                </Hb.Box>
-              ))}
-              {isFetchingNextPage && (
-                <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
-                  <Hb.Progress.Circular size={24} />
-                </Hb.Box>
-              )}
-            </>
-          )}
+          {renderGroups()}
         </Hb.Box>
       </Hb.Paper>
     </Hb.Box>

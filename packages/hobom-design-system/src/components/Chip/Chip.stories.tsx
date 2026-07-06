@@ -23,6 +23,7 @@ const meta = {
 } satisfies Meta<typeof Chip>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Filled: Story = { args: { color: "primary" } };
@@ -50,6 +51,7 @@ export const StatusChips: Story = {
       { label: "GET", bg: "#2ca87f18", fg: "#2ca87f" },
       { label: "3/5 완료", bg: "#e8f5e9", fg: "#2ca87f" },
     ];
+
     return (
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         {chips.map((c) => (

@@ -95,11 +95,11 @@ describe("Query", () => {
   });
 
   it("cancel()이 AbortController를 abort한다", async () => {
-    let receivedSignal: AbortSignal | null = null;
+    const captured: { signal: AbortSignal | null } = { signal: null };
 
     const query = createQuery({
       queryFn: ({ signal }) => {
-        receivedSignal = signal;
+        captured.signal = signal;
 
         return new Promise((_, reject) => {
           signal.addEventListener("abort", () => reject(new Error("aborted")));
@@ -111,7 +111,7 @@ describe("Query", () => {
 
     query.cancel();
 
-    expect(receivedSignal!.aborted).toBe(true);
+    expect(captured.signal?.aborted).toBe(true);
     await expect(promise).rejects.toThrow("aborted");
   });
 

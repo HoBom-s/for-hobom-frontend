@@ -17,6 +17,9 @@ export const TodayMenuIdContextProvider = ({ children }: { children: ReactNode }
   );
 };
 
+// Context, provider, and hook are intentionally colocated; Fast Refresh is an
+// HMR heuristic that doesn't apply to this consumer hook export.
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTodayMenuId = () => {
   const ctx = useContext(TodayMenuIdContext);
 

@@ -11,8 +11,12 @@ import type { Evaluator } from "../../core/types/evaluator.type";
  * @category Function
  */
 export function curry(
+  // Accepts a function of any arity and calls it with collected args; `unknown[]`
+  // args would be uncallable and `never[]` would reject real functions.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fn: (...args: any) => unknown,
   args: readonly unknown[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   lazy?: (...args: any) => Evaluator,
 ) {
   const diff = fn.length - args.length;

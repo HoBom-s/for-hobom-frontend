@@ -45,7 +45,11 @@ export interface MutationOptions<
   mutationKey?: QueryKey;
   mutationFn: (variables: TVariables) => Promise<TData>;
   onMutate?: (variables: TVariables) => Promise<TContext> | TContext;
-  onSuccess?: (data: TData, variables: TVariables, context: TContext) => Promise<unknown> | unknown;
+  onSuccess?: (
+    data: TData,
+    variables: TVariables,
+    context: TContext | undefined,
+  ) => Promise<unknown> | unknown;
   onError?: (
     error: TError,
     variables: TVariables,

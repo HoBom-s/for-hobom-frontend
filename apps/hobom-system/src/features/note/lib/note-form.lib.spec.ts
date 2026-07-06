@@ -41,8 +41,8 @@ describe("textToChecklist", () => {
     const result = textToChecklist("사과\n\n\n바나나");
 
     expect(result).toHaveLength(2);
-    expect(result[0]!.text).toBe("사과");
-    expect(result[1]!.text).toBe("바나나");
+    expect(result[0]?.text).toBe("사과");
+    expect(result[1]?.text).toBe("바나나");
   });
 
   it("공백만 있는 줄을 필터링한다", () => {

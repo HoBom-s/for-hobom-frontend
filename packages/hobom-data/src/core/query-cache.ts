@@ -41,8 +41,10 @@ export class QueryCache {
   findAll(filters?: QueryFilters): Query[] {
     if (!filters?.queryKey) return [...this.queries.values()];
 
+    const { queryKey } = filters;
+
     return [...this.queries.values()].filter((query) =>
-      partialMatchKey(filters.queryKey!, query.queryKey),
+      partialMatchKey(queryKey, query.queryKey),
     );
   }
 

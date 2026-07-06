@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { AddCircle } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import { Hb } from "@/shared/ui";
@@ -29,13 +29,14 @@ const AddTodoDialog = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
-  const { register, watch, reset, setValue } = useForm<{
+  const { register, getValues, control, reset, setValue } = useForm<{
     title: string;
     cycle: CycleType;
   }>({
     mode: "onChange",
     defaultValues: { cycle: "EVERYDAY" },
   });
+  const cycle = useWatch({ control, name: "cycle" });
   const { openWarnToast } = useToast();
   const { query } = useRouterQuery();
   const { mutate, isPending } = useCreateDailyTodo();
@@ -46,7 +47,7 @@ const AddTodoDialog = ({
   };
 
   const handleSubmit = () => {
-    const title = watch("title");
+    const title = getValues("title");
 
     Bom.pipe(
       title.trim(),
@@ -64,7 +65,7 @@ const AddTodoDialog = ({
         const now = getNow();
         const date = Bom.pipe(getSelectedDate(query, now), formatDate);
         const categoryId = Bom.prop("categoryId")(item);
-        const cycle = watch("cycle");
+        const cycle = getValues("cycle");
 
         mutate({
           title: t,
@@ -100,7 +101,7 @@ const AddTodoDialog = ({
           select
           label="반복 주기"
           size="small"
-          value={watch("cycle")}
+          value={cycle}
           onChange={(e) => setValue("cycle", e.target.value as CycleType)}
         >
           {CYCLE_OPTIONS.map((key) => (

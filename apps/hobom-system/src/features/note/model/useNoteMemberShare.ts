@@ -31,7 +31,10 @@ export const useNoteMemberShare = ({ open, note }: UseNoteMemberShareParams) => 
     ],
   });
 
-  const liveMembers = noteDetailData?.items?.members ?? note?.members ?? [];
+  const liveMembers = useMemo(
+    () => noteDetailData?.items?.members ?? note?.members ?? [],
+    [noteDetailData?.items?.members, note?.members],
+  );
 
   const usersMap = useMemo(
     () => new Map((usersData?.items ?? []).map((u: UserType) => [u.id, u])),

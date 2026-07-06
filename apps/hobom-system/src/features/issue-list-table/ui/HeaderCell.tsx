@@ -3,6 +3,11 @@ import { COLUMNS, type ColKey, HEADER_BG, HEADER_TEXT } from "./issue-list-const
 import type { useColumnResize } from "@hobom-grid/react";
 import type { CellVM } from "@hobom-grid/core";
 
+const ALIGN_JUSTIFY: Record<string, string | undefined> = {
+  right: "flex-end",
+  center: "center",
+};
+
 interface HeaderCellProps {
   cell: CellVM;
   sortKey: ColKey | null;
@@ -21,6 +26,18 @@ export const HeaderCell = ({
   const col = COLUMNS[cell.colIndex];
   const isSorted = sortKey === col.key;
 
+  const renderSortIcon = () => {
+    if (!isSorted) {
+      return <UnfoldMore sx={{ fontSize: 14 }} />;
+    }
+
+    return sortDir === "asc" ? (
+      <ArrowUpward sx={{ fontSize: 14 }} />
+    ) : (
+      <ArrowDownward sx={{ fontSize: 14 }} />
+    );
+  };
+
   return (
     <div
       style={{
@@ -37,8 +54,7 @@ export const HeaderCell = ({
         boxSizing: "border-box",
         userSelect: "none",
         cursor: col.sortable ? "pointer" : "default",
-        justifyContent:
-          col.align === "right" ? "flex-end" : col.align === "center" ? "center" : undefined,
+        justifyContent: ALIGN_JUSTIFY[col.align],
         gap: 4,
       }}
       onPointerDown={(e) => {
@@ -51,15 +67,7 @@ export const HeaderCell = ({
       <span>{col.label}</span>
       {col.sortable && (
         <span style={{ display: "inline-flex", opacity: isSorted ? 1 : 0.3 }}>
-          {isSorted ? (
-            sortDir === "asc" ? (
-              <ArrowUpward sx={{ fontSize: 14 }} />
-            ) : (
-              <ArrowDownward sx={{ fontSize: 14 }} />
-            )
-          ) : (
-            <UnfoldMore sx={{ fontSize: 14 }} />
-          )}
+          {renderSortIcon()}
         </span>
       )}
       <div

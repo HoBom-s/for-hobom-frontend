@@ -20,7 +20,10 @@ export default tseslint.config(baseIgnores, {
     ...baseConfig.rules,
     ...reactHooks.configs.recommended.rules,
     "react-hooks/refs": "off",
-    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+    // The compound-component API (`export const Card = { Root, Content, ... }`)
+    // exports namespace objects, which this Fast-Refresh heuristic can't
+    // recognize. The pattern is intentional, so the rule is off for the library.
+    "react-refresh/only-export-components": "off",
   },
 }, {
   // The public barrel must stay engine-free. Components may wrap the engine

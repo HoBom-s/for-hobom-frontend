@@ -23,6 +23,9 @@ function sortByImpl<T>(data: readonly T[], fn: (item: T) => number | string): T[
     const ka = fn(a);
     const kb = fn(b);
 
-    return ka < kb ? -1 : ka > kb ? 1 : 0;
+    if (ka < kb) return -1;
+    if (ka > kb) return 1;
+
+    return 0;
   });
 }

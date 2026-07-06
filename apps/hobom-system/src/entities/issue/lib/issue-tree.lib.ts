@@ -23,20 +23,31 @@ export const buildIssueTree = (issues: IssueType[]): IssueTreeResult => {
 
   const [children, roots] = Bom.pipe(issues, Bom.partition(hasParent));
 
+  // `children` is partitioned by `hasParent`, so every item has a parent present in `issueById`.
+  const childWithParent = children.flatMap((issue) => {
+    const parentId = issue.parent;
+
+    if (!parentId) return [];
+    const parent = issueById.get(parentId);
+
+    if (!parent) return [];
+
+    return [{ issue, parentId, parent }];
+  });
+
   const childrenMap = new Map(
     Bom.pipe(
-      children,
-      Bom.groupBy((i) => i.parent!),
+      childWithParent,
+      Bom.groupBy((c) => c.parentId),
       Object.entries,
+      Bom.map(
+        ([parentId, group]: [string, typeof childWithParent]) =>
+          [parentId, group.map((c) => c.issue)] as const,
+      ),
     ),
   );
 
-  const parentMap = new Map(
-    Bom.pipe(
-      children,
-      Bom.map((i) => [i.id, issueById.get(i.parent!)!] as const),
-    ),
-  );
+  const parentMap = new Map(childWithParent.map((c) => [c.issue.id, c.parent] as const));
 
   return { roots, childrenMap, parentMap };
 };

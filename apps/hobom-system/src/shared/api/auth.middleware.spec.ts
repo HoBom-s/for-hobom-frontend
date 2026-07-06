@@ -21,6 +21,12 @@ vi.mock("./csrf.middleware", () => ({
   }),
 }));
 
+const { onResponse } = authMiddleware;
+
+if (onResponse === undefined) {
+  throw new Error("authMiddleware.onResponse is not defined");
+}
+
 const createCtx = (status: number): MiddlewareContext => ({
   input: "https://api.test/some-path",
   init: {
@@ -39,7 +45,7 @@ describe("authMiddleware.onResponse", () => {
   it("401이 아닌 응답은 무시한다", async () => {
     const ctx = createCtx(200);
 
-    await authMiddleware.onResponse!(ctx);
+    await onResponse(ctx);
 
     expect(mockFetch).not.toHaveBeenCalled();
   });
@@ -57,7 +63,7 @@ describe("authMiddleware.onResponse", () => {
 
     const ctx = createCtx(401);
 
-    await authMiddleware.onResponse!(ctx);
+    await onResponse(ctx);
 
     expect(mockFetch).toHaveBeenCalledTimes(2);
     // 첫 번째 호출: refresh
@@ -76,7 +82,7 @@ describe("authMiddleware.onResponse", () => {
 
     const ctx = createCtx(401);
 
-    await authMiddleware.onResponse!(ctx);
+    await onResponse(ctx);
 
     expect(eventSpy).toHaveBeenCalledOnce();
 
@@ -88,20 +94,20 @@ describe("authMiddleware.onResponse", () => {
     mockFetch.mockResolvedValueOnce(new Response(null, { status: 401 }));
     const ctx1 = createCtx(401);
 
-    await authMiddleware.onResponse!(ctx1);
+    await onResponse(ctx1);
 
     mockFetch.mockReset();
 
     // 두 번째: dispatch 안 함
     const ctx2 = createCtx(401);
 
-    await authMiddleware.onResponse!(ctx2);
+    await onResponse(ctx2);
 
     expect(mockFetch).not.toHaveBeenCalled();
   });
 
   it("동시 401 요청이 하나의 refresh만 수행한다", async () => {
-    let refreshResolve: (value: Response) => void;
+    let refreshResolve: ((value: Response) => void) | undefined;
     const refreshPromise = new Promise<Response>((resolve) => {
       refreshResolve = resolve;
     });
@@ -117,10 +123,10 @@ describe("authMiddleware.onResponse", () => {
     const ctx1 = createCtx(401);
     const ctx2 = createCtx(401);
 
-    const p1 = authMiddleware.onResponse!(ctx1);
-    const p2 = authMiddleware.onResponse!(ctx2);
+    const p1 = onResponse(ctx1);
+    const p2 = onResponse(ctx2);
 
-    refreshResolve!(new Response(null, { status: 200 }));
+    refreshResolve?.(new Response(null, { status: 200 }));
 
     await Promise.all([p1, p2]);
 
@@ -136,7 +142,7 @@ describe("authMiddleware.onResponse", () => {
 
     const ctx = createCtx(401);
 
-    await authMiddleware.onResponse!(ctx);
+    await onResponse(ctx);
 
     const retryInit = mockFetch.mock.calls[1][1] as RequestInit;
     const headers = retryInit.headers as Record<string, string>;

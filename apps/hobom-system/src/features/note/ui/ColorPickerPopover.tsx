@@ -2,6 +2,14 @@ import { Check } from "hobom-design-system/icons";
 import { NOTE_COLORS } from "@/entities/note";
 import { Hb } from "@/shared/ui";
 
+const swatchBorderColor = (selected: boolean, isWhite: boolean): string => {
+  if (selected) {
+    return "primary.main";
+  }
+
+  return isWhite ? "#dadce0" : "transparent";
+};
+
 interface ColorPickerPopoverProps {
   anchorEl: HTMLElement | null;
   onClose: () => void;
@@ -40,7 +48,7 @@ export const ColorPickerPopover = ({
               borderRadius: "50%",
               backgroundColor: hex,
               border: "2px solid",
-              borderColor: selected ? "primary.main" : isWhite ? "#dadce0" : "transparent",
+              borderColor: swatchBorderColor(selected, isWhite),
               p: 0,
               minWidth: 0,
               "&:hover": {

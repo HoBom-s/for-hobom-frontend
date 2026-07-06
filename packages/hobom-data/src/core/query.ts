@@ -107,11 +107,14 @@ export class Query<TData = unknown, TError = Error> extends Subscribable {
   private async executeFetch(): Promise<TData> {
     const maxRetries = this.options.retry === false ? 0 : (this.options.retry ?? DEFAULT_MAX_RETRY);
 
+    this.abortController ??= new AbortController();
+    const { signal } = this.abortController;
+
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
         const rawData = await this.options.queryFn({
           queryKey: this.queryKey,
-          signal: this.abortController!.signal,
+          signal,
         });
 
         const data = replaceEqualDeep(this.state.data, rawData) as TData;

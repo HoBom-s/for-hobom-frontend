@@ -108,7 +108,7 @@ const NavList = ({
         const hasChildren = item.children && item.children.length > 0;
         const isGroupOpen = openGroups.has(item.value);
         const isActive = item.value === activeValue;
-        const isChildActive = hasChildren && item.children!.some((c) => c.value === activeValue);
+        const isChildActive = item.children?.some((c) => c.value === activeValue) ?? false;
 
         const button = (
           <ListItemButton
@@ -161,7 +161,7 @@ const NavList = ({
           return (
             <Box key={item.value}>
               {wrappedButton}
-              {item.children!.map((child) => {
+              {item.children?.map((child) => {
                 const childActive = child.value === activeValue;
 
                 return (
@@ -189,7 +189,7 @@ const NavList = ({
             {wrappedButton}
             <Collapse in={isGroupOpen} unmountOnExit>
               <List disablePadding>
-                {item.children!.map((child) => {
+                {item.children?.map((child) => {
                   const childActive = child.value === activeValue;
 
                   return (

@@ -13,6 +13,22 @@ import { Hb } from "@/shared/ui";
 import type { NoteItemType } from "../api/note.type";
 import type { NoteStatus } from "../model/note.model";
 
+const noteBorderColor = (hovered: boolean, isCustomColor: boolean): string => {
+  if (hovered) {
+    return isCustomColor ? "rgba(0,0,0,0.08)" : "transparent";
+  }
+
+  return isCustomColor ? "rgba(0,0,0,0.06)" : "divider";
+};
+
+const checklistTextColor = (isCustomColor: boolean, checked: boolean): string => {
+  if (isCustomColor) {
+    return checked ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.65)";
+  }
+
+  return checked ? "text.disabled" : "text.secondary";
+};
+
 const metaChipStyle = (isCustomColor: boolean): CSSProperties => ({
   height: 24,
   fontSize: "0.6875rem",
@@ -57,13 +73,7 @@ export const NoteCard = ({
         backgroundColor: isCustomColor ? color : undefined,
         cursor: "pointer",
         border: "1px solid",
-        borderColor: hovered
-          ? isCustomColor
-            ? "rgba(0,0,0,0.08)"
-            : "transparent"
-          : isCustomColor
-            ? "rgba(0,0,0,0.06)"
-            : "divider",
+        borderColor: noteBorderColor(hovered, isCustomColor),
         borderRadius: 2,
         position: "relative",
         transition: "box-shadow 0.08s linear, border-color 0.08s linear",
@@ -188,13 +198,7 @@ export const NoteCard = ({
                     sx={{
                       fontSize: "0.8125rem",
                       textDecoration: item.checked ? "line-through" : "none",
-                      color: isCustomColor
-                        ? item.checked
-                          ? "rgba(0,0,0,0.35)"
-                          : "rgba(0,0,0,0.65)"
-                        : item.checked
-                          ? "text.disabled"
-                          : "text.secondary",
+                      color: checklistTextColor(isCustomColor, item.checked),
                       lineHeight: 1.4,
                     }}
                   >

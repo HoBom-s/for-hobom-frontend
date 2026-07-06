@@ -2,7 +2,9 @@ import type { CSSProperties, HTMLAttributes, MouseEvent, ReactElement, ReactNode
 import * as stylex from "@stylexjs/stylex";
 
 type ChipVariant = "filled" | "outlined" | "soft";
+
 type ChipColor = "default" | "primary" | "secondary" | "success" | "warning" | "error";
+
 type ChipSize = "small" | "medium";
 
 interface ChipProps extends Omit<HTMLAttributes<HTMLDivElement>, "color"> {
@@ -84,8 +86,10 @@ const ON_FILLED = {
 function surfaceStyle(color: ChipColor, outlined: boolean): CSSProperties {
   if (outlined) {
     const line = color === "default" ? "var(--hb-color-border)" : COLORS[color];
+
     return { backgroundColor: "transparent", borderColor: line, color: line };
   }
+
   return { backgroundColor: COLORS[color], color: ON_FILLED[color] };
 }
 

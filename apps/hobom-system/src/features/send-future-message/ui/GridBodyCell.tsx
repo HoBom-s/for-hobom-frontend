@@ -15,24 +15,20 @@ interface Props {
   onDelete: (id: string) => void;
 }
 
+const cellPadding = (colKey: ColKey): string => {
+  if (colKey === "rowNum") return "0 0 0 16px";
+  if (colKey === "actions") return "0 8px";
+
+  return "0 16px";
+};
+
 export const GridBodyCell = ({ colKey, row, bodyIndex, onEdit, onDelete }: Props) => {
   const bg = bodyIndex % 2 === 0 ? COLORS.rowEven : COLORS.rowOdd;
   const isPending = isPendingMessageSendStatus(row.sendStatus);
 
-  return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        padding: colKey === "rowNum" ? "0 0 0 16px" : colKey === "actions" ? "0 8px" : "0 16px",
-        backgroundColor: bg,
-        borderBottom: `1px solid ${COLORS.border}`,
-        boxSizing: "border-box",
-        justifyContent: colKey === "actions" ? "center" : "flex-start",
-      }}
-    >
-      {colKey === "rowNum" ? (
+  const renderContent = () => {
+    if (colKey === "rowNum") {
+      return (
         <span
           style={{
             fontSize: 12,
@@ -43,7 +39,11 @@ export const GridBodyCell = ({ colKey, row, bodyIndex, onEdit, onDelete }: Props
         >
           {String(bodyIndex + 1).padStart(2, "0")}
         </span>
-      ) : colKey === "title" ? (
+      );
+    }
+
+    if (colKey === "title") {
+      return (
         <div
           style={{
             display: "flex",
@@ -79,7 +79,11 @@ export const GridBodyCell = ({ colKey, row, bodyIndex, onEdit, onDelete }: Props
             {String(row.content ?? "")}
           </span>
         </div>
-      ) : colKey === "scheduledAt" ? (
+      );
+    }
+
+    if (colKey === "scheduledAt") {
+      return (
         <div
           style={{
             display: "flex",
@@ -107,31 +111,52 @@ export const GridBodyCell = ({ colKey, row, bodyIndex, onEdit, onDelete }: Props
             {formatTime(row.scheduledAt)}
           </span>
         </div>
-      ) : colKey === "actions" ? (
-        <FutureMessageRowActions row={row} onEdit={onEdit} onDelete={onDelete} />
-      ) : (
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 5,
-            padding: "4px 12px",
-            borderRadius: 20,
-            fontSize: 11,
-            fontWeight: 600,
-            backgroundColor: isPending ? COLORS.pendingBg : COLORS.sentBg,
-            color: isPending ? COLORS.pendingText : COLORS.sentText,
-            whiteSpace: "nowrap",
-          }}
-        >
-          {isPending ? (
-            <ScheduleIcon style={{ fontSize: 13 }} />
-          ) : (
-            <CheckCircleIcon style={{ fontSize: 13 }} />
-          )}
-          {isPending ? "발송 대기" : "발송 완료"}
-        </span>
-      )}
+      );
+    }
+
+    if (colKey === "actions") {
+      return <FutureMessageRowActions row={row} onEdit={onEdit} onDelete={onDelete} />;
+    }
+
+    return (
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 5,
+          padding: "4px 12px",
+          borderRadius: 20,
+          fontSize: 11,
+          fontWeight: 600,
+          backgroundColor: isPending ? COLORS.pendingBg : COLORS.sentBg,
+          color: isPending ? COLORS.pendingText : COLORS.sentText,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {isPending ? (
+          <ScheduleIcon style={{ fontSize: 13 }} />
+        ) : (
+          <CheckCircleIcon style={{ fontSize: 13 }} />
+        )}
+        {isPending ? "발송 대기" : "발송 완료"}
+      </span>
+    );
+  };
+
+  return (
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        padding: cellPadding(colKey),
+        backgroundColor: bg,
+        borderBottom: `1px solid ${COLORS.border}`,
+        boxSizing: "border-box",
+        justifyContent: colKey === "actions" ? "center" : "flex-start",
+      }}
+    >
+      {renderContent()}
     </div>
   );
 };
