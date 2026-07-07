@@ -95,7 +95,9 @@ const styles = stylex.create({
   flat: { boxShadow: "none" },
   startIcon: { display: "inline-flex", marginRight: 8, marginLeft: -4, fontSize: "1.125rem" },
   endIcon: { display: "inline-flex", marginLeft: 8, marginRight: -4, fontSize: "1.125rem" },
-  hiddenLabel: { visibility: "hidden" },
+  // `opacity` (not `visibility`) keeps the label in the accessibility tree so a
+  // loading button still has a discernible name, while the spinner covers it.
+  hiddenLabel: { opacity: 0 },
   spinner: {
     position: "absolute",
     width: 16,
