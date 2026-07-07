@@ -1,4 +1,5 @@
 import { memo } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { InfoOutlined } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import { NOTIFICATION_CATEGORY } from "../lib/notification-category.lib";
@@ -8,6 +9,28 @@ import type { NotificationCategory, NotificationItemType } from "../api/notifica
 const CATEGORY_ICONS: Record<NotificationCategory, typeof InfoOutlined> = {
   SYSTEM: InfoOutlined,
 };
+
+const styles = stylex.create({
+  root: {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: 12,
+    paddingInline: 16,
+    paddingBlock: 12,
+    width: "100%",
+    textAlign: "left",
+    transition: "background-color 0.15s ease",
+  },
+  read: {
+    backgroundColor: { default: "transparent", ":hover": "rgba(0,0,0,0.02)" },
+  },
+  unread: {
+    backgroundColor: {
+      default: "rgba(70, 128, 255, 0.04)",
+      ":hover": "rgba(70, 128, 255, 0.07)",
+    },
+  },
+});
 
 interface Props {
   notification: NotificationItemType;
@@ -21,20 +44,7 @@ export const NotificationItem = memo(function NotificationItem({ notification, o
   return (
     <Hb.ButtonBase
       onClick={() => onClick?.(notification)}
-      sx={{
-        display: "flex",
-        alignItems: "flex-start",
-        gap: 1.5,
-        px: 2,
-        py: 1.5,
-        width: "100%",
-        textAlign: "left",
-        bgcolor: notification.isRead ? "transparent" : "rgba(70, 128, 255, 0.04)",
-        transition: "background-color 0.15s ease",
-        "&:hover": {
-          bgcolor: notification.isRead ? "rgba(0,0,0,0.02)" : "rgba(70, 128, 255, 0.07)",
-        },
-      }}
+      {...stylex.props(styles.root, notification.isRead ? styles.read : styles.unread)}
     >
       <Hb.Box
         style={{

@@ -393,13 +393,14 @@ function FavoriteRow({ label, onOpen, onRename, onRemove }: FavoriteRowProps) {
         onChange={(event) => setDraft(event.target.value)}
         onBlur={commit}
         onKeyDown={handleKeyDown}
-        sx={{
+        style={{
           fontSize: 14,
-          px: 1,
-          py: 0.5,
-          borderRadius: 1,
-          border: 1,
-          borderColor: "primary.main",
+          paddingInline: 8,
+          paddingBlock: 4,
+          borderRadius: 8,
+          borderWidth: 1,
+          borderStyle: "solid",
+          borderColor: "var(--hb-color-accent)",
         }}
       />
     );

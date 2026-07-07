@@ -1,6 +1,21 @@
+import * as stylex from "@stylexjs/stylex";
 import { Hb } from "@/shared/ui";
 import { PERIOD_LABEL, SYSTEM_PERIOD_LABEL } from "../model/dashboard-period.model";
 import type { PeriodType, SystemPeriodType } from "../api/dashboard.type";
+
+const styles = stylex.create({
+  root: {
+    paddingInline: 16,
+    paddingBlock: 6,
+    borderRadius: 12,
+    fontFamily: "inherit",
+    transition: "all 0.2s ease",
+  },
+  inactive: {
+    color: "var(--hb-color-text-secondary)",
+    backgroundColor: { default: "transparent", ":hover": "rgba(0,0,0,0.06)" },
+  },
+});
 
 interface DefaultPeriodSelectorProps {
   type?: "default";
@@ -18,7 +33,8 @@ type PeriodSelectorProps = DefaultPeriodSelectorProps | SystemPeriodSelectorProp
 
 export const PeriodSelector = (props: PeriodSelectorProps) => {
   const labels = props.type === "system" ? SYSTEM_PERIOD_LABEL : PERIOD_LABEL;
-  const color = props.type === "system" ? "warning.main" : "primary.main";
+  const activeColor =
+    props.type === "system" ? "var(--hb-color-warning)" : "var(--hb-color-accent)";
 
   return (
     <Hb.Box
@@ -39,26 +55,16 @@ export const PeriodSelector = (props: PeriodSelectorProps) => {
             onClick={() => {
               if (!isActive) props.onChange(key as never);
             }}
-            sx={{
-              px: 2,
-              py: 0.75,
-              borderRadius: 1.5,
-              fontFamily: "inherit",
-              transition: "all 0.2s ease",
-              ...(isActive
+            {...stylex.props(styles.root, !isActive && styles.inactive)}
+            style={
+              isActive
                 ? {
-                    bgcolor: color,
+                    backgroundColor: activeColor,
                     color: "#fff",
                     boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                   }
-                : {
-                    bgcolor: "transparent",
-                    color: "text.secondary",
-                    "&:hover": {
-                      bgcolor: "grey.200",
-                    },
-                  }),
-            }}
+                : undefined
+            }
           >
             <Hb.Text
               variant="body2"

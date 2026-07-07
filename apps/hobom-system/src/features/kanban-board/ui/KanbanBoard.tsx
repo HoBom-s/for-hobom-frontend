@@ -120,12 +120,12 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
             selected={filters.swimlaneEnabled}
             onChange={filters.toggleSwimlane}
             size="small"
-            sx={{
+            style={{
               textTransform: "none",
               fontSize: 12,
-              px: 1.5,
-              py: 0.5,
-              borderRadius: 2,
+              paddingInline: 12,
+              paddingBlock: 4,
+              borderRadius: 16,
             }}
           >
             <ViewStreamOutlined sx={{ fontSize: 16, mr: 0.5 }} />

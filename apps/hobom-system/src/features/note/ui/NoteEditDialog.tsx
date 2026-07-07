@@ -118,7 +118,7 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
                   value={item.text}
                   onChange={(e) => updateChecklistItem(idx, "text", e.target.value)}
                   placeholder="항목 입력..."
-                  sx={{ flex: 1, fontSize: 14 }}
+                  style={{ flex: 1, fontSize: 14 }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();

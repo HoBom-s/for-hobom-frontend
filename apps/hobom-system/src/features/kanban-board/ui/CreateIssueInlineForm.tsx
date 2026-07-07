@@ -1,6 +1,32 @@
 import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { AddOutlined } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
+
+const styles = stylex.create({
+  root: {
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
+    marginTop: 8,
+    paddingBlock: 6,
+    paddingInline: 8,
+    borderRadius: 12,
+    color: {
+      default: "var(--hb-color-text-disabled)",
+      ":hover": "var(--hb-color-text-secondary)",
+    },
+    backgroundColor: {
+      default: "transparent",
+      ":hover": "rgba(0,0,0,0.04)",
+    },
+    fontSize: 13,
+    fontWeight: 500,
+    width: "100%",
+    justifyContent: "flex-start",
+    transition: "all 0.15s",
+  },
+});
 
 interface CreateIssueInlineFormProps {
   onSubmit: (title: string) => void;
@@ -19,25 +45,7 @@ export const CreateIssueInlineForm = ({ onSubmit }: CreateIssueInlineFormProps) 
 
   if (!isOpen) {
     return (
-      <Hb.ButtonBase
-        onClick={() => setIsOpen(true)}
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 0.75,
-          mt: 1,
-          py: 0.75,
-          px: 1,
-          borderRadius: 1.5,
-          color: "text.disabled",
-          fontSize: 13,
-          fontWeight: 500,
-          width: "100%",
-          justifyContent: "flex-start",
-          "&:hover": { bgcolor: "action.hover", color: "text.secondary" },
-          transition: "all 0.15s",
-        }}
-      >
+      <Hb.ButtonBase onClick={() => setIsOpen(true)} {...stylex.props(styles.root)}>
         <AddOutlined sx={{ fontSize: 18 }} />
         이슈 만들기
       </Hb.ButtonBase>

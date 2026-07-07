@@ -1,11 +1,11 @@
 import { useState, type CSSProperties, type KeyboardEvent } from "react";
-import { Hb, type SxProps, type Theme } from "hobom-design-system";
+import { Hb } from "hobom-design-system";
 
 interface EditableLabelProps {
   value: string;
   onCommit: (value: string) => void;
   textSx?: CSSProperties;
-  inputSx?: SxProps<Theme>;
+  inputSx?: CSSProperties;
 }
 
 /** 더블클릭으로 인라인 편집되는 라벨. Enter/blur 저장, Esc 취소. */
@@ -44,13 +44,14 @@ export function EditableLabel({ value, onCommit, textSx, inputSx }: EditableLabe
         onBlur={commit}
         onKeyDown={handleKeyDown}
         onClick={(event) => event.stopPropagation()}
-        sx={{
+        style={{
           font: "inherit",
           color: "inherit",
-          px: 0.5,
-          borderRadius: 0.5,
-          border: 1,
-          borderColor: "primary.main",
+          paddingInline: 4,
+          borderRadius: 4,
+          borderWidth: 1,
+          borderStyle: "solid",
+          borderColor: "var(--hb-color-accent)",
           minWidth: 0,
           ...inputSx,
         }}
