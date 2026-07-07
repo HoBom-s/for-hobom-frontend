@@ -211,11 +211,7 @@ export const NoteCard = ({
                     size="small"
                     checked={item.checked}
                     disabled
-                    sx={{
-                      p: 0.25,
-                      color: "action.disabled",
-                      "&.Mui-checked": { color: "action.disabled" },
-                    }}
+                    style={{ accentColor: "var(--hb-color-text-disabled)" }}
                   />
                   <Hb.Text
                     variant="body2"

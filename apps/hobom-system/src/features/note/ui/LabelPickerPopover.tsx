@@ -65,7 +65,9 @@ export const LabelPickerPopover = ({
                       size="small"
                       checked={selectedIds.has(label.id)}
                       disableRipple
-                      sx={{ p: 0.25 }}
+                      style={{
+                        padding: 2,
+                      }}
                     />
                   </Hb.List.ItemIcon>
                   <Hb.List.ItemText
