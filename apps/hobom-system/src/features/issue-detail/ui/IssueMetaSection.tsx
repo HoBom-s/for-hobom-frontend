@@ -207,13 +207,13 @@ export const IssueMetaSection = () => {
                 assigneeName ? (
                   <Hb.Avatar
                     alt={assigneeName}
-                    sx={{
+                    style={{
                       width: 22,
                       height: 22,
                       fontSize: 10,
                       fontWeight: 700,
-                      bgcolor: "action.selected",
-                      color: "text.secondary",
+                      backgroundColor: "var(--hb-color-border)",
+                      color: "var(--hb-color-text-secondary)",
                     }}
                   >
                     {assigneeName.charAt(0).toUpperCase()}

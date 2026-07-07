@@ -114,7 +114,13 @@ export const PendingUsersTable = () => {
                         alignItems: "center",
                       }}
                     >
-                      <Hb.Avatar sx={{ width: 32, height: 32, bgcolor: "primary.main" }}>
+                      <Hb.Avatar
+                        style={{
+                          width: 32,
+                          height: 32,
+                          backgroundColor: "var(--hb-color-accent)",
+                        }}
+                      >
                         <PersonOutline sx={{ fontSize: 18 }} />
                       </Hb.Avatar>
                       <Hb.Text variant="body2" fontWeight={500}>

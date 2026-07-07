@@ -138,13 +138,13 @@ export const IssueCard = memo(
             <priority.Icon sx={{ fontSize: 16, color: priority.color }} />
             {issue.assignee && (
               <Hb.Avatar
-                sx={{
+                style={{
                   width: 22,
                   height: 22,
                   fontSize: 10,
                   fontWeight: 700,
-                  bgcolor: "action.selected",
-                  color: "text.secondary",
+                  backgroundColor: "var(--hb-color-border)",
+                  color: "var(--hb-color-text-secondary)",
                 }}
               >
                 {issue.assignee.charAt(0).toUpperCase()}

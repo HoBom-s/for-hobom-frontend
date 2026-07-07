@@ -48,13 +48,13 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           }}
         >
           <Hb.Avatar
-            sx={{
+            style={{
               width: 36,
               height: 36,
-              bgcolor: color,
+              backgroundColor: color,
               fontSize: 14,
               fontWeight: 700,
-              borderRadius: 1.5,
+              borderRadius: 12,
             }}
             variant="rounded"
           >

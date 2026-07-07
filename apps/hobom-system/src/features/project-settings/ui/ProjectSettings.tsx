@@ -40,10 +40,10 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
         }}
       >
         <Hb.Avatar
-          sx={{
+          style={{
             width: 48,
             height: 48,
-            bgcolor: "#4680ff",
+            backgroundColor: "#4680ff",
             fontSize: 20,
             fontWeight: 700,
           }}
