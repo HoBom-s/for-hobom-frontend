@@ -42,18 +42,15 @@ export const MenuRecommendationTab = () => {
           paddingRight: 16,
         }}
       >
+        {/* Scoped rule for the tab buttons — a descendant selector StyleX/inline style can't reach. */}
+        <style href="menu-recommendation-tabs" precedence="default">
+          {`.menu-recommendation-tabs [role="tab"] { min-height: 44px; text-transform: none; font-weight: 600; font-size: 13px; }`}
+        </style>
         <Hb.Tabs.Root
+          className="menu-recommendation-tabs"
           value={tab}
           onChange={(_, v) => setTab(v)}
-          sx={{
-            minHeight: 44,
-            "& .MuiTab-root": {
-              minHeight: 44,
-              textTransform: "none",
-              fontWeight: 600,
-              fontSize: 13,
-            },
-          }}
+          style={{ minHeight: 44 }}
         >
           {TAB_VALUES.map((v) => (
             <Hb.Tabs.Item key={v} value={v} label={TAB_LABELS[v]} />

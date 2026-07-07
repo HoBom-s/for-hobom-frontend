@@ -54,7 +54,11 @@ const PrivacyLawLayoutPage = () => {
       <Hb.Tabs.Root
         value={currentTab === -1 ? 0 : currentTab}
         onChange={(_, idx) => navigate(TABS[idx].path)}
-        sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}
+        style={{
+          borderBottom: 1,
+          borderColor: "var(--hb-color-border)",
+          marginBottom: 24,
+        }}
       >
         {TABS.map((tab) => (
           <Hb.Tabs.Item key={tab.path} icon={tab.icon} iconPosition="start" label={tab.label} />

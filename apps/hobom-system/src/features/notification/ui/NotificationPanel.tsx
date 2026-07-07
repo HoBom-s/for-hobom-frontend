@@ -139,19 +139,18 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
           알림
         </Hb.Text>
       </Hb.Box>
+      {/* Scoped rule for the tab buttons — a descendant selector StyleX/inline style can't reach. */}
+      <style href="notification-panel-tabs" precedence="default">
+        {`.notification-panel-tabs [role="tab"] { min-height: 40px; font-size: 0.8125rem; padding-left: 0; padding-right: 0; margin-right: 16px; min-width: auto; }`}
+      </style>
       <Hb.Tabs.Root
+        className="notification-panel-tabs"
         value={tab}
         onChange={(_, v) => setTab(v)}
-        sx={{
-          px: 2,
+        style={{
+          paddingLeft: 16,
+          paddingRight: 16,
           minHeight: 40,
-          "& .MuiTab-root": {
-            minHeight: 40,
-            fontSize: "0.8125rem",
-            px: 0,
-            mr: 2,
-            minWidth: "auto",
-          },
         }}
       >
         <Hb.Tabs.Item label="전체" />
