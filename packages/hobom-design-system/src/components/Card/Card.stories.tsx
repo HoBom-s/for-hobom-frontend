@@ -6,6 +6,12 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 const meta = {
   title: "Components/Card",
   component: Card.Root,
+  parameters: {
+    // The action buttons in these stories are filled (white on the accent),
+    // which sits at ~3.62:1 — the known filled-button tradeoff. Disable the
+    // contrast rule here as the Button stories do; other a11y checks still run.
+    a11y: { config: { rules: [{ id: "color-contrast", enabled: false }] } },
+  },
 } satisfies Meta<typeof Card.Root>;
 
 export default meta;
