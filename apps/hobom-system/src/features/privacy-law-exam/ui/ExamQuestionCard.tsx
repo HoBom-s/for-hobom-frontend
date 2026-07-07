@@ -291,7 +291,10 @@ export const ExamQuestionCard = ({ questions }: Props) => {
         <Hb.Progress.Linear
           variant="determinate"
           value={((currentIndex + 1) / total) * 100}
-          sx={{ mb: 3, borderRadius: 1 }}
+          style={{
+            marginBottom: 24,
+            borderRadius: 8,
+          }}
         />
 
         <Hb.Text variant="subtitle1" fontWeight={600} gutterBottom>

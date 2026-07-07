@@ -116,7 +116,14 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
                 fontSize: "0.75rem",
               }}
             >
-              {isFetchingNextPage ? <Hb.Progress.Circular size={14} sx={{ mr: 0.5 }} /> : null}
+              {isFetchingNextPage ? (
+                <Hb.Progress.Circular
+                  size={14}
+                  style={{
+                    marginRight: 4,
+                  }}
+                />
+              ) : null}
               더보기 ({pages.length}/{totalCount})
             </Hb.Button>
           </Hb.Box>

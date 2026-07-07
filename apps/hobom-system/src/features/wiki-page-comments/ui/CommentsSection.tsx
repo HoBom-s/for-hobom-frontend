@@ -86,7 +86,14 @@ export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionP
                   color: "var(--hb-color-text-secondary)",
                 }}
               >
-                {isFetchingNextPage ? <Hb.Progress.Circular size={16} sx={{ mr: 1 }} /> : null}
+                {isFetchingNextPage ? (
+                  <Hb.Progress.Circular
+                    size={16}
+                    style={{
+                      marginRight: 8,
+                    }}
+                  />
+                ) : null}
                 댓글 더보기 ({loadedCount}/{totalCount})
               </Hb.Button>
             </Hb.Box>

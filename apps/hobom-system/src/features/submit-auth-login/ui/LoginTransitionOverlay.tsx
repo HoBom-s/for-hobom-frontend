@@ -36,12 +36,8 @@ export const LoginTransitionOverlay = () => (
       HoBom
     </Hb.Text>
     <Hb.Progress.Linear
-      sx={{
-        width: 240,
-        borderRadius: 1,
-        bgcolor: "rgba(255,255,255,0.2)",
-        "& .MuiLinearProgress-bar": { bgcolor: "white" },
-      }}
+      color="white"
+      style={{ width: 240, borderRadius: 8, backgroundColor: "rgba(255,255,255,0.2)" }}
     />
     <Hb.Text
       variant="body2"
