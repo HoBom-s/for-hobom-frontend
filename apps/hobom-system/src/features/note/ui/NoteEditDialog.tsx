@@ -110,7 +110,9 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
                   size="small"
                   checked={item.checked}
                   onChange={(e) => updateChecklistItem(idx, "checked", e.target.checked)}
-                  sx={{ p: 0.5 }}
+                  style={{
+                    padding: 4,
+                  }}
                 />
                 <Hb.InputBase
                   value={item.text}

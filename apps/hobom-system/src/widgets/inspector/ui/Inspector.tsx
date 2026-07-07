@@ -218,7 +218,9 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
         <Hb.Text style={labelStyle}>{name}</Hb.Text>
         <Hb.Checkbox
           size="small"
-          sx={{ p: 0 }}
+          style={{
+            padding: 0,
+          }}
           checked={Boolean(value)}
           onChange={(event) => onChange(name, event.target.checked)}
         />
