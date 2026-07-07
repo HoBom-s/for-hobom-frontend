@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as stylex from "@stylexjs/stylex";
 import { useSuspenseQuery, useDataLot } from "hobom-data";
 import { KeyboardArrowDownOutlined, Logout } from "hobom-design-system/icons";
 import { RoutesConfig } from "@/shared/config";
@@ -9,6 +10,22 @@ import { userQueries } from "@/entities/user";
 import { Hb } from "@/shared/ui";
 import { UserInfoSection } from "./UserInfoSection";
 import { UserDetailSection } from "./UserDetailSection";
+
+const styles = stylex.create({
+  profileTrigger: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    marginLeft: 8,
+    paddingInline: 8,
+    paddingBlock: 4,
+    borderRadius: 8,
+    backgroundColor: {
+      default: "transparent",
+      ":hover": "rgba(0,0,0,0.04)",
+    },
+  },
+});
 
 export const UserProfileMenu = () => {
   const navigate = useNavigate();
@@ -78,20 +95,7 @@ const ProfileTrigger = ({
   initial: string;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
 }) => (
-  <Hb.ButtonBase
-    onClick={onClick}
-    aria-label="사용자 메뉴"
-    sx={{
-      display: "flex",
-      alignItems: "center",
-      gap: 1,
-      ml: 1,
-      px: 1,
-      py: 0.5,
-      borderRadius: 1,
-      "&:hover": { bgcolor: "action.hover" },
-    }}
-  >
+  <Hb.ButtonBase onClick={onClick} aria-label="사용자 메뉴" {...stylex.props(styles.profileTrigger)}>
     <Hb.Avatar
       style={{
         width: 28,

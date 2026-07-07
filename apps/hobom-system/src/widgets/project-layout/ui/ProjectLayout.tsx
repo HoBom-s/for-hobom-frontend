@@ -31,6 +31,22 @@ const styles = stylex.create({
     boxShadow: "none",
     ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
   },
+  tab: {
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
+    paddingInline: 12,
+    paddingBlock: 8,
+    borderRadius: 12,
+    fontSize: 13,
+    transition: "all 0.15s",
+  },
+  tabActive: {
+    backgroundColor: "var(--hb-color-accent)",
+  },
+  tabInactive: {
+    backgroundColor: { default: "transparent", ":hover": "rgba(0,0,0,0.04)" },
+  },
 });
 
 const TAB_ICONS: Record<string, React.ReactNode> = {
@@ -119,19 +135,10 @@ export const ProjectLayout = () => {
               <Hb.ButtonBase
                 key={tab.path}
                 onClick={() => handleNavigateToTab(tab.path)}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 0.75,
-                  px: 1.5,
-                  py: 1,
-                  borderRadius: 1.5,
-                  fontSize: 13,
+                {...stylex.props(styles.tab, isActive ? styles.tabActive : styles.tabInactive)}
+                style={{
                   fontWeight: isActive ? 600 : 500,
-                  color: isActive ? "#fff" : "text.secondary",
-                  bgcolor: isActive ? "primary.main" : "transparent",
-                  "&:hover": isActive ? undefined : { bgcolor: "action.hover" },
-                  transition: "all 0.15s",
+                  color: isActive ? "#fff" : "var(--hb-color-text-secondary)",
                 }}
               >
                 {TAB_ICONS[tab.path]}

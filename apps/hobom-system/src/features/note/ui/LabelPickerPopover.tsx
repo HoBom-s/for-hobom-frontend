@@ -102,14 +102,14 @@ export const LabelPickerPopover = ({
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="새 라벨 만들기..."
-            size="small"
-            sx={{
+            style={{
               flex: 1,
               fontSize: "0.8125rem",
-              px: 1,
-              border: "1px solid",
-              borderColor: "divider",
-              borderRadius: 1,
+              paddingInline: 8,
+              borderWidth: 1,
+              borderStyle: "solid",
+              borderColor: "var(--hb-color-border)",
+              borderRadius: 8,
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
