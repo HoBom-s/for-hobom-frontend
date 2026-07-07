@@ -337,7 +337,12 @@ export const ExamQuestionCard = ({ questions }: Props) => {
         </Hb.Box>
 
         {revealed && (
-          <Hb.Alert severity={isCorrect ? "success" : "error"} sx={{ mt: 2 }}>
+          <Hb.Alert
+            severity={isCorrect ? "success" : "error"}
+            style={{
+              marginTop: 16,
+            }}
+          >
             {currentQuestion.explanation}
           </Hb.Alert>
         )}

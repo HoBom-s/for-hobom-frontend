@@ -12,7 +12,13 @@ const PrivacyLawChatPage = () => {
         minHeight: 400,
       }}
     >
-      <Hb.Alert severity="info" variant="outlined" sx={{ mb: 1.5 }}>
+      <Hb.Alert
+        severity="info"
+        variant="outlined"
+        style={{
+          marginBottom: 12,
+        }}
+      >
         <Hb.Text variant="caption" component="div">
           <strong>Gemini Free Plan</strong> 사용 중 — 분당 15회 요청 / 일 1,500회 / 분당 100만 토큰
           제한이 적용됩니다. 응답이 느리거나 실패할 수 있어요.

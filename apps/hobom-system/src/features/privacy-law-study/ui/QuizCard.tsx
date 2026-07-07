@@ -331,7 +331,12 @@ export const QuizCard = ({ quizzes }: Props) => {
         </Hb.Box>
 
         {revealed && (
-          <Hb.Alert severity={isCorrect ? "success" : "error"} sx={{ mt: 2 }}>
+          <Hb.Alert
+            severity={isCorrect ? "success" : "error"}
+            style={{
+              marginTop: 16,
+            }}
+          >
             {currentQuiz.explanation}
           </Hb.Alert>
         )}
