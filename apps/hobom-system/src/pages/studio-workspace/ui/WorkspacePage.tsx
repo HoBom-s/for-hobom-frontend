@@ -55,6 +55,22 @@ const FOLDER_ROW_CSS = `
 .${FOLDER_ROW_CLASS}:hover .row-action { opacity: 1; }
 `;
 
+// The hover-reveal of the inner action buttons is a descendant selector, which
+// atomic StyleX cannot express, so the design card is styled via a scoped <style>
+// tag. React 19 hoists and de-dupes it by `href`, so the rule is emitted once
+// despite the cards rendering in a `.map`.
+const DESIGN_CARD_CLASS = "workspace-design-card";
+const DESIGN_CARD_CSS = `
+.${DESIGN_CARD_CLASS} {
+  width: 200px;
+  padding: 12px;
+  position: relative;
+  cursor: pointer;
+}
+.${DESIGN_CARD_CLASS}:hover { border-color: var(--hb-color-accent); }
+.${DESIGN_CARD_CLASS}:hover .card-action { opacity: 1; }
+`;
+
 const FAV_ROW_CLASS = "workspace-fav-row";
 const FAV_ROW_CSS = `
 .${FAV_ROW_CLASS} {
@@ -266,6 +282,9 @@ export default function WorkspacePage() {
               gap: 16,
             }}
           >
+            <style href={DESIGN_CARD_CLASS} precedence="default">
+              {DESIGN_CARD_CSS}
+            </style>
             {items.map((item) => {
               const favorite = favorites.find((entry) => entry.designId === item.id);
 
@@ -273,14 +292,7 @@ export default function WorkspacePage() {
                 <Hb.Card.Root
                   key={item.id}
                   onClick={() => openItem(item.id)}
-                  sx={{
-                    width: 200,
-                    p: 1.5,
-                    position: "relative",
-                    cursor: "pointer",
-                    "&:hover": { borderColor: "primary.main" },
-                    "&:hover .card-action": { opacity: 1 },
-                  }}
+                  className={DESIGN_CARD_CLASS}
                 >
                   <Hb.Button.Icon
                     size="small"

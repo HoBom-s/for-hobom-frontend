@@ -19,7 +19,7 @@ const noteBorderColor = (hovered: boolean, isCustomColor: boolean): string => {
     return isCustomColor ? "rgba(0,0,0,0.08)" : "transparent";
   }
 
-  return isCustomColor ? "rgba(0,0,0,0.06)" : "divider";
+  return isCustomColor ? "rgba(0,0,0,0.06)" : "var(--hb-color-border)";
 };
 
 const checklistTextColor = (isCustomColor: boolean, checked: boolean): string => {
@@ -31,6 +31,10 @@ const checklistTextColor = (isCustomColor: boolean, checked: boolean): string =>
 };
 
 const styles = stylex.create({
+  content: {
+    padding: "12px 12px 8px",
+    ":last-child": { paddingBottom: 8 },
+  },
   pinButton: {
     position: "absolute",
     top: 2,
@@ -83,12 +87,12 @@ export const NoteCard = ({
 
   return (
     <Hb.Card.Root
-      sx={{
+      style={{
         backgroundColor: isCustomColor ? color : undefined,
         cursor: "pointer",
         border: "1px solid",
         borderColor: noteBorderColor(hovered, isCustomColor),
-        borderRadius: 2,
+        borderRadius: 16,
         position: "relative",
         transition: "box-shadow 0.08s linear, border-color 0.08s linear",
         boxShadow: hovered
@@ -99,9 +103,8 @@ export const NoteCard = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => onClick(note)}
-      elevation={0}
     >
-      <Hb.Card.Content sx={{ p: "12px 12px 8px", "&:last-child": { pb: 1 } }}>
+      <Hb.Card.Content {...stylex.props(styles.content)}>
         {/* 드래그 핸들 — top-left */}
         {dragHandle && (
           <Hb.Box
@@ -281,10 +284,11 @@ export const NoteCard = ({
         )}
       </Hb.Card.Content>
       <Hb.Card.Actions
-        sx={{
-          pt: 0,
-          px: 1,
-          pb: 0.75,
+        style={{
+          paddingTop: 0,
+          paddingLeft: 8,
+          paddingRight: 8,
+          paddingBottom: 6,
           justifyContent: "flex-start",
           opacity: hovered ? 1 : 0,
           transition: "opacity 0.15s ease",

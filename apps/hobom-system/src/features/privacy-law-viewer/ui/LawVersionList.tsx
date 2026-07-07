@@ -24,7 +24,12 @@ export const LawVersionList = () => {
       {versions.length === 0 && (
         <Hb.Card.Root
           variant="outlined"
-          sx={{ textAlign: "center", py: 4, bgcolor: "background.default" }}
+          style={{
+            textAlign: "center",
+            paddingTop: 32,
+            paddingBottom: 32,
+            backgroundColor: "var(--hb-color-canvas)",
+          }}
         >
           <Hb.Card.Content>
             <GavelOutlined sx={{ fontSize: 48, color: "text.disabled", mb: 1 }} />
