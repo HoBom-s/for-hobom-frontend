@@ -175,12 +175,12 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
               return (
                 <Hb.Box key={member.userId} {...stylex.props(styles.memberRow)}>
                   <Hb.Avatar
-                    sx={{
+                    style={{
                       width: 36,
                       height: 36,
                       fontSize: 14,
                       fontWeight: 700,
-                      bgcolor: avatarColor,
+                      backgroundColor: avatarColor,
                       color: "#fff",
                     }}
                   >

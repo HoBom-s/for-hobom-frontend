@@ -85,12 +85,12 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
             >
               <Hb.List.ItemAvatar sx={{ minWidth: 40 }}>
                 <Hb.Avatar
-                  sx={{
+                  style={{
                     width: 28,
                     height: 28,
                     fontSize: "0.7rem",
                     fontWeight: 700,
-                    bgcolor: isSelected ? "rgba(255,255,255,0.2)" : "grey.200",
+                    backgroundColor: isSelected ? "rgba(255,255,255,0.2)" : "grey.200",
                     color: isSelected ? "#fff" : "text.secondary",
                   }}
                 >

@@ -53,14 +53,14 @@ export const IssueCommentItem = ({
       </style>
       <Hb.Box className={ROOT_CLASS}>
         <Hb.Avatar
-          sx={{
+          style={{
             width: 28,
             height: 28,
             fontSize: "0.75rem",
             fontWeight: 600,
-            bgcolor: "primary.main",
+            backgroundColor: "var(--hb-color-accent)",
             flexShrink: 0,
-            mt: 0.25,
+            marginTop: 2,
           }}
         >
           {initial}

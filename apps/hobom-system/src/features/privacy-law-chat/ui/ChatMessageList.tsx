@@ -59,10 +59,10 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
           }}
         >
           <Hb.Avatar
-            sx={{
+            style={{
               width: 32,
               height: 32,
-              bgcolor: msg.role === "user" ? "primary.main" : "grey.700",
+              backgroundColor: msg.role === "user" ? "primary.main" : "grey.700",
             }}
           >
             {msg.role === "user" ? (
@@ -106,7 +106,7 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
             alignItems: "flex-start",
           }}
         >
-          <Hb.Avatar sx={{ width: 32, height: 32, bgcolor: "grey.700" }}>
+          <Hb.Avatar style={{ width: 32, height: 32, backgroundColor: "#616161" }}>
             <GavelOutlined fontSize="small" />
           </Hb.Avatar>
           <Hb.Paper

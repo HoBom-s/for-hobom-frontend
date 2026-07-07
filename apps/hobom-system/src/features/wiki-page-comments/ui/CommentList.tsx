@@ -114,14 +114,14 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
         )}
       >
         <Hb.Avatar
-          sx={{
+          style={{
             width: 28,
             height: 28,
             fontSize: "0.75rem",
             fontWeight: 600,
-            bgcolor: depth === 0 ? "primary.main" : "grey.400",
+            backgroundColor: depth === 0 ? "primary.main" : "grey.400",
             flexShrink: 0,
-            mt: 0.25,
+            marginTop: 2,
           }}
         >
           {initial}

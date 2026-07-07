@@ -40,12 +40,12 @@ export const AddMemberDialog = ({
               }}
             >
               <Hb.Avatar
-                sx={{
+                style={{
                   width: 28,
                   height: 28,
                   fontSize: 12,
                   fontWeight: 700,
-                  bgcolor: getAvatarColor(u.id),
+                  backgroundColor: getAvatarColor(u.id),
                   color: "#fff",
                 }}
               >

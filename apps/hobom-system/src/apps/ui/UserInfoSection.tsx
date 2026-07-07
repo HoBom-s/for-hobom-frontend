@@ -19,12 +19,12 @@ export const UserInfoSection = ({ initial, nickname, email }: UserInfoSectionPro
     }}
   >
     <Hb.Avatar
-      sx={{
+      style={{
         width: 44,
         height: 44,
         fontSize: "1.125rem",
         fontWeight: 700,
-        bgcolor: "primary.main",
+        backgroundColor: "var(--hb-color-accent)",
       }}
     >
       {initial}

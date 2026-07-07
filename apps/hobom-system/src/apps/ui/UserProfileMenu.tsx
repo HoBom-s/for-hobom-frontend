@@ -93,12 +93,12 @@ const ProfileTrigger = ({
     }}
   >
     <Hb.Avatar
-      sx={{
+      style={{
         width: 28,
         height: 28,
         fontSize: "0.75rem",
         fontWeight: 600,
-        bgcolor: "primary.main",
+        backgroundColor: "var(--hb-color-accent)",
       }}
     >
       {initial}

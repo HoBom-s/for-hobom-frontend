@@ -70,12 +70,12 @@ export const MemberPickerPopover = ({
               >
                 <Hb.List.ItemAvatar sx={{ minWidth: 36 }}>
                   <Hb.Avatar
-                    sx={{
+                    style={{
                       width: 28,
                       height: 28,
                       fontSize: 12,
                       fontWeight: 700,
-                      bgcolor: getAvatarColor(user.id),
+                      backgroundColor: getAvatarColor(user.id),
                       color: "#fff",
                     }}
                   >
@@ -133,12 +133,12 @@ export const MemberPickerPopover = ({
                   }}
                 >
                   <Hb.Avatar
-                    sx={{
+                    style={{
                       width: 24,
                       height: 24,
                       fontSize: 11,
                       fontWeight: 700,
-                      bgcolor: getAvatarColor(u.id),
+                      backgroundColor: getAvatarColor(u.id),
                       color: "#fff",
                     }}
                   >
