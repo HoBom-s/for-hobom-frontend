@@ -91,7 +91,7 @@ export const NoteCard = ({
         {/* 드래그 핸들 — top-left */}
         {dragHandle && (
           <Hb.Box
-            sx={{
+            style={{
               position: "absolute",
               top: 2,
               left: 2,
@@ -170,17 +170,23 @@ export const NoteCard = ({
         )}
 
         {hasChecklist && (
-          <Hb.Box sx={{ mx: -0.5 }}>
+          <Hb.Box
+            style={{
+              marginLeft: -4,
+              marginRight: -4,
+            }}
+          >
             {[...note.checklistItems]
               .sort((a, b) => a.order - b.order)
               .slice(0, 8)
               .map((item, idx) => (
                 <Hb.Box
                   key={idx}
-                  sx={{
+                  style={{
                     display: "flex",
                     alignItems: "center",
-                    py: 0.125,
+                    paddingTop: 1,
+                    paddingBottom: 1,
                   }}
                 >
                   <Hb.Checkbox
@@ -223,7 +229,14 @@ export const NoteCard = ({
         )}
 
         {(note.reminder || note.labels?.length > 0 || note.members?.length > 0) && (
-          <Hb.Box sx={{ mt: 1.5, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+          <Hb.Box
+            style={{
+              marginTop: 12,
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 4,
+            }}
+          >
             {note.reminder && (
               <Hb.Chip
                 icon={<NotificationsActiveOutlined sx={{ fontSize: 14 }} />}

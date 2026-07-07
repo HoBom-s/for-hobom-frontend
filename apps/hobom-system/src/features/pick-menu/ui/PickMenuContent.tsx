@@ -19,7 +19,7 @@ export const PickMenuContent = ({ onNextCallback }: Props) => {
     <Suspense
       fallback={
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             flexDirection: "column",
             height: "100%",
@@ -46,7 +46,7 @@ const Inner = ({ onNextCallback }: Props) => {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -72,13 +72,15 @@ const Inner = ({ onNextCallback }: Props) => {
         </Hb.List.Root>
       </PickMenuContent.Layout>
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
-          gap: 1.5,
-          px: 3,
-          py: 2,
+          gap: 12,
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 16,
+          paddingBottom: 16,
           borderTop: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           flexShrink: 0,
         }}
       >

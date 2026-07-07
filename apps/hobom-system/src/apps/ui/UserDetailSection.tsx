@@ -19,12 +19,14 @@ interface UserDetailSectionProps {
 
 export const UserDetailSection = ({ user }: UserDetailSectionProps) => (
   <Hb.Box
-    sx={{
-      px: 2.5,
-      py: 2,
+    style={{
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 16,
+      paddingBottom: 16,
       display: "flex",
       flexDirection: "column",
-      gap: 1.5,
+      gap: 12,
     }}
   >
     <InfoRow
@@ -82,11 +84,26 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
   };
 
   return (
-    <Hb.Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
-      <Hb.Box sx={{ color: "text.secondary", pt: 0.25 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        alignItems: "flex-start",
+        gap: 12,
+      }}
+    >
+      <Hb.Box
+        style={{
+          color: "var(--hb-color-text-secondary)",
+          paddingTop: 2,
+        }}
+      >
         <PeopleOutline sx={{ fontSize: 18 }} />
       </Hb.Box>
-      <Hb.Box sx={{ minWidth: 0 }}>
+      <Hb.Box
+        style={{
+          minWidth: 0,
+        }}
+      >
         <Hb.Text
           variant="caption"
           style={{
@@ -97,7 +114,14 @@ const FriendsRow = ({ friends }: { friends: string[] }) => {
         >
           친구
         </Hb.Text>
-        <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.25 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 4,
+            marginTop: 2,
+          }}
+        >
           {renderFriends()}
         </Hb.Box>
       </Hb.Box>
@@ -114,9 +138,25 @@ const InfoRow = ({
   label: string;
   value: string;
 }) => (
-  <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-    <Hb.Box sx={{ color: "text.secondary" }}>{icon}</Hb.Box>
-    <Hb.Box sx={{ minWidth: 0 }}>
+  <Hb.Box
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+    }}
+  >
+    <Hb.Box
+      style={{
+        color: "var(--hb-color-text-secondary)",
+      }}
+    >
+      {icon}
+    </Hb.Box>
+    <Hb.Box
+      style={{
+        minWidth: 0,
+      }}
+    >
       <Hb.Text
         variant="caption"
         style={{

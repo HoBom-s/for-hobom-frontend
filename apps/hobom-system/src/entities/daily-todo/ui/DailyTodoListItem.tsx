@@ -73,7 +73,12 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
                     </Hb.Text>
                   ),
                   content: (
-                    <Hb.Box sx={{ px: 2 }}>
+                    <Hb.Box
+                      style={{
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                      }}
+                    >
                       <Hb.Text gutterBottom variant="subtitle1" style={{ fontWeight: "bold" }}>
                         {formatDate(normalizeTodoDateToUtcMidnight(item.date))}
                       </Hb.Text>
@@ -94,7 +99,12 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
                     </Hb.Box>
                   ),
                   footer: (
-                    <Hb.Box display="flex" gap={2}>
+                    <Hb.Box
+                      style={{
+                        display: "flex",
+                        gap: 16,
+                      }}
+                    >
                       <Hb.Button
                         fullWidth
                         variant="danger"
@@ -140,7 +150,13 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
           </Hb.List.ItemIcon>
           <Hb.List.ItemText
             primary={
-              <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
+              <Hb.Box
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
                 <span>{item.title}</span>
                 {item.cycle !== "EVERYDAY" && (
                   <Hb.Chip

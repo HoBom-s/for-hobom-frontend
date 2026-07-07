@@ -38,13 +38,20 @@ export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) 
       }}
     >
       <Hb.Card.Content sx={{ p: 2.5 }}>
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            marginBottom: 12,
+          }}
+        >
           <Hb.Box
-            sx={{
+            style={{
               width: 36,
               height: 36,
-              borderRadius: 1,
-              bgcolor: "primary.main",
+              borderRadius: 8,
+              backgroundColor: "var(--hb-color-accent)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -52,7 +59,12 @@ export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) 
           >
             <ArticleOutlined sx={{ color: "#fff", fontSize: 20 }} />
           </Hb.Box>
-          <Hb.Box sx={{ minWidth: 0, flex: 1 }}>
+          <Hb.Box
+            style={{
+              minWidth: 0,
+              flex: 1,
+            }}
+          >
             <Hb.Text variant="subtitle2" fontWeight={700} noWrap>
               {space.name}
             </Hb.Text>

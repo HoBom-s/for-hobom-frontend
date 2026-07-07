@@ -7,7 +7,7 @@ export const NoteWorkspace = () => {
   const [status, setStatus] = useState<NoteStatus | undefined>(undefined);
 
   return (
-    <Hb.Box sx={{ p: 3, maxWidth: 1200, mx: "auto" }}>
+    <Hb.Box style={{ padding: 24, maxWidth: 1200, marginLeft: "auto", marginRight: "auto" }}>
       <Note.StatusTabs value={status} onChange={setStatus} />
 
       <ErrorBoundary inline>

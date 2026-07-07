@@ -55,7 +55,14 @@ export const MenuRecommendationListItem = memo(function MenuRecommendationListIt
             mb: 0.75,
           }}
           secondary={
-            <Hb.Box component="span" sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+            <Hb.Box
+              component="span"
+              style={{
+                display: "flex",
+                gap: 4,
+                flexWrap: "wrap",
+              }}
+            >
               <Hb.Chip
                 label={MENU_KIND_LABEL[item.menuKind] ?? item.menuKind}
                 size="small"

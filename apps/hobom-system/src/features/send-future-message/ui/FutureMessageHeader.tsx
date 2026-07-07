@@ -8,7 +8,7 @@ export const FutureMessageHeader = () => {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

@@ -98,7 +98,14 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
         {form.type === "CHECKLIST" && (
           <Hb.Box>
             {form.checklistItems.map((item, idx) => (
-              <Hb.Box key={idx} sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
+              <Hb.Box
+                key={idx}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: 4,
+                }}
+              >
                 <Hb.Checkbox
                   size="small"
                   checked={item.checked}
@@ -138,7 +145,14 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
         )}
 
         {selectedLabelIds.size > 0 && (
-          <Hb.Box sx={{ mt: 2, display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+          <Hb.Box
+            style={{
+              marginTop: 16,
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 4,
+            }}
+          >
             {form.labels.map((labelId) => (
               <Hb.Chip
                 key={labelId}
@@ -163,7 +177,12 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
         )}
       </Hb.Dialog.Content>
       <Hb.Dialog.Actions sx={{ px: 2, pb: 1.5, justifyContent: "space-between" }}>
-        <Hb.Box sx={{ display: "flex", gap: 0.5 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            gap: 4,
+          }}
+        >
           {!isEdit && (
             <Hb.Tooltip title={form.type === "TEXT" ? "체크리스트로 전환" : "텍스트로 전환"}>
               <Hb.Button.Icon

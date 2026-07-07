@@ -8,13 +8,13 @@ import { Hb } from "@/shared/ui";
 export const FutureMessageWorkspace = () => {
   return (
     <Hb.Box
-      sx={{
+      style={{
         width: "100%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        p: 3,
-        gap: 2,
+        padding: 24,
+        gap: 16,
       }}
     >
       <FutureMessageHeader />
@@ -32,7 +32,7 @@ export const FutureMessageWorkspace = () => {
       >
         <FutureMessageStatusTab />
         <Hb.Box
-          sx={{
+          style={{
             flex: 1,
             overflow: "hidden",
             minHeight: 0,

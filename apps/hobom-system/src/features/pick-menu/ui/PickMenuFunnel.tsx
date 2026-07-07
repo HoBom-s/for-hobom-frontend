@@ -12,15 +12,30 @@ export const PickMenuFunnel = () => {
   return (
     <Funnel>
       <Funnel.Step name="select-menu">
-        <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+          }}
+        >
           <PickMenuHeader />
-          <Hb.Box sx={{ flexGrow: 1, minHeight: 0 }}>
+          <Hb.Box
+            style={{
+              flexGrow: 1,
+              minHeight: 0,
+            }}
+          >
             <PickMenuContent onNextCallback={() => setState({ step: "pick" })} />
           </Hb.Box>
         </Hb.Box>
       </Funnel.Step>
       <Funnel.Step name="pick">
-        <Hb.Box sx={{ height: "100%" }}>
+        <Hb.Box
+          style={{
+            height: "100%",
+          }}
+        >
           <SelectedMenuContent />
         </Hb.Box>
       </Funnel.Step>

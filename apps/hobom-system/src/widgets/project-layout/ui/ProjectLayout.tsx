@@ -58,9 +58,20 @@ export const ProjectLayout = () => {
 
   return (
     <ProjectContext.Provider value={projectCtx}>
-      <Hb.Box sx={{ p: 3 }}>
+      <Hb.Box
+        style={{
+          padding: 24,
+        }}
+      >
         {/* Breadcrumb */}
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            marginBottom: 8,
+          }}
+        >
           <Hb.Text
             variant="caption"
             {...stylex.props(styles.crumb)}
@@ -85,7 +96,14 @@ export const ProjectLayout = () => {
         </Hb.Text>
 
         {/* Tab Navigation + Action Buttons */}
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            marginBottom: 4,
+          }}
+        >
           {TABS.map((tab) => {
             const isActive = currentPath === tab.path;
 
@@ -114,7 +132,11 @@ export const ProjectLayout = () => {
             );
           })}
 
-          <Hb.Box sx={{ flex: 1 }} />
+          <Hb.Box
+            style={{
+              flex: 1,
+            }}
+          />
 
           {showSprintButton && (
             <Hb.Button

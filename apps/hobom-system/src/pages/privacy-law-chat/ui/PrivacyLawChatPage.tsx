@@ -13,7 +13,6 @@ const PrivacyLawChatPage = () => {
           제한이 적용됩니다. 응답이 느리거나 실패할 수 있어요.
         </Hb.Text>
       </Hb.Alert>
-
       <Hb.Stack direction="row" justifyContent="flex-end" mb={1}>
         {messages.length > 0 && (
           <Hb.Tooltip title="대화 초기화">
@@ -23,10 +22,14 @@ const PrivacyLawChatPage = () => {
           </Hb.Tooltip>
         )}
       </Hb.Stack>
-
       <ChatMessageList messages={messages} isPending={isPending} />
-
-      <Hb.Box sx={{ pt: 2, borderTop: 1, borderColor: "divider" }}>
+      <Hb.Box
+        style={{
+          paddingTop: 16,
+          borderTop: 1,
+          borderColor: "var(--hb-color-border)",
+        }}
+      >
         <ChatInput onSend={sendMessage} disabled={isPending} />
       </Hb.Box>
     </Hb.Stack>

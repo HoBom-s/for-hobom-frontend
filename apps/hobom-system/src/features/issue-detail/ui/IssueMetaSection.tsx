@@ -22,7 +22,14 @@ const styles = stylex.create({
 });
 
 const MetaRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <Hb.Box sx={{ display: "flex", alignItems: "center", py: 0.5 }}>
+  <Hb.Box
+    style={{
+      display: "flex",
+      alignItems: "center",
+      paddingTop: 4,
+      paddingBottom: 4,
+    }}
+  >
     <Hb.Text
       variant="body2"
       style={{
@@ -34,7 +41,13 @@ const MetaRow = ({ label, children }: { label: string; children: React.ReactNode
     >
       {label}
     </Hb.Text>
-    <Hb.Box sx={{ flex: 1 }}>{children}</Hb.Box>
+    <Hb.Box
+      style={{
+        flex: 1,
+      }}
+    >
+      {children}
+    </Hb.Box>
   </Hb.Box>
 );
 
@@ -141,7 +154,14 @@ export const IssueMetaSection = () => {
   const statusColor = getStatusColor(statuses, issue.status);
 
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 2 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+        marginBottom: 16,
+      }}
+    >
       <MetaRow label="상태">
         <Hb.Chip
           label={getStatusName(statuses, issue.status)}
@@ -215,9 +235,9 @@ export const IssueMetaSection = () => {
       </MetaRow>
       <MetaRow label="라벨">
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
-            gap: 0.5,
+            gap: 4,
             flexWrap: "wrap",
             alignItems: "center",
           }}

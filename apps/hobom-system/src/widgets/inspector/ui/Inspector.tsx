@@ -1,3 +1,4 @@
+import * as stylex from "@stylexjs/stylex";
 import { DeleteOutline } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import { getManifest, type PropSpec } from "@/entities/manifest";
@@ -19,7 +20,11 @@ interface InspectorProps {
 export function Inspector({ node, onChange, onStyleChange, onDelete }: InspectorProps) {
   if (!node || !isComponentNode(node)) {
     return (
-      <Hb.Box sx={{ p: 2 }}>
+      <Hb.Box
+        style={{
+          padding: 16,
+        }}
+      >
         <Hb.Text
           style={{
             fontSize: 12,
@@ -35,7 +40,11 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
   const manifest = getManifest(node.type);
 
   return (
-    <Hb.Box sx={{ p: 1.5 }}>
+    <Hb.Box
+      style={{
+        padding: 12,
+      }}
+    >
       <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1.5 }}>
         <Hb.Text
           style={{
@@ -150,6 +159,26 @@ interface PropFieldProps {
 const labelStyle = { fontSize: 11, color: "var(--hb-color-text-secondary)" } as const;
 const inputSx = { "& .MuiInputBase-input": { fontSize: 12, py: 0.75 } } as const;
 
+const styles = stylex.create({
+  segment: {
+    flex: 1,
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: 4,
+    paddingRight: 4,
+    fontSize: 11,
+    fontFamily: "inherit",
+    cursor: "pointer",
+    transition: "background-color 0.12s",
+  },
+  segmentSelectedHover: {
+    ":hover": { backgroundColor: "var(--hb-color-accent)" },
+  },
+  segmentUnselectedHover: {
+    ":hover": { backgroundColor: "var(--hb-color-border)" },
+  },
+});
+
 /** prop 한 개를 spec.kind에 맞는 컨트롤로 렌더한다. slot은 편집 대상이 아니다. */
 function PropField({ name, spec, value, onChange }: PropFieldProps) {
   if (spec.kind === "slot") {
@@ -213,12 +242,13 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
     <Hb.Stack gap={0.5} sx={{ minWidth: 0 }}>
       <Hb.Text style={labelStyle}>{name}</Hb.Text>
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
-          borderRadius: 1,
+          borderRadius: 8,
           overflow: "hidden",
-          border: 1,
-          borderColor: "divider",
+          borderWidth: 1,
+          borderStyle: "solid",
+          borderColor: "var(--hb-color-border)",
         }}
       >
         {spec.values.map((option, index) => (
@@ -226,22 +256,19 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
             key={option}
             component="button"
             onClick={() => onChange(name, option)}
-            sx={{
-              flex: 1,
+            {...stylex.props(
+              styles.segment,
+              value === option ? styles.segmentSelectedHover : styles.segmentUnselectedHover,
+            )}
+            style={{
               border: 0,
-              borderLeft: index === 0 ? 0 : 1,
-              borderColor: "divider",
-              py: 0.5,
-              px: 0.5,
-              fontSize: 11,
-              fontFamily: "inherit",
-              cursor: "pointer",
-              transition: "background-color 0.12s",
-              bgcolor: value === option ? "primary.main" : "transparent",
-              color: value === option ? "primary.contrastText" : "text.secondary",
-              "&:hover": {
-                bgcolor: value === option ? "primary.main" : "action.hover",
-              },
+              borderLeft: index === 0 ? 0 : "1px solid",
+              borderColor: "var(--hb-color-border)",
+              backgroundColor: value === option ? "var(--hb-color-accent)" : "transparent",
+              color:
+                value === option
+                  ? "var(--hb-color-accent-contrast)"
+                  : "var(--hb-color-text-secondary)",
             }}
           >
             {option}

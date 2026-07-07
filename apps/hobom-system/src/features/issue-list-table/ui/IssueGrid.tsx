@@ -161,18 +161,25 @@ export const IssueGrid = ({
       </div>
       {pagination.totalPages > 1 && (
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            mt: 1.5,
-            px: 1,
+            marginTop: 12,
+            paddingLeft: 8,
+            paddingRight: 8,
           }}
         >
           <Hb.Text variant="body2" color="text.secondary">
             총 {pagination.totalRows}건
           </Hb.Text>
-          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
             <Hb.Button
               size="small"
               variant="secondary"

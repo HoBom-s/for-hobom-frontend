@@ -36,7 +36,14 @@ export const MovePageDialog = ({
   };
 
   const suspenseFallback = (
-    <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        paddingTop: 16,
+        paddingBottom: 16,
+      }}
+    >
       <Hb.Progress.Circular size={20} />
     </Hb.Box>
   );
@@ -45,7 +52,14 @@ export const MovePageDialog = ({
     <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
       <Hb.Dialog.Title>페이지 이동</Hb.Dialog.Title>
       <Hb.Dialog.Content>
-        <Hb.Box sx={{ mt: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+        <Hb.Box
+          style={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+          }}
+        >
           <Suspense fallback={suspenseFallback}>
             <SpaceSelect selectedSpaceKey={targetSpaceKey} onSelect={setTargetSpaceKey} />
           </Suspense>

@@ -11,7 +11,13 @@ export const FutureMessageTitleFunnel = ({ onPrevStep, onNextStep }: Props) => {
   const { setValue, watch } = useFormContext<FutureMessageSendSchemaType>();
 
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 24,
+      }}
+    >
       <Hb.Box>
         <Hb.Text
           fontWeight={700}
@@ -35,7 +41,12 @@ export const FutureMessageTitleFunnel = ({ onPrevStep, onNextStep }: Props) => {
         />
         <Hb.Form.Helper>메시지 제목을 입력해 주세요.</Hb.Form.Helper>
       </Hb.Form.Control>
-      <Hb.Box display="flex" gap={1.5}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          gap: 12,
+        }}
+      >
         <Hb.Button fullWidth variant="secondary" onClick={onPrevStep}>
           이전
         </Hb.Button>

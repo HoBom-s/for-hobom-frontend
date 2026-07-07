@@ -79,7 +79,15 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
 
   return (
     <Hb.Box>
-      <Hb.Box sx={{ display: "flex", gap: 1.5, mb: 2, flexWrap: "wrap", alignItems: "center" }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          gap: 12,
+          marginBottom: 16,
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
         <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
           <Hb.Form.Label shrink>상태</Hb.Form.Label>
           <Hb.Form.Select
@@ -128,7 +136,11 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
-        <Hb.Box sx={{ flex: 1 }} />
+        <Hb.Box
+          style={{
+            flex: 1,
+          }}
+        />
         <Hb.Button
           size="small"
           variant="secondary"
@@ -138,7 +150,6 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
           CSV 내보내기
         </Hb.Button>
       </Hb.Box>
-
       {data.items.length === 0 ? (
         <EmptyState message="조건에 맞는 이슈가 없어요" />
       ) : (
@@ -156,7 +167,6 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
           onRowClick={onIssueClick}
         />
       )}
-
       <Hb.Menu.Root
         anchorEl={menuAnchor?.el}
         open={Boolean(menuAnchor)}
@@ -174,12 +184,12 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             sx={{ fontSize: 13, py: 0.8 }}
           >
             <Hb.Box
-              sx={{
+              style={{
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                bgcolor: getStatusColor(statuses, t.to),
-                mr: 1.5,
+                backgroundColor: getStatusColor(statuses, t.to),
+                marginRight: 12,
                 flexShrink: 0,
               }}
             />

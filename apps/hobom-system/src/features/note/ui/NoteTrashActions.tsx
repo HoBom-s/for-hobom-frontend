@@ -7,19 +7,27 @@ export const NoteTrashActions = () => {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        mb: 3,
-        px: 2,
-        py: 1.5,
-        borderRadius: 2,
-        bgcolor: "#fef7e0",
+        marginBottom: 24,
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingTop: 12,
+        paddingBottom: 12,
+        borderRadius: 16,
+        backgroundColor: "#fef7e0",
         border: "1px solid #fde293",
       }}
     >
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <InfoOutlined sx={{ fontSize: 18, color: "#b06000" }} />
         <Hb.Text
           variant="body2"

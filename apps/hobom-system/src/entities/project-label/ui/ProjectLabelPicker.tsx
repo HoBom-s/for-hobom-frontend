@@ -93,13 +93,13 @@ export const ProjectLabelPicker = ({
               />
             </Hb.List.ItemIcon>
             <Hb.Box
-              sx={{
+              style={{
                 width: 12,
                 height: 12,
                 borderRadius: "50%",
-                bgcolor: label.color,
+                backgroundColor: label.color,
                 flexShrink: 0,
-                mr: 1,
+                marginRight: 8,
               }}
             />
             <Hb.List.ItemText
@@ -131,7 +131,14 @@ export const ProjectLabelPicker = ({
       </Hb.List.Root>
       <Hb.Divider />
       {creating ? (
-        <Hb.Box sx={{ p: 1.5, display: "flex", flexDirection: "column", gap: 1 }}>
+        <Hb.Box
+          style={{
+            padding: 12,
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+          }}
+        >
           <Hb.TextField
             size="small"
             placeholder="라벨 이름"
@@ -144,7 +151,13 @@ export const ProjectLabelPicker = ({
             autoFocus
             fullWidth
           />
-          <Hb.Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              gap: 4,
+              flexWrap: "wrap",
+            }}
+          >
             {LABEL_COLORS.map((color) => (
               <Hb.Box
                 key={color}
@@ -159,20 +172,26 @@ export const ProjectLabelPicker = ({
                     setNewColor(color);
                   }
                 }}
-                sx={{
+                style={{
                   width: 20,
                   height: 20,
                   borderRadius: "50%",
-                  bgcolor: color,
+                  backgroundColor: color,
                   cursor: "pointer",
                   border: color === newColor ? "2px solid" : "2px solid transparent",
-                  borderColor: color === newColor ? "text.primary" : "transparent",
+                  borderColor: color === newColor ? "var(--hb-color-text-primary)" : "transparent",
                   transition: "border-color 0.1s ease",
                 }}
               />
             ))}
           </Hb.Box>
-          <Hb.Box sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              gap: 4,
+              justifyContent: "flex-end",
+            }}
+          >
             <Hb.Button.Icon
               size="small"
               aria-label="라벨 생성 취소"

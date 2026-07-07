@@ -29,7 +29,13 @@ export const ColorPickerPopover = ({
     onClose={onClose}
     anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
   >
-    <Hb.Box sx={{ display: "flex", gap: 0.5, p: 1.5 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        gap: 4,
+        padding: 12,
+      }}
+    >
       {Object.entries(NOTE_COLORS).map(([key, hex]) => {
         const selected = value === hex;
         const isWhite = hex === "#ffffff";

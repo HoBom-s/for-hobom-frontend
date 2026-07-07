@@ -33,7 +33,11 @@ export const AddMemberDialog = ({
               component="li"
               {...props}
               key={u.id}
-              sx={{ display: "flex", gap: 1.5, alignItems: "center" }}
+              style={{
+                display: "flex",
+                gap: 12,
+                alignItems: "center",
+              }}
             >
               <Hb.Avatar
                 sx={{

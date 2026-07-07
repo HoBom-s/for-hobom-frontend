@@ -34,11 +34,11 @@ export const ProjectDashboardContent = () => {
         }}
       />
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          mb: 2.5,
+          marginBottom: 20,
         }}
       >
         <Hb.Text variant="h6" fontWeight={700}>

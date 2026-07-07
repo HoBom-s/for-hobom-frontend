@@ -18,13 +18,13 @@ export default function FutureMessageSendPage() {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         width: "100%",
         height: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        p: 4,
+        padding: 32,
       }}
     >
       <FormProvider {...formMethods}>

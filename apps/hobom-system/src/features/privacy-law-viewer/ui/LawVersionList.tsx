@@ -34,7 +34,11 @@ export const LawVersionList = () => {
             <Hb.Text variant="caption" color="text.disabled" gutterBottom>
               법률 데이터를 수집하면 최신 개인정보보호법을 불러옵니다.
             </Hb.Text>
-            <Hb.Box mt={2}>
+            <Hb.Box
+              style={{
+                marginTop: 16,
+              }}
+            >
               <Hb.Button
                 variant="primary"
                 startIcon={<CloudDownloadOutlined />}
@@ -47,7 +51,6 @@ export const LawVersionList = () => {
           </Hb.Card.Content>
         </Hb.Card.Root>
       )}
-
       {versions.map((version) => (
         <Hb.Card.Root key={version.id} variant="outlined">
           <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/versions/${version.id}`)}>

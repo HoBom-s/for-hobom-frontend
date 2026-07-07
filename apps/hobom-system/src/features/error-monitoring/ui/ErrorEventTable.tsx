@@ -1,9 +1,24 @@
+import * as stylex from "@stylexjs/stylex";
 import { useVirtualList } from "@/shared/model";
 import type { ErrorEventDto } from "@/entities/error-event";
 import { Hb } from "@/shared/ui";
 import { ERROR_TYPE_CHIP } from "./error-type-chip";
 
 const ROW_HEIGHT = 40;
+
+const styles = stylex.create({
+  row: {
+    position: "absolute",
+    width: "100%",
+    height: ROW_HEIGHT,
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+    borderBottom: "1px solid",
+    borderColor: "var(--hb-color-border)",
+    ":hover": { backgroundColor: "var(--hb-color-border)" },
+  },
+});
 
 const COLUMNS = [
   { label: "시간", width: 160 },
@@ -13,13 +28,14 @@ const COLUMNS = [
   { label: "사용자", width: 100 },
 ] as const;
 
-const HEADER_SX = {
+const HEADER_STYLE = {
   fontWeight: 600,
   fontSize: 11,
   textTransform: "uppercase",
   letterSpacing: "0.04em",
-  color: "text.secondary",
-  px: 1.5,
+  color: "var(--hb-color-text-secondary)",
+  paddingLeft: 12,
+  paddingRight: 12,
 } as const;
 
 interface ErrorEventTableProps {
@@ -53,19 +69,19 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
     <Hb.Box>
       {/* Header */}
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           height: 36,
           borderBottom: 1,
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
         }}
       >
         {COLUMNS.map((col) => (
           <Hb.Box
             key={col.label}
-            sx={{
-              ...HEADER_SX,
+            style={{
+              ...HEADER_STYLE,
               width: "width" in col ? col.width : undefined,
               flex: "flex" in col ? col.flex : undefined,
             }}
@@ -77,13 +93,18 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
       {/* Virtual Rows */}
       <Hb.Box
         {...containerProps}
-        sx={{
+        style={{
           ...containerProps.style,
           maxHeight: "calc(100vh - 340px)",
           minHeight: 200,
         }}
       >
-        <Hb.Box sx={{ height: totalHeight, position: "relative" }}>
+        <Hb.Box
+          style={{
+            height: totalHeight,
+            position: "relative",
+          }}
+        >
           {virtualItems.map(({ item: row, offsetTop }) => {
             const chip = ERROR_TYPE_CHIP[row.errorType];
 
@@ -91,20 +112,16 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
               <Hb.Box
                 key={row.id}
                 onClick={() => onRowClick(row)}
-                sx={{
-                  position: "absolute",
-                  top: offsetTop,
-                  width: "100%",
-                  height: ROW_HEIGHT,
-                  display: "flex",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  borderBottom: 1,
-                  borderColor: "divider",
-                  "&:hover": { bgcolor: "action.hover" },
-                }}
+                {...stylex.props(styles.row)}
+                style={{ top: offsetTop }}
               >
-                <Hb.Box sx={{ width: 160, px: 1.5 }}>
+                <Hb.Box
+                  style={{
+                    width: 160,
+                    paddingLeft: 12,
+                    paddingRight: 12,
+                  }}
+                >
                   <Hb.Text
                     variant="caption"
                     style={{
@@ -116,7 +133,13 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                     {row.createdAt?.replace("T", " ").slice(0, 19) ?? "-"}
                   </Hb.Text>
                 </Hb.Box>
-                <Hb.Box sx={{ width: 90, px: 1.5 }}>
+                <Hb.Box
+                  style={{
+                    width: 90,
+                    paddingLeft: 12,
+                    paddingRight: 12,
+                  }}
+                >
                   <Hb.Chip
                     label={chip.label}
                     size="small"
@@ -129,7 +152,14 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                     }}
                   />
                 </Hb.Box>
-                <Hb.Box sx={{ width: 200, px: 1.5, overflow: "hidden" }}>
+                <Hb.Box
+                  style={{
+                    width: 200,
+                    paddingLeft: 12,
+                    paddingRight: 12,
+                    overflow: "hidden",
+                  }}
+                >
                   <Hb.Tooltip title={row.screen} enterDelay={200}>
                     <Hb.Text
                       variant="body2"
@@ -143,7 +173,14 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                     </Hb.Text>
                   </Hb.Tooltip>
                 </Hb.Box>
-                <Hb.Box sx={{ flex: 1, px: 1.5, overflow: "hidden" }}>
+                <Hb.Box
+                  style={{
+                    flex: 1,
+                    paddingLeft: 12,
+                    paddingRight: 12,
+                    overflow: "hidden",
+                  }}
+                >
                   <Hb.Tooltip title={row.message} enterDelay={200}>
                     <Hb.Text
                       variant="body2"
@@ -156,7 +193,13 @@ export const ErrorEventTable = ({ data, onRowClick }: ErrorEventTableProps) => {
                     </Hb.Text>
                   </Hb.Tooltip>
                 </Hb.Box>
-                <Hb.Box sx={{ width: 100, px: 1.5 }}>
+                <Hb.Box
+                  style={{
+                    width: 100,
+                    paddingLeft: 12,
+                    paddingRight: 12,
+                  }}
+                >
                   <Hb.Text
                     variant="body2"
                     style={{

@@ -56,9 +56,11 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
 
       return (
         <Hb.Box
-          sx={{
+          style={{
             width: "100%",
-            ...(inline ? { flex: 1, minHeight: 120, py: 4 } : { height: "100vh" }),
+            ...(inline
+              ? { flex: 1, minHeight: 120, paddingTop: 32, paddingBottom: 32 }
+              : { height: "100vh" }),
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -78,16 +80,17 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
             }}
           >
             <Hb.Box
-              sx={{
+              style={{
                 width: 48,
                 height: 48,
                 borderRadius: "50%",
-                bgcolor: "error.main",
+                backgroundColor: "var(--hb-color-danger)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                mx: "auto",
-                mb: 2,
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginBottom: 16,
               }}
             >
               <ReportProblemOutlined sx={{ color: "#fff", fontSize: 24 }} />
@@ -115,13 +118,13 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
             </Hb.Text>
             {error?.message ? (
               <Hb.Box
-                sx={{
-                  mt: 2,
-                  p: 1.5,
-                  bgcolor: "grey.50",
-                  borderRadius: 1,
+                style={{
+                  marginTop: 16,
+                  padding: 12,
+                  backgroundColor: "#fafafa",
+                  borderRadius: 8,
                   border: "1px solid",
-                  borderColor: "divider",
+                  borderColor: "var(--hb-color-border)",
                 }}
               >
                 <Hb.Text

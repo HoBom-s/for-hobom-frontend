@@ -113,14 +113,16 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
   return (
     <>
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
-          gap: 0.25,
-          px: 1,
-          py: 0.5,
+          gap: 2,
+          paddingLeft: 8,
+          paddingRight: 8,
+          paddingTop: 4,
+          paddingBottom: 4,
           borderBottom: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           flexWrap: "wrap",
         }}
       >

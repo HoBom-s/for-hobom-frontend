@@ -35,7 +35,12 @@ export const LabelPickerPopover = ({
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <Hb.Box sx={{ minWidth: 220, maxHeight: 320 }}>
+      <Hb.Box
+        style={{
+          minWidth: 220,
+          maxHeight: 320,
+        }}
+      >
         <Hb.Text
           variant="caption"
           fontWeight={600}
@@ -80,14 +85,15 @@ export const LabelPickerPopover = ({
         )}
 
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
-            gap: 0.5,
-            px: 1.5,
-            pt: 1,
-            pb: 1.5,
+            gap: 4,
+            paddingLeft: 12,
+            paddingRight: 12,
+            paddingTop: 8,
+            paddingBottom: 12,
             borderTop: labels.length > 0 ? "1px solid" : "none",
-            borderColor: "divider",
+            borderColor: "var(--hb-color-border)",
           }}
         >
           <Hb.InputBase

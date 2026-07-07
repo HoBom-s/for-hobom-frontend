@@ -37,22 +37,34 @@ export const NotificationItem = memo(function NotificationItem({ notification, o
       }}
     >
       <Hb.Box
-        sx={{
+        style={{
           width: 36,
           height: 36,
           borderRadius: "10px",
-          bgcolor: meta.bgColor,
+          backgroundColor: meta.bgColor,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
-          mt: 0.25,
+          marginTop: 2,
         }}
       >
         <Icon sx={{ fontSize: 18, color: meta.color }} />
       </Hb.Box>
-      <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.75, mb: 0.25 }}>
+      <Hb.Box
+        style={{
+          flex: 1,
+          minWidth: 0,
+        }}
+      >
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            marginBottom: 2,
+          }}
+        >
           <Hb.Text
             variant="body2"
             style={{
@@ -71,17 +83,17 @@ export const NotificationItem = memo(function NotificationItem({ notification, o
             <>
               <Hb.Box
                 aria-hidden="true"
-                sx={{
+                style={{
                   width: 7,
                   height: 7,
                   borderRadius: "50%",
-                  bgcolor: "primary.main",
+                  backgroundColor: "var(--hb-color-accent)",
                   flexShrink: 0,
                 }}
               />
               <Hb.Box
                 component="span"
-                sx={{
+                style={{
                   position: "absolute",
                   width: 1,
                   height: 1,

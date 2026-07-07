@@ -8,7 +8,14 @@ import { BoardSettingsSection } from "./BoardSettingsSection";
 import { DangerZoneSection } from "./DangerZoneSection";
 
 const SuspenseFallback = () => (
-  <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+  <Hb.Box
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      paddingTop: 32,
+      paddingBottom: 32,
+    }}
+  >
     <Hb.Progress.Circular size={24} />
   </Hb.Box>
 );
@@ -22,9 +29,16 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
   const project = data.items;
 
   return (
-    <Hb.Box sx={{ maxWidth: 1080, mx: "auto" }}>
+    <Hb.Box style={{ maxWidth: 1080, marginLeft: "auto", marginRight: "auto" }}>
       {/* 헤더 */}
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+          marginBottom: 24,
+        }}
+      >
         <Hb.Avatar
           sx={{
             width: 48,
@@ -37,7 +51,13 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
           {project.key.charAt(0)}
         </Hb.Avatar>
         <Hb.Box>
-          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
             <Hb.Text variant="h6" fontWeight={700}>
               {project.name}
             </Hb.Text>
@@ -59,14 +79,20 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
         </Hb.Box>
       </Hb.Box>
       {/* 2-column 레이아웃 */}
-      <Hb.Box sx={{ display: "flex", gap: 3, alignItems: "flex-start" }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          gap: 24,
+          alignItems: "flex-start",
+        }}
+      >
         {/* 좌측: 일반 + 위험 구역 */}
         <Hb.Box
-          sx={{
+          style={{
             flex: 1,
             display: "flex",
             flexDirection: "column",
-            gap: 3,
+            gap: 24,
             minWidth: 0,
           }}
         >
@@ -76,11 +102,11 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
 
         {/* 우측: 보드 + 멤버 */}
         <Hb.Box
-          sx={{
+          style={{
             flex: 1,
             display: "flex",
             flexDirection: "column",
-            gap: 3,
+            gap: 24,
             minWidth: 0,
           }}
         >

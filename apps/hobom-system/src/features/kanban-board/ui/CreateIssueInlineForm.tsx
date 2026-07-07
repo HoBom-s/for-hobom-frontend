@@ -45,7 +45,11 @@ export const CreateIssueInlineForm = ({ onSubmit }: CreateIssueInlineFormProps) 
   }
 
   return (
-    <Hb.Box sx={{ mt: 1 }}>
+    <Hb.Box
+      style={{
+        marginTop: 8,
+      }}
+    >
       <Hb.TextField
         value={title}
         onChange={(e) => setTitle(e.target.value)}

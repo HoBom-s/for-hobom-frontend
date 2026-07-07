@@ -24,34 +24,35 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
   return (
     <Hb.Box
       ref={setNodeRef}
-      sx={{
+      style={{
         flex: "0 0 296px",
         minHeight: 400,
         display: "flex",
         flexDirection: "column",
-        bgcolor: isOver ? `${config.color}14` : "action.hover",
-        borderRadius: 2,
+        backgroundColor: isOver ? `${config.color}14` : "action.hover",
+        borderRadius: 16,
         border: "1px solid",
         borderColor: isOver ? config.color : "divider",
-        p: 1.5,
+        padding: 12,
         transition: "all 0.2s",
       }}
     >
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
-          gap: 1,
-          mb: 2,
-          px: 0.5,
+          gap: 8,
+          marginBottom: 16,
+          paddingLeft: 4,
+          paddingRight: 4,
         }}
       >
         <Hb.Box
-          sx={{
+          style={{
             width: 10,
             height: 10,
             borderRadius: "50%",
-            bgcolor: config.color,
+            backgroundColor: config.color,
             boxShadow: `0 0 0 3px ${config.color}28`,
           }}
         />
@@ -78,10 +79,10 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
       </Hb.Box>
       <Sortable.List items={issues.map((i) => i.id)} strategy="vertical">
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             flexDirection: "column",
-            gap: 1,
+            gap: 8,
             flex: 1,
             minHeight: 60,
           }}
@@ -143,7 +144,9 @@ const renderIssueItem = (
     <Sortable.Item key={issue.id} id={issue.id}>
       <Hb.Box
         onClick={() => onIssueClick?.(issue.id)}
-        sx={{ cursor: onIssueClick ? "pointer" : undefined }}
+        style={{
+          cursor: onIssueClick ? "pointer" : undefined,
+        }}
       >
         <IssueCard
           issue={issue}

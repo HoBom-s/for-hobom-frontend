@@ -13,7 +13,14 @@ const SpaceHomeContent = ({ spaceKey }: { spaceKey: string }) => {
   const space = data.items;
 
   return (
-    <Hb.Box sx={{ px: 3, py: 3 }}>
+    <Hb.Box
+      style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingTop: 24,
+        paddingBottom: 24,
+      }}
+    >
       <Hb.Text
         variant="h5"
         fontWeight={700}

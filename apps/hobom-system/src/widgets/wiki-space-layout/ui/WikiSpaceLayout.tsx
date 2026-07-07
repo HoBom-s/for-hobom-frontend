@@ -63,14 +63,16 @@ const TrashDrawer = ({
     slotProps={{ paper: { sx: { width: 400 } } }}
   >
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        px: 2.5,
-        py: 2,
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 16,
+        paddingBottom: 16,
         borderBottom: "1px solid",
-        borderColor: "divider",
+        borderColor: "var(--hb-color-border)",
       }}
     >
       <Hb.Text variant="h6" fontWeight={700}>
@@ -83,7 +85,14 @@ const TrashDrawer = ({
     <ErrorBoundary inline resetKey={spaceKey}>
       <Suspense
         fallback={
-          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 48,
+              paddingBottom: 48,
+            }}
+          >
             <Hb.Progress.Circular size={28} />
           </Hb.Box>
         }
@@ -110,14 +119,16 @@ const LabelDrawer = ({
     slotProps={{ paper: { sx: { width: 360 } } }}
   >
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        px: 2.5,
-        py: 2,
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 16,
+        paddingBottom: 16,
         borderBottom: "1px solid",
-        borderColor: "divider",
+        borderColor: "var(--hb-color-border)",
       }}
     >
       <Hb.Text variant="h6" fontWeight={700}>
@@ -130,7 +141,14 @@ const LabelDrawer = ({
     <ErrorBoundary inline resetKey={spaceKey}>
       <Suspense
         fallback={
-          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 48,
+              paddingBottom: 48,
+            }}
+          >
             <Hb.Progress.Circular size={28} />
           </Hb.Box>
         }
@@ -161,8 +179,19 @@ export const WikiSpaceLayout = () => {
   if (!spaceKey) return null;
 
   return (
-    <Hb.Box sx={{ p: 3 }}>
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
+    <Hb.Box
+      style={{
+        padding: 24,
+      }}
+    >
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          marginBottom: 8,
+        }}
+      >
         <Hb.Text variant="caption" {...stylex.props(styles.crumb)} onClick={handleNavigateToWiki}>
           위키
         </Hb.Text>
@@ -172,11 +201,11 @@ export const WikiSpaceLayout = () => {
         </Hb.Text>
       </Hb.Box>
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          mb: 2,
+          marginBottom: 16,
         }}
       >
         <Hb.Text variant="h5" fontWeight={700}>
@@ -189,21 +218,34 @@ export const WikiSpaceLayout = () => {
           marginBottom: 0,
         }}
       />
-      <Hb.Box sx={{ display: "flex", minHeight: "calc(100vh - 200px)" }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          minHeight: "calc(100vh - 200px)",
+        }}
+      >
         <Hb.Box
-          sx={{
+          style={{
             width: SIDEBAR_WIDTH,
             flexShrink: 0,
             borderRight: "1px solid",
-            borderColor: "divider",
-            py: 1.5,
-            pr: 1,
+            borderColor: "var(--hb-color-border)",
+            paddingTop: 12,
+            paddingBottom: 12,
+            paddingRight: 8,
             overflow: "auto",
           }}
         >
           <Suspense
             fallback={
-              <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+              <Hb.Box
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  paddingTop: 32,
+                  paddingBottom: 32,
+                }}
+              >
                 <Hb.Progress.Circular size={24} />
               </Hb.Box>
             }
@@ -216,7 +258,16 @@ export const WikiSpaceLayout = () => {
             />
           </Suspense>
 
-          <Hb.Box sx={{ px: 1, mt: 1, display: "flex", flexDirection: "column", gap: 0.25 }}>
+          <Hb.Box
+            style={{
+              paddingLeft: 8,
+              paddingRight: 8,
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
             <Hb.Button
               variant="ghost"
               size="small"
@@ -268,7 +319,12 @@ export const WikiSpaceLayout = () => {
           </Hb.Box>
         </Hb.Box>
 
-        <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+        <Hb.Box
+          style={{
+            flex: 1,
+            minWidth: 0,
+          }}
+        >
           <Outlet context={{ spaceKey }} />
         </Hb.Box>
       </Hb.Box>

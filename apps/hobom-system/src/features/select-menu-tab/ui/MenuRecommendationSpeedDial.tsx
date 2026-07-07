@@ -62,7 +62,15 @@ export const MenuRecommendationSpeedDial = () => {
         </Hb.Text>
       ),
       content: (
-        <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 2, px: 2 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+            paddingLeft: 16,
+            paddingRight: 16,
+          }}
+        >
           <Hb.TextField
             fullWidth
             size="small"
@@ -109,7 +117,13 @@ export const MenuRecommendationSpeedDial = () => {
         </Hb.Box>
       ),
       footer: (
-        <Hb.Box display="flex" gap={1.5} width="100%">
+        <Hb.Box
+          style={{
+            display: "flex",
+            gap: 12,
+            width: "100%",
+          }}
+        >
           <Hb.Button
             fullWidth
             variant="secondary"

@@ -57,11 +57,11 @@ const SprintDashboardInner = ({ projectId, sprintId }: SprintDashboardSectionPro
       <Hb.Grid size={12}>
         <DashboardPaper>
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
               alignItems: "center",
-              gap: 1,
-              mb: 1,
+              gap: 8,
+              marginBottom: 8,
             }}
           >
             <Hb.Text variant="subtitle1" fontWeight={700}>

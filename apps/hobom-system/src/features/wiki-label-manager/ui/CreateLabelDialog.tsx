@@ -1,5 +1,22 @@
 import { useEffect, useState } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Hb } from "@/shared/ui";
+
+const styles = stylex.create({
+  swatch: {
+    width: 28,
+    height: 28,
+    borderRadius: "50%",
+    cursor: "pointer",
+    transition: "border-color 0.15s",
+    ":hover": { opacity: 0.8 },
+    ":focus-visible": {
+      outline: "2px solid",
+      outlineColor: "var(--hb-color-accent)",
+      outlineOffset: 2,
+    },
+  },
+});
 
 const LABEL_COLORS: { hex: string; name: string }[] = [
   { hex: "#4680ff", name: "파랑" },
@@ -79,7 +96,12 @@ export const CreateLabelDialog = ({
         <Hb.Box
           role="radiogroup"
           aria-labelledby="color-picker-label"
-          sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 0.5 }}
+          style={{
+            display: "flex",
+            gap: 8,
+            flexWrap: "wrap",
+            marginTop: 4,
+          }}
         >
           {LABEL_COLORS.map((c) => (
             <Hb.Box
@@ -95,21 +117,11 @@ export const CreateLabelDialog = ({
                   setColor(c.hex);
                 }
               }}
-              sx={{
-                width: 28,
-                height: 28,
-                borderRadius: "50%",
-                bgcolor: c.hex,
-                cursor: "pointer",
+              {...stylex.props(styles.swatch)}
+              style={{
+                backgroundColor: c.hex,
                 border: color === c.hex ? "2px solid" : "2px solid transparent",
-                borderColor: color === c.hex ? "text.primary" : "transparent",
-                transition: "border-color 0.15s",
-                "&:hover": { opacity: 0.8 },
-                "&:focus-visible": {
-                  outline: "2px solid",
-                  outlineColor: "primary.main",
-                  outlineOffset: 2,
-                },
+                borderColor: color === c.hex ? "var(--hb-color-text-primary)" : "transparent",
               }}
             />
           ))}

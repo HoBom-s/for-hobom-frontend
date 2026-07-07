@@ -32,7 +32,12 @@ export const ReminderPickerPopover = ({ anchorEl, onClose, onSet }: ReminderPick
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <Hb.Box sx={{ p: 1.5, minWidth: 240 }}>
+      <Hb.Box
+        style={{
+          padding: 12,
+          minWidth: 240,
+        }}
+      >
         <Hb.Text variant="caption" fontWeight={600}>
           리마인더 설정
         </Hb.Text>
@@ -57,7 +62,13 @@ export const ReminderPickerPopover = ({ anchorEl, onClose, onSet }: ReminderPick
             </Hb.Menu.Item>
           ))}
         </Hb.Form.Select>
-        <Hb.Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: 8,
+          }}
+        >
           <Hb.Button
             size="small"
             onClick={handleSet}

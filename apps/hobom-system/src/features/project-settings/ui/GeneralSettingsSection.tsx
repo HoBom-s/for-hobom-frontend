@@ -38,15 +38,17 @@ export const GeneralSettingsSection = ({ projectId }: GeneralSettingsSectionProp
       }}
     >
       <Hb.Box
-        sx={{
-          px: 3,
-          py: 2,
-          bgcolor: "action.hover",
+        style={{
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 16,
+          paddingBottom: 16,
+          backgroundColor: "var(--hb-color-border)",
           borderBottom: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           display: "flex",
           alignItems: "center",
-          gap: 1,
+          gap: 8,
         }}
       >
         <SettingsOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
@@ -54,7 +56,14 @@ export const GeneralSettingsSection = ({ projectId }: GeneralSettingsSectionProp
           일반
         </Hb.Text>
       </Hb.Box>
-      <Hb.Box sx={{ p: 3, display: "flex", flexDirection: "column", gap: 2.5 }}>
+      <Hb.Box
+        style={{
+          padding: 24,
+          display: "flex",
+          flexDirection: "column",
+          gap: 20,
+        }}
+      >
         <Hb.TextField
           label="프로젝트 키"
           value={project.key}
@@ -80,7 +89,12 @@ export const GeneralSettingsSection = ({ projectId }: GeneralSettingsSectionProp
           rows={3}
           placeholder="프로젝트에 대한 간단한 설명을 입력하세요"
         />
-        <Hb.Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
           <Hb.Button
             variant="primary"
             onClick={handleSave}

@@ -8,7 +8,13 @@ export const DailyTodoList = () => {
   const { groupedTodosWithCategory } = useDailyTodoList();
 
   return (
-    <Hb.Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <Hb.Box
+      style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <DailyTodoListContentSection
         groupedTodos={groupedTodosWithCategory}
         renderItem={(todo) => <DailyTodoListItem key={todo.id} item={todo} />}

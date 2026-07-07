@@ -29,7 +29,12 @@ export const MemberPickerPopover = ({
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <Hb.Box sx={{ minWidth: 260, maxHeight: 400 }}>
+      <Hb.Box
+        style={{
+          minWidth: 260,
+          maxHeight: 400,
+        }}
+      >
         <Hb.Text
           variant="caption"
           fontWeight={600}
@@ -103,12 +108,13 @@ export const MemberPickerPopover = ({
 
         {isOwner && (
           <Hb.Box
-            sx={{
-              px: 1.5,
-              pt: 1,
-              pb: 1.5,
+            style={{
+              paddingLeft: 12,
+              paddingRight: 12,
+              paddingTop: 8,
+              paddingBottom: 12,
               borderTop: "1px solid",
-              borderColor: "divider",
+              borderColor: "var(--hb-color-border)",
             }}
           >
             <Hb.Autocomplete
@@ -120,7 +126,11 @@ export const MemberPickerPopover = ({
                   component="li"
                   {...props}
                   key={u.id}
-                  sx={{ display: "flex", gap: 1.5, alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    gap: 12,
+                    alignItems: "center",
+                  }}
                 >
                   <Hb.Avatar
                     sx={{

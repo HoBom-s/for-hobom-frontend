@@ -57,18 +57,26 @@ export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) =
       }}
     >
       <Hb.Box
-        sx={{
-          px: 3,
-          py: 2,
-          bgcolor: "action.hover",
+        style={{
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 16,
+          paddingBottom: 16,
+          backgroundColor: "var(--hb-color-border)",
           borderBottom: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           <DashboardOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
           <Hb.Text variant="subtitle2" fontWeight={700}>
             보드
@@ -87,9 +95,13 @@ export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) =
           />
         </Hb.Box>
       </Hb.Box>
-      <Hb.Box sx={{ p: 3 }}>
+      <Hb.Box
+        style={{
+          padding: 24,
+        }}
+      >
         {/* 보드 생성 */}
-        <Hb.Box sx={{ display: "flex", gap: 1, mb: boards.length > 0 ? 2 : 0 }}>
+        <Hb.Box style={{ display: "flex", gap: 8, marginBottom: boards.length > 0 ? 16 : 0 }}>
           <Hb.TextField
             size="small"
             placeholder="새 보드 이름"

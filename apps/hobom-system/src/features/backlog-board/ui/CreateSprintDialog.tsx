@@ -43,7 +43,12 @@ export const CreateSprintDialog = ({ open, onClose, projectId }: CreateSprintDia
           size="small"
           sx={{ mt: 1 }}
         />
-        <Hb.Box sx={{ display: "flex", gap: 2 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            gap: 16,
+          }}
+        >
           <Hb.TextField
             label="시작일"
             type="date"

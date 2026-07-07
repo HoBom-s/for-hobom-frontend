@@ -13,13 +13,17 @@ export const ProjectListWorkspace = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <Hb.Box sx={{ p: 3 }}>
+    <Hb.Box
+      style={{
+        padding: 24,
+      }}
+    >
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          mb: 4,
+          marginBottom: 32,
         }}
       >
         <Hb.Box>

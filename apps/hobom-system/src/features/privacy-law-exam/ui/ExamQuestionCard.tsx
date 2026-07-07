@@ -261,7 +261,11 @@ export const ExamQuestionCard = ({ questions }: Props) => {
           {currentQuestion.question}
         </Hb.Text>
 
-        <Hb.Box sx={{ mt: 2 }}>
+        <Hb.Box
+          style={{
+            marginTop: 16,
+          }}
+        >
           {currentQuestion.type === "OX" && (
             <OxInput
               value={userAnswer}
@@ -298,7 +302,13 @@ export const ExamQuestionCard = ({ questions }: Props) => {
           </Hb.Alert>
         )}
 
-        <Hb.Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
+        <Hb.Box
+          style={{
+            marginTop: 16,
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Hb.Button variant="secondary" disabled={currentIndex === 0} onClick={prev}>
             이전
           </Hb.Button>

@@ -31,7 +31,11 @@ const PrivacyLawLayoutPage = () => {
   const currentTab = TABS.findIndex((tab) => pathname.startsWith(tab.path));
 
   return (
-    <Hb.Box sx={{ p: 3 }}>
+    <Hb.Box
+      style={{
+        padding: 24,
+      }}
+    >
       <Hb.Stack direction="row" alignItems="center" spacing={1.5} mb={3}>
         <Hb.Text variant="h5" fontWeight={600}>
           개인정보보호법
@@ -40,7 +44,6 @@ const PrivacyLawLayoutPage = () => {
           CPPG 학습 플랫폼
         </Hb.Text>
       </Hb.Stack>
-
       <Hb.Tabs.Root
         value={currentTab === -1 ? 0 : currentTab}
         onChange={(_, idx) => navigate(TABS[idx].path)}
@@ -50,7 +53,6 @@ const PrivacyLawLayoutPage = () => {
           <Hb.Tabs.Item key={tab.path} icon={tab.icon} iconPosition="start" label={tab.label} />
         ))}
       </Hb.Tabs.Root>
-
       <Outlet />
     </Hb.Box>
   );

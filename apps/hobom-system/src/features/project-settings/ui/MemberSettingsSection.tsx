@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import * as stylex from "@stylexjs/stylex";
 import {
   CalendarTodayOutlined,
   PeopleOutline,
@@ -14,6 +15,20 @@ import { Hb } from "@/shared/ui";
 import { ROLE_LABEL, ROLE_COLOR, getAvatarColor, formatDate } from "./project-settings-constants";
 import { AddMemberDialog } from "./AddMemberDialog";
 import { RemoveMemberDialog } from "./RemoveMemberDialog";
+
+const styles = stylex.create({
+  memberRow: {
+    paddingLeft: 24,
+    paddingRight: 24,
+    paddingTop: 12,
+    paddingBottom: 12,
+    display: "flex",
+    alignItems: "center",
+    gap: 16,
+    transition: "background-color 0.15s",
+    ":hover": { backgroundColor: "#f8f9fa" },
+  },
+});
 
 interface MemberSettingsSectionProps {
   projectId: string;
@@ -73,18 +88,26 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
       }}
     >
       <Hb.Box
-        sx={{
-          px: 3,
-          py: 2,
-          bgcolor: "action.hover",
+        style={{
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 16,
+          paddingBottom: 16,
+          backgroundColor: "var(--hb-color-border)",
           borderBottom: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           <PeopleOutline sx={{ fontSize: 18, color: "text.secondary" }} />
           <Hb.Text variant="subtitle2" fontWeight={700}>
             멤버
@@ -118,9 +141,19 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
           멤버 추가
         </Hb.Button>
       </Hb.Box>
-      <Hb.Box sx={{ p: 0 }}>
+      <Hb.Box
+        style={{
+          padding: 0,
+        }}
+      >
         {project.members.length === 0 ? (
-          <Hb.Box sx={{ py: 6, textAlign: "center" }}>
+          <Hb.Box
+            style={{
+              paddingTop: 48,
+              paddingBottom: 48,
+              textAlign: "center",
+            }}
+          >
             <PeopleOutline sx={{ fontSize: 48, color: "action.disabled", mb: 1 }} />
             <Hb.Text variant="body2" color="text.disabled">
               멤버가 없어요
@@ -136,18 +169,7 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
               const roleColor = ROLE_COLOR[member.role] ?? "#6b7280";
 
               return (
-                <Hb.Box
-                  key={member.userId}
-                  sx={{
-                    px: 3,
-                    py: 1.5,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 2,
-                    "&:hover": { bgcolor: "#f8f9fa" },
-                    transition: "background-color 0.15s",
-                  }}
-                >
+                <Hb.Box key={member.userId} {...stylex.props(styles.memberRow)}>
                   <Hb.Avatar
                     sx={{
                       width: 36,
@@ -160,12 +182,17 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
                   >
                     {displayName.charAt(0).toUpperCase()}
                   </Hb.Avatar>
-                  <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+                  <Hb.Box
+                    style={{
+                      flex: 1,
+                      minWidth: 0,
+                    }}
+                  >
                     <Hb.Box
-                      sx={{
+                      style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 1,
+                        gap: 8,
                       }}
                     >
                       <Hb.Text variant="body2" fontWeight={600} noWrap>
@@ -180,10 +207,10 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
                       />
                     </Hb.Box>
                     <Hb.Box
-                      sx={{
+                      style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 2,
+                        gap: 16,
                       }}
                     >
                       {user?.email && (
@@ -193,10 +220,10 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
                       )}
                       <Hb.Tooltip title="참여일" arrow>
                         <Hb.Box
-                          sx={{
+                          style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: 0.3,
+                            gap: 2.4,
                           }}
                         >
                           <CalendarTodayOutlined sx={{ fontSize: 11, color: "text.disabled" }} />

@@ -63,11 +63,13 @@ export const AuthLoginForm = () => {
           component="form"
           noValidate
           autoComplete="off"
-          width="100%"
-          display="flex"
-          flexDirection="column"
-          gap={2}
           onSubmit={formMethods.handleSubmit(handleValidFormSubmit, handleInvalidFormSubmit)}
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+          }}
         >
           <Hb.Text variant="h6" fontWeight={700} style={{ marginBottom: 4 }}>
             로그인

@@ -18,7 +18,13 @@ export const IssueCommentInput = ({ onSubmit, loading }: IssueCommentInputProps)
   };
 
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+      }}
+    >
       <Hb.TextField
         fullWidth
         multiline
@@ -36,7 +42,12 @@ export const IssueCommentInput = ({ onSubmit, loading }: IssueCommentInputProps)
           }
         }}
       />
-      <Hb.Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
         <Hb.Button
           variant="primary"
           size="small"
