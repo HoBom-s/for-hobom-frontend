@@ -43,7 +43,7 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
           style={{
             width: 48,
             height: 48,
-            backgroundColor: "#4680ff",
+            backgroundColor: "var(--hb-color-accent)",
             fontSize: 20,
             fontWeight: 700,
           }}

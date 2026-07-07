@@ -23,7 +23,7 @@ export const COLORS = {
   subtitleText: "#a0aec0",
   dateText: "#374151",
   rowNum: "#c9d3e0",
-  resizeHandle: "#4680ff",
+  resizeHandle: "#262626",
   headerBorder: "#e9ecef",
   pendingBg: "#fff3e0",
   pendingText: "#e65100",

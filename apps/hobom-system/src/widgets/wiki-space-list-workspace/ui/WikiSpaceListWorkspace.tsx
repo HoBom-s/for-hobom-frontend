@@ -18,7 +18,7 @@ const styles = stylex.create({
     textTransform: "none",
     fontWeight: 600,
     boxShadow: "none",
-    ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+    ":hover": { boxShadow: "0 2px 8px rgba(0,0,0,0.18)" },
   },
 });
 

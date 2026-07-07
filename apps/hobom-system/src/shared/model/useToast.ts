@@ -38,9 +38,9 @@ export const useToast = () => {
                   closeToast?.();
                 },
                 style: {
-                  background: "rgba(70,128,255,0.15)",
+                  background: "rgba(255,255,255,0.15)",
                   border: "none",
-                  color: "#6ea8fe",
+                  color: "#ffffff",
                   fontWeight: 600,
                   fontSize: 13,
                   cursor: "pointer",
