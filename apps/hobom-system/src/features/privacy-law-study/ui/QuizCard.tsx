@@ -225,7 +225,13 @@ export const QuizCard = ({ quizzes }: Props) => {
   if (finished) {
     return (
       <Hb.Card.Root variant="outlined">
-        <Hb.Card.Content sx={{ textAlign: "center", py: 4 }}>
+        <Hb.Card.Content
+          style={{
+            textAlign: "center",
+            paddingTop: 32,
+            paddingBottom: 32,
+          }}
+        >
           <Hb.Text variant="h5" gutterBottom>
             퀴즈 완료
           </Hb.Text>

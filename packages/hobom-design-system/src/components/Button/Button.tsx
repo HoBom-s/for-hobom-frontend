@@ -186,7 +186,10 @@ const iconStyles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     boxSizing: "border-box",
-    border: "none",
+    // Longhand (not the `border` shorthand) so StyleX reliably strips the
+    // browser's default <button> border — the shorthand left a stray border.
+    borderWidth: 0,
+    borderStyle: "none",
     borderRadius: "50%",
     // Focus shows as a slightly stronger background tint (no outline ring), the
     // way MUI's IconButton does — an accent outline reads as an odd border when

@@ -1,6 +1,20 @@
+import * as stylex from "@stylexjs/stylex";
 import { PeopleOutline } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
 import type { ProjectType } from "../api/project.type";
+
+const styles = stylex.create({
+  card: {
+    borderRadius: 16,
+    transition: "box-shadow 0.15s",
+    // MUI shadow level 3 -> design-system elevation-2 shadow.
+    ":hover": { boxShadow: "0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04)" },
+  },
+  content: {
+    padding: 20,
+    ":last-child": { paddingBottom: 20 },
+  },
+});
 
 const PROJECT_COLORS = ["#4680ff", "#2ca87f", "#7c3aed", "#e58a00", "#dc2626", "#0891b2"];
 
@@ -23,15 +37,8 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
   const color = getProjectColor(project.key);
 
   return (
-    <Hb.Card.Clickable
-      onClick={onClick}
-      sx={{
-        borderRadius: 2,
-        transition: "box-shadow 0.15s",
-        "&:hover": { boxShadow: 3 },
-      }}
-    >
-      <Hb.Card.Content sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
+    <Hb.Card.Clickable onClick={onClick} {...stylex.props(styles.card)}>
+      <Hb.Card.Content {...stylex.props(styles.content)}>
         <Hb.Box
           style={{
             display: "flex",
