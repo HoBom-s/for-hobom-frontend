@@ -16,7 +16,7 @@ const styles = stylex.create({
     boxSizing: "border-box",
     backgroundColor: {
       default: "transparent",
-      ":focus-visible": "rgba(70, 128, 255, 0.08)",
+      ":focus-visible": "color-mix(in srgb, var(--hb-color-accent) 8%, transparent)",
     },
     outlineWidth: { default: 0, ":focus-visible": 2 },
     outlineStyle: { default: "none", ":focus-visible": "solid" },

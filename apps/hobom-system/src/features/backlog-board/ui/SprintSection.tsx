@@ -32,7 +32,7 @@ const styles = stylex.create({
     paddingLeft: 12,
     paddingRight: 12,
     fontWeight: 600,
-    ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+    ":hover": { boxShadow: "0 2px 8px rgba(0,0,0,0.18)" },
   },
 });
 
@@ -48,7 +48,7 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
       style={{
         borderRadius: 20,
         overflow: "hidden",
-        borderColor: sprint.status === "ACTIVE" ? "#4680ff40" : "var(--hb-color-border)",
+        borderColor: sprint.status === "ACTIVE" ? "color-mix(in srgb, var(--hb-color-accent) 25%, transparent)" : "var(--hb-color-border)",
       }}
     >
       <Hb.Box

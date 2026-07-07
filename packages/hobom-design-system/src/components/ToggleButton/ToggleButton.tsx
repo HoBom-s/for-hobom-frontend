@@ -17,7 +17,7 @@ const styles = stylex.create({
     borderColor: "var(--hb-color-border)",
     backgroundColor: {
       default: "transparent",
-      ":focus-visible": "rgba(70, 128, 255, 0.08)",
+      ":focus-visible": "color-mix(in srgb, var(--hb-color-accent) 8%, transparent)",
     },
     color: "var(--hb-color-text-secondary)",
     fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",
@@ -38,7 +38,7 @@ const styles = stylex.create({
   selected: {
     color: "var(--hb-color-accent)",
     borderColor: "var(--hb-color-accent)",
-    backgroundColor: "rgba(70, 128, 255, 0.08)",
+    backgroundColor: "color-mix(in srgb, var(--hb-color-accent) 8%, transparent)",
   },
 });
 

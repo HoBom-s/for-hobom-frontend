@@ -29,7 +29,7 @@ const styles = stylex.create({
     fontWeight: 600,
     fontSize: 12,
     boxShadow: "none",
-    ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+    ":hover": { boxShadow: "0 2px 8px rgba(0,0,0,0.18)" },
   },
   tab: {
     display: "flex",

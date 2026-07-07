@@ -26,8 +26,8 @@ const styles = stylex.create({
   },
   unread: {
     backgroundColor: {
-      default: "rgba(70, 128, 255, 0.04)",
-      ":hover": "rgba(70, 128, 255, 0.07)",
+      default: "color-mix(in srgb, var(--hb-color-accent) 4%, transparent)",
+      ":hover": "color-mix(in srgb, var(--hb-color-accent) 7%, transparent)",
     },
   },
 });
