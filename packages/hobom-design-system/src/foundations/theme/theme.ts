@@ -67,45 +67,55 @@ export const theme = createTheme({
   components: {
     MuiAppBar: {
       styleOverrides: {
+        // Light: the chrome sits on the canvas tint so the main content reads
+        // as a bright surface framed by it. Dark: the canvas is darker than the
+        // surface, which makes the bar read as a mismatched dark strip, so the
+        // chrome uses the surface tone and blends with the content instead.
         root: ({ theme }) => ({
-          backgroundColor: theme.vars.palette.background.paper,
+          backgroundColor: theme.vars.palette.background.default,
           color: theme.vars.palette.text.primary,
           boxShadow: primitives.shadow.appbar,
+          ...theme.applyStyles("dark", {
+            backgroundColor: theme.vars.palette.background.paper,
+          }),
         }),
       },
     },
     MuiDrawer: {
       styleOverrides: {
-        paper: {
+        paper: ({ theme }) => ({
           width: DRAWER_WIDTH,
           boxSizing: "border-box",
-          backgroundColor: primitives.color.sidebar,
-          border: "none",
-          boxShadow: primitives.shadow.drawer,
-        },
+          backgroundColor: theme.vars.palette.background.default,
+          borderRight: `1px solid ${theme.vars.palette.divider}`,
+          boxShadow: "none",
+          ...theme.applyStyles("dark", {
+            backgroundColor: theme.vars.palette.background.paper,
+          }),
+        }),
       },
     },
     MuiListItemButton: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           borderRadius: primitives.radius.md,
           marginBottom: 4,
           paddingTop: 10,
           paddingBottom: 10,
           paddingLeft: 16,
-          color: "rgba(255, 255, 255, 0.65)",
+          color: theme.vars.palette.text.secondary,
           "&:hover": {
-            backgroundColor: "rgba(255, 255, 255, 0.06)",
-            color: "rgba(255, 255, 255, 0.9)",
+            backgroundColor: theme.vars.palette.action.hover,
+            color: theme.vars.palette.text.primary,
           },
           "&.Mui-selected": {
-            backgroundColor: primitives.color.brand[500],
-            color: primitives.color.white,
+            backgroundColor: theme.vars.palette.action.selected,
+            color: theme.vars.palette.text.primary,
             "&:hover": {
-              backgroundColor: primitives.color.brand[600],
+              backgroundColor: theme.vars.palette.action.selected,
             },
           },
-        },
+        }),
       },
     },
     MuiListItemIcon: {

@@ -66,7 +66,7 @@ const styles = stylex.create({
   primary: {
     backgroundColor: { default: "var(--hb-color-accent)", ":hover": "var(--hb-color-accent-dark)" },
     color: "var(--hb-color-accent-contrast)",
-    boxShadow: { default: "none", ":hover": "0 4px 12px rgba(70, 128, 255, 0.35)" },
+    boxShadow: { default: "none", ":hover": "0 4px 12px rgba(0, 0, 0, 0.18)" },
   },
   danger: {
     backgroundColor: {
@@ -74,7 +74,7 @@ const styles = stylex.create({
       ":hover": "color-mix(in srgb, var(--hb-color-danger) 88%, black)",
     },
     color: "var(--hb-color-accent-contrast)",
-    boxShadow: { default: "none", ":hover": "0 4px 12px rgba(70, 128, 255, 0.35)" },
+    boxShadow: { default: "none", ":hover": "0 4px 12px rgba(0, 0, 0, 0.18)" },
   },
   secondary: {
     backgroundColor: {

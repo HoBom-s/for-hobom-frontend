@@ -118,6 +118,7 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
         }}
       >
         <Hb.Button
+          variant="ghost"
           size="small"
           startIcon={<Add />}
           style={{

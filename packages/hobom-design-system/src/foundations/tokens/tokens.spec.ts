@@ -3,54 +3,53 @@ import { primitives } from "./primitives";
 import { semantic } from "./semantic";
 
 /**
- * Zero-pixel lock.
+ * Palette lock (Astryx "neutral" theme).
  *
- * Pins every semantic token to the exact hex currently used in theme.ts, 1:1.
- * When the next PR refactors theme.ts to consume these tokens, this test
- * guarantees the rendered output does not change. To change a value in
- * theme.ts, this test must be updated deliberately first.
+ * Pins every semantic token to its exact hex so the rendered palette can't
+ * drift unintentionally. To change a value, update this test deliberately
+ * alongside the token.
  */
-describe("semantic ↔ theme.ts palette zero-pixel", () => {
+describe("semantic palette — Astryx neutral", () => {
   it("light", () => {
     const c = semantic.light.color;
 
-    expect(c.brand.main).toBe("#4680ff");
-    expect(c.brand.light).toBe("#94baff");
-    expect(c.brand.dark).toBe("#2a5bd7");
+    expect(c.brand.main).toBe("#262626");
+    expect(c.brand.light).toBe("#525252");
+    expect(c.brand.dark).toBe("#0a0a0a");
     expect(c.brand.contrast).toBe("#ffffff");
-    expect(c.neutral.main).toBe("#5b6a98");
+    expect(c.neutral.main).toBe("#737373");
     expect(c.neutral.contrast).toBe("#ffffff");
-    expect(c.success.main).toBe("#2ca87f");
-    expect(c.success.subtle).toBe("#e8f5e9");
-    expect(c.warning.main).toBe("#e58a00");
-    expect(c.warning.subtle).toBe("#fff3e0");
-    expect(c.danger.main).toBe("#dc2626");
-    expect(c.bg.canvas).toBe("#f0f2f5");
+    expect(c.success.main).toBe("#007004");
+    expect(c.success.subtle).toBe("#c5e5c0");
+    expect(c.warning.main).toBe("#745b00");
+    expect(c.warning.subtle).toBe("#f8da9d");
+    expect(c.danger.main).toBe("#a50c25");
+    expect(c.bg.canvas).toBe("#f1f1f1");
     expect(c.bg.surface).toBe("#ffffff");
-    expect(c.text.primary).toBe("#2d3748");
-    expect(c.text.secondary).toBe("#4a5568");
-    expect(c.border.default).toBe("#d0d5dd");
+    expect(c.text.primary).toBe("#171717");
+    expect(c.text.secondary).toBe("#737373");
+    expect(c.border.default).toBe("#ebebeb");
   });
 
   it("dark", () => {
     const c = semantic.dark.color;
 
-    expect(c.brand.main).toBe("#5b93ff");
-    expect(c.brand.light).toBe("#94baff");
-    expect(c.brand.dark).toBe("#3a6de0");
-    expect(c.brand.contrast).toBe("#ffffff");
-    expect(c.neutral.main).toBe("#8a9bc8");
-    expect(c.neutral.contrast).toBe("#ffffff");
-    expect(c.success.main).toBe("#34c793");
-    expect(c.success.subtle).toBe("#1a3a2a");
-    expect(c.warning.main).toBe("#f5a623");
-    expect(c.warning.subtle).toBe("#3a2d1a");
-    expect(c.danger.main).toBe("#ef4444");
-    expect(c.bg.canvas).toBe("#111827");
-    expect(c.bg.surface).toBe("#1e293b");
-    expect(c.text.primary).toBe("#e2e8f0");
-    expect(c.text.secondary).toBe("#94a3b8");
-    expect(c.border.default).toBe("#334155");
+    expect(c.brand.main).toBe("#ebebeb");
+    expect(c.brand.light).toBe("#d4d4d4");
+    expect(c.brand.dark).toBe("#fafafa");
+    expect(c.brand.contrast).toBe("#171717");
+    expect(c.neutral.main).toBe("#a3a3a3");
+    expect(c.neutral.contrast).toBe("#171717");
+    expect(c.success.main).toBe("#9fe59b");
+    expect(c.success.subtle).toBe("#84c9803d");
+    expect(c.warning.main).toBe("#fdcf4f");
+    expect(c.warning.subtle).toBe("#deb4333d");
+    expect(c.danger.main).toBe("#ffc6c1");
+    expect(c.bg.canvas).toBe("#1b1b1b");
+    expect(c.bg.surface).toBe("#262626");
+    expect(c.text.primary).toBe("#fafafa");
+    expect(c.text.secondary).toBe("#a3a3a3");
+    expect(c.border.default).toBe("#ffffff1a");
   });
 
   it("sidebar is fixed across schemes", () => {
@@ -84,9 +83,7 @@ describe("primitives non-color zero-pixel", () => {
   });
 
   it("shadow strings preserved", () => {
-    expect(primitives.shadow.brandGlow).toBe(
-      "0 4px 12px rgba(70, 128, 255, 0.35)",
-    );
+    expect(primitives.shadow.brandGlow).toBe("0 4px 12px rgba(0, 0, 0, 0.18)");
     expect(primitives.shadow.elevation1).toBe(
       "0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.03)",
     );
