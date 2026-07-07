@@ -388,7 +388,7 @@ export const AppShell = ({
             sx={{
               fontWeight: 800,
               fontSize: "1.15rem",
-              color: "#ffffff",
+              color: "text.primary",
               letterSpacing: "0.02em",
               whiteSpace: "nowrap",
             }}
@@ -397,7 +397,7 @@ export const AppShell = ({
           </Typography>
         </Box>
 
-        <Divider sx={{ borderColor: "rgba(255,255,255,0.08)" }} />
+        <Divider sx={{ borderColor: "divider" }} />
 
         <Box
           component="nav"
@@ -432,14 +432,14 @@ export const AppShell = ({
                         cursor: "pointer",
                         borderRadius: 1,
                         "&:hover": {
-                          bgcolor: "rgba(255,255,255,0.04)",
+                          bgcolor: "action.hover",
                         },
                       }}
                     >
                       <Typography
                         variant="caption"
                         sx={{
-                          color: "rgba(244,220,200,0.4)",
+                          color: "text.secondary",
                           fontSize: "0.7125rem",
                           fontWeight: 600,
                           letterSpacing: "0.1em",
@@ -453,14 +453,14 @@ export const AppShell = ({
                         <ExpandLess
                           sx={{
                             fontSize: 14,
-                            color: "rgba(244,220,200,0.3)",
+                            color: "text.disabled",
                           }}
                         />
                       ) : (
                         <ExpandMore
                           sx={{
                             fontSize: 14,
-                            color: "rgba(244,220,200,0.3)",
+                            color: "text.disabled",
                           }}
                         />
                       )}
@@ -469,7 +469,7 @@ export const AppShell = ({
                     index > 0 && (
                       <Divider
                         sx={{
-                          borderColor: "rgba(255,255,255,0.08)",
+                          borderColor: "divider",
                           my: 1,
                         }}
                       />
@@ -503,7 +503,7 @@ export const AppShell = ({
 
         {bottomNavItems && bottomNavItems.length > 0 && (
           <Box sx={{ px: drawerOpen ? 1.5 : 0.75, pb: 2 }}>
-            <Divider sx={{ borderColor: "rgba(255,255,255,0.08)", mb: 1.5 }} />
+            <Divider sx={{ borderColor: "divider", mb: 1.5 }} />
             <NavList
               items={bottomNavItems}
               activeValue={activeItem.value}
@@ -525,7 +525,7 @@ export const AppShell = ({
           mt: `${APPBAR_HEIGHT}px`,
           height: `calc(100vh - ${APPBAR_HEIGHT}px)`,
           overflow: "auto",
-          bgcolor: "background.default",
+          bgcolor: "background.paper",
           transition: `margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1)`,
         }}
       >

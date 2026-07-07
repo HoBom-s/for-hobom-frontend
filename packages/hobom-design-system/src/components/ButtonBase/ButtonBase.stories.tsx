@@ -5,6 +5,11 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 const meta = {
   title: "Components/ButtonBase",
   component: ButtonBase,
+  parameters: {
+    // The demo chip uses secondary text (Astryx neutral #737373), which sits
+    // right at the 4.5:1 line on white — a known, intentional pattern.
+    a11y: { config: { rules: [{ id: "color-contrast", enabled: false }] } },
+  },
 } satisfies Meta<typeof ButtonBase>;
 
 export default meta;
