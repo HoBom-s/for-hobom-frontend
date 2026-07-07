@@ -108,17 +108,13 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       transformOrigin={{ vertical: "top", horizontal: "right" }}
-      slotProps={{
-        paper: {
-          sx: {
-            width: 380,
-            maxHeight: 520,
-            mt: 1,
-            borderRadius: 2,
-            overflow: "hidden",
-            boxShadow: "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
-          },
-        },
+      style={{
+        width: 380,
+        maxHeight: 520,
+        marginTop: 8,
+        borderRadius: 16,
+        overflow: "hidden",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
       }}
     >
       <Hb.Box

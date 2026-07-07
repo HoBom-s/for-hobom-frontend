@@ -65,15 +65,11 @@ export const UserProfileMenu = () => {
         onClose={() => setAnchorEl(null)}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        slotProps={{
-          paper: {
-            sx: {
-              width: 300,
-              mt: 1,
-              borderRadius: 2,
-              boxShadow: "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
-            },
-          },
+        style={{
+          width: 300,
+          marginTop: 8,
+          borderRadius: 16,
+          boxShadow: "0 4px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
         }}
       >
         <UserInfoSection initial={initial} nickname={user.nickname} email={user.email} />
