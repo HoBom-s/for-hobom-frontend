@@ -15,8 +15,20 @@ export const StudyMaterialList = () => {
         <Hb.Card.Root key={m.id} variant="outlined">
           <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/study/${m.id}`)}>
             <Hb.Card.Content>
-              <Hb.Stack direction="row" alignItems="flex-start" justifyContent="space-between">
-                <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
+              <Hb.Stack
+                direction="row"
+                style={{
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Hb.Stack
+                  direction="row"
+                  spacing={1.5}
+                  style={{
+                    alignItems: "flex-start",
+                  }}
+                >
                   <SchoolOutlined color="primary" fontSize="small" sx={{ mt: 0.25 }} />
                   <Hb.Box>
                     <Hb.Text variant="subtitle2" gutterBottom>

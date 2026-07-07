@@ -142,7 +142,13 @@ const MultipleChoiceInput = ({
           disabled={disabled}
           control={<Hb.Radio.Root size="small" />}
           label={
-            <Hb.Stack direction="row" alignItems="center" spacing={1}>
+            <Hb.Stack
+              direction="row"
+              spacing={1}
+              style={{
+                alignItems: "center",
+              }}
+            >
               <Hb.Text
                 variant="body2"
                 style={{
@@ -231,7 +237,14 @@ export const QuizCard = ({ quizzes }: Props) => {
   return (
     <Hb.Card.Root variant="outlined">
       <Hb.Card.Content>
-        <Hb.Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+        <Hb.Stack
+          direction="row"
+          style={{
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 16,
+          }}
+        >
           <Hb.Stack direction="row" spacing={1}>
             <Hb.Chip label={`${currentIndex + 1} / ${total}`} size="small" color="primary" />
             <Hb.Chip

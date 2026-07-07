@@ -18,7 +18,15 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
 
   if (messages.length === 0 && !isPending) {
     return (
-      <Hb.Stack alignItems="center" justifyContent="center" sx={{ flex: 1, py: 8 }}>
+      <Hb.Stack
+        style={{
+          flex: 1,
+          paddingTop: 64,
+          paddingBottom: 64,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <GavelOutlined sx={{ fontSize: 48, color: "text.disabled", mb: 2 }} />
         <Hb.Text variant="h6" color="text.secondary" gutterBottom>
           개인정보보호법 AI 상담
@@ -31,15 +39,23 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
   }
 
   return (
-    <Hb.Stack spacing={2} sx={{ flex: 1, overflow: "auto", py: 2 }}>
+    <Hb.Stack
+      spacing={2}
+      style={{
+        flex: 1,
+        overflow: "auto",
+        paddingTop: 16,
+        paddingBottom: 16,
+      }}
+    >
       {messages.map((msg) => (
         <Hb.Stack
           key={msg.id}
           direction="row"
           spacing={1.5}
-          alignItems="flex-start"
-          sx={{
+          style={{
             flexDirection: msg.role === "user" ? "row-reverse" : "row",
+            alignItems: "flex-start",
           }}
         >
           <Hb.Avatar
@@ -83,7 +99,13 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
         </Hb.Stack>
       ))}
       {isPending && (
-        <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
+        <Hb.Stack
+          direction="row"
+          spacing={1.5}
+          style={{
+            alignItems: "flex-start",
+          }}
+        >
           <Hb.Avatar sx={{ width: 32, height: 32, bgcolor: "grey.700" }}>
             <GavelOutlined fontSize="small" />
           </Hb.Avatar>
@@ -97,7 +119,13 @@ export const ChatMessageList = ({ messages, isPending }: Props) => {
               borderRadius: 16,
             }}
           >
-            <Hb.Stack direction="row" spacing={1} alignItems="center">
+            <Hb.Stack
+              direction="row"
+              spacing={1}
+              style={{
+                alignItems: "center",
+              }}
+            >
               <Hb.Progress.Circular size={16} />
               <Hb.Text variant="body2" color="text.secondary">
                 답변 생성 중...

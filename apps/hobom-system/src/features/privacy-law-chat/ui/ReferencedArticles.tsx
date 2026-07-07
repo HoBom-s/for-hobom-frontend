@@ -6,7 +6,15 @@ interface Props {
 }
 
 export const ReferencedArticles = ({ articles }: Props) => (
-  <Hb.Stack direction="row" spacing={0.5} flexWrap="wrap" mt={1.5} gap={0.5}>
+  <Hb.Stack
+    direction="row"
+    spacing={0.5}
+    style={{
+      flexWrap: "wrap",
+      marginTop: 12,
+      gap: 4,
+    }}
+  >
     <Hb.Text
       variant="caption"
       color="text.secondary"

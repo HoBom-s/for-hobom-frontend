@@ -41,13 +41,24 @@ export const ExamList = () => {
       >
         {isPending ? "생성 중..." : "모의고사 생성"}
       </Hb.Button>
-
       {exams.map((exam) => (
         <Hb.Card.Root key={exam.id} variant="outlined">
           <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/exams/${exam.id}`)}>
             <Hb.Card.Content>
-              <Hb.Stack direction="row" alignItems="flex-start" justifyContent="space-between">
-                <Hb.Stack direction="row" spacing={1.5} alignItems="flex-start">
+              <Hb.Stack
+                direction="row"
+                style={{
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Hb.Stack
+                  direction="row"
+                  spacing={1.5}
+                  style={{
+                    alignItems: "flex-start",
+                  }}
+                >
                   <AssignmentOutlined color="primary" fontSize="small" sx={{ mt: 0.25 }} />
                   <div>
                     <Hb.Text variant="subtitle2" gutterBottom>
@@ -70,7 +81,6 @@ export const ExamList = () => {
           </Hb.Card.Clickable>
         </Hb.Card.Root>
       ))}
-
       {exams.length === 0 && (
         <Hb.Text
           color="text.secondary"

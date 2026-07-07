@@ -66,19 +66,26 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
     <Hb.ThemeProvider theme={studioTheme}>
       <Hb.Stack
         direction="row"
-        sx={{
+        style={{
           height: "100%",
           minHeight: 0,
-          bgcolor: "background.default",
-          color: "text.primary",
+          backgroundColor: "var(--hb-color-canvas)",
+          color: "var(--hb-color-text-primary)",
         }}
       >
         <Panel width={232} side="right">
           <Hb.Stack
             direction="row"
-            alignItems="center"
-            gap={0.5}
-            sx={{ px: 1, py: 1, borderBottom: 1, borderColor: "divider" }}
+            style={{
+              paddingLeft: 8,
+              paddingRight: 8,
+              paddingTop: 8,
+              paddingBottom: 8,
+              borderBottom: "1px solid",
+              borderColor: "var(--hb-color-border)",
+              alignItems: "center",
+              gap: 4,
+            }}
           >
             <Hb.Button.Icon
               size="small"
@@ -110,12 +117,12 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
 
         <Hb.Stack
           onClick={clearSelection}
-          sx={{
+          style={{
             flex: 1,
             minWidth: 0,
             minHeight: 0,
-            p: 4,
-            gap: 1,
+            padding: 32,
+            gap: 8,
             overflow: "auto",
           }}
         >
@@ -181,13 +188,13 @@ interface PanelProps {
 function Panel({ width, side, children }: PanelProps) {
   return (
     <Hb.Stack
-      sx={{
+      style={{
         width,
         flexShrink: 0,
         minWidth: 0,
-        bgcolor: "background.paper",
-        [side === "right" ? "borderRight" : "borderLeft"]: 1,
-        borderColor: "divider",
+        backgroundColor: "var(--hb-color-surface)",
+        [side === "right" ? "borderRight" : "borderLeft"]: "1px solid",
+        borderColor: "var(--hb-color-border)",
         overflow: "auto",
       }}
     >

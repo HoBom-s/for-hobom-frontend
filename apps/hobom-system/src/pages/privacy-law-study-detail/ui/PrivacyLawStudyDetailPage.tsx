@@ -13,11 +13,16 @@ const StudyDetailContent = ({ materialId }: { materialId: string }) => {
   return (
     <Hb.Stack spacing={3}>
       <StudyMaterialContent materialId={materialId} />
-
       {material.quizzes.length > 0 && (
         <>
           <Hb.Divider />
-          <Hb.Stack direction="row" alignItems="center" spacing={1}>
+          <Hb.Stack
+            direction="row"
+            spacing={1}
+            style={{
+              alignItems: "center",
+            }}
+          >
             <QuizOutlined color="primary" />
             <Hb.Text variant="h6">퀴즈</Hb.Text>
           </Hb.Stack>

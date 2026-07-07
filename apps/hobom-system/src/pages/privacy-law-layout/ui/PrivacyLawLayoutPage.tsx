@@ -36,7 +36,14 @@ const PrivacyLawLayoutPage = () => {
         padding: 24,
       }}
     >
-      <Hb.Stack direction="row" alignItems="center" spacing={1.5} mb={3}>
+      <Hb.Stack
+        direction="row"
+        spacing={1.5}
+        style={{
+          alignItems: "center",
+          marginBottom: 24,
+        }}
+      >
         <Hb.Text variant="h5" fontWeight={600}>
           개인정보보호법
         </Hb.Text>

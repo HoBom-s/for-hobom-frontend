@@ -31,10 +31,28 @@ export const LawDiffList = () => {
           <Hb.Card.Root key={diff.id} variant="outlined">
             <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/diffs/${diff.id}`)}>
               <Hb.Card.Content>
-                <Hb.Stack direction="row" alignItems="center" justifyContent="space-between">
-                  <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
+                <Hb.Stack
+                  direction="row"
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Hb.Stack
+                    direction="row"
+                    spacing={1.5}
+                    style={{
+                      alignItems: "center",
+                    }}
+                  >
                     <CompareArrowsOutlined color="primary" fontSize="small" />
-                    <Hb.Stack direction="row" alignItems="center" spacing={0.5}>
+                    <Hb.Stack
+                      direction="row"
+                      spacing={0.5}
+                      style={{
+                        alignItems: "center",
+                      }}
+                    >
                       <Hb.Text variant="subtitle2">{diff.fromProclamationDate}</Hb.Text>
                       <ArrowForwardOutlined fontSize="small" sx={{ color: "text.secondary" }} />
                       <Hb.Text variant="subtitle2">{diff.toProclamationDate}</Hb.Text>

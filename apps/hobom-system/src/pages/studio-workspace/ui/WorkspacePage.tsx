@@ -12,6 +12,42 @@ import { Hb, EditableLabel } from "@/shared/ui";
 import { useWorkspace } from "@/features/workspace";
 import type { FolderId, ItemId } from "@/entities/workspace";
 
+// StyleX/inline styles cannot express the hover-reveal descendant selectors, so
+// these rows are styled via scoped <style> tags with a stable class each. React 19
+// hoists and de-dupes them by `href`, so each rule is emitted once despite the .map.
+const FOLDER_ROW_CLASS = "workspace-folder-row";
+const FOLDER_ROW_ACTIVE_CLASS = "is-active";
+// The base background depends on the active folder. It is toggled via a modifier
+// class (not inline) so the :hover rule can still override it.
+const FOLDER_ROW_CSS = `
+.${FOLDER_ROW_CLASS} {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: transparent;
+}
+.${FOLDER_ROW_CLASS}.${FOLDER_ROW_ACTIVE_CLASS} { background-color: var(--hb-color-border); }
+.${FOLDER_ROW_CLASS}:hover { background-color: var(--hb-color-border); }
+.${FOLDER_ROW_CLASS}:hover .row-action { opacity: 1; }
+`;
+
+const FAV_ROW_CLASS = "workspace-fav-row";
+const FAV_ROW_CSS = `
+.${FAV_ROW_CLASS} {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.${FAV_ROW_CLASS}:hover { background-color: var(--hb-color-border); }
+.${FAV_ROW_CLASS}:hover .fav-action { opacity: 1; }
+`;
+
 /** 워크스페이스 브라우저 — 좌측 즐겨찾기·폴더 / 우측 아이템 그리드. */
 export default function WorkspacePage() {
   const navigate = useNavigate();
@@ -60,15 +96,21 @@ export default function WorkspacePage() {
   };
 
   return (
-    <Hb.Stack direction="row" sx={{ height: "100%", minHeight: 0 }}>
+    <Hb.Stack
+      direction="row"
+      style={{
+        height: "100%",
+        minHeight: 0,
+      }}
+    >
       <Hb.Stack
-        sx={{
+        style={{
           width: 240,
           flexShrink: 0,
           borderRight: 1,
-          borderColor: "divider",
-          p: 1.5,
-          gap: 0.25,
+          borderColor: "var(--hb-color-border)",
+          padding: 12,
+          gap: 2,
           overflow: "auto",
         }}
       >
@@ -102,7 +144,14 @@ export default function WorkspacePage() {
           </>
         )}
 
-        <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+        <Hb.Stack
+          direction="row"
+          style={{
+            marginBottom: 8,
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Hb.Text
             variant="caption"
             color="text.secondary"
@@ -117,21 +166,22 @@ export default function WorkspacePage() {
           </Hb.Button.Icon>
         </Hb.Stack>
 
+        <style href={FOLDER_ROW_CLASS} precedence="default">
+          {FOLDER_ROW_CSS}
+        </style>
         {folders.map((folder) => (
           <Hb.Stack
             key={folder.id}
+            className={
+              folder.id === activeFolder?.id
+                ? `${FOLDER_ROW_CLASS} ${FOLDER_ROW_ACTIVE_CLASS}`
+                : FOLDER_ROW_CLASS
+            }
             direction="row"
-            alignItems="center"
-            gap={1}
             onClick={() => setActiveFolderId(folder.id)}
-            sx={{
-              px: 1,
-              py: 0.75,
-              borderRadius: 1,
-              cursor: "pointer",
-              bgcolor: folder.id === activeFolder?.id ? "action.selected" : "transparent",
-              "&:hover": { bgcolor: "action.hover" },
-              "&:hover .row-action": { opacity: 1 },
+            style={{
+              alignItems: "center",
+              gap: 8,
             }}
           >
             <FolderOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
@@ -165,7 +215,14 @@ export default function WorkspacePage() {
           overflow: "auto",
         }}
       >
-        <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+        <Hb.Stack
+          direction="row"
+          style={{
+            marginBottom: 16,
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Hb.Text variant="h6">{activeFolder?.name ?? "워크스페이스"}</Hb.Text>
           <Hb.Button variant="primary" startIcon={<AddOutlined />} onClick={handleNewDesign}>
             새 디자인
@@ -325,58 +382,58 @@ function FavoriteRow({ label, onOpen, onRename, onRemove }: FavoriteRowProps) {
   }
 
   return (
-    <Hb.Stack
-      direction="row"
-      alignItems="center"
-      gap={1}
-      onClick={onOpen}
-      sx={{
-        px: 1,
-        py: 0.75,
-        borderRadius: 1,
-        cursor: "pointer",
-        "&:hover": { bgcolor: "action.hover" },
-        "&:hover .fav-action": { opacity: 1 },
-      }}
-    >
-      <PushPin sx={{ fontSize: 16, color: "primary.main" }} />
-      <Hb.Text
+    <>
+      <style href={FAV_ROW_CLASS} precedence="default">
+        {FAV_ROW_CSS}
+      </style>
+      <Hb.Stack
+        className={FAV_ROW_CLASS}
+        direction="row"
+        onClick={onOpen}
         style={{
-          flex: 1,
-          minWidth: 0,
-          fontSize: 14,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
+          alignItems: "center",
+          gap: 8,
         }}
       >
-        {label}
-      </Hb.Text>
-      <Hb.Button.Icon
-        size="small"
-        className="fav-action"
-        aria-label="즐겨찾기 이름변경"
-        onClick={(event) => {
-          event.stopPropagation();
-          setDraft(label);
-          setEditing(true);
-        }}
-        sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
-      >
-        <EditOutlined sx={{ fontSize: 15 }} />
-      </Hb.Button.Icon>
-      <Hb.Button.Icon
-        size="small"
-        className="fav-action"
-        aria-label="즐겨찾기 해제"
-        onClick={(event) => {
-          event.stopPropagation();
-          onRemove();
-        }}
-        sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
-      >
-        <DeleteOutline sx={{ fontSize: 15 }} />
-      </Hb.Button.Icon>
-    </Hb.Stack>
+        <PushPin sx={{ fontSize: 16, color: "primary.main" }} />
+        <Hb.Text
+          style={{
+            flex: 1,
+            minWidth: 0,
+            fontSize: 14,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {label}
+        </Hb.Text>
+        <Hb.Button.Icon
+          size="small"
+          className="fav-action"
+          aria-label="즐겨찾기 이름변경"
+          onClick={(event) => {
+            event.stopPropagation();
+            setDraft(label);
+            setEditing(true);
+          }}
+          sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
+        >
+          <EditOutlined sx={{ fontSize: 15 }} />
+        </Hb.Button.Icon>
+        <Hb.Button.Icon
+          size="small"
+          className="fav-action"
+          aria-label="즐겨찾기 해제"
+          onClick={(event) => {
+            event.stopPropagation();
+            onRemove();
+          }}
+          sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
+        >
+          <DeleteOutline sx={{ fontSize: 15 }} />
+        </Hb.Button.Icon>
+      </Hb.Stack>
+    </>
   );
 }

@@ -26,7 +26,13 @@ export const ChatInput = ({ onSend, disabled }: Props) => {
   };
 
   return (
-    <Hb.Stack direction="row" spacing={1} alignItems="flex-end">
+    <Hb.Stack
+      direction="row"
+      spacing={1}
+      style={{
+        alignItems: "flex-end",
+      }}
+    >
       <Hb.TextField
         fullWidth
         multiline

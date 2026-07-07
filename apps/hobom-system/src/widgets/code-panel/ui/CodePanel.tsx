@@ -14,8 +14,19 @@ export function CodePanel({ document }: CodePanelProps) {
   const { copied, copy } = useCopyToClipboard();
 
   return (
-    <Hb.Stack gap={1} sx={{ minWidth: 0 }}>
-      <Hb.Stack direction="row" alignItems="center" gap={0.5}>
+    <Hb.Stack
+      style={{
+        minWidth: 0,
+        gap: 8,
+      }}
+    >
+      <Hb.Stack
+        direction="row"
+        style={{
+          alignItems: "center",
+          gap: 4,
+        }}
+      >
         <Hb.Text
           style={{
             fontSize: 11,

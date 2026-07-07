@@ -45,7 +45,14 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
         padding: 12,
       }}
     >
-      <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1.5 }}>
+      <Hb.Stack
+        direction="row"
+        style={{
+          marginBottom: 12,
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <Hb.Text
           style={{
             fontSize: 13,
@@ -73,7 +80,11 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
           미등록 컴포넌트: {node.type}
         </Hb.Text>
       ) : (
-        <Hb.Stack gap={1.25}>
+        <Hb.Stack
+          style={{
+            gap: 10,
+          }}
+        >
           {Object.entries(manifest.props).map(([name, spec]) => (
             <PropField
               key={name}
@@ -103,7 +114,11 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
       >
         사이징
       </Hb.Text>
-      <Hb.Stack gap={1.25}>
+      <Hb.Stack
+        style={{
+          gap: 10,
+        }}
+      >
         <SizeField
           label="W"
           value={node.style?.width}
@@ -130,9 +145,11 @@ function SizeField({ label, value, onChange }: SizeFieldProps) {
   return (
     <Hb.Stack
       direction="row"
-      alignItems="center"
-      justifyContent="space-between"
-      sx={{ minHeight: 24 }}
+      style={{
+        minHeight: 24,
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
     >
       <Hb.Text style={labelStyle}>{label}</Hb.Text>
       <Hb.TextField
@@ -189,9 +206,11 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
     return (
       <Hb.Stack
         direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ minHeight: 24 }}
+        style={{
+          minHeight: 24,
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
         <Hb.Text style={labelStyle}>{name}</Hb.Text>
         <Hb.Checkbox
@@ -206,7 +225,12 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
 
   if (spec.kind === "string") {
     return (
-      <Hb.Stack gap={0.5} sx={{ minWidth: 0 }}>
+      <Hb.Stack
+        style={{
+          minWidth: 0,
+          gap: 4,
+        }}
+      >
         <Hb.Text style={labelStyle}>{name}</Hb.Text>
         <Hb.TextField
           size="small"
@@ -222,9 +246,11 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
     return (
       <Hb.Stack
         direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ minHeight: 24 }}
+        style={{
+          minHeight: 24,
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
         <Hb.Text style={labelStyle}>{name}</Hb.Text>
         <Hb.TextField
@@ -239,7 +265,12 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
   }
 
   return (
-    <Hb.Stack gap={0.5} sx={{ minWidth: 0 }}>
+    <Hb.Stack
+      style={{
+        minWidth: 0,
+        gap: 4,
+      }}
+    >
       <Hb.Text style={labelStyle}>{name}</Hb.Text>
       <Hb.Box
         style={{
