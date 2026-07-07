@@ -52,7 +52,9 @@ export const CommentInput = ({
         onClick={handleSubmit}
         loading={loading}
         disabled={!content.trim()}
-        sx={{ flexShrink: 0 }}
+        style={{
+          flexShrink: 0,
+        }}
       >
         등록
       </Hb.Button>

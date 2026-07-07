@@ -120,7 +120,10 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
         <Hb.Button
           size="small"
           startIcon={<Add />}
-          sx={{ color: "text.secondary", textTransform: "none" }}
+          style={{
+            color: "var(--hb-color-text-secondary)",
+            textTransform: "none",
+          }}
           onClick={() => setCreateOpen(true)}
         >
           카테고리 추가

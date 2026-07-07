@@ -28,6 +28,10 @@ const styles = stylex.create({
     transition: "background-color 0.15s",
     ":hover": { backgroundColor: "#f8f9fa" },
   },
+  removeMemberIcon: {
+    color: "var(--hb-color-text-disabled)",
+    ":hover": { color: "var(--hb-color-danger)" },
+  },
 });
 
 interface MemberSettingsSectionProps {
@@ -130,11 +134,11 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
           size="small"
           startIcon={<PersonAddOutlined />}
           onClick={handleAddMember}
-          sx={{
+          style={{
             textTransform: "none",
             fontWeight: 600,
             boxShadow: "none",
-            borderRadius: 2,
+            borderRadius: 16,
             fontSize: 12,
           }}
         >
@@ -238,10 +242,7 @@ export const MemberSettingsSection = ({ projectId }: MemberSettingsSectionProps)
                     <Hb.Button.Icon
                       size="small"
                       onClick={() => handleRemoveMember(member.userId, displayName)}
-                      sx={{
-                        color: "text.disabled",
-                        "&:hover": { color: "error.main" },
-                      }}
+                      {...stylex.props(styles.removeMemberIcon)}
                     >
                       <PersonRemoveOutlined sx={{ fontSize: 18 }} />
                     </Hb.Button.Icon>

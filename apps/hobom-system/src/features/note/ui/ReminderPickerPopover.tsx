@@ -73,7 +73,9 @@ export const ReminderPickerPopover = ({ anchorEl, onClose, onSet }: ReminderPick
             size="small"
             onClick={handleSet}
             disabled={!date}
-            sx={{ textTransform: "none" }}
+            style={{
+              textTransform: "none",
+            }}
           >
             설정
           </Hb.Button>

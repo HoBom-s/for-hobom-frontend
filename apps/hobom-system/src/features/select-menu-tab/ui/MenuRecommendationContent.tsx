@@ -46,9 +46,15 @@ export const MenuRecommendationContent = () => {
       </Hb.Box>
       <Hb.Button
         variant="primary"
-        size="large"
+        size="medium"
         onClick={() => navigate(RoutesConfig.MENU.PICK)}
-        sx={{ mt: 1, px: 4, borderRadius: 2, textTransform: "none" }}
+        style={{
+          marginTop: 8,
+          paddingLeft: 32,
+          paddingRight: 32,
+          borderRadius: 16,
+          textTransform: "none",
+        }}
       >
         메뉴 추천받기
       </Hb.Button>

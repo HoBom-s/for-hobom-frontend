@@ -139,7 +139,9 @@ const LogoutSection = ({
       startIcon={<Logout fontSize="small" />}
       loading={isLoggingOut}
       onClick={onLogout}
-      sx={{ fontSize: "0.8125rem" }}
+      style={{
+        fontSize: "0.8125rem",
+      }}
     >
       로그아웃
     </Hb.Button>

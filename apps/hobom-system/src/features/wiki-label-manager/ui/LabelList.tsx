@@ -74,7 +74,9 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
                     aria-label={`${label.name} 삭제`}
                     onClick={() => handleDelete(label.id)}
                     disabled={isDeleting}
-                    sx={{ color: "error.main" }}
+                    style={{
+                      color: "var(--hb-color-danger)",
+                    }}
                   >
                     <DeleteOutlined sx={{ fontSize: 16 }} />
                   </Hb.Button.Icon>

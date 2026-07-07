@@ -87,7 +87,12 @@ const Inner = ({ onNextCallback }: Props) => {
         <Hb.Button
           fullWidth
           variant="secondary"
-          sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
+          style={{
+            borderRadius: 16,
+            paddingTop: 9.6,
+            paddingBottom: 9.6,
+            fontWeight: 600,
+          }}
           onClick={() => navigate(RoutesConfig.MAIN.DAILY_TODO)}
         >
           나가기
@@ -97,7 +102,12 @@ const Inner = ({ onNextCallback }: Props) => {
           variant="primary"
           disableElevation
           loading={addCandidatesTodayMenu.isPending}
-          sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
+          style={{
+            borderRadius: 16,
+            paddingTop: 9.6,
+            paddingBottom: 9.6,
+            fontWeight: 600,
+          }}
           onClick={() => {
             if (selectedItems.length === 0) {
               openWarnToast({ message: "메뉴를 선택해 주세요." });

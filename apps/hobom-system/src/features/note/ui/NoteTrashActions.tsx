@@ -1,6 +1,18 @@
 import { DeleteForeverOutlined, InfoOutlined } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import { useEmptyTrash } from "@/entities/note";
 import { Hb } from "@/shared/ui";
+
+const styles = stylex.create({
+  emptyButton: {
+    textTransform: "none",
+    flexShrink: 0,
+    color: "#b06000",
+    fontWeight: 500,
+    fontSize: "0.8125rem",
+    ":hover": { backgroundColor: "rgba(176,96,0,0.08)" },
+  },
+});
 
 export const NoteTrashActions = () => {
   const emptyTrash = useEmptyTrash();
@@ -45,14 +57,7 @@ export const NoteTrashActions = () => {
         startIcon={<DeleteForeverOutlined sx={{ fontSize: 16 }} />}
         onClick={() => emptyTrash.mutate()}
         disabled={emptyTrash.isPending}
-        sx={{
-          textTransform: "none",
-          flexShrink: 0,
-          color: "#b06000",
-          fontWeight: 500,
-          fontSize: "0.8125rem",
-          "&:hover": { bgcolor: "rgba(176,96,0,0.08)" },
-        }}
+        {...stylex.props(styles.emptyButton)}
       >
         휴지통 비우기
       </Hb.Button>

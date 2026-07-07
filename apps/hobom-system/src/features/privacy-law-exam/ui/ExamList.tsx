@@ -37,7 +37,9 @@ export const ExamList = () => {
         startIcon={<AddCircleOutline />}
         onClick={() => generate()}
         loading={isPending}
-        sx={{ alignSelf: "flex-start" }}
+        style={{
+          alignSelf: "flex-start",
+        }}
       >
         {isPending ? "생성 중..." : "모의고사 생성"}
       </Hb.Button>

@@ -1,3 +1,4 @@
+import * as stylex from "@stylexjs/stylex";
 import {
   AddOutlined,
   CloseOutlined,
@@ -8,6 +9,18 @@ import {
 import { Hb, Sortable } from "@/shared/ui";
 import { getStatusConfig, type BoardDto } from "@/entities/board";
 import { useBoardItem } from "../model/useBoardItem";
+
+const styles = stylex.create({
+  dangerIcon: {
+    color: "var(--hb-color-text-disabled)",
+    ":hover": { color: "var(--hb-color-danger)" },
+  },
+  removeColumnIcon: {
+    padding: 2,
+    color: "var(--hb-color-text-disabled)",
+    ":hover": { color: "var(--hb-color-danger)" },
+  },
+});
 
 interface BoardItemProps {
   board: BoardDto;
@@ -103,20 +116,15 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             <Hb.Button.Icon
               size="small"
               onClick={() => setIsEditing(true)}
-              sx={{ color: "text.disabled" }}
+              style={{
+                color: "var(--hb-color-text-disabled)",
+              }}
             >
               <EditOutlined sx={{ fontSize: 16 }} />
             </Hb.Button.Icon>
           </Hb.Tooltip>
           <Hb.Tooltip title="삭제">
-            <Hb.Button.Icon
-              size="small"
-              onClick={onDelete}
-              sx={{
-                color: "text.disabled",
-                "&:hover": { color: "error.main" },
-              }}
-            >
+            <Hb.Button.Icon size="small" onClick={onDelete} {...stylex.props(styles.dangerIcon)}>
               <DeleteOutline sx={{ fontSize: 16 }} />
             </Hb.Button.Icon>
           </Hb.Tooltip>
@@ -208,11 +216,7 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                     <Hb.Button.Icon
                       size="small"
                       onClick={() => handleRemoveColumn(col.statusId)}
-                      sx={{
-                        p: 0.25,
-                        color: "text.disabled",
-                        "&:hover": { color: "error.main" },
-                      }}
+                      {...stylex.props(styles.removeColumnIcon)}
                     >
                       <CloseOutlined sx={{ fontSize: 14 }} />
                     </Hb.Button.Icon>
@@ -257,7 +261,10 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
           size="small"
           onClick={handleAddColumn}
           disabled={!newStatusId.trim() || !newStatusName.trim() || isDuplicate}
-          sx={{ color: "primary.main", borderRadius: 1.5 }}
+          style={{
+            color: "var(--hb-color-accent)",
+            borderRadius: 12,
+          }}
         >
           <AddOutlined sx={{ fontSize: 18 }} />
         </Hb.Button.Icon>

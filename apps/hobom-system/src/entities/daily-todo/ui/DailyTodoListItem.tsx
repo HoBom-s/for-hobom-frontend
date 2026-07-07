@@ -62,7 +62,10 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
                 size="small"
                 aria-label="리액션 변경"
                 onClick={(e) => setReactionAnchor(e.currentTarget)}
-                sx={{ fontSize: "1rem", p: 0.5 }}
+                style={{
+                  fontSize: "1rem",
+                  padding: 4,
+                }}
               >
                 {item.reaction.value}
               </Hb.Button.Icon>
@@ -199,12 +202,12 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
               size="small"
               aria-label="리액션 추가"
               className="reaction-trigger"
-              sx={{
+              style={{
                 opacity: 0,
                 transition: "opacity 0.15s ease",
                 fontSize: "0.875rem",
-                p: 0.5,
-                mr: 1,
+                padding: 4,
+                marginRight: 8,
               }}
               onClick={(e) => {
                 e.stopPropagation();

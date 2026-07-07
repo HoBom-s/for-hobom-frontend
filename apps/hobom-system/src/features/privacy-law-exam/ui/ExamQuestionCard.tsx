@@ -1,7 +1,32 @@
+import * as stylex from "@stylexjs/stylex";
 import { CheckCircle, Cancel, NavigateNext, Replay } from "hobom-design-system/icons";
 import type { ExamQuestion } from "@/entities/privacy-law";
 import { Hb } from "@/shared/ui";
 import { useExamSession } from "../model/useExamSession";
+
+const styles = stylex.create({
+  oxButton: {
+    minWidth: 80,
+    fontSize: "1.25rem",
+    fontWeight: 700,
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  oxAnswer: {
+    backgroundColor: "var(--hb-color-success)",
+    color: "#fff",
+    ":hover": {
+      backgroundColor: "color-mix(in srgb, var(--hb-color-success) 80%, #000)",
+    },
+  },
+  oxWrong: {
+    backgroundColor: "var(--hb-color-danger)",
+    color: "#fff",
+    ":hover": {
+      backgroundColor: "color-mix(in srgb, var(--hb-color-danger) 80%, #000)",
+    },
+  },
+});
 
 interface Props {
   questions: ExamQuestion[];
@@ -31,25 +56,11 @@ const OxInput = ({
           variant={selected || (revealed && isAnswer) ? "primary" : "secondary"}
           disabled={disabled}
           onClick={() => onChange(option)}
-          sx={{
-            minWidth: 80,
-            fontSize: "1.25rem",
-            fontWeight: 700,
-            py: 1.5,
-            ...(revealed &&
-              isAnswer && {
-                bgcolor: "success.main",
-                color: "#fff",
-                "&:hover": { bgcolor: "success.dark" },
-              }),
-            ...(revealed &&
-              selected &&
-              !isAnswer && {
-                bgcolor: "error.main",
-                color: "#fff",
-                "&:hover": { bgcolor: "error.dark" },
-              }),
-          }}
+          {...stylex.props(
+            styles.oxButton,
+            revealed && isAnswer && styles.oxAnswer,
+            revealed && selected && !isAnswer && styles.oxWrong,
+          )}
         >
           {option}
           {revealed && isAnswer && <CheckCircle fontSize="small" sx={{ ml: 0.5 }} />}
@@ -224,7 +235,14 @@ export const ExamQuestionCard = ({ questions }: Props) => {
           <Hb.Text variant="body2" color="text.secondary" gutterBottom>
             {scoreMessage(score, total)}
           </Hb.Text>
-          <Hb.Button variant="secondary" startIcon={<Replay />} onClick={reset} sx={{ mt: 2 }}>
+          <Hb.Button
+            variant="secondary"
+            startIcon={<Replay />}
+            onClick={reset}
+            style={{
+              marginTop: 16,
+            }}
+          >
             다시 풀기
           </Hb.Button>
         </Hb.Card.Content>

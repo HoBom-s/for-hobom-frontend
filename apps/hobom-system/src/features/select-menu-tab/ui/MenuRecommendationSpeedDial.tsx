@@ -128,7 +128,12 @@ export const MenuRecommendationSpeedDial = () => {
             fullWidth
             variant="secondary"
             onClick={onClose}
-            sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
+            style={{
+              borderRadius: 16,
+              paddingTop: 9.6,
+              paddingBottom: 9.6,
+              fontWeight: 600,
+            }}
           >
             취소
           </Hb.Button>
@@ -137,7 +142,12 @@ export const MenuRecommendationSpeedDial = () => {
             variant="primary"
             disableElevation
             loading={menuRecommendationHandler.isPending}
-            sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
+            style={{
+              borderRadius: 16,
+              paddingTop: 9.6,
+              paddingBottom: 9.6,
+              fontWeight: 600,
+            }}
             onClick={() => {
               Bom.pipe(getValues(), validateMenuRecommendationInput, (validationResult) =>
                 handleValidationResult(
@@ -165,7 +175,12 @@ export const MenuRecommendationSpeedDial = () => {
       size="small"
       startIcon={<Add />}
       onClick={handleOpen}
-      sx={{ textTransform: "none", borderRadius: 2, px: 2 }}
+      style={{
+        textTransform: "none",
+        borderRadius: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
+      }}
     >
       메뉴 추가
     </Hb.Button>

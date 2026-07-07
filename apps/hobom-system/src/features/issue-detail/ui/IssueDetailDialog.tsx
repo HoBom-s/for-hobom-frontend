@@ -69,7 +69,11 @@ export const IssueDetailDialog = ({
                 onClick={onClose}
                 size="small"
                 aria-label="닫기"
-                sx={{ position: "absolute", right: 12, top: 12 }}
+                style={{
+                  position: "absolute",
+                  right: 12,
+                  top: 12,
+                }}
               >
                 <CloseOutlined sx={{ fontSize: 18 }} />
               </Hb.Button.Icon>

@@ -86,7 +86,11 @@ export const AuthLoginForm = () => {
             variant="primary"
             type="submit"
             loading={isPending}
-            sx={{ mt: 1, py: 1.2 }}
+            style={{
+              marginTop: 8,
+              paddingTop: 9.6,
+              paddingBottom: 9.6,
+            }}
           >
             로그인
           </Hb.Button>

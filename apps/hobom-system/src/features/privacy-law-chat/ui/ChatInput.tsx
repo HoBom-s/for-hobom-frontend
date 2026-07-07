@@ -45,7 +45,9 @@ export const ChatInput = ({ onSend, disabled }: Props) => {
         size="small"
       />
       <Hb.Button.Icon
-        sx={{ color: "primary.main" }}
+        style={{
+          color: "var(--hb-color-accent)",
+        }}
         onClick={handleSend}
         disabled={disabled || !value.trim()}
       >

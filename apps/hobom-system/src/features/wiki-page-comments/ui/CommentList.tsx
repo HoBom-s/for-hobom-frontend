@@ -161,7 +161,9 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
                     size="small"
                     aria-label="답글"
                     onClick={() => setReplying(!replying)}
-                    sx={{ p: 0.25 }}
+                    style={{
+                      padding: 2,
+                    }}
                   >
                     <ReplyOutlined sx={{ fontSize: 15 }} />
                   </Hb.Button.Icon>
@@ -172,7 +174,9 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
                   size="small"
                   aria-label="수정"
                   onClick={editing ? cancelEditing : startEditing}
-                  sx={{ p: 0.25 }}
+                  style={{
+                    padding: 2,
+                  }}
                 >
                   <EditOutlined sx={{ fontSize: 15 }} />
                 </Hb.Button.Icon>
@@ -182,7 +186,9 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
                   size="small"
                   aria-label="삭제"
                   onClick={handleDelete}
-                  sx={{ p: 0.25 }}
+                  style={{
+                    padding: 2,
+                  }}
                 >
                   <DeleteOutlined sx={{ fontSize: 15 }} />
                 </Hb.Button.Icon>
@@ -214,7 +220,13 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
                   justifyContent: "flex-end",
                 }}
               >
-                <Hb.Button size="small" onClick={cancelEditing} sx={{ textTransform: "none" }}>
+                <Hb.Button
+                  size="small"
+                  onClick={cancelEditing}
+                  style={{
+                    textTransform: "none",
+                  }}
+                >
                   취소
                 </Hb.Button>
                 <Hb.Button
@@ -222,7 +234,9 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
                   variant="primary"
                   onClick={handleUpdate}
                   disabled={!editContent.trim()}
-                  sx={{ textTransform: "none" }}
+                  style={{
+                    textTransform: "none",
+                  }}
                 >
                   수정
                 </Hb.Button>

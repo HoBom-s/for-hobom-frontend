@@ -196,7 +196,9 @@ export const ProjectLabelPicker = ({
               size="small"
               aria-label="라벨 생성 취소"
               onClick={() => setCreating(false)}
-              sx={{ fontSize: "0.75rem" }}
+              style={{
+                fontSize: "0.75rem",
+              }}
             >
               취소
             </Hb.Button.Icon>
@@ -205,7 +207,10 @@ export const ProjectLabelPicker = ({
               aria-label="새 라벨 추가"
               onClick={handleCreate}
               disabled={!newName.trim() || isPending}
-              sx={{ fontSize: "0.75rem", color: "primary.main" }}
+              style={{
+                fontSize: "0.75rem",
+                color: "var(--hb-color-accent)",
+              }}
             >
               추가
             </Hb.Button.Icon>

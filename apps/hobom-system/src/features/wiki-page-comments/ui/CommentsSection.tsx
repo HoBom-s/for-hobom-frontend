@@ -81,7 +81,10 @@ export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionP
                 size="small"
                 onClick={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
-                sx={{ textTransform: "none", color: "text.secondary" }}
+                style={{
+                  textTransform: "none",
+                  color: "var(--hb-color-text-secondary)",
+                }}
               >
                 {isFetchingNextPage ? <Hb.Progress.Circular size={16} sx={{ mr: 1 }} /> : null}
                 댓글 더보기 ({loadedCount}/{totalCount})

@@ -176,7 +176,11 @@ export const AuthSignUpForm = () => {
           variant="primary"
           type="submit"
           loading={isPending}
-          sx={{ mt: 1, py: 1.2 }}
+          style={{
+            marginTop: 8,
+            paddingTop: 9.6,
+            paddingBottom: 9.6,
+          }}
         >
           가입하기
         </Hb.Button>

@@ -116,7 +116,9 @@ export const IssueCommentItem = ({
                       setEditing(!editing);
                       setEditBody(comment.body);
                     }}
-                    sx={{ p: 0.25 }}
+                    style={{
+                      padding: 2,
+                    }}
                   >
                     <EditOutlined sx={{ fontSize: 15 }} />
                   </Hb.Button.Icon>
@@ -126,7 +128,9 @@ export const IssueCommentItem = ({
                     size="small"
                     aria-label="삭제"
                     onClick={() => onDelete(comment.id)}
-                    sx={{ p: 0.25 }}
+                    style={{
+                      padding: 2,
+                    }}
                   >
                     <DeleteOutlined sx={{ fontSize: 15 }} />
                   </Hb.Button.Icon>

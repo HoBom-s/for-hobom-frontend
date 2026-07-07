@@ -100,12 +100,13 @@ export const GeneralSettingsSection = ({ projectId }: GeneralSettingsSectionProp
             onClick={handleSave}
             disabled={!isDirty || !name.trim()}
             loading={isUpdating}
-            sx={{
+            style={{
               textTransform: "none",
               fontWeight: 600,
               boxShadow: "none",
-              borderRadius: 2,
-              px: 3,
+              borderRadius: 16,
+              paddingLeft: 24,
+              paddingRight: 24,
             }}
           >
             변경사항 저장

@@ -1,7 +1,18 @@
 import { Suspense, useState } from "react";
 import { AddOutlined } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import { useProjectList, ProjectGrid, CreateProjectDialog } from "@/features/project-list";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
+
+const styles = stylex.create({
+  createButton: {
+    borderRadius: 16,
+    textTransform: "none",
+    fontWeight: 600,
+    boxShadow: "none",
+    ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+  },
+});
 
 const ProjectListContent = () => {
   const { projects } = useProjectList();
@@ -44,13 +55,7 @@ export const ProjectListWorkspace = () => {
           variant="primary"
           startIcon={<AddOutlined />}
           onClick={() => setDialogOpen(true)}
-          sx={{
-            borderRadius: 2,
-            textTransform: "none",
-            fontWeight: 600,
-            boxShadow: "none",
-            "&:hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
-          }}
+          {...stylex.props(styles.createButton)}
         >
           새 프로젝트
         </Hb.Button>

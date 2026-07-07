@@ -100,17 +100,17 @@ module.exports = function transformer(fileInfo, api) {
     return [j.objectProperty(j.identifier(key), valueNode)];
   };
 
+  // Flatten a JSX name into a dotted string, e.g. `Hb.Button.Icon`.
+  const dottedName = (n) => {
+    if (n.type === "JSXIdentifier") return n.name;
+    if (n.type === "JSXMemberExpression") return `${dottedName(n.object)}.${n.property.name}`;
+    return null;
+  };
+  const TARGET = `${COMPONENT.object}.${COMPONENT.property}`;
+
   root
     .find(j.JSXOpeningElement)
-    .filter((p) => {
-      const n = p.node.name;
-      return (
-        n.type === "JSXMemberExpression" &&
-        n.object.type === "JSXIdentifier" &&
-        n.object.name === COMPONENT.object &&
-        n.property.name === COMPONENT.property
-      );
-    })
+    .filter((p) => dottedName(p.node.name) === TARGET)
     .forEach((p) => {
       const attrs = p.node.attributes || [];
       if (attrs.some((a) => a.type === "JSXAttribute" && a.name.name === "style")) return;

@@ -137,7 +137,10 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
               size="small"
               startIcon={<AddOutlined />}
               onClick={addChecklistItem}
-              sx={{ ml: 1, textTransform: "none" }}
+              style={{
+                marginLeft: 8,
+                textTransform: "none",
+              }}
             >
               항목 추가
             </Hb.Button>
@@ -244,7 +247,13 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
           )}
         </Hb.Box>
 
-        <Hb.Button onClick={handleSave} loading={isPending} sx={{ textTransform: "none" }}>
+        <Hb.Button
+          onClick={handleSave}
+          loading={isPending}
+          style={{
+            textTransform: "none",
+          }}
+        >
           닫기
         </Hb.Button>
       </Hb.Dialog.Actions>

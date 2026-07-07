@@ -132,7 +132,9 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
               size="small"
               aria-label={item.label}
               onClick={item.action}
-              sx={{ color: item.active ? "primary.main" : "action.active" }}
+              style={{
+                color: item.active ? "primary.main" : "action.active",
+              }}
             >
               {item.icon}
             </Hb.Button.Icon>
@@ -154,7 +156,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
               size="small"
               aria-label={`제목 ${item.label}`}
               onClick={item.action}
-              sx={{
+              style={{
                 color: item.active ? "primary.main" : "action.active",
                 fontSize: "0.75rem",
                 fontWeight: 700,
@@ -182,7 +184,9 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
               size="small"
               aria-label={item.label}
               onClick={item.action}
-              sx={{ color: item.active ? "primary.main" : "action.active" }}
+              style={{
+                color: item.active ? "primary.main" : "action.active",
+              }}
             >
               {item.icon}
             </Hb.Button.Icon>
@@ -203,7 +207,7 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
             size="small"
             aria-label="링크 추가"
             onClick={() => setLinkDialogOpen(true)}
-            sx={{
+            style={{
               color: editor.isActive("link") ? "primary.main" : "action.active",
             }}
           >

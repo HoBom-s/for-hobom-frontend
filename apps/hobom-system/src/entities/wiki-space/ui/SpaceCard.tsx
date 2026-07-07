@@ -6,8 +6,22 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import { Hb } from "@/shared/ui";
 import type { SpaceType } from "../api/wiki-space.type";
+
+const styles = stylex.create({
+  menuButton: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    opacity: 0,
+    transition: "opacity 0.15s ease",
+    backgroundColor: "var(--hb-color-surface)",
+    // grey.100 has no design-token equivalent; MUI default #f5f5f5.
+    ":hover": { backgroundColor: "#f5f5f5" },
+  },
+});
 
 interface SpaceCardProps {
   space: SpaceType;
@@ -25,6 +39,9 @@ export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) 
   };
 
   const handleMenuClose = () => setAnchorEl(null);
+
+  // Combine the StyleX class with the parent-scoped "space-card-menu" hook class.
+  const menuButtonProps = stylex.props(styles.menuButton);
 
   return (
     <Hb.Card.Clickable
@@ -92,19 +109,11 @@ export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) 
       {(onEdit || onDelete) && (
         <>
           <Hb.Button.Icon
-            className="space-card-menu"
+            {...menuButtonProps}
+            className={`space-card-menu ${menuButtonProps.className ?? ""}`}
             size="small"
             aria-label="메뉴"
             onClick={handleMenuOpen}
-            sx={{
-              position: "absolute",
-              top: 8,
-              right: 8,
-              opacity: 0,
-              transition: "opacity 0.15s ease",
-              bgcolor: "background.paper",
-              "&:hover": { bgcolor: "grey.100" },
-            }}
           >
             <MoreVertOutlined sx={{ fontSize: 16 }} />
           </Hb.Button.Icon>

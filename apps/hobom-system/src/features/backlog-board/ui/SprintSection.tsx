@@ -22,6 +22,18 @@ const styles = stylex.create({
   headerHover: {
     ":hover": { backgroundColor: "var(--hb-color-border)" },
   },
+  startButton: {
+    fontSize: 11,
+    textTransform: "none",
+    boxShadow: "none",
+    borderRadius: 12,
+    paddingTop: 2.4,
+    paddingBottom: 2.4,
+    paddingLeft: 12,
+    paddingRight: 12,
+    fontWeight: 600,
+    ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+  },
 });
 
 export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: IssueType[] }) => {
@@ -60,7 +72,12 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
         }}
         onClick={() => setExpanded(!expanded)}
       >
-        <Hb.Button.Icon size="small" sx={{ p: 0 }}>
+        <Hb.Button.Icon
+          size="small"
+          style={{
+            padding: 0,
+          }}
+        >
           {expanded ? <ExpandMore sx={{ fontSize: 20 }} /> : <ExpandLess sx={{ fontSize: 20 }} />}
         </Hb.Button.Icon>
         <Hb.Text
@@ -107,16 +124,7 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
               e.stopPropagation();
               handleStart();
             }}
-            sx={{
-              fontSize: 11,
-              textTransform: "none",
-              boxShadow: "none",
-              borderRadius: 1.5,
-              py: 0.3,
-              px: 1.5,
-              fontWeight: 600,
-              "&:hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
-            }}
+            {...stylex.props(styles.startButton)}
           >
             스프린트 시작
           </Hb.Button>
@@ -130,12 +138,14 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
               e.stopPropagation();
               handleComplete();
             }}
-            sx={{
+            style={{
               fontSize: 11,
               textTransform: "none",
-              borderRadius: 1.5,
-              py: 0.3,
-              px: 1.5,
+              borderRadius: 12,
+              paddingTop: 2.4,
+              paddingBottom: 2.4,
+              paddingLeft: 12,
+              paddingRight: 12,
               fontWeight: 600,
             }}
           >

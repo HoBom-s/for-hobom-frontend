@@ -8,10 +8,20 @@ import {
   ChevronRightOutlined,
   ExpandMoreOutlined,
 } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import { useUpdateIssue, PARENT_ISSUE_KINDS, type IssueType } from "@/entities/issue";
 import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "@/entities/issue/ui";
 import { Hb } from "@/shared/ui";
 import { useBacklogContext } from "../model/useBacklogContext";
+
+const styles = stylex.create({
+  moveButton: {
+    opacity: 0,
+    padding: 2.4,
+    color: "var(--hb-color-text-disabled)",
+    ":hover": { color: "var(--hb-color-accent)" },
+  },
+});
 
 // StyleX is atomic and cannot express the hover-reveal descendant selectors, so
 // the row styling is rendered as a scoped <style> tag instead.
@@ -74,6 +84,9 @@ export const IssueRow = ({
   const canAddChild = PARENT_ISSUE_KINDS.has(issue.type) && onCreateChildIssue;
   const showMenu = moveTargets.length > 0 || canAddChild;
 
+  // Combine the StyleX class with the parent-scoped "move-btn" hover-reveal class.
+  const moveButtonProps = stylex.props(styles.moveButton);
+
   const renderLeadingCell = () => {
     if (childCount > 0 && onToggleCollapse) {
       return (
@@ -83,7 +96,11 @@ export const IssueRow = ({
             e.stopPropagation();
             onToggleCollapse(issue.id);
           }}
-          sx={{ p: 0, ml: -0.5, color: "text.disabled" }}
+          style={{
+            padding: 0,
+            marginLeft: -4,
+            color: "var(--hb-color-text-disabled)",
+          }}
         >
           {isCollapsed ? (
             <ChevronRightOutlined sx={{ fontSize: 16 }} />
@@ -183,17 +200,12 @@ export const IssueRow = ({
         )}
         {showMenu && (
           <Hb.Button.Icon
-            className="move-btn"
+            {...moveButtonProps}
+            className={`move-btn ${moveButtonProps.className ?? ""}`}
             size="small"
             onClick={(e) => {
               e.stopPropagation();
               setMenuEl(e.currentTarget);
-            }}
-            sx={{
-              opacity: 0,
-              p: 0.3,
-              color: "text.disabled",
-              "&:hover": { color: "primary.main" },
             }}
           >
             <MoreVertOutlined sx={{ fontSize: 16 }} />

@@ -93,7 +93,9 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
         <Hb.Button.Icon
           size="small"
           onClick={() => csvExport.exportCsv(data, "endpoint-errors.csv")}
-          sx={{ ml: 0.5 }}
+          style={{
+            marginLeft: 4,
+          }}
         >
           <CloudDownloadOutlined sx={{ fontSize: 16 }} />
         </Hb.Button.Icon>
