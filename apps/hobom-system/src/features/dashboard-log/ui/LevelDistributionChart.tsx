@@ -155,15 +155,8 @@ export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) =>
                 <Hb.Progress.Linear
                   variant="determinate"
                   value={pct}
-                  sx={{
-                    height: 4,
-                    borderRadius: 2,
-                    bgcolor: "grey.100",
-                    "& .MuiLinearProgress-bar": {
-                      borderRadius: 2,
-                      bgcolor: color,
-                    },
-                  }}
+                  color={color}
+                  style={{ height: 4, borderRadius: 16, backgroundColor: "#f5f5f5" }}
                 />
               </Hb.Box>
             );

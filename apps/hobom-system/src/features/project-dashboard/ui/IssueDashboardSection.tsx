@@ -73,12 +73,7 @@ export const IssueDashboardSection = ({ data }: IssueDashboardSectionProps) => {
           <Hb.Progress.Linear
             variant="determinate"
             value={completionPercent}
-            sx={{
-              height: 10,
-              borderRadius: 5,
-              bgcolor: "action.hover",
-              "& .MuiLinearProgress-bar": { borderRadius: 5 },
-            }}
+            style={{ height: 10, borderRadius: 40, backgroundColor: "var(--hb-color-border)" }}
           />
         </DashboardPaper>
       </Hb.Grid>
