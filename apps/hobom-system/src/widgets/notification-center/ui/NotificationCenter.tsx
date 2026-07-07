@@ -161,19 +161,15 @@ export const NotificationCenter = () => {
             paddingRight: 16,
           }}
         >
+          {/* Scoped rule for the tab buttons — a descendant selector StyleX/inline style can't reach. */}
+          <style href="notification-center-tabs" precedence="default">
+            {`.notification-center-tabs [role="tab"] { min-height: 44px; font-size: 0.875rem; padding-left: 0; padding-right: 0; margin-right: 20px; min-width: auto; }`}
+          </style>
           <Hb.Tabs.Root
+            className="notification-center-tabs"
             value={tab}
             onChange={(_, v) => setTab(v)}
-            sx={{
-              minHeight: 44,
-              "& .MuiTab-root": {
-                minHeight: 44,
-                fontSize: "0.875rem",
-                px: 0,
-                mr: 2.5,
-                minWidth: "auto",
-              },
-            }}
+            style={{ minHeight: 44 }}
           >
             <Hb.Tabs.Item label="전체" />
             <Hb.Tabs.Item label={unreadCount > 0 ? `읽지 않음 (${unreadCount})` : "읽지 않음"} />

@@ -95,9 +95,22 @@ export const DashboardWorkspace = () => {
         </Hb.Box>
         <PeriodSelector period={period} onChange={setPeriod} />
       </Hb.Box>
-      <Hb.Tabs.Root value={currentTab} onChange={handleTabChange} sx={{ mb: 2.5 }}>
+      <Hb.Tabs.Root
+        value={currentTab}
+        onChange={handleTabChange}
+        style={{
+          marginBottom: 20,
+        }}
+      >
         {TAB_VALUES.map((tab) => (
-          <Hb.Tabs.Item key={tab} value={tab} label={TAB_LABELS[tab]} sx={{ minHeight: 44 }} />
+          <Hb.Tabs.Item
+            key={tab}
+            value={tab}
+            label={TAB_LABELS[tab]}
+            style={{
+              minHeight: 44,
+            }}
+          />
         ))}
       </Hb.Tabs.Root>
       <ErrorBoundary inline>
