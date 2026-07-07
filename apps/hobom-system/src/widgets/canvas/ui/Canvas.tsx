@@ -1,4 +1,4 @@
-import type { ComponentType, MouseEvent, PointerEvent } from "react";
+import type { ComponentType, CSSProperties, MouseEvent, PointerEvent } from "react";
 import { Hb } from "@/shared/ui";
 import { getManifest } from "@/entities/manifest";
 import {
@@ -27,13 +27,16 @@ type ResizeAxis = "x" | "y" | "both";
  * 흐름 레이아웃에서 의미 있는 핸들 세트.
  * 위/왼쪽은 레이아웃이 고정하므로 오른쪽(너비)·아래(높이)·우하단(둘 다)만 둔다.
  */
-const HANDLES: { axis: ResizeAxis; sx: Record<string, unknown> }[] = [
-  { axis: "x", sx: { right: -10, top: "50%", transform: "translateY(-50%)", cursor: "ew-resize" } },
+const HANDLES: { axis: ResizeAxis; style: CSSProperties }[] = [
+  {
+    axis: "x",
+    style: { right: -10, top: "50%", transform: "translateY(-50%)", cursor: "ew-resize" },
+  },
   {
     axis: "y",
-    sx: { bottom: -10, left: "50%", transform: "translateX(-50%)", cursor: "ns-resize" },
+    style: { bottom: -10, left: "50%", transform: "translateX(-50%)", cursor: "ns-resize" },
   },
-  { axis: "both", sx: { right: -10, bottom: -10, cursor: "nwse-resize" } },
+  { axis: "both", style: { right: -10, bottom: -10, cursor: "nwse-resize" } },
 ];
 
 interface NodeViewProps {
@@ -109,11 +112,11 @@ function NodeView({ node, selectedId, onSelect, onResize }: NodeViewProps) {
     <Hb.Box
       component="span"
       onClick={handleSelect}
-      sx={{
+      style={{
         position: "relative",
         display: "inline-flex",
         cursor: "pointer",
-        borderRadius: 1,
+        borderRadius: 8,
         outline: "2px solid",
         outlineColor: isSelected ? "primary.main" : "transparent",
         outlineOffset: 2,
@@ -130,7 +133,6 @@ function NodeView({ node, selectedId, onSelect, onResize }: NodeViewProps) {
           />
         ))}
       </Component>
-
       {isSelected &&
         onResize &&
         HANDLES.map((handle) => (
@@ -138,7 +140,7 @@ function NodeView({ node, selectedId, onSelect, onResize }: NodeViewProps) {
             key={handle.axis}
             onPointerDown={startResize(handle.axis)}
             onClick={(event) => event.stopPropagation()}
-            sx={{
+            style={{
               position: "absolute",
               width: 20,
               height: 20,
@@ -147,16 +149,16 @@ function NodeView({ node, selectedId, onSelect, onResize }: NodeViewProps) {
               justifyContent: "center",
               touchAction: "none",
               zIndex: 3,
-              ...handle.sx,
+              ...handle.style,
             }}
           >
             <Hb.Box
-              sx={{
+              style={{
                 width: 10,
                 height: 10,
-                bgcolor: "primary.main",
+                backgroundColor: "var(--hb-color-accent)",
                 border: "2px solid",
-                borderColor: "background.paper",
+                borderColor: "var(--hb-color-surface)",
                 borderRadius: "2px",
               }}
             />

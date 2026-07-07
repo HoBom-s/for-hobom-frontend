@@ -4,7 +4,13 @@ import { Hb } from "@/shared/ui";
 
 export const PickMenuWorkspace = () => {
   return (
-    <Hb.Box sx={{ width: "100%", height: "100%", overflowY: "hidden" }}>
+    <Hb.Box
+      style={{
+        width: "100%",
+        height: "100%",
+        overflowY: "hidden",
+      }}
+    >
       <TodayMenuIdContextProvider>
         <PickMenuFunnel />
       </TodayMenuIdContextProvider>

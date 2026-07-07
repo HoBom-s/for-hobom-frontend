@@ -14,7 +14,11 @@ export const FutureMessageContent = () => {
       key={status}
       fallback={
         <FutureMessageContent.Layout>
-          <Hb.Box sx={{ p: 2 }}>
+          <Hb.Box
+            style={{
+              padding: 16,
+            }}
+          >
             {Array.from({ length: 8 }).map((_, i) => (
               <HoBomSkeleton.List key={i} />
             ))}
@@ -44,5 +48,13 @@ const Inner = () => {
 };
 
 FutureMessageContent.Layout = ({ children }: { children: ReactNode }) => (
-  <Hb.Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>{children}</Hb.Box>
+  <Hb.Box
+    style={{
+      width: "100%",
+      height: "100%",
+      overflow: "hidden",
+    }}
+  >
+    {children}
+  </Hb.Box>
 );

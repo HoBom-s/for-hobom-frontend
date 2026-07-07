@@ -25,7 +25,13 @@ export const CommentInput = ({
   };
 
   return (
-    <Hb.Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        gap: 8,
+        alignItems: "flex-start",
+      }}
+    >
       <Hb.TextField
         fullWidth
         multiline

@@ -42,7 +42,13 @@ export const BacklogBoard = ({
 
   return (
     <BacklogContext.Provider value={contextValue}>
-      <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+        }}
+      >
         {sprintGroups.map(({ sprint, issues }) => (
           <SprintSection key={sprint.id} sprint={sprint} issues={issues} />
         ))}
@@ -55,13 +61,15 @@ export const BacklogBoard = ({
           }}
         >
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
               alignItems: "center",
-              gap: 1,
-              px: 2,
-              py: 1.2,
-              bgcolor: "action.hover",
+              gap: 8,
+              paddingLeft: 16,
+              paddingRight: 16,
+              paddingTop: 9.6,
+              paddingBottom: 9.6,
+              backgroundColor: "var(--hb-color-border)",
             }}
           >
             <InboxOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
@@ -89,12 +97,17 @@ export const BacklogBoard = ({
           ) : (
             <Hb.Box
               {...containerProps}
-              sx={{
+              style={{
                 ...containerProps.style,
                 maxHeight: "calc(100vh - 300px)",
               }}
             >
-              <Hb.Box sx={{ height: totalHeight, position: "relative" }}>
+              <Hb.Box
+                style={{
+                  height: totalHeight,
+                  position: "relative",
+                }}
+              >
                 {virtualItems.map(({ item, offsetTop }) => {
                   const { issue, depth, childCount } = item;
                   const progress =
@@ -105,7 +118,7 @@ export const BacklogBoard = ({
                   return (
                     <Hb.Box
                       key={issue.id}
-                      sx={{
+                      style={{
                         position: "absolute",
                         top: offsetTop,
                         width: "100%",

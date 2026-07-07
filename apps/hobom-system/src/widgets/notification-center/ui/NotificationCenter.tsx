@@ -1,9 +1,30 @@
+import * as stylex from "@stylexjs/stylex";
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";
 import { NotificationItem } from "@/entities/notification/ui";
 import { EMPTY_MESSAGES } from "@/features/notification";
-import { SUBTLE_SCROLLBAR_SX } from "@/shared/config";
 import { Hb } from "@/shared/ui";
 import { useNotificationCenter } from "../model/useNotificationCenter";
+
+// Ported from SUBTLE_SCROLLBAR_SX (light mode) — Hb.Box no longer accepts sx.
+const styles = stylex.create({
+  scrollArea: {
+    maxHeight: "calc(100vh - 200px)",
+    overflowY: "auto",
+    scrollbarGutter: "stable",
+    scrollbarWidth: "thin",
+    scrollbarColor: {
+      default: "transparent transparent",
+      ":hover": "rgba(0,0,0,0.15) transparent",
+    },
+    "::-webkit-scrollbar": { width: 6 },
+    "::-webkit-scrollbar-track": { background: "transparent" },
+    "::-webkit-scrollbar-thumb": {
+      background: { default: "transparent", ":hover": "rgba(0,0,0,0.25)" },
+      borderRadius: 3,
+      transition: "background-color 0.2s ease",
+    },
+  },
+});
 
 export const NotificationCenter = () => {
   const {
@@ -21,7 +42,14 @@ export const NotificationCenter = () => {
   const renderGroups = () => {
     if (isPending) {
       return (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 64,
+            paddingBottom: 64,
+          }}
+        >
           <Hb.Progress.Circular size={28} />
         </Hb.Box>
       );
@@ -29,12 +57,13 @@ export const NotificationCenter = () => {
     if (dateGroups.length === 0) {
       return (
         <Hb.Box
-          sx={{
-            py: 8,
+          style={{
+            paddingTop: 64,
+            paddingBottom: 64,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 1.5,
+            gap: 12,
           }}
         >
           <NotificationsNoneOutlined sx={{ fontSize: 48, color: "text.disabled" }} />
@@ -55,7 +84,15 @@ export const NotificationCenter = () => {
       <>
         {dateGroups.map((group) => (
           <Hb.Box key={group.label}>
-            <Hb.Box sx={{ px: 2, py: 1, bgcolor: "rgba(0,0,0,0.02)" }}>
+            <Hb.Box
+              style={{
+                paddingLeft: 16,
+                paddingRight: 16,
+                paddingTop: 8,
+                paddingBottom: 8,
+                backgroundColor: "rgba(0,0,0,0.02)",
+              }}
+            >
               <Hb.Text
                 variant="caption"
                 style={{
@@ -79,7 +116,14 @@ export const NotificationCenter = () => {
           </Hb.Box>
         ))}
         {isFetchingNextPage && (
-          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 16,
+              paddingBottom: 16,
+            }}
+          >
             <Hb.Progress.Circular size={24} />
           </Hb.Box>
         )}
@@ -88,8 +132,12 @@ export const NotificationCenter = () => {
   };
 
   return (
-    <Hb.Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
-      <Hb.Box sx={{ mb: 2.5 }}>
+    <Hb.Box style={{ padding: 24, maxWidth: 800, marginLeft: "auto", marginRight: "auto" }}>
+      <Hb.Box
+        style={{
+          marginBottom: 20,
+        }}
+      >
         <Hb.Text
           variant="h6"
           style={{
@@ -107,7 +155,12 @@ export const NotificationCenter = () => {
           overflow: "hidden",
         }}
       >
-        <Hb.Box sx={{ px: 2 }}>
+        <Hb.Box
+          style={{
+            paddingLeft: 16,
+            paddingRight: 16,
+          }}
+        >
           <Hb.Tabs.Root
             value={tab}
             onChange={(_, v) => setTab(v)}
@@ -128,14 +181,7 @@ export const NotificationCenter = () => {
           </Hb.Tabs.Root>
         </Hb.Box>
         <Hb.Divider />
-        <Hb.Box
-          onScroll={handleScroll}
-          sx={{
-            maxHeight: "calc(100vh - 200px)",
-            overflowY: "auto",
-            ...SUBTLE_SCROLLBAR_SX,
-          }}
-        >
+        <Hb.Box onScroll={handleScroll} {...stylex.props(styles.scrollArea)}>
           {renderGroups()}
         </Hb.Box>
       </Hb.Paper>

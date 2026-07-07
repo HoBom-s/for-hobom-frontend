@@ -129,15 +129,15 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
             Frame
           </Hb.Text>
           <Hb.Box
-            sx={{
+            style={{
               flex: 1,
               minHeight: 320,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              p: 4,
-              bgcolor: "#ffffff",
-              borderRadius: 1,
+              padding: 32,
+              backgroundColor: "#ffffff",
+              borderRadius: 8,
               boxShadow: "0 8px 30px rgba(0, 0, 0, 0.35)",
             }}
           >
@@ -158,7 +158,11 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
             onDelete={deleteSelected}
           />
           <Hb.Divider />
-          <Hb.Box sx={{ p: 1.5 }}>
+          <Hb.Box
+            style={{
+              padding: 12,
+            }}
+          >
             <CodePanel document={document} />
           </Hb.Box>
         </Panel>
@@ -195,7 +199,16 @@ function Panel({ width, side, children }: PanelProps) {
 /** 패널 내 섹션 헤더(작은 대문자 라벨). */
 function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
-    <Hb.Box sx={{ px: 1.5, py: 1, borderBottom: 1, borderColor: "divider" }}>
+    <Hb.Box
+      style={{
+        paddingLeft: 12,
+        paddingRight: 12,
+        paddingTop: 8,
+        paddingBottom: 8,
+        borderBottom: 1,
+        borderColor: "var(--hb-color-border)",
+      }}
+    >
       <Hb.Text
         style={{
           fontSize: 11,

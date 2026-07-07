@@ -34,14 +34,16 @@ export const VersionHistoryDrawer = ({
       }}
     >
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          px: 2.5,
-          py: 2,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 16,
+          paddingBottom: 16,
           borderBottom: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
         }}
       >
         <Hb.Text variant="h6" fontWeight={700}>
@@ -51,11 +53,17 @@ export const VersionHistoryDrawer = ({
           <CloseOutlined fontSize="small" />
         </Hb.Button.Icon>
       </Hb.Box>
-
       <ErrorBoundary inline resetKey={`${spaceKey}/${pageId}`}>
         <Suspense
           fallback={
-            <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+            <Hb.Box
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: 48,
+                paddingBottom: 48,
+              }}
+            >
               <Hb.Progress.Circular size={28} />
             </Hb.Box>
           }

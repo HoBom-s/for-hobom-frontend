@@ -12,11 +12,13 @@ const DateHeader = () => {
 
   return (
     <Hb.Box
-      sx={{
-        px: 3,
-        py: 2,
+      style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingTop: 16,
+        paddingBottom: 16,
         borderBottom: "1px solid",
-        borderColor: "divider",
+        borderColor: "var(--hb-color-border)",
         flexShrink: 0,
       }}
     >
@@ -46,13 +48,13 @@ const DateHeader = () => {
 export const DailyTodoWorkspace = () => {
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         flexDirection: "row",
         width: "100%",
         height: "100%",
-        p: 3,
-        gap: 2,
+        padding: 24,
+        gap: 16,
       }}
     >
       <Hb.Paper
@@ -85,7 +87,13 @@ export const DailyTodoWorkspace = () => {
         }}
       >
         <DateHeader />
-        <Hb.Box sx={{ flexGrow: 1, overflowY: "auto", minHeight: 0 }}>
+        <Hb.Box
+          style={{
+            flexGrow: 1,
+            overflowY: "auto",
+            minHeight: 0,
+          }}
+        >
           <DailyTodoList.WithSuspense>
             <DailyTodoList />
           </DailyTodoList.WithSuspense>

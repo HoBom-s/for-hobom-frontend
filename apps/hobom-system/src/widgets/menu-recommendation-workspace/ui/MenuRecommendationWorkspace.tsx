@@ -5,7 +5,7 @@ import { Hb } from "@/shared/ui";
 export const MenuRecommendationWorkspace = () => {
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         flexDirection: "column",
         height: "100%",

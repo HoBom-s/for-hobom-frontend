@@ -25,12 +25,14 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
   return (
     <Hb.Box>
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          px: 2,
-          py: 1.5,
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 12,
+          paddingBottom: 12,
         }}
       >
         <Hb.Text variant="caption" fontWeight={600} color="text.secondary">
@@ -44,7 +46,6 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
           <AddOutlined fontSize="small" />
         </Hb.Button.Icon>
       </Hb.Box>
-
       {!labels.length ? (
         <EmptyState message="라벨이 없어요." />
       ) : (
@@ -54,7 +55,12 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
               key={label.id}
               sx={{ px: 2 }}
               secondaryAction={
-                <Hb.Box sx={{ display: "flex", gap: 0.5 }}>
+                <Hb.Box
+                  style={{
+                    display: "flex",
+                    gap: 4,
+                  }}
+                >
                   <Hb.Button.Icon
                     size="small"
                     aria-label={`${label.name} 수정`}
@@ -76,12 +82,12 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
               }
             >
               <Hb.Box
-                sx={{
+                style={{
                   width: 12,
                   height: 12,
                   borderRadius: "50%",
-                  bgcolor: label.color,
-                  mr: 1.5,
+                  backgroundColor: label.color,
+                  marginRight: 12,
                   flexShrink: 0,
                 }}
               />
@@ -95,14 +101,12 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
           ))}
         </Hb.List.Root>
       )}
-
       <CreateLabelDialog
         open={createDialogOpen}
         onClose={() => setCreateDialogOpen(false)}
         onSubmit={handleCreate}
         loading={isCreating}
       />
-
       <CreateLabelDialog
         open={editingLabel !== null}
         onClose={() => setEditingLabel(null)}

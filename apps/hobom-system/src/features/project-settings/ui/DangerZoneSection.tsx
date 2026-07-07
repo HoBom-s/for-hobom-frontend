@@ -58,15 +58,17 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
       }}
     >
       <Hb.Box
-        sx={{
-          px: 3,
-          py: 2,
-          bgcolor: "rgba(var(--mui-palette-error-mainChannel) / 0.06)",
+        style={{
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 16,
+          paddingBottom: 16,
+          backgroundColor: "rgba(var(--mui-palette-error-mainChannel) / 0.06)",
           borderBottom: "1px solid",
-          borderColor: "error.light",
+          borderColor: "var(--hb-color-danger)",
           display: "flex",
           alignItems: "center",
-          gap: 1,
+          gap: 8,
         }}
       >
         <DeleteOutline sx={{ fontSize: 18, color: "error.main" }} />
@@ -75,9 +77,11 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
         </Hb.Text>
       </Hb.Box>
       <Hb.Box
-        sx={{
-          px: 3,
-          py: 2.5,
+        style={{
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 20,
+          paddingBottom: 20,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",

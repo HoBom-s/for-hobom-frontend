@@ -13,6 +13,25 @@ import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "@/entities/issue/u
 import { Hb } from "@/shared/ui";
 import { useBacklogContext } from "../model/useBacklogContext";
 
+// StyleX is atomic and cannot express the hover-reveal descendant selectors, so
+// the row styling is rendered as a scoped <style> tag instead.
+const ROW_CLASS = "backlog-issue-row";
+const ROW_CSS = `
+.${ROW_CLASS} {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 16px;
+  padding-top: 6.4px;
+  padding-bottom: 6.4px;
+  border-bottom: 1px solid var(--hb-color-border);
+  transition: background 0.1s;
+}
+.${ROW_CLASS}:hover { background-color: var(--hb-color-border); }
+.${ROW_CLASS}:hover .move-btn { opacity: 1; }
+.${ROW_CLASS}:focus-within .move-btn { opacity: 1; }
+`;
+
 interface IssueRowProps {
   issue: IssueType;
   depth?: number;
@@ -85,19 +104,15 @@ export const IssueRow = ({
 
   return (
     <>
+      {/* React 19 hoists and de-dupes by `href`, so the rule is emitted once
+          even though every row renders this. */}
+      <style href={ROW_CLASS} precedence="default">
+        {ROW_CSS}
+      </style>
       <Hb.Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 1.5,
-          pl: 2 + depth * 3,
-          pr: 2,
-          py: 0.8,
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          "&:hover": { bgcolor: "action.hover" },
-          "&:hover .move-btn, &:focus-within .move-btn": { opacity: 1 },
-          transition: "background 0.1s",
+        className={ROW_CLASS}
+        style={{
+          paddingLeft: (2 + depth * 3) * 8,
           cursor: onIssueClick ? "pointer" : undefined,
         }}
         onClick={() => onIssueClick?.(issue.id)}

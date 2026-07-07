@@ -147,12 +147,12 @@ export const IssueDetailDialog = ({
             sx={{ fontSize: 13, py: 0.8 }}
           >
             <Hb.Box
-              sx={{
+              style={{
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                bgcolor: getStatusColor(statuses, t.to),
-                mr: 1.5,
+                backgroundColor: getStatusColor(statuses, t.to),
+                marginRight: 12,
                 flexShrink: 0,
               }}
             />
@@ -178,12 +178,12 @@ export const IssueDetailDialog = ({
             sx={{ fontSize: 13, py: 0.8 }}
           >
             <Hb.Box
-              sx={{
+              style={{
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                bgcolor: ISSUE_PRIORITY_REGISTRY[key].color,
-                mr: 1.5,
+                backgroundColor: ISSUE_PRIORITY_REGISTRY[key].color,
+                marginRight: 12,
                 flexShrink: 0,
               }}
             />

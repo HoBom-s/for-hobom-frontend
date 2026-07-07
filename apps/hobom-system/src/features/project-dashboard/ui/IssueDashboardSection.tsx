@@ -53,15 +53,14 @@ export const IssueDashboardSection = ({ data }: IssueDashboardSectionProps) => {
           icon={<WarningAmberOutlined fontSize="small" />}
         />
       </Hb.Grid>
-
       <Hb.Grid size={12}>
         <DashboardPaper>
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              mb: 1,
+              marginBottom: 8,
             }}
           >
             <Hb.Text variant="body2" fontWeight={600}>
@@ -83,7 +82,6 @@ export const IssueDashboardSection = ({ data }: IssueDashboardSectionProps) => {
           />
         </DashboardPaper>
       </Hb.Grid>
-
       <Hb.Grid size={{ xs: 12, md: 4 }}>
         <DashboardPaper>
           <StatusDistributionChart data={data.byStatus} />

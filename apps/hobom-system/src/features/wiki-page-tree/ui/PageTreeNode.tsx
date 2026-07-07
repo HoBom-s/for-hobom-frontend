@@ -69,7 +69,12 @@ export const PageTreeNode = ({
             )}
           </Hb.Button.Icon>
         ) : (
-          <Hb.Box sx={{ width: 24, mr: 0.5 }} />
+          <Hb.Box
+            style={{
+              width: 24,
+              marginRight: 4,
+            }}
+          />
         )}
         <Hb.List.ItemIcon sx={{ minWidth: 24, color: "inherit" }}>
           <ArticleOutlined sx={{ fontSize: 16 }} />
@@ -106,7 +111,6 @@ export const PageTreeNode = ({
           </Hb.Button.Icon>
         </Hb.Tooltip>
       </Hb.List.ItemButton>
-
       {hasChildren && (
         <Hb.Collapse in={isExpanded} unmountOnExit>
           {node.children.map((child) => (

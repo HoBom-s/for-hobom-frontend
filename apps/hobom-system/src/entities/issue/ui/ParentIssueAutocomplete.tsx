@@ -36,15 +36,17 @@ export const ParentIssueAutocomplete = ({
       return (
         <li key={params.key}>
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
               alignItems: "center",
-              gap: 0.75,
-              px: 1.5,
-              py: 0.75,
+              gap: 6,
+              paddingLeft: 12,
+              paddingRight: 12,
+              paddingTop: 6,
+              paddingBottom: 6,
               position: "sticky",
               top: -8,
-              bgcolor: config?.bg ?? "#f3f4f6",
+              backgroundColor: config?.bg ?? "#f3f4f6",
               zIndex: 1,
             }}
           >

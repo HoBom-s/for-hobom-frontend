@@ -6,26 +6,32 @@ export default function AuthLoginPage() {
   return (
     <Hb.Box
       component="main"
-      width="100%"
-      height="100%"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      sx={{ bgcolor: "background.default" }}
+      style={{
+        backgroundColor: "var(--hb-color-canvas)",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       {/* 카드 래퍼 */}
       <Hb.Box
-        sx={{
+        style={{
           width: "100%",
           maxWidth: 420,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 3,
+          gap: 24,
         }}
       >
         {/* 로고 / 브랜드 */}
-        <Hb.Box sx={{ textAlign: "center" }}>
+        <Hb.Box
+          style={{
+            textAlign: "center",
+          }}
+        >
           <Hb.Text
             variant="h4"
             style={{
@@ -44,12 +50,12 @@ export default function AuthLoginPage() {
 
         {/* 폼 카드 */}
         <Hb.Box
-          sx={{
+          style={{
             width: "100%",
-            bgcolor: "background.paper",
-            borderRadius: 3,
+            backgroundColor: "var(--hb-color-surface)",
+            borderRadius: 24,
             boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
-            p: 4,
+            padding: 32,
           }}
         >
           <ErrorBoundary fallback={<AuthLoginPage.Fallback />}>
@@ -63,7 +69,13 @@ export default function AuthLoginPage() {
 
 AuthLoginPage.Fallback = () => {
   return (
-    <Hb.Box sx={{ textAlign: "center", py: 2 }}>
+    <Hb.Box
+      style={{
+        textAlign: "center",
+        paddingTop: 16,
+        paddingBottom: 16,
+      }}
+    >
       <ErrorOutline color="error" sx={{ fontSize: 48, mb: 1 }} />
       <Hb.Text variant="h6" fontWeight={600} gutterBottom>
         앗!

@@ -41,7 +41,14 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
       >
         메모 작성...
       </Hb.Text>
-      <Hb.Box sx={{ display: "flex", gap: 0.25, ml: 2 }} onClick={(e) => e.stopPropagation()}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          gap: 2,
+          marginLeft: 16,
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         <Hb.Tooltip title="체크리스트" arrow>
           <Hb.Button.Icon
             size="small"

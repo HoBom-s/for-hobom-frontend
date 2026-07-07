@@ -8,18 +8,23 @@ export const MenuRecommendationContent = () => {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         height: "100%",
-        gap: 2,
-        py: 8,
+        gap: 16,
+        paddingTop: 64,
+        paddingBottom: 64,
       }}
     >
       <Casino sx={{ fontSize: 64, color: "#dadce0" }} />
-      <Hb.Box sx={{ textAlign: "center" }}>
+      <Hb.Box
+        style={{
+          textAlign: "center",
+        }}
+      >
         <Hb.Text
           variant="h6"
           style={{

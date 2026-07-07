@@ -28,7 +28,14 @@ export const DlqDetailDialog = ({
   const renderContent = () => {
     if (isLoading) {
       return (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 32,
+            paddingBottom: 32,
+          }}
+        >
           <Hb.Progress.Circular size={28} />
         </Hb.Box>
       );
@@ -38,7 +45,13 @@ export const DlqDetailDialog = ({
 
     return (
       <>
-        <Hb.Box sx={{ display: "flex", gap: 1, mb: 2 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            gap: 8,
+            marginBottom: 16,
+          }}
+        >
           <Hb.Text
             variant="body2"
             style={{
@@ -72,16 +85,16 @@ export const DlqDetailDialog = ({
         </Hb.Text>
         <Hb.Box
           component="pre"
-          sx={{
-            p: 2,
-            borderRadius: 1,
-            bgcolor: "action.hover",
+          style={{
+            padding: 16,
+            borderRadius: 8,
+            backgroundColor: "var(--hb-color-border)",
             fontSize: 12,
             fontFamily: "'JetBrains Mono', monospace",
             overflow: "auto",
             maxHeight: 400,
             whiteSpace: "pre",
-            m: 0,
+            margin: 0,
           }}
         >
           {JSON.stringify(detail.payload, null, 2)}

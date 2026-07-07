@@ -16,7 +16,7 @@ export default function NotFoundPage() {
       }}
     >
       <div>
-        <Hb.Box sx={{ mx: "auto", textAlign: "center" }}>
+        <Hb.Box style={{ marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
           <StopScreenShareOutlined sx={{ fontSize: 48 }} />
           <Hb.Text variant="h5" gutterBottom>
             404
@@ -26,8 +26,8 @@ export default function NotFoundPage() {
           </Hb.Text>
         </Hb.Box>
         <Hb.Box
-          sx={{
-            mt: 1,
+          style={{
+            marginTop: 8,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

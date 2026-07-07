@@ -5,22 +5,32 @@ import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 
 export const ErrorMonitoringWorkspace = () => {
   return (
-    <Hb.Box sx={{ p: 3 }}>
+    <Hb.Box
+      style={{
+        padding: 24,
+      }}
+    >
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          mb: 3,
+          marginBottom: 24,
         }}
       >
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
           <Hb.Box
-            sx={{
+            style={{
               width: 40,
               height: 40,
-              borderRadius: 2,
-              bgcolor: "warning.main",
+              borderRadius: 16,
+              backgroundColor: "var(--hb-color-warning)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

@@ -38,13 +38,13 @@ export function CodePanel({ document }: CodePanelProps) {
       </Hb.Stack>
       <Hb.Box
         component="pre"
-        sx={{
-          m: 0,
-          p: 1.5,
+        style={{
+          margin: 0,
+          padding: 12,
           minWidth: 0,
           maxWidth: "100%",
-          bgcolor: "background.default",
-          borderRadius: 1,
+          backgroundColor: "var(--hb-color-canvas)",
+          borderRadius: 8,
           fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
           fontSize: "0.75rem",
           lineHeight: 1.6,

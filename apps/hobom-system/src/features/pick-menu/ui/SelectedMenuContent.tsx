@@ -36,7 +36,7 @@ const Inner = () => {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -44,11 +44,13 @@ const Inner = () => {
     >
       <SelectedMenuContent.Layout>
         <Hb.Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          width="100%"
-          height="100%"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
         >
           {showProgressCircle ? (
             <Hb.Stack direction="column" alignItems="center" spacing={1.5}>
@@ -84,11 +86,13 @@ const Inner = () => {
         </Hb.Box>
       </SelectedMenuContent.Layout>
       <Hb.Box
-        sx={{
-          px: 3,
-          py: 2,
+        style={{
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 16,
+          paddingBottom: 16,
           borderTop: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           flexShrink: 0,
         }}
       >

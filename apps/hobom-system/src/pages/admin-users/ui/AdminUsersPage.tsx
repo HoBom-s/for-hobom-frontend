@@ -4,7 +4,11 @@ import { ErrorBoundary, Hb, SuspenseLoader } from "@/shared/ui";
 
 export default function AdminUsersPage() {
   return (
-    <Hb.Box sx={{ p: 3 }}>
+    <Hb.Box
+      style={{
+        padding: 24,
+      }}
+    >
       <ErrorBoundary inline>
         <Suspense fallback={<SuspenseLoader />}>
           <PendingUsersTable />

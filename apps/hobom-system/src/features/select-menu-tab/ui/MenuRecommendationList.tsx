@@ -23,13 +23,14 @@ const Inner = () => {
   if (itemList.length === 0) {
     return (
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          py: 10,
-          gap: 1.5,
+          paddingTop: 80,
+          paddingBottom: 80,
+          gap: 12,
         }}
       >
         <MenuBook sx={{ fontSize: 64, color: "#dadce0" }} />

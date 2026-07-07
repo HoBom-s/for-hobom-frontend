@@ -14,13 +14,13 @@ export const ProjectGrid = ({ projects }: ProjectGridProps) => {
   if (projects.length === 0) {
     return (
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           minHeight: 280,
-          gap: 1.5,
+          gap: 12,
         }}
       >
         <FolderOutlined sx={{ fontSize: 96, color: "#dadce0", strokeWidth: 0.5 }} />
@@ -40,10 +40,10 @@ export const ProjectGrid = ({ projects }: ProjectGridProps) => {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-        gap: 2,
+        gap: 16,
       }}
     >
       {projects.map((project) => (

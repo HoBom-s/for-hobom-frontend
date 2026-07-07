@@ -61,7 +61,12 @@ export const CreateIssueDialog = ({
           rows={3}
           size="small"
         />
-        <Hb.Box sx={{ display: "flex", gap: 2 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            gap: 16,
+          }}
+        >
           <Hb.Form.Control size="small" sx={{ flex: 1 }}>
             <Hb.Form.Label>유형</Hb.Form.Label>
             <Hb.Form.Select
@@ -91,7 +96,12 @@ export const CreateIssueDialog = ({
             </Hb.Form.Select>
           </Hb.Form.Control>
         </Hb.Box>
-        <Hb.Box sx={{ display: "flex", gap: 2 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            gap: 16,
+          }}
+        >
           {activeSprints.length > 0 && (
             <Hb.Form.Control size="small" sx={{ flex: 1 }}>
               <Hb.Form.Label>스프린트 (선택)</Hb.Form.Label>
@@ -132,9 +142,9 @@ export const CreateIssueDialog = ({
             라벨
           </Hb.Text>
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
-              gap: 0.5,
+              gap: 4,
               flexWrap: "wrap",
               alignItems: "center",
             }}

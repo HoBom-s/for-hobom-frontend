@@ -37,14 +37,20 @@ export const LogSearchSection = () => {
   return (
     <Hb.Box>
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          mb: 2,
+          marginBottom: 16,
         }}
       >
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           <SearchOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
           <Hb.Text variant="body2" fontWeight={600}>
             로그 검색
@@ -56,21 +62,20 @@ export const LogSearchSection = () => {
           )}
         </Hb.Box>
       </Hb.Box>
-
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           width: "100%",
           justifyContent: "space-between",
           alignItems: "center",
-          mb: 2,
+          marginBottom: 16,
         }}
       >
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             alignItems: "center",
-            gap: 1.5,
+            gap: 12,
             flexWrap: "wrap",
           }}
         >
@@ -126,7 +131,7 @@ export const LogSearchSection = () => {
         </Hb.Box>
         {totalPages > 1 && (
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
               alignItems: "center",
               height: "100%",
@@ -142,9 +147,15 @@ export const LogSearchSection = () => {
           </Hb.Box>
         )}
       </Hb.Box>
-
       {isLoading ? (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 32,
+            paddingBottom: 32,
+          }}
+        >
           <Hb.Progress.Circular size={28} />
         </Hb.Box>
       ) : (

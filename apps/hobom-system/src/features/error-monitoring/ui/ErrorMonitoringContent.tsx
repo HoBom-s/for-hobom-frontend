@@ -29,17 +29,28 @@ export const ErrorMonitoringContent = () => {
         onFilterChange={handleFilterChange}
         onReset={handleReset}
       />
-
       {isLoading ? (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 32,
+            paddingBottom: 32,
+          }}
+        >
           <Hb.Progress.Circular size={28} />
         </Hb.Box>
       ) : (
         <ErrorEventTable data={items} onRowClick={setSelectedEvent} />
       )}
-
       {totalPages > 1 && (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 16,
+          }}
+        >
           <Hb.Pagination
             count={totalPages}
             page={page + 1}
@@ -49,7 +60,6 @@ export const ErrorMonitoringContent = () => {
           />
         </Hb.Box>
       )}
-
       <ErrorEventDetailDialog
         event={selectedEvent}
         open={selectedEvent !== null}

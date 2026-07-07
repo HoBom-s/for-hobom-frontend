@@ -35,20 +35,20 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
 
   return (
     <Hb.Box
-      sx={{
-        p: 2,
-        borderRadius: 2,
+      style={{
+        padding: 16,
+        borderRadius: 16,
         border: "1px solid",
-        borderColor: "divider",
+        borderColor: "var(--hb-color-border)",
       }}
     >
       {/* 보드 헤더 */}
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          mb: 1.5,
+          marginBottom: 12,
         }}
       >
         {isEditing ? (
@@ -69,7 +69,13 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             sx={{ flex: 1, mr: 1 }}
           />
         ) : (
-          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
             <Hb.Text variant="body2" fontWeight={600}>
               {board.name}
             </Hb.Text>
@@ -86,7 +92,13 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             />
           </Hb.Box>
         )}
-        <Hb.Box sx={{ display: "flex", gap: 0.5, flexShrink: 0 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            gap: 4,
+            flexShrink: 0,
+          }}
+        >
           <Hb.Tooltip title="이름 수정">
             <Hb.Button.Icon
               size="small"
@@ -131,16 +143,18 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
               return (
                 <Sortable.Item key={col.statusId} id={col.statusId} useHandle>
                   <Hb.Box
-                    sx={{
+                    style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 1,
-                      px: 1,
-                      py: 0.5,
-                      borderRadius: 1.5,
-                      bgcolor: "action.hover",
+                      gap: 8,
+                      paddingLeft: 8,
+                      paddingRight: 8,
+                      paddingTop: 4,
+                      paddingBottom: 4,
+                      borderRadius: 12,
+                      backgroundColor: "var(--hb-color-border)",
                       border: "1px solid",
-                      borderColor: "divider",
+                      borderColor: "var(--hb-color-border)",
                     }}
                   >
                     <Sortable.Handle>
@@ -153,11 +167,11 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
                       />
                     </Sortable.Handle>
                     <Hb.Box
-                      sx={{
+                      style={{
                         width: 8,
                         height: 8,
                         borderRadius: "50%",
-                        bgcolor: config.color,
+                        backgroundColor: config.color,
                         flexShrink: 0,
                       }}
                     />
@@ -210,7 +224,13 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
         </Sortable.List>
       </Sortable.Root>
       {/* 컬럼 추가 */}
-      <Hb.Box sx={{ display: "flex", gap: 0.5, mt: 1 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          gap: 4,
+          marginTop: 8,
+        }}
+      >
         <Hb.TextField
           size="small"
           placeholder="status ID"

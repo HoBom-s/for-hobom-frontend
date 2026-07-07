@@ -38,7 +38,14 @@ export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionP
   };
 
   return (
-    <Hb.Box sx={{ px: 3, py: 2 }}>
+    <Hb.Box
+      style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingTop: 16,
+        paddingBottom: 16,
+      }}
+    >
       <Hb.Text
         variant="subtitle1"
         fontWeight={600}
@@ -50,7 +57,11 @@ export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionP
       </Hb.Text>
       <CommentInput onSubmit={handleCreateComment} loading={createComment.isPending} />
       {loadedCount > 0 && (
-        <Hb.Box sx={{ mt: 2 }}>
+        <Hb.Box
+          style={{
+            marginTop: 16,
+          }}
+        >
           <CommentList
             comments={comments}
             spaceKey={spaceKey}
@@ -58,7 +69,13 @@ export const CommentsSection = ({ spaceKey, pageId, userInfo }: CommentsSectionP
             userInfo={userInfo}
           />
           {hasNextPage && (
-            <Hb.Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <Hb.Box
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: 16,
+              }}
+            >
               <Hb.Button
                 variant="ghost"
                 size="small"

@@ -35,8 +35,21 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
   }
 
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Hb.Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      <Hb.Box
+        style={{
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 12,
+          paddingBottom: 4,
+        }}
+      >
         <Hb.Text variant="caption" fontWeight={600} color="text.secondary">
           버전 목록 ({totalCount})
         </Hb.Text>
@@ -118,7 +131,14 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
           );
         })}
         {hasNextPage && (
-          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 1 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 8,
+              paddingBottom: 8,
+            }}
+          >
             <Hb.Button
               variant="ghost"
               size="small"
@@ -137,18 +157,25 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
         )}
       </Hb.List.Root>
       <Hb.Divider />
-      <Hb.Box sx={{ flex: 1, overflow: "auto" }}>
+      <Hb.Box
+        style={{
+          flex: 1,
+          overflow: "auto",
+        }}
+      >
         {selectedVersion ? (
           <>
             <Hb.Box
-              sx={{
+              style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 0.5,
-                px: 2,
-                py: 1,
+                gap: 4,
+                paddingLeft: 16,
+                paddingRight: 16,
+                paddingTop: 8,
+                paddingBottom: 8,
                 borderBottom: "1px solid",
-                borderColor: "divider",
+                borderColor: "var(--hb-color-border)",
               }}
             >
               <Hb.Tooltip title="미리보기">
@@ -194,7 +221,14 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
             </Hb.Box>
             <Suspense
               fallback={
-                <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+                <Hb.Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    paddingTop: 32,
+                    paddingBottom: 32,
+                  }}
+                >
                   <Hb.Progress.Circular size={20} />
                 </Hb.Box>
               }
@@ -216,7 +250,12 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
             </Suspense>
           </>
         ) : (
-          <Hb.Box sx={{ p: 4, textAlign: "center" }}>
+          <Hb.Box
+            style={{
+              padding: 32,
+              textAlign: "center",
+            }}
+          >
             <Hb.Text variant="body2" color="text.disabled">
               버전을 선택하여 미리보기
             </Hb.Text>

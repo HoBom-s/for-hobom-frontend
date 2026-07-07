@@ -5,6 +5,7 @@ import {
   PlayArrowOutlined,
   CheckCircleOutline,
 } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import { getDescendantProgress, type IssueType } from "@/entities/issue";
 import { SPRINT_STATUS_LABEL, type SprintType } from "@/entities/sprint";
 import { Hb } from "@/shared/ui";
@@ -13,6 +14,15 @@ import { useCollapsibleTree } from "../model/useCollapsibleTree";
 import { useSprintActions } from "../model/useSprintActions";
 import { STATUS_COLOR } from "./backlog-constants";
 import { IssueRow } from "./IssueRow";
+
+const styles = stylex.create({
+  headerActiveHover: {
+    ":hover": { backgroundColor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)" },
+  },
+  headerHover: {
+    ":hover": { backgroundColor: "var(--hb-color-border)" },
+  },
+});
 
 export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: IssueType[] }) => {
   const { projectId, doneStatusIds } = useBacklogContext();
@@ -30,23 +40,22 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
       }}
     >
       <Hb.Box
-        sx={{
+        {...stylex.props(
+          sprint.status === "ACTIVE" ? styles.headerActiveHover : styles.headerHover,
+        )}
+        style={{
           display: "flex",
           alignItems: "center",
-          gap: 1,
-          px: 2,
-          py: 1.2,
-          bgcolor:
+          gap: 8,
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 9.6,
+          paddingBottom: 9.6,
+          backgroundColor:
             sprint.status === "ACTIVE"
               ? "rgba(var(--mui-palette-primary-mainChannel) / 0.06)"
-              : "action.hover",
+              : "var(--hb-color-border)",
           cursor: "pointer",
-          "&:hover": {
-            bgcolor:
-              sprint.status === "ACTIVE"
-                ? "rgba(var(--mui-palette-primary-mainChannel) / 0.1)"
-                : "action.selected",
-          },
           transition: "background 0.15s",
         }}
         onClick={() => setExpanded(!expanded)}
@@ -84,7 +93,11 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
         >
           {issues.length}건
         </Hb.Text>
-        <Hb.Box sx={{ flex: 1 }} />
+        <Hb.Box
+          style={{
+            flex: 1,
+          }}
+        />
         {sprint.status === "PLANNING" && (
           <Hb.Button
             size="small"
@@ -132,7 +145,15 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
       </Hb.Box>
       <Hb.Collapse in={expanded}>
         {issues.length === 0 ? (
-          <Hb.Box sx={{ px: 2, py: 3, textAlign: "center" }}>
+          <Hb.Box
+            style={{
+              paddingLeft: 16,
+              paddingRight: 16,
+              paddingTop: 24,
+              paddingBottom: 24,
+              textAlign: "center",
+            }}
+          >
             <Hb.Text
               variant="body2"
               color="text.disabled"

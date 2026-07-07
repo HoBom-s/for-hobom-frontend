@@ -29,7 +29,13 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 24,
+      }}
+    >
       <Hb.Box>
         <Hb.Text
           fontWeight={700}
@@ -55,7 +61,12 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
         />
         <Hb.Form.Helper>발송 예정일을 선택해 주세요.</Hb.Form.Helper>
       </Hb.Form.Control>
-      <Hb.Box display="flex" gap={1.5}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          gap: 12,
+        }}
+      >
         <Hb.Button fullWidth variant="secondary" onClick={onPrevStep}>
           이전
         </Hb.Button>

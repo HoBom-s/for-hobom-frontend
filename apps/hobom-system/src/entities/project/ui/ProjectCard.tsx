@@ -33,11 +33,11 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
     >
       <Hb.Card.Content sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             alignItems: "center",
-            gap: 1.5,
-            mb: 1.5,
+            gap: 12,
+            marginBottom: 12,
           }}
         >
           <Hb.Avatar
@@ -53,7 +53,12 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           >
             {project.key.slice(0, 2)}
           </Hb.Avatar>
-          <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+          <Hb.Box
+            style={{
+              flex: 1,
+              minWidth: 0,
+            }}
+          >
             <Hb.Text variant="subtitle2" fontWeight={600} noWrap>
               {project.name}
             </Hb.Text>
@@ -87,7 +92,7 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
         )}
 
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",

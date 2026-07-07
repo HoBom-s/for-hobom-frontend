@@ -25,7 +25,14 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
   const availableLabels = allLabels.filter((l) => !pageLabelIds.has(l.id));
 
   return (
-    <Hb.Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap", alignItems: "center" }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        gap: 4,
+        flexWrap: "wrap",
+        alignItems: "center",
+      }}
+    >
       {pageLabels.map((label) => (
         <Hb.Chip
           key={label.id}
@@ -73,12 +80,12 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
           {availableLabels.map((label) => (
             <Hb.Menu.Item key={label.id} value={label.id}>
               <Hb.Box
-                sx={{
+                style={{
                   width: 10,
                   height: 10,
                   borderRadius: "50%",
-                  bgcolor: label.color,
-                  mr: 1,
+                  backgroundColor: label.color,
+                  marginRight: 8,
                 }}
               />
               {label.name}

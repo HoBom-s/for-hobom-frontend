@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";
 import type { NotificationItemType } from "@/entities/notification";
 import { NotificationItem } from "@/entities/notification/ui";
-import { RoutesConfig, SUBTLE_SCROLLBAR_SX } from "@/shared/config";
+import { RoutesConfig } from "@/shared/config";
 import { useInfiniteScroll } from "@/shared/model";
 import { Hb } from "@/shared/ui";
 import { useNotificationList } from "../model/useNotificationList";
@@ -34,7 +34,14 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
   const renderList = () => {
     if (isPending) {
       return (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 48,
+            paddingBottom: 48,
+          }}
+        >
           <Hb.Progress.Circular size={24} />
         </Hb.Box>
       );
@@ -42,12 +49,13 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
     if (notifications.length === 0) {
       return (
         <Hb.Box
-          sx={{
-            py: 6,
+          style={{
+            paddingTop: 48,
+            paddingBottom: 48,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 1,
+            gap: 8,
           }}
         >
           <NotificationsNoneOutlined sx={{ fontSize: 40, color: "text.disabled" }} />
@@ -78,7 +86,14 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
           />
         ))}
         {isFetchingNextPage && (
-          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 16,
+              paddingBottom: 16,
+            }}
+          >
             <Hb.Progress.Circular size={20} />
           </Hb.Box>
         )}
@@ -106,7 +121,14 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
         },
       }}
     >
-      <Hb.Box sx={{ px: 2, pt: 2, pb: 0 }}>
+      <Hb.Box
+        style={{
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 16,
+          paddingBottom: 0,
+        }}
+      >
         <Hb.Text
           variant="h6"
           style={{
@@ -139,10 +161,9 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
       <Hb.Divider />
       <Hb.Box
         onScroll={handleScroll}
-        sx={{
+        style={{
           maxHeight: 380,
           overflowY: "auto",
-          ...SUBTLE_SCROLLBAR_SX,
           maskImage:
             "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
           WebkitMaskImage:
@@ -152,7 +173,15 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
         {renderList()}
       </Hb.Box>
       <Hb.Divider />
-      <Hb.Box sx={{ px: 2, py: 1.5, textAlign: "center" }}>
+      <Hb.Box
+        style={{
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 12,
+          paddingBottom: 12,
+          textAlign: "center",
+        }}
+      >
         <Hb.Button
           size="small"
           variant="ghost"

@@ -89,7 +89,14 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
         }
       >
         {/* Toolbar */}
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            marginBottom: 16,
+          }}
+        >
           {filters.epics.length > 0 && (
             <Hb.Form.Control size="small" sx={{ minWidth: 200 }}>
               <Hb.Form.Label shrink>에픽 필터</Hb.Form.Label>
@@ -128,11 +135,11 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
 
         {/* Columns */}
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
-            gap: 2,
+            gap: 16,
             overflowX: "auto",
-            pb: 1,
+            paddingBottom: 8,
             minHeight: 480,
           }}
         >

@@ -1,7 +1,15 @@
 import { Hb } from "@/shared/ui";
 export const MenuRecommendationHeader = () => {
   return (
-    <Hb.Box sx={{ px: 3, py: 2.5, flexShrink: 0 }}>
+    <Hb.Box
+      style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingTop: 20,
+        paddingBottom: 20,
+        flexShrink: 0,
+      }}
+    >
       <Hb.Box>
         <Hb.Text
           variant="h6"

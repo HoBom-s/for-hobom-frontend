@@ -22,7 +22,13 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
       >
         서비스별 트래픽
       </Hb.Text>
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 32,
+        }}
+      >
         <ResponsiveContainer width={180} height={180}>
           <PieChart>
             <Pie
@@ -76,7 +82,14 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
             </text>
           </PieChart>
         </ResponsiveContainer>
-        <Hb.Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+        <Hb.Box
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+          }}
+        >
           {data.map((entry, i) => {
             const pct = total > 0 ? (entry.count / total) * 100 : 0;
             const color = CHART_COLORS[i % CHART_COLORS.length];
@@ -84,18 +97,18 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
             return (
               <Hb.Box
                 key={entry.serviceType}
-                sx={{
+                style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 1.5,
+                  gap: 12,
                 }}
               >
                 <Hb.Box
-                  sx={{
+                  style={{
                     width: 32,
                     height: 32,
-                    borderRadius: 1.5,
-                    bgcolor: `${color}18`,
+                    borderRadius: 12,
+                    backgroundColor: `${color}18`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -103,15 +116,20 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
                   }}
                 >
                   <Hb.Box
-                    sx={{
+                    style={{
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      bgcolor: color,
+                      backgroundColor: color,
                     }}
                   />
                 </Hb.Box>
-                <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+                <Hb.Box
+                  style={{
+                    flex: 1,
+                    minWidth: 0,
+                  }}
+                >
                   <Hb.Text
                     variant="body2"
                     style={{

@@ -37,7 +37,13 @@ export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) =>
       >
         로그 레벨 분포
       </Hb.Text>
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 32,
+        }}
+      >
         <ResponsiveContainer width={180} height={180}>
           <PieChart>
             <Pie
@@ -88,7 +94,14 @@ export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) =>
             </text>
           </PieChart>
         </ResponsiveContainer>
-        <Hb.Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 1.5 }}>
+        <Hb.Box
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}
+        >
           {sorted.map((entry) => {
             const pct = total > 0 ? (entry.count / total) * 100 : 0;
             const color = LEVEL_COLORS[entry.level] ?? "#94baff";
@@ -96,20 +109,26 @@ export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) =>
             return (
               <Hb.Box key={entry.level}>
                 <Hb.Box
-                  sx={{
+                  style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    mb: 0.25,
+                    marginBottom: 2,
                   }}
                 >
-                  <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Hb.Box
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
                     <Hb.Box
-                      sx={{
+                      style={{
                         width: 8,
                         height: 8,
                         borderRadius: "50%",
-                        bgcolor: color,
+                        backgroundColor: color,
                         flexShrink: 0,
                       }}
                     />

@@ -9,14 +9,19 @@ interface KanbanSwimlaneProps {
 }
 
 export const KanbanSwimlane = ({ epicKey, epicTitle, progress, children }: KanbanSwimlaneProps) => (
-  <Hb.Box sx={{ mb: 1.5 }}>
+  <Hb.Box
+    style={{
+      marginBottom: 12,
+    }}
+  >
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         alignItems: "center",
-        gap: 0.75,
-        mb: 0.75,
-        px: 0.5,
+        gap: 6,
+        marginBottom: 6,
+        paddingLeft: 4,
+        paddingRight: 4,
       }}
     >
       <Hb.Text
@@ -54,6 +59,14 @@ export const KanbanSwimlane = ({ epicKey, epicTitle, progress, children }: Kanba
         />
       )}
     </Hb.Box>
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>{children}</Hb.Box>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+      }}
+    >
+      {children}
+    </Hb.Box>
   </Hb.Box>
 );

@@ -74,7 +74,13 @@ interface StatusCodeChartProps {
 
 export const StatusCodeChart = ({ data }: StatusCodeChartProps) => {
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
       <Hb.Text
         variant="body2"
         fontWeight={600}

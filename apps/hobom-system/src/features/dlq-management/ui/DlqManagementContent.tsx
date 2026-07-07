@@ -19,7 +19,14 @@ export const DlqManagementContent = () => {
   const renderTable = () => {
     if (isLoading) {
       return (
-        <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 32,
+            paddingBottom: 32,
+          }}
+        >
           <Hb.Progress.Circular size={28} />
         </Hb.Box>
       );
@@ -101,23 +108,33 @@ export const DlqManagementContent = () => {
   };
 
   return (
-    <Hb.Box sx={{ p: 3 }}>
+    <Hb.Box
+      style={{
+        padding: 24,
+      }}
+    >
       {/* Header */}
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          mb: 3,
+          marginBottom: 24,
         }}
       >
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
           <Hb.Box
-            sx={{
+            style={{
               width: 40,
               height: 40,
-              borderRadius: 2,
-              bgcolor: "error.main",
+              borderRadius: 16,
+              backgroundColor: "var(--hb-color-danger)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

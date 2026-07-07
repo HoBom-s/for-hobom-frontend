@@ -1,6 +1,13 @@
 import { useSuspenseQuery } from "hobom-data";
+import * as stylex from "@stylexjs/stylex";
 import { wikiPageQueries, type DiffChangeType, type DiffEntryType } from "@/entities/wiki-page";
 import { Hb } from "@/shared/ui";
+
+const styles = stylex.create({
+  row: {
+    ":hover": { filter: "brightness(0.97)" },
+  },
+});
 
 interface VersionDiffViewProps {
   spaceKey: string;
@@ -24,23 +31,25 @@ const DiffLine = ({ entry }: { entry: DiffEntryType }) => {
   return (
     <Hb.Box
       component="tr"
-      sx={{
-        bgcolor: style.bgcolor,
-        "&:hover": { filter: "brightness(0.97)" },
+      {...stylex.props(styles.row)}
+      style={{
+        backgroundColor: style.bgcolor,
       }}
     >
       <Hb.Box
         component="td"
-        sx={{
-          px: 1.5,
-          py: 0.25,
+        style={{
+          paddingLeft: 12,
+          paddingRight: 12,
+          paddingTop: 2,
+          paddingBottom: 2,
           textAlign: "right",
-          color: "text.disabled",
+          color: "var(--hb-color-text-disabled)",
           fontSize: "0.75rem",
           fontFamily: "monospace",
           userSelect: "none",
           borderRight: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           minWidth: 40,
         }}
       >
@@ -48,9 +57,11 @@ const DiffLine = ({ entry }: { entry: DiffEntryType }) => {
       </Hb.Box>
       <Hb.Box
         component="td"
-        sx={{
-          px: 1,
-          py: 0.25,
+        style={{
+          paddingLeft: 8,
+          paddingRight: 8,
+          paddingTop: 2,
+          paddingBottom: 2,
           color: style.color,
           fontSize: "0.75rem",
           fontFamily: "monospace",
@@ -63,9 +74,11 @@ const DiffLine = ({ entry }: { entry: DiffEntryType }) => {
       </Hb.Box>
       <Hb.Box
         component="td"
-        sx={{
-          px: 1,
-          py: 0.25,
+        style={{
+          paddingLeft: 8,
+          paddingRight: 8,
+          paddingTop: 2,
+          paddingBottom: 2,
           fontSize: "0.8125rem",
           fontFamily: "monospace",
           whiteSpace: "pre-wrap",
@@ -91,8 +104,22 @@ export const VersionDiffView = ({
   const entries = data.items;
 
   return (
-    <Hb.Box sx={{ px: 2.5, py: 2 }}>
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+    <Hb.Box
+      style={{
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 16,
+        paddingBottom: 16,
+      }}
+    >
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 16,
+        }}
+      >
         <Hb.Chip
           label={`v${fromVersion}`}
           size="small"
@@ -118,12 +145,12 @@ export const VersionDiffView = ({
       <Hb.Box
         component="table"
         aria-label={`v${fromVersion}에서 v${toVersion}으로의 변경 사항`}
-        sx={{
+        style={{
           width: "100%",
           borderCollapse: "collapse",
           border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 1,
+          borderColor: "var(--hb-color-border)",
+          borderRadius: 8,
           overflow: "hidden",
         }}
       >

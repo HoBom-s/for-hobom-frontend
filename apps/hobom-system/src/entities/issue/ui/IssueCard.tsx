@@ -1,7 +1,17 @@
 import { memo } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Hb } from "@/shared/ui";
 import { ISSUE_KIND_REGISTRY, ISSUE_PRIORITY_REGISTRY } from "./IssueRegistry";
 import type { IssueType } from "../api/issue.type";
+
+const styles = stylex.create({
+  cardHover: {
+    ":hover": {
+      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      transform: "translateY(-1px)",
+    },
+  },
+});
 
 interface IssueCardProps {
   issue: IssueType;
@@ -18,19 +28,14 @@ export const IssueCard = memo(
 
     return (
       <Hb.Box
-        sx={{
-          p: 1.5,
-          bgcolor: "background.paper",
-          borderRadius: 2,
+        {...stylex.props(isDragOverlay ? undefined : styles.cardHover)}
+        style={{
+          padding: 12,
+          backgroundColor: "var(--hb-color-surface)",
+          borderRadius: 16,
           borderLeft: `3px solid ${kind.color}`,
           cursor: isDragOverlay ? "grabbing" : "grab",
           boxShadow: isDragOverlay ? "0 12px 28px rgba(0,0,0,0.16)" : "0 1px 3px rgba(0,0,0,0.06)",
-          "&:hover": isDragOverlay
-            ? undefined
-            : {
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                transform: "translateY(-1px)",
-              },
           transition: "box-shadow 0.15s, transform 0.15s",
           userSelect: "none",
         }}
@@ -50,22 +55,28 @@ export const IssueCard = memo(
           {issue.title}
         </Hb.Text>
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
             <Hb.Box
-              sx={{
+              style={{
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
                 width: 22,
                 height: 22,
-                borderRadius: 0.75,
-                bgcolor: kind.bg,
+                borderRadius: 6,
+                backgroundColor: kind.bg,
                 color: kind.color,
               }}
             >
@@ -117,7 +128,13 @@ export const IssueCard = memo(
             )}
           </Hb.Box>
 
-          <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
             <priority.Icon sx={{ fontSize: 16, color: priority.color }} />
             {issue.assignee && (
               <Hb.Avatar

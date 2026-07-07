@@ -105,13 +105,13 @@ export const NoteGrid = ({
   if (Bom.isEmpty(pinnedNotes) && Bom.isEmpty(otherNotes)) {
     return (
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           minHeight: 280,
-          gap: 1.5,
+          gap: 12,
         }}
       >
         <LightbulbOutlined sx={{ fontSize: 96, color: "action.disabled", strokeWidth: 0.5 }} />
@@ -137,11 +137,11 @@ export const NoteGrid = ({
       overlay={
         activeNote && (
           <Hb.Box
-            sx={{
+            style={{
               width: CARD_WIDTH,
               transform: "rotate(2deg) scale(1.04)",
               boxShadow: "0 16px 40px rgba(0,0,0,0.25)",
-              borderRadius: 2,
+              borderRadius: 16,
               cursor: "grabbing",
               opacity: 0.95,
             }}
@@ -160,12 +160,16 @@ export const NoteGrid = ({
     >
       <Hb.Box>
         {!Bom.isEmpty(pinnedNotes) && (
-          <Hb.Box sx={{ mb: 3 }}>
+          <Hb.Box
+            style={{
+              marginBottom: 24,
+            }}
+          >
             <Hb.Text variant="caption" style={SECTION_HEADER_STYLE}>
               고정됨
             </Hb.Text>
             <Sortable.List items={pinnedNotes.map((n) => n.id)}>
-              <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
+              <Hb.Box style={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
                 {pinnedNotes.map((note) => (
                   <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}
@@ -182,7 +186,7 @@ export const NoteGrid = ({
               </Hb.Text>
             )}
             <Sortable.List items={otherNotes.map((n) => n.id)}>
-              <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
+              <Hb.Box style={{ display: "flex", flexWrap: "wrap", gap: `${GAP}px` }}>
                 {otherNotes.map((note) => (
                   <NoteItem key={note.id} note={note} {...sharedProps} />
                 ))}

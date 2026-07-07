@@ -1,10 +1,26 @@
 import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { VisibilityOutlined } from "hobom-design-system/icons";
 import { useUpdatePage, UpdatePageSchema } from "@/entities/wiki-page";
 import { validateWithSchema } from "@/shared/lib";
 import { useToast } from "@/shared/model";
 import { usePageEditor, PageEditorContent } from "@/features/wiki-page-editor";
 import { Hb } from "@/shared/ui";
+
+const styles = stylex.create({
+  prose: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderBottom: "1px solid",
+    borderColor: "var(--hb-color-border)",
+    backgroundColor: "var(--hb-color-canvas)",
+  },
+});
 
 const validatePageUpdate = validateWithSchema(UpdatePageSchema);
 
@@ -57,19 +73,7 @@ export const PageEditor = ({
         minHeight: "calc(100vh - 280px)",
       }}
     >
-      <Hb.Box
-        sx={(theme) => ({
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          px: 2,
-          py: 1,
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          bgcolor: "grey.50",
-          ...theme.applyStyles("dark", { bgcolor: "background.default" }),
-        })}
-      >
+      <Hb.Box {...stylex.props(styles.prose)}>
         <Hb.Button
           size="small"
           variant="ghost"

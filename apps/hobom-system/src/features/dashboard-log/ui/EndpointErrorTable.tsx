@@ -73,8 +73,20 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
   );
 
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Hb.Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: 8,
+        }}
+      >
         <Hb.Text variant="body2" fontWeight={600}>
           Top Error 엔드포인트
         </Hb.Text>
@@ -116,12 +128,13 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
         )}
         {rowModel.rowCount === 0 && (
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              py: 4,
-              gap: 1,
+              paddingTop: 32,
+              paddingBottom: 32,
+              gap: 8,
             }}
           >
             <ErrorOutline sx={{ fontSize: 40, color: "#dadce0" }} />

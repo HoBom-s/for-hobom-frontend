@@ -1,10 +1,47 @@
 import { Fragment } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { ReplyOutlined, EditOutlined, DeleteOutlined } from "hobom-design-system/icons";
 import type { UserType } from "@/entities/user";
 import { Hb } from "@/shared/ui";
 import { useCommentNode } from "../model/useCommentNode";
 import { CommentInput } from "./CommentInput";
 import type { CommentTreeNode } from "../lib/build-comment-tree.lib";
+
+const styles = stylex.create({
+  node: {
+    display: "flex",
+    gap: 12,
+    paddingTop: 12,
+    paddingBottom: 12,
+    ":hover .comment-actions": { opacity: 1 },
+  },
+  nodeRoot: {
+    borderBottom: "1px solid",
+    borderColor: "var(--hb-color-border)",
+    ":last-of-type": { borderBottom: "none" },
+  },
+  nodeNested: (indent: number) => ({
+    position: "relative",
+    paddingLeft: indent,
+    "::before": {
+      content: '""',
+      position: "absolute",
+      left: indent - 20,
+      top: 0,
+      bottom: 0,
+      width: 2,
+      backgroundColor: "var(--hb-color-border)",
+      borderRadius: 8,
+    },
+  }),
+  actions: {
+    display: "flex",
+    gap: 2,
+    marginLeft: "auto",
+    opacity: 0,
+    transition: "opacity 0.15s ease",
+  },
+});
 
 interface CommentListProps {
   comments: CommentTreeNode[];
@@ -15,7 +52,12 @@ interface CommentListProps {
 
 export const CommentList = ({ comments, spaceKey, pageId, userInfo }: CommentListProps) => {
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {comments.map((comment) => (
         <CommentNode
           key={comment.id}
@@ -65,31 +107,11 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
   return (
     <Fragment>
       <Hb.Box
-        sx={{
-          display: "flex",
-          gap: 1.5,
-          py: 1.5,
-          pl: depth > 0 ? depth * 5 : 0,
-          ...(depth === 0 && {
-            borderBottom: "1px solid",
-            borderColor: "divider",
-            "&:last-of-type": { borderBottom: "none" },
-          }),
-          ...(depth > 0 && {
-            position: "relative",
-            "&::before": {
-              content: '""',
-              position: "absolute",
-              left: depth * 5 - 2.5 * 8,
-              top: 0,
-              bottom: 0,
-              width: 2,
-              bgcolor: "divider",
-              borderRadius: 1,
-            },
-          }),
-          "&:hover .comment-actions": { opacity: 1 },
-        }}
+        {...stylex.props(
+          styles.node,
+          depth === 0 && styles.nodeRoot,
+          depth > 0 && styles.nodeNested(depth * 40),
+        )}
       >
         <Hb.Avatar
           sx={{
@@ -105,13 +127,18 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
           {initial}
         </Hb.Avatar>
 
-        <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+        <Hb.Box
+          style={{
+            flex: 1,
+            minWidth: 0,
+          }}
+        >
           <Hb.Box
-            sx={{
+            style={{
               display: "flex",
               alignItems: "center",
-              gap: 1,
-              mb: 0.5,
+              gap: 8,
+              marginBottom: 4,
             }}
           >
             <Hb.Text
@@ -127,16 +154,7 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
               {new Date(comment.createdAt).toLocaleDateString("ko-KR")}
             </Hb.Text>
 
-            <Hb.Box
-              className="comment-actions"
-              sx={{
-                display: "flex",
-                gap: 0.25,
-                ml: "auto",
-                opacity: 0,
-                transition: "opacity 0.15s ease",
-              }}
-            >
+            <Hb.Box className={`comment-actions ${stylex.props(styles.actions).className}`}>
               {depth < 2 && (
                 <Hb.Tooltip title="답글">
                   <Hb.Button.Icon
@@ -173,7 +191,13 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
           </Hb.Box>
 
           {editing ? (
-            <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            <Hb.Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+              }}
+            >
               <Hb.TextField
                 fullWidth
                 multiline
@@ -183,7 +207,13 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
               />
-              <Hb.Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
+              <Hb.Box
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  justifyContent: "flex-end",
+                }}
+              >
                 <Hb.Button size="small" onClick={cancelEditing} sx={{ textTransform: "none" }}>
                   취소
                 </Hb.Button>
@@ -212,7 +242,11 @@ const CommentNode = ({ comment, spaceKey, pageId, depth, userInfo }: CommentNode
           )}
 
           {replying && (
-            <Hb.Box sx={{ mt: 1.5 }}>
+            <Hb.Box
+              style={{
+                marginTop: 12,
+              }}
+            >
               <CommentInput
                 onSubmit={handleReply}
                 loading={isReplyPending}

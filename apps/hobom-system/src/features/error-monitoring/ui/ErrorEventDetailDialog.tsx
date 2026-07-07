@@ -10,7 +10,13 @@ interface ErrorEventDetailDialogProps {
 }
 
 const InfoRow = ({ label, value }: { label: string; value: string | null }) => (
-  <Hb.Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+  <Hb.Box
+    style={{
+      display: "flex",
+      gap: 8,
+      marginBottom: 8,
+    }}
+  >
     <Hb.Text
       variant="body2"
       style={{
@@ -46,7 +52,13 @@ export const ErrorEventDetailDialog = ({ event, open, onClose }: ErrorEventDetai
           justifyContent: "space-between",
         }}
       >
-        <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Hb.Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           <Hb.Text
             variant="h6"
             style={{
@@ -79,7 +91,11 @@ export const ErrorEventDetailDialog = ({ event, open, onClose }: ErrorEventDetai
         <InfoRow label="발생 시간" value={event.createdAt?.replace("T", " ").slice(0, 19) ?? "-"} />
 
         {event.stackTrace && (
-          <Hb.Box sx={{ mt: 2 }}>
+          <Hb.Box
+            style={{
+              marginTop: 16,
+            }}
+          >
             <Hb.Text
               variant="body2"
               style={{
@@ -92,16 +108,16 @@ export const ErrorEventDetailDialog = ({ event, open, onClose }: ErrorEventDetai
             </Hb.Text>
             <Hb.Box
               component="pre"
-              sx={{
-                p: 2,
-                borderRadius: 1,
-                bgcolor: "action.hover",
+              style={{
+                padding: 16,
+                borderRadius: 8,
+                backgroundColor: "var(--hb-color-border)",
                 fontSize: 12,
                 fontFamily: "'JetBrains Mono', monospace",
                 overflow: "auto",
                 maxHeight: 400,
                 whiteSpace: "pre",
-                m: 0,
+                margin: 0,
               }}
             >
               {event.stackTrace}

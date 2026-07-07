@@ -64,12 +64,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
       {change.changeType === "MODIFIED" && (
         <Hb.Stack spacing={1}>
           <Hb.Box
-            sx={{
-              p: 1.5,
-              borderRadius: 1,
-              bgcolor: "error.50",
+            style={{
+              padding: 12,
+              borderRadius: 8,
+              backgroundColor: "error.50",
               borderLeft: 3,
-              borderColor: "error.main",
+              borderColor: "var(--hb-color-danger)",
             }}
           >
             <Hb.Text variant="caption" color="error.main" fontWeight={600}>
@@ -86,12 +86,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
             </Hb.Text>
           </Hb.Box>
           <Hb.Box
-            sx={{
-              p: 1.5,
-              borderRadius: 1,
-              bgcolor: "success.50",
+            style={{
+              padding: 12,
+              borderRadius: 8,
+              backgroundColor: "success.50",
               borderLeft: 3,
-              borderColor: "success.main",
+              borderColor: "var(--hb-color-success)",
             }}
           >
             <Hb.Text variant="caption" color="success.main" fontWeight={600}>
@@ -111,12 +111,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
       )}
       {change.changeType === "ADDED" && change.after && (
         <Hb.Box
-          sx={{
-            p: 1.5,
-            borderRadius: 1,
-            bgcolor: "success.50",
+          style={{
+            padding: 12,
+            borderRadius: 8,
+            backgroundColor: "success.50",
             borderLeft: 3,
-            borderColor: "success.main",
+            borderColor: "var(--hb-color-success)",
           }}
         >
           <Hb.Text
@@ -131,12 +131,12 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
       )}
       {change.changeType === "DELETED" && change.before && (
         <Hb.Box
-          sx={{
-            p: 1.5,
-            borderRadius: 1,
-            bgcolor: "error.50",
+          style={{
+            padding: 12,
+            borderRadius: 8,
+            backgroundColor: "error.50",
             borderLeft: 3,
-            borderColor: "error.main",
+            borderColor: "var(--hb-color-danger)",
             textDecoration: "line-through",
           }}
         >

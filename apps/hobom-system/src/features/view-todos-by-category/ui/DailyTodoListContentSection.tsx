@@ -42,13 +42,14 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
     <>
       {groupedTodos.length === 0 ? (
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            py: 8,
-            gap: 1.5,
+            paddingTop: 64,
+            paddingBottom: 64,
+            gap: 12,
           }}
         >
           <CheckCircleOutline sx={{ fontSize: 64, color: "#dadce0" }} />
@@ -63,7 +64,13 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
           </Hb.Text>
         </Hb.Box>
       ) : (
-        <Hb.Box sx={{ width: "100%", py: 1 }}>
+        <Hb.Box
+          style={{
+            width: "100%",
+            paddingTop: 8,
+            paddingBottom: 8,
+          }}
+        >
           {groupedTodos.map((item) => (
             <Hb.List.Root
               key={item.categoryId}
@@ -91,7 +98,7 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
                   {item.categoryTitle}
                   <CategoryProgress items={item.todoItems} />
                   <CategoryMenu categoryId={item.categoryId} categoryTitle={item.categoryTitle} />
-                  <Hb.Box sx={{ ml: "auto" }}>
+                  <Hb.Box style={{ marginLeft: "auto" }}>
                     <DailyTodoAddButton item={item} />
                   </Hb.Box>
                 </Hb.List.Subheader>
@@ -102,7 +109,14 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
           ))}
         </Hb.Box>
       )}
-      <Hb.Box sx={{ px: 2.5, py: 1.5 }}>
+      <Hb.Box
+        style={{
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 12,
+          paddingBottom: 12,
+        }}
+      >
         <Hb.Button
           size="small"
           startIcon={<Add />}

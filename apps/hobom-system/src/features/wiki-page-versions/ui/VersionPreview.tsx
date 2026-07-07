@@ -4,6 +4,38 @@ import { wikiPageQueries } from "@/entities/wiki-page";
 import { sanitizeHtml } from "@/shared/lib/sanitize-html.lib";
 import { Hb } from "@/shared/ui";
 
+// StyleX is atomic and cannot express descendant selectors, so the prose
+// styling is rendered as a scoped <style> tag instead.
+const PROSE_CLASS = "wiki-version-preview-prose";
+const PROSE_CSS = `
+.${PROSE_CLASS} {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--hb-color-text-primary);
+  padding: 16px;
+  background-color: var(--hb-color-canvas);
+  border: 1px solid var(--hb-color-border);
+  border-radius: 8px;
+}
+.${PROSE_CLASS} h1, .${PROSE_CLASS} h2, .${PROSE_CLASS} h3 { margin-top: 12px; margin-bottom: 4px; }
+.${PROSE_CLASS} p { margin-bottom: 4px; }
+.${PROSE_CLASS} a { color: var(--hb-color-accent); }
+.${PROSE_CLASS} pre {
+  background-color: var(--hb-color-canvas);
+  border: 1px solid var(--hb-color-border);
+  padding: 8px;
+  border-radius: 8px;
+  overflow: auto;
+}
+.${PROSE_CLASS} code {
+  background-color: var(--hb-color-canvas);
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+`;
+
 interface VersionPreviewProps {
   spaceKey: string;
   pageId: string;
@@ -16,13 +48,20 @@ export const VersionPreview = ({ spaceKey, pageId, versionNumber }: VersionPrevi
   const sanitizedContent = useMemo(() => sanitizeHtml(version.content), [version.content]);
 
   return (
-    <Hb.Box sx={{ px: 2.5, py: 2 }}>
+    <Hb.Box
+      style={{
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 16,
+        paddingBottom: 16,
+      }}
+    >
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
-          gap: 1,
-          mb: 2,
+          gap: 8,
+          marginBottom: 16,
         }}
       >
         <Hb.Chip
@@ -38,39 +77,8 @@ export const VersionPreview = ({ spaceKey, pageId, versionNumber }: VersionPrevi
           {version.title}
         </Hb.Text>
       </Hb.Box>
-      <Hb.Box
-        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-        sx={(theme) => ({
-          fontSize: "0.8125rem",
-          lineHeight: 1.6,
-          color: "text.primary",
-          p: 2,
-          bgcolor: "grey.50",
-          ...theme.applyStyles("dark", { bgcolor: "background.default" }),
-          border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 1,
-          "& h1, & h2, & h3": { mt: 1.5, mb: 0.5 },
-          "& p": { mb: 0.5 },
-          "& a": { color: "primary.main" },
-          "& pre": {
-            bgcolor: "grey.100",
-            ...theme.applyStyles("dark", { bgcolor: "background.default" }),
-            border: "1px solid",
-            borderColor: "divider",
-            p: 1,
-            borderRadius: 1,
-            overflow: "auto",
-          },
-          "& code": {
-            bgcolor: "grey.100",
-            ...theme.applyStyles("dark", { bgcolor: "background.default" }),
-            px: 0.5,
-            borderRadius: 0.5,
-            fontSize: "0.75rem",
-          },
-        })}
-      />
+      <style dangerouslySetInnerHTML={{ __html: PROSE_CSS }} />
+      <Hb.Box className={PROSE_CLASS} dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
     </Hb.Box>
   );
 };

@@ -140,7 +140,11 @@ export default function WorkspacePage() {
               onCommit={(name) => renameFolder(folder.id, name)}
               textSx={{ fontSize: 14 }}
             />
-            <Hb.Box sx={{ flex: 1 }} />
+            <Hb.Box
+              style={{
+                flex: 1,
+              }}
+            />
             <Hb.Button.Icon
               size="small"
               className="row-action"
@@ -153,7 +157,14 @@ export default function WorkspacePage() {
           </Hb.Stack>
         ))}
       </Hb.Stack>
-      <Hb.Box sx={{ flex: 1, minWidth: 0, p: 3, overflow: "auto" }}>
+      <Hb.Box
+        style={{
+          flex: 1,
+          minWidth: 0,
+          padding: 24,
+          overflow: "auto",
+        }}
+      >
         <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
           <Hb.Text variant="h6">{activeFolder?.name ?? "워크스페이스"}</Hb.Text>
           <Hb.Button variant="primary" startIcon={<AddOutlined />} onClick={handleNewDesign}>
@@ -166,7 +177,13 @@ export default function WorkspacePage() {
             아직 디자인이 없어요. "새 디자인"으로 시작하세요.
           </Hb.Text>
         ) : (
-          <Hb.Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 16,
+            }}
+          >
             {items.map((item) => {
               const favorite = favorites.find((entry) => entry.designId === item.id);
 
@@ -231,7 +248,12 @@ export default function WorkspacePage() {
                     <DeleteOutline sx={{ fontSize: 16 }} />
                   </Hb.Button.Icon>
                   <Hb.Box
-                    sx={{ height: 120, bgcolor: "background.default", borderRadius: 1, mb: 1 }}
+                    style={{
+                      height: 120,
+                      backgroundColor: "var(--hb-color-canvas)",
+                      borderRadius: 8,
+                      marginBottom: 8,
+                    }}
                   />
                   <Hb.Text
                     variant="body2"

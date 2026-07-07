@@ -41,13 +41,17 @@ export const WikiSpaceListWorkspace = () => {
   };
 
   return (
-    <Hb.Box sx={{ p: 3 }}>
+    <Hb.Box
+      style={{
+        padding: 24,
+      }}
+    >
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          mb: 4,
+          marginBottom: 32,
         }}
       >
         <Hb.Box>

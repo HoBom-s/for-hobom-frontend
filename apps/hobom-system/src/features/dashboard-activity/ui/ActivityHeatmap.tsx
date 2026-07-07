@@ -47,7 +47,7 @@ export const ActivityHeatmap = ({ data }: ActivityHeatmapProps) => {
         활동 히트맵
       </Hb.Text>
       <Hb.Box
-        sx={{
+        style={{
           display: "grid",
           gridTemplateColumns: `repeat(${WEEKS}, 14px)`,
           gridTemplateRows: `repeat(${DAYS_PER_WEEK}, 14px)`,
@@ -58,11 +58,11 @@ export const ActivityHeatmap = ({ data }: ActivityHeatmapProps) => {
         {cells.map((cell) => (
           <Hb.Tooltip key={cell.date} title={`${cell.date}: ${cell.count}건`} arrow placement="top">
             <Hb.Box
-              sx={{
+              style={{
                 width: 14,
                 height: 14,
                 borderRadius: "2px",
-                bgcolor: LEVEL_COLORS[cell.level],
+                backgroundColor: LEVEL_COLORS[cell.level],
               }}
             />
           </Hb.Tooltip>

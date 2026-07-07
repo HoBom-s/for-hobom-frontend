@@ -22,14 +22,20 @@ export const ErrorEventFilter = ({
 }: ErrorEventFilterProps) => (
   <Hb.Box>
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        mb: 2,
+        marginBottom: 16,
       }}
     >
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <SearchOutlined sx={{ fontSize: 18, color: "text.secondary" }} />
         <Hb.Text variant="body2" fontWeight={600}>
           에러 검색
@@ -43,12 +49,12 @@ export const ErrorEventFilter = ({
     </Hb.Box>
 
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
         alignItems: "center",
-        gap: 1.5,
+        gap: 12,
         flexWrap: "wrap",
-        mb: 2,
+        marginBottom: 16,
       }}
     >
       <Hb.Form.Control size="small" sx={{ minWidth: 160 }}>

@@ -33,13 +33,13 @@ export const MenuRecommendationTab = () => {
       }}
     >
       <Hb.Box
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           borderBottom: "1px solid",
-          borderColor: "divider",
-          pr: 2,
+          borderColor: "var(--hb-color-border)",
+          paddingRight: 16,
         }}
       >
         <Hb.Tabs.Root
@@ -61,7 +61,12 @@ export const MenuRecommendationTab = () => {
         </Hb.Tabs.Root>
         {tab === "list" && <MenuRecommendationSpeedDial />}
       </Hb.Box>
-      <Hb.Box sx={{ flex: 1, overflow: "auto" }}>
+      <Hb.Box
+        style={{
+          flex: 1,
+          overflow: "auto",
+        }}
+      >
         <TabPanel visible={tab === "recommendation"}>
           <MenuRecommendationContent />
         </TabPanel>

@@ -1,4 +1,5 @@
 import { Bom } from "hobom-utils";
+import * as stylex from "@stylexjs/stylex";
 import { DragIndicatorOutlined } from "hobom-design-system/icons";
 import { Hb, Sortable } from "@/shared/ui";
 import {
@@ -9,6 +10,18 @@ import {
   type StudioDocument,
 } from "@/entities/document";
 import type { DragEndEvent } from "hobom-design-system";
+
+const styles = stylex.create({
+  row: {
+    display: "flex",
+    alignItems: "center",
+    gap: 4,
+    paddingRight: 8,
+    paddingTop: 4,
+    paddingBottom: 4,
+    ":hover": { backgroundColor: "var(--hb-color-border)" },
+  },
+});
 
 interface LayersPanelProps {
   document: StudioDocument;
@@ -47,7 +60,12 @@ export function LayersPanel({ document, selectedId, onSelect, onReorder }: Layer
   return (
     <Sortable.Root onDragEnd={handleDragEnd}>
       <Sortable.List items={layers.map((layer) => layer.node.id)} strategy="vertical">
-        <Hb.Box sx={{ py: 0.5 }}>
+        <Hb.Box
+          style={{
+            paddingTop: 4,
+            paddingBottom: 4,
+          }}
+        >
           {layers.map(({ node, depth }) => (
             <Sortable.Item key={node.id} id={node.id} useHandle>
               <LayerRow node={node} depth={depth} selectedId={selectedId} onSelect={onSelect} />
@@ -72,15 +90,10 @@ function LayerRow({ node, depth, selectedId, onSelect }: LayerRowProps) {
 
   return (
     <Hb.Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: 0.5,
-        pl: `${4 + depth * 14}px`,
-        pr: 1,
-        py: 0.5,
-        bgcolor: isSelected ? "action.selected" : "transparent",
-        "&:hover": { bgcolor: isSelected ? "action.selected" : "action.hover" },
+      {...stylex.props(styles.row)}
+      style={{
+        paddingLeft: `${4 + depth * 14}px`,
+        backgroundColor: isSelected ? "var(--hb-color-border)" : "transparent",
       }}
     >
       <Sortable.Handle>
@@ -90,7 +103,7 @@ function LayerRow({ node, depth, selectedId, onSelect }: LayerRowProps) {
       </Sortable.Handle>
       <Hb.Box
         onClick={() => onSelect(node.id)}
-        sx={{
+        style={{
           flex: 1,
           minWidth: 0,
           fontSize: 12,

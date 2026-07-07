@@ -22,12 +22,12 @@ export const PeriodSelector = (props: PeriodSelectorProps) => {
 
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "inline-flex",
-        gap: 0.75,
-        p: 0.5,
-        bgcolor: "grey.100",
-        borderRadius: 2,
+        gap: 6,
+        padding: 4,
+        backgroundColor: "grey.100",
+        borderRadius: 16,
       }}
     >
       {Object.entries(labels).map(([key, label]) => {

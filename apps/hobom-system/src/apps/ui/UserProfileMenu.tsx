@@ -124,7 +124,14 @@ const LogoutSection = ({
   isLoggingOut: boolean;
   onLogout: () => void;
 }) => (
-  <Hb.Box sx={{ px: 2.5, py: 1.5 }}>
+  <Hb.Box
+    style={{
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 12,
+      paddingBottom: 12,
+    }}
+  >
     <Hb.Button
       fullWidth
       variant="secondary"

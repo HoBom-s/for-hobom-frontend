@@ -67,7 +67,11 @@ export const IssueCommentsSection = () => {
       </Hb.Text>
       <IssueCommentInput onSubmit={handleCreate} loading={createComment.isPending} />
       {comments.length > 0 && (
-        <Hb.Box sx={{ mt: 1 }}>
+        <Hb.Box
+          style={{
+            marginTop: 8,
+          }}
+        >
           {comments.map((comment) => (
             <IssueCommentItem
               key={comment.id}

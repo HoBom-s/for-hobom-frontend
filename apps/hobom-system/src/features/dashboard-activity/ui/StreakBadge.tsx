@@ -9,18 +9,18 @@ interface StreakBadgeProps {
 export const StreakBadge = ({ currentStreak, longestStreak }: StreakBadgeProps) => {
   return (
     <Hb.Box
-      sx={{
+      style={{
         display: "flex",
-        gap: 2,
+        gap: 16,
       }}
     >
       <Hb.Box
-        sx={{
+        style={{
           flex: 1,
-          p: 2,
-          borderRadius: 2,
+          padding: 16,
+          borderRadius: 16,
           border: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           textAlign: "center",
         }}
       >
@@ -33,12 +33,12 @@ export const StreakBadge = ({ currentStreak, longestStreak }: StreakBadgeProps) 
         </Hb.Text>
       </Hb.Box>
       <Hb.Box
-        sx={{
+        style={{
           flex: 1,
-          p: 2,
-          borderRadius: 2,
+          padding: 16,
+          borderRadius: 16,
           border: "1px solid",
-          borderColor: "divider",
+          borderColor: "var(--hb-color-border)",
           textAlign: "center",
         }}
       >

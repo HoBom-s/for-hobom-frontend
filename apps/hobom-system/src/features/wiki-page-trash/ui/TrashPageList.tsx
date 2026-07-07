@@ -28,7 +28,14 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
 
   return (
     <Hb.Box>
-      <Hb.Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
+      <Hb.Box
+        style={{
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 12,
+          paddingBottom: 4,
+        }}
+      >
         <Hb.Text variant="caption" fontWeight={600} color="text.secondary">
           삭제된 페이지 ({totalCount})
         </Hb.Text>
@@ -43,7 +50,12 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
               borderColor: "divider",
             }}
             secondaryAction={
-              <Hb.Box sx={{ display: "flex", gap: 0.5 }}>
+              <Hb.Box
+                style={{
+                  display: "flex",
+                  gap: 4,
+                }}
+              >
                 <Hb.Tooltip title="복원">
                   <Hb.Button.Icon
                     size="small"
@@ -83,7 +95,14 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
           </Hb.List.Item>
         ))}
         {hasNextPage && (
-          <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 1 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 8,
+              paddingBottom: 8,
+            }}
+          >
             <Hb.Button
               variant="ghost"
               size="small"
@@ -97,7 +116,6 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
           </Hb.Box>
         )}
       </Hb.List.Root>
-
       <Hb.Dialog.Root
         open={confirmDeleteId !== null}
         onClose={() => setConfirmDeleteId(null)}

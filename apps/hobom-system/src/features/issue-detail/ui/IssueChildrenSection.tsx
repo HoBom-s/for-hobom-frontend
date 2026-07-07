@@ -1,3 +1,4 @@
+import * as stylex from "@stylexjs/stylex";
 import { SubdirectoryArrowRightOutlined } from "hobom-design-system/icons";
 import { ISSUE_KIND_LABEL } from "@/entities/issue";
 import { ISSUE_KIND_REGISTRY } from "@/entities/issue/ui";
@@ -5,6 +6,23 @@ import { getStatusName, getStatusColor } from "@/entities/project";
 import { useProjectContext } from "@/shared/model";
 import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
+
+const styles = stylex.create({
+  childRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 6.4,
+    paddingBottom: 6.4,
+    borderRadius: 12,
+    transition: "background 0.1s",
+  },
+  childRowHover: {
+    ":hover": { backgroundColor: "var(--hb-color-border)" },
+  },
+});
 
 export const IssueChildrenSection = () => {
   const { childIssues, progress, onNavigateToIssue } = useIssueDetailContext();
@@ -20,7 +38,14 @@ export const IssueChildrenSection = () => {
           marginBottom: 16,
         }}
       />
-      <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 8,
+        }}
+      >
         <Hb.Text
           variant="subtitle2"
           fontWeight={600}
@@ -44,7 +69,13 @@ export const IssueChildrenSection = () => {
           />
         )}
       </Hb.Box>
-      <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 4,
+        }}
+      >
         {childIssues.map((child) => {
           const statusColor = getStatusColor(statuses, child.status);
 
@@ -65,17 +96,8 @@ export const IssueChildrenSection = () => {
                     }
                   : undefined
               }
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                px: 1.5,
-                py: 0.8,
-                borderRadius: 1.5,
-                cursor: onNavigateToIssue ? "pointer" : "default",
-                "&:hover": onNavigateToIssue ? { bgcolor: "action.hover" } : undefined,
-                transition: "background 0.1s",
-              }}
+              {...stylex.props(styles.childRow, onNavigateToIssue && styles.childRowHover)}
+              style={{ cursor: onNavigateToIssue ? "pointer" : "default" }}
             >
               <SubdirectoryArrowRightOutlined
                 aria-hidden="true"

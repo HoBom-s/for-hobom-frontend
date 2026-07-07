@@ -50,7 +50,11 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
   }
 
   return (
-    <Hb.Box sx={{ p: 2 }}>
+    <Hb.Box
+      style={{
+        padding: 16,
+      }}
+    >
       <Hb.Paper
         elevation={0}
         style={{
@@ -61,16 +65,22 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
         }}
       >
         <Hb.Box
-          sx={{
+          style={{
             display: "flex",
             alignItems: "flex-start",
             justifyContent: "space-between",
-            px: 3.5,
-            pt: 3,
-            pb: 1,
+            paddingLeft: 28,
+            paddingRight: 28,
+            paddingTop: 24,
+            paddingBottom: 8,
           }}
         >
-          <Hb.Box sx={{ flex: 1, minWidth: 0 }}>
+          <Hb.Box
+            style={{
+              flex: 1,
+              minWidth: 0,
+            }}
+          >
             <Hb.Text
               variant="h4"
               style={{
@@ -81,7 +91,14 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
             >
               {page.title}
             </Hb.Text>
-            <Hb.Box sx={{ display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
+            <Hb.Box
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                flexWrap: "wrap",
+              }}
+            >
               <Hb.Text
                 variant="caption"
                 color="text.disabled"
@@ -107,7 +124,14 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
               </ErrorBoundary>
             </Hb.Box>
           </Hb.Box>
-          <Hb.Box sx={{ display: "flex", gap: 0.5, ml: 2, flexShrink: 0 }}>
+          <Hb.Box
+            style={{
+              display: "flex",
+              gap: 4,
+              marginLeft: 16,
+              flexShrink: 0,
+            }}
+          >
             <Hb.Tooltip title="버전 히스토리">
               <Hb.Button.Icon
                 size="small"
@@ -183,7 +207,14 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
       >
         <Suspense
           fallback={
-            <Hb.Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+            <Hb.Box
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: 32,
+                paddingBottom: 32,
+              }}
+            >
               <Hb.Progress.Circular size={20} />
             </Hb.Box>
           }

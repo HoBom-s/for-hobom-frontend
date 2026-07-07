@@ -26,7 +26,13 @@ const Inner = ({ onNextStep }: Props) => {
   const { data: users } = useSuspenseQuery(authQueries.users());
 
   return (
-    <Hb.Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+    <Hb.Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 24,
+      }}
+    >
       <Hb.Box>
         <Hb.Text
           fontWeight={700}
@@ -58,7 +64,12 @@ const Inner = ({ onNextStep }: Props) => {
         </Hb.Form.Select>
         <Hb.Form.Helper>목록에서 선택해 주세요.</Hb.Form.Helper>
       </Hb.Form.Control>
-      <Hb.Box display="flex" gap={1.5}>
+      <Hb.Box
+        style={{
+          display: "flex",
+          gap: 12,
+        }}
+      >
         <Hb.Button
           fullWidth
           variant="secondary"

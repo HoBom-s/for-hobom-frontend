@@ -8,12 +8,14 @@ interface UserInfoSectionProps {
 
 export const UserInfoSection = ({ initial, nickname, email }: UserInfoSectionProps) => (
   <Hb.Box
-    sx={{
+    style={{
       display: "flex",
       alignItems: "center",
-      gap: 2,
-      px: 2.5,
-      py: 2,
+      gap: 16,
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 16,
+      paddingBottom: 16,
     }}
   >
     <Hb.Avatar
@@ -27,7 +29,11 @@ export const UserInfoSection = ({ initial, nickname, email }: UserInfoSectionPro
     >
       {initial}
     </Hb.Avatar>
-    <Hb.Box sx={{ minWidth: 0 }}>
+    <Hb.Box
+      style={{
+        minWidth: 0,
+      }}
+    >
       <Hb.Text
         variant="body1"
         style={{
