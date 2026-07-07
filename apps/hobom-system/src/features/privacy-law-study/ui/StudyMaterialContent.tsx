@@ -20,7 +20,14 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
           marginBottom: 24,
         }}
       >
-        <Hb.Stack direction="row" alignItems="center" spacing={1} mb={2}>
+        <Hb.Stack
+          direction="row"
+          spacing={1}
+          style={{
+            alignItems: "center",
+            marginBottom: 16,
+          }}
+        >
           <LightbulbOutlined color="warning" />
           <Hb.Text variant="h6">요약</Hb.Text>
         </Hb.Stack>
@@ -54,7 +61,14 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
         ))}
       </Hb.List.Root>
       {material.quizzes.length > 0 && (
-        <Hb.Stack direction="row" alignItems="center" spacing={1} mt={3}>
+        <Hb.Stack
+          direction="row"
+          spacing={1}
+          style={{
+            alignItems: "center",
+            marginTop: 24,
+          }}
+        >
           <CheckCircleOutline color="primary" fontSize="small" />
           <Hb.Text variant="subtitle2" color="text.secondary">
             이 학습 자료에 {material.quizzes.length}개의 퀴즈가 있어요. 아래에서 풀어보세요.

@@ -44,7 +44,14 @@ const ChangeCard = ({ change }: { change: ArticleChange }) => {
         padding: 16,
       }}
     >
-      <Hb.Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
+      <Hb.Stack
+        direction="row"
+        spacing={1}
+        style={{
+          alignItems: "center",
+          marginBottom: 12,
+        }}
+      >
         <Hb.Chip
           label={change.articleNo}
           size="small"
@@ -160,7 +167,14 @@ export const LawDiffViewer = ({ diffId }: Props) => {
 
   return (
     <Hb.Box>
-      <Hb.Stack direction="row" alignItems="center" spacing={1} mb={3}>
+      <Hb.Stack
+        direction="row"
+        spacing={1}
+        style={{
+          alignItems: "center",
+          marginBottom: 24,
+        }}
+      >
         <Hb.Text variant="h6">{diff.fromProclamationDate}</Hb.Text>
         <ArrowForwardOutlined sx={{ color: "text.secondary" }} />
         <Hb.Text variant="h6">{diff.toProclamationDate}</Hb.Text>

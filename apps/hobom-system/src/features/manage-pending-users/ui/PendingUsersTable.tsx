@@ -43,8 +43,21 @@ export const PendingUsersTable = () => {
 
   return (
     <Hb.Box>
-      <Hb.Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
-        <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
+      <Hb.Stack
+        direction="row"
+        style={{
+          marginBottom: 24,
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Hb.Stack
+          direction="row"
+          spacing={1.5}
+          style={{
+            alignItems: "center",
+          }}
+        >
           <Hb.Text variant="h6" fontWeight={700}>
             승인 대기 사용자
           </Hb.Text>
@@ -94,7 +107,13 @@ export const PendingUsersTable = () => {
               {users.map((user) => (
                 <Hb.Table.Row key={user.id} sx={{ "&:last-child td": { borderBottom: 0 } }}>
                   <Hb.Table.Cell>
-                    <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
+                    <Hb.Stack
+                      direction="row"
+                      spacing={1.5}
+                      style={{
+                        alignItems: "center",
+                      }}
+                    >
                       <Hb.Avatar sx={{ width: 32, height: 32, bgcolor: "primary.main" }}>
                         <PersonOutline sx={{ fontSize: 18 }} />
                       </Hb.Avatar>
@@ -112,7 +131,13 @@ export const PendingUsersTable = () => {
                     </Hb.Text>
                   </Hb.Table.Cell>
                   <Hb.Table.Cell align="right">
-                    <Hb.Stack direction="row" spacing={1} justifyContent="flex-end">
+                    <Hb.Stack
+                      direction="row"
+                      spacing={1}
+                      style={{
+                        justifyContent: "flex-end",
+                      }}
+                    >
                       <Hb.Button
                         size="small"
                         variant="secondary"

@@ -53,14 +53,26 @@ const Inner = () => {
           }}
         >
           {showProgressCircle ? (
-            <Hb.Stack direction="column" alignItems="center" spacing={1.5}>
+            <Hb.Stack
+              direction="column"
+              spacing={1.5}
+              style={{
+                alignItems: "center",
+              }}
+            >
               <Hb.Progress.Circular size="48px" />
               <Hb.Text variant="body2" color="text.secondary">
                 메뉴를 추첨할 동안 잠시만 기다려 주세요.
               </Hb.Text>
             </Hb.Stack>
           ) : (
-            <Hb.Stack direction="column" alignItems="center" spacing={1}>
+            <Hb.Stack
+              direction="column"
+              spacing={1}
+              style={{
+                alignItems: "center",
+              }}
+            >
               <Hb.Text
                 variant="body2"
                 style={{

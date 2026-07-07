@@ -43,7 +43,12 @@ export const CreateSpaceDialog = ({
     <Hb.Dialog.Root open={open} onClose={handleClose} size="sm">
       <Hb.Dialog.Title>새 스페이스</Hb.Dialog.Title>
       <Hb.Dialog.Content>
-        <Hb.Stack spacing={2} sx={{ mt: 1 }}>
+        <Hb.Stack
+          spacing={2}
+          style={{
+            marginTop: 8,
+          }}
+        >
           <Hb.TextField
             autoFocus
             fullWidth

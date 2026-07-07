@@ -50,7 +50,13 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
       <Hb.List.Item
         disablePadding
         secondaryAction={
-          <Hb.Stack direction="row" alignItems="center" spacing={0.5}>
+          <Hb.Stack
+            direction="row"
+            spacing={0.5}
+            style={{
+              alignItems: "center",
+            }}
+          >
             {item.reaction && (
               <Hb.Button.Icon
                 size="small"
@@ -82,7 +88,13 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
                       <Hb.Text gutterBottom variant="subtitle1" style={{ fontWeight: "bold" }}>
                         {formatDate(normalizeTodoDateToUtcMidnight(item.date))}
                       </Hb.Text>
-                      <Hb.Stack direction="row" mt={1} spacing={1}>
+                      <Hb.Stack
+                        direction="row"
+                        spacing={1}
+                        style={{
+                          marginTop: 8,
+                        }}
+                      >
                         <Hb.Chip
                           color={isCompleteStatus(item.progress) ? "success" : "warning"}
                           variant="outlined"

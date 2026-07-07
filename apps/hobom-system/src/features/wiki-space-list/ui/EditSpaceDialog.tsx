@@ -40,7 +40,12 @@ export const EditSpaceDialog = ({
     <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
       <Hb.Dialog.Title>스페이스 수정</Hb.Dialog.Title>
       <Hb.Dialog.Content>
-        <Hb.Stack spacing={2} sx={{ mt: 1 }}>
+        <Hb.Stack
+          spacing={2}
+          style={{
+            marginTop: 8,
+          }}
+        >
           <Hb.TextField
             fullWidth
             label="스페이스 키"

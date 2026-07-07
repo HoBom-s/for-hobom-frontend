@@ -21,7 +21,12 @@ const ArticleContent = ({ article }: { article: LawArticle }) => (
       {article.content}
     </Hb.Text>
     {article.paragraphs.length > 0 && (
-      <Hb.Stack spacing={0.5} sx={{ pl: 2 }}>
+      <Hb.Stack
+        spacing={0.5}
+        style={{
+          paddingLeft: 16,
+        }}
+      >
         {article.paragraphs.map((p) => (
           <Hb.Text key={p.no} variant="body2" color="text.secondary">
             <Hb.Text component="span" variant="body2" fontWeight={600} color="text.primary">
@@ -29,7 +34,15 @@ const ArticleContent = ({ article }: { article: LawArticle }) => (
             </Hb.Text>{" "}
             {p.content}
             {p.subItems.length > 0 && (
-              <Hb.Stack component="span" spacing={0.25} sx={{ display: "block", pl: 2, mt: 0.5 }}>
+              <Hb.Stack
+                component="span"
+                spacing={0.25}
+                style={{
+                  display: "block",
+                  paddingLeft: 16,
+                  marginTop: 4,
+                }}
+              >
                 {p.subItems.map((sub) => (
                   <Hb.Text
                     key={sub.no}
@@ -61,10 +74,23 @@ export const LawArticleViewer = ({ versionId }: Props) => {
 
   return (
     <Hb.Box>
-      <Hb.Stack direction="row" alignItems="center" spacing={2} mb={3}>
+      <Hb.Stack
+        direction="row"
+        spacing={2}
+        style={{
+          alignItems: "center",
+          marginBottom: 24,
+        }}
+      >
         <Hb.Box>
           <Hb.Text variant="h6">{version.lawName}</Hb.Text>
-          <Hb.Stack direction="row" spacing={1} mt={0.5}>
+          <Hb.Stack
+            direction="row"
+            spacing={1}
+            style={{
+              marginTop: 4,
+            }}
+          >
             <Hb.Chip label={`공포일 ${version.proclamationDate}`} size="small" variant="outlined" />
             <Hb.Chip
               label={`시행일 ${version.enforcementDate}`}
@@ -94,7 +120,13 @@ export const LawArticleViewer = ({ versionId }: Props) => {
         {filtered.map((article) => (
           <Hb.Accordion.Root key={article.articleNo} disableGutters variant="outlined">
             <Hb.Accordion.Summary expandIcon={<ExpandMore />}>
-              <Hb.Stack direction="row" alignItems="center" spacing={1}>
+              <Hb.Stack
+                direction="row"
+                spacing={1}
+                style={{
+                  alignItems: "center",
+                }}
+              >
                 <Hb.Chip
                   label={article.articleNo}
                   size="small"

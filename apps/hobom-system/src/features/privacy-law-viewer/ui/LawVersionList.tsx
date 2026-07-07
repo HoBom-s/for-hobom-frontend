@@ -55,8 +55,20 @@ export const LawVersionList = () => {
         <Hb.Card.Root key={version.id} variant="outlined">
           <Hb.Card.Clickable onClick={() => navigate(`/privacy-law/versions/${version.id}`)}>
             <Hb.Card.Content>
-              <Hb.Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Hb.Stack direction="row" alignItems="center" spacing={1.5}>
+              <Hb.Stack
+                direction="row"
+                style={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Hb.Stack
+                  direction="row"
+                  spacing={1.5}
+                  style={{
+                    alignItems: "center",
+                  }}
+                >
                   <GavelOutlined color="primary" fontSize="small" />
                   <Hb.Box>
                     <Hb.Text variant="subtitle2">{version.lawName}</Hb.Text>
