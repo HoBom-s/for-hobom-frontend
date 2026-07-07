@@ -42,7 +42,10 @@ export function CodePanel({ document }: CodePanelProps) {
           size="small"
           aria-label="코드 복사"
           onClick={() => copy(code)}
-          sx={{ p: 0.25, color: copied ? "primary.main" : "text.secondary" }}
+          style={{
+            padding: 2,
+            color: copied ? "primary.main" : "text.secondary",
+          }}
         >
           {copied ? <Check sx={{ fontSize: 16 }} /> : <ContentCopyOutlined sx={{ fontSize: 16 }} />}
         </Hb.Button.Icon>

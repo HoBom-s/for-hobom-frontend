@@ -10,7 +10,9 @@ export const ColorSchemeToggle = () => {
       <Hb.Button.Icon
         size="small"
         onClick={() => setMode(isDark ? "light" : "dark")}
-        sx={{ color: "text.secondary" }}
+        style={{
+          color: "var(--hb-color-text-secondary)",
+        }}
       >
         <ContrastOutlined sx={{ fontSize: 20 }} />
       </Hb.Button.Icon>

@@ -117,11 +117,11 @@ export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) =
             onClick={handleCreate}
             disabled={!newBoardName.trim()}
             loading={isCreating}
-            sx={{
+            style={{
               textTransform: "none",
               fontWeight: 600,
               boxShadow: "none",
-              borderRadius: 2,
+              borderRadius: 16,
               flexShrink: 0,
             }}
           >

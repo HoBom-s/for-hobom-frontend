@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { AddOutlined } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import type { SpaceType } from "@/entities/wiki-space";
 import {
   SpaceGrid,
@@ -10,6 +11,16 @@ import {
 import { useOverlay } from "@/shared/model";
 import { Hb, ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { useSpaceListWorkspace } from "../model/useSpaceListWorkspace";
+
+const styles = stylex.create({
+  createButton: {
+    borderRadius: 16,
+    textTransform: "none",
+    fontWeight: 600,
+    boxShadow: "none",
+    ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+  },
+});
 
 export const WikiSpaceListWorkspace = () => {
   const {
@@ -72,13 +83,7 @@ export const WikiSpaceListWorkspace = () => {
           variant="primary"
           startIcon={<AddOutlined />}
           onClick={() => setCreateOpen(true)}
-          sx={{
-            borderRadius: 2,
-            textTransform: "none",
-            fontWeight: 600,
-            boxShadow: "none",
-            "&:hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
-          }}
+          {...stylex.props(styles.createButton)}
         >
           새 스페이스
         </Hb.Button>

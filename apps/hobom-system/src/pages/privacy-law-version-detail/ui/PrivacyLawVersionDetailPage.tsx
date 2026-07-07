@@ -15,7 +15,9 @@ const PrivacyLawVersionDetailPage = () => {
       <Hb.Button
         startIcon={<ArrowBackOutlined />}
         onClick={() => navigate("/privacy-law/versions")}
-        sx={{ mb: 2 }}
+        style={{
+          marginBottom: 16,
+        }}
         size="small"
         variant="ghost"
       >

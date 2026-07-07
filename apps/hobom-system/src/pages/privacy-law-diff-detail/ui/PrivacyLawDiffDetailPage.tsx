@@ -15,7 +15,9 @@ const PrivacyLawDiffDetailPage = () => {
       <Hb.Button
         startIcon={<ArrowBackOutlined />}
         onClick={() => navigate("/privacy-law/diffs")}
-        sx={{ mb: 2 }}
+        style={{
+          marginBottom: 16,
+        }}
         size="small"
         variant="ghost"
       >

@@ -20,6 +20,14 @@ const styles = stylex.create({
     cursor: "pointer",
     ":hover": { color: "var(--hb-color-accent)" },
   },
+  sidebarButton: {
+    width: "100%",
+    justifyContent: "flex-start",
+    textTransform: "none",
+    fontSize: "0.8125rem",
+    color: "var(--hb-color-text-secondary)",
+    ":hover": { backgroundColor: "var(--hb-color-border)" },
+  },
 });
 
 const SIDEBAR_WIDTH = 260;
@@ -273,14 +281,7 @@ export const WikiSpaceLayout = () => {
               size="small"
               startIcon={<AddOutlined />}
               onClick={handleOpenCreateDialog}
-              sx={{
-                width: "100%",
-                justifyContent: "flex-start",
-                textTransform: "none",
-                fontSize: "0.8125rem",
-                color: "text.secondary",
-                "&:hover": { bgcolor: "action.hover" },
-              }}
+              {...stylex.props(styles.sidebarButton)}
             >
               새 페이지
             </Hb.Button>
@@ -289,14 +290,7 @@ export const WikiSpaceLayout = () => {
               size="small"
               startIcon={<LabelOutlined />}
               onClick={() => setLabelDrawerOpen(true)}
-              sx={{
-                width: "100%",
-                justifyContent: "flex-start",
-                textTransform: "none",
-                fontSize: "0.8125rem",
-                color: "text.secondary",
-                "&:hover": { bgcolor: "action.hover" },
-              }}
+              {...stylex.props(styles.sidebarButton)}
             >
               라벨 관리
             </Hb.Button>
@@ -305,14 +299,7 @@ export const WikiSpaceLayout = () => {
               size="small"
               startIcon={<DeleteOutlined />}
               onClick={() => setTrashDrawerOpen(true)}
-              sx={{
-                width: "100%",
-                justifyContent: "flex-start",
-                textTransform: "none",
-                fontSize: "0.8125rem",
-                color: "text.secondary",
-                "&:hover": { bgcolor: "action.hover" },
-              }}
+              {...stylex.props(styles.sidebarButton)}
             >
               휴지통
             </Hb.Button>

@@ -38,7 +38,9 @@ export const FutureMessageHeader = () => {
         variant="primary"
         startIcon={<Add />}
         onClick={() => navigate(RoutesConfig.MESSAGE.SEND_FUNNEL)}
-        sx={{ flexShrink: 0 }}
+        style={{
+          flexShrink: 0,
+        }}
       >
         메시지 예약
       </Hb.Button>

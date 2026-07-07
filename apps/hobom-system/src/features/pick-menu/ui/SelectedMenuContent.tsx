@@ -113,7 +113,12 @@ const Inner = () => {
           variant="primary"
           disableElevation
           disabled={showProgressCircle}
-          sx={{ borderRadius: 2, py: 1.2, fontWeight: 600 }}
+          style={{
+            borderRadius: 16,
+            paddingTop: 9.6,
+            paddingBottom: 9.6,
+            fontWeight: 600,
+          }}
           onClick={() => navigate(RoutesConfig.MENU.RECOMMENDATION, { replace: true })}
         >
           확인

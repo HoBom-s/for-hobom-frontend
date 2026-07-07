@@ -91,7 +91,10 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
               size="small"
               aria-label="워크스페이스로"
               onClick={() => navigate(RoutesConfig.STUDIO.HOME)}
-              sx={{ p: 0.25, color: "text.secondary" }}
+              style={{
+                padding: 2,
+                color: "var(--hb-color-text-secondary)",
+              }}
             >
               <ArrowBackOutlined sx={{ fontSize: 18 }} />
             </Hb.Button.Icon>

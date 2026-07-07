@@ -53,7 +53,9 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
           <Hb.Button.Icon
             size="small"
             aria-label="체크리스트"
-            sx={{ color: "text.secondary" }}
+            style={{
+              color: "var(--hb-color-text-secondary)",
+            }}
             onClick={onClick}
           >
             <CheckBoxOutlined sx={{ fontSize: 20 }} />
@@ -63,7 +65,9 @@ export const NoteCreateBar = ({ onClick }: NoteCreateBarProps) => {
           <Hb.Button.Icon
             size="small"
             aria-label="그리기"
-            sx={{ color: "text.secondary" }}
+            style={{
+              color: "var(--hb-color-text-secondary)",
+            }}
             onClick={onClick}
           >
             <BrushOutlined sx={{ fontSize: 20 }} />

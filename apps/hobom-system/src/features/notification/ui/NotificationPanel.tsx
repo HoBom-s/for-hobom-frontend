@@ -189,10 +189,10 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
             navigate(RoutesConfig.NOTIFICATION.LIST);
             onClose();
           }}
-          sx={{
+          style={{
             fontSize: "0.8125rem",
             fontWeight: 500,
-            color: "primary.main",
+            color: "var(--hb-color-accent)",
           }}
         >
           모든 알림 보기

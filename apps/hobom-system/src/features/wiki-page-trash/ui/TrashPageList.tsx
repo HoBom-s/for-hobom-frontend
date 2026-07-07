@@ -72,7 +72,9 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
                     aria-label={`${page.title} 영구 삭제`}
                     onClick={() => setConfirmDeleteId(page.id)}
                     disabled={isRestoring || isDeleting}
-                    sx={{ color: "error.main" }}
+                    style={{
+                      color: "var(--hb-color-danger)",
+                    }}
                   >
                     <DeleteForeverOutlined fontSize="small" />
                   </Hb.Button.Icon>
@@ -108,7 +110,11 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
               size="small"
               onClick={() => fetchNextPage()}
               disabled={isFetchingNextPage}
-              sx={{ textTransform: "none", color: "text.secondary", fontSize: "0.75rem" }}
+              style={{
+                textTransform: "none",
+                color: "var(--hb-color-text-secondary)",
+                fontSize: "0.75rem",
+              }}
             >
               {isFetchingNextPage ? <Hb.Progress.Circular size={14} sx={{ mr: 0.5 }} /> : null}
               더보기 ({pages.length}/{totalCount})

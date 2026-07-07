@@ -1,7 +1,19 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { ReportProblemOutlined, RefreshOutlined } from "hobom-design-system/icons";
 import { useDataLot, type DataLot } from "hobom-data";
 import { Hb } from "hobom-design-system";
+
+const styles = stylex.create({
+  retryButton: {
+    marginTop: 20,
+    textTransform: "none",
+    fontWeight: 600,
+    borderRadius: 12,
+    boxShadow: "none",
+    ":hover": { boxShadow: "none" },
+  },
+});
 
 interface Props {
   children: ReactNode;
@@ -148,14 +160,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
               size="small"
               startIcon={<RefreshOutlined />}
               onClick={this.handleReset}
-              sx={{
-                mt: 2.5,
-                textTransform: "none",
-                fontWeight: 600,
-                borderRadius: 1.5,
-                boxShadow: "none",
-                "&:hover": { boxShadow: "none" },
-              }}
+              {...stylex.props(styles.retryButton)}
             >
               다시 시도
             </Hb.Button>

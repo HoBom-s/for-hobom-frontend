@@ -137,7 +137,9 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
                 size="small"
                 aria-label="버전 히스토리"
                 onClick={() => setVersionDrawerOpen(true)}
-                sx={{ color: "text.secondary" }}
+                style={{
+                  color: "var(--hb-color-text-secondary)",
+                }}
               >
                 <HistoryOutlined fontSize="small" />
               </Hb.Button.Icon>
@@ -147,7 +149,9 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
                 size="small"
                 aria-label="편집"
                 onClick={() => setEditing(true)}
-                sx={{ color: "text.secondary" }}
+                style={{
+                  color: "var(--hb-color-text-secondary)",
+                }}
               >
                 <EditOutlined fontSize="small" />
               </Hb.Button.Icon>
@@ -157,7 +161,9 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
                 size="small"
                 aria-label="페이지 이동"
                 onClick={() => setMoveDialogOpen(true)}
-                sx={{ color: "text.secondary" }}
+                style={{
+                  color: "var(--hb-color-text-secondary)",
+                }}
               >
                 <DriveFileMoveOutlined fontSize="small" />
               </Hb.Button.Icon>
@@ -167,7 +173,9 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
                 size="small"
                 aria-label="페이지 복사"
                 onClick={() => setCopyDialogOpen(true)}
-                sx={{ color: "text.secondary" }}
+                style={{
+                  color: "var(--hb-color-text-secondary)",
+                }}
               >
                 <ContentCopyOutlined fontSize="small" />
               </Hb.Button.Icon>
@@ -177,7 +185,9 @@ export const PageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId: st
                 size="small"
                 aria-label="페이지 삭제"
                 onClick={() => setDeleteDialogOpen(true)}
-                sx={{ color: "text.secondary" }}
+                style={{
+                  color: "var(--hb-color-text-secondary)",
+                }}
               >
                 <DeleteOutlined fontSize="small" />
               </Hb.Button.Icon>

@@ -124,7 +124,10 @@ export const LogSearchSection = () => {
             variant="secondary"
             startIcon={<RestartAltOutlined sx={{ fontSize: 16 }} />}
             onClick={handleReset}
-            sx={{ color: "text.secondary", textTransform: "none" }}
+            style={{
+              color: "var(--hb-color-text-secondary)",
+              textTransform: "none",
+            }}
           >
             초기화
           </Hb.Button>

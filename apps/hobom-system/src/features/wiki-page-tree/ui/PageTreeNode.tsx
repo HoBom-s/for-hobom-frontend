@@ -60,7 +60,11 @@ export const PageTreeNode = ({
               e.stopPropagation();
               onToggle(node.id);
             }}
-            sx={{ mr: 0.5, p: 0.25, color: "inherit" }}
+            style={{
+              marginRight: 4,
+              padding: 2,
+              color: "inherit",
+            }}
           >
             {isExpanded ? (
               <ExpandMore sx={{ fontSize: 16 }} />
@@ -100,11 +104,11 @@ export const PageTreeNode = ({
               e.stopPropagation();
               onCreateChild(node.id, node.title);
             }}
-            sx={{
-              p: 0.25,
+            style={{
+              padding: 2,
               opacity: 0,
               transition: "opacity 0.15s ease",
-              color: "text.disabled",
+              color: "var(--hb-color-text-disabled)",
             }}
           >
             <AddOutlined sx={{ fontSize: 15 }} />

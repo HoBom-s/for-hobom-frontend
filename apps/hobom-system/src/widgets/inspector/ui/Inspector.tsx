@@ -65,7 +65,10 @@ export function Inspector({ node, onChange, onStyleChange, onDelete }: Inspector
           size="small"
           aria-label="삭제"
           onClick={onDelete}
-          sx={{ p: 0.25, color: "text.secondary" }}
+          style={{
+            padding: 2,
+            color: "var(--hb-color-text-secondary)",
+          }}
         >
           <DeleteOutline sx={{ fontSize: 16 }} />
         </Hb.Button.Icon>

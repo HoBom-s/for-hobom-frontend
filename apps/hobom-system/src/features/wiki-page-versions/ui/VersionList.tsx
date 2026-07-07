@@ -119,9 +119,9 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
                     handleRestore(version.version);
                   }}
                   disabled={isRestoring}
-                  sx={{
+                  style={{
                     color: isSelected ? "rgba(255,255,255,0.8)" : "text.secondary",
-                    ml: 0.5,
+                    marginLeft: 4,
                   }}
                 >
                   <RestoreOutlined sx={{ fontSize: 16 }} />
@@ -144,9 +144,9 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
               size="small"
               onClick={() => fetchNextPage()}
               disabled={isFetchingNextPage}
-              sx={{
+              style={{
                 textTransform: "none",
-                color: "text.secondary",
+                color: "var(--hb-color-text-secondary)",
                 fontSize: "0.75rem",
               }}
             >
@@ -184,7 +184,7 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
                   aria-label="미리보기"
                   aria-pressed={viewMode === "preview"}
                   onClick={() => setViewMode("preview")}
-                  sx={{
+                  style={{
                     color: viewMode === "preview" ? "primary.main" : "text.disabled",
                   }}
                 >
@@ -199,7 +199,7 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
                     aria-pressed={viewMode === "diff"}
                     onClick={() => setViewMode("diff")}
                     disabled={selectedVersion.version <= 1}
-                    sx={{
+                    style={{
                       color: viewMode === "diff" ? "primary.main" : "text.disabled",
                     }}
                   >

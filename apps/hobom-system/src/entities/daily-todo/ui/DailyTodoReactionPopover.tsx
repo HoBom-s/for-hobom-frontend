@@ -1,6 +1,15 @@
+import * as stylex from "@stylexjs/stylex";
 import { Hb } from "@/shared/ui";
 
 const REACTION_OPTIONS = ["👍", "❤️", "🎉", "😊", "💪", "🔥"];
+
+const styles = stylex.create({
+  reaction: {
+    fontSize: "1.25rem",
+    transition: "transform 0.1s ease",
+    ":hover": { transform: "scale(1.2)" },
+  },
+});
 
 interface Props {
   anchorEl: HTMLElement | null;
@@ -23,11 +32,7 @@ export const DailyTodoReactionPopover = ({ anchorEl, onClose, onSelect }: Props)
           key={emoji}
           size="small"
           onClick={() => onSelect(emoji)}
-          sx={{
-            fontSize: "1.25rem",
-            "&:hover": { transform: "scale(1.2)" },
-            transition: "transform 0.1s ease",
-          }}
+          {...stylex.props(styles.reaction)}
         >
           {emoji}
         </Hb.Button.Icon>

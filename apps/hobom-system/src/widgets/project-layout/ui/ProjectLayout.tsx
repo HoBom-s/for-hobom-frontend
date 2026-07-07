@@ -23,6 +23,14 @@ const styles = stylex.create({
     cursor: "pointer",
     ":hover": { color: "var(--hb-color-accent)" },
   },
+  createIssueButton: {
+    textTransform: "none",
+    borderRadius: 16,
+    fontWeight: 600,
+    fontSize: 12,
+    boxShadow: "none",
+    ":hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
+  },
 });
 
 const TAB_ICONS: Record<string, React.ReactNode> = {
@@ -144,9 +152,9 @@ export const ProjectLayout = () => {
               variant="secondary"
               startIcon={<AddOutlined />}
               onClick={() => sprintDialog.setOpen(true)}
-              sx={{
+              style={{
                 textTransform: "none",
-                borderRadius: 2,
+                borderRadius: 16,
                 fontWeight: 600,
                 fontSize: 12,
                 boxShadow: "none",
@@ -161,14 +169,7 @@ export const ProjectLayout = () => {
               variant="primary"
               startIcon={<AddOutlined />}
               onClick={() => issueDialog.setOpen(true)}
-              sx={{
-                textTransform: "none",
-                borderRadius: 2,
-                fontWeight: 600,
-                fontSize: 12,
-                boxShadow: "none",
-                "&:hover": { boxShadow: "0 2px 8px rgba(70,128,255,0.3)" },
-              }}
+              {...stylex.props(styles.createIssueButton)}
             >
               이슈 만들기
             </Hb.Button>

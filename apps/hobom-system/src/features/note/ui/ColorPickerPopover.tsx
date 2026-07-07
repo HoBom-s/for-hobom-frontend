@@ -1,14 +1,36 @@
+import type { CSSProperties } from "react";
 import { Check } from "hobom-design-system/icons";
+import * as stylex from "@stylexjs/stylex";
 import { NOTE_COLORS } from "@/entities/note";
 import { Hb } from "@/shared/ui";
 
 const swatchBorderColor = (selected: boolean, isWhite: boolean): string => {
   if (selected) {
-    return "primary.main";
+    return "var(--hb-color-accent)";
   }
 
   return isWhite ? "#dadce0" : "transparent";
 };
+
+const styles = stylex.create({
+  swatch: {
+    width: 32,
+    height: 32,
+    borderRadius: "50%",
+    borderWidth: 2,
+    borderStyle: "solid",
+    padding: 0,
+    minWidth: 0,
+    // Colors are dynamic per swatch; driven via custom properties so the
+    // button's own styles still layer underneath.
+    backgroundColor: "var(--swatch-bg)",
+    borderColor: "var(--swatch-border)",
+    ":hover": {
+      backgroundColor: "var(--swatch-bg)",
+      borderColor: "var(--swatch-border-hover)",
+    },
+  },
+});
 
 interface ColorPickerPopoverProps {
   anchorEl: HTMLElement | null;
@@ -48,20 +70,14 @@ export const ColorPickerPopover = ({
               onChange(hex);
               onClose();
             }}
-            sx={{
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              backgroundColor: hex,
-              border: "2px solid",
-              borderColor: swatchBorderColor(selected, isWhite),
-              p: 0,
-              minWidth: 0,
-              "&:hover": {
-                backgroundColor: hex,
-                borderColor: selected ? "primary.main" : "#bdc1c6",
-              },
-            }}
+            {...stylex.props(styles.swatch)}
+            style={
+              {
+                "--swatch-bg": hex,
+                "--swatch-border": swatchBorderColor(selected, isWhite),
+                "--swatch-border-hover": selected ? "var(--hb-color-accent)" : "#bdc1c6",
+              } as CSSProperties
+            }
           >
             {selected && (
               <Check

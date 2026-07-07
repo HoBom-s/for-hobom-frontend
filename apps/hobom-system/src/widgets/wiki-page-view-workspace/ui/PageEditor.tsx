@@ -79,7 +79,10 @@ export const PageEditor = ({
           variant="ghost"
           startIcon={<VisibilityOutlined />}
           onClick={onCancel}
-          sx={{ textTransform: "none", color: "text.secondary" }}
+          style={{
+            textTransform: "none",
+            color: "var(--hb-color-text-secondary)",
+          }}
         >
           보기 모드
         </Hb.Button>

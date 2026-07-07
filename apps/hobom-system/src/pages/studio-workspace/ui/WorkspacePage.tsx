@@ -1,5 +1,6 @@
 import { useState, type KeyboardEvent, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import * as stylex from "@stylexjs/stylex";
 import {
   AddOutlined,
   DeleteOutline,
@@ -11,6 +12,26 @@ import {
 import { Hb, EditableLabel } from "@/shared/ui";
 import { useWorkspace } from "@/features/workspace";
 import type { FolderId, ItemId } from "@/entities/workspace";
+
+const styles = stylex.create({
+  favPinAction: {
+    position: "absolute",
+    top: 6,
+    right: 38,
+    backgroundColor: "var(--hb-color-surface)",
+    transition: "opacity 0.12s",
+    ":hover": { backgroundColor: "var(--hb-color-surface)" },
+  },
+  deleteAction: {
+    position: "absolute",
+    top: 6,
+    right: 6,
+    backgroundColor: "var(--hb-color-surface)",
+    opacity: 0,
+    transition: "opacity 0.12s",
+    ":hover": { backgroundColor: "var(--hb-color-surface)" },
+  },
+});
 
 // StyleX/inline styles cannot express the hover-reveal descendant selectors, so
 // these rows are styled via scoped <style> tags with a stable class each. React 19
@@ -200,7 +221,11 @@ export default function WorkspacePage() {
               className="row-action"
               aria-label="폴더 삭제"
               onClick={(event) => handleDeleteFolder(event, folder.id)}
-              sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
+              style={{
+                padding: 2,
+                opacity: 0,
+                transition: "opacity 0.12s",
+              }}
             >
               <DeleteOutline sx={{ fontSize: 16 }} />
             </Hb.Button.Icon>
@@ -270,15 +295,10 @@ export default function WorkspacePage() {
                         addFavorite(item.id, item.name);
                       }
                     }}
-                    sx={{
-                      position: "absolute",
-                      top: 6,
-                      right: 38,
-                      bgcolor: "background.paper",
-                      color: favorite ? "primary.main" : "inherit",
+                    {...stylex.props(styles.favPinAction)}
+                    style={{
+                      color: favorite ? "var(--hb-color-accent)" : "inherit",
                       opacity: favorite ? 1 : 0,
-                      transition: "opacity 0.12s",
-                      "&:hover": { bgcolor: "background.paper" },
                     }}
                   >
                     {favorite ? (
@@ -292,15 +312,7 @@ export default function WorkspacePage() {
                     className="card-action"
                     aria-label="디자인 삭제"
                     onClick={(event) => handleDeleteDesign(event, item.id)}
-                    sx={{
-                      position: "absolute",
-                      top: 6,
-                      right: 6,
-                      bgcolor: "background.paper",
-                      opacity: 0,
-                      transition: "opacity 0.12s",
-                      "&:hover": { bgcolor: "background.paper" },
-                    }}
+                    {...stylex.props(styles.deleteAction)}
                   >
                     <DeleteOutline sx={{ fontSize: 16 }} />
                   </Hb.Button.Icon>
@@ -417,7 +429,11 @@ function FavoriteRow({ label, onOpen, onRename, onRemove }: FavoriteRowProps) {
             setDraft(label);
             setEditing(true);
           }}
-          sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
+          style={{
+            padding: 2,
+            opacity: 0,
+            transition: "opacity 0.12s",
+          }}
         >
           <EditOutlined sx={{ fontSize: 15 }} />
         </Hb.Button.Icon>
@@ -429,7 +445,11 @@ function FavoriteRow({ label, onOpen, onRename, onRemove }: FavoriteRowProps) {
             event.stopPropagation();
             onRemove();
           }}
-          sx={{ p: 0.25, opacity: 0, transition: "opacity 0.12s" }}
+          style={{
+            padding: 2,
+            opacity: 0,
+            transition: "opacity 0.12s",
+          }}
         >
           <DeleteOutline sx={{ fontSize: 15 }} />
         </Hb.Button.Icon>

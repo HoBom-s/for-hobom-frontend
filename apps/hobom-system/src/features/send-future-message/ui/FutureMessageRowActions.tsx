@@ -1,6 +1,18 @@
+import * as stylex from "@stylexjs/stylex";
 import { EditOutlined, DeleteOutlined } from "hobom-design-system/icons";
 import { isPendingMessageSendStatus, type FutureMessageType } from "@/entities/future-message";
 import { Hb } from "@/shared/ui";
+
+const styles = stylex.create({
+  editIcon: {
+    color: "var(--hb-color-text-secondary)",
+    ":hover": { color: "var(--hb-color-accent)" },
+  },
+  deleteIcon: {
+    color: "var(--hb-color-text-secondary)",
+    ":hover": { color: "var(--hb-color-danger)" },
+  },
+});
 
 interface Props {
   row: FutureMessageType;
@@ -21,7 +33,7 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
           e.stopPropagation();
           onEdit(row);
         }}
-        sx={{ color: "text.secondary", "&:hover": { color: "primary.main" } }}
+        {...stylex.props(styles.editIcon)}
       >
         <EditOutlined sx={{ fontSize: 16 }} />
       </Hb.Button.Icon>
@@ -33,7 +45,7 @@ export const FutureMessageRowActions = ({ row, onEdit, onDelete }: Props) => {
           e.stopPropagation();
           onDelete(row.id);
         }}
-        sx={{ color: "text.secondary", "&:hover": { color: "error.main" } }}
+        {...stylex.props(styles.deleteIcon)}
       >
         <DeleteOutlined sx={{ fontSize: 16 }} />
       </Hb.Button.Icon>

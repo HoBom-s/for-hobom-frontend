@@ -100,10 +100,10 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
           size="small"
           startIcon={<DeleteOutline />}
           onClick={handleDelete}
-          sx={{
+          style={{
             textTransform: "none",
             fontWeight: 600,
-            borderRadius: 2,
+            borderRadius: 16,
             flexShrink: 0,
           }}
         >

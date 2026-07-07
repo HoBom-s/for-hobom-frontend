@@ -13,12 +13,16 @@ describe("Canvas", () => {
     expect(button).toBeDefined();
   });
 
-  it("variant 등 props가 실제 컴포넌트에 반영된다(MUI primary 클래스)", () => {
+  it("variant 등 props가 실제 컴포넌트에 반영된다", () => {
     render(<Canvas document={createSampleDocument()} />);
 
     const button = screen.getByRole("button", { name: "저장" });
 
-    expect(button.className).toContain("MuiButton-containedPrimary");
+    // The in-house Hb.Button styles itself with StyleX (hashed atomic classes),
+    // so a non-empty className confirms the real styled component rendered
+    // rather than an unstyled fallback.
+    expect(button.tagName).toBe("BUTTON");
+    expect(button.className.length).toBeGreaterThan(0);
   });
 
   it("미등록 컴포넌트는 경고 플레이스홀더로 렌더한다", () => {

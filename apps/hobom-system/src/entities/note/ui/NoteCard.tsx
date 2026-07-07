@@ -1,4 +1,5 @@
 import { type CSSProperties, type ReactNode, useState } from "react";
+import * as stylex from "@stylexjs/stylex";
 import {
   PushPin,
   PushPinOutlined,
@@ -28,6 +29,19 @@ const checklistTextColor = (isCustomColor: boolean, checked: boolean): string =>
 
   return checked ? "text.disabled" : "text.secondary";
 };
+
+const styles = stylex.create({
+  pinButton: {
+    position: "absolute",
+    top: 2,
+    right: 2,
+    transition: "opacity 0.15s ease",
+    // Base/hover background is driven by the --pin-bg / --pin-bg-hover custom
+    // properties set via runtime style, so the button's own styles still layer.
+    backgroundColor: "var(--pin-bg)",
+    ":hover": { backgroundColor: "var(--pin-bg-hover)" },
+  },
+});
 
 const metaChipStyle = (isCustomColor: boolean): CSSProperties => ({
   height: 24,
@@ -110,15 +124,16 @@ export const NoteCard = ({
         {!isTrash && (
           <Hb.Button.Icon
             size="small"
-            sx={{
-              position: "absolute",
-              top: 2,
-              right: 2,
+            {...stylex.props(styles.pinButton)}
+            style={{
               opacity: hovered || note.isPinned ? 1 : 0,
-              transition: "opacity 0.15s ease",
               pointerEvents: hovered || note.isPinned ? "auto" : "none",
-              bgcolor: isCustomColor ? `${color}cc` : undefined,
-              "&:hover": { bgcolor: isCustomColor ? `${color}ee` : undefined },
+              ...(isCustomColor
+                ? ({
+                    "--pin-bg": `${color}cc`,
+                    "--pin-bg-hover": `${color}ee`,
+                  } as CSSProperties)
+                : {}),
             }}
             onClick={(e) => {
               e.stopPropagation();
@@ -282,7 +297,7 @@ export const NoteCard = ({
             <Hb.Tooltip title="복원" arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{
+                style={{
                   color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
                 }}
                 onClick={() => onStatusChange(note.id, "ACTIVE")}
@@ -293,7 +308,7 @@ export const NoteCard = ({
             <Hb.Tooltip title="영구 삭제" arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{
+                style={{
                   color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
                 }}
                 onClick={() => onDelete(note.id)}
@@ -307,7 +322,7 @@ export const NoteCard = ({
             <Hb.Tooltip title={isArchived ? "보관 해제" : "보관처리"} arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{
+                style={{
                   color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
                 }}
                 onClick={() => onStatusChange(note.id, isArchived ? "ACTIVE" : "ARCHIVED")}
@@ -322,7 +337,7 @@ export const NoteCard = ({
             <Hb.Tooltip title="삭제" arrow>
               <Hb.Button.Icon
                 size="small"
-                sx={{
+                style={{
                   color: isCustomColor ? "rgba(0,0,0,0.54)" : "text.secondary",
                 }}
                 onClick={() => onStatusChange(note.id, "TRASHED")}

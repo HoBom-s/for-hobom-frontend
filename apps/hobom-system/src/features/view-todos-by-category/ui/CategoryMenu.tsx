@@ -24,7 +24,13 @@ export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
 
   return (
     <>
-      <Hb.Button.Icon size="small" onClick={openMenu} sx={{ p: 0.25 }}>
+      <Hb.Button.Icon
+        size="small"
+        onClick={openMenu}
+        style={{
+          padding: 2,
+        }}
+      >
         <MoreHoriz sx={{ fontSize: 16 }} />
       </Hb.Button.Icon>
       <Hb.Menu.Root
@@ -38,7 +44,6 @@ export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
           삭제
         </Hb.Menu.Item>
       </Hb.Menu.Root>
-
       <Hb.Dialog.Root open={editOpen} onClose={() => setEditOpen(false)} size="xs">
         <Hb.Dialog.Title sx={{ pb: 1 }}>카테고리 수정</Hb.Dialog.Title>
         <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
