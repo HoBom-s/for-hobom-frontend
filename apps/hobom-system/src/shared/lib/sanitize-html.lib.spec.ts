@@ -1,4 +1,6 @@
-// @vitest-environment happy-dom
+// @vitest-environment jsdom
+// DOMPurify targets a spec-complete DOM; happy-dom drops allowed tags (p/a)
+// under DOMPurify 3.4.x, so this suite runs on jsdom like DOMPurify's own tests.
 import { sanitizeHtml } from "./sanitize-html.lib";
 
 describe("sanitizeHtml", () => {

@@ -11,9 +11,8 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "moduleDetection": "force",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
 
     "noUncheckedSideEffectImports": true

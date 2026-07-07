@@ -28,6 +28,9 @@ export default tseslint.config(baseIgnores, {
     // ── React ──
     ...reactHooks.configs.recommended.rules,
     "react-hooks/set-state-in-effect": "off",
+    // Read-once init-guard refs during render are intentional here; matches the
+    // library packages, which already disable this compiler-ruleset check.
+    "react-hooks/refs": "off",
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
 
     // ── FSD Architecture ──
