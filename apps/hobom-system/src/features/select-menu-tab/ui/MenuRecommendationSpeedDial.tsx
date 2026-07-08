@@ -85,9 +85,9 @@ export const MenuRecommendationSpeedDial = () => {
             {...register("menuKind")}
           >
             {Bom.values(MenuKindModel).map((item) => (
-              <Hb.Menu.Item key={item} value={item}>
+              <Hb.Form.Option key={item} value={item}>
                 {MENU_KIND_LABEL[item] ?? item}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
           <Hb.Form.Select
@@ -97,9 +97,9 @@ export const MenuRecommendationSpeedDial = () => {
             {...register("timeOfMeal")}
           >
             {Bom.values(TimeOfMealModel).map((item) => (
-              <Hb.Menu.Item key={item} value={item}>
+              <Hb.Form.Option key={item} value={item}>
                 {TIME_LABEL[item] ?? item}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
           <Hb.Form.Select
@@ -109,9 +109,9 @@ export const MenuRecommendationSpeedDial = () => {
             {...register("foodType")}
           >
             {Bom.values(FoodTypeModel).map((item) => (
-              <Hb.Menu.Item key={item} value={item}>
+              <Hb.Form.Option key={item} value={item}>
                 {FOOD_TYPE_LABEL[item] ?? item}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
         </Hb.Box>

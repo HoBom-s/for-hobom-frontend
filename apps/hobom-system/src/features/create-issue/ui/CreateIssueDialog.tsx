@@ -75,9 +75,9 @@ export const CreateIssueDialog = ({
               onChange={(e) => fields.setKind(e.target.value as IssueKind)}
             >
               {Object.entries(ISSUE_KIND_LABEL).map(([k, label]) => (
-                <Hb.Menu.Item key={k} value={k}>
+                <Hb.Form.Option key={k} value={k}>
                   {label}
-                </Hb.Menu.Item>
+                </Hb.Form.Option>
               ))}
             </Hb.Form.Select>
           </Hb.Form.Control>
@@ -89,9 +89,9 @@ export const CreateIssueDialog = ({
               onChange={(e) => fields.setPriority(e.target.value as IssuePriority)}
             >
               {Object.entries(ISSUE_PRIORITY_LABEL).map(([k, label]) => (
-                <Hb.Menu.Item key={k} value={k}>
+                <Hb.Form.Option key={k} value={k}>
                   {label}
-                </Hb.Menu.Item>
+                </Hb.Form.Option>
               ))}
             </Hb.Form.Select>
           </Hb.Form.Control>
@@ -111,11 +111,11 @@ export const CreateIssueDialog = ({
                 displayEmpty
                 onChange={(e) => fields.setSprint(e.target.value)}
               >
-                <Hb.Menu.Item value="">없음</Hb.Menu.Item>
+                <Hb.Form.Option value="">없음</Hb.Form.Option>
                 {activeSprints.map((s: SprintType) => (
-                  <Hb.Menu.Item key={s.id} value={s.id}>
+                  <Hb.Form.Option key={s.id} value={s.id}>
                     {s.name}
-                  </Hb.Menu.Item>
+                  </Hb.Form.Option>
                 ))}
               </Hb.Form.Select>
             </Hb.Form.Control>

@@ -216,9 +216,7 @@ export const IssueRow = ({
         anchorEl={menuEl}
         open={Boolean(menuEl)}
         onClose={() => setMenuEl(null)}
-        slotProps={{
-          paper: { sx: { minWidth: 180, borderRadius: 2, boxShadow: 3 } },
-        }}
+        style={{ minWidth: 180, borderRadius: 16 }}
       >
         {canAddChild && (
           <Hb.Menu.Item
@@ -226,7 +224,7 @@ export const IssueRow = ({
               onCreateChildIssue(issue.id);
               setMenuEl(null);
             }}
-            sx={{ fontSize: 13, py: 0.8 }}
+            style={{ fontSize: 13, paddingBlock: 6.4 }}
           >
             <Hb.List.ItemIcon sx={{ minWidth: 28 }}>
               <AddOutlined sx={{ fontSize: 16 }} />
@@ -239,7 +237,7 @@ export const IssueRow = ({
         )}
         {canAddChild && moveTargets.length > 0 && <Hb.Divider />}
         {moveTargets.length > 0 && (
-          <Hb.Menu.Item disabled sx={{ fontSize: 11, py: 0.5, minHeight: 0 }}>
+          <Hb.Menu.Item disabled style={{ fontSize: 11, paddingBlock: 4, minHeight: 0 }}>
             이동
           </Hb.Menu.Item>
         )}
@@ -247,7 +245,7 @@ export const IssueRow = ({
           <Hb.Menu.Item
             key={t.id ?? "backlog"}
             onClick={() => handleMove(t.id)}
-            sx={{ fontSize: 13, py: 0.8 }}
+            style={{ fontSize: 13, paddingBlock: 6.4 }}
           >
             <Hb.List.ItemIcon sx={{ minWidth: 28 }}>
               {t.id ? (

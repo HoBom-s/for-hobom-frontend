@@ -106,11 +106,11 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
                 displayEmpty
                 onChange={(e) => filters.setEpicFilter(e.target.value || null)}
               >
-                <Hb.Menu.Item value="">전체</Hb.Menu.Item>
+                <Hb.Form.Option value="">전체</Hb.Form.Option>
                 {filters.epics.map((epic) => (
-                  <Hb.Menu.Item key={epic.id} value={epic.id}>
+                  <Hb.Form.Option key={epic.id} value={epic.id}>
                     {epic.issueKey} {epic.title}
-                  </Hb.Menu.Item>
+                  </Hb.Form.Option>
                 ))}
               </Hb.Form.Select>
             </Hb.Form.Control>

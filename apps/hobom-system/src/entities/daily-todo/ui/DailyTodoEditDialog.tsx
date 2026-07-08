@@ -50,9 +50,9 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
           onChange={(e) => setEditCategory(e.target.value)}
         >
           {(categoriesData?.items ?? []).map((cat) => (
-            <Hb.Menu.Item key={cat.id} value={cat.id}>
+            <Hb.Form.Option key={cat.id} value={cat.id}>
               {cat.title}
-            </Hb.Menu.Item>
+            </Hb.Form.Option>
           ))}
         </Hb.TextField>
       </Hb.Dialog.Content>

@@ -65,9 +65,9 @@ export const ErrorEventFilter = ({
           onChange={(e) => onFilterChange("errorType", e.target.value)}
         >
           {TYPE_OPTIONS.map((opt) => (
-            <Hb.Menu.Item key={opt.value} value={opt.value}>
+            <Hb.Form.Option key={opt.value} value={opt.value}>
               {opt.label}
-            </Hb.Menu.Item>
+            </Hb.Form.Option>
           ))}
         </Hb.Form.Select>
       </Hb.Form.Control>

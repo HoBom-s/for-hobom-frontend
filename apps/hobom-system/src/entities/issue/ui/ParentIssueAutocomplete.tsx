@@ -72,7 +72,7 @@ export const ParentIssueAutocomplete = ({
       const config = ISSUE_KIND_REGISTRY[option.type];
 
       return (
-        <Hb.Menu.Item
+        <Hb.Form.Option
           key={key}
           {...props}
           sx={{ display: "flex", alignItems: "center", gap: 1, py: 0.75 }}
@@ -100,7 +100,7 @@ export const ParentIssueAutocomplete = ({
           >
             {option.title}
           </Hb.Text>
-        </Hb.Menu.Item>
+        </Hb.Form.Option>
       );
     }}
     renderInput={(params) => <Hb.TextField {...params} label={label} placeholder={placeholder} />}

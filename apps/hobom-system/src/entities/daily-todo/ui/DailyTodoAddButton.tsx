@@ -111,9 +111,9 @@ const AddTodoDialog = ({
           onChange={(e) => setValue("cycle", e.target.value as CycleType)}
         >
           {CYCLE_OPTIONS.map((key) => (
-            <Hb.Menu.Item key={key} value={key}>
+            <Hb.Form.Option key={key} value={key}>
               {CYCLE_LABELS[key]}
-            </Hb.Menu.Item>
+            </Hb.Form.Option>
           ))}
         </Hb.TextField>
       </Hb.Dialog.Content>

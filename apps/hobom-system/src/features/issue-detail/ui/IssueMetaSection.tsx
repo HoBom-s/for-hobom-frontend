@@ -288,7 +288,7 @@ export const IssueMetaSection = () => {
             onChange={(e) => updateField({ sprint: e.target.value || undefined })}
             sx={{ fontSize: 13, "& .MuiSelect-select": { py: 0.75 } }}
           >
-            <Hb.Menu.Item value="" sx={{ fontSize: 13 }}>
+            <Hb.Form.Option value="" sx={{ fontSize: 13 }}>
               <Hb.Text
                 variant="body2"
                 style={{
@@ -298,11 +298,11 @@ export const IssueMetaSection = () => {
               >
                 없음
               </Hb.Text>
-            </Hb.Menu.Item>
+            </Hb.Form.Option>
             {activeSprints.map((s) => (
-              <Hb.Menu.Item key={s.id} value={s.id} sx={{ fontSize: 13 }}>
+              <Hb.Form.Option key={s.id} value={s.id} sx={{ fontSize: 13 }}>
                 {s.name}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>

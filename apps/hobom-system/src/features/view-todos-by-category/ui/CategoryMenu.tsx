@@ -37,10 +37,10 @@ export const CategoryMenu = ({ categoryId, categoryTitle }: Props) => {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={closeMenu}
-        slotProps={{ paper: { sx: { minWidth: 100 } } }}
+        style={{ minWidth: 100 }}
       >
         <Hb.Menu.Item onClick={openEdit}>수정</Hb.Menu.Item>
-        <Hb.Menu.Item sx={{ color: "error.main" }} onClick={handleDelete}>
+        <Hb.Menu.Item style={{ color: "var(--hb-color-danger)" }} onClick={handleDelete}>
           삭제
         </Hb.Menu.Item>
       </Hb.Menu.Root>

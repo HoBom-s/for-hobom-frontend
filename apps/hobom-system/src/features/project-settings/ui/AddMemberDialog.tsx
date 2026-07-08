@@ -84,9 +84,9 @@ export const AddMemberDialog = ({
           <Hb.Form.Label>역할</Hb.Form.Label>
           <Hb.Form.Select value={role} label="역할" onChange={(e) => setRole(e.target.value)}>
             {Object.entries(ROLE_LABEL).map(([k, label]) => (
-              <Hb.Menu.Item key={k} value={k}>
+              <Hb.Form.Option key={k} value={k}>
                 {label}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
