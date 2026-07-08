@@ -23,15 +23,7 @@ export const VersionHistoryDrawer = ({
       anchor="right"
       open={open}
       onClose={onClose}
-      slotProps={{
-        paper: {
-          sx: {
-            width: DRAWER_WIDTH,
-            bgcolor: "background.paper",
-            color: "text.primary",
-          },
-        },
-      }}
+      style={{ width: DRAWER_WIDTH }}
     >
       <Hb.Box
         style={{
