@@ -31,11 +31,11 @@ export const PageSelect = ({
       value={selectedPageId ?? "__root__"}
       onChange={(e) => onSelect(e.target.value === "__root__" ? null : e.target.value)}
     >
-      <Hb.Menu.Item value="__root__">최상위 (루트)</Hb.Menu.Item>
+      <Hb.Form.Option value="__root__">최상위 (루트)</Hb.Form.Option>
       {flatList.map((item) => (
-        <Hb.Menu.Item key={item.id} value={item.id}>
+        <Hb.Form.Option key={item.id} value={item.id}>
           {"─".repeat(item.depth)} {item.title}
-        </Hb.Menu.Item>
+        </Hb.Form.Option>
       ))}
     </Hb.TextField>
   );

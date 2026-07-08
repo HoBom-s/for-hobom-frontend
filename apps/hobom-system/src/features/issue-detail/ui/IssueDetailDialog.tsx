@@ -140,15 +140,13 @@ export const IssueDetailDialog = ({
         open={Boolean(actions.statusMenu.anchor)}
         onClose={actions.statusMenu.close}
         aria-label="상태 변경"
-        slotProps={{
-          paper: { sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 } },
-        }}
+        style={{ minWidth: 140, borderRadius: 16 }}
       >
         {actions.statusMenu.anchor?.transitions.map((t) => (
           <Hb.Menu.Item
             key={t.to}
             onClick={() => actions.statusMenu.handleTransition(t)}
-            sx={{ fontSize: 13, py: 0.8 }}
+            style={{ fontSize: 13, paddingBlock: 6.4 }}
           >
             <Hb.Box
               style={{
@@ -170,16 +168,14 @@ export const IssueDetailDialog = ({
         open={Boolean(actions.priorityMenu.anchor)}
         onClose={actions.priorityMenu.close}
         aria-label="우선순위 변경"
-        slotProps={{
-          paper: { sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 } },
-        }}
+        style={{ minWidth: 140, borderRadius: 16 }}
       >
         {(Object.entries(ISSUE_PRIORITY_LABEL) as [IssuePriority, string][]).map(([key, label]) => (
           <Hb.Menu.Item
             key={key}
             selected={issue?.priority === key}
             onClick={() => actions.priorityMenu.handleChange(key)}
-            sx={{ fontSize: 13, py: 0.8 }}
+            style={{ fontSize: 13, paddingBlock: 6.4 }}
           >
             <Hb.Box
               style={{
@@ -202,16 +198,14 @@ export const IssueDetailDialog = ({
         onClose={actions.assigneeMenu.close}
         aria-label="담당자 변경"
         role="listbox"
-        slotProps={{
-          paper: { sx: { minWidth: 160, borderRadius: 2, boxShadow: 3 } },
-        }}
+        style={{ minWidth: 160, borderRadius: 16 }}
       >
         <Hb.Menu.Item
           role="option"
           aria-selected={!issue?.assignee}
           selected={!issue?.assignee}
           onClick={() => actions.assigneeMenu.handleAssign(undefined)}
-          sx={{ fontSize: 13, py: 0.8 }}
+          style={{ fontSize: 13, paddingBlock: 6.4 }}
         >
           <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
             <PersonOffOutlined aria-hidden sx={{ fontSize: 18, color: "text.disabled" }} />
@@ -228,7 +222,7 @@ export const IssueDetailDialog = ({
               aria-selected={isSelected}
               selected={isSelected}
               onClick={() => actions.assigneeMenu.handleAssign(member.userId)}
-              sx={{ fontSize: 13, py: 0.8 }}
+              style={{ fontSize: 13, paddingBlock: 6.4 }}
             >
               <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
                 <Hb.Avatar

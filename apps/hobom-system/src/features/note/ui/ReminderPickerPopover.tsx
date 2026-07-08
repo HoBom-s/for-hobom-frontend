@@ -57,9 +57,9 @@ export const ReminderPickerPopover = ({ anchorEl, onClose, onSet }: ReminderPick
           sx={{ mt: 1 }}
         >
           {RECURRENCE_OPTIONS.map((opt) => (
-            <Hb.Menu.Item key={opt.value} value={opt.value}>
+            <Hb.Form.Option key={opt.value} value={opt.value}>
               {opt.label}
-            </Hb.Menu.Item>
+            </Hb.Form.Option>
           ))}
         </Hb.Form.Select>
         <Hb.Box

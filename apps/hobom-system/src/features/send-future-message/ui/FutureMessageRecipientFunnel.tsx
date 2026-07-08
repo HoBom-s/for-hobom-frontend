@@ -57,9 +57,9 @@ const Inner = ({ onNextStep }: Props) => {
           }}
         >
           {users.items.map((user) => (
-            <Hb.Menu.Item key={user.id} value={user.id}>
+            <Hb.Form.Option key={user.id} value={user.id}>
               {user.nickname}
-            </Hb.Menu.Item>
+            </Hb.Form.Option>
           ))}
         </Hb.Form.Select>
         <Hb.Form.Helper>목록에서 선택해 주세요.</Hb.Form.Helper>

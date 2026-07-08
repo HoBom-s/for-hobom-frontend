@@ -52,9 +52,9 @@ export const ProjectDashboardContent = () => {
             onChange={(e) => setSelectedSprintId(e.target.value)}
           >
             {sprints.map((s) => (
-              <Hb.Menu.Item key={s.id} value={s.id}>
+              <Hb.Form.Option key={s.id} value={s.id}>
                 {s.name}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>

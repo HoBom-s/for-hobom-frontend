@@ -20,9 +20,9 @@ export const SpaceSelect = ({ selectedSpaceKey, onSelect }: SpaceSelectProps) =>
       onChange={(e) => onSelect(e.target.value)}
     >
       {spaces.map((space) => (
-        <Hb.Menu.Item key={space.key} value={space.key}>
+        <Hb.Form.Option key={space.key} value={space.key}>
           {space.name}
-        </Hb.Menu.Item>
+        </Hb.Form.Option>
       ))}
     </Hb.TextField>
   );

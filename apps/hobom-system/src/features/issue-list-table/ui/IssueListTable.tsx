@@ -96,11 +96,11 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             displayEmpty
             onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <Hb.Menu.Item value="">전체</Hb.Menu.Item>
+            <Hb.Form.Option value="">전체</Hb.Form.Option>
             {statuses.map((s) => (
-              <Hb.Menu.Item key={s.id} value={s.id}>
+              <Hb.Form.Option key={s.id} value={s.id}>
                 {s.name}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
@@ -112,11 +112,11 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             displayEmpty
             onChange={(e) => setPriorityFilter(e.target.value as IssuePriority | "")}
           >
-            <Hb.Menu.Item value="">전체</Hb.Menu.Item>
+            <Hb.Form.Option value="">전체</Hb.Form.Option>
             {Object.entries(ISSUE_PRIORITY_LABEL).map(([k, label]) => (
-              <Hb.Menu.Item key={k} value={k}>
+              <Hb.Form.Option key={k} value={k}>
                 {label}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
@@ -128,11 +128,11 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             displayEmpty
             onChange={(e) => setTypeFilter(e.target.value as IssueKind | "")}
           >
-            <Hb.Menu.Item value="">전체</Hb.Menu.Item>
+            <Hb.Form.Option value="">전체</Hb.Form.Option>
             {Object.entries(ISSUE_KIND_LABEL).map(([k, label]) => (
-              <Hb.Menu.Item key={k} value={k}>
+              <Hb.Form.Option key={k} value={k}>
                 {label}
-              </Hb.Menu.Item>
+              </Hb.Form.Option>
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
@@ -171,17 +171,13 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
         anchorEl={menuAnchor?.el}
         open={Boolean(menuAnchor)}
         onClose={closeMenu}
-        slotProps={{
-          paper: {
-            sx: { minWidth: 140, borderRadius: 2, boxShadow: 3 },
-          },
-        }}
+        style={{ minWidth: 140, borderRadius: 16 }}
       >
         {menuAnchor?.transitions.map((t) => (
           <Hb.Menu.Item
             key={t.to}
             onClick={() => handleTransition(t)}
-            sx={{ fontSize: 13, py: 0.8 }}
+            style={{ fontSize: 13, paddingBlock: 6.4 }}
           >
             <Hb.Box
               style={{

@@ -78,7 +78,7 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
           }}
         >
           {availableLabels.map((label) => (
-            <Hb.Menu.Item key={label.id} value={label.id}>
+            <Hb.Form.Option key={label.id} value={label.id}>
               <Hb.Box
                 style={{
                   width: 10,
@@ -89,7 +89,7 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
                 }}
               />
               {label.name}
-            </Hb.Menu.Item>
+            </Hb.Form.Option>
           ))}
         </Hb.TextField>
       )}

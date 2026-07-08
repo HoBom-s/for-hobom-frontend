@@ -87,9 +87,9 @@ export const LogSearchSection = () => {
               onChange={(e) => handleFilterChange("serviceType", e.target.value)}
             >
               {SERVICE_OPTIONS.map((opt) => (
-                <Hb.Menu.Item key={opt.value} value={opt.value}>
+                <Hb.Form.Option key={opt.value} value={opt.value}>
                   {opt.label}
-                </Hb.Menu.Item>
+                </Hb.Form.Option>
               ))}
             </Hb.Form.Select>
           </Hb.Form.Control>
@@ -102,9 +102,9 @@ export const LogSearchSection = () => {
               onChange={(e) => handleFilterChange("httpMethod", e.target.value)}
             >
               {METHOD_OPTIONS.map((opt) => (
-                <Hb.Menu.Item key={opt.value} value={opt.value}>
+                <Hb.Form.Option key={opt.value} value={opt.value}>
                   {opt.label}
-                </Hb.Menu.Item>
+                </Hb.Form.Option>
               ))}
             </Hb.Form.Select>
           </Hb.Form.Control>
