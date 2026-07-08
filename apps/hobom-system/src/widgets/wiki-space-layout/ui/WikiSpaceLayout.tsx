@@ -68,7 +68,7 @@ const TrashDrawer = ({
     anchor="right"
     open={open}
     onClose={onClose}
-    slotProps={{ paper: { sx: { width: 400 } } }}
+    style={{ width: 400 }}
   >
     <Hb.Box
       style={{
@@ -124,7 +124,7 @@ const LabelDrawer = ({
     anchor="right"
     open={open}
     onClose={onClose}
-    slotProps={{ paper: { sx: { width: 360 } } }}
+    style={{ width: 360 }}
   >
     <Hb.Box
       style={{
