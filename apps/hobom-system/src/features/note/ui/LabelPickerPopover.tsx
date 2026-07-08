@@ -56,11 +56,19 @@ export const LabelPickerPopover = ({
         </Hb.Text>
 
         {labels.length > 0 && (
-          <Hb.List.Root dense disablePadding sx={{ maxHeight: 200, overflow: "auto" }}>
+          <Hb.List.Root dense disablePadding style={{
+            maxHeight: 200,
+            overflow: "auto"
+          }}>
             {labels.map((label) => (
               <Hb.List.Item key={label.id} disablePadding>
-                <Hb.List.ItemButton onClick={() => onToggle(label.id)} dense sx={{ py: 0.25 }}>
-                  <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
+                <Hb.List.ItemButton onClick={() => onToggle(label.id)} dense style={{
+                  paddingTop: 2,
+                  paddingBottom: 2
+                }}>
+                  <Hb.List.ItemIcon style={{
+                    minWidth: 32
+                  }}>
                     <Hb.Checkbox
                       size="small"
                       checked={selectedIds.has(label.id)}
@@ -72,12 +80,10 @@ export const LabelPickerPopover = ({
                   </Hb.List.ItemIcon>
                   <Hb.List.ItemText
                     primary={label.title}
-                    slotProps={{
-                      primary: {
-                        title: label.title,
-                        fontSize: "0.8125rem",
-                        color: "secondary",
-                      },
+                    title={label.title}
+                    primaryStyle={{
+                      fontSize: "0.8125rem",
+                      color: "var(--hb-color-text-secondary)",
                     }}
                   />
                 </Hb.List.ItemButton>

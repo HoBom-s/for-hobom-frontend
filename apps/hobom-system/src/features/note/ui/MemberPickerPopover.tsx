@@ -50,7 +50,10 @@ export const MemberPickerPopover = ({
         </Hb.Text>
 
         {members.length > 0 ? (
-          <Hb.List.Root dense disablePadding sx={{ maxHeight: 200, overflow: "auto" }}>
+          <Hb.List.Root dense disablePadding style={{
+            maxHeight: 200,
+            overflow: "auto"
+          }}>
             {members.map((user) => (
               <Hb.List.Item
                 key={user.id}
@@ -66,9 +69,14 @@ export const MemberPickerPopover = ({
                     </Hb.Button.Icon>
                   ) : null
                 }
-                sx={{ py: 0.5 }}
+                style={{
+                  paddingTop: 4,
+                  paddingBottom: 4
+                }}
               >
-                <Hb.List.ItemAvatar sx={{ minWidth: 36 }}>
+                <Hb.List.ItemAvatar style={{
+                  minWidth: 36
+                }}>
                   <Hb.Avatar
                     style={{
                       width: 28,
@@ -84,9 +92,7 @@ export const MemberPickerPopover = ({
                 </Hb.List.ItemAvatar>
                 <Hb.List.ItemText
                   primary={user.nickname}
-                  slotProps={{
-                    primary: { fontSize: "0.8125rem", fontWeight: 500 },
-                  }}
+                  primaryStyle={{ fontSize: "0.8125rem", fontWeight: 500 }}
                 />
               </Hb.List.Item>
             ))}

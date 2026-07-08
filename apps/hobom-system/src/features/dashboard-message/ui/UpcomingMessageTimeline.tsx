@@ -1,5 +1,16 @@
+import * as stylex from "@stylexjs/stylex";
 import { Schedule } from "hobom-design-system/icons";
 import { Hb } from "@/shared/ui";
+
+const styles = stylex.create({
+  item: {
+    paddingInline: 0,
+    borderBottomWidth: 1,
+    borderBottomStyle: "solid",
+    borderBottomColor: "var(--hb-color-border)",
+    ":last-child": { borderBottomStyle: "none" },
+  },
+});
 
 interface UpcomingMessage {
   id: string;
@@ -48,21 +59,13 @@ export const UpcomingMessageTimeline = ({ data }: UpcomingMessageTimelineProps) 
             const dDay = getDDay(msg.scheduledAt);
 
             return (
-              <Hb.List.Item
-                key={msg.id}
-                sx={{
-                  px: 0,
-                  borderBottom: "1px solid",
-                  borderColor: "divider",
-                  "&:last-child": { borderBottom: "none" },
-                }}
-              >
+              <Hb.List.Item key={msg.id} {...stylex.props(styles.item)}>
                 <Schedule sx={{ color: "text.secondary", mr: 1.5, fontSize: 20 }} />
                 <Hb.List.ItemText
                   primary={msg.title}
                   secondary={msg.scheduledAt.slice(0, 10)}
-                  primaryTypographyProps={{ variant: "body2" }}
-                  secondaryTypographyProps={{ variant: "caption" }}
+                  primaryStyle={{ fontSize: "0.875rem" }}
+                  secondaryStyle={{ fontSize: "0.75rem" }}
                 />
                 <Hb.Chip
                   label={dDay === 0 ? "D-Day" : `D-${dDay}`}

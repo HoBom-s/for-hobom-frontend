@@ -44,10 +44,11 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
         {pages.map((page) => (
           <Hb.List.Item
             key={page.id}
-            sx={{
-              px: 2,
+            style={{
+              paddingLeft: 16,
+              paddingRight: 16,
               borderBottom: "1px solid",
-              borderColor: "divider",
+              borderColor: "var(--hb-color-border)"
             }}
             secondaryAction={
               <Hb.Box
@@ -89,10 +90,14 @@ export const TrashPageList = ({ spaceKey }: TrashPageListProps) => {
                   ? `삭제: ${new Date(page.deletedAt).toLocaleString("ko-KR")}`
                   : undefined
               }
-              slotProps={{
-                primary: { noWrap: true, sx: { fontSize: "0.875rem", fontWeight: 500 } },
-                secondary: { sx: { fontSize: "0.75rem" } },
+              primaryStyle={{
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
+              secondaryStyle={{ fontSize: "0.75rem" }}
             />
           </Hb.List.Item>
         ))}

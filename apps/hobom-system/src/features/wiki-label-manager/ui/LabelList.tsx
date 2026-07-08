@@ -53,7 +53,10 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
           {labels.map((label) => (
             <Hb.List.Item
               key={label.id}
-              sx={{ px: 2 }}
+              style={{
+                paddingLeft: 16,
+                paddingRight: 16
+              }}
               secondaryAction={
                 <Hb.Box
                   style={{
@@ -95,9 +98,7 @@ export const LabelList = ({ spaceKey }: LabelListProps) => {
               />
               <Hb.List.ItemText
                 primary={label.name}
-                slotProps={{
-                  primary: { sx: { fontSize: "0.875rem", fontWeight: 500 } },
-                }}
+                primaryStyle={{ fontSize: "0.875rem", fontWeight: 500 }}
               />
             </Hb.List.Item>
           ))}

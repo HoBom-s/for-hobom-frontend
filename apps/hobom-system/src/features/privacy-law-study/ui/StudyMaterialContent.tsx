@@ -51,7 +51,9 @@ export const StudyMaterialContent = ({ materialId }: Props) => {
       <Hb.List.Root disablePadding>
         {material.keyPoints.map((point, i) => (
           <Hb.List.Item key={i} disableGutters>
-            <Hb.List.ItemIcon sx={{ minWidth: 36 }}>
+            <Hb.List.ItemIcon style={{
+              minWidth: 36
+            }}>
               <Hb.Chip label={i + 1} size="small" color="primary" />
             </Hb.List.ItemIcon>
             <Hb.List.ItemText>

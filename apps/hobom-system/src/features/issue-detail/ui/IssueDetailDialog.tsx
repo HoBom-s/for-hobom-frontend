@@ -214,10 +214,12 @@ export const IssueDetailDialog = ({
           onClick={() => actions.assigneeMenu.handleAssign(undefined)}
           style={{ fontSize: 13, paddingBlock: 6.4 }}
         >
-          <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
+          <Hb.List.ItemIcon style={{
+            minWidth: 32
+          }}>
             <PersonOffOutlined aria-hidden sx={{ fontSize: 18, color: "text.disabled" }} />
           </Hb.List.ItemIcon>
-          <Hb.List.ItemText primary="미할당" slotProps={{ primary: { sx: { fontSize: 13 } } }} />
+          <Hb.List.ItemText primary="미할당" primaryStyle={{ fontSize: 13 }} />
         </Hb.Menu.Item>
         {state.projectMembers.map((member) => {
           const isSelected = issue?.assignee === member.userId;
@@ -231,7 +233,9 @@ export const IssueDetailDialog = ({
               onClick={() => actions.assigneeMenu.handleAssign(member.userId)}
               style={{ fontSize: 13, paddingBlock: 6.4 }}
             >
-              <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
+              <Hb.List.ItemIcon style={{
+                minWidth: 32
+              }}>
                 <Hb.Avatar
                   alt={member.nickname}
                   style={{
@@ -248,7 +252,7 @@ export const IssueDetailDialog = ({
               </Hb.List.ItemIcon>
               <Hb.List.ItemText
                 primary={member.nickname}
-                slotProps={{ primary: { sx: { fontSize: 13 } } }}
+                primaryStyle={{ fontSize: 13 }}
               />
             </Hb.Menu.Item>
           );

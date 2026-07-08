@@ -161,7 +161,9 @@ export const SpaceCard = ({ space, onClick, onEdit, onDelete }: SpaceCardProps) 
                   <Hb.List.ItemIcon>
                     <DeleteOutlined fontSize="small" color="error" />
                   </Hb.List.ItemIcon>
-                  <Hb.List.ItemText sx={{ color: "error.main" }}>삭제</Hb.List.ItemText>
+                  <Hb.List.ItemText style={{
+                    color: "var(--hb-color-danger)"
+                  }}>삭제</Hb.List.ItemText>
                 </Hb.Menu.Item>
               )}
             </Hb.Menu.Root>

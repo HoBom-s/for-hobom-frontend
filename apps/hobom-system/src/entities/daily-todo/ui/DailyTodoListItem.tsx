@@ -145,14 +145,16 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
           </Hb.Stack>
         }
       >
+        <style href="hb-todo-reveal" precedence="medium">
+          {".hb-todo-reveal:hover .reaction-trigger{opacity:1}"}
+        </style>
         <Hb.List.ItemButton
-          sx={{
-            px: 2.5,
-            py: 0.75,
-            "&:hover .reaction-trigger": { opacity: 1 },
-          }}
+          className="hb-todo-reveal"
+          style={{ paddingInline: 20, paddingBlock: 6 }}
         >
-          <Hb.List.ItemIcon sx={{ minWidth: 36 }}>
+          <Hb.List.ItemIcon style={{
+            minWidth: 36
+          }}>
             <Hb.Checkbox
               edge="start"
               size="small"
@@ -186,15 +188,13 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
                 )}
               </Hb.Box>
             }
-            slotProps={{
-              primary: {
-                sx: {
-                  fontSize: "0.925rem",
-                  textDecoration: isCompleteStatus(item.progress) ? "line-through" : "none",
-                  color: isCompleteStatus(item.progress) ? "text.disabled" : "text.primary",
-                  transition: "color 0.2s ease, text-decoration-color 0.2s ease",
-                },
-              },
+            primaryStyle={{
+              fontSize: "0.925rem",
+              textDecoration: isCompleteStatus(item.progress) ? "line-through" : "none",
+              color: isCompleteStatus(item.progress)
+                ? "var(--hb-color-text-disabled)"
+                : "var(--hb-color-text-primary)",
+              transition: "color 0.2s ease, text-decoration-color 0.2s ease",
             }}
           />
           {!item.reaction && (
