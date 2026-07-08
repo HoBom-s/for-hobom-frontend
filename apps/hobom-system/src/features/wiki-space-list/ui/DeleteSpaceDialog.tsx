@@ -57,7 +57,11 @@ export const DeleteSpaceDialog = ({
           autoFocus
         />
       </Hb.Dialog.Content>
-      <Hb.Dialog.Actions sx={{ px: 3, pb: 2 }}>
+      <Hb.Dialog.Actions style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingBottom: 16
+      }}>
         <Hb.Button variant="secondary" onClick={handleClose}>
           취소
         </Hb.Button>

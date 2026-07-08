@@ -34,7 +34,11 @@ export const CreateSprintDialog = ({ open, onClose, projectId }: CreateSprintDia
   return (
     <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
       <Hb.Dialog.Title>스프린트 만들기</Hb.Dialog.Title>
-      <Hb.Dialog.Content sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Hb.Dialog.Content style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 16
+      }}>
         <Hb.TextField
           label="스프린트 이름"
           value={name}
@@ -71,7 +75,11 @@ export const CreateSprintDialog = ({ open, onClose, projectId }: CreateSprintDia
           />
         </Hb.Box>
       </Hb.Dialog.Content>
-      <Hb.Dialog.Actions sx={{ px: 3, pb: 2 }}>
+      <Hb.Dialog.Actions style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingBottom: 16
+      }}>
         <Hb.Button variant="secondary" onClick={onClose}>
           취소
         </Hb.Button>

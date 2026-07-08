@@ -81,7 +81,9 @@ const AddTodoDialog = ({
 
   return (
     <Hb.Dialog.Root open={isOpen} onClose={handleClose} size="xs">
-      <Hb.Dialog.Title sx={{ pb: 1 }}>
+      <Hb.Dialog.Title style={{
+        paddingBottom: 8
+      }}>
         할 일 추가
         <Hb.Text
           variant="body2"
@@ -93,7 +95,7 @@ const AddTodoDialog = ({
           {item.categoryTitle}
         </Hb.Text>
       </Hb.Dialog.Title>
-      <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
+      <Hb.Dialog.Content style={{ paddingTop: 12 }}>
         <Hb.TextField
           fullWidth
           autoFocus
@@ -117,7 +119,12 @@ const AddTodoDialog = ({
           ))}
         </Hb.TextField>
       </Hb.Dialog.Content>
-      <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
+      <Hb.Dialog.Actions style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingBottom: 16,
+        gap: 8
+      }}>
         <Hb.Button fullWidth variant="secondary" onClick={handleClose}>
           취소
         </Hb.Button>

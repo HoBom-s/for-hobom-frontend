@@ -65,15 +65,15 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
       open={open}
       onClose={handleSave}
       size="sm"
-      PaperProps={{
-        sx: {
-          backgroundColor:
-            form.color === NOTE_COLORS.DEFAULT ? "var(--hb-color-surface)" : form.color,
-          borderRadius: 2,
-        },
+      style={{
+        backgroundColor:
+          form.color === NOTE_COLORS.DEFAULT ? "var(--hb-color-surface)" : form.color,
+        borderRadius: 16,
       }}
     >
-      <Hb.Dialog.Content sx={{ pb: 1 }}>
+      <Hb.Dialog.Content style={{
+        paddingBottom: 8
+      }}>
         <Hb.TextField
           placeholder="제목"
           fullWidth
@@ -181,7 +181,12 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
           />
         )}
       </Hb.Dialog.Content>
-      <Hb.Dialog.Actions sx={{ px: 2, pb: 1.5, justifyContent: "space-between" }}>
+      <Hb.Dialog.Actions style={{
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingBottom: 12,
+        justifyContent: "space-between"
+      }}>
         <Hb.Box
           style={{
             display: "flex",
