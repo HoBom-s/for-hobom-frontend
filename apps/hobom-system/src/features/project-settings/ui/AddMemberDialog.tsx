@@ -91,7 +91,11 @@ export const AddMemberDialog = ({
           </Hb.Form.Select>
         </Hb.Form.Control>
       </Hb.Dialog.Content>
-      <Hb.Dialog.Actions sx={{ px: 3, pb: 2 }}>
+      <Hb.Dialog.Actions style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingBottom: 16
+      }}>
         <Hb.Button variant="secondary" onClick={onClose}>
           취소
         </Hb.Button>

@@ -43,7 +43,11 @@ export const CreateIssueDialog = ({
   return (
     <Hb.Dialog.Root open={open} onClose={onClose} size="sm">
       <Hb.Dialog.Title>{defaultParentId ? "하위 이슈 만들기" : "이슈 만들기"}</Hb.Dialog.Title>
-      <Hb.Dialog.Content sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Hb.Dialog.Content style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 16
+      }}>
         <Hb.TextField
           label="제목"
           value={fields.title}
@@ -204,7 +208,11 @@ export const CreateIssueDialog = ({
           onChange={fields.setParentIssue}
         />
       </Hb.Dialog.Content>
-      <Hb.Dialog.Actions sx={{ px: 3, pb: 2 }}>
+      <Hb.Dialog.Actions style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingBottom: 16
+      }}>
         <Hb.Button variant="secondary" onClick={onClose}>
           취소
         </Hb.Button>

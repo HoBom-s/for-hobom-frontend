@@ -44,7 +44,12 @@ export const IssueDetailDialog = ({
       <Hb.Dialog.Root open={open && !!issue} onClose={onClose} size="sm">
         {issue && contextValue && (
           <IssueDetailContext.Provider value={contextValue}>
-            <Hb.Dialog.Title sx={{ display: "flex", alignItems: "center", gap: 1, pr: 6 }}>
+            <Hb.Dialog.Title style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              paddingRight: 48
+            }}>
               <Hb.Chip
                 label={ISSUE_KIND_LABEL[issue.type]}
                 size="small"
@@ -78,7 +83,9 @@ export const IssueDetailDialog = ({
                 <CloseOutlined sx={{ fontSize: 18 }} />
               </Hb.Button.Icon>
             </Hb.Dialog.Title>
-            <Hb.Dialog.Content sx={{ pt: 0 }}>
+            <Hb.Dialog.Content style={{
+              paddingTop: 0
+            }}>
               <ErrorBoundary inline resetKey={issueId ?? ""}>
                 <Hb.Text
                   variant="h6"

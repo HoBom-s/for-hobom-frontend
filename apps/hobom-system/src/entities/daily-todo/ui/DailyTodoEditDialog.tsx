@@ -31,8 +31,10 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
 
   return (
     <Hb.Dialog.Root open={open} onClose={onClose} size="xs">
-      <Hb.Dialog.Title sx={{ pb: 1 }}>할 일 수정</Hb.Dialog.Title>
-      <Hb.Dialog.Content sx={{ pt: "12px !important" }}>
+      <Hb.Dialog.Title style={{
+        paddingBottom: 8
+      }}>할 일 수정</Hb.Dialog.Title>
+      <Hb.Dialog.Content style={{ paddingTop: 12 }}>
         <Hb.TextField
           fullWidth
           autoFocus
@@ -56,7 +58,12 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
           ))}
         </Hb.TextField>
       </Hb.Dialog.Content>
-      <Hb.Dialog.Actions sx={{ px: 3, pb: 2, gap: 1 }}>
+      <Hb.Dialog.Actions style={{
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingBottom: 16,
+        gap: 8
+      }}>
         <Hb.Button fullWidth variant="ghost" onClick={onClose}>
           취소
         </Hb.Button>

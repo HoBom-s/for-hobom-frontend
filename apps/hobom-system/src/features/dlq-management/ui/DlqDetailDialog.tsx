@@ -106,10 +106,10 @@ export const DlqDetailDialog = ({
   return (
     <Hb.Dialog.Root open={open} onClose={onClose} size="md">
       <Hb.Dialog.Title
-        sx={{
+        style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "space-between"
         }}
       >
         <Hb.Text
