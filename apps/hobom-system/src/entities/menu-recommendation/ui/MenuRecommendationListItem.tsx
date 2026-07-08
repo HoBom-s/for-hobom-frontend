@@ -45,14 +45,19 @@ export const MenuRecommendationListItem = memo(function MenuRecommendationListIt
 }) {
   return (
     <>
-      <Hb.List.Item secondaryAction={rightAddon} sx={{ py: 1.5, px: 2.5 }}>
+      <Hb.List.Item secondaryAction={rightAddon} style={{
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingLeft: 20,
+        paddingRight: 20
+      }}>
         <Hb.List.ItemText
           primary={item.name}
-          primaryTypographyProps={{
+          primaryStyle={{
             fontWeight: 600,
             fontSize: 14,
-            color: "text.primary",
-            mb: 0.75,
+            color: "var(--hb-color-text-primary)",
+            marginBottom: 6,
           }}
           secondary={
             <Hb.Box

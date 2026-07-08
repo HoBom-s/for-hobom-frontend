@@ -79,10 +79,18 @@ export const ProjectLabelPicker = ({
       >
         라벨
       </Hb.Text>
-      <Hb.List.Root dense disablePadding sx={{ maxHeight: 240, overflow: "auto" }}>
+      <Hb.List.Root dense disablePadding style={{
+        maxHeight: 240,
+        overflow: "auto"
+      }}>
         {labels.map((label) => (
-          <Hb.List.ItemButton key={label.id} onClick={() => onToggle(label.id)} sx={{ py: 0.5 }}>
-            <Hb.List.ItemIcon sx={{ minWidth: 32 }}>
+          <Hb.List.ItemButton key={label.id} onClick={() => onToggle(label.id)} style={{
+            paddingTop: 4,
+            paddingBottom: 4
+          }}>
+            <Hb.List.ItemIcon style={{
+              minWidth: 32
+            }}>
               <Hb.Checkbox
                 size="small"
                 checked={selectedIds.has(label.id)}
@@ -102,10 +110,9 @@ export const ProjectLabelPicker = ({
             />
             <Hb.List.ItemText
               primary={label.name}
-              slotProps={{
-                primary: {
-                  sx: { fontSize: "0.8125rem", color: "text.primary" },
-                },
+              primaryStyle={{
+                fontSize: "0.8125rem",
+                color: "var(--hb-color-text-primary)",
               }}
             />
           </Hb.List.ItemButton>
@@ -215,7 +222,11 @@ export const ProjectLabelPicker = ({
           </Hb.Box>
         </Hb.Box>
       ) : (
-        <Hb.List.ItemButton onClick={() => setCreating(true)} sx={{ py: 1, gap: 1 }}>
+        <Hb.List.ItemButton onClick={() => setCreating(true)} style={{
+          paddingTop: 8,
+          paddingBottom: 8,
+          gap: 8
+        }}>
           <AddOutlined sx={{ fontSize: 16, color: "text.secondary" }} />
           <Hb.Text
             variant="body2"

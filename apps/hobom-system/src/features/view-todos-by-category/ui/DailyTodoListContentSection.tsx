@@ -75,24 +75,29 @@ export const DailyTodoListContentSection = ({ groupedTodos, renderItem }: Props)
             <Hb.List.Root
               key={item.categoryId}
               disablePadding
-              sx={{ width: "100%", mb: 1 }}
+              style={{
+                width: "100%",
+                marginBottom: 8
+              }}
               subheader={
                 <Hb.List.Subheader
                   disableSticky
                   disableGutters
                   component="div"
-                  sx={{
-                    px: 2.5,
-                    py: 1,
+                  style={{
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    paddingTop: 8,
+                    paddingBottom: 8,
                     display: "flex",
                     alignItems: "center",
-                    gap: 1,
+                    gap: 8,
                     fontSize: "0.8rem",
                     fontWeight: 600,
-                    color: "text.secondary",
-                    bgcolor: "transparent",
+                    color: "var(--hb-color-text-secondary)",
+                    backgroundColor: "transparent",
                     borderBottom: "1px solid",
-                    borderColor: "divider",
+                    borderColor: "var(--hb-color-border)"
                   }}
                 >
                   {item.categoryTitle}

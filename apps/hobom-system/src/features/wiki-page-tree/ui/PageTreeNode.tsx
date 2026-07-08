@@ -28,28 +28,20 @@ export const PageTreeNode = ({
 
   return (
     <Fragment>
+      <style href="hb-tree-node" precedence="medium">
+        {".hb-tree-node:hover .tree-node-add{opacity:1}"}
+      </style>
       <Hb.List.ItemButton
-        selected={isActive}
+        className="hb-tree-node"
         onClick={() => onSelect(node.id)}
-        sx={{
-          pl: 1 + depth * 2,
-          py: 0.75,
-          borderRadius: 1,
-          mb: 0.25,
+        style={{
+          paddingLeft: (1 + depth * 2) * 8,
+          paddingBlock: 6,
+          marginBottom: 2,
           minHeight: 36,
-          color: "text.primary",
-          "&:hover": {
-            bgcolor: "action.hover",
-            color: "text.primary",
-            "& .tree-node-add": { opacity: 1 },
-          },
-          "&.Mui-selected": {
-            bgcolor: "primary.main",
-            color: "#fff",
-            "& .MuiListItemIcon-root": { color: "#fff" },
-            "& .tree-node-add": { color: "rgba(255,255,255,0.7)" },
-            "&:hover": { bgcolor: "primary.dark", color: "#fff" },
-          },
+          ...(isActive
+            ? { backgroundColor: "var(--hb-color-accent)", color: "#fff" }
+            : { color: "var(--hb-color-text-primary)" }),
         }}
       >
         {hasChildren ? (
@@ -80,19 +72,21 @@ export const PageTreeNode = ({
             }}
           />
         )}
-        <Hb.List.ItemIcon sx={{ minWidth: 24, color: "inherit" }}>
+        <Hb.List.ItemIcon style={{
+          minWidth: 24,
+          color: isActive ? "#fff" : "inherit"
+        }}>
           <ArticleOutlined sx={{ fontSize: 16 }} />
         </Hb.List.ItemIcon>
         <Hb.List.ItemText
           primary={node.title}
-          slotProps={{
-            primary: {
-              noWrap: true,
-              sx: {
-                fontSize: "0.8125rem",
-                fontWeight: isActive ? 600 : 400,
-              },
-            },
+          primaryStyle={{
+            fontSize: "0.8125rem",
+            fontWeight: isActive ? 600 : 400,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            color: isActive ? "#fff" : undefined,
           }}
         />
         <Hb.Tooltip title="하위 페이지 추가">
@@ -108,7 +102,7 @@ export const PageTreeNode = ({
               padding: 2,
               opacity: 0,
               transition: "opacity 0.15s ease",
-              color: "var(--hb-color-text-disabled)",
+              color: isActive ? "rgba(255,255,255,0.7)" : "var(--hb-color-text-disabled)",
             }}
           >
             <AddOutlined sx={{ fontSize: 15 }} />

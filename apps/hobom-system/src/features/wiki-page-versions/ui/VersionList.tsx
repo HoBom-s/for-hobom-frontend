@@ -54,7 +54,10 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
           버전 목록 ({totalCount})
         </Hb.Text>
       </Hb.Box>
-      <Hb.List.Root dense disablePadding sx={{ maxHeight: "40vh", overflow: "auto" }}>
+      <Hb.List.Root dense disablePadding style={{
+        maxHeight: "40vh",
+        overflow: "auto"
+      }}>
         {versions.map((version) => {
           const isSelected = selectedVersion?.id === version.id;
           const author = version.editedBy ?? "익명";
@@ -62,36 +65,26 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
           return (
             <Hb.List.ItemButton
               key={version.id}
-              selected={isSelected}
               onClick={() => setSelectedVersion(version)}
-              sx={{
-                mx: 1,
-                borderRadius: 1,
-                mb: 0.5,
-                color: "text.primary",
-                "&.Mui-selected": {
-                  bgcolor: "primary.main",
-                  color: "#fff",
-                  "& .MuiListItemAvatar-root .MuiAvatar-root": {
-                    bgcolor: "rgba(255,255,255,0.2)",
-                  },
-                  "& .MuiListItemText-secondary": {
-                    color: "rgba(255,255,255,0.7)",
-                  },
-                  "&:hover": { bgcolor: "primary.dark" },
-                },
-                "&:hover:not(.Mui-selected)": { bgcolor: "action.hover" },
+              style={{
+                marginInline: 8,
+                marginBottom: 4,
+                ...(isSelected
+                  ? { backgroundColor: "var(--hb-color-accent)", color: "#fff" }
+                  : { color: "var(--hb-color-text-primary)" }),
               }}
             >
-              <Hb.List.ItemAvatar sx={{ minWidth: 40 }}>
+              <Hb.List.ItemAvatar style={{
+                minWidth: 40
+              }}>
                 <Hb.Avatar
                   style={{
                     width: 28,
                     height: 28,
                     fontSize: "0.7rem",
                     fontWeight: 700,
-                    backgroundColor: isSelected ? "rgba(255,255,255,0.2)" : "grey.200",
-                    color: isSelected ? "#fff" : "text.secondary",
+                    backgroundColor: isSelected ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.06)",
+                    color: isSelected ? "#fff" : "var(--hb-color-text-secondary)",
                   }}
                 >
                   v{version.version}
@@ -100,14 +93,17 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
               <Hb.List.ItemText
                 primary={version.title}
                 secondary={`${author} · ${new Date(version.createdAt).toLocaleString("ko-KR")}`}
-                slotProps={{
-                  primary: {
-                    noWrap: true,
-                    sx: { fontSize: "0.8125rem", fontWeight: 500 },
-                  },
-                  secondary: {
-                    sx: { fontSize: "0.6875rem" },
-                  },
+                primaryStyle={{
+                  fontSize: "0.8125rem",
+                  fontWeight: 500,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  color: isSelected ? "#fff" : undefined,
+                }}
+                secondaryStyle={{
+                  fontSize: "0.6875rem",
+                  color: isSelected ? "rgba(255,255,255,0.7)" : undefined,
                 }}
               />
               <Hb.Tooltip title="이 버전으로 복원">
@@ -120,7 +116,7 @@ export const VersionList = ({ spaceKey, pageId, onClose }: VersionListProps) => 
                   }}
                   disabled={isRestoring}
                   style={{
-                    color: isSelected ? "rgba(255,255,255,0.8)" : "text.secondary",
+                    color: isSelected ? "rgba(255,255,255,0.8)" : "var(--hb-color-text-secondary)",
                     marginLeft: 4,
                   }}
                 >

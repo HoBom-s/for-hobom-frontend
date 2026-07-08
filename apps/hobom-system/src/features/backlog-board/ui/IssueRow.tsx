@@ -226,12 +226,14 @@ export const IssueRow = ({
             }}
             style={{ fontSize: 13, paddingBlock: 6.4 }}
           >
-            <Hb.List.ItemIcon sx={{ minWidth: 28 }}>
+            <Hb.List.ItemIcon style={{
+              minWidth: 28
+            }}>
               <AddOutlined sx={{ fontSize: 16 }} />
             </Hb.List.ItemIcon>
             <Hb.List.ItemText
               primary="하위 이슈 추가"
-              slotProps={{ primary: { sx: { fontSize: 13 } } }}
+              primaryStyle={{ fontSize: 13 }}
             />
           </Hb.Menu.Item>
         )}
@@ -247,14 +249,16 @@ export const IssueRow = ({
             onClick={() => handleMove(t.id)}
             style={{ fontSize: 13, paddingBlock: 6.4 }}
           >
-            <Hb.List.ItemIcon sx={{ minWidth: 28 }}>
+            <Hb.List.ItemIcon style={{
+              minWidth: 28
+            }}>
               {t.id ? (
                 <DriveFileMoveOutlined sx={{ fontSize: 16 }} />
               ) : (
                 <InboxOutlined sx={{ fontSize: 16 }} />
               )}
             </Hb.List.ItemIcon>
-            <Hb.List.ItemText primary={t.label} slotProps={{ primary: { sx: { fontSize: 13 } } }} />
+            <Hb.List.ItemText primary={t.label} primaryStyle={{ fontSize: 13 }} />
           </Hb.Menu.Item>
         ))}
       </Hb.Menu.Root>
