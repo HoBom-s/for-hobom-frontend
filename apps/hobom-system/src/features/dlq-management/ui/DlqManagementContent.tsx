@@ -49,21 +49,26 @@ export const DlqManagementContent = () => {
     }
 
     return (
-      <Hb.Table.Container sx={{ maxHeight: "calc(100vh - 280px)", overflow: "auto" }}>
+      <Hb.Table.Container style={{
+        maxHeight: "calc(100vh - 280px)",
+        overflow: "auto"
+      }}>
         <Hb.Table.Root stickyHeader size="small">
           <Hb.Table.Head>
             <Hb.Table.Row>
               <Hb.Table.Cell
-                sx={{
+                style={{
                   fontWeight: 600,
                   fontSize: 11,
                   textTransform: "uppercase",
-                  letterSpacing: "0.04em",
+                  letterSpacing: "0.04em"
                 }}
               >
                 Key
               </Hb.Table.Cell>
-              <Hb.Table.Cell sx={{ width: 100 }} align="center">
+              <Hb.Table.Cell style={{
+                width: 100
+              }} align="center">
                 액션
               </Hb.Table.Cell>
             </Hb.Table.Row>
@@ -73,14 +78,16 @@ export const DlqManagementContent = () => {
               <Hb.Table.Row
                 key={key}
                 hover
-                sx={{ cursor: "pointer" }}
+                style={{
+                  cursor: "pointer"
+                }}
                 onClick={() => setSelectedKey(key)}
               >
                 <Hb.Table.Cell
-                  sx={{
+                  style={{
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 12,
-                    wordBreak: "break-all",
+                    wordBreak: "break-all"
                   }}
                 >
                   {key}

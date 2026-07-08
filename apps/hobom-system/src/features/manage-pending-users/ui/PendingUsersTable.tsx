@@ -92,20 +92,25 @@ export const PendingUsersTable = () => {
         </Hb.Paper>
       ) : (
         <Hb.Table.Container component={Hb.Paper} variant="outlined">
+          <style href="hb-pending-row" precedence="medium">
+            {".hb-pending-row:last-child td{border-bottom:0}"}
+          </style>
           <Hb.Table.Root>
             <Hb.Table.Head>
               <Hb.Table.Row>
                 <Hb.Table.Cell scope="col">사용자</Hb.Table.Cell>
                 <Hb.Table.Cell scope="col">닉네임</Hb.Table.Cell>
                 <Hb.Table.Cell scope="col">이메일</Hb.Table.Cell>
-                <Hb.Table.Cell scope="col" align="right" sx={{ width: 200 }}>
+                <Hb.Table.Cell scope="col" align="right" style={{
+                  width: 200
+                }}>
                   액션
                 </Hb.Table.Cell>
               </Hb.Table.Row>
             </Hb.Table.Head>
             <Hb.Table.Body>
               {users.map((user) => (
-                <Hb.Table.Row key={user.id} sx={{ "&:last-child td": { borderBottom: 0 } }}>
+                <Hb.Table.Row key={user.id} className="hb-pending-row">
                   <Hb.Table.Cell>
                     <Hb.Stack
                       direction="row"
