@@ -63,9 +63,7 @@ export const ProjectLabelPicker = ({
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       transformOrigin={{ vertical: "top", horizontal: "left" }}
-      slotProps={{
-        paper: { sx: { width: 240, borderRadius: 2, boxShadow: 3 } },
-      }}
+      style={{ width: 240, borderRadius: 16 }}
     >
       <Hb.Text
         variant="caption"

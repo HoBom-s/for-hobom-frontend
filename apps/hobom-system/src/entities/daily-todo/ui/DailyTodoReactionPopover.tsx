@@ -24,7 +24,7 @@ export const DailyTodoReactionPopover = ({ anchorEl, onClose, onSelect }: Props)
     onClose={onClose}
     anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     transformOrigin={{ vertical: "top", horizontal: "center" }}
-    slotProps={{ paper: { sx: { p: 0.5, borderRadius: 2 } } }}
+    style={{ padding: 4, borderRadius: 16 }}
   >
     <Hb.Stack direction="row" spacing={0.25}>
       {REACTION_OPTIONS.map((emoji) => (
