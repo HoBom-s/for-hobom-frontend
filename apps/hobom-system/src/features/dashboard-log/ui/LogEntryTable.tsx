@@ -1,15 +1,16 @@
+import type { CSSProperties } from "react";
 import type { LogEntry } from "@/entities/log";
 import { Hb } from "@/shared/ui";
 import { SERVICE_LABEL_MAP } from "../lib/log-dashboard.lib";
 import { METHOD_CHIP_COLOR as METHOD_COLOR } from "./endpoint-error-constants";
 
-const HEADER_SX = {
+const HEADER_STYLE: CSSProperties = {
   fontWeight: 600,
   fontSize: 11,
   textTransform: "uppercase",
   letterSpacing: "0.04em",
-  color: "text.secondary",
-} as const;
+  color: "var(--hb-color-text-secondary)",
+};
 
 const LEVEL_COLOR: Record<string, { bg: string; text: string }> = {
   DEBUG: { bg: "#22d3ee18", text: "#22d3ee" },
@@ -52,29 +53,31 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
   }
 
   return (
-    <Hb.Table.Container sx={{ maxHeight: 520 }}>
+    <Hb.Table.Container style={{
+      maxHeight: 520
+    }}>
       <Hb.Table.Root size="small" stickyHeader>
         <Hb.Table.Head>
           <Hb.Table.Row>
-            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
+            <Hb.Table.Cell scope="col" style={HEADER_STYLE}>
               Level
             </Hb.Table.Cell>
-            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
+            <Hb.Table.Cell scope="col" style={HEADER_STYLE}>
               Service
             </Hb.Table.Cell>
-            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
+            <Hb.Table.Cell scope="col" style={HEADER_STYLE}>
               Method
             </Hb.Table.Cell>
-            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
+            <Hb.Table.Cell scope="col" style={HEADER_STYLE}>
               Path
             </Hb.Table.Cell>
-            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
+            <Hb.Table.Cell scope="col" style={HEADER_STYLE}>
               Message
             </Hb.Table.Cell>
-            <Hb.Table.Cell scope="col" align="center" sx={HEADER_SX}>
+            <Hb.Table.Cell scope="col" align="center" style={HEADER_STYLE}>
               Status
             </Hb.Table.Cell>
-            <Hb.Table.Cell scope="col" sx={HEADER_SX}>
+            <Hb.Table.Cell scope="col" style={HEADER_STYLE}>
               Time
             </Hb.Table.Cell>
           </Hb.Table.Row>
@@ -125,7 +128,9 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                     }}
                   />
                 </Hb.Table.Cell>
-                <Hb.Table.Cell sx={{ maxWidth: 200 }}>
+                <Hb.Table.Cell style={{
+                  maxWidth: 200
+                }}>
                   <Hb.Tooltip title={`${row.httpMethod} ${row.path}`} enterDelay={200}>
                     <Hb.Text
                       variant="body2"
@@ -139,7 +144,9 @@ export const LogEntryTable = ({ data }: LogEntryTableProps) => {
                     </Hb.Text>
                   </Hb.Tooltip>
                 </Hb.Table.Cell>
-                <Hb.Table.Cell sx={{ maxWidth: 220 }}>
+                <Hb.Table.Cell style={{
+                  maxWidth: 220
+                }}>
                   <Hb.Tooltip title={row.message} enterDelay={200}>
                     <Hb.Text
                       variant="body2"
