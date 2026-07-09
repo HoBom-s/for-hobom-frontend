@@ -56,7 +56,7 @@ export const ReminderPickerPopover = ({ anchorEl, onClose, onSet }: ReminderPick
           onChange={(e) => setRecurrence(e.target.value as NoteRecurrence)}
           size="small"
           fullWidth
-          sx={{ mt: 1 }}
+          style={{ marginTop: 8 }}
         >
           {RECURRENCE_OPTIONS.map((opt) => (
             <Hb.Form.Option key={opt.value} value={opt.value}>

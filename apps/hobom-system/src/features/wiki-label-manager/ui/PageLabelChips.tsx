@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSuspenseQuery, useDataLot } from "hobom-data";
 import { wikiPageQueries } from "@/entities/wiki-page";
 import { wikiLabelQueries, useAddPageLabel, useRemovePageLabel } from "@/entities/wiki-label";
@@ -10,6 +11,7 @@ interface PageLabelChipsProps {
 }
 
 export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsProps) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const dataLot = useDataLot();
   const { data } = useSuspenseQuery(wikiLabelQueries.list(spaceKey));
   const allLabels = data.items;
@@ -53,31 +55,28 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
         />
       ))}
       {availableLabels.length > 0 && (
-        <Hb.Form.Control
-          size="small"
-          style={{
-            minWidth: 100
-          }}
-        >
-          <Hb.Form.Select
-            value=""
-            onChange={(e) => {
-              if (e.target.value) {
-                addLabel.mutate(
-                  { spaceKey, pageId, labelId: e.target.value },
-                  { onSuccess: invalidatePageDetail },
-                );
-              }
-            }}
-            displayEmpty
-            renderValue={() => (
-              <Hb.Text variant="caption" color="text.disabled">
-                + 라벨
-              </Hb.Text>
-            )}
+        <>
+          <Hb.Chip
+            label="+ 라벨"
+            size="small"
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            style={{ fontSize: "0.75rem", cursor: "pointer" }}
+          />
+          <Hb.Menu.Root
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
           >
             {availableLabels.map((label) => (
-              <Hb.Form.Option key={label.id} value={label.id}>
+              <Hb.Menu.Item
+                key={label.id}
+                onClick={() =>
+                  addLabel.mutate(
+                    { spaceKey, pageId, labelId: label.id },
+                    { onSuccess: invalidatePageDetail },
+                  )
+                }
+              >
                 <Hb.Box
                   style={{
                     width: 10,
@@ -88,10 +87,10 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
                   }}
                 />
                 {label.name}
-              </Hb.Form.Option>
+              </Hb.Menu.Item>
             ))}
-          </Hb.Form.Select>
-        </Hb.Form.Control>
+          </Hb.Menu.Root>
+        </>
       )}
     </Hb.Box>
   );

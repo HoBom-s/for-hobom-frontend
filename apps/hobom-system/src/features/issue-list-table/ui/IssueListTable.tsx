@@ -88,7 +88,9 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
           alignItems: "center",
         }}
       >
-        <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+        <Hb.Form.Control size="small" style={{
+          minWidth: 120
+        }}>
           <Hb.Form.Label shrink>상태</Hb.Form.Label>
           <Hb.Form.Select
             value={statusFilter}
@@ -104,7 +106,9 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
-        <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+        <Hb.Form.Control size="small" style={{
+          minWidth: 120
+        }}>
           <Hb.Form.Label shrink>우선순위</Hb.Form.Label>
           <Hb.Form.Select
             value={priorityFilter}
@@ -120,7 +124,9 @@ export const IssueListTable = ({ projectId, onIssueClick }: IssueListTableProps)
             ))}
           </Hb.Form.Select>
         </Hb.Form.Control>
-        <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+        <Hb.Form.Control size="small" style={{
+          minWidth: 120
+        }}>
           <Hb.Form.Label shrink>유형</Hb.Form.Label>
           <Hb.Form.Select
             value={typeFilter}

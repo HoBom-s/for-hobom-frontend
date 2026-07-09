@@ -98,7 +98,9 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
           }}
         >
           {filters.epics.length > 0 && (
-            <Hb.Form.Control size="small" sx={{ minWidth: 200 }}>
+            <Hb.Form.Control size="small" style={{
+              minWidth: 200
+            }}>
               <Hb.Form.Label shrink>에픽 필터</Hb.Form.Label>
               <Hb.Form.Select
                 value={filters.epicFilter ?? ""}

@@ -44,7 +44,9 @@ export const ProjectDashboardContent = () => {
         <Hb.Text variant="h6" fontWeight={700}>
           스프린트 대시보드
         </Hb.Text>
-        <Hb.Form.Control size="small" sx={{ minWidth: 200 }}>
+        <Hb.Form.Control size="small" style={{
+          minWidth: 200
+        }}>
           <Hb.Form.Label>스프린트 선택</Hb.Form.Label>
           <Hb.Form.Select
             value={selectedSprintId}

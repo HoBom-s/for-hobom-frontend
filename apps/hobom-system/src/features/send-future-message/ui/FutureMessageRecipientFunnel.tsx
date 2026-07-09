@@ -6,7 +6,6 @@ import { authQueries } from "@/entities/auth";
 import type { FutureMessageSendSchemaType } from "@/entities/future-message";
 import { RoutesConfig } from "@/shared/config";
 import { Hb } from "@/shared/ui";
-import type { SelectChangeEvent } from "@/shared/ui";
 
 interface Props {
   onNextStep: () => void;
@@ -52,7 +51,7 @@ const Inner = ({ onNextStep }: Props) => {
         <Hb.Form.Select
           label="받는 사람"
           value={watch("recipientId")}
-          onChange={(evt: SelectChangeEvent) => {
+          onChange={(evt) => {
             setValue("recipientId", evt.target.value);
           }}
         >

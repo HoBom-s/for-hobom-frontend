@@ -82,7 +82,9 @@ export const AddMemberDialog = ({
           )}
           noOptionsText="검색 결과가 없어요"
         />
-        <Hb.Form.Control size="small" fullWidth sx={{ mt: 2 }}>
+        <Hb.Form.Control size="small" fullWidth style={{
+          marginTop: 16
+        }}>
           <Hb.Form.Label>역할</Hb.Form.Label>
           <Hb.Form.Select value={role} label="역할" onChange={(e) => setRole(e.target.value)}>
             {Object.entries(ROLE_LABEL).map(([k, label]) => (

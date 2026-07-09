@@ -57,7 +57,9 @@ export const ErrorEventFilter = ({
         marginBottom: 16,
       }}
     >
-      <Hb.Form.Control size="small" sx={{ minWidth: 160 }}>
+      <Hb.Form.Control size="small" style={{
+        minWidth: 160
+      }}>
         <Hb.Form.Label>에러 타입</Hb.Form.Label>
         <Hb.Form.Select
           label="에러 타입"

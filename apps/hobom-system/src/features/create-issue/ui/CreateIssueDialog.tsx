@@ -73,7 +73,9 @@ export const CreateIssueDialog = ({
             gap: 16,
           }}
         >
-          <Hb.Form.Control size="small" sx={{ flex: 1 }}>
+          <Hb.Form.Control size="small" style={{
+            flex: 1
+          }}>
             <Hb.Form.Label>유형</Hb.Form.Label>
             <Hb.Form.Select
               value={fields.kind}
@@ -87,7 +89,9 @@ export const CreateIssueDialog = ({
               ))}
             </Hb.Form.Select>
           </Hb.Form.Control>
-          <Hb.Form.Control size="small" sx={{ flex: 1 }}>
+          <Hb.Form.Control size="small" style={{
+            flex: 1
+          }}>
             <Hb.Form.Label>우선순위</Hb.Form.Label>
             <Hb.Form.Select
               value={fields.priority}
@@ -109,7 +113,9 @@ export const CreateIssueDialog = ({
           }}
         >
           {activeSprints.length > 0 && (
-            <Hb.Form.Control size="small" sx={{ flex: 1 }}>
+            <Hb.Form.Control size="small" style={{
+              flex: 1
+            }}>
               <Hb.Form.Label>스프린트 (선택)</Hb.Form.Label>
               <Hb.Form.Select
                 value={fields.sprint}

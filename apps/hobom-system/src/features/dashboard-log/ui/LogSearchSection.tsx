@@ -79,7 +79,9 @@ export const LogSearchSection = () => {
             flexWrap: "wrap",
           }}
         >
-          <Hb.Form.Control size="small" sx={{ minWidth: 130 }}>
+          <Hb.Form.Control size="small" style={{
+            minWidth: 130
+          }}>
             <Hb.Form.Label>서비스</Hb.Form.Label>
             <Hb.Form.Select
               label="서비스"
@@ -94,7 +96,9 @@ export const LogSearchSection = () => {
             </Hb.Form.Select>
           </Hb.Form.Control>
 
-          <Hb.Form.Control size="small" sx={{ minWidth: 120 }}>
+          <Hb.Form.Control size="small" style={{
+            minWidth: 120
+          }}>
             <Hb.Form.Label>Method</Hb.Form.Label>
             <Hb.Form.Select
               label="Method"
