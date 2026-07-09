@@ -12,7 +12,7 @@ import { Inspector } from "@/widgets/inspector";
 import { LayersPanel } from "@/widgets/layers-panel";
 import { useStudioEditor } from "../model/useStudioEditor";
 import { useStudioKeyboard } from "../model/useStudioKeyboard";
-import { studioTheme } from "../config/studio-theme";
+import { STUDIO_THEME_VARS } from "../config/studio-theme";
 
 /**
  * HoBom Studio 에디터 — 워크스페이스 Item(:itemId)의 문서를 로드해 편집한다.
@@ -63,7 +63,7 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
   useStudioKeyboard({ onDelete: deleteSelected, onDeselect: clearSelection });
 
   return (
-    <Hb.ThemeProvider theme={studioTheme}>
+    <div data-hb-scheme="dark" style={STUDIO_THEME_VARS}>
       <Hb.Stack
         direction="row"
         style={{
@@ -177,7 +177,7 @@ function StudioEditor({ itemId, name, document }: StudioEditorProps) {
           </Hb.Box>
         </Panel>
       </Hb.Stack>
-    </Hb.ThemeProvider>
+    </div>
   );
 }
 

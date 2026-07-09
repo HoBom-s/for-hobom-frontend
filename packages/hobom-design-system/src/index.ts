@@ -15,11 +15,14 @@ import { SkeletonCard } from "./patterns/SkeletonCard";
 import { SkeletonList } from "./patterns/SkeletonList";
 export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };
 
-export { theme, DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "./foundations/theme";
-export { ColorSchemeVars, useColorSchemeStyles } from "./foundations/color-scheme";
+export { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "./foundations/layout";
+export {
+  ColorSchemeVars,
+  useColorSchemeStyles,
+  ColorSchemeProvider,
+  useColorScheme,
+} from "./foundations/color-scheme";
+export type { ColorSchemeMode } from "./foundations/color-scheme";
 
 export { Hb } from "./components";
 
-// Styling & theming surface (see foundations/styling.ts).
-export { createTheme, useColorScheme } from "./foundations/styling";
-export type { SxProps, Theme, SelectChangeEvent, SvgIconProps } from "./foundations/styling";

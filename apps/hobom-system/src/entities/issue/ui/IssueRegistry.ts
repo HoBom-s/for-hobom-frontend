@@ -1,3 +1,4 @@
+import type { ElementType } from "react";
 import {
   BugReportOutlined,
   BookmarkOutlined,
@@ -9,10 +10,9 @@ import {
   Remove,
   KeyboardArrowDown,
 } from "hobom-design-system/icons";
-import type { SvgIconProps } from "@/shared/ui";
 import type { IssueKind, IssuePriority } from "../model/issue.model";
 
-type IconComponent = React.ComponentType<SvgIconProps>;
+type IconComponent = ElementType;
 
 interface IssueKindConfig {
   Icon: IconComponent;
