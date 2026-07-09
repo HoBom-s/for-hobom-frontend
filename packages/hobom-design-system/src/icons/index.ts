@@ -83,6 +83,7 @@ export {
   MarkEmailUnread,
   MenuBook,
   MenuBookOutlined,
+  MenuOutlined,
   MonitorHeartOutlined,
   MoreHoriz,
   MoreVert,
