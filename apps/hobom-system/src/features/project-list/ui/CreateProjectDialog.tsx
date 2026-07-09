@@ -47,7 +47,9 @@ export const CreateProjectDialog = ({ open, onClose }: CreateProjectDialogProps)
           onChange={(e) => setKey(e.target.value)}
           fullWidth
           size="small"
-          sx={{ mt: 1 }}
+          style={{
+            marginTop: 8
+          }}
           helperText="영문 대문자로 입력하세요 (예: PROJ)"
         />
         <Hb.TextField

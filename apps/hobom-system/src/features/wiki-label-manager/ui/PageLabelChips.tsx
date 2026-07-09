@@ -53,45 +53,45 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
         />
       ))}
       {availableLabels.length > 0 && (
-        <Hb.TextField
-          select
+        <Hb.Form.Control
           size="small"
-          value=""
-          onChange={(e) => {
-            if (e.target.value) {
-              addLabel.mutate(
-                { spaceKey, pageId, labelId: e.target.value },
-                { onSuccess: invalidatePageDetail },
-              );
-            }
-          }}
-          sx={{ minWidth: 100 }}
-          slotProps={{
-            select: {
-              displayEmpty: true,
-              renderValue: () => (
-                <Hb.Text variant="caption" color="text.disabled">
-                  + 라벨
-                </Hb.Text>
-              ),
-            },
+          style={{
+            minWidth: 100
           }}
         >
-          {availableLabels.map((label) => (
-            <Hb.Form.Option key={label.id} value={label.id}>
-              <Hb.Box
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  backgroundColor: label.color,
-                  marginRight: 8,
-                }}
-              />
-              {label.name}
-            </Hb.Form.Option>
-          ))}
-        </Hb.TextField>
+          <Hb.Form.Select
+            value=""
+            onChange={(e) => {
+              if (e.target.value) {
+                addLabel.mutate(
+                  { spaceKey, pageId, labelId: e.target.value },
+                  { onSuccess: invalidatePageDetail },
+                );
+              }
+            }}
+            displayEmpty
+            renderValue={() => (
+              <Hb.Text variant="caption" color="text.disabled">
+                + 라벨
+              </Hb.Text>
+            )}
+          >
+            {availableLabels.map((label) => (
+              <Hb.Form.Option key={label.id} value={label.id}>
+                <Hb.Box
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    backgroundColor: label.color,
+                    marginRight: 8,
+                  }}
+                />
+                {label.name}
+              </Hb.Form.Option>
+            ))}
+          </Hb.Form.Select>
+        </Hb.Form.Control>
       )}
     </Hb.Box>
   );

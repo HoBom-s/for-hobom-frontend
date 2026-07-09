@@ -75,7 +75,9 @@ export const AddMemberDialog = ({
               label="사용자 검색"
               size="small"
               placeholder="이름 또는 아이디로 검색"
-              sx={{ mt: 1 }}
+              style={{
+                marginTop: 8
+              }}
             />
           )}
           noOptionsText="검색 결과가 없어요"

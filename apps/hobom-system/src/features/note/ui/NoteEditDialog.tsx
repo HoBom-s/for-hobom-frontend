@@ -79,8 +79,10 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
           fullWidth
           value={form.title}
           onChange={(e) => setField("title", e.target.value)}
-          InputProps={{ disableUnderline: true, sx: { fontWeight: 600 } }}
-          sx={{ mb: 1 }}
+          slotProps={{ htmlInput: { style: { fontWeight: 600 } } }}
+          style={{
+            marginBottom: 8
+          }}
         />
 
         {form.type === "TEXT" && (
@@ -91,7 +93,6 @@ export const NoteEditDialog = ({ open, onClose, note }: NoteEditDialogProps) => 
             minRows={3}
             value={form.content}
             onChange={(e) => setField("content", e.target.value)}
-            InputProps={{ disableUnderline: true }}
           />
         )}
 

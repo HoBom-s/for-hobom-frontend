@@ -80,7 +80,10 @@ export const CreateLabelDialog = ({
             if (e.key === "Enter") handleSubmit();
           }}
           disabled={loading}
-          sx={{ mt: 1, mb: 2 }}
+          style={{
+            marginTop: 8,
+            marginBottom: 16
+          }}
         />
         <Hb.Text
           variant="caption"

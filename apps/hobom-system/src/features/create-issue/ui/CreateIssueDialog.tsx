@@ -54,7 +54,9 @@ export const CreateIssueDialog = ({
           onChange={(e) => fields.setTitle(e.target.value)}
           fullWidth
           size="small"
-          sx={{ mt: 1 }}
+          style={{
+            marginTop: 8
+          }}
         />
         <Hb.TextField
           label="설명"
@@ -131,7 +133,9 @@ export const CreateIssueDialog = ({
             onChange={(e) => fields.setStoryPoints(e.target.value)}
             size="small"
             slotProps={{ htmlInput: { min: 0, step: 1 } }}
-            sx={{ width: 140 }}
+            style={{
+              width: 140
+            }}
           />
         </Hb.Box>
         <Hb.Box>

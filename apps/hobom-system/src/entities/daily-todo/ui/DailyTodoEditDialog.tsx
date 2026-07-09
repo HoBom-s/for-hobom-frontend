@@ -40,23 +40,25 @@ export const DailyTodoEditDialog = ({ item, open, onClose }: Props) => {
           autoFocus
           label="제목"
           size="small"
-          sx={{ mb: 2 }}
+          style={{
+            marginBottom: 16
+          }}
           {...register("title")}
         />
-        <Hb.TextField
-          fullWidth
-          select
-          label="카테고리"
-          size="small"
-          value={editCategory}
-          onChange={(e) => setEditCategory(e.target.value)}
-        >
-          {(categoriesData?.items ?? []).map((cat) => (
-            <Hb.Form.Option key={cat.id} value={cat.id}>
-              {cat.title}
-            </Hb.Form.Option>
-          ))}
-        </Hb.TextField>
+        <Hb.Form.Control fullWidth size="small">
+          <Hb.Form.Label>카테고리</Hb.Form.Label>
+          <Hb.Form.Select
+            label="카테고리"
+            value={editCategory}
+            onChange={(e) => setEditCategory(e.target.value)}
+          >
+            {(categoriesData?.items ?? []).map((cat) => (
+              <Hb.Form.Option key={cat.id} value={cat.id}>
+                {cat.title}
+              </Hb.Form.Option>
+            ))}
+          </Hb.Form.Select>
+        </Hb.Form.Control>
       </Hb.Dialog.Content>
       <Hb.Dialog.Actions style={{
         paddingLeft: 24,

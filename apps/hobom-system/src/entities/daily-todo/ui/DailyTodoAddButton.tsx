@@ -101,23 +101,25 @@ const AddTodoDialog = ({
           autoFocus
           label="제목"
           size="small"
-          sx={{ mb: 2 }}
+          style={{
+            marginBottom: 16
+          }}
           {...register("title")}
         />
-        <Hb.TextField
-          fullWidth
-          select
-          label="반복 주기"
-          size="small"
-          value={cycle}
-          onChange={(e) => setValue("cycle", e.target.value as CycleType)}
-        >
-          {CYCLE_OPTIONS.map((key) => (
-            <Hb.Form.Option key={key} value={key}>
-              {CYCLE_LABELS[key]}
-            </Hb.Form.Option>
-          ))}
-        </Hb.TextField>
+        <Hb.Form.Control fullWidth size="small">
+          <Hb.Form.Label>반복 주기</Hb.Form.Label>
+          <Hb.Form.Select
+            label="반복 주기"
+            value={cycle}
+            onChange={(e) => setValue("cycle", e.target.value as CycleType)}
+          >
+            {CYCLE_OPTIONS.map((key) => (
+              <Hb.Form.Option key={key} value={key}>
+                {CYCLE_LABELS[key]}
+              </Hb.Form.Option>
+            ))}
+          </Hb.Form.Select>
+        </Hb.Form.Control>
       </Hb.Dialog.Content>
       <Hb.Dialog.Actions style={{
         paddingLeft: 24,

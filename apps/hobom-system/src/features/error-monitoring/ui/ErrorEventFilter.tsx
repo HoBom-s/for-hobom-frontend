@@ -77,7 +77,9 @@ export const ErrorEventFilter = ({
         label="화면 (path)"
         value={filter.screen}
         onChange={(e) => onFilterChange("screen", e.target.value)}
-        sx={{ width: 200 }}
+        style={{
+          width: 200
+        }}
       />
 
       <Hb.Button

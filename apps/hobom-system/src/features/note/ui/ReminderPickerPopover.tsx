@@ -47,7 +47,9 @@ export const ReminderPickerPopover = ({ anchorEl, onClose, onSet }: ReminderPick
           size="small"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          sx={{ mt: 1 }}
+          style={{
+            marginTop: 8
+          }}
         />
         <Hb.Form.Select
           value={recurrence}

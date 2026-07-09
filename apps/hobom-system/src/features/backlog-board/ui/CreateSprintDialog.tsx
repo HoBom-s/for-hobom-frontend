@@ -45,7 +45,9 @@ export const CreateSprintDialog = ({ open, onClose, projectId }: CreateSprintDia
           onChange={(e) => setName(e.target.value)}
           fullWidth
           size="small"
-          sx={{ mt: 1 }}
+          style={{
+            marginTop: 8
+          }}
         />
         <Hb.Box
           style={{

@@ -115,7 +115,9 @@ export const LogSearchSection = () => {
             type="number"
             value={filter.statusCode}
             onChange={(e) => handleFilterChange("statusCode", e.target.value)}
-            sx={{ width: 130 }}
+            style={{
+              width: 130
+            }}
             slotProps={{ htmlInput: { min: 100, max: 599 } }}
           />
 

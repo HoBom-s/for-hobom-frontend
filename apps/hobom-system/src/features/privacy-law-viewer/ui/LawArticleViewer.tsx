@@ -114,7 +114,10 @@ export const LawArticleViewer = ({ versionId }: Props) => {
             ),
           },
         }}
-        sx={{ mb: 2, width: 320 }}
+        style={{
+          marginBottom: 16,
+          width: 320
+        }}
       />
       <Hb.Stack spacing={0.5}>
         {filtered.map((article) => (
