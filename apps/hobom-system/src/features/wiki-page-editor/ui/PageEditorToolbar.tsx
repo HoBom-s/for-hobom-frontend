@@ -239,7 +239,9 @@ export const PageEditorToolbar = ({ editor }: PageEditorToolbarProps) => {
             onKeyDown={(e) => {
               if (e.key === "Enter") handleLinkSubmit();
             }}
-            sx={{ mt: 1 }}
+            style={{
+              marginTop: 8
+            }}
           />
         </Hb.Dialog.Content>
         <Hb.Dialog.Actions>

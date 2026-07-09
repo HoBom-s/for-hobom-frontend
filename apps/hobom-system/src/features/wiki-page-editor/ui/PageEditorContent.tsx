@@ -131,12 +131,11 @@ export const PageEditorContent = ({
           error={titleError}
           helperText={titleError ? "제목을 입력하세요" : undefined}
           slotProps={{
-            input: {
-              sx: { fontSize: "1.5rem", fontWeight: 600 },
-              disableUnderline: !titleError,
-            },
+            htmlInput: { style: { fontSize: "1.5rem", fontWeight: 600 } },
           }}
-          sx={{ flex: 1 }}
+          style={{
+            flex: 1
+          }}
         />
         <Hb.Button variant="primary" onClick={handleSave} loading={saving} size="small">
           저장

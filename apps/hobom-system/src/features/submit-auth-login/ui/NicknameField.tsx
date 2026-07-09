@@ -18,22 +18,10 @@ export const NicknameField = () => {
       }}
       render={({ field, fieldState }) => (
         <Hb.TextField
-          sx={{
-            fontSize: 14,
-            "& input::placeholder": {
-              fontSize: 14,
-            },
-          }}
           label="닉네임"
           size="small"
           placeholder="닉네임을 입력해주세요."
           fullWidth
-          slotProps={{
-            inputLabel: {
-              size: "small",
-              shrink: true,
-            },
-          }}
           error={Boolean(fieldState.error)}
           helperText={fieldState.error?.message}
           value={field.value}

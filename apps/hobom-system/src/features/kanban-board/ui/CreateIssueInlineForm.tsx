@@ -76,11 +76,9 @@ export const CreateIssueInlineForm = ({ onSubmit }: CreateIssueInlineFormProps) 
         fullWidth
         placeholder="이슈 제목을 입력하세요"
         data-no-dnd
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            borderRadius: 2,
-            fontSize: 13,
-          },
+        slotProps={{
+          input: { style: { borderRadius: 16 } },
+          htmlInput: { style: { fontSize: 13 } },
         }}
       />
     </Hb.Box>

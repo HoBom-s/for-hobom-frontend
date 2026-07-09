@@ -43,15 +43,6 @@ export const AuthSignUpForm = () => {
     openWarnToast({ message: "입력 정보를 확인해 주세요." });
   };
 
-  const fieldSx = {
-    fontSize: 14,
-    "& input::placeholder": { fontSize: 14 },
-  };
-
-  const inputLabelProps = {
-    inputLabel: { size: "small" as const, shrink: true },
-  };
-
   return (
     <FormProvider {...formMethods}>
       <Hb.Box
@@ -84,12 +75,10 @@ export const AuthSignUpForm = () => {
           }}
           render={({ field, fieldState }) => (
             <Hb.TextField
-              sx={fieldSx}
               label="이름"
               size="small"
               placeholder="이름을 입력해 주세요."
               fullWidth
-              slotProps={inputLabelProps}
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
               value={field.value}
@@ -107,12 +96,10 @@ export const AuthSignUpForm = () => {
           }}
           render={({ field, fieldState }) => (
             <Hb.TextField
-              sx={fieldSx}
               label="닉네임"
               size="small"
               placeholder="로그인 시 사용할 닉네임이에요."
               fullWidth
-              slotProps={inputLabelProps}
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
               value={field.value}
@@ -133,12 +120,10 @@ export const AuthSignUpForm = () => {
           }}
           render={({ field, fieldState }) => (
             <Hb.TextField
-              sx={fieldSx}
               label="이메일"
               size="small"
               placeholder="이메일을 입력해 주세요."
               fullWidth
-              slotProps={inputLabelProps}
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
               value={field.value}
@@ -156,13 +141,11 @@ export const AuthSignUpForm = () => {
           }}
           render={({ field, fieldState }) => (
             <Hb.TextField
-              sx={fieldSx}
               label="비밀번호"
               size="small"
               type="password"
               placeholder="비밀번호를 입력해 주세요."
               fullWidth
-              slotProps={inputLabelProps}
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
               value={field.value}

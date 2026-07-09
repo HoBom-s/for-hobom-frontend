@@ -79,7 +79,10 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
             onBlur={handleSaveName}
             autoFocus
             disabled={isUpdating}
-            sx={{ flex: 1, mr: 1 }}
+            style={{
+              flex: 1,
+              marginRight: 8
+            }}
           />
         ) : (
           <Hb.Box
@@ -241,10 +244,8 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
           value={newStatusId}
           onChange={(e) => setNewStatusId(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleAddColumn()}
-          sx={{
-            flex: 1,
-            "& .MuiInputBase-input": { fontSize: 13, py: 0.75 },
-          }}
+          style={{ flex: 1 }}
+          slotProps={{ htmlInput: { style: { fontSize: 13 } } }}
         />
         <Hb.TextField
           size="small"
@@ -252,10 +253,8 @@ export const BoardItem = ({ board, projectId, onDelete }: BoardItemProps) => {
           value={newStatusName}
           onChange={(e) => setNewStatusName(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleAddColumn()}
-          sx={{
-            flex: 1,
-            "& .MuiInputBase-input": { fontSize: 13, py: 0.75 },
-          }}
+          style={{ flex: 1 }}
+          slotProps={{ htmlInput: { style: { fontSize: 13 } } }}
         />
         <Hb.Button.Icon
           size="small"

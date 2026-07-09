@@ -108,7 +108,9 @@ export const BoardSettingsSection = ({ projectId }: BoardSettingsSectionProps) =
             value={newBoardName}
             onChange={(e) => setNewBoardName(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
-            sx={{ flex: 1 }}
+            style={{
+              flex: 1
+            }}
           />
           <Hb.Button
             variant="primary"

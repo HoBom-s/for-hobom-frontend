@@ -108,11 +108,8 @@ const StoryPointsInput = ({
           setEditing(false);
         }
       }}
-      slotProps={{ htmlInput: { min: 0, step: 1 } }}
-      sx={{
-        width: 80,
-        "& .MuiInputBase-input": { fontSize: 13, py: 0.5 },
-      }}
+      slotProps={{ htmlInput: { min: 0, step: 1, style: { fontSize: 13 } } }}
+      style={{ width: 80 }}
     />
   );
 };

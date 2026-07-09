@@ -34,7 +34,9 @@ export const FutureMessageEditDialog = ({ message, open, onClose }: Props) => {
           size="small"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          sx={{ mb: 2 }}
+          style={{
+            marginBottom: 16
+          }}
         />
         <Hb.TextField
           fullWidth

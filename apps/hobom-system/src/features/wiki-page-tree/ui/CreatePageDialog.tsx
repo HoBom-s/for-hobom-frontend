@@ -51,7 +51,9 @@ export const CreatePageDialog = ({
             if (e.key === "Enter") handleSubmit();
           }}
           disabled={loading}
-          sx={{ mt: 1 }}
+          style={{
+            marginTop: 8
+          }}
         />
       </Hb.Dialog.Content>
       <Hb.Dialog.Actions>

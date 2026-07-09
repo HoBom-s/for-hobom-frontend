@@ -12,18 +12,19 @@ export const SpaceSelect = ({ selectedSpaceKey, onSelect }: SpaceSelectProps) =>
   const spaces = data.items.items;
 
   return (
-    <Hb.TextField
-      select
-      fullWidth
-      label="대상 스페이스"
-      value={selectedSpaceKey}
-      onChange={(e) => onSelect(e.target.value)}
-    >
-      {spaces.map((space) => (
-        <Hb.Form.Option key={space.key} value={space.key}>
-          {space.name}
-        </Hb.Form.Option>
-      ))}
-    </Hb.TextField>
+    <Hb.Form.Control fullWidth>
+      <Hb.Form.Label>대상 스페이스</Hb.Form.Label>
+      <Hb.Form.Select
+        label="대상 스페이스"
+        value={selectedSpaceKey}
+        onChange={(e) => onSelect(e.target.value)}
+      >
+        {spaces.map((space) => (
+          <Hb.Form.Option key={space.key} value={space.key}>
+            {space.name}
+          </Hb.Form.Option>
+        ))}
+      </Hb.Form.Select>
+    </Hb.Form.Control>
   );
 };

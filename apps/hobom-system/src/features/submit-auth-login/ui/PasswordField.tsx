@@ -14,23 +14,11 @@ export const PasswordField = () => {
       }}
       render={({ field, fieldState }) => (
         <Hb.TextField
-          sx={{
-            fontSize: 14,
-            "& input::placeholder": {
-              fontSize: 14,
-            },
-          }}
           label="비밀번호"
           placeholder="비밀번호를 입력해 주세요."
           size="small"
           type="password"
           fullWidth
-          slotProps={{
-            inputLabel: {
-              size: "small",
-              shrink: true,
-            },
-          }}
           error={Boolean(fieldState.error)}
           helperText={fieldState.error?.message}
           value={field.value}

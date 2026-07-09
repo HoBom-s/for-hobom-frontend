@@ -163,7 +163,8 @@ function SizeField({ label, value, onChange }: SizeFieldProps) {
         onChange={(event) =>
           onChange(event.target.value === "" ? undefined : Number(event.target.value))
         }
-        sx={{ ...inputSx, width: 72 }}
+        slotProps={inputSlotProps}
+        style={{ width: 72 }}
       />
     </Hb.Stack>
   );
@@ -177,7 +178,7 @@ interface PropFieldProps {
 }
 
 const labelStyle = { fontSize: 11, color: "var(--hb-color-text-secondary)" } as const;
-const inputSx = { "& .MuiInputBase-input": { fontSize: 12, py: 0.75 } } as const;
+const inputSlotProps = { htmlInput: { style: { fontSize: 12 } } } as const;
 
 const styles = stylex.create({
   segment: {
@@ -241,7 +242,7 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
           size="small"
           value={value === undefined ? "" : String(value)}
           onChange={(event) => onChange(name, event.target.value)}
-          sx={inputSx}
+          slotProps={inputSlotProps}
         />
       </Hb.Stack>
     );
@@ -263,7 +264,8 @@ function PropField({ name, spec, value, onChange }: PropFieldProps) {
           type="number"
           value={value === undefined ? "" : String(value)}
           onChange={(event) => onChange(name, Number(event.target.value))}
-          sx={{ ...inputSx, width: 72 }}
+          slotProps={inputSlotProps}
+          style={{ width: 72 }}
         />
       </Hb.Stack>
     );
