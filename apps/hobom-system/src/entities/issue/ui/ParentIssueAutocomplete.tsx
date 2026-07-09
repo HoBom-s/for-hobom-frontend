@@ -105,8 +105,5 @@ export const ParentIssueAutocomplete = ({
     }}
     renderInput={(params) => <Hb.TextField {...params} label={label} placeholder={placeholder} />}
     noOptionsText="선택 가능한 상위 이슈 없음"
-    slotProps={{
-      paper: { sx: { borderRadius: 2, boxShadow: 3 } },
-    }}
   />
 );

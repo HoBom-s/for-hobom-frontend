@@ -55,7 +55,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
           }}
         />
       )}
-      sx={{ width: 280 }}
+      style={{ width: 280 }}
     />
   );
 };
