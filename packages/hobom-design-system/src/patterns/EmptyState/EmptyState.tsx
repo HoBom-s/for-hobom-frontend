@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "../../components/Box/Box";
+import { Text } from "../../components/Text/Text";
 
 interface EmptyStateProps {
   icon?: ReactNode;
@@ -9,18 +10,19 @@ interface EmptyStateProps {
 /** 데이터가 없을 때 표시하는 빈 상태 컴포넌트. */
 export const EmptyState = ({ icon, message }: EmptyStateProps) => (
   <Box
-    sx={{
+    style={{
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      py: 6,
-      gap: 1,
+      paddingTop: 48,
+      paddingBottom: 48,
+      gap: 8,
     }}
   >
     {icon}
-    <Typography variant="body2" color="text.disabled" sx={{ fontSize: 13 }}>
+    <Text variant="body2" style={{ color: "var(--hb-color-text-disabled)", fontSize: 13 }}>
       {message}
-    </Typography>
+    </Text>
   </Box>
 );

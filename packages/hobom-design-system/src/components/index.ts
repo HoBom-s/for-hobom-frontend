@@ -27,6 +27,7 @@ import { Drawer } from "./Drawer";
 import { ToggleButton } from "./ToggleButton";
 // Batch 2 — compound
 import { Progress } from "./Progress";
+import { Skeleton } from "./Skeleton";
 import { Menu } from "./Menu";
 import { List } from "./List";
 import { Tabs } from "./Tabs";
@@ -67,6 +68,7 @@ export const Hb = {
   ToggleButton,
   // Batch 2 — compound
   Progress,
+  Skeleton,
   Menu,
   List,
   Tabs,

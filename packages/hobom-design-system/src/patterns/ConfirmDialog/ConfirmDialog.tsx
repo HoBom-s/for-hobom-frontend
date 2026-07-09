@@ -1,12 +1,7 @@
 import type { ReactNode } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Typography,
-} from "@mui/material";
+import { Button } from "../../components/Button/Button";
+import { Dialog } from "../../components/Dialog/Dialog";
+import { Text } from "../../components/Text/Text";
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -29,20 +24,24 @@ export const ConfirmDialog = ({
   onConfirm,
   isPending = false,
 }: ConfirmDialogProps) => (
-  <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-    <DialogTitle>{title}</DialogTitle>
-    <DialogContent>
-      <Typography variant="body2" color="text.secondary" component="div">
+  <Dialog.Root open={open} onClose={onClose} size="xs">
+    <Dialog.Title>{title}</Dialog.Title>
+    <Dialog.Content>
+      <Text variant="body2" style={{ color: "var(--hb-color-text-secondary)" }}>
         {description}
-      </Typography>
-    </DialogContent>
-    <DialogActions sx={{ px: 3, pb: 2 }}>
-      <Button variant="outlined" color="inherit" onClick={onClose}>
+      </Text>
+    </Dialog.Content>
+    <Dialog.Actions style={{ paddingInline: 24, paddingBottom: 16 }}>
+      <Button variant="secondary" onClick={onClose}>
         취소
       </Button>
-      <Button variant="contained" color={confirmColor} onClick={onConfirm} loading={isPending}>
+      <Button
+        variant={confirmColor === "error" ? "danger" : "primary"}
+        onClick={onConfirm}
+        loading={isPending}
+      >
         {confirmLabel}
       </Button>
-    </DialogActions>
-  </Dialog>
+    </Dialog.Actions>
+  </Dialog.Root>
 );
