@@ -92,7 +92,7 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
         <Hb.Box
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-end",
             gap: 12,
             marginBottom: 16,
           }}
