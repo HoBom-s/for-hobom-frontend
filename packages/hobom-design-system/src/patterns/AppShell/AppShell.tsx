@@ -10,7 +10,7 @@ import { Divider } from "../../components/Divider/Divider";
 import { List } from "../../components/List/List";
 import { Text } from "../../components/Text/Text";
 import { Tooltip } from "../../components/Tooltip/Tooltip";
-import { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "../../foundations/theme";
+import { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "../../foundations/layout";
 
 export interface AppShellNavItem {
   /** 네비게이션 아이템의 고유 식별자. 활성 상태 판별에 사용. */

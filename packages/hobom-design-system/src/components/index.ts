@@ -36,7 +36,8 @@ import { Table } from "./Table";
 import { Radio } from "./Radio";
 import { Accordion } from "./Accordion";
 // Batch 2 — infra
-import { CssBaseline, GlobalStyles, ThemeProvider } from "./Infra";
+import { CssBaseline, GlobalStyles } from "./Infra";
+import { ColorSchemeProvider } from "../foundations/color-scheme";
 
 export const Hb = {
   // Batch 1
@@ -79,5 +80,5 @@ export const Hb = {
   // Batch 2 — infra
   CssBaseline,
   GlobalStyles,
-  ThemeProvider,
+  ColorSchemeProvider,
 } as const;

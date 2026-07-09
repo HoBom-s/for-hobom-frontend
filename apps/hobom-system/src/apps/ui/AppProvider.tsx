@@ -2,7 +2,7 @@ import { Fragment, type ReactElement } from "react";
 import { Slide, ToastContainer } from "react-toastify";
 import { DataLot, DataLotProvider } from "hobom-data";
 import { BottomSheetCTAProvider } from "@/shared/model";
-import { theme, GLOBAL_STYLES } from "@/shared/config";
+import { GLOBAL_STYLES } from "@/shared/config";
 import { Hb, ErrorBoundary, OverlayProvider, ColorSchemeVars } from "@/shared/ui";
 import { reportError } from "@/shared/lib";
 import { ColorSchemeBridge } from "./ColorSchemeBridge";
@@ -43,7 +43,7 @@ export const AppProvider = ({ children }: Props) => {
         closeButton={false}
       />
       <DataLotProvider client={dataLot}>
-        <Hb.ThemeProvider theme={theme}>
+        <Hb.ColorSchemeProvider>
           <Hb.CssBaseline enableColorScheme />
           <Hb.GlobalStyles styles={GLOBAL_STYLES} />
           <ColorSchemeVars />
@@ -55,7 +55,7 @@ export const AppProvider = ({ children }: Props) => {
               <OverlayProvider>{children}</OverlayProvider>
             </BottomSheetCTAProvider>
           </ErrorBoundary>
-        </Hb.ThemeProvider>
+        </Hb.ColorSchemeProvider>
       </DataLotProvider>
     </Fragment>
   );
