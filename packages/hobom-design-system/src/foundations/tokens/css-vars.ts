@@ -67,8 +67,11 @@ function declarations(values: Record<Role, string>): string {
  * objects, so there is intentionally no exported token map).
  */
 export const colorSchemeCss =
-  `:root{${declarations(valuesFor(semantic.light))}}` +
-  `[${SCHEME_ATTR}="dark"]{${declarations(valuesFor(semantic.dark))}}` +
+  // `--hb-color-chrome` frames the app chrome (app bar + sidebar): the canvas
+  // tint in light mode, but the surface tone in dark (where the canvas is
+  // darker than the surface and would read as a mismatched strip).
+  `:root{${declarations(valuesFor(semantic.light))}--hb-color-chrome:${semantic.light.color.bg.canvas};}` +
+  `[${SCHEME_ATTR}="dark"]{${declarations(valuesFor(semantic.dark))}--hb-color-chrome:${semantic.dark.color.bg.surface};}` +
   // Tonal Chip hover: deepen the tint. The base tint is inline; only :hover
   // needs a rule (currentColor is the chip's tone).
   `[data-hb-chip-tonal]:hover{background-color:color-mix(in srgb,currentColor 22%,transparent)}`;
