@@ -92,13 +92,15 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
         <Hb.Box
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-end",
             gap: 12,
             marginBottom: 16,
           }}
         >
           {filters.epics.length > 0 && (
-            <Hb.Form.Control size="small" sx={{ minWidth: 200 }}>
+            <Hb.Form.Control size="small" style={{
+              minWidth: 200
+            }}>
               <Hb.Form.Label shrink>에픽 필터</Hb.Form.Label>
               <Hb.Form.Select
                 value={filters.epicFilter ?? ""}

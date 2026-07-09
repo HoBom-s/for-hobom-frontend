@@ -103,19 +103,19 @@ const FillBlankInput = ({
 
 const choiceBorderColor = (revealed: boolean, isAnswer: boolean, selected: boolean): string => {
   if (revealed) {
-    if (isAnswer) return "success.main";
-    if (selected) return "error.main";
+    if (isAnswer) return "var(--hb-color-success)";
+    if (selected) return "var(--hb-color-danger)";
 
-    return "divider";
+    return "var(--hb-color-border)";
   }
 
-  return selected ? "primary.main" : "divider";
+  return selected ? "var(--hb-color-accent)" : "var(--hb-color-border)";
 };
 
 const choiceBgColor = (revealed: boolean, isAnswer: boolean, selected: boolean): string => {
   if (!revealed) return "transparent";
-  if (isAnswer) return "success.50";
-  if (selected) return "error.50";
+  if (isAnswer) return "var(--hb-color-success-subtle)";
+  if (selected) return "color-mix(in srgb, var(--hb-color-danger) 12%, transparent)";
 
   return "transparent";
 };
@@ -176,15 +176,16 @@ const MultipleChoiceInput = ({
               )}
             </Hb.Stack>
           }
-          sx={{
-            mb: 0.5,
-            mx: 0,
-            px: 1.5,
-            py: 0.5,
-            borderRadius: 1,
-            border: 1,
+          style={{
+            marginBottom: 4,
+            marginInline: 0,
+            paddingInline: 12,
+            paddingBlock: 4,
+            borderRadius: 8,
+            borderWidth: 1,
+            borderStyle: "solid",
             borderColor: choiceBorderColor(revealed, isAnswer, selected),
-            bgcolor: choiceBgColor(revealed, isAnswer, selected),
+            backgroundColor: choiceBgColor(revealed, isAnswer, selected),
           }}
         />
       );
