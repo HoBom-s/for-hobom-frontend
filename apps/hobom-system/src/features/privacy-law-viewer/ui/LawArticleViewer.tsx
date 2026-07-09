@@ -91,14 +91,24 @@ export const LawArticleViewer = ({ versionId }: Props) => {
               marginTop: 4,
             }}
           >
-            <Hb.Chip label={`공포일 ${version.proclamationDate}`} size="small" variant="outlined" />
+            <Hb.Chip
+              label={`공포일 ${version.proclamationDate}`}
+              size="small"
+              variant="outlined"
+              color="primary"
+            />
             <Hb.Chip
               label={`시행일 ${version.enforcementDate}`}
               size="small"
               color="primary"
               variant="outlined"
             />
-            <Hb.Chip label={`${version.articles.length}개 조문`} size="small" variant="outlined" />
+            <Hb.Chip
+              label={`${version.articles.length}개 조문`}
+              size="small"
+              variant="outlined"
+              color="primary"
+            />
           </Hb.Stack>
         </Hb.Box>
       </Hb.Stack>
@@ -116,7 +126,7 @@ export const LawArticleViewer = ({ versionId }: Props) => {
         }}
         style={{
           marginBottom: 16,
-          width: 320
+          width: 320,
         }}
       />
       <Hb.Stack spacing={0.5}>
