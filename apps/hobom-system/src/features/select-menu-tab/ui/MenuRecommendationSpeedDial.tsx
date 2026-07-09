@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Add } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import {
@@ -39,7 +39,7 @@ export const MenuRecommendationSpeedDial = () => {
   const menuRecommendationHandler = useAddMenuRecommendation();
   const { onOpen, onClose } = useBottomSheetCTA();
   const { openWarnToast } = useToast();
-  const { register, getValues, reset } = useForm<AddMenuRecommendationInput>({
+  const { register, control, getValues, reset } = useForm<AddMenuRecommendationInput>({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -78,42 +78,60 @@ export const MenuRecommendationSpeedDial = () => {
             placeholder="예: 김치찌개"
             {...register("name")}
           />
-          <Hb.Form.Select
-            fullWidth
-            size="small"
-            defaultValue={MenuKindModel.KOREAN}
-            {...register("menuKind")}
-          >
-            {Bom.values(MenuKindModel).map((item) => (
-              <Hb.Form.Option key={item} value={item}>
-                {MENU_KIND_LABEL[item] ?? item}
-              </Hb.Form.Option>
-            ))}
-          </Hb.Form.Select>
-          <Hb.Form.Select
-            fullWidth
-            size="small"
-            defaultValue={TimeOfMealModel.LUNCH}
-            {...register("timeOfMeal")}
-          >
-            {Bom.values(TimeOfMealModel).map((item) => (
-              <Hb.Form.Option key={item} value={item}>
-                {TIME_LABEL[item] ?? item}
-              </Hb.Form.Option>
-            ))}
-          </Hb.Form.Select>
-          <Hb.Form.Select
-            fullWidth
-            size="small"
-            defaultValue={FoodTypeModel.MEAL}
-            {...register("foodType")}
-          >
-            {Bom.values(FoodTypeModel).map((item) => (
-              <Hb.Form.Option key={item} value={item}>
-                {FOOD_TYPE_LABEL[item] ?? item}
-              </Hb.Form.Option>
-            ))}
-          </Hb.Form.Select>
+          <Controller
+            name="menuKind"
+            control={control}
+            render={({ field }) => (
+              <Hb.Form.Select
+                fullWidth
+                size="small"
+                value={field.value}
+                onChange={(e) => field.onChange(e.target.value)}
+              >
+                {Bom.values(MenuKindModel).map((item) => (
+                  <Hb.Form.Option key={item} value={item}>
+                    {MENU_KIND_LABEL[item] ?? item}
+                  </Hb.Form.Option>
+                ))}
+              </Hb.Form.Select>
+            )}
+          />
+          <Controller
+            name="timeOfMeal"
+            control={control}
+            render={({ field }) => (
+              <Hb.Form.Select
+                fullWidth
+                size="small"
+                value={field.value}
+                onChange={(e) => field.onChange(e.target.value)}
+              >
+                {Bom.values(TimeOfMealModel).map((item) => (
+                  <Hb.Form.Option key={item} value={item}>
+                    {TIME_LABEL[item] ?? item}
+                  </Hb.Form.Option>
+                ))}
+              </Hb.Form.Select>
+            )}
+          />
+          <Controller
+            name="foodType"
+            control={control}
+            render={({ field }) => (
+              <Hb.Form.Select
+                fullWidth
+                size="small"
+                value={field.value}
+                onChange={(e) => field.onChange(e.target.value)}
+              >
+                {Bom.values(FoodTypeModel).map((item) => (
+                  <Hb.Form.Option key={item} value={item}>
+                    {FOOD_TYPE_LABEL[item] ?? item}
+                  </Hb.Form.Option>
+                ))}
+              </Hb.Form.Select>
+            )}
+          />
         </Hb.Box>
       ),
       footer: (
