@@ -1,7 +1,10 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
-import { ReportProblemOutlined, RefreshOutlined } from "@mui/icons-material";
 import { useDataLot, type DataLot } from "hobom-data";
+import { ReportProblemOutlined, RefreshOutlined } from "../../icons";
+import { Box } from "../../components/Box/Box";
+import { Button } from "../../components/Button/Button";
+import { Paper } from "../../components/Paper/Paper";
+import { Text } from "../../components/Text/Text";
 
 interface Props {
   children: ReactNode;
@@ -56,9 +59,9 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
 
       return (
         <Box
-          sx={{
+          style={{
             width: "100%",
-            ...(inline ? { flex: 1, minHeight: 120, py: 4 } : { height: "100vh" }),
+            ...(inline ? { flex: 1, minHeight: 120, paddingBlock: 32 } : { height: "100vh" }),
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -66,82 +69,74 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
         >
           <Paper
             variant="outlined"
-            sx={{
+            style={{
               textAlign: "center",
-              px: 5,
-              py: 4,
-              borderRadius: 2,
+              paddingInline: 40,
+              paddingBlock: 32,
+              borderRadius: 16,
               maxWidth: 420,
               width: "100%",
             }}
           >
             <Box
-              sx={{
+              style={{
                 width: 48,
                 height: 48,
                 borderRadius: "50%",
-                bgcolor: "error.main",
+                backgroundColor: "var(--hb-color-danger)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                mx: "auto",
-                mb: 2,
+                margin: "0 auto 16px",
               }}
             >
               <ReportProblemOutlined sx={{ color: "#fff", fontSize: 24 }} />
             </Box>
-            <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 0.5 }}>
+            <Text variant="subtitle1" fontWeight={700} style={{ marginBottom: 4 }}>
               문제가 발생했어요
-            </Typography>
-            <Typography
+            </Text>
+            <Text
               variant="body2"
-              color="text.secondary"
-              sx={{ fontSize: 13, lineHeight: 1.6 }}
+              style={{ color: "var(--hb-color-text-secondary)", fontSize: 13, lineHeight: 1.6 }}
             >
               요청을 처리하는 중 오류가 발생했어요.
               <br />
               잠시 후 다시 시도해 주세요.
-            </Typography>
+            </Text>
             {error?.message ? (
               <Box
-                sx={{
-                  mt: 2,
-                  p: 1.5,
-                  bgcolor: "grey.50",
-                  borderRadius: 1,
-                  border: "1px solid",
-                  borderColor: "divider",
+                style={{
+                  marginTop: 16,
+                  padding: 12,
+                  backgroundColor: "var(--hb-color-canvas)",
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                  borderColor: "var(--hb-color-border)",
                 }}
               >
-                <Typography
+                <Text
                   variant="caption"
-                  color="error"
-                  sx={{
+                  style={{
                     display: "block",
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-all",
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 11,
                     textAlign: "left",
+                    color: "var(--hb-color-danger)",
                   }}
                 >
                   {error.message}
-                </Typography>
+                </Text>
               </Box>
             ) : null}
             <Button
-              variant="contained"
+              variant="primary"
               size="small"
               startIcon={<RefreshOutlined />}
               onClick={this.handleReset}
-              sx={{
-                mt: 2.5,
-                textTransform: "none",
-                fontWeight: 600,
-                borderRadius: 1.5,
-                boxShadow: "none",
-                "&:hover": { boxShadow: "none" },
-              }}
+              style={{ marginTop: 20, fontWeight: 600, borderRadius: 12 }}
             >
               다시 시도
             </Button>

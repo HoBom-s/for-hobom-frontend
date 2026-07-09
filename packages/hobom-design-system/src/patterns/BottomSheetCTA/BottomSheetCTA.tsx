@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Box } from "../../components/Box/Box";
+import { Dialog } from "../../components/Dialog/Dialog";
 
 interface Props {
   children: ReactNode;
@@ -8,28 +9,26 @@ interface Props {
   onClose: () => void;
 }
 
-export const BottomSheetCTA = ({ children, open, height, onClose }: Props) => {
-  return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth disableEscapeKeyDown={false}>
-      <Box display="flex" flexDirection="column" height={height ?? "auto"}>
-        {children}
-      </Box>
-    </Dialog>
-  );
-};
-
-BottomSheetCTA.Title = ({ children }: Pick<Props, "children">) => {
-  return (
-    <DialogTitle sx={{ display: "flex", width: "100%", justifyContent: "center", pb: 1 }}>
+export const BottomSheetCTA = ({ children, open, height, onClose }: Props) => (
+  <Dialog.Root open={open} onClose={onClose} size="sm">
+    <Box style={{ display: "flex", flexDirection: "column", height: height ?? "auto" }}>
       {children}
-    </DialogTitle>
-  );
-};
+    </Box>
+  </Dialog.Root>
+);
 
-BottomSheetCTA.Body = ({ children }: Pick<Props, "children">) => {
-  return <DialogContent sx={{ flex: 1, overflowY: "auto" }}>{children}</DialogContent>;
-};
+BottomSheetCTA.Title = ({ children }: Pick<Props, "children">) => (
+  <Dialog.Title
+    style={{ display: "flex", width: "100%", justifyContent: "center", paddingBottom: 8 }}
+  >
+    {children}
+  </Dialog.Title>
+);
 
-BottomSheetCTA.Footer = ({ children }: Pick<Props, "children">) => {
-  return <DialogActions sx={{ px: 3, py: 2 }}>{children}</DialogActions>;
-};
+BottomSheetCTA.Body = ({ children }: Pick<Props, "children">) => (
+  <Dialog.Content style={{ flex: 1, overflowY: "auto" }}>{children}</Dialog.Content>
+);
+
+BottomSheetCTA.Footer = ({ children }: Pick<Props, "children">) => (
+  <Dialog.Actions style={{ paddingInline: 24, paddingBlock: 16 }}>{children}</Dialog.Actions>
+);
