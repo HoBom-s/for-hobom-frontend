@@ -36,7 +36,8 @@ vi.mock("@/shared/config", async (importOriginal) => {
   };
 });
 
-vi.mock("@/shared/model", () => ({
+vi.mock("@/entities/project", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/entities/project")>()),
   useProjectContext: () => ({
     doneStatusIds: new Set(["status-done"]),
   }),

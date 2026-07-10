@@ -3,7 +3,6 @@ export { BottomSheetCTAProvider } from "./BottomSheetCTAProvider";
 export { useFunnel } from "./useFunnel";
 export { useInfiniteScroll } from "./useInfiniteScroll";
 export { useOverlay } from "./useOverlay";
-export { ProjectContext, useProjectContext } from "./useProjectContext";
 export { useContainerWidth } from "./useContainerWidth";
 export { useRouterQuery } from "./useRouterQuery";
 export { useToast } from "./useToast";

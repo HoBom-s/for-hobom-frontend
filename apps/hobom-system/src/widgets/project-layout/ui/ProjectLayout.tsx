@@ -9,7 +9,7 @@ import {
 } from "hobom-design-system/icons";
 import { Outlet } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
-import { ProjectContext } from "@/shared/model";
+import { ProjectContext } from "@/entities/project";
 import { CreateIssueDialog } from "@/features/create-issue";
 import { CreateSprintDialog } from "@/features/backlog-board";
 import { IssueDetailDialog } from "@/features/issue-detail";

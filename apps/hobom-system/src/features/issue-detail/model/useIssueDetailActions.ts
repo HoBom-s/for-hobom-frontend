@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { useProjectContext } from "@/shared/model";
 import {
   useTransitionIssue,
   useUpdateIssue,
@@ -7,7 +6,11 @@ import {
   type IssueType,
   type IssuePriority,
 } from "@/entities/issue";
-import { getAvailableTransitions, type WorkflowTransition } from "@/entities/project";
+import {
+  getAvailableTransitions,
+  useProjectContext,
+  type WorkflowTransition,
+} from "@/entities/project";
 
 interface StatusMenuState {
   el: HTMLElement;

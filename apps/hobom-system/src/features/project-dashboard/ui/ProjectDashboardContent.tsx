@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSuspenseQuery } from "hobom-data";
 import { dashboardQueries } from "@/entities/dashboard";
 import { sprintQueries } from "@/entities/sprint";
-import { useProjectContext } from "@/shared/model";
+import { useProjectContext } from "@/entities/project";
 import { Hb } from "@/shared/ui";
 import { IssueDashboardSection } from "./IssueDashboardSection";
 import { SprintDashboardSection } from "./SprintDashboardSection";

@@ -1,4 +1,5 @@
 export { projectQueries } from "./api/project.queries";
+export { ProjectContext, useProjectContext } from "./model/useProjectContext";
 export { useCreateProject } from "./model/useCreateProject";
 export { useUpdateProject } from "./model/useUpdateProject";
 export { useDeleteProject } from "./model/useDeleteProject";

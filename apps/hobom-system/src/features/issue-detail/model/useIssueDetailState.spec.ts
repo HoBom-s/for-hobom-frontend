@@ -10,10 +10,6 @@ vi.mock("hobom-data", () => ({
   useQuery: (opts: Record<string, unknown>) => useQueryMock(opts),
 }));
 
-vi.mock("@/shared/model", () => ({
-  useProjectContext: () => useProjectContextMock(),
-}));
-
 vi.mock("@/entities/issue", async () => {
   const { buildIssueTree, getDescendantProgress, isDescendantOf } =
     await import("../../../entities/issue/lib/issue-tree.lib");
@@ -43,6 +39,7 @@ vi.mock("@/entities/project", () => ({
   projectQueries: {
     detail: (id: string) => ({ queryKey: ["projects", "detail", id] }),
   },
+  useProjectContext: () => useProjectContextMock(),
 }));
 
 vi.mock("@/entities/user", () => ({

@@ -2,8 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { SubdirectoryArrowRightOutlined } from "hobom-design-system/icons";
 import { ISSUE_KIND_LABEL } from "@/entities/issue";
 import { ISSUE_KIND_REGISTRY } from "@/entities/issue/ui";
-import { getStatusName, getStatusColor } from "@/entities/project";
-import { useProjectContext } from "@/shared/model";
+import { getStatusName, getStatusColor, useProjectContext } from "@/entities/project";
 import { Hb } from "@/shared/ui";
 import { useIssueDetailContext } from "../model/useIssueDetailContext";
 
