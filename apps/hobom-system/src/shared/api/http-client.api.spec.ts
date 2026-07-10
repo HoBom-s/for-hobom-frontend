@@ -32,7 +32,7 @@ describe("createHttpClient", () => {
 
     expect(result).toEqual({ ok: true });
     expect(mockFetch).toHaveBeenCalledOnce();
-    const [url, init] = mockFetch.mock.calls[0];
+    const [url, init] = mockFetch.mock.calls[0] ?? [];
 
     expect(url).toBe("https://api.test/users");
     expect(init.method).toBe("GET");
@@ -44,7 +44,7 @@ describe("createHttpClient", () => {
 
     await client.post("/users", { name: "test" });
 
-    const [, init] = mockFetch.mock.calls[0];
+    const [, init] = mockFetch.mock.calls[0] ?? [];
 
     expect(init.method).toBe("POST");
     expect(init.body).toBe(JSON.stringify({ name: "test" }));
@@ -154,8 +154,8 @@ describe("createHttpClient", () => {
     await client.get("/test");
 
     expect(onRequest).toHaveBeenCalledOnce();
-    expect(onRequest.mock.calls[0][0]).toHaveProperty("input");
-    expect(onRequest.mock.calls[0][0]).toHaveProperty("init");
+    expect(onRequest.mock.calls[0]?.[0]).toHaveProperty("input");
+    expect(onRequest.mock.calls[0]?.[0]).toHaveProperty("init");
   });
 
   it("미들웨어 onResponse가 응답 후에 호출된다", async () => {
@@ -168,6 +168,6 @@ describe("createHttpClient", () => {
     await client.get("/test");
 
     expect(onResponse).toHaveBeenCalledOnce();
-    expect(onResponse.mock.calls[0][0]).toHaveProperty("response");
+    expect(onResponse.mock.calls[0]?.[0]).toHaveProperty("response");
   });
 });

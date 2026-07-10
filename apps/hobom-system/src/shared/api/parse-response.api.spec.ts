@@ -32,7 +32,7 @@ describe("parseResponse", () => {
     expect(parseResponse(itemSchema, "GET /items")(wrong)).toBe(wrong);
 
     expect(reportError).toHaveBeenCalledOnce();
-    expect(reportError.mock.calls[0][0].message).toMatch(
+    expect(reportError.mock.calls[0]?.[0].message).toMatch(
       /Response validation mismatch \(GET \/items\)/,
     );
   });

@@ -34,9 +34,9 @@ describe("getStatusConfig", () => {
 describe("DEFAULT_BOARD_COLUMNS", () => {
   it("3개의 기본 컬럼이 올바른 순서로 존재한다", () => {
     expect(DEFAULT_BOARD_COLUMNS).toHaveLength(3);
-    expect(DEFAULT_BOARD_COLUMNS[0].statusId).toBe("todo");
-    expect(DEFAULT_BOARD_COLUMNS[1].statusId).toBe("in-progress");
-    expect(DEFAULT_BOARD_COLUMNS[2].statusId).toBe("done");
+    expect(DEFAULT_BOARD_COLUMNS[0]?.statusId).toBe("todo");
+    expect(DEFAULT_BOARD_COLUMNS[1]?.statusId).toBe("in-progress");
+    expect(DEFAULT_BOARD_COLUMNS[2]?.statusId).toBe("done");
   });
 
   it("order 값이 0, 1, 2 순서이다", () => {

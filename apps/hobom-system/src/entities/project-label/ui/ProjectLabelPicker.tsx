@@ -39,7 +39,7 @@ export const ProjectLabelPicker = ({
 
   const [creating, setCreating] = useState(false);
   const [newName, setNewName] = useState("");
-  const [newColor, setNewColor] = useState(LABEL_COLORS[5]);
+  const [newColor, setNewColor] = useState(LABEL_COLORS[5] ?? "#3b82f6");
 
   const handleCreate = () => {
     const trimmed = newName.trim();

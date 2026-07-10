@@ -30,7 +30,7 @@ describe("string", () => {
     expect(result.success).toBe(false);
 
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe("required");
+      expect(result.error.issues[0]?.message).toBe("required");
     }
   });
 
@@ -48,7 +48,7 @@ describe("string", () => {
     expect(result.success).toBe(false);
 
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe("too long");
+      expect(result.error.issues[0]?.message).toBe("too long");
     }
   });
 
@@ -263,7 +263,7 @@ describe("array", () => {
     expect(result.success).toBe(false);
 
     if (!result.success) {
-      expect(result.error.issues[0].message).toContain("[0]");
+      expect(result.error.issues[0]?.message).toContain("[0]");
     }
   });
 });
@@ -353,7 +353,7 @@ describe("parse (throwing)", () => {
       const err = e as InstanceType<typeof SchemaError>;
 
       expect(err.issues.length).toBeGreaterThanOrEqual(2);
-      expect(err.issues[0].message).toContain("name");
+      expect(err.issues[0]?.message).toContain("name");
     }
   });
 });

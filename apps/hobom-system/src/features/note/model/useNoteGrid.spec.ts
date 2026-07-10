@@ -8,7 +8,7 @@ vi.mock("@/shared/ui", () => ({
     const next = arr.slice();
     const [item] = next.splice(from, 1);
 
-    next.splice(to, 0, item);
+    if (item !== undefined) next.splice(to, 0, item);
 
     return next;
   },

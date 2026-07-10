@@ -105,7 +105,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
       getQueryDataMock.mockReturnValue(previous);
       cancelQueriesMock.mockResolvedValue(undefined);
 
-      const ctx = await opts.onMutate({ status: "DONE" });
+      const ctx = await opts.onMutate?.({ status: "DONE" });
 
       expect(cancelQueriesMock).toHaveBeenCalled();
       expect(ctx).toEqual({ previousData: previous });
@@ -121,9 +121,9 @@ describe("useChangeDailyTodoCompleteStatus", () => {
         items: [makeTodo({ id: "todo-1", progress: "PROGRESS" })],
       });
 
-      await opts.onMutate({ status: "DONE" });
+      await opts.onMutate?.({ status: "DONE" });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
       const updated = updater({
         items: [makeTodo({ id: "todo-1", progress: "PROGRESS" })],
       });
@@ -139,9 +139,9 @@ describe("useChangeDailyTodoCompleteStatus", () => {
       cancelQueriesMock.mockResolvedValue(undefined);
       getQueryDataMock.mockReturnValue(null);
 
-      await opts.onMutate({ status: "DONE" });
+      await opts.onMutate?.({ status: "DONE" });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
 
       expect(updater(null)).toBeUndefined();
     });
@@ -154,7 +154,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
       const opts = optsOf(result.current);
       const previousData = { items: [makeTodo()] };
 
-      opts.onError(new Error("fail"), {}, { previousData });
+      opts.onError?.(new Error("fail"), {}, { previousData });
 
       expect(setQueryDataMock).toHaveBeenCalled();
       expect(openErrorToastMock).toHaveBeenCalledWith({
@@ -169,7 +169,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
       const opts = optsOf(result.current);
 
-      opts.onSuccess();
+      opts.onSuccess?.();
 
       expect(openSuccessToastMock).toHaveBeenCalledWith({
         message: "상태를 변경했어요.",
@@ -183,7 +183,7 @@ describe("useChangeDailyTodoCompleteStatus", () => {
       const { result } = renderHook(() => useChangeDailyTodoCompleteStatus(todo));
       const opts = optsOf(result.current);
 
-      await opts.onSettled();
+      await opts.onSettled?.();
 
       expect(invalidateQueriesMock).toHaveBeenCalled();
     });

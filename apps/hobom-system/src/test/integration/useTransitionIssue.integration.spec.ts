@@ -135,7 +135,7 @@ describe("useTransitionIssue (integration)", () => {
       PROJECT_ID,
     ]);
 
-    expect(cached?.items[0].status).toBe("todo");
+    expect(cached?.items[0]?.status).toBe("todo");
   });
 
   it("네트워크 에러 시 캐시를 롤백하고 에러 토스트를 표시한다", async () => {
@@ -170,6 +170,6 @@ describe("useTransitionIssue (integration)", () => {
       PROJECT_ID,
     ]);
 
-    expect(cached?.items[0].status).toBe("todo");
+    expect(cached?.items[0]?.status).toBe("todo");
   });
 });

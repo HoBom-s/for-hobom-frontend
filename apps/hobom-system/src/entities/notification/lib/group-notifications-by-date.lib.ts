@@ -41,6 +41,6 @@ export const groupNotificationsByDate = (
   return Bom.pipe(
     [...DATE_LABELS],
     Bom.filter((label) => (grouped[label]?.length ?? 0) > 0),
-    Bom.map((label) => ({ label, items: grouped[label] })),
+    Bom.map((label) => ({ label, items: grouped[label] ?? [] })),
   );
 };

@@ -74,7 +74,7 @@ export const NotificationCenter = () => {
               fontSize: "0.875rem",
             }}
           >
-            {EMPTY_MESSAGES[filter]}
+            {filter ? EMPTY_MESSAGES[filter] : null}
           </Hb.Text>
         </Hb.Box>
       );

@@ -51,11 +51,11 @@ describe("workspace-ops", () => {
   });
 
   it("renameFolder는 폴더 이름을 바꾼다", () => {
-    expect(renameFolder(doc(), "f1", "기획").folders[0].name).toBe("기획");
+    expect(renameFolder(doc(), "f1", "기획").folders[0]?.name).toBe("기획");
   });
 
   it("renameItem은 아이템 이름을 바꾼다", () => {
-    expect(renameItem(doc(), "i1", "메인 폼").items[0].name).toBe("메인 폼");
+    expect(renameItem(doc(), "i1", "메인 폼").items[0]?.name).toBe("메인 폼");
   });
 
   it("removeDesign은 아이템과 문서를 제거한다", () => {
@@ -83,7 +83,7 @@ describe("workspace-ops", () => {
   it("renameFavorite은 라벨을 바꾼다", () => {
     const withFav = addFavorite(doc(), { id: "fav1", designId: "i1", label: "샘플" });
 
-    expect(renameFavorite(withFav, "fav1", "즐겨").favorites[0].label).toBe("즐겨");
+    expect(renameFavorite(withFav, "fav1", "즐겨").favorites[0]?.label).toBe("즐겨");
   });
 
   it("디자인 삭제 시 그 즐겨찾기도 제거된다", () => {

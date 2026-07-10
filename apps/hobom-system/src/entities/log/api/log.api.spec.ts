@@ -28,7 +28,7 @@ describe("fetchLogSearch", () => {
 
     fetchLogSearch(params);
 
-    const url = mockGet.mock.calls[0][0] as string;
+    const url = mockGet.mock.calls[0]?.[0] as string;
 
     expect(url).toContain("serviceType=HOBOM_BACKEND");
     expect(url).toContain("httpMethod=GET");
@@ -44,7 +44,7 @@ describe("fetchLogSearch", () => {
 
     fetchLogSearch(params);
 
-    const url = mockGet.mock.calls[0][0] as string;
+    const url = mockGet.mock.calls[0]?.[0] as string;
 
     expect(url).not.toContain("serviceType");
     expect(url).not.toContain("httpMethod");
@@ -63,7 +63,7 @@ describe("fetchLogSearch", () => {
 
     fetchLogSearch(params);
 
-    const url = mockGet.mock.calls[0][0] as string;
+    const url = mockGet.mock.calls[0]?.[0] as string;
 
     expect(url).not.toContain("serviceType");
     expect(url).not.toContain("httpMethod");
@@ -72,7 +72,7 @@ describe("fetchLogSearch", () => {
   it("uses /logs base path", () => {
     fetchLogSearch({ page: 0, size: 10 });
 
-    const url = mockGet.mock.calls[0][0] as string;
+    const url = mockGet.mock.calls[0]?.[0] as string;
 
     expect(url).toMatch(/^\/logs\?/);
   });

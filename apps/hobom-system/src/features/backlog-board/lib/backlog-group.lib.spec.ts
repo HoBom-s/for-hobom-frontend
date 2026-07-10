@@ -22,8 +22,8 @@ describe("groupIssuesBySprint", () => {
 
     const result = groupIssuesBySprint(issues, sprints);
 
-    expect(result.sprintGroups[0].issues).toHaveLength(2);
-    expect(result.sprintGroups[1].issues).toHaveLength(1);
+    expect(result.sprintGroups[0]?.issues).toHaveLength(2);
+    expect(result.sprintGroups[1]?.issues).toHaveLength(1);
     expect(result.backlogIssues).toHaveLength(0);
   });
 
@@ -34,7 +34,7 @@ describe("groupIssuesBySprint", () => {
     const result = groupIssuesBySprint(issues, sprints);
 
     expect(result.backlogIssues).toHaveLength(1);
-    expect(result.backlogIssues[0].id).toBe("i1");
+    expect(result.backlogIssues[0]?.id).toBe("i1");
   });
 
   it("존재하지 않는 스프린트를 참조하는 이슈는 백로그로 분류한다", () => {
@@ -44,7 +44,7 @@ describe("groupIssuesBySprint", () => {
     const result = groupIssuesBySprint(issues, sprints);
 
     expect(result.backlogIssues).toHaveLength(1);
-    expect(result.sprintGroups[0].issues).toHaveLength(0);
+    expect(result.sprintGroups[0]?.issues).toHaveLength(0);
   });
 
   it("이슈와 스프린트가 모두 비어있으면 빈 결과를 반환한다", () => {
@@ -60,8 +60,8 @@ describe("groupIssuesBySprint", () => {
 
     const result = groupIssuesBySprint(issues, sprints);
 
-    expect(result.sprintGroups[0].sprint.id).toBe("s2");
-    expect(result.sprintGroups[1].sprint.id).toBe("s1");
-    expect(result.sprintGroups[1].issues).toHaveLength(1);
+    expect(result.sprintGroups[0]?.sprint.id).toBe("s2");
+    expect(result.sprintGroups[1]?.sprint.id).toBe("s1");
+    expect(result.sprintGroups[1]?.issues).toHaveLength(1);
   });
 });

@@ -25,9 +25,9 @@ describe("buildCommentTree", () => {
     const tree = buildCommentTree(comments);
 
     expect(tree).toHaveLength(2);
-    expect(tree[0].id).toBe("1");
-    expect(tree[1].id).toBe("2");
-    expect(tree[0].children).toEqual([]);
+    expect(tree[0]?.id).toBe("1");
+    expect(tree[1]?.id).toBe("2");
+    expect(tree[0]?.children).toEqual([]);
   });
 
   it("nests child comments under parent", () => {
@@ -40,9 +40,9 @@ describe("buildCommentTree", () => {
     const tree = buildCommentTree(comments);
 
     expect(tree).toHaveLength(1);
-    expect(tree[0].children).toHaveLength(2);
-    expect(tree[0].children[0].id).toBe("2");
-    expect(tree[0].children[1].id).toBe("3");
+    expect(tree[0]?.children).toHaveLength(2);
+    expect(tree[0]?.children[0]?.id).toBe("2");
+    expect(tree[0]?.children[1]?.id).toBe("3");
   });
 
   it("supports multi-level nesting", () => {
@@ -55,7 +55,7 @@ describe("buildCommentTree", () => {
     const tree = buildCommentTree(comments);
 
     expect(tree).toHaveLength(1);
-    expect(tree[0].children[0].children[0].id).toBe("3");
+    expect(tree[0]?.children[0]?.children[0]?.id).toBe("3");
   });
 
   it("treats orphan comments (missing parent) as roots", () => {
@@ -67,8 +67,8 @@ describe("buildCommentTree", () => {
     const tree = buildCommentTree(comments);
 
     expect(tree).toHaveLength(2);
-    expect(tree[0].id).toBe("1");
-    expect(tree[1].id).toBe("2");
+    expect(tree[0]?.id).toBe("1");
+    expect(tree[1]?.id).toBe("2");
   });
 
   it("preserves comment data in tree nodes", () => {
@@ -76,8 +76,8 @@ describe("buildCommentTree", () => {
 
     const tree = buildCommentTree(comments);
 
-    expect(tree[0].content).toBe("hello");
-    expect(tree[0].author).toBe("Alice");
-    expect(tree[0].children).toEqual([]);
+    expect(tree[0]?.content).toBe("hello");
+    expect(tree[0]?.author).toBe("Alice");
+    expect(tree[0]?.children).toEqual([]);
   });
 });

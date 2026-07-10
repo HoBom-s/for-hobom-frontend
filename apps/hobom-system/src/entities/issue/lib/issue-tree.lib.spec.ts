@@ -40,7 +40,7 @@ describe("buildIssueTree", () => {
     const { roots, childrenMap, parentMap } = buildIssueTree(issues);
 
     expect(roots).toHaveLength(1);
-    expect(roots[0].id).toBe("epic-1");
+    expect(roots[0]?.id).toBe("epic-1");
     expect(childrenMap.get("epic-1")).toHaveLength(2);
     expect(parentMap.get("task-1")?.id).toBe("epic-1");
     expect(parentMap.get("task-2")?.id).toBe("epic-1");
@@ -51,7 +51,7 @@ describe("buildIssueTree", () => {
     const { roots } = buildIssueTree(issues);
 
     expect(roots).toHaveLength(1);
-    expect(roots[0].id).toBe("1");
+    expect(roots[0]?.id).toBe("1");
   });
 
   it("빈 배열이면 빈 트리를 반환한다", () => {
@@ -101,8 +101,8 @@ describe("flattenIssueTree", () => {
     const flat = flattenIssueTree(issues, new Set(["epic"]));
 
     expect(flat).toHaveLength(1);
-    expect(flat[0].issue.id).toBe("epic");
-    expect(flat[0].childCount).toBe(2);
+    expect(flat[0]?.issue.id).toBe("epic");
+    expect(flat[0]?.childCount).toBe(2);
   });
 
   it("빈 배열이면 빈 배열을 반환한다", () => {

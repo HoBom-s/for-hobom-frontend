@@ -45,7 +45,7 @@ export const CreateLabelDialog = ({
   onSubmit,
   loading = false,
   initialName = "",
-  initialColor = LABEL_COLORS[0].hex,
+  initialColor = LABEL_COLORS[0]?.hex ?? "#4680ff",
   title = "라벨 생성",
 }: CreateLabelDialogProps) => {
   const [name, setName] = useState(initialName);

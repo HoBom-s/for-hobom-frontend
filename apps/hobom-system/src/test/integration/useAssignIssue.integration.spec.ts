@@ -101,7 +101,7 @@ describe("useAssignIssue (integration)", () => {
         PROJECT_ID,
       ]);
 
-      expect(cached?.items[0].assignee).toBeUndefined();
+      expect(cached?.items[0]?.assignee).toBeUndefined();
     });
   });
 
@@ -137,7 +137,7 @@ describe("useAssignIssue (integration)", () => {
       PROJECT_ID,
     ]);
 
-    expect(cached?.items[0].assignee).toBe("user-1");
+    expect(cached?.items[0]?.assignee).toBe("user-1");
   });
 
   it("네트워크 에러 시 캐시를 롤백하고 에러 토스트를 표시한다", async () => {
@@ -172,6 +172,6 @@ describe("useAssignIssue (integration)", () => {
       PROJECT_ID,
     ]);
 
-    expect(cached?.items[0].assignee).toBe("user-1");
+    expect(cached?.items[0]?.assignee).toBe("user-1");
   });
 });

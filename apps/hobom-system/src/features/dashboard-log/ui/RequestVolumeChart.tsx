@@ -18,7 +18,7 @@ interface ChartTooltipProps {
 
 const CustomTooltip = ({ active, payload, label }: ChartTooltipProps) => {
   if (!active || !payload?.length) return null;
-  const value = payload[0].value ?? 0;
+  const value = payload[0]?.value ?? 0;
 
   return (
     <div

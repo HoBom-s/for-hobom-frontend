@@ -97,6 +97,9 @@ export class InfiniteQueryObserver<TData = unknown, TPageParam = unknown> extend
     if (!currentData) return;
 
     const lastPage = currentData.pages[currentData.pages.length - 1];
+
+    if (lastPage === undefined) return;
+
     const nextPageParam = this.options.getNextPageParam(lastPage, currentData.pages);
 
     if (nextPageParam === undefined) return;

@@ -67,9 +67,9 @@ describe("authMiddleware.onResponse", () => {
 
     expect(mockFetch).toHaveBeenCalledTimes(2);
     // 첫 번째 호출: refresh
-    expect(mockFetch.mock.calls[0][0]).toContain("/auth/refresh");
+    expect(mockFetch.mock.calls[0]?.[0]).toContain("/auth/refresh");
     // 두 번째 호출: 원래 요청 retry
-    expect(mockFetch.mock.calls[1][0]).toBe("https://api.test/some-path");
+    expect(mockFetch.mock.calls[1]?.[0]).toBe("https://api.test/some-path");
     expect(ctx.response?.status).toBe(200);
   });
 
@@ -132,7 +132,7 @@ describe("authMiddleware.onResponse", () => {
 
     // refresh 1번 + retry 2번 = 3번
     expect(mockFetch).toHaveBeenCalledTimes(3);
-    expect(mockFetch.mock.calls[0][0]).toContain("/auth/refresh");
+    expect(mockFetch.mock.calls[0]?.[0]).toContain("/auth/refresh");
   });
 
   it("retry 요청에 CSRF 헤더를 재적용한다", async () => {
@@ -144,7 +144,7 @@ describe("authMiddleware.onResponse", () => {
 
     await onResponse(ctx);
 
-    const retryInit = mockFetch.mock.calls[1][1] as RequestInit;
+    const retryInit = mockFetch.mock.calls[1]?.[1] as RequestInit;
     const headers = retryInit.headers as Record<string, string>;
 
     expect(headers["X-XSRF-TOKEN"]).toBe("mock-csrf");

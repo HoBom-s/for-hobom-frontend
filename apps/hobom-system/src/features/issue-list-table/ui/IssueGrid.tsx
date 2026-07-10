@@ -53,7 +53,10 @@ export const IssueGrid = ({
 
     if (!el) return;
     const observer = new ResizeObserver((entries) => {
-      setContainerWidth(entries[0].contentRect.width);
+      const entry = entries[0];
+
+      if (!entry) return;
+      setContainerWidth(entry.contentRect.width);
     });
 
     observer.observe(el);
@@ -74,7 +77,7 @@ export const IssueGrid = ({
     const widths: Record<number, number> = {};
 
     COLUMNS.forEach((_, i) => {
-      widths[i] = Math.floor(containerWidth * COL_WIDTH_RATIOS[i]);
+      widths[i] = Math.floor(containerWidth * (COL_WIDTH_RATIOS[i] ?? 0));
     });
 
     return widths;
@@ -104,7 +107,11 @@ export const IssueGrid = ({
 
       if (!row) return null;
 
-      const colKey = COLUMNS[cell.colIndex].key;
+      const col = COLUMNS[cell.colIndex];
+
+      if (!col) return null;
+
+      const colKey = col.key;
       const bg = bodyIndex % 2 === 0 ? ROW_EVEN : ROW_ODD;
 
       return (

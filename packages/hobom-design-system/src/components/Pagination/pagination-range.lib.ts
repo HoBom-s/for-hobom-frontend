@@ -43,9 +43,10 @@ export const paginationRange = ({
     Math.min(page - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
     boundaryCount + 2,
   );
+  const firstEndPage = endPages[0];
   const siblingsEnd = Math.min(
     Math.max(page + siblingCount, boundaryCount + siblingCount * 2 + 2),
-    endPages.length > 0 ? endPages[0] - 2 : count - 1,
+    firstEndPage !== undefined ? firstEndPage - 2 : count - 1,
   );
 
   const startGap = gapMarker(

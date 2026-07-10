@@ -75,6 +75,9 @@ export const useKanbanDnd = ({
         if (fromIdx === -1) return prev;
 
         const [item] = fromItems.splice(fromIdx, 1);
+
+        if (!item) return prev;
+
         const overItemIdx = toItems.findIndex((i) => i.id === oId);
         const insertIdx = overItemIdx >= 0 ? overItemIdx : toItems.length;
 

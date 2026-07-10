@@ -99,7 +99,7 @@ describe("useTransitionIssue", () => {
       getQueryDataMock.mockReturnValue(previous);
       cancelQueriesMock.mockResolvedValue(undefined);
 
-      const ctx = await opts.onMutate({
+      const ctx = await opts.onMutate?.({
         issueId: "issue-1",
         statusId: "in-progress",
       });
@@ -121,9 +121,9 @@ describe("useTransitionIssue", () => {
       getQueryDataMock.mockReturnValue(original);
       cancelQueriesMock.mockResolvedValue(undefined);
 
-      await opts.onMutate({ issueId: "issue-1", statusId: "in-progress" });
+      await opts.onMutate?.({ issueId: "issue-1", statusId: "in-progress" });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
       const updated = updater(original);
 
       expect(updated.items[0].status).toBe("in-progress");
@@ -136,9 +136,9 @@ describe("useTransitionIssue", () => {
       getQueryDataMock.mockReturnValue(undefined);
       cancelQueriesMock.mockResolvedValue(undefined);
 
-      await opts.onMutate({ issueId: "issue-1", statusId: "done" });
+      await opts.onMutate?.({ issueId: "issue-1", statusId: "done" });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
 
       expect(updater(undefined)).toBeUndefined();
     });
@@ -150,7 +150,7 @@ describe("useTransitionIssue", () => {
       const opts = optsOf(result.current);
       const previous = { items: [makeIssue()] };
 
-      opts.onError(new Error("fail"), {}, { previous });
+      opts.onError?.(new Error("fail"), {}, { previous });
 
       expect(setQueryDataMock).toHaveBeenCalledWith(["issues", "list", "proj-1"], previous);
       expect(openErrorToastMock).toHaveBeenCalledWith({
@@ -162,7 +162,7 @@ describe("useTransitionIssue", () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
       const opts = optsOf(result.current);
 
-      opts.onError(new Error("fail"), {}, undefined);
+      opts.onError?.(new Error("fail"), {}, undefined);
 
       expect(setQueryDataMock).not.toHaveBeenCalled();
       expect(openErrorToastMock).toHaveBeenCalled();
@@ -174,7 +174,7 @@ describe("useTransitionIssue", () => {
       const { result } = renderHook(() => useTransitionIssue("proj-1"));
       const opts = optsOf(result.current);
 
-      await opts.onSettled();
+      await opts.onSettled?.();
 
       expect(invalidateQueriesMock).toHaveBeenCalledWith({
         queryKey: ["issues"],

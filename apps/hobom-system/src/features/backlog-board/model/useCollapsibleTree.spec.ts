@@ -106,7 +106,7 @@ describe("useCollapsibleTree", () => {
 
       const lastCall = flattenIssueTreeMock.mock.calls[flattenIssueTreeMock.mock.calls.length - 1];
 
-      expect(lastCall[1].has("root")).toBe(true);
+      expect(lastCall?.[1].has("root")).toBe(true);
     });
   });
 });

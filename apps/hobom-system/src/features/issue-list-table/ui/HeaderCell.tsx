@@ -24,6 +24,9 @@ export const HeaderCell = ({
   colResize,
 }: HeaderCellProps) => {
   const col = COLUMNS[cell.colIndex];
+
+  if (!col) return null;
+
   const isSorted = sortKey === col.key;
 
   const renderSortIcon = () => {

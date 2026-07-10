@@ -19,7 +19,9 @@ interface ChartTooltipProps {
 
 const CustomTooltip = ({ active, payload }: ChartTooltipProps) => {
   if (!active || !payload?.length) return null;
-  const item = payload[0].payload;
+  const item = payload[0]?.payload;
+
+  if (!item) return null;
   const color = getStatusColor(item.statusCode);
 
   return (

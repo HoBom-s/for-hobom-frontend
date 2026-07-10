@@ -9,6 +9,8 @@ interface EndpointErrorHeaderCellProps {
 
 export const EndpointErrorHeaderCell = ({ cell, colResize }: EndpointErrorHeaderCellProps) => {
   const col = COLUMNS[cell.colIndex];
+
+  if (!col) return null;
   const isRight = col.key === "total" || col.key === "errors";
 
   return (

@@ -34,6 +34,8 @@ describe("createSampleDocument", () => {
 
     const [root] = doc.children;
 
+    if (!root) throw new Error("expected root node");
+
     expect(isComponentNode(root) && root.type).toBe("Hb.Stack");
 
     const types: string[] = [];
