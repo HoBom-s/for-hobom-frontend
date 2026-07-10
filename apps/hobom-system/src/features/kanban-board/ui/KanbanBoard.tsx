@@ -135,14 +135,19 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
           </Hb.ToggleButton>
         </Hb.Box>
 
-        {/* Columns */}
+        {/* Columns — fixed viewport-bounded height so each column stays a
+            uniform grid box and scrolls its issues internally instead of
+            growing with the issue count. The offset accounts for the app bar
+            and the project/board chrome stacked above this region. */}
         <Hb.Box
           style={{
             display: "flex",
             gap: 16,
             overflowX: "auto",
+            overflowY: "hidden",
             paddingBottom: 8,
-            minHeight: 480,
+            height: "calc(100vh - 300px)",
+            minHeight: 360,
           }}
         >
           {boardColumns.map((col) => (
