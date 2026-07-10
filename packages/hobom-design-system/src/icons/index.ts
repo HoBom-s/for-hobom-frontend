@@ -1,6 +1,5 @@
 export {
   AccountTreeOutlined,
-  Add,
   AddCircle,
   AddCircleOutline,
   AddOutlined,
@@ -47,7 +46,6 @@ export {
   EditOutlined,
   ErrorOutline,
   ExpandLess,
-  ExpandMore,
   ExpandMoreOutlined,
   Favorite,
   FolderOutlined,
@@ -83,7 +81,6 @@ export {
   MarkEmailUnread,
   MenuBook,
   MenuBookOutlined,
-  MenuOutlined,
   MonitorHeartOutlined,
   MoreHoriz,
   MoreVert,
@@ -94,7 +91,6 @@ export {
   Notifications,
   NotificationsActive,
   NotificationsActiveOutlined,
-  NotificationsNoneOutlined,
   PaletteOutlined,
   PeopleOutline,
   PeopleOutlined,
@@ -120,7 +116,6 @@ export {
   RiceBowlTwoTone,
   Schedule,
   SchoolOutlined,
-  SearchOutlined,
   Send,
   SendOutlined,
   SettingsOutlined,
@@ -141,3 +136,12 @@ export {
   VisibilityOutlined,
   WarningAmberOutlined,
 } from "@mui/icons-material";
+
+// SPIKE: these five are now generated in-house from Material paths.
+export {
+  Add,
+  MenuOutlined,
+  SearchOutlined,
+  ExpandMore,
+  NotificationsNoneOutlined,
+} from "../foundations/icon/generated";
