@@ -55,6 +55,10 @@ export class DataLot {
   async invalidates(filters?: QueryFilters): Promise<void> {
     const queries = this.queryCache.findAll(filters);
     const refetchPromises = queries.map((query) => {
+      // Mark every match stale — active observers refetch now, inactive ones
+      // refetch on their next mount instead of serving cached data for staleTime.
+      query.invalidate();
+
       if (query.getObserverCount() > 0) {
         query.cancel();
 

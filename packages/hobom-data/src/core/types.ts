@@ -9,6 +9,8 @@ export interface QueryState<TData = unknown, TError = Error> {
   error: TError | null;
   fetchStatus: FetchStatus;
   dataUpdatedAt: number;
+  /** Marked stale by `invalidateQueries` regardless of `staleTime`; cleared on the next successful fetch. */
+  isInvalidated: boolean;
 }
 
 export interface QueryOptions<TData = unknown, TQueryKey extends QueryKey = QueryKey> {

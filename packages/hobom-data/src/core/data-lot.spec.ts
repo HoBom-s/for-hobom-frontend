@@ -68,6 +68,41 @@ describe("DataLot", () => {
     query.removeObserver();
   });
 
+  it("invalidates가 관찰자 없는 쿼리를 stale로 마킹한다 (재방문 시 refetch)", async () => {
+    const lot = new DataLot({ defaultOptions: { queries: { staleTime: 5 * 60_000 } } });
+    const cache = lot.getQueryCache();
+    let fetchCount = 0;
+
+    const query = cache.build(
+      {
+        queryKey: ["notes"],
+        queryFn: async () => {
+          fetchCount++;
+
+          return `data-${fetchCount}`;
+        },
+        staleTime: 5 * 60_000,
+      },
+      5 * 60_000,
+    );
+
+    // Simulate a mounted-then-unmounted list: fetch once, then no observers.
+    query.addObserver();
+    await query.fetch();
+    query.removeObserver();
+    expect(fetchCount).toBe(1);
+    expect(query.isStale()).toBe(false); // still fresh within staleTime
+
+    // A mutation elsewhere invalidates it while it is unobserved.
+    await lot.invalidates({ queryKey: ["notes"] });
+
+    // It is not refetched now (no observers), but it is marked stale so the
+    // next mount refetches instead of serving 5-minute-old data.
+    expect(fetchCount).toBe(1);
+    expect(query.getState().isInvalidated).toBe(true);
+    expect(query.isStale()).toBe(true);
+  });
+
   it("cancelQueries가 진행 중인 fetch를 취소한다", async () => {
     const lot = new DataLot();
     const cache = lot.getQueryCache();

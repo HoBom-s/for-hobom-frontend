@@ -94,6 +94,42 @@ describe("Query", () => {
     });
   });
 
+  describe("invalidate", () => {
+    it("marks a fresh query stale regardless of staleTime", async () => {
+      const query = createQuery({ staleTime: 60_000 });
+
+      await query.fetch();
+      expect(query.isStale()).toBe(false);
+
+      query.invalidate();
+
+      expect(query.getState().isInvalidated).toBe(true);
+      expect(query.isStale()).toBe(true);
+    });
+
+    it("clears the invalidated flag on the next successful fetch", async () => {
+      const query = createQuery({ staleTime: 60_000 });
+
+      await query.fetch();
+      query.invalidate();
+      await query.fetch();
+
+      expect(query.getState().isInvalidated).toBe(false);
+      expect(query.isStale()).toBe(false);
+    });
+
+    it("clears the invalidated flag when data is set directly", async () => {
+      const query = createQuery<string>({ staleTime: 60_000 });
+
+      await query.fetch();
+      query.invalidate();
+      query.setData("fresh");
+
+      expect(query.getState().isInvalidated).toBe(false);
+      expect(query.isStale()).toBe(false);
+    });
+  });
+
   it("cancel()이 AbortController를 abort한다", async () => {
     const captured: { signal: AbortSignal | null } = { signal: null };
 
