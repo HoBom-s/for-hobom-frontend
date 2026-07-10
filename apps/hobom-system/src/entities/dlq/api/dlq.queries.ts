@@ -8,14 +8,14 @@ export const dlqQueries = {
   list: () =>
     queryOptions({
       queryKey: ["dlq", "list"],
-      queryFn: () => fetchDlqKeys(),
+      queryFn: ({ signal }) => fetchDlqKeys(signal),
       ...CACHE_PROFILE.FAST,
     }),
 
   detail: (key: string) =>
     queryOptions({
       queryKey: ["dlq", "detail", key],
-      queryFn: () => fetchDlqDetail(key),
+      queryFn: ({ signal }) => fetchDlqDetail(key, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 } as const;

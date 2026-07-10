@@ -8,19 +8,19 @@ export const userQueries = {
   me: () =>
     queryOptions({
       queryKey: [...userQueries.users().queryKey, "me"],
-      queryFn: fetchMe,
+      queryFn: ({ signal }) => fetchMe(signal),
       ...CACHE_PROFILE.STATIC,
     }),
   list: () =>
     queryOptions({
       queryKey: [...userQueries.users().queryKey, "list"],
-      queryFn: fetchUsers,
+      queryFn: ({ signal }) => fetchUsers(signal),
       ...CACHE_PROFILE.SLOW,
     }),
   detail: (id: string) =>
     queryOptions({
       queryKey: [...userQueries.users().queryKey, id],
-      queryFn: () => fetchUserById({ id }),
+      queryFn: ({ signal }) => fetchUserById({ id }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 };

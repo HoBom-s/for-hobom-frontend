@@ -2,12 +2,12 @@ import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
 import type { LabelItemType, CreateLabelRequest, UpdateLabelRequest } from "./label.type";
 
-export const fetchLabels = async () => {
-  return await httpClient.get<HttpResponseType<LabelItemType[]>>("/labels");
+export const fetchLabels = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<LabelItemType[]>>("/labels", { signal });
 };
 
-export const fetchLabelById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<LabelItemType>>(`/labels/${id}`);
+export const fetchLabelById = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<LabelItemType>>(`/labels/${id}`, { signal });
 };
 
 export const postCreateLabel = async (data: CreateLabelRequest) => {

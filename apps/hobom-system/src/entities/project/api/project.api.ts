@@ -2,12 +2,12 @@ import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
 import type { ProjectType, CreateProjectRequest, UpdateProjectRequest } from "./project.type";
 
-export const fetchProjects = async () => {
-  return await httpClient.get<HttpResponseType<ProjectType[]>>("/projects/me");
+export const fetchProjects = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<ProjectType[]>>("/projects/me", { signal });
 };
 
-export const fetchProjectById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<ProjectType>>(`/projects/${id}`);
+export const fetchProjectById = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<ProjectType>>(`/projects/${id}`, { signal });
 };
 
 export const postCreateProject = async (data: CreateProjectRequest) => {

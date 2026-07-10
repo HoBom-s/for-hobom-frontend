@@ -107,6 +107,43 @@ describe("createHttpClient", () => {
     await expect(client.get("/slow", { timeout: 50 })).rejects.toThrow();
   });
 
+  // Mirror real fetch: reject on abort, including when the signal is already
+  // aborted by the time fetch is invoked.
+  const pendingUntilAbort = (_url: string, init: RequestInit) =>
+    new Promise((_resolve, reject) => {
+      const abort = () => reject(new DOMException("aborted", "AbortError"));
+
+      if (init.signal?.aborted) {
+        abort();
+
+        return;
+      }
+
+      init.signal?.addEventListener("abort", abort);
+    });
+
+  it("외부 signal이 abort되면 요청도 abort된다", async () => {
+    mockFetch.mockImplementation(pendingUntilAbort);
+    const client = createHttpClient("https://api.test");
+    const controller = new AbortController();
+
+    const promise = client.get("/slow", { signal: controller.signal });
+
+    controller.abort();
+
+    await expect(promise).rejects.toThrow();
+  });
+
+  it("외부 signal이 붙어 있어도 timeout이 동작한다", async () => {
+    mockFetch.mockImplementation(pendingUntilAbort);
+    const client = createHttpClient("https://api.test");
+    const controller = new AbortController(); // never aborted
+
+    await expect(
+      client.get("/slow", { signal: controller.signal, timeout: 50 }),
+    ).rejects.toThrow();
+  });
+
   it("미들웨어 onRequest가 요청 전에 호출된다", async () => {
     mockFetch.mockResolvedValueOnce(jsonResponse({ ok: true }));
     const client = createHttpClient("https://api.test");

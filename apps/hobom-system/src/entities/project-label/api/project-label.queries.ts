@@ -8,7 +8,7 @@ export const projectLabelQueries = {
   listByProject: (projectId: string) =>
     queryOptions({
       queryKey: ["project-labels", "list", projectId],
-      queryFn: () => fetchProjectLabels({ projectId }),
+      queryFn: ({ signal }) => fetchProjectLabels({ projectId }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 } as const;

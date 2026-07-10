@@ -6,9 +6,13 @@ import type {
   UpdateProjectLabelRequest,
 } from "./project-label.type";
 
-export const fetchProjectLabels = async ({ projectId }: { projectId: string }) => {
+export const fetchProjectLabels = async (
+  { projectId }: { projectId: string },
+  signal?: AbortSignal,
+) => {
   return await httpClient.get<HttpResponseType<ProjectLabelType[]>>(
     `/projects/${projectId}/labels`,
+    { signal },
   );
 };
 

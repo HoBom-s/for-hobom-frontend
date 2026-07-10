@@ -9,14 +9,14 @@ export const errorEventQueries = {
   list: (params: ErrorEventSearchParams) =>
     HoBom.DataLot.queryOptions({
       queryKey: ["error-events", "list", params],
-      queryFn: () => fetchErrorEvents(params),
+      queryFn: ({ signal }) => fetchErrorEvents(params, signal),
       ...CACHE_PROFILE.FAST,
     }),
 
   detail: (id: number) =>
     HoBom.DataLot.queryOptions({
       queryKey: ["error-events", "detail", id],
-      queryFn: () => fetchErrorEventById(id),
+      queryFn: ({ signal }) => fetchErrorEventById(id, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 } as const;

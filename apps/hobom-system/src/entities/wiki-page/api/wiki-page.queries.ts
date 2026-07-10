@@ -18,25 +18,28 @@ export const wikiPageQueries = {
   tree: (spaceKey: string) =>
     queryOptions({
       queryKey: ["wiki-pages", "tree", spaceKey] as const,
-      queryFn: () => fetchPageTree({ spaceKey }),
+      queryFn: ({ signal }) => fetchPageTree({ spaceKey }, signal),
     }),
 
   detail: (spaceKey: string, pageId: string) =>
     queryOptions({
       queryKey: ["wiki-pages", "detail", spaceKey, pageId] as const,
-      queryFn: () => fetchPageById({ spaceKey, pageId }),
+      queryFn: ({ signal }) => fetchPageById({ spaceKey, pageId }, signal),
     }),
 
   versions: (spaceKey: string, pageId: string) =>
     infiniteQueryOptions({
       queryKey: ["wiki-pages", "versions", spaceKey, pageId] as const,
-      queryFn: ({ pageParam }) =>
-        fetchPageVersions({
-          spaceKey,
-          pageId,
-          offset: pageParam,
-          limit: VERSIONS_PAGE_SIZE,
-        }),
+      queryFn: ({ pageParam, signal }) =>
+        fetchPageVersions(
+          {
+            spaceKey,
+            pageId,
+            offset: pageParam,
+            limit: VERSIONS_PAGE_SIZE,
+          },
+          signal,
+        ),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => {
         const { offset, items, totalCount } = lastPage.items;
@@ -49,20 +52,20 @@ export const wikiPageQueries = {
   version: (spaceKey: string, pageId: string, version: number) =>
     queryOptions({
       queryKey: ["wiki-pages", "version", spaceKey, pageId, version] as const,
-      queryFn: () => fetchPageVersion({ spaceKey, pageId, version }),
+      queryFn: ({ signal }) => fetchPageVersion({ spaceKey, pageId, version }, signal),
     }),
 
   versionDiff: (spaceKey: string, pageId: string, fromVersion: number, toVersion: number) =>
     queryOptions({
       queryKey: ["wiki-pages", "versionDiff", spaceKey, pageId, fromVersion, toVersion] as const,
-      queryFn: () => fetchVersionDiff({ spaceKey, pageId, fromVersion, toVersion }),
+      queryFn: ({ signal }) => fetchVersionDiff({ spaceKey, pageId, fromVersion, toVersion }, signal),
     }),
 
   trash: (spaceKey: string) =>
     infiniteQueryOptions({
       queryKey: ["wiki-pages", "trash", spaceKey] as const,
-      queryFn: ({ pageParam }) =>
-        fetchTrashPages({ spaceKey, offset: pageParam, limit: TRASH_PAGE_SIZE }),
+      queryFn: ({ pageParam, signal }) =>
+        fetchTrashPages({ spaceKey, offset: pageParam, limit: TRASH_PAGE_SIZE }, signal),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => {
         const { offset, items, totalCount } = lastPage.items;
@@ -75,6 +78,6 @@ export const wikiPageQueries = {
   search: (spaceKey: string, q: string) =>
     queryOptions({
       queryKey: ["wiki-pages", "search", spaceKey, q] as const,
-      queryFn: () => searchPages({ q, spaceKey }),
+      queryFn: ({ signal }) => searchPages({ q, spaceKey }, signal),
     }),
 } as const;

@@ -8,13 +8,13 @@ export const wikiLabelQueries = {
   list: (spaceKey: string) =>
     queryOptions({
       queryKey: ["wiki-labels", "list", spaceKey] as const,
-      queryFn: () => fetchLabels({ spaceKey }),
+      queryFn: ({ signal }) => fetchLabels({ spaceKey }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   pagesByLabel: (spaceKey: string, labelId: string) =>
     queryOptions({
       queryKey: ["wiki-labels", "pages", spaceKey, labelId] as const,
-      queryFn: () => fetchPagesByLabel({ spaceKey, labelId }),
+      queryFn: ({ signal }) => fetchPagesByLabel({ spaceKey, labelId }, signal),
     }),
 } as const;

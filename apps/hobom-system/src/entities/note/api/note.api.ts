@@ -19,15 +19,15 @@ const normalizeNote = (raw: RawNoteItemType): NoteItemType => ({
   members: raw.members.map((m) => m.value),
 });
 
-export const fetchNotes = async (status?: NoteStatus) => {
+export const fetchNotes = async (status?: NoteStatus, signal?: AbortSignal) => {
   const query = status ? `?status=${status}` : "";
-  const res = await httpClient.get<HttpResponseType<RawNoteItemType[]>>(`/notes${query}`);
+  const res = await httpClient.get<HttpResponseType<RawNoteItemType[]>>(`/notes${query}`, { signal });
 
   return { ...res, items: res.items.map(normalizeNote) };
 };
 
-export const fetchNoteById = async ({ id }: { id: string }) => {
-  const res = await httpClient.get<HttpResponseType<RawNoteItemType>>(`/notes/${id}`);
+export const fetchNoteById = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  const res = await httpClient.get<HttpResponseType<RawNoteItemType>>(`/notes/${id}`, { signal });
 
   return { ...res, items: normalizeNote(res.items) };
 };

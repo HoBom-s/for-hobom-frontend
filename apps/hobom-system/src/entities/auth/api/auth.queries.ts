@@ -7,6 +7,6 @@ export const authQueries = {
   users: () =>
     queryOptions({
       queryKey: ["auth", "users"],
-      queryFn: () => fetchUsers(),
+      queryFn: ({ signal }) => fetchUsers(signal),
     }),
 } as const;

@@ -8,19 +8,28 @@ import type {
   AssignIssueRequest,
 } from "./issue.type";
 
-export const fetchIssuesByProject = async ({ projectId }: { projectId: string }) => {
-  return await httpClient.get<HttpResponseType<IssueType[]>>(`/projects/${projectId}/issues`);
+export const fetchIssuesByProject = async (
+  { projectId }: { projectId: string },
+  signal?: AbortSignal,
+) => {
+  return await httpClient.get<HttpResponseType<IssueType[]>>(`/projects/${projectId}/issues`, {
+    signal,
+  });
 };
 
-export const fetchIssueById = async ({
-  projectId,
-  issueId,
-}: {
-  projectId: string;
-  issueId: string;
-}) => {
+export const fetchIssueById = async (
+  {
+    projectId,
+    issueId,
+  }: {
+    projectId: string;
+    issueId: string;
+  },
+  signal?: AbortSignal,
+) => {
   return await httpClient.get<HttpResponseType<IssueType>>(
     `/projects/${projectId}/issues/${issueId}`,
+    { signal },
   );
 };
 

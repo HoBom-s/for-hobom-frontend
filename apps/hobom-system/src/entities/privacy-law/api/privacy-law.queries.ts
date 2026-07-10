@@ -18,62 +18,62 @@ export const privacyLawQueries = {
   versions: () =>
     queryOptions({
       queryKey: ["privacy-law", "versions"] as const,
-      queryFn: fetchVersions,
+      queryFn: ({ signal }) => fetchVersions(signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   version: (id: string) =>
     queryOptions({
       queryKey: ["privacy-law", "versions", id] as const,
-      queryFn: () => fetchVersionById({ id }),
+      queryFn: ({ signal }) => fetchVersionById({ id }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   diffs: () =>
     queryOptions({
       queryKey: ["privacy-law", "diffs"] as const,
-      queryFn: fetchDiffs,
+      queryFn: ({ signal }) => fetchDiffs(signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   diff: (id: string) =>
     queryOptions({
       queryKey: ["privacy-law", "diffs", id] as const,
-      queryFn: () => fetchDiffById({ id }),
+      queryFn: ({ signal }) => fetchDiffById({ id }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   studyMaterials: () =>
     queryOptions({
       queryKey: ["privacy-law", "study-materials"] as const,
-      queryFn: fetchStudyMaterials,
+      queryFn: ({ signal }) => fetchStudyMaterials(signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   studyMaterial: (id: string) =>
     queryOptions({
       queryKey: ["privacy-law", "study-materials", id] as const,
-      queryFn: () => fetchStudyMaterialById({ id }),
+      queryFn: ({ signal }) => fetchStudyMaterialById({ id }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   questionHistory: () =>
     queryOptions({
       queryKey: ["privacy-law", "questions"] as const,
-      queryFn: fetchQuestionHistory,
+      queryFn: ({ signal }) => fetchQuestionHistory(signal),
     }),
 
   exams: () =>
     queryOptions({
       queryKey: ["privacy-law", "exams"] as const,
-      queryFn: fetchExams,
+      queryFn: ({ signal }) => fetchExams(signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 
   exam: (id: string) =>
     queryOptions({
       queryKey: ["privacy-law", "exams", id] as const,
-      queryFn: () => fetchExamById({ id }),
+      queryFn: ({ signal }) => fetchExamById({ id }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 } as const;

@@ -3,13 +3,17 @@ import type { FutureMessageSendStatusType } from "../model/future-message-send-s
 import type { FutureMessageType } from "./future-message.type";
 import type { FutureMessageSendSchemaType } from "../model/future-message-send.model";
 
-export const fetchFutureMessageByStatus = async ({
-  status,
-}: {
-  status: FutureMessageSendStatusType;
-}) =>
+export const fetchFutureMessageByStatus = async (
+  {
+    status,
+  }: {
+    status: FutureMessageSendStatusType;
+  },
+  signal?: AbortSignal,
+) =>
   httpClient.get<HttpResponseType<FutureMessageType[]>>(
     `/future-messages/by-status?status=${status}`,
+    { signal },
   );
 
 export const postFutureMessage = async (body: FutureMessageSendSchemaType) =>

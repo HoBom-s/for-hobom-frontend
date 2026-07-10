@@ -2,12 +2,16 @@ import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
 import type { DailyTodoType, ProgressType } from "./daily-todo.type.ts";
 
-export const fetchDailyTodos = async ({ date }: { date: string }) => {
-  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos?date=${date}`);
+export const fetchDailyTodos = async ({ date }: { date: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos?date=${date}`, {
+    signal,
+  });
 };
 
-export const fetchDailyTodosByDate = async ({ date }: { date: string }) => {
-  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos/by-date/${date}`);
+export const fetchDailyTodosByDate = async ({ date }: { date: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos/by-date/${date}`, {
+    signal,
+  });
 };
 
 export const patchDailyTodoCompleteStatusChange = async ({

@@ -9,14 +9,14 @@ export const noteQueries = {
   list: (status?: NoteStatus) =>
     queryOptions({
       queryKey: ["notes", status ?? "ALL"],
-      queryFn: () => fetchNotes(status),
+      queryFn: ({ signal }) => fetchNotes(status, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 
   detail: (id: string) =>
     queryOptions({
       queryKey: ["notes", "detail", id],
-      queryFn: () => fetchNoteById({ id }),
+      queryFn: ({ signal }) => fetchNoteById({ id }, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 } as const;

@@ -6,15 +6,19 @@ import type {
   UpdateIssueCommentRequest,
 } from "./issue-comment.type";
 
-export const fetchIssueComments = async ({
-  projectId,
-  issueId,
-}: {
-  projectId: string;
-  issueId: string;
-}) => {
+export const fetchIssueComments = async (
+  {
+    projectId,
+    issueId,
+  }: {
+    projectId: string;
+    issueId: string;
+  },
+  signal?: AbortSignal,
+) => {
   return await httpClient.get<HttpResponseType<IssueCommentType[]>>(
     `/projects/${projectId}/issues/${issueId}/comments`,
+    { signal },
   );
 };
 

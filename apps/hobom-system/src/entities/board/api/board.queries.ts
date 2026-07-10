@@ -8,14 +8,14 @@ export const boardQueries = {
   listByProject: (projectId: string) =>
     queryOptions({
       queryKey: ["boards", "list", projectId],
-      queryFn: () => fetchBoardsByProject({ projectId }),
+      queryFn: ({ signal }) => fetchBoardsByProject({ projectId }, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 
   detail: (projectId: string, boardId: string) =>
     queryOptions({
       queryKey: ["boards", "detail", projectId, boardId],
-      queryFn: () => fetchBoardById({ projectId, boardId }),
+      queryFn: ({ signal }) => fetchBoardById({ projectId, boardId }, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 } as const;

@@ -10,8 +10,10 @@ import type {
   TodayMenuCandidateInput,
 } from "../model/menu-recommendation.model";
 
-export const fetchMenuRecommendationList = async () => {
-  return await httpClient.get<HttpResponseType<MenuRecommendationType[]>>("/menu-recommendation");
+export const fetchMenuRecommendationList = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<MenuRecommendationType[]>>("/menu-recommendation", {
+    signal,
+  });
 };
 
 export const postMenuRecommendation = async ({
@@ -42,8 +44,10 @@ export const putMenuRecommendationTodayMenu = async ({
   });
 };
 
-export const fetchTodayRecommendedMenu = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<TodayRecommendedMenuType>>(`/today-menu/${id}`);
+export const fetchTodayRecommendedMenu = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<TodayRecommendedMenuType>>(`/today-menu/${id}`, {
+    signal,
+  });
 };
 
 export const postSelectTodayMenu = async ({ id }: { id: string }) => {

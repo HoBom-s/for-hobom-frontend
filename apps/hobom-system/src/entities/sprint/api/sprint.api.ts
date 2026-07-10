@@ -2,8 +2,13 @@ import { httpClient } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
 import type { SprintType, CreateSprintRequest, UpdateSprintRequest } from "./sprint.type";
 
-export const fetchSprintsByProject = async ({ projectId }: { projectId: string }) => {
-  return await httpClient.get<HttpResponseType<SprintType[]>>(`/projects/${projectId}/sprints`);
+export const fetchSprintsByProject = async (
+  { projectId }: { projectId: string },
+  signal?: AbortSignal,
+) => {
+  return await httpClient.get<HttpResponseType<SprintType[]>>(`/projects/${projectId}/sprints`, {
+    signal,
+  });
 };
 
 export const postCreateSprint = async ({

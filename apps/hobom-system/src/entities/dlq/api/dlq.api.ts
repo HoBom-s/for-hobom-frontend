@@ -3,10 +3,13 @@ import type { DlqListResponse, DlqDetailResponse, DlqRetryResponse } from "./dlq
 
 const BASE = "/dlq";
 
-export const fetchDlqKeys = () => httpClient.get<HttpResponseType<DlqListResponse>>(BASE);
+export const fetchDlqKeys = (signal?: AbortSignal) =>
+  httpClient.get<HttpResponseType<DlqListResponse>>(BASE, { signal });
 
-export const fetchDlqDetail = (key: string) =>
-  httpClient.get<HttpResponseType<DlqDetailResponse>>(`${BASE}/${encodeURIComponent(key)}`);
+export const fetchDlqDetail = (key: string, signal?: AbortSignal) =>
+  httpClient.get<HttpResponseType<DlqDetailResponse>>(`${BASE}/${encodeURIComponent(key)}`, {
+    signal,
+  });
 
 export const retryDlqItem = (key: string) =>
   httpClient.post<HttpResponseType<DlqRetryResponse>>(
