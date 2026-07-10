@@ -1,5 +1,6 @@
-import { spaceHttpClient } from "@/shared/api";
+import { spaceHttpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
+import { errorEventSchema, errorEventPageSchema } from "./error-event.schema";
 import type { ErrorEventDto, ErrorEventSearchParams } from "./error-event.type";
 
 const BASE = "/api/v1/errors";
@@ -12,11 +13,18 @@ export const fetchErrorEvents = (params: ErrorEventSearchParams, signal?: AbortS
   if (params.page != null) query.set("page", String(params.page));
   if (params.size != null) query.set("size", String(params.size));
 
-  return spaceHttpClient.get<HttpResponseType<PaginatedItems<ErrorEventDto>>>(
-    `${BASE}?${query.toString()}`,
-    { signal },
-  );
+  return spaceHttpClient
+    .get<HttpResponseType<PaginatedItems<ErrorEventDto>>>(`${BASE}?${query.toString()}`, { signal })
+    .then((res) => ({
+      ...res,
+      items: parseResponse(errorEventPageSchema, "GET /api/v1/errors")(res.items),
+    }));
 };
 
 export const fetchErrorEventById = (id: number, signal?: AbortSignal) =>
-  spaceHttpClient.get<HttpResponseType<ErrorEventDto>>(`${BASE}/${id}`, { signal });
+  spaceHttpClient
+    .get<HttpResponseType<ErrorEventDto>>(`${BASE}/${id}`, { signal })
+    .then((res) => ({
+      ...res,
+      items: parseResponse(errorEventSchema, "GET /api/v1/errors/:id")(res.items),
+    }));

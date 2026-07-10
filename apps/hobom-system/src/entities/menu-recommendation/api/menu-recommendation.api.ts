@@ -1,4 +1,5 @@
-import { httpClient, type HttpResponseType } from "@/shared/api";
+import { httpClient, parseResponse, type HttpResponseType } from "@/shared/api";
+import { menuRecommendationListSchema, todayRecommendedMenuSchema } from "./menu-recommendation.schema";
 import type {
   MenuRecommendationType,
   SelectedTodayMenuResponse,
@@ -11,9 +12,15 @@ import type {
 } from "../model/menu-recommendation.model";
 
 export const fetchMenuRecommendationList = async (signal?: AbortSignal) => {
-  return await httpClient.get<HttpResponseType<MenuRecommendationType[]>>("/menu-recommendation", {
-    signal,
-  });
+  const res = await httpClient.get<HttpResponseType<MenuRecommendationType[]>>(
+    "/menu-recommendation",
+    { signal },
+  );
+
+  return {
+    ...res,
+    items: parseResponse(menuRecommendationListSchema, "GET /menu-recommendation")(res.items),
+  };
 };
 
 export const postMenuRecommendation = async ({
@@ -45,9 +52,15 @@ export const putMenuRecommendationTodayMenu = async ({
 };
 
 export const fetchTodayRecommendedMenu = async ({ id }: { id: string }, signal?: AbortSignal) => {
-  return await httpClient.get<HttpResponseType<TodayRecommendedMenuType>>(`/today-menu/${id}`, {
-    signal,
-  });
+  const res = await httpClient.get<HttpResponseType<TodayRecommendedMenuType>>(
+    `/today-menu/${id}`,
+    { signal },
+  );
+
+  return {
+    ...res,
+    items: parseResponse(todayRecommendedMenuSchema, "GET /today-menu/:id")(res.items),
+  };
 };
 
 export const postSelectTodayMenu = async ({ id }: { id: string }) => {

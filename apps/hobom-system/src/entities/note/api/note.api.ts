@@ -1,5 +1,6 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { rawNoteItemSchema, rawNoteItemsSchema } from "./note.schema";
 import type {
   RawNoteItemType,
   NoteItemType,
@@ -22,14 +23,16 @@ const normalizeNote = (raw: RawNoteItemType): NoteItemType => ({
 export const fetchNotes = async (status?: NoteStatus, signal?: AbortSignal) => {
   const query = status ? `?status=${status}` : "";
   const res = await httpClient.get<HttpResponseType<RawNoteItemType[]>>(`/notes${query}`, { signal });
+  const rawItems = parseResponse(rawNoteItemsSchema, "GET /notes")(res.items);
 
-  return { ...res, items: res.items.map(normalizeNote) };
+  return { ...res, items: rawItems.map(normalizeNote) };
 };
 
 export const fetchNoteById = async ({ id }: { id: string }, signal?: AbortSignal) => {
   const res = await httpClient.get<HttpResponseType<RawNoteItemType>>(`/notes/${id}`, { signal });
+  const rawItem = parseResponse(rawNoteItemSchema, "GET /notes/:id")(res.items);
 
-  return { ...res, items: normalizeNote(res.items) };
+  return { ...res, items: normalizeNote(rawItem) };
 };
 
 export const postCreateNote = async (data: CreateNoteRequest) => {

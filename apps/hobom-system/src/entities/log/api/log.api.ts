@@ -1,5 +1,13 @@
-import { internalHttpClient } from "@/shared/api";
+import { internalHttpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
+import {
+  logLevelCountsSchema,
+  logServiceCountsSchema,
+  logStatusCountsSchema,
+  logRequestCountsSchema,
+  logEndpointErrorsSchema,
+  logEntryPageSchema,
+} from "./log.schema";
 import type {
   LogLevelCount,
   LogServiceCount,
@@ -13,33 +21,47 @@ import type {
 const BASE = "/logs";
 
 export const fetchLogLevelSummary = (hours: number, signal?: AbortSignal) =>
-  internalHttpClient.get<HttpResponseType<LogLevelCount[]>>(`${BASE}/level-summary?hours=${hours}`, {
-    signal,
-  });
+  internalHttpClient
+    .get<HttpResponseType<LogLevelCount[]>>(`${BASE}/level-summary?hours=${hours}`, { signal })
+    .then((res) => ({
+      ...res,
+      items: parseResponse(logLevelCountsSchema, "GET /logs/level-summary")(res.items),
+    }));
 
 export const fetchLogServiceSummary = (hours: number, signal?: AbortSignal) =>
-  internalHttpClient.get<HttpResponseType<LogServiceCount[]>>(
-    `${BASE}/service-summary?hours=${hours}`,
-    { signal },
-  );
+  internalHttpClient
+    .get<HttpResponseType<LogServiceCount[]>>(`${BASE}/service-summary?hours=${hours}`, { signal })
+    .then((res) => ({
+      ...res,
+      items: parseResponse(logServiceCountsSchema, "GET /logs/service-summary")(res.items),
+    }));
 
 export const fetchLogStatusSummary = (hours: number, signal?: AbortSignal) =>
-  internalHttpClient.get<HttpResponseType<LogStatusCount[]>>(
-    `${BASE}/status-summary?hours=${hours}`,
-    { signal },
-  );
+  internalHttpClient
+    .get<HttpResponseType<LogStatusCount[]>>(`${BASE}/status-summary?hours=${hours}`, { signal })
+    .then((res) => ({
+      ...res,
+      items: parseResponse(logStatusCountsSchema, "GET /logs/status-summary")(res.items),
+    }));
 
 export const fetchLogRequestSummary = (hours: number, signal?: AbortSignal) =>
-  internalHttpClient.get<HttpResponseType<LogRequestCount[]>>(
-    `${BASE}/request-summary?hours=${hours}`,
-    { signal },
-  );
+  internalHttpClient
+    .get<HttpResponseType<LogRequestCount[]>>(`${BASE}/request-summary?hours=${hours}`, { signal })
+    .then((res) => ({
+      ...res,
+      items: parseResponse(logRequestCountsSchema, "GET /logs/request-summary")(res.items),
+    }));
 
 export const fetchLogEndpointErrors = (hours: number, limit = 20, signal?: AbortSignal) =>
-  internalHttpClient.get<HttpResponseType<LogEndpointError[]>>(
-    `${BASE}/endpoint-errors?hours=${hours}&limit=${limit}`,
-    { signal },
-  );
+  internalHttpClient
+    .get<HttpResponseType<LogEndpointError[]>>(
+      `${BASE}/endpoint-errors?hours=${hours}&limit=${limit}`,
+      { signal },
+    )
+    .then((res) => ({
+      ...res,
+      items: parseResponse(logEndpointErrorsSchema, "GET /logs/endpoint-errors")(res.items),
+    }));
 
 export const fetchLogSearch = (params: LogSearchParams, signal?: AbortSignal) => {
   const query = new URLSearchParams();
@@ -54,8 +76,10 @@ export const fetchLogSearch = (params: LogSearchParams, signal?: AbortSignal) =>
   if (params.page != null) query.set("page", String(params.page));
   if (params.size != null) query.set("size", String(params.size));
 
-  return internalHttpClient.get<HttpResponseType<PaginatedItems<LogEntry>>>(
-    `${BASE}?${query.toString()}`,
-    { signal },
-  );
+  return internalHttpClient
+    .get<HttpResponseType<PaginatedItems<LogEntry>>>(`${BASE}?${query.toString()}`, { signal })
+    .then((res) => ({
+      ...res,
+      items: parseResponse(logEntryPageSchema, "GET /logs")(res.items),
+    }));
 };

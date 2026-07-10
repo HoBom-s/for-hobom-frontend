@@ -1,5 +1,15 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import {
+  dailyTodoDashboardSchema,
+  noteDashboardSchema,
+  messageDashboardSchema,
+  notificationDashboardSchema,
+  systemDashboardSchema,
+  activityDashboardSchema,
+  projectIssueDashboardSchema,
+  sprintDashboardSchema,
+} from "./dashboard.schema";
 import type {
   PeriodType,
   SystemPeriodType,
@@ -23,10 +33,15 @@ export const fetchDailyTodoDashboard = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<DailyTodoDashboardType>>(
+  const res = await httpClient.get<HttpResponseType<DailyTodoDashboardType>>(
     `/dashboard/daily-todos?period=${period}&date=${date}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(dailyTodoDashboardSchema, "GET /dashboard/daily-todos")(res.items),
+  };
 };
 
 export const fetchNoteDashboard = async (
@@ -39,10 +54,12 @@ export const fetchNoteDashboard = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<NoteDashboardType>>(
+  const res = await httpClient.get<HttpResponseType<NoteDashboardType>>(
     `/dashboard/notes?period=${period}&date=${date}`,
     { signal },
   );
+
+  return { ...res, items: parseResponse(noteDashboardSchema, "GET /dashboard/notes")(res.items) };
 };
 
 export const fetchMessageDashboard = async (
@@ -55,10 +72,15 @@ export const fetchMessageDashboard = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<MessageDashboardType>>(
+  const res = await httpClient.get<HttpResponseType<MessageDashboardType>>(
     `/dashboard/future-messages?period=${period}&date=${date}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(messageDashboardSchema, "GET /dashboard/future-messages")(res.items),
+  };
 };
 
 export const fetchNotificationDashboard = async (
@@ -71,20 +93,27 @@ export const fetchNotificationDashboard = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<NotificationDashboardType>>(
+  const res = await httpClient.get<HttpResponseType<NotificationDashboardType>>(
     `/dashboard/notifications?period=${period}&date=${date}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(notificationDashboardSchema, "GET /dashboard/notifications")(res.items),
+  };
 };
 
 export const fetchSystemDashboard = async (
   { period }: { period: SystemPeriodType },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<SystemDashboardType>>(
+  const res = await httpClient.get<HttpResponseType<SystemDashboardType>>(
     `/dashboard/system?period=${period}`,
     { signal },
   );
+
+  return { ...res, items: parseResponse(systemDashboardSchema, "GET /dashboard/system")(res.items) };
 };
 
 export const fetchActivityDashboard = async (
@@ -97,20 +126,32 @@ export const fetchActivityDashboard = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<ActivityDashboardType>>(
+  const res = await httpClient.get<HttpResponseType<ActivityDashboardType>>(
     `/dashboard/activity?period=${period}&date=${date}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(activityDashboardSchema, "GET /dashboard/activity")(res.items),
+  };
 };
 
 export const fetchProjectIssueDashboard = async (
   { projectId }: { projectId: string },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<ProjectIssueDashboardDto>>(
+  const res = await httpClient.get<HttpResponseType<ProjectIssueDashboardDto>>(
     `/dashboard/projects/${projectId}/issues`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(projectIssueDashboardSchema, "GET /dashboard/projects/:id/issues")(
+      res.items,
+    ),
+  };
 };
 
 export const fetchSprintDashboard = async (
@@ -123,8 +164,15 @@ export const fetchSprintDashboard = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<SprintDashboardDto>>(
+  const res = await httpClient.get<HttpResponseType<SprintDashboardDto>>(
     `/dashboard/projects/${projectId}/sprints/${sprintId}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(sprintDashboardSchema, "GET /dashboard/projects/:id/sprints/:id")(
+      res.items,
+    ),
+  };
 };

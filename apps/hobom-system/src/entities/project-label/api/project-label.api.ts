@@ -1,5 +1,6 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { projectLabelsSchema } from "./project-label.schema";
 import type {
   ProjectLabelType,
   CreateProjectLabelRequest,
@@ -10,10 +11,15 @@ export const fetchProjectLabels = async (
   { projectId }: { projectId: string },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<ProjectLabelType[]>>(
+  const res = await httpClient.get<HttpResponseType<ProjectLabelType[]>>(
     `/projects/${projectId}/labels`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(projectLabelsSchema, "GET /projects/:projectId/labels")(res.items),
+  };
 };
 
 export const postCreateProjectLabel = async ({

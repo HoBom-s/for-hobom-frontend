@@ -1,5 +1,6 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { issueSchema, issuesSchema } from "./issue.schema";
 import type {
   IssueType,
   CreateIssueRequest,
@@ -12,9 +13,15 @@ export const fetchIssuesByProject = async (
   { projectId }: { projectId: string },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<IssueType[]>>(`/projects/${projectId}/issues`, {
-    signal,
-  });
+  const res = await httpClient.get<HttpResponseType<IssueType[]>>(
+    `/projects/${projectId}/issues`,
+    { signal },
+  );
+
+  return {
+    ...res,
+    items: parseResponse(issuesSchema, "GET /projects/:projectId/issues")(res.items),
+  };
 };
 
 export const fetchIssueById = async (
@@ -27,10 +34,15 @@ export const fetchIssueById = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<IssueType>>(
+  const res = await httpClient.get<HttpResponseType<IssueType>>(
     `/projects/${projectId}/issues/${issueId}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(issueSchema, "GET /projects/:projectId/issues/:issueId")(res.items),
+  };
 };
 
 export const postCreateIssue = async ({

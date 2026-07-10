@@ -1,8 +1,11 @@
-import { httpClient, type HttpResponseType } from "@/shared/api";
+import { httpClient, parseResponse, type HttpResponseType } from "@/shared/api";
 import type { CategoryType } from "@/entities/daily-todo";
+import { categoryListSchema } from "./daily-todo-category.schema";
 
 export const fetchDailyTodoCategories = async (signal?: AbortSignal) => {
-  return await httpClient.get<HttpResponseType<CategoryType[]>>(`/categories`, { signal });
+  const res = await httpClient.get<HttpResponseType<CategoryType[]>>(`/categories`, { signal });
+
+  return { ...res, items: parseResponse(categoryListSchema, "GET /categories")(res.items) };
 };
 
 export const postCategory = async ({ title }: { title: string }) => {
