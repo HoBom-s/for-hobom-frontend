@@ -2,19 +2,23 @@ import { spaceHttpClient } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
 import type { CommentType, CreateCommentRequest, UpdateCommentRequest } from "./wiki-comment.type";
 
-export const fetchComments = async ({
-  spaceKey,
-  pageId,
-  offset = 0,
-  limit = 50,
-}: {
-  spaceKey: string;
-  pageId: string;
-  offset?: number;
-  limit?: number;
-}) => {
+export const fetchComments = async (
+  {
+    spaceKey,
+    pageId,
+    offset = 0,
+    limit = 50,
+  }: {
+    spaceKey: string;
+    pageId: string;
+    offset?: number;
+    limit?: number;
+  },
+  signal?: AbortSignal,
+) => {
   return await spaceHttpClient.get<HttpResponseType<PaginatedItems<CommentType>>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/comments?offset=${offset}&limit=${limit}`,
+    { signal },
   );
 };
 

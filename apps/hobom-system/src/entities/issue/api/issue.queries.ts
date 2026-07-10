@@ -8,14 +8,14 @@ export const issueQueries = {
   listByProject: (projectId: string) =>
     queryOptions({
       queryKey: ["issues", "list", projectId],
-      queryFn: () => fetchIssuesByProject({ projectId }),
+      queryFn: ({ signal }) => fetchIssuesByProject({ projectId }, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 
   detail: (projectId: string, issueId: string) =>
     queryOptions({
       queryKey: ["issues", "detail", projectId, issueId],
-      queryFn: () => fetchIssueById({ projectId, issueId }),
+      queryFn: ({ signal }) => fetchIssueById({ projectId, issueId }, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 } as const;

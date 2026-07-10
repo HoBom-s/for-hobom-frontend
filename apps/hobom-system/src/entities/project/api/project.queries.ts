@@ -8,14 +8,14 @@ export const projectQueries = {
   list: () =>
     queryOptions({
       queryKey: ["projects", "list"],
-      queryFn: fetchProjects,
+      queryFn: ({ signal }) => fetchProjects(signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   detail: (id: string) =>
     queryOptions({
       queryKey: ["projects", "detail", id],
-      queryFn: () => fetchProjectById({ id }),
+      queryFn: ({ signal }) => fetchProjectById({ id }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 } as const;

@@ -7,12 +7,12 @@ export const menuQueries = {
   recommendationList: () =>
     queryOptions({
       queryKey: ["menus", "recommendation", "list"],
-      queryFn: () => fetchMenuRecommendationList(),
+      queryFn: ({ signal }) => fetchMenuRecommendationList(signal),
     }),
 
   selectedTodayMenu: ({ id }: { id: string }) =>
     queryOptions({
       queryKey: ["menus", "today", "selected-menu", id],
-      queryFn: () => fetchTodayRecommendedMenu({ id }),
+      queryFn: ({ signal }) => fetchTodayRecommendedMenu({ id }, signal),
     }),
 } as const;

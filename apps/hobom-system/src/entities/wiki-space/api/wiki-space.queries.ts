@@ -8,14 +8,14 @@ export const wikiSpaceQueries = {
   list: (params?: { offset?: number; limit?: number }) =>
     queryOptions({
       queryKey: ["wiki-spaces", "list", params] as const,
-      queryFn: () => fetchSpaces(params),
+      queryFn: ({ signal }) => fetchSpaces(params, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 
   detail: (key: string) =>
     queryOptions({
       queryKey: ["wiki-spaces", "detail", key] as const,
-      queryFn: () => fetchSpaceByKey({ key }),
+      queryFn: ({ signal }) => fetchSpaceByKey({ key }, signal),
       ...CACHE_PROFILE.SLOW,
     }),
 } as const;

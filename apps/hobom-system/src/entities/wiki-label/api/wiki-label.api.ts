@@ -10,9 +10,10 @@ import type {
 
 // ── Space Labels ──
 
-export const fetchLabels = async ({ spaceKey }: { spaceKey: string }) => {
+export const fetchLabels = async ({ spaceKey }: { spaceKey: string }, signal?: AbortSignal) => {
   return await spaceHttpClient.get<HttpResponseType<LabelType[]>>(
     `/api/v1/spaces/${spaceKey}/labels`,
+    { signal },
   );
 };
 
@@ -72,14 +73,18 @@ export const deletePageLabel = async ({
 
 // ── Label Pages ──
 
-export const fetchPagesByLabel = async ({
-  spaceKey,
-  labelId,
-}: {
-  spaceKey: string;
-  labelId: string;
-}) => {
+export const fetchPagesByLabel = async (
+  {
+    spaceKey,
+    labelId,
+  }: {
+    spaceKey: string;
+    labelId: string;
+  },
+  signal?: AbortSignal,
+) => {
   return await spaceHttpClient.get<HttpResponseType<LabelPageType[]>>(
     `/api/v1/spaces/${spaceKey}/labels/${labelId}/pages`,
+    { signal },
   );
 };

@@ -4,7 +4,7 @@ import type { ErrorEventDto, ErrorEventSearchParams } from "./error-event.type";
 
 const BASE = "/api/v1/errors";
 
-export const fetchErrorEvents = (params: ErrorEventSearchParams) => {
+export const fetchErrorEvents = (params: ErrorEventSearchParams, signal?: AbortSignal) => {
   const query = new URLSearchParams();
 
   if (params.errorType) query.set("errorType", params.errorType);
@@ -14,8 +14,9 @@ export const fetchErrorEvents = (params: ErrorEventSearchParams) => {
 
   return spaceHttpClient.get<HttpResponseType<PaginatedItems<ErrorEventDto>>>(
     `${BASE}?${query.toString()}`,
+    { signal },
   );
 };
 
-export const fetchErrorEventById = (id: number) =>
-  spaceHttpClient.get<HttpResponseType<ErrorEventDto>>(`${BASE}/${id}`);
+export const fetchErrorEventById = (id: number, signal?: AbortSignal) =>
+  spaceHttpClient.get<HttpResponseType<ErrorEventDto>>(`${BASE}/${id}`, { signal });

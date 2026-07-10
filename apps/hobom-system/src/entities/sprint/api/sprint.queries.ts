@@ -8,7 +8,7 @@ export const sprintQueries = {
   listByProject: (projectId: string) =>
     queryOptions({
       queryKey: ["sprints", "list", projectId],
-      queryFn: () => fetchSprintsByProject({ projectId }),
+      queryFn: ({ signal }) => fetchSprintsByProject({ projectId }, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 } as const;

@@ -4,7 +4,10 @@ import type { NotificationPageParams, NotificationPageResponse } from "./notific
 
 const DEFAULT_PAGE_SIZE = 10;
 
-export const fetchNotificationPage = async (params: NotificationPageParams = {}) => {
+export const fetchNotificationPage = async (
+  params: NotificationPageParams = {},
+  signal?: AbortSignal,
+) => {
   const searchParams = new URLSearchParams();
 
   if (params.cursor) searchParams.set("cursor", params.cursor);
@@ -13,6 +16,7 @@ export const fetchNotificationPage = async (params: NotificationPageParams = {})
   const qs = searchParams.toString();
   const res = await httpClient.get<HttpResponseType<NotificationPageResponse>>(
     `/notifications/scroll?${qs}`,
+    { signal },
   );
 
   return res.items;

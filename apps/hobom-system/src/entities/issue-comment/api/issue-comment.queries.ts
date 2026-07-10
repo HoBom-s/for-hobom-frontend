@@ -8,7 +8,7 @@ export const issueCommentQueries = {
   list: (projectId: string, issueId: string) =>
     queryOptions({
       queryKey: ["issue-comments", "list", projectId, issueId],
-      queryFn: () => fetchIssueComments({ projectId, issueId }),
+      queryFn: ({ signal }) => fetchIssueComments({ projectId, issueId }, signal),
       ...CACHE_PROFILE.FAST,
     }),
 } as const;

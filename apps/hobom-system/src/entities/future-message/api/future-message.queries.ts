@@ -9,7 +9,7 @@ export const futureMessageQueries = {
   byStatus: ({ status }: { status: FutureMessageSendStatusType }) =>
     queryOptions({
       queryKey: ["future-messages", "status", status],
-      queryFn: () => fetchFutureMessageByStatus({ status }),
+      queryFn: ({ signal }) => fetchFutureMessageByStatus({ status }, signal),
       ...CACHE_PROFILE.MODERATE,
     }),
 } as const;

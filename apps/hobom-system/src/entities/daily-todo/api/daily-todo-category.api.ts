@@ -1,8 +1,8 @@
 import { httpClient, type HttpResponseType } from "@/shared/api";
 import type { CategoryType } from "@/entities/daily-todo";
 
-export const fetchDailyTodoCategories = async () => {
-  return await httpClient.get<HttpResponseType<CategoryType[]>>(`/categories`);
+export const fetchDailyTodoCategories = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<CategoryType[]>>(`/categories`, { signal });
 };
 
 export const postCategory = async ({ title }: { title: string }) => {

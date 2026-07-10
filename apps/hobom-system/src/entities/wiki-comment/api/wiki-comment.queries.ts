@@ -11,13 +11,16 @@ export const wikiCommentQueries = {
     infiniteQueryOptions({
       queryKey: ["wiki-comments", "list", spaceKey, pageId] as const,
       ...CACHE_PROFILE.FAST,
-      queryFn: ({ pageParam }) =>
-        fetchComments({
-          spaceKey,
-          pageId,
-          offset: pageParam,
-          limit: COMMENTS_PAGE_SIZE,
-        }),
+      queryFn: ({ pageParam, signal }) =>
+        fetchComments(
+          {
+            spaceKey,
+            pageId,
+            offset: pageParam,
+            limit: COMMENTS_PAGE_SIZE,
+          },
+          signal,
+        ),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => {
         const { offset, items, totalCount } = lastPage.items;

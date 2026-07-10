@@ -7,6 +7,6 @@ export const adminUserQueries = {
   pending: () =>
     queryOptions({
       queryKey: [...adminUserQueries.all(), "pending"],
-      queryFn: fetchPendingUsers,
+      queryFn: ({ signal }) => fetchPendingUsers(signal),
     }),
 } as const;

@@ -15,15 +15,20 @@ import type {
 
 // ── Pages ──
 
-export const fetchPageTree = async ({ spaceKey }: { spaceKey: string }) => {
+export const fetchPageTree = async ({ spaceKey }: { spaceKey: string }, signal?: AbortSignal) => {
   return await spaceHttpClient.get<HttpResponseType<PageTreeNode[]>>(
     `/api/v1/spaces/${spaceKey}/pages`,
+    { signal },
   );
 };
 
-export const fetchPageById = async ({ spaceKey, pageId }: { spaceKey: string; pageId: string }) => {
+export const fetchPageById = async (
+  { spaceKey, pageId }: { spaceKey: string; pageId: string },
+  signal?: AbortSignal,
+) => {
   return await spaceHttpClient.get<HttpResponseType<PageType>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}`,
+    { signal },
   );
 };
 
@@ -56,33 +61,41 @@ export const deletePage = async ({ spaceKey, pageId }: { spaceKey: string; pageI
 
 // ── Versions ──
 
-export const fetchPageVersions = async ({
-  spaceKey,
-  pageId,
-  offset = 0,
-  limit = 20,
-}: {
-  spaceKey: string;
-  pageId: string;
-  offset?: number;
-  limit?: number;
-}) => {
+export const fetchPageVersions = async (
+  {
+    spaceKey,
+    pageId,
+    offset = 0,
+    limit = 20,
+  }: {
+    spaceKey: string;
+    pageId: string;
+    offset?: number;
+    limit?: number;
+  },
+  signal?: AbortSignal,
+) => {
   return await spaceHttpClient.get<HttpResponseType<PaginatedItems<PageVersionType>>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions?offset=${offset}&limit=${limit}`,
+    { signal },
   );
 };
 
-export const fetchPageVersion = async ({
-  spaceKey,
-  pageId,
-  version,
-}: {
-  spaceKey: string;
-  pageId: string;
-  version: number;
-}) => {
+export const fetchPageVersion = async (
+  {
+    spaceKey,
+    pageId,
+    version,
+  }: {
+    spaceKey: string;
+    pageId: string;
+    version: number;
+  },
+  signal?: AbortSignal,
+) => {
   return await spaceHttpClient.get<HttpResponseType<PageVersionType>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/${version}`,
+    { signal },
   );
 };
 
@@ -127,35 +140,43 @@ export const postCopyPage = async ({
 
 // ── Version Diff ──
 
-export const fetchVersionDiff = async ({
-  spaceKey,
-  pageId,
-  fromVersion,
-  toVersion,
-}: {
-  spaceKey: string;
-  pageId: string;
-  fromVersion: number;
-  toVersion: number;
-}) => {
+export const fetchVersionDiff = async (
+  {
+    spaceKey,
+    pageId,
+    fromVersion,
+    toVersion,
+  }: {
+    spaceKey: string;
+    pageId: string;
+    fromVersion: number;
+    toVersion: number;
+  },
+  signal?: AbortSignal,
+) => {
   return await spaceHttpClient.get<HttpResponseType<DiffEntryType[]>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/diff?from=${fromVersion}&to=${toVersion}`,
+    { signal },
   );
 };
 
 // ── Trash ──
 
-export const fetchTrashPages = async ({
-  spaceKey,
-  offset = 0,
-  limit = 20,
-}: {
-  spaceKey: string;
-  offset?: number;
-  limit?: number;
-}) => {
+export const fetchTrashPages = async (
+  {
+    spaceKey,
+    offset = 0,
+    limit = 20,
+  }: {
+    spaceKey: string;
+    offset?: number;
+    limit?: number;
+  },
+  signal?: AbortSignal,
+) => {
   return await spaceHttpClient.get<HttpResponseType<PaginatedItems<TrashPageType>>>(
     `/api/v1/spaces/${spaceKey}/trash?offset=${offset}&limit=${limit}`,
+    { signal },
   );
 };
 
@@ -186,20 +207,24 @@ export const deleteTrashPagePermanently = async ({
 
 // ── Search ──
 
-export const searchPages = async ({
-  q,
-  spaceKey,
-  offset = 0,
-  limit = 20,
-}: {
-  q: string;
-  spaceKey?: string;
-  offset?: number;
-  limit?: number;
-}) => {
+export const searchPages = async (
+  {
+    q,
+    spaceKey,
+    offset = 0,
+    limit = 20,
+  }: {
+    q: string;
+    spaceKey?: string;
+    offset?: number;
+    limit?: number;
+  },
+  signal?: AbortSignal,
+) => {
   const base = spaceKey ? `/api/v1/search/spaces/${spaceKey}` : "/api/v1/search";
 
   return await spaceHttpClient.get<HttpResponseType<PaginatedItems<SearchResultType>>>(
     `${base}?q=${encodeURIComponent(q)}&offset=${offset}&limit=${limit}`,
+    { signal },
   );
 };

@@ -16,42 +16,42 @@ export const logQueries = {
   levelSummary: (hours: number) =>
     queryOptions({
       queryKey: ["logs", "level-summary", hours],
-      queryFn: () => fetchLogLevelSummary(hours),
+      queryFn: ({ signal }) => fetchLogLevelSummary(hours, signal),
       ...CACHE_PROFILE.DASHBOARD,
     }),
 
   serviceSummary: (hours: number) =>
     queryOptions({
       queryKey: ["logs", "service-summary", hours],
-      queryFn: () => fetchLogServiceSummary(hours),
+      queryFn: ({ signal }) => fetchLogServiceSummary(hours, signal),
       ...CACHE_PROFILE.DASHBOARD,
     }),
 
   statusSummary: (hours: number) =>
     queryOptions({
       queryKey: ["logs", "status-summary", hours],
-      queryFn: () => fetchLogStatusSummary(hours),
+      queryFn: ({ signal }) => fetchLogStatusSummary(hours, signal),
       ...CACHE_PROFILE.DASHBOARD,
     }),
 
   requestSummary: (hours: number) =>
     queryOptions({
       queryKey: ["logs", "request-summary", hours],
-      queryFn: () => fetchLogRequestSummary(hours),
+      queryFn: ({ signal }) => fetchLogRequestSummary(hours, signal),
       ...CACHE_PROFILE.DASHBOARD,
     }),
 
   endpointErrors: (hours: number, limit?: number) =>
     queryOptions({
       queryKey: ["logs", "endpoint-errors", hours, limit],
-      queryFn: () => fetchLogEndpointErrors(hours, limit),
+      queryFn: ({ signal }) => fetchLogEndpointErrors(hours, limit, signal),
       ...CACHE_PROFILE.DASHBOARD,
     }),
 
   search: (params: LogSearchParams) =>
     queryOptions({
       queryKey: ["logs", "search", params],
-      queryFn: () => fetchLogSearch(params),
+      queryFn: ({ signal }) => fetchLogSearch(params, signal),
       ...CACHE_PROFILE.FAST,
     }),
 } as const;

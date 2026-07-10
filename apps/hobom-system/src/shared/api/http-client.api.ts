@@ -53,9 +53,21 @@ export const createHttpClient = (baseUrl = ""): HttpClient => {
       init.body = JSON.stringify(json);
     }
 
+    // Compose the caller's signal (e.g. a query's cancel signal) with the
+    // timeout into one controller, so a fetch aborts when either fires. Using
+    // the external signal directly would silently disable the timeout.
+    const externalSignal = init.signal ?? undefined;
     const controller = new AbortController();
 
-    init.signal = init.signal ?? controller.signal;
+    const onExternalAbort = () => controller.abort(externalSignal?.reason);
+
+    if (externalSignal?.aborted) {
+      controller.abort(externalSignal.reason);
+    } else {
+      externalSignal?.addEventListener("abort", onExternalAbort, { once: true });
+    }
+
+    init.signal = controller.signal;
     const timeoutId = setTimeout(() => controller.abort(), timeout ?? DEFAULT_TIMEOUT_MS);
 
     const ctx: MiddlewareContext = { input: fullUrl, init };
@@ -100,6 +112,7 @@ export const createHttpClient = (baseUrl = ""): HttpClient => {
       }
     } finally {
       clearTimeout(timeoutId);
+      externalSignal?.removeEventListener("abort", onExternalAbort);
     }
   };
 

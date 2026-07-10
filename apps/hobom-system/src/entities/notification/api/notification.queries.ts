@@ -7,7 +7,7 @@ export const notificationQueries = {
   pages: () =>
     infiniteQueryOptions({
       queryKey: [...notificationQueries.all(), "scroll"] as const,
-      queryFn: ({ pageParam }) => fetchNotificationPage({ cursor: pageParam }),
+      queryFn: ({ pageParam, signal }) => fetchNotificationPage({ cursor: pageParam }, signal),
       getNextPageParam: (lastPage) =>
         lastPage.hasNext ? (lastPage.nextCursor ?? undefined) : undefined,
       initialPageParam: undefined as string | undefined,

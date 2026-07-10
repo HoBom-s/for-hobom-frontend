@@ -15,38 +15,42 @@ const BASE = "/privacy-law";
 
 // ── Versions ──
 
-export const fetchVersions = async () => {
-  return await httpClient.get<HttpResponseType<LawVersion[]>>(`${BASE}/versions`);
+export const fetchVersions = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<LawVersion[]>>(`${BASE}/versions`, { signal });
 };
 
-export const fetchVersionById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<LawVersion>>(`${BASE}/versions/${id}`);
+export const fetchVersionById = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<LawVersion>>(`${BASE}/versions/${id}`, { signal });
 };
 
 // ── Diffs ──
 
-export const fetchDiffs = async () => {
-  return await httpClient.get<HttpResponseType<LawDiff[]>>(`${BASE}/diffs`);
+export const fetchDiffs = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<LawDiff[]>>(`${BASE}/diffs`, { signal });
 };
 
-export const fetchDiffById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<LawDiff>>(`${BASE}/diffs/${id}`);
+export const fetchDiffById = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<LawDiff>>(`${BASE}/diffs/${id}`, { signal });
 };
 
 // ── Study Materials ──
 
-export const fetchStudyMaterials = async () => {
-  return await httpClient.get<HttpResponseType<StudyMaterial[]>>(`${BASE}/study-materials`);
+export const fetchStudyMaterials = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<StudyMaterial[]>>(`${BASE}/study-materials`, {
+    signal,
+  });
 };
 
-export const fetchStudyMaterialById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<StudyMaterial>>(`${BASE}/study-materials/${id}`);
+export const fetchStudyMaterialById = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<StudyMaterial>>(`${BASE}/study-materials/${id}`, {
+    signal,
+  });
 };
 
 // ── Questions ──
 
-export const fetchQuestionHistory = async () => {
-  return await httpClient.get<HttpResponseType<QuestionHistory[]>>(`${BASE}/questions`);
+export const fetchQuestionHistory = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<QuestionHistory[]>>(`${BASE}/questions`, { signal });
 };
 
 export const postAskQuestion = async (data: AskQuestionRequest) => {
@@ -55,12 +59,12 @@ export const postAskQuestion = async (data: AskQuestionRequest) => {
 
 // ── Exams ──
 
-export const fetchExams = async () => {
-  return await httpClient.get<HttpResponseType<ExamSet[]>>(`${BASE}/exams`);
+export const fetchExams = async (signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<ExamSet[]>>(`${BASE}/exams`, { signal });
 };
 
-export const fetchExamById = async ({ id }: { id: string }) => {
-  return await httpClient.get<HttpResponseType<ExamSetDetail>>(`${BASE}/exams/${id}`);
+export const fetchExamById = async ({ id }: { id: string }, signal?: AbortSignal) => {
+  return await httpClient.get<HttpResponseType<ExamSetDetail>>(`${BASE}/exams/${id}`, { signal });
 };
 
 export const postGenerateExam = async () => {

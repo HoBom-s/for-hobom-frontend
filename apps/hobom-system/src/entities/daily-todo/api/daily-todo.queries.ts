@@ -9,21 +9,21 @@ export const todoQueries = {
   list: (date: string) =>
     queryOptions({
       queryKey: ["todos", date],
-      queryFn: () => fetchDailyTodos({ date }),
+      queryFn: ({ signal }) => fetchDailyTodos({ date }, signal),
       ...CACHE_PROFILE.FAST,
     }),
 
   byDate: (date: string) =>
     queryOptions({
       queryKey: ["todos", "by-date", date],
-      queryFn: () => fetchDailyTodosByDate({ date }),
+      queryFn: ({ signal }) => fetchDailyTodosByDate({ date }, signal),
       ...CACHE_PROFILE.FAST,
     }),
 
   categories: () =>
     queryOptions({
       queryKey: ["todos", "categories"],
-      queryFn: () => fetchDailyTodoCategories(),
+      queryFn: ({ signal }) => fetchDailyTodoCategories(signal),
       ...CACHE_PROFILE.SLOW,
     }),
 } as const;
