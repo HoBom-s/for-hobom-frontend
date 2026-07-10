@@ -16,6 +16,10 @@
     "./date-pickers": {
       "types": "./src/date-pickers/index.ts",
       "default": "./src/date-pickers/index.ts"
+    },
+    "./charts": {
+      "types": "./src/charts/index.ts",
+      "default": "./src/charts/index.ts"
     }
   },
   "scripts": {
@@ -28,6 +32,9 @@
   },
   "dependencies": {
     "@stylexjs/stylex": "^0.19.0",
+    "d3-array": "^3.2.4",
+    "d3-scale": "^4.0.2",
+    "d3-shape": "^3.2.0",
     "date-fns": "^4.4.0",
     "hobom-utils": "workspace:*"
   },
@@ -46,6 +53,9 @@
     "@storybook/addon-vitest": "^10.4.6",
     "@storybook/react-vite": "^10.4.6",
     "@stylexjs/unplugin": "^0.19.0",
+    "@types/d3-array": "^3.2.2",
+    "@types/d3-scale": "^4.0.9",
+    "@types/d3-shape": "^3.1.8",
     "@vitest/browser": "^4.1.9",
     "@vitest/browser-playwright": "^4.1.9",
     "playwright": "^1.61.1",
