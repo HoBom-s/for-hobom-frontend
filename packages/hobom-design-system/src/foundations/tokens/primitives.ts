@@ -71,7 +71,7 @@ export const primitives = {
     semibold: 600,
   },
 
-  /** 8px grid. Matches the current MUI default spacing values. */
+  /** 8px grid — the base spacing unit. */
   space: {
     0: 0,
     1: 4,

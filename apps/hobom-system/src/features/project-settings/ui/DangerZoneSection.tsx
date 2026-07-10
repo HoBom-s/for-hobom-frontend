@@ -63,7 +63,7 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
           paddingRight: 24,
           paddingTop: 16,
           paddingBottom: 16,
-          backgroundColor: "rgba(var(--mui-palette-error-mainChannel) / 0.06)",
+          backgroundColor: "color-mix(in srgb, var(--hb-color-danger) 6%, transparent)",
           borderBottom: "1px solid",
           borderColor: "var(--hb-color-danger)",
           display: "flex",

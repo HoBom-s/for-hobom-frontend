@@ -6,7 +6,7 @@ type FontSizeVariant = "inherit" | "small" | "medium" | "large";
 type IconFontSize = number | string | FontSizeVariant;
 
 /**
- * MUI's `sx` as the icon call sites use it — plain CSS properties plus the
+ * The `sx` shape the icon call sites use — plain CSS properties plus the
  * `m*` spacing shorthands and the `fontSize` size variants — so the in-house
  * icons are a drop-in replacement (`<Icon sx={{ fontSize, color }} />`).
  */

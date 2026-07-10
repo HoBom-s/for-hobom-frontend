@@ -43,7 +43,7 @@ interface TextProps extends Omit<HTMLAttributes<HTMLElement>, "color"> {
   children?: ReactNode;
 }
 
-// The typography scale mirrors the values the app renders today: MUI's default
+// The typography scale mirrors the values the app renders today: the default
 // variants with the theme's overrides (h6/body1/body2/button/caption font sizes
 // and the semibold h6). Sizes/line-heights/letter-spacing are kept identical so
 // the migration is pixel-for-pixel.
@@ -112,7 +112,7 @@ const VARIANT_STYLE = {
   inherit: styles.inherit,
 };
 
-// Semantic element rendered per variant (MUI's default variant mapping).
+// Semantic element rendered per variant (default variant mapping).
 const VARIANT_ELEMENT: Record<TextVariant, ElementType> = {
   h1: "h1",
   h2: "h2",

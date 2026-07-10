@@ -64,7 +64,7 @@ export const Alert = ({
   ...rest
 }: AlertProps) => {
   const color = SEVERITY_COLOR[severity];
-  // Darkened text (like MUI's `*.dark` shade) stays readable on the light tint.
+  // A darkened shade of the severity color stays readable on the light tint.
   const text = `color-mix(in srgb, ${color} 62%, black)`;
   const sx = stylex.props(styles.root);
   const surface: CSSProperties =

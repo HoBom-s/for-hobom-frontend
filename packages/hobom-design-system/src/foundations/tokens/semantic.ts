@@ -4,10 +4,9 @@ import { primitives as p } from "./primitives";
  * Semantic tokens — the "role" of each color/value. Components reference only
  * this layer.
  *
- * light and dark each point at different primitives. The shape mirrors the MUI
- * palette losslessly (main/light/dark/contrast) so that the next PR's MUI
- * bridge can rebuild `createTheme` from these values while keeping pixels
- * identical.
+ * light and dark each point at different primitives. Each intent keeps the full
+ * main/light/dark/contrast shape so components can derive hover/active shades
+ * and readable contrast colors from a single token.
  */
 export interface SemanticIntent {
   main: string;

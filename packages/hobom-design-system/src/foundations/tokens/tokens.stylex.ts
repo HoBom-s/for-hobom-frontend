@@ -5,7 +5,7 @@ import * as stylex from "@stylexjs/stylex";
  * components.
  *
  * Values mirror the primitive token objects in `./primitives` for now: while
- * the MUI-based theme still needs plain-JS values, the same atoms live in both
+ * some code still needs plain-JS token values, the same atoms live in both
  * places. That duplication goes away once every component is on StyleX.
  *
  * Only the tokens currently consumed are defined here; grow the set as more

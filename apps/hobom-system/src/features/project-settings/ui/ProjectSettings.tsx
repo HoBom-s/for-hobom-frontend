@@ -68,7 +68,7 @@ export const ProjectSettings = ({ projectId }: ProjectSettingsProps) => {
                 height: 22,
                 fontSize: 11,
                 fontWeight: 700,
-                backgroundColor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)",
+                backgroundColor: "color-mix(in srgb, var(--hb-color-accent) 10%, transparent)",
                 color: "var(--hb-color-accent)",
               }}
             />

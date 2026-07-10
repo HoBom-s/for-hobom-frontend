@@ -50,7 +50,7 @@ export const HeaderCell = ({
         fontSize: 12,
         color: HEADER_TEXT,
         backgroundColor: HEADER_BG,
-        borderBottom: `2px solid var(--mui-palette-divider)`,
+        borderBottom: `2px solid var(--hb-color-border)`,
         boxSizing: "border-box",
         userSelect: "none",
         cursor: col.sortable ? "pointer" : "default",

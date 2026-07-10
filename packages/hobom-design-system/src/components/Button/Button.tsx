@@ -191,9 +191,9 @@ const iconStyles = stylex.create({
     borderWidth: 0,
     borderStyle: "none",
     borderRadius: "50%",
-    // Focus shows as a slightly stronger background tint (no outline ring), the
-    // way MUI's IconButton does — an accent outline reads as an odd border when
-    // focus returns to the button after a menu/popover closes.
+    // Focus shows as a slightly stronger background tint (no outline ring) —
+    // an accent outline reads as an odd border when focus returns to the
+    // button after a menu/popover closes.
     backgroundColor: {
       default: "transparent",
       ":hover": "color-mix(in srgb, currentColor 8%, transparent)",

@@ -22,7 +22,7 @@ const styles = stylex.create({
     boxSizing: "border-box",
     width: 40,
     height: 40,
-    // MUI's default grey/white; consumers usually override via `style`.
+    // A neutral grey/white default; consumers usually override via `style`.
     backgroundColor: "#bdbdbd",
     color: "#fff",
     fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",

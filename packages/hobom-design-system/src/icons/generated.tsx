@@ -1,9 +1,8 @@
 import { createIcon } from "../foundations/icon/Icon";
 
 /**
- * Generated icon set — each icon's 24×24 SVG content extracted from its
- * `@mui/icons-material` source path, rendered by the in-house `Icon` base.
- * Regenerate with scripts/gen-icons.cjs.
+ * In-house icon set — each icon's 24×24 SVG path data, rendered by the
+ * `Icon` base. Add one by appending a `createIcon(<path .../>, "Name")` entry.
  */
 export const AccountTreeOutlined = createIcon(<><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3zM7 9H4V5h3zm10 6h3v4h-3zm0-10h3v4h-3z" /></>, "AccountTreeOutlined");
 export const Add = createIcon(<><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z" /></>, "Add");

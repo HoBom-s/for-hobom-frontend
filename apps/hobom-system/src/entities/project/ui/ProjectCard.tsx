@@ -7,7 +7,7 @@ const styles = stylex.create({
   card: {
     borderRadius: 16,
     transition: "box-shadow 0.15s",
-    // MUI shadow level 3 -> design-system elevation-2 shadow.
+    // Elevation-2 card shadow on hover.
     ":hover": { boxShadow: "0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04)" },
   },
   content: {

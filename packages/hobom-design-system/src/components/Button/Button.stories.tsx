@@ -6,9 +6,9 @@ const meta = {
   component: Button,
   args: { children: "Button", variant: "primary", size: "medium" },
   parameters: {
-    // White text on the accent fill sits at ~3.62:1 — the same contrast MUI's
-    // contained buttons ship. That's a known filled-button tradeoff, so the
-    // contrast rule is off here while the rest of the a11y checks still run.
+    // White text on the accent fill sits at ~3.62:1 — a known filled-button
+    // tradeoff, so the contrast rule is off here while the rest of the a11y
+    // checks still run.
     a11y: { config: { rules: [{ id: "color-contrast", enabled: false }] } },
   },
   argTypes: {

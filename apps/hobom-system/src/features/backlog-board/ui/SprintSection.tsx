@@ -17,7 +17,7 @@ import { IssueRow } from "./IssueRow";
 
 const styles = stylex.create({
   headerActiveHover: {
-    ":hover": { backgroundColor: "rgba(var(--mui-palette-primary-mainChannel) / 0.1)" },
+    ":hover": { backgroundColor: "color-mix(in srgb, var(--hb-color-accent) 10%, transparent)" },
   },
   headerHover: {
     ":hover": { backgroundColor: "var(--hb-color-border)" },
@@ -65,7 +65,7 @@ export const SprintSection = ({ sprint, issues }: { sprint: SprintType; issues: 
           paddingBottom: 9.6,
           backgroundColor:
             sprint.status === "ACTIVE"
-              ? "rgba(var(--mui-palette-primary-mainChannel) / 0.06)"
+              ? "color-mix(in srgb, var(--hb-color-accent) 6%, transparent)"
               : "var(--hb-color-border)",
           cursor: "pointer",
           transition: "background 0.15s",

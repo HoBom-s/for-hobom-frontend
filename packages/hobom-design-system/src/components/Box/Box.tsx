@@ -13,7 +13,7 @@ interface BoxProps extends AllHTMLAttributes<HTMLElement> {
 /**
  * Unstyled layout primitive: a polymorphic element (a `div` by default) that
  * passes `style`, `className`, `children`, and every DOM prop straight through.
- * All styling comes from the consumer's `style` — the MUI `sx` prop is
+ * All styling comes from the consumer's `style` — the legacy `sx` prop was
  * codemodded to `style` at the call sites.
  */
 export const Box = ({ component = "div", ...rest }: BoxProps) => createElement(component, rest);

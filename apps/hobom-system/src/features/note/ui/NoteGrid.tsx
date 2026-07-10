@@ -19,9 +19,9 @@ const SECTION_HEADER_STYLE: React.CSSProperties = {
 };
 
 const PLACEHOLDER_STYLE: React.CSSProperties = {
-  border: "2px dashed var(--mui-palette-divider)",
+  border: "2px dashed var(--hb-color-border)",
   borderRadius: 8,
-  backgroundColor: "var(--mui-palette-action-hover)",
+  backgroundColor: "var(--hb-color-neutral)",
 };
 
 const OVER_STYLE: React.CSSProperties = {
