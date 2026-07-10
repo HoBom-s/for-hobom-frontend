@@ -1,14 +1,21 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { boardSchema, boardsSchema } from "./board.schema";
 import type { BoardDto, CreateBoardRequest, UpdateBoardRequest } from "./board.type";
 
 export const fetchBoardsByProject = async (
   { projectId }: { projectId: string },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<BoardDto[]>>(`/projects/${projectId}/boards`, {
-    signal,
-  });
+  const res = await httpClient.get<HttpResponseType<BoardDto[]>>(
+    `/projects/${projectId}/boards`,
+    { signal },
+  );
+
+  return {
+    ...res,
+    items: parseResponse(boardsSchema, "GET /projects/:projectId/boards")(res.items),
+  };
 };
 
 export const fetchBoardById = async (
@@ -21,10 +28,15 @@ export const fetchBoardById = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<BoardDto>>(
+  const res = await httpClient.get<HttpResponseType<BoardDto>>(
     `/projects/${projectId}/boards/${boardId}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(boardSchema, "GET /projects/:projectId/boards/:boardId")(res.items),
+  };
 };
 
 export const postCreateBoard = async ({

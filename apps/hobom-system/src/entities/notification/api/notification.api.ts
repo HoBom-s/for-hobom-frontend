@@ -1,5 +1,6 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { notificationPageSchema } from "./notification.schema";
 import type { NotificationPageParams, NotificationPageResponse } from "./notification.type";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -19,7 +20,7 @@ export const fetchNotificationPage = async (
     { signal },
   );
 
-  return res.items;
+  return parseResponse(notificationPageSchema, "GET /notifications/scroll")(res.items);
 };
 
 export const patchNotificationRead = async (id: string) => {

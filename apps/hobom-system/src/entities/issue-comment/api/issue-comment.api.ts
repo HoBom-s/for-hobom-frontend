@@ -1,5 +1,6 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { issueCommentsSchema } from "./issue-comment.schema";
 import type {
   IssueCommentType,
   CreateIssueCommentRequest,
@@ -16,10 +17,18 @@ export const fetchIssueComments = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<IssueCommentType[]>>(
+  const res = await httpClient.get<HttpResponseType<IssueCommentType[]>>(
     `/projects/${projectId}/issues/${issueId}/comments`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(
+      issueCommentsSchema,
+      "GET /projects/:projectId/issues/:issueId/comments",
+    )(res.items),
+  };
 };
 
 export const postCreateIssueComment = async ({

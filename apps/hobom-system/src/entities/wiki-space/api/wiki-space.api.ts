@@ -1,5 +1,6 @@
-import { spaceHttpClient } from "@/shared/api";
+import { spaceHttpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
+import { spaceSchema, spacesPageSchema } from "./wiki-space.schema";
 import type { SpaceType, CreateSpaceRequest, UpdateSpaceRequest } from "./wiki-space.type";
 
 export const fetchSpaces = async (
@@ -9,14 +10,20 @@ export const fetchSpaces = async (
   const offset = params?.offset ?? 0;
   const limit = params?.limit ?? 20;
 
-  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<SpaceType>>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PaginatedItems<SpaceType>>>(
     `/api/v1/spaces?offset=${offset}&limit=${limit}`,
     { signal },
   );
+
+  return { ...res, items: parseResponse(spacesPageSchema, "GET /api/v1/spaces")(res.items) };
 };
 
 export const fetchSpaceByKey = async ({ key }: { key: string }, signal?: AbortSignal) => {
-  return await spaceHttpClient.get<HttpResponseType<SpaceType>>(`/api/v1/spaces/${key}`, { signal });
+  const res = await spaceHttpClient.get<HttpResponseType<SpaceType>>(`/api/v1/spaces/${key}`, {
+    signal,
+  });
+
+  return { ...res, items: parseResponse(spaceSchema, "GET /api/v1/spaces/:key")(res.items) };
 };
 
 export const postCreateSpace = async (data: CreateSpaceRequest) => {

@@ -1,4 +1,5 @@
-import { httpClient, type HttpResponseType } from "@/shared/api";
+import { httpClient, parseResponse, type HttpResponseType } from "@/shared/api";
+import { futureMessagesSchema } from "./future-message.schema";
 import type { FutureMessageSendStatusType } from "../model/future-message-send-status.model";
 import type { FutureMessageType } from "./future-message.type";
 import type { FutureMessageSendSchemaType } from "../model/future-message-send.model";
@@ -10,11 +11,17 @@ export const fetchFutureMessageByStatus = async (
     status: FutureMessageSendStatusType;
   },
   signal?: AbortSignal,
-) =>
-  httpClient.get<HttpResponseType<FutureMessageType[]>>(
+) => {
+  const res = await httpClient.get<HttpResponseType<FutureMessageType[]>>(
     `/future-messages/by-status?status=${status}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(futureMessagesSchema, "GET /future-messages/by-status")(res.items),
+  };
+};
 
 export const postFutureMessage = async (body: FutureMessageSendSchemaType) =>
   httpClient.post("/future-messages", body);

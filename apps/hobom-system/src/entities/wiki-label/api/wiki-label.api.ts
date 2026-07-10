@@ -1,5 +1,6 @@
-import { spaceHttpClient } from "@/shared/api";
+import { spaceHttpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { labelsSchema, labelPagesSchema } from "./wiki-label.schema";
 import type {
   LabelType,
   LabelPageType,
@@ -11,10 +12,15 @@ import type {
 // ── Space Labels ──
 
 export const fetchLabels = async ({ spaceKey }: { spaceKey: string }, signal?: AbortSignal) => {
-  return await spaceHttpClient.get<HttpResponseType<LabelType[]>>(
+  const res = await spaceHttpClient.get<HttpResponseType<LabelType[]>>(
     `/api/v1/spaces/${spaceKey}/labels`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(labelsSchema, "GET /api/v1/spaces/:spaceKey/labels")(res.items),
+  };
 };
 
 export const postCreateLabel = async ({
@@ -83,8 +89,16 @@ export const fetchPagesByLabel = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await spaceHttpClient.get<HttpResponseType<LabelPageType[]>>(
+  const res = await spaceHttpClient.get<HttpResponseType<LabelPageType[]>>(
     `/api/v1/spaces/${spaceKey}/labels/${labelId}/pages`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(
+      labelPagesSchema,
+      "GET /api/v1/spaces/:spaceKey/labels/:labelId/pages",
+    )(res.items),
+  };
 };

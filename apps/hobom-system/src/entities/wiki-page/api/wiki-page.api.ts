@@ -1,5 +1,14 @@
-import { spaceHttpClient } from "@/shared/api";
+import { spaceHttpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
+import {
+  pageSchema,
+  pageTreeSchema,
+  pageVersionSchema,
+  pageVersionsPageSchema,
+  diffEntriesSchema,
+  trashPagesPageSchema,
+  searchResultsPageSchema,
+} from "./wiki-page.schema";
 import type {
   PageType,
   PageTreeNode,
@@ -16,20 +25,30 @@ import type {
 // ── Pages ──
 
 export const fetchPageTree = async ({ spaceKey }: { spaceKey: string }, signal?: AbortSignal) => {
-  return await spaceHttpClient.get<HttpResponseType<PageTreeNode[]>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PageTreeNode[]>>(
     `/api/v1/spaces/${spaceKey}/pages`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(pageTreeSchema, "GET /api/v1/spaces/:spaceKey/pages")(res.items),
+  };
 };
 
 export const fetchPageById = async (
   { spaceKey, pageId }: { spaceKey: string; pageId: string },
   signal?: AbortSignal,
 ) => {
-  return await spaceHttpClient.get<HttpResponseType<PageType>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PageType>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(pageSchema, "GET /api/v1/spaces/:spaceKey/pages/:pageId")(res.items),
+  };
 };
 
 export const postCreatePage = async ({
@@ -75,10 +94,18 @@ export const fetchPageVersions = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<PageVersionType>>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PaginatedItems<PageVersionType>>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions?offset=${offset}&limit=${limit}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(
+      pageVersionsPageSchema,
+      "GET /api/v1/spaces/:spaceKey/pages/:pageId/versions",
+    )(res.items),
+  };
 };
 
 export const fetchPageVersion = async (
@@ -93,10 +120,18 @@ export const fetchPageVersion = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await spaceHttpClient.get<HttpResponseType<PageVersionType>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PageVersionType>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/${version}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(
+      pageVersionSchema,
+      "GET /api/v1/spaces/:spaceKey/pages/:pageId/versions/:version",
+    )(res.items),
+  };
 };
 
 export const postRestorePageVersion = async ({
@@ -154,10 +189,18 @@ export const fetchVersionDiff = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await spaceHttpClient.get<HttpResponseType<DiffEntryType[]>>(
+  const res = await spaceHttpClient.get<HttpResponseType<DiffEntryType[]>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/versions/diff?from=${fromVersion}&to=${toVersion}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(
+      diffEntriesSchema,
+      "GET /api/v1/spaces/:spaceKey/pages/:pageId/versions/diff",
+    )(res.items),
+  };
 };
 
 // ── Trash ──
@@ -174,10 +217,15 @@ export const fetchTrashPages = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<TrashPageType>>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PaginatedItems<TrashPageType>>>(
     `/api/v1/spaces/${spaceKey}/trash?offset=${offset}&limit=${limit}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(trashPagesPageSchema, "GET /api/v1/spaces/:spaceKey/trash")(res.items),
+  };
 };
 
 export const postRestoreTrashPage = async ({
@@ -223,8 +271,13 @@ export const searchPages = async (
 ) => {
   const base = spaceKey ? `/api/v1/search/spaces/${spaceKey}` : "/api/v1/search";
 
-  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<SearchResultType>>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PaginatedItems<SearchResultType>>>(
     `${base}?q=${encodeURIComponent(q)}&offset=${offset}&limit=${limit}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(searchResultsPageSchema, "GET /api/v1/search")(res.items),
+  };
 };

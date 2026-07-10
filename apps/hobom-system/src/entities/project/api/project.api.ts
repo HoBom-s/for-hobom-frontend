@@ -1,13 +1,18 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { projectSchema, projectsSchema } from "./project.schema";
 import type { ProjectType, CreateProjectRequest, UpdateProjectRequest } from "./project.type";
 
 export const fetchProjects = async (signal?: AbortSignal) => {
-  return await httpClient.get<HttpResponseType<ProjectType[]>>("/projects/me", { signal });
+  const res = await httpClient.get<HttpResponseType<ProjectType[]>>("/projects/me", { signal });
+
+  return { ...res, items: parseResponse(projectsSchema, "GET /projects/me")(res.items) };
 };
 
 export const fetchProjectById = async ({ id }: { id: string }, signal?: AbortSignal) => {
-  return await httpClient.get<HttpResponseType<ProjectType>>(`/projects/${id}`, { signal });
+  const res = await httpClient.get<HttpResponseType<ProjectType>>(`/projects/${id}`, { signal });
+
+  return { ...res, items: parseResponse(projectSchema, "GET /projects/:id")(res.items) };
 };
 
 export const postCreateProject = async (data: CreateProjectRequest) => {

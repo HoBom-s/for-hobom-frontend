@@ -1,17 +1,26 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { dailyTodoListSchema } from "./daily-todo.schema";
 import type { DailyTodoType, ProgressType } from "./daily-todo.type.ts";
 
 export const fetchDailyTodos = async ({ date }: { date: string }, signal?: AbortSignal) => {
-  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos?date=${date}`, {
+  const res = await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos?date=${date}`, {
     signal,
   });
+
+  return { ...res, items: parseResponse(dailyTodoListSchema, "GET /daily-todos")(res.items) };
 };
 
 export const fetchDailyTodosByDate = async ({ date }: { date: string }, signal?: AbortSignal) => {
-  return await httpClient.get<HttpResponseType<DailyTodoType[]>>(`/daily-todos/by-date/${date}`, {
-    signal,
-  });
+  const res = await httpClient.get<HttpResponseType<DailyTodoType[]>>(
+    `/daily-todos/by-date/${date}`,
+    { signal },
+  );
+
+  return {
+    ...res,
+    items: parseResponse(dailyTodoListSchema, "GET /daily-todos/by-date/:date")(res.items),
+  };
 };
 
 export const patchDailyTodoCompleteStatusChange = async ({

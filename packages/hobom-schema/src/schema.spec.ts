@@ -119,6 +119,40 @@ describe("number", () => {
   });
 });
 
+describe("boolean", () => {
+  const schema = HoBomSchema.boolean();
+
+  it("parses true and false", () => {
+    expect(schema.safeParse(true)).toEqual({ success: true, data: true });
+    expect(schema.safeParse(false)).toEqual({ success: true, data: false });
+  });
+
+  it("fails on non-boolean (including truthy/falsy values)", () => {
+    expect(schema.safeParse(1).success).toBe(false);
+    expect(schema.safeParse(0).success).toBe(false);
+    expect(schema.safeParse("true").success).toBe(false);
+    expect(schema.safeParse(null).success).toBe(false);
+  });
+});
+
+describe("date", () => {
+  const schema = HoBomSchema.date();
+
+  it("parses a valid date string and keeps it as a string", () => {
+    expect(schema.safeParse("2026-07-10T00:00:00.000Z")).toEqual({
+      success: true,
+      data: "2026-07-10T00:00:00.000Z",
+    });
+    expect(schema.safeParse("2026-07-10").success).toBe(true);
+  });
+
+  it("fails on non-string or unparseable date", () => {
+    expect(schema.safeParse("not a date").success).toBe(false);
+    expect(schema.safeParse(1720000000000).success).toBe(false);
+    expect(schema.safeParse(null).success).toBe(false);
+  });
+});
+
 describe("enum", () => {
   const schema = HoBomSchema.enum(["A", "B", "C"]);
 

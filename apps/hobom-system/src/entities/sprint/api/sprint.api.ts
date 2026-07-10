@@ -1,14 +1,21 @@
-import { httpClient } from "@/shared/api";
+import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
+import { sprintsSchema } from "./sprint.schema";
 import type { SprintType, CreateSprintRequest, UpdateSprintRequest } from "./sprint.type";
 
 export const fetchSprintsByProject = async (
   { projectId }: { projectId: string },
   signal?: AbortSignal,
 ) => {
-  return await httpClient.get<HttpResponseType<SprintType[]>>(`/projects/${projectId}/sprints`, {
-    signal,
-  });
+  const res = await httpClient.get<HttpResponseType<SprintType[]>>(
+    `/projects/${projectId}/sprints`,
+    { signal },
+  );
+
+  return {
+    ...res,
+    items: parseResponse(sprintsSchema, "GET /projects/:projectId/sprints")(res.items),
+  };
 };
 
 export const postCreateSprint = async ({

@@ -4,6 +4,7 @@ const mockGet = vi.fn();
 
 vi.mock("@/shared/api", () => ({
   internalHttpClient: { get: (...args: unknown[]) => mockGet(...args) },
+  parseResponse: () => (data: unknown) => data,
 }));
 
 const { fetchLogSearch } = await import("./log.api");

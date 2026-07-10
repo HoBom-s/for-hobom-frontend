@@ -1,5 +1,6 @@
-import { spaceHttpClient } from "@/shared/api";
+import { spaceHttpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType, PaginatedItems } from "@/shared/api";
+import { commentsPageSchema } from "./wiki-comment.schema";
 import type { CommentType, CreateCommentRequest, UpdateCommentRequest } from "./wiki-comment.type";
 
 export const fetchComments = async (
@@ -16,10 +17,18 @@ export const fetchComments = async (
   },
   signal?: AbortSignal,
 ) => {
-  return await spaceHttpClient.get<HttpResponseType<PaginatedItems<CommentType>>>(
+  const res = await spaceHttpClient.get<HttpResponseType<PaginatedItems<CommentType>>>(
     `/api/v1/spaces/${spaceKey}/pages/${pageId}/comments?offset=${offset}&limit=${limit}`,
     { signal },
   );
+
+  return {
+    ...res,
+    items: parseResponse(
+      commentsPageSchema,
+      "GET /api/v1/spaces/:spaceKey/pages/:pageId/comments",
+    )(res.items),
+  };
 };
 
 export const postCreateComment = async ({
