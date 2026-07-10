@@ -6,12 +6,12 @@ type FontSizeVariant = "inherit" | "small" | "medium" | "large";
 type IconFontSize = number | string | FontSizeVariant;
 
 /**
- * The subset of MUI's `sx` that the icon call sites actually use, so the
- * in-house icons are a drop-in replacement (`<Icon sx={{ fontSize, color }} />`).
+ * MUI's `sx` as the icon call sites use it — plain CSS properties plus the
+ * `m*` spacing shorthands and the `fontSize` size variants — so the in-house
+ * icons are a drop-in replacement (`<Icon sx={{ fontSize, color }} />`).
  */
-interface IconSx {
+interface IconSx extends Omit<CSSProperties, "fontSize"> {
   fontSize?: IconFontSize;
-  color?: string;
   m?: number;
   mt?: number;
   mb?: number;
@@ -19,11 +19,6 @@ interface IconSx {
   mr?: number;
   mx?: number;
   my?: number;
-  opacity?: number;
-  cursor?: CSSProperties["cursor"];
-  transform?: string;
-  transition?: string;
-  verticalAlign?: CSSProperties["verticalAlign"];
 }
 
 export interface IconProps
@@ -63,26 +58,21 @@ const styles = stylex.create({
 
 const SP = 8;
 
-/** Translate the icon `sx` subset (+ top-level props) into a plain style. */
+/** Translate the icon `sx` (+ top-level props) into a plain style. */
 const toStyle = (sx: IconSx | undefined, fontSize?: IconFontSize, color?: string): CSSProperties => {
-  const merged: IconSx = { ...sx };
-  const size = resolveSize(fontSize ?? merged.fontSize);
-  const style: CSSProperties = {};
+  const { fontSize: sxFontSize, m, mt, mb, ml, mr, mx, my, ...rest } = sx ?? {};
+  const style: CSSProperties = { ...rest };
+  const size = resolveSize(fontSize ?? sxFontSize);
 
   if (size) style.fontSize = size;
-  if (color ?? merged.color) style.color = color ?? merged.color;
-  if (merged.m != null) style.margin = merged.m * SP;
-  if (merged.mx != null) style.marginInline = merged.mx * SP;
-  if (merged.my != null) style.marginBlock = merged.my * SP;
-  if (merged.mt != null) style.marginTop = merged.mt * SP;
-  if (merged.mb != null) style.marginBottom = merged.mb * SP;
-  if (merged.ml != null) style.marginLeft = merged.ml * SP;
-  if (merged.mr != null) style.marginRight = merged.mr * SP;
-  if (merged.opacity != null) style.opacity = merged.opacity;
-  if (merged.cursor) style.cursor = merged.cursor;
-  if (merged.transform) style.transform = merged.transform;
-  if (merged.transition) style.transition = merged.transition;
-  if (merged.verticalAlign) style.verticalAlign = merged.verticalAlign;
+  if (color != null) style.color = color;
+  if (m != null) style.margin = m * SP;
+  if (mx != null) style.marginInline = mx * SP;
+  if (my != null) style.marginBlock = my * SP;
+  if (mt != null) style.marginTop = mt * SP;
+  if (mb != null) style.marginBottom = mb * SP;
+  if (ml != null) style.marginLeft = ml * SP;
+  if (mr != null) style.marginRight = mr * SP;
 
   return style;
 };
@@ -104,11 +94,11 @@ export const Icon = ({ fontSize, color, sx, style, className, children, ...rest 
   );
 };
 
-/** Build an icon component from a single 24×24 path. */
-export const createIcon = (path: string, displayName: string) => {
+/** Build an icon component from its 24×24 SVG content. */
+export const createIcon = (node: ReactNode, displayName: string) => {
   const IconComponent = (props: Omit<IconProps, "children">) => (
     <Icon {...props} data-icon={displayName}>
-      <path d={path} />
+      {node}
     </Icon>
   );
 

@@ -1,4 +1,4 @@
-import { Add, MenuOutlined, SearchOutlined, ExpandMore, NotificationsNoneOutlined } from "./generated";
+import { Add, MenuOutlined, SearchOutlined, ExpandMore, NotificationsNoneOutlined } from "../../icons/generated";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta = { title: "Foundations/Icon" } satisfies Meta;
