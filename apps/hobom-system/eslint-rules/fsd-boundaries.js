@@ -75,23 +75,40 @@ export const rule = {
     const current = parseLocation(context.filename);
     if (!current) return {};
 
+    const checkSource = (node, importPath) => {
+      if (typeof importPath !== "string") return;
+
+      if (importPath.startsWith("@/")) {
+        const [importedLayer, importedSlice] = importPath.slice(2).split("/");
+        checkImport(context, node, importedLayer, importedSlice ?? null, current);
+
+        return;
+      }
+
+      if (importPath.startsWith(".")) {
+        const resolved = path.resolve(path.dirname(context.filename), importPath);
+        const imported = parseLocation(resolved);
+        if (!imported) return;
+        checkImport(context, node, imported.layer, imported.slice, current);
+      }
+    };
+
+    // `node.source` carries the `from "..."` specifier. It is present on static
+    // imports and on re-exports (`export … from`), and absent on a bare
+    // `export { x }`, so the guard skips those.
+    const checkStatement = (node) => {
+      if (node.source) checkSource(node, node.source.value);
+    };
+
     return {
-      ImportDeclaration(node) {
-        const importPath = node.source.value;
-        if (typeof importPath !== "string") return;
-
-        if (importPath.startsWith("@/")) {
-          const [importedLayer, importedSlice] = importPath.slice(2).split("/");
-          checkImport(context, node, importedLayer, importedSlice ?? null, current);
-
-          return;
-        }
-
-        if (importPath.startsWith(".")) {
-          const resolved = path.resolve(path.dirname(context.filename), importPath);
-          const imported = parseLocation(resolved);
-          if (!imported) return;
-          checkImport(context, node, imported.layer, imported.slice, current);
+      ImportDeclaration: checkStatement,
+      // Re-exports bypass ImportDeclaration but cross boundaries all the same.
+      ExportNamedDeclaration: checkStatement,
+      ExportAllDeclaration: checkStatement,
+      // Dynamic `import("…")` (e.g. lazy-loaded pages) — only literal targets.
+      ImportExpression(node) {
+        if (node.source.type === "Literal") {
+          checkSource(node, node.source.value);
         }
       },
     };
