@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useQuery, useSuspenseQuery } from "hobom-data";
 import { useCsvExport } from "@hobom-grid/react";
 import { CloudDownloadOutlined } from "hobom-design-system/icons";
-import { useProjectContext } from "@/shared/model";
 import {
   issueQueries,
   ISSUE_KIND_LABEL,
@@ -11,7 +10,7 @@ import {
   type IssuePriority,
   type IssueType,
 } from "@/entities/issue";
-import { getStatusColor } from "@/entities/project";
+import { getStatusColor, useProjectContext } from "@/entities/project";
 import { projectLabelQueries } from "@/entities/project-label";
 import { userQueries } from "@/entities/user";
 import { Hb, EmptyState } from "@/shared/ui";

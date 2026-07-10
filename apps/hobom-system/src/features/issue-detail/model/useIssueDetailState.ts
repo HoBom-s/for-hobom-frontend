@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useQuery } from "hobom-data";
-import { useProjectContext } from "@/shared/model";
 import {
   issueQueries,
   buildIssueTree,
@@ -8,7 +7,7 @@ import {
   isDescendantOf,
   PARENT_ISSUE_KINDS,
 } from "@/entities/issue";
-import { projectQueries } from "@/entities/project";
+import { projectQueries, useProjectContext } from "@/entities/project";
 import { sprintQueries } from "@/entities/sprint";
 import { userQueries } from "@/entities/user";
 

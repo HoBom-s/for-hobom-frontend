@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "hobom-data";
 import { getDescendantProgress, useCreateIssue, useTransitionIssue } from "@/entities/issue";
 import { IssueCard } from "@/entities/issue/ui";
 import { boardQueries, DEFAULT_BOARD_COLUMNS, type BoardColumn } from "@/entities/board";
-import { useProjectContext } from "@/shared/model";
+import { useProjectContext } from "@/entities/project";
 import {
   Hb,
   Sortable,

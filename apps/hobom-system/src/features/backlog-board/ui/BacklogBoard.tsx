@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { InboxOutlined } from "hobom-design-system/icons";
-import { useProjectContext, useVirtualList } from "@/shared/model";
+import { useVirtualList } from "@/shared/model";
 import { Hb, EmptyState } from "@/shared/ui";
 import { getDescendantProgress } from "@/entities/issue";
+import { useProjectContext } from "@/entities/project";
 import { BacklogContext } from "../model/useBacklogContext";
 import { useBacklogBoard } from "../model/useBacklogBoard";
 import { useCollapsibleTree } from "../model/useCollapsibleTree";
