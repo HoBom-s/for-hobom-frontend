@@ -15,7 +15,7 @@ export default defineConfig({
     react(),
   ],
   optimizeDeps: {
-    include: ["date-fns", "zod", "react-hook-form"],
+    include: ["date-fns", "react-hook-form"],
   },
   resolve: {
     alias: {
@@ -34,12 +34,6 @@ export default defineConfig({
             id.includes("/node_modules/scheduler/")
           ) {
             return "framework";
-          }
-          if (
-            (id.includes("/node_modules/@mui/") && !id.includes("/node_modules/@mui/x-")) ||
-            id.includes("/node_modules/@emotion/")
-          ) {
-            return "mui";
           }
         },
       },
