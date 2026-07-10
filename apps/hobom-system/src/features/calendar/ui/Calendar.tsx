@@ -1,12 +1,6 @@
 import { type ReactNode, Suspense } from "react";
 import { useSuspenseQuery } from "hobom-data";
-import {
-  DayCalendarSkeleton,
-  LocalizationProvider,
-  StaticDatePicker,
-  type PickersDayProps,
-} from "hobom-design-system/date-pickers";
-import { AdapterDateFns } from "hobom-design-system/date-pickers";
+import { Calendar as HbCalendar } from "hobom-design-system/date-pickers";
 import { startOfMonth } from "date-fns";
 import { ko } from "date-fns/locale";
 import { Bom } from "hobom-utils";
@@ -36,47 +30,15 @@ export const Calendar = () => {
 
   return (
     <Hb.Box>
-      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
-        <StaticDatePicker
-          displayStaticWrapperAs="desktop"
-          value={selectedDate}
-          slots={{
-            toolbar: () => null,
-            day: CalendarDay,
-          }}
-          slotProps={{
-            actionBar: { actions: [] },
-            day: { days } as unknown as PickersDayProps,
-          }}
-          onMonthChange={(month) => {
-            const date = Bom.pipe(month as Date, formatDate);
-
-            updateQuery({ selectedDate: date }, { replace: true });
-          }}
-          renderLoading={() => <DayCalendarSkeleton />}
-          sx={{
-            "& .MuiPickersLayout-root": {
-              minWidth: "unset",
-            },
-            "& .MuiPickersCalendarHeader-root": {
-              px: 1.5,
-              mt: 1,
-            },
-            "& .MuiPickersCalendarHeader-label": {
-              fontSize: "0.9375rem",
-              fontWeight: 700,
-            },
-            "& .MuiDayCalendar-weekDayLabel": {
-              fontSize: "0.75rem",
-              fontWeight: 600,
-              color: "text.secondary",
-            },
-            "& .MuiDayCalendar-slideTransition": {
-              minHeight: 240,
-            },
-          }}
-        />
-      </LocalizationProvider>
+      <HbCalendar
+        value={selectedDate}
+        locale={ko}
+        labelFormat="yyyy년 M월"
+        renderDay={(dayProps) => <CalendarDay {...dayProps} days={days} />}
+        onMonthChange={(month) => {
+          updateQuery({ selectedDate: formatDate(month) }, { replace: true });
+        }}
+      />
     </Hb.Box>
   );
 };
