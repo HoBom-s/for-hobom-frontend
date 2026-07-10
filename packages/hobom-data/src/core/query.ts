@@ -31,6 +31,7 @@ export class Query<TData = unknown, TError = Error> extends Subscribable {
       error: null,
       fetchStatus: "idle",
       dataUpdatedAt: 0,
+      isInvalidated: false,
     };
   }
 
@@ -39,10 +40,21 @@ export class Query<TData = unknown, TError = Error> extends Subscribable {
   }
 
   isStale(): boolean {
+    if (this.state.isInvalidated) return true;
     if (this.state.status !== "success") return true;
     const staleTime = this.options.staleTime ?? DEFAULT_STALE_TIME;
 
     return Date.now() - this.state.dataUpdatedAt > staleTime;
+  }
+
+  /**
+   * Flag the query stale independent of `staleTime`. Active observers refetch
+   * immediately (driven by `DataLot`); inactive ones refetch on their next mount.
+   */
+  invalidate(): void {
+    if (!this.state.isInvalidated) {
+      this.setState({ isInvalidated: true });
+    }
   }
 
   async fetch(): Promise<TData> {
@@ -74,6 +86,7 @@ export class Query<TData = unknown, TError = Error> extends Subscribable {
       data,
       error: null,
       dataUpdatedAt: Date.now(),
+      isInvalidated: false,
     });
   }
 
@@ -125,6 +138,7 @@ export class Query<TData = unknown, TError = Error> extends Subscribable {
           error: null,
           fetchStatus: "idle",
           dataUpdatedAt: Date.now(),
+          isInvalidated: false,
         });
 
         return data;
