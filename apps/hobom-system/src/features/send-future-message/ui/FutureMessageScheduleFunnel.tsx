@@ -53,10 +53,10 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
       <Hb.Form.Control fullWidth>
         <DatePicker
           label="보낼 날짜"
-          sx={{ width: "100%" }}
-          onChange={(evt) => {
-            if (!evt) return;
-            setValue("scheduledAt", format(evt as Date, "yyyy-MM-dd"));
+          style={{ width: "100%" }}
+          onChange={(date) => {
+            if (!date) return;
+            setValue("scheduledAt", format(date, "yyyy-MM-dd"));
           }}
         />
         <Hb.Form.Helper>발송 예정일을 선택해 주세요.</Hb.Form.Helper>
