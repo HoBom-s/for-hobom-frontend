@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Bom } from "hobom-utils";
 
 export interface AppShellNavItem {
   /** 네비게이션 아이템의 고유 식별자. 활성 상태 판별에 사용. */
@@ -52,9 +53,10 @@ export const resolveActiveItem = (
   entries: NavEntry[],
   bottomItems: AppShellNavItem[] | undefined,
   pathname: string,
-): AppShellNavItem | undefined => {
-  const allItems = [...flattenNavEntries(entries), ...flattenNavItems(bottomItems ?? [])];
-  const byPathLengthDesc = [...allItems].sort((a, b) => b.path.length - a.path.length);
-
-  return byPathLengthDesc.find((item) => pathname.startsWith(item.path)) ?? firstNavItem(entries);
-};
+): AppShellNavItem | undefined =>
+  Bom.pipe(
+    [...flattenNavEntries(entries), ...flattenNavItems(bottomItems ?? [])],
+    Bom.sortBy((item) => -item.path.length),
+    (items) => items.find((item) => pathname.startsWith(item.path)),
+    Bom.when(Bom.isNullish, () => firstNavItem(entries)),
+  );
