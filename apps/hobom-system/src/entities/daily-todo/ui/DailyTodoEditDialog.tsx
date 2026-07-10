@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { Hb } from "@/shared/ui";
-import { todoQueries, useUpdateDailyTodo, type DailyTodoType } from "@/entities/daily-todo";
+import { todoQueries } from "../api/daily-todo.queries";
+import { useUpdateDailyTodo } from "../model/useUpdateDailyTodo";
+import type { DailyTodoType } from "../api/daily-todo.type";
 
 interface Props {
   item: DailyTodoType;

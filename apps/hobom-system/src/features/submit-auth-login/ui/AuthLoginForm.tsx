@@ -2,12 +2,13 @@ import { useState } from "react";
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useMutation, useDataLot } from "hobom-data";
-import { NicknameField, PasswordField } from "@/features/submit-auth-login";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";
 import { resetUnauthorizedState } from "@/shared/api";
 import { postAuthLogin, type AuthLoginType } from "@/entities/auth";
 import { Hb } from "@/shared/ui";
+import { NicknameField } from "./NicknameField";
+import { PasswordField } from "./PasswordField";
 import { LoginTransitionOverlay } from "./LoginTransitionOverlay";
 
 export const AuthLoginForm = () => {

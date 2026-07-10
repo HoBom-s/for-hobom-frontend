@@ -1,7 +1,7 @@
 import { httpClient, parseResponse } from "@/shared/api";
 import type { HttpResponseType } from "@/shared/api";
-import type { UserType, AuthSignUpType } from "@/entities/auth/model/auth-login.type.ts";
 import { usersSchema } from "./auth-login.schema";
+import type { UserType, AuthSignUpType } from "../model/auth-login.type";
 
 export const postAuthLogin = async ({
   nickname,

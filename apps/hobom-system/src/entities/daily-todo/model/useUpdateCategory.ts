@@ -1,6 +1,6 @@
 import { useMutation, useDataLot } from "hobom-data";
 import { useToast } from "@/shared/model";
-import { todoQueries } from "@/entities/daily-todo";
+import { todoQueries } from "../api/daily-todo.queries";
 import { categoryMutations } from "../api/daily-todo-category.mutations";
 
 export const useUpdateCategory = () => {

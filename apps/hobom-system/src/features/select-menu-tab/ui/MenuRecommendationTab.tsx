@@ -1,8 +1,8 @@
 import { type ReactNode, useState } from "react";
-import { MenuRecommendationContent } from "@/features/select-menu-tab/ui/MenuRecommendationContent";
-import { MenuRecommendationList } from "@/features/select-menu-tab/ui/MenuRecommendationList";
-import { MenuRecommendationSpeedDial } from "@/features/select-menu-tab/ui/MenuRecommendationSpeedDial";
 import { Hb } from "@/shared/ui";
+import { MenuRecommendationContent } from "./MenuRecommendationContent";
+import { MenuRecommendationList } from "./MenuRecommendationList";
+import { MenuRecommendationSpeedDial } from "./MenuRecommendationSpeedDial";
 
 const TAB_VALUES = ["recommendation", "list"] as const;
 

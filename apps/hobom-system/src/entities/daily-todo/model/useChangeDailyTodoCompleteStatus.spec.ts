@@ -44,12 +44,15 @@ vi.mock("hobom-utils", () => {
   return { Bom: { pipe, prop, isNullish } };
 });
 
-vi.mock("@/entities/daily-todo", () => ({
+vi.mock("../api/daily-todo.queries", () => ({
   todoQueries: {
     byDate: (date: string) => ({
       queryKey: ["todos", "by-date", date],
     }),
   },
+}));
+
+vi.mock("../lib/calendar-date.lib", () => ({
   normalizeTodoDateToUtcMidnight: (d: string) => d,
   formatDate: (d: string) => d,
 }));

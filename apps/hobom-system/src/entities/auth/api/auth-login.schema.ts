@@ -1,5 +1,5 @@
 import { HoBomSchema } from "hobom-schema";
-import type { UserType } from "@/entities/auth/model/auth-login.type.ts";
+import type { UserType } from "../model/auth-login.type";
 import type { Schema } from "hobom-schema";
 
 export const userSchema: Schema<UserType> = HoBomSchema.object({

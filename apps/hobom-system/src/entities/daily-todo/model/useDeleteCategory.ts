@@ -1,7 +1,8 @@
 import { useMutation, useDataLot } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { useToast, useRouterQuery } from "@/shared/model";
-import { todoQueries, formatDate, getNow, getSelectedDate } from "@/entities/daily-todo";
+import { todoQueries } from "../api/daily-todo.queries";
+import { formatDate, getNow, getSelectedDate } from "../lib/calendar-date.lib";
 import { categoryMutations } from "../api/daily-todo-category.mutations";
 
 export const useDeleteCategory = () => {

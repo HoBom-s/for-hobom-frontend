@@ -2,13 +2,10 @@ import { useMutation, useDataLot } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { useToast } from "@/shared/model";
 import type { HttpResponseType } from "@/shared/api";
-import {
-  type DailyTodoType,
-  todoQueries,
-  normalizeTodoDateToUtcMidnight,
-  formatDate,
-} from "@/entities/daily-todo";
+import { todoQueries } from "../api/daily-todo.queries";
+import { normalizeTodoDateToUtcMidnight, formatDate } from "../lib/calendar-date.lib";
 import { todoMutations } from "../api/daily-todo.mutations";
+import type { DailyTodoType } from "../api/daily-todo.type";
 
 /**
  * Update item's complete status by optimistic update

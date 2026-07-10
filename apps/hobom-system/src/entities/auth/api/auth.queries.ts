@@ -1,5 +1,5 @@
 import { queryOptions } from "hobom-data";
-import { fetchUsers } from "@/entities/auth/api/auth-login.api";
+import { fetchUsers } from "./auth-login.api";
 
 export const authQueries = {
   auth: () => ["auth"],
