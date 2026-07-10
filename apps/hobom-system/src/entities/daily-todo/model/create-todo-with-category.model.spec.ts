@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import type { CategoryType, DailyTodoType } from "@/entities/daily-todo";
 import { createTodosWithCategory } from "./create-todo-with-category.model";
+import type { CategoryType } from "../api/daily-todo-category.type";
+import type { DailyTodoType } from "../api/daily-todo.type";
 
 const makeCategory = (overrides: Partial<CategoryType> = {}): CategoryType => ({
   id: "cat-1",

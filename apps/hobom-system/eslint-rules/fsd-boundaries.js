@@ -67,6 +67,10 @@ export const rule = {
     messages: {
       crossLayer: "'{{currentLayer}}' layer cannot import from '{{importedLayer}}'.",
       crossSlice: "Cross-slice import in '{{layer}}': '{{from}}' cannot import from '{{to}}'.",
+      ownSliceAlias:
+        "Import within the same slice ('{{layer}}/{{slice}}') must be relative, not via the '@/' alias — importing your own slice's barrel risks a circular dependency.",
+      deepImport:
+        "Deep import into '{{layer}}/{{slice}}' internals. Import from its public entry: '@/{{layer}}/{{slice}}' or '@/{{layer}}/{{slice}}/ui'.",
     },
     schema: [],
   },
@@ -79,7 +83,42 @@ export const rule = {
       if (typeof importPath !== "string") return;
 
       if (importPath.startsWith("@/")) {
-        const [importedLayer, importedSlice] = importPath.slice(2).split("/");
+        const [importedLayer, importedSlice, ...rest] = importPath.slice(2).split("/");
+
+        // Own-slice imports via the `@/` alias must be relative instead — pulling
+        // your own slice's barrel (or a sibling through it) risks a circular
+        // dependency, and a plain relative path keeps intra-slice wiring local.
+        if (
+          !SLICELESS_LAYERS.has(current.layer) &&
+          importedLayer === current.layer &&
+          importedSlice === current.slice
+        ) {
+          context.report({
+            node,
+            messageId: "ownSliceAlias",
+            data: { layer: current.layer, slice: current.slice },
+          });
+
+          return;
+        }
+
+        // Cross-slice imports may reach only a slice's public entries: the root
+        // barrel (`@/layer/slice`) or the UI barrel (`@/layer/slice/ui`). Deeper
+        // paths reach into internals. Sliceless layers (shared, apps) are
+        // addressed by segment, so they're exempt.
+        if (
+          importedSlice &&
+          !SLICELESS_LAYERS.has(importedLayer) &&
+          rest.length > 0 &&
+          !(rest.length === 1 && rest[0] === "ui")
+        ) {
+          context.report({
+            node,
+            messageId: "deepImport",
+            data: { layer: importedLayer, slice: importedSlice },
+          });
+        }
+
         checkImport(context, node, importedLayer, importedSlice ?? null, current);
 
         return;

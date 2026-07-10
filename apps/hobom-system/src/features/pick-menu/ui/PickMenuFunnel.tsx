@@ -1,6 +1,8 @@
-import { PickMenuContent, PickMenuHeader, SelectedMenuContent } from "@/features/pick-menu";
 import { useFunnel } from "@/shared/model";
 import { Hb } from "@/shared/ui";
+import { PickMenuContent } from "./PickMenuContent";
+import { PickMenuHeader } from "./PickMenuHeader";
+import { SelectedMenuContent } from "./SelectedMenuContent";
 
 const FUNNEL_STEPS = ["select-menu", "pick"] as const;
 

@@ -2,22 +2,16 @@ import { useState, memo } from "react";
 import { MoreVert } from "hobom-design-system/icons";
 import { Bom } from "hobom-utils";
 import { Hb } from "@/shared/ui";
-import {
-  formatDate,
-  normalizeTodoDateToUtcMidnight,
-  changeCompleteStatus,
-  isCompleteStatus,
-  useChangeDailyTodoCompleteStatus,
-  useDeleteDailyTodo,
-  useUpdateDailyTodoReaction,
-  CYCLE_LABELS,
-  type DailyTodoType,
-  type ProgressType,
-  type CycleType,
-} from "@/entities/daily-todo";
 import { useBottomSheetCTA } from "@/shared/model";
+import { formatDate, normalizeTodoDateToUtcMidnight } from "../lib/calendar-date.lib";
+import { changeCompleteStatus, isCompleteStatus } from "../model/daily-todo-complete-status.model";
+import { useChangeDailyTodoCompleteStatus } from "../model/useChangeDailyTodoCompleteStatus";
+import { useDeleteDailyTodo } from "../model/useDeleteDailyTodo";
+import { useUpdateDailyTodoReaction } from "../model/useUpdateDailyTodoReaction";
+import { CYCLE_LABELS } from "../model/daily-todo-cycle.model";
 import { DailyTodoReactionPopover } from "./DailyTodoReactionPopover";
 import { DailyTodoEditDialog } from "./DailyTodoEditDialog";
+import type { DailyTodoType, ProgressType, CycleType } from "../api/daily-todo.type";
 
 interface Props {
   item: DailyTodoType;

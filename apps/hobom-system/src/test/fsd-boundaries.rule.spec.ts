@@ -16,10 +16,14 @@ ruleTester.run("fsd-boundaries", rule, {
     { code: `export { x } from "@/shared/y";`, filename: file("features", "auth") },
     // apps may lazy-load pages
     { code: `const p = import("@/pages/home");`, filename: file("apps", "app-router") },
-    // same-slice relative import is fine
-    { code: `import { x } from "@/entities/note";`, filename: file("entities", "note") },
+    // same-slice import via a relative path is fine
+    { code: `import { x } from "./api/note.queries";`, filename: file("entities", "note") },
+    // a slice's UI barrel is a sanctioned second public entry (cross-slice)
+    { code: `import { Card } from "@/entities/note/ui";`, filename: file("features", "board") },
     // non-literal dynamic import is ignored
     { code: `const p = import(dynamicPath);`, filename: file("entities", "note") },
+    // deep import into a sliceless layer's segment is fine
+    { code: `import { httpClient } from "@/shared/api";`, filename: file("entities", "note") },
   ],
   invalid: [
     // entities cannot import features (static)
@@ -45,6 +49,24 @@ ruleTester.run("fsd-boundaries", rule, {
       code: `import { x } from "@/features/billing";`,
       filename: file("features", "auth"),
       errors: [{ messageId: "crossSlice" }],
+    },
+    // importing your own slice via the @/ alias (self-barrel) must be relative
+    {
+      code: `import { x } from "@/entities/note";`,
+      filename: file("entities", "note"),
+      errors: [{ messageId: "ownSliceAlias" }],
+    },
+    // …including a deeper own-slice path
+    {
+      code: `import { x } from "@/entities/note/api/note.queries";`,
+      filename: file("entities", "note"),
+      errors: [{ messageId: "ownSliceAlias" }],
+    },
+    // deep import into another slice's internals (past root and /ui)
+    {
+      code: `import { x } from "@/entities/note/model/note.model";`,
+      filename: file("features", "board"),
+      errors: [{ messageId: "deepImport" }],
     },
   ],
 });

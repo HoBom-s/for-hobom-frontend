@@ -1,6 +1,6 @@
 import { httpClient, parseResponse, type HttpResponseType } from "@/shared/api";
-import type { CategoryType } from "@/entities/daily-todo";
 import { categoryListSchema } from "./daily-todo-category.schema";
+import type { CategoryType } from "./daily-todo-category.type";
 
 export const fetchDailyTodoCategories = async (signal?: AbortSignal) => {
   const res = await httpClient.get<HttpResponseType<CategoryType[]>>(`/categories`, { signal });

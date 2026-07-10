@@ -1,9 +1,9 @@
 import { type ReactNode, Suspense } from "react";
 import { useSuspenseQuery } from "hobom-data";
-import { FutureMessageGrid } from "@/features/send-future-message/ui/FutureMessageGrid";
 import { futureMessageQueries, type FutureMessageSendStatusType } from "@/entities/future-message";
 import { useRouterQuery } from "@/shared/model";
 import { Hb, HoBomSkeleton } from "@/shared/ui";
+import { FutureMessageGrid } from "./FutureMessageGrid";
 
 export const FutureMessageContent = () => {
   const { query } = useRouterQuery();

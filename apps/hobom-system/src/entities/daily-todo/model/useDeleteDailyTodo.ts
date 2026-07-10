@@ -3,14 +3,10 @@ import { useMutation, useDataLot } from "hobom-data";
 import { Bom } from "hobom-utils";
 import { useToast, useRouterQuery } from "@/shared/model";
 import type { HttpResponseType } from "@/shared/api";
-import {
-  type DailyTodoType,
-  todoQueries,
-  formatDate,
-  getNow,
-  getSelectedDate,
-} from "@/entities/daily-todo";
+import { todoQueries } from "../api/daily-todo.queries";
+import { formatDate, getNow, getSelectedDate } from "../lib/calendar-date.lib";
 import { todoMutations } from "../api/daily-todo.mutations";
+import type { DailyTodoType } from "../api/daily-todo.type";
 
 const UNDO_DELAY = 5_000;
 

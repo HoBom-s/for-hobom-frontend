@@ -1,6 +1,6 @@
 import { memo, type ReactNode } from "react";
 import { Hb } from "@/shared/ui";
-import type { MenuRecommendationType } from "@/entities/menu-recommendation";
+import type { MenuRecommendationType } from "../api/menu-recommendation.type";
 
 const MENU_KIND_LABEL: Record<string, string> = {
   KOREAN: "한식",
