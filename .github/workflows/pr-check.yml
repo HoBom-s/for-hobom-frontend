@@ -5,7 +5,6 @@ on:
     types: [opened, edited, synchronize, reopened]
     branches:
       - develop
-      - main
 
 jobs:
   pr-checks:
