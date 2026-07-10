@@ -123,7 +123,9 @@ const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
 };
 
 const prefetchRoute = (path: string) => {
-  PREFETCH_MAP[path]?.forEach((fn) => fn());
+  PREFETCH_MAP[path]?.forEach((fn) => {
+    void fn();
+  });
 };
 
 const Shell = ({ children }: { children: React.ReactNode }) => {
@@ -134,12 +136,21 @@ const Shell = ({ children }: { children: React.ReactNode }) => {
     (path: string) => {
       prefetchRoute(path);
       const queryPrefetchMap: Record<string, () => void> = {
-        [RoutesConfig.MAIN.DAILY_TODO]: () => dataLot.prefetchQuery(todoQueries.categories()),
-        [RoutesConfig.MENU.RECOMMENDATION]: () =>
-          dataLot.prefetchQuery(menuQueries.recommendationList()),
-        [RoutesConfig.NOTES.LIST]: () => dataLot.prefetchQuery(noteQueries.list()),
-        [RoutesConfig.PROJECTS.LIST]: () => dataLot.prefetchQuery(projectQueries.list()),
-        [RoutesConfig.WIKI.SPACES]: () => dataLot.prefetchQuery(wikiSpaceQueries.list()),
+        [RoutesConfig.MAIN.DAILY_TODO]: () => {
+          void dataLot.prefetchQuery(todoQueries.categories());
+        },
+        [RoutesConfig.MENU.RECOMMENDATION]: () => {
+          void dataLot.prefetchQuery(menuQueries.recommendationList());
+        },
+        [RoutesConfig.NOTES.LIST]: () => {
+          void dataLot.prefetchQuery(noteQueries.list());
+        },
+        [RoutesConfig.PROJECTS.LIST]: () => {
+          void dataLot.prefetchQuery(projectQueries.list());
+        },
+        [RoutesConfig.WIKI.SPACES]: () => {
+          void dataLot.prefetchQuery(wikiSpaceQueries.list());
+        },
       };
 
       queryPrefetchMap[path]?.();
@@ -172,7 +183,7 @@ export const AppRouter = () => {
       openWarnToast({
         message: "인증이 필요해요. 로그인 페이지로 이동합니다.",
       });
-      navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
+      void navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
     };
 
     window.addEventListener(UNAUTHORIZED_EVENT, handler);
@@ -183,7 +194,9 @@ export const AppRouter = () => {
   // 유휴 시간에 모든 페이지 청크 백그라운드 프리페치
   useEffect(() => {
     const id = requestIdleCallback(() => {
-      Object.values(pageImports).forEach((fn) => fn());
+      Object.values(pageImports).forEach((fn) => {
+        void fn();
+      });
     });
 
     return () => cancelIdleCallback(id);

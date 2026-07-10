@@ -29,7 +29,7 @@ export const AuthSignUpForm = () => {
         openSuccessToast({
           message: "가입이 완료되었어요. 관리자 승인 후 로그인할 수 있어요.",
         });
-        navigate(RoutesConfig.AUTH.LOGIN);
+        void navigate(RoutesConfig.AUTH.LOGIN);
       },
       onError: () => {
         openErrorToast({

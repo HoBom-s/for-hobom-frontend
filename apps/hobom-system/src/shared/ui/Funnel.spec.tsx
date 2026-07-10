@@ -69,7 +69,7 @@ describe("Funnel", () => {
     render(
       <Funnel steps={STEPS} step="step1">
         <Step name="step1">스텝 1</Step>
-        <Step name={"invalid" as never}>유효하지 않은 스텝</Step>
+        <Step name={"invalid"}>유효하지 않은 스텝</Step>
       </Funnel>,
     );
 

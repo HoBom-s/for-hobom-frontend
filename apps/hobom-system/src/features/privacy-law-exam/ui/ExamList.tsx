@@ -16,11 +16,11 @@ export const ExamList = () => {
   const { mutate: generate, isPending } = useMutation({
     ...privacyLawMutations.generateExam(),
     onSuccess: (res) => {
-      dataLot.invalidateQueries({ queryKey: privacyLawQueries.all() });
+      void dataLot.invalidateQueries({ queryKey: privacyLawQueries.all() });
       toast.openSuccessToast({
         message: "모의고사 문제를 생성했어요. 이동할게요.",
       });
-      navigate(`/privacy-law/exams/${res.items.id}`);
+      void navigate(`/privacy-law/exams/${res.items.id}`);
     },
     onError: (error) => {
       if (error instanceof DOMException && error.name === "AbortError") return;

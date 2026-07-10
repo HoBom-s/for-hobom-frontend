@@ -25,8 +25,8 @@ export const useIssueListFilters = () => {
       sortKey
         ? [
             {
-              key: sortKey as keyof IssueType,
-              direction: sortDir as "asc" | "desc",
+              key: sortKey,
+              direction: sortDir,
             },
           ]
         : [],

@@ -28,7 +28,7 @@ export const useExamSession = (questions: ExamQuestion[]) => {
     finished: false,
   });
 
-  const currentQuestion = questions[state.currentIndex] as ExamQuestion | undefined;
+  const currentQuestion = questions[state.currentIndex];
   const currentAnswer = state.answers[state.currentIndex];
   const userAnswer = currentAnswer?.userAnswer ?? "";
   const revealed = currentAnswer?.revealed ?? false;

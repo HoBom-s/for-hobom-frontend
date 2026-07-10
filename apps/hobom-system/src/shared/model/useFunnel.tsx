@@ -104,7 +104,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
 
       options?.onStepChange?.(step);
 
-      navigate(
+      void navigate(
         {
           pathname: location.pathname,
           search: `?${newSearch}`,
@@ -178,7 +178,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     }
 
     return [
-      FunnelComponent as FunnelComponent<Steps>,
+      FunnelComponent,
       state as State,
       setState as (
         next:
@@ -194,7 +194,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
       (step: Steps[number], options?: SetStepOptions) => void,
     ],
     { withState },
-  ) as UseFunnelReturn<Steps>;
+  );
 };
 
 const useQueryString = (name: string) => {
@@ -214,7 +214,7 @@ const useQueryString = (name: string) => {
   return {
     qsValue: value[name],
     set: (params: Record<string, string>) => {
-      navigate({
+      void navigate({
         pathname: `${location.pathname}`,
         search: new URLSearchParams({ ...value, ...params }).toString(),
       });

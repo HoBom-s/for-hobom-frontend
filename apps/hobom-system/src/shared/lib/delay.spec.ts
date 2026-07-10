@@ -12,7 +12,7 @@ describe("delayThen", () => {
   it("does not call the function before the delay has elapsed", async () => {
     const fn = vi.fn().mockResolvedValue("result");
 
-    delayThen(1000, fn);
+    void delayThen(1000, fn);
 
     expect(fn).not.toHaveBeenCalled();
 
@@ -23,7 +23,7 @@ describe("delayThen", () => {
   it("calls the function after the specified delay", async () => {
     const fn = vi.fn().mockResolvedValue("result");
 
-    delayThen(1000, fn);
+    void delayThen(1000, fn);
 
     await vi.runAllTimersAsync();
 

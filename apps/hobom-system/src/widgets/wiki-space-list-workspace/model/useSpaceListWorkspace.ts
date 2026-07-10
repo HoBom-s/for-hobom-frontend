@@ -16,7 +16,7 @@ export const useSpaceListWorkspace = () => {
   const deleteMutation = useDeleteSpace();
 
   const handleNavigateToSpace = (key: string) => {
-    navigate(`/wiki/${key}`);
+    void navigate(`/wiki/${key}`);
   };
 
   const handleCreateSpace = (data: { key: string; name: string; description: string }) => {

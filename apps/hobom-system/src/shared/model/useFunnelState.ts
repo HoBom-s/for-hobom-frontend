@@ -22,11 +22,11 @@ export const useFunnelState = <T extends Record<string, unknown>>(
         if (typeof state === "function") {
           const newState = state(prev);
 
-          persistentStorage.set(newState);
+          void persistentStorage.set(newState);
 
           return newState;
         }
-        persistentStorage.set(state);
+        void persistentStorage.set(state);
 
         return state;
       });

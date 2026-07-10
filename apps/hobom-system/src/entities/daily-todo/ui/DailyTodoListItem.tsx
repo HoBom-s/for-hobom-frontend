@@ -101,7 +101,7 @@ export const DailyTodoListItem = memo(function DailyTodoListItem({ item }: Props
                         <Hb.Chip
                           color="secondary"
                           variant="outlined"
-                          label={CYCLE_LABELS[item.cycle as CycleType] ?? item.cycle}
+                          label={CYCLE_LABELS[item.cycle] ?? item.cycle}
                           size="small"
                         />
                       </Hb.Stack>

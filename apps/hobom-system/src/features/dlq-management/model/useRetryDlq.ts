@@ -12,7 +12,7 @@ export const useRetryDlq = () => {
       openSuccessToast({
         message: data.items.message || "재시도 요청이 완료되었습니다.",
       });
-      dataLot.invalidateQueries({ queryKey: dlqQueries.all() });
+      void dataLot.invalidateQueries({ queryKey: dlqQueries.all() });
     },
     onError: () => {
       openErrorToast({ message: "재시도 요청에 실패했습니다." });

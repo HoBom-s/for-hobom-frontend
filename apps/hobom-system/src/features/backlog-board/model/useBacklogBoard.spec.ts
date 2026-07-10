@@ -45,7 +45,7 @@ const makeIssue = (id: string, sprint?: string): IssueType =>
     reporter: "user-1",
     labels: [],
     sprint,
-  }) as IssueType;
+  });
 
 const makeSprint = (id: string) => ({
   id,

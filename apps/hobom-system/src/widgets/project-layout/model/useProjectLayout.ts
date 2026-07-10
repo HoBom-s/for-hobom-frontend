@@ -55,12 +55,12 @@ export const useProjectLayout = () => {
   const showSprintButton = currentPath === "backlog";
 
   const handleNavigateToProjects = useCallback(() => {
-    navigate("/projects");
+    void navigate("/projects");
   }, [navigate]);
 
   const handleNavigateToTab = useCallback(
     (tabPath: string) => {
-      navigate(`/projects/${projectId}/${tabPath}`);
+      void navigate(`/projects/${projectId}/${tabPath}`);
     },
     [navigate, projectId],
   );

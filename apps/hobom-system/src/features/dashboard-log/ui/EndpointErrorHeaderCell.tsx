@@ -47,10 +47,10 @@ export const EndpointErrorHeaderCell = ({ cell, colResize }: EndpointErrorHeader
           transition: "background-color 0.15s",
         }}
         onPointerEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor = RESIZE_HANDLE;
+          (e.currentTarget).style.backgroundColor = RESIZE_HANDLE;
         }}
         onPointerLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+          (e.currentTarget).style.backgroundColor = "transparent";
         }}
         onPointerDown={(e) => {
           e.stopPropagation();

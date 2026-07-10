@@ -65,7 +65,7 @@ export const useChatSession = () => {
             };
 
             setLocalMessages((prev) => [...prev, assistantMsg]);
-            dataLot.invalidateQueries({
+            void dataLot.invalidateQueries({
               queryKey: privacyLawQueries.questionHistory().queryKey,
             });
           },

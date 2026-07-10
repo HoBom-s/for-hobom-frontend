@@ -26,12 +26,12 @@ export const useWikiSpaceLayout = () => {
   const space = data.items;
 
   const handleNavigateToWiki = useCallback(() => {
-    navigate("/wiki");
+    void navigate("/wiki");
   }, [navigate]);
 
   const handlePageSelect = useCallback(
     (selectedPageId: string) => {
-      navigate(`/wiki/${spaceKey}/pages/${selectedPageId}`);
+      void navigate(`/wiki/${spaceKey}/pages/${selectedPageId}`);
     },
     [navigate, spaceKey],
   );

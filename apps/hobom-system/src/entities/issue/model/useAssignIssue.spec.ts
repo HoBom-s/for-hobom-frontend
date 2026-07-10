@@ -72,7 +72,7 @@ const makeIssue = (overrides: Partial<IssueType> = {}): IssueType =>
     reporter: "user-1",
     labels: [],
     ...overrides,
-  }) as IssueType;
+  });
 
 describe("useAssignIssue", () => {
   beforeEach(() => {

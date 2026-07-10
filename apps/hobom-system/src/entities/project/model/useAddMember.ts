@@ -10,7 +10,7 @@ export const useAddMember = () => {
   return useMutation({
     ...projectMutations.addMember(),
     onSuccess: (_, variables) => {
-      dataLot.invalidateQueries(projectQueries.detail(variables.projectId));
+      void dataLot.invalidateQueries(projectQueries.detail(variables.projectId));
       openSuccessToast({ message: "멤버를 추가했어요" });
     },
   });

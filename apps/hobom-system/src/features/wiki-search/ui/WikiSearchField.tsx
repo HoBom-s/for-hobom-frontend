@@ -14,7 +14,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
 
   const handleSelect = (_: unknown, value: string | SearchResultType | null) => {
     if (value && typeof value !== "string") {
-      navigate(`/wiki/${spaceKey}/pages/${value.id}`);
+      void navigate(`/wiki/${spaceKey}/pages/${value.id}`);
       setQuery("");
     }
   };
@@ -31,7 +31,7 @@ export const WikiSearchField = ({ spaceKey }: WikiSearchFieldProps) => {
       noOptionsText={query.length < 2 ? "2글자 이상 입력" : "결과 없음"}
       renderOption={({ key, ...props }, option) => (
         <li key={key} {...props}>
-          <Hb.Text variant="body2">{(option as SearchResultType).title}</Hb.Text>
+          <Hb.Text variant="body2">{(option).title}</Hb.Text>
         </li>
       )}
       renderInput={(params) => (

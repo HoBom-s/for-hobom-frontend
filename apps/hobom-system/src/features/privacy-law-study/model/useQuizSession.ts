@@ -28,7 +28,7 @@ export const useQuizSession = (quizzes: Quiz[]) => {
     finished: false,
   });
 
-  const currentQuiz = quizzes[state.currentIndex] as Quiz | undefined;
+  const currentQuiz = quizzes[state.currentIndex];
   const currentAnswer = state.answers[state.currentIndex];
   const userAnswer = currentAnswer?.userAnswer ?? "";
   const revealed = currentAnswer?.revealed ?? false;

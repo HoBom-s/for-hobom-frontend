@@ -44,7 +44,7 @@ const makeIssue = (id: string, status: string, type = "TASK" as IssueType["type"
     priority: "MEDIUM",
     reporter: "user-1",
     labels: [],
-  }) as IssueType;
+  });
 
 const makeTree = (): IssueTreeResult => ({
   roots: [],

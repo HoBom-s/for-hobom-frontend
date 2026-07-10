@@ -21,7 +21,7 @@ export const PageLabelChips = ({ spaceKey, pageId, pageLabels }: PageLabelChipsP
   const removeLabel = useRemovePageLabel();
 
   const invalidatePageDetail = () => {
-    dataLot.invalidateQueries({ queryKey: wikiPageQueries.pages() });
+    void dataLot.invalidateQueries({ queryKey: wikiPageQueries.pages() });
   };
 
   const availableLabels = allLabels.filter((l) => !pageLabelIds.has(l.id));

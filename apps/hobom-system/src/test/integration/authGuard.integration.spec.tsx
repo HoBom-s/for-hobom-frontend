@@ -41,7 +41,7 @@ const AuthGuardHarness = () => {
       openWarnToast({
         message: "인증이 필요해요. 로그인 페이지로 이동합니다.",
       });
-      navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
+      void navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
     };
 
     window.addEventListener(UNAUTHORIZED_EVENT, handler);

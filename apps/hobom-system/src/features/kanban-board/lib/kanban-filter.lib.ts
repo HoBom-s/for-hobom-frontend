@@ -26,7 +26,7 @@ export const filterColumnsByEpic = (
     Bom.mapValues((issues: IssueType[]) =>
       issues.filter((issue) => issue.id === epicId || isDescendantOf(issue.id, epicId, parentMap)),
     ),
-  ) as ColumnMap;
+  );
 
 export const buildSwimlaneGroups = (
   issues: IssueType[],

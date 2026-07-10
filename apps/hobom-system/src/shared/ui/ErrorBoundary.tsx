@@ -53,7 +53,7 @@ class ErrorBoundaryInner extends Component<InternalProps, State> {
   }
 
   private handleReset = () => {
-    this.props.dataLot.invalidateQueries();
+    void this.props.dataLot.invalidateQueries();
     this.setState({ hasError: false, error: null });
   };
 

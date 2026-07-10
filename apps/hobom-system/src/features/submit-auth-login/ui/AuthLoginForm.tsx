@@ -34,12 +34,14 @@ export const AuthLoginForm = () => {
         password,
       },
       {
-        onSuccess: async () => {
-          resetUnauthorizedState();
-          dataLot.clear();
-          setIsTransitioning(true);
-          await new Promise((resolve) => setTimeout(resolve, 2000));
-          navigate(RoutesConfig.DASHBOARD.HOME);
+        onSuccess: () => {
+          void (async () => {
+            resetUnauthorizedState();
+            dataLot.clear();
+            setIsTransitioning(true);
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            void navigate(RoutesConfig.DASHBOARD.HOME);
+          })();
         },
         onError: () => {
           openErrorToast({

@@ -27,7 +27,7 @@ export const usePageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId:
       {
         onSuccess: () => {
           setDeleteDialogOpen(false);
-          navigate(`/wiki/${spaceKey}`);
+          void navigate(`/wiki/${spaceKey}`);
         },
       },
     );
@@ -39,7 +39,7 @@ export const usePageContent = ({ spaceKey, pageId }: { spaceKey: string; pageId:
       {
         onSuccess: () => {
           setMoveDialogOpen(false);
-          navigate(`/wiki/${targetSpaceKey}`);
+          void navigate(`/wiki/${targetSpaceKey}`);
         },
       },
     );

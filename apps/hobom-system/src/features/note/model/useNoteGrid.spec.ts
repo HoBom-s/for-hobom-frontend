@@ -33,7 +33,7 @@ const makeNote = (overrides: Partial<NoteItemType> = {}): NoteItemType =>
     trashedAt: null,
     order: 0,
     ...overrides,
-  }) as NoteItemType;
+  });
 
 describe("useNoteGrid", () => {
   const onTogglePinMock = vi.fn();

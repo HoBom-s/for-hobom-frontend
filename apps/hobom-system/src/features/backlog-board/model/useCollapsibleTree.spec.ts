@@ -26,7 +26,7 @@ const makeIssue = (id: string, parent?: string): IssueType =>
     reporter: "user-1",
     labels: [],
     parent,
-  }) as IssueType;
+  });
 
 const makeTree = (): IssueTreeResult => ({
   roots: [makeIssue("root")],

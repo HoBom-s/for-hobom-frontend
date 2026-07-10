@@ -39,7 +39,7 @@ export const DangerZoneSection = ({ projectId }: DangerZoneSectionProps) => {
             {
               onSuccess: () => {
                 onClose();
-                navigate(RoutesConfig.PROJECTS.LIST);
+                void navigate(RoutesConfig.PROJECTS.LIST);
               },
             },
           );

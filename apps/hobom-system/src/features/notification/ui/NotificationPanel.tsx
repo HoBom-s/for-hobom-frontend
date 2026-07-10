@@ -27,7 +27,9 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
   const handleScroll = useInfiniteScroll({
     hasNextPage,
     isFetchingNextPage,
-    fetchNextPage,
+    fetchNextPage: () => {
+      void fetchNextPage();
+    },
     threshold: 100,
   });
 
@@ -181,7 +183,7 @@ export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
           size="small"
           variant="ghost"
           onClick={() => {
-            navigate(RoutesConfig.NOTIFICATION.LIST);
+            void navigate(RoutesConfig.NOTIFICATION.LIST);
             onClose();
           }}
           style={{

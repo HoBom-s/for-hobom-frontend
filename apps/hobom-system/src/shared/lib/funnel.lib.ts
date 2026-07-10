@@ -25,26 +25,30 @@ export const createFunnelStorage = <T>(
   switch (storageType) {
     case "sessionStorage":
       return {
-        get: async () => {
+        get: () => {
           const d = sessionStorage.getItem(funnelStateId);
 
           if (d === null) {
-            return null;
+            return Promise.resolve(null);
           }
 
           try {
-            return JSON.parse(d) as Partial<T>;
+            return Promise.resolve(JSON.parse(d) as Partial<T>);
           } catch {
             sessionStorage.removeItem(funnelStateId);
 
-            return null;
+            return Promise.resolve(null);
           }
         },
-        set: async (value: Partial<T>) => {
+        set: (value: Partial<T>) => {
           sessionStorage.setItem(funnelStateId, JSON.stringify(value));
+
+          return Promise.resolve();
         },
-        clear: async () => {
+        clear: () => {
           sessionStorage.removeItem(funnelStateId);
+
+          return Promise.resolve();
         },
       };
 

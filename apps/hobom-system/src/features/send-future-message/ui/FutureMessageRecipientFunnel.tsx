@@ -74,7 +74,7 @@ const Inner = ({ onNextStep }: Props) => {
           variant="secondary"
           onClick={() => {
             reset();
-            navigate(RoutesConfig.MESSAGE.RESERVATION);
+            void navigate(RoutesConfig.MESSAGE.RESERVATION);
           }}
         >
           취소

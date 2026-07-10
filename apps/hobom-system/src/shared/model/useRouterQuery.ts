@@ -21,7 +21,7 @@ export const useRouterQuery = () => {
     (newParams: Record<string, string | undefined>, options: UpdateQueryOptions = {}) => {
       const next = applyParams(new URLSearchParams(search), newParams);
 
-      navigate(buildPath(pathname, next), { replace: options.replace });
+      void navigate(buildPath(pathname, next), { replace: options.replace });
     },
     [search, pathname, navigate],
   );
