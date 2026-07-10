@@ -14,6 +14,7 @@ const meta = {
 } satisfies Meta<typeof Tabs.Root>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 const BasicDemo = () => {

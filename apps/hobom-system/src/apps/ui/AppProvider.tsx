@@ -6,6 +6,7 @@ import { GLOBAL_STYLES } from "@/shared/config";
 import { Hb, ErrorBoundary, OverlayProvider, ColorSchemeVars } from "@/shared/ui";
 import { reportError } from "@/shared/lib";
 import { ColorSchemeBridge } from "./ColorSchemeBridge";
+import { renderToastIcon } from "./toast-icon";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -39,7 +40,7 @@ export const AppProvider = ({ children }: Props) => {
         pauseOnHover
         transition={Slide}
         autoClose={TOAST_AUTO_CLOSE_MS}
-        icon={false}
+        icon={renderToastIcon}
         closeButton={false}
       />
       <DataLotProvider client={dataLot}>
