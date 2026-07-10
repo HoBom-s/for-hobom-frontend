@@ -8,6 +8,8 @@ interface Props {
 export const GridHeaderCell = ({ colIndex, onStartResize }: Props) => {
   const col = COLUMNS[colIndex];
 
+  if (!col) return null;
+
   return (
     <div
       style={{

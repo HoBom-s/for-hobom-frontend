@@ -189,8 +189,8 @@ describe("useSuspenseQueries", () => {
 
     await waitFor(() => {
       expect(result.current).toHaveLength(2);
-      expect(result.current[0].data).toBe("data-1");
-      expect(result.current[1].data).toBe("data-2");
+      expect(result.current[0]?.data).toBe("data-1");
+      expect(result.current[1]?.data).toBe("data-2");
     });
   });
 });
@@ -220,16 +220,16 @@ describe("useSuspenseQueries dynamic", () => {
 
     await waitFor(() => {
       expect(result.current).toHaveLength(2);
-      expect(result.current[0].data).toBe("data-1");
-      expect(result.current[1].data).toBe("data-2");
+      expect(result.current[0]?.data).toBe("data-1");
+      expect(result.current[1]?.data).toBe("data-2");
     });
 
     rerender({ ids: ["1", "3"] });
 
     await waitFor(() => {
       expect(result.current).toHaveLength(2);
-      expect(result.current[0].data).toBe("data-1");
-      expect(result.current[1].data).toBe("data-3");
+      expect(result.current[0]?.data).toBe("data-1");
+      expect(result.current[1]?.data).toBe("data-3");
     });
   });
 });

@@ -25,8 +25,8 @@ export class ObjectSchema<T extends Record<string, Schema<any>>> extends Schema<
     const result = Object.create(null) as Record<string, unknown>;
     const issues: ValidationIssue[] = [];
 
-    for (const key of Object.keys(this.#shape)) {
-      const parsed = this.#shape[key]._parse(record[key]);
+    for (const [key, schema] of Object.entries(this.#shape)) {
+      const parsed = schema._parse(record[key]);
 
       if (isFail(parsed)) {
         for (const issue of parsed.issues) {

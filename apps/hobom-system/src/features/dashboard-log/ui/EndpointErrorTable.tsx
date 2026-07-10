@@ -47,7 +47,7 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
     const widths: Record<number, number> = {};
 
     COLUMNS.forEach((_, i) => {
-      widths[i] = Math.floor(containerWidth * COL_WIDTH_RATIOS[i]);
+      widths[i] = Math.floor(containerWidth * (COL_WIDTH_RATIOS[i] ?? 0));
     });
 
     return widths;
@@ -63,11 +63,12 @@ export const EndpointErrorTable = ({ data }: EndpointErrorTableProps) => {
       }
       const bodyIndex = cell.rowIndex - HEADER_ROW_COUNT;
       const row = rowModel.getRow(bodyIndex);
+      const col = COLUMNS[cell.colIndex];
 
-      if (!row) return null;
+      if (!row || !col) return null;
       const bg = bodyIndex % 2 === 0 ? ROW_EVEN : ROW_ODD;
 
-      return <EndpointErrorBodyCell colKey={COLUMNS[cell.colIndex].key} row={row} bg={bg} />;
+      return <EndpointErrorBodyCell colKey={col.key} row={row} bg={bg} />;
     },
     [rowModel, colResize],
   );

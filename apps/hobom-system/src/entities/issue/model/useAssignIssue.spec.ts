@@ -126,7 +126,7 @@ describe("useAssignIssue", () => {
 
       await opts.onMutate({ issueId: "issue-1", assignee: "user-2" });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
       const updated = updater(original);
 
       expect(updated.items[0].assignee).toBe("user-2");
@@ -143,7 +143,7 @@ describe("useAssignIssue", () => {
 
       await opts.onMutate({ issueId: "issue-1", assignee: undefined });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
       const updated = updater(original);
 
       expect(updated.items[0].assignee).toBeUndefined();
@@ -158,7 +158,7 @@ describe("useAssignIssue", () => {
 
       await opts.onMutate({ issueId: "issue-1", assignee: "user-2" });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
 
       expect(updater(undefined)).toBeUndefined();
     });
@@ -177,7 +177,7 @@ describe("useAssignIssue", () => {
 
       await opts.onMutate({ issueId: "issue-1", assignee: "user-2" });
 
-      const updater = setQueryDataMock.mock.calls[0][1];
+      const updater = setQueryDataMock.mock.calls[0]?.[1];
       const updated = updater(original);
 
       expect(updated.items[0].assignee).toBe("user-2");

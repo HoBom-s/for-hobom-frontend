@@ -8,7 +8,7 @@ const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 const getCsrfToken = (): string | null => {
   const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${CSRF_COOKIE}=([^;]*)`));
 
-  return match ? decodeURIComponent(match[1]) : null;
+  return match?.[1] != null ? decodeURIComponent(match[1]) : null;
 };
 
 export const applyCsrfHeader = (headers: Record<string, string>): Record<string, string> => {

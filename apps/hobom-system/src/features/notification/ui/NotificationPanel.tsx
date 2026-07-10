@@ -17,7 +17,7 @@ interface Props {
 
 export const NotificationPanel = ({ anchorEl, onClose }: Props) => {
   const [tab, setTab] = useState(0);
-  const filter = TAB_FILTERS[tab];
+  const filter = TAB_FILTERS[tab] ?? "all";
 
   const { notifications, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
     useNotificationList(filter);

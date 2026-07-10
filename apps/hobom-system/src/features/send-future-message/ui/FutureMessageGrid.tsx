@@ -107,10 +107,13 @@ const GridInner = ({
 
         const bodyIndex = cell.rowIndex - HEADER_ROW_COUNT;
         const row = rowModel.getRow(bodyIndex);
+        const col = COLUMNS[cell.colIndex];
+
+        if (!row || !col) return null;
 
         return (
           <GridBodyCell
-            colKey={COLUMNS[cell.colIndex].key}
+            colKey={col.key}
             row={row}
             bodyIndex={bodyIndex}
             onEdit={onEdit}

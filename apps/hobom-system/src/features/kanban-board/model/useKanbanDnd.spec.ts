@@ -9,6 +9,8 @@ vi.mock("@/shared/ui", () => ({
     const next = arr.slice();
     const [item] = next.splice(from, 1);
 
+    if (item === undefined) return next;
+
     next.splice(to, 0, item);
 
     return next;
@@ -117,8 +119,8 @@ describe("useKanbanDnd", () => {
         } as never);
       });
 
-      expect(result.current.columns["todo"].length).toBe(1);
-      expect(result.current.columns["in-progress"].some((i) => i.id === "i1")).toBe(true);
+      expect(result.current.columns["todo"]?.length).toBe(1);
+      expect(result.current.columns["in-progress"]?.some((i) => i.id === "i1")).toBe(true);
     });
 
     it("over가 없으면 아무것도 하지 않는다", () => {
@@ -139,7 +141,7 @@ describe("useKanbanDnd", () => {
         } as never);
       });
 
-      expect(result.current.columns["todo"].length).toBe(before["todo"].length);
+      expect(result.current.columns["todo"]?.length).toBe(before["todo"]?.length);
     });
   });
 
@@ -212,7 +214,7 @@ describe("useKanbanDnd", () => {
         } as never);
       });
 
-      expect(result.current.columns["todo"].length).toBe(2);
+      expect(result.current.columns["todo"]?.length).toBe(2);
       expect(result.current.activeIssue).toBeNull();
     });
   });
@@ -241,7 +243,7 @@ describe("useKanbanDnd", () => {
       });
 
       expect(result.current.activeIssue).toBeNull();
-      expect(result.current.columns["todo"].length).toBe(2);
+      expect(result.current.columns["todo"]?.length).toBe(2);
     });
   });
 });

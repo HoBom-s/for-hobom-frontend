@@ -8,8 +8,8 @@ export const useContainerWidth = () => {
     const el = ref.current;
 
     if (!el) return;
-    const observer = new ResizeObserver((entries) => {
-      setWidth(entries[0].contentRect.width);
+    const observer = new ResizeObserver(([entry]) => {
+      if (entry) setWidth(entry.contentRect.width);
     });
 
     observer.observe(el);

@@ -53,7 +53,11 @@ const PrivacyLawLayoutPage = () => {
       </Hb.Stack>
       <Hb.Tabs.Root
         value={currentTab === -1 ? 0 : currentTab}
-        onChange={(_, idx) => navigate(TABS[idx].path)}
+        onChange={(_, idx) => {
+          const target = TABS[idx];
+
+          if (target) navigate(target.path);
+        }}
         style={{
           borderBottom: 1,
           borderColor: "var(--hb-color-border)",

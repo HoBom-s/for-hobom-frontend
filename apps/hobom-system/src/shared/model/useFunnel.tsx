@@ -80,10 +80,11 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
 
           const currentStep = qsValue ?? options?.initialStep;
 
-          assertCondition(
-            currentStep != null,
-            `Cannot expression current step. Please check the current step value ${currentStep} again !`,
-          );
+          if (currentStep == null) {
+            throw new Error(
+              `Assertion failed: Cannot expression current step. Please check the current step value ${currentStep} again !`,
+            );
+          }
 
           return <Funnel<Steps> steps={steps} step={currentStep} {...props} />;
         },

@@ -29,8 +29,8 @@ describe("createTodosWithCategory", () => {
     const result = createTodosWithCategory([category], todos);
 
     expect(result).toHaveLength(1);
-    expect(result[0].categoryId).toBe("cat-1");
-    expect(result[0].todoItems).toHaveLength(2);
+    expect(result[0]?.categoryId).toBe("cat-1");
+    expect(result[0]?.todoItems).toHaveLength(2);
   });
 
   it("여러 카테고리에 각각 올바른 할일을 분류한다", () => {
@@ -55,10 +55,10 @@ describe("createTodosWithCategory", () => {
     const result = createTodosWithCategory([cat1, cat2], todos);
 
     expect(result).toHaveLength(2);
-    expect(result[0].categoryId).toBe("cat-1");
-    expect(result[0].todoItems).toHaveLength(2);
-    expect(result[1].categoryId).toBe("cat-2");
-    expect(result[1].todoItems).toHaveLength(1);
+    expect(result[0]?.categoryId).toBe("cat-1");
+    expect(result[0]?.todoItems).toHaveLength(2);
+    expect(result[1]?.categoryId).toBe("cat-2");
+    expect(result[1]?.todoItems).toHaveLength(1);
   });
 
   it("매칭되는 할일이 없으면 todoItems가 빈 배열이다", () => {
@@ -68,7 +68,7 @@ describe("createTodosWithCategory", () => {
     const result = createTodosWithCategory([category], todos);
 
     expect(result).toHaveLength(1);
-    expect(result[0].todoItems).toHaveLength(0);
+    expect(result[0]?.todoItems).toHaveLength(0);
   });
 
   it("할일 배열이 비어있으면 모든 카테고리의 todoItems가 빈 배열이다", () => {
@@ -77,7 +77,7 @@ describe("createTodosWithCategory", () => {
     const result = createTodosWithCategory(categories, []);
 
     expect(result).toHaveLength(2);
-    expect(result[0].todoItems).toHaveLength(0);
-    expect(result[1].todoItems).toHaveLength(0);
+    expect(result[0]?.todoItems).toHaveLength(0);
+    expect(result[1]?.todoItems).toHaveLength(0);
   });
 });

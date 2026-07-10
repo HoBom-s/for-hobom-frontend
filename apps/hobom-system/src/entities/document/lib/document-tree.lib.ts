@@ -152,6 +152,10 @@ export const reorderChildren = (
     const next = nodes.slice();
     const [moved] = next.splice(from, 1);
 
+    if (moved === undefined) {
+      return next;
+    }
+
     next.splice(to, 0, moved);
 
     return next;

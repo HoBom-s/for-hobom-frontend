@@ -21,8 +21,8 @@ describe("groupNotificationsByDate", () => {
     const groups = groupNotificationsByDate(items, NOW);
 
     expect(groups).toHaveLength(1);
-    expect(groups[0].label).toBe("오늘");
-    expect(groups[0].items).toHaveLength(1);
+    expect(groups[0]?.label).toBe("오늘");
+    expect(groups[0]?.items).toHaveLength(1);
   });
 
   it("어제 알림을 '어제' 그룹에 분류한다", () => {
@@ -30,7 +30,7 @@ describe("groupNotificationsByDate", () => {
     const groups = groupNotificationsByDate(items, NOW);
 
     expect(groups).toHaveLength(1);
-    expect(groups[0].label).toBe("어제");
+    expect(groups[0]?.label).toBe("어제");
   });
 
   it("2~7일 전 알림을 '이번 주' 그룹에 분류한다", () => {
@@ -38,7 +38,7 @@ describe("groupNotificationsByDate", () => {
     const groups = groupNotificationsByDate(items, NOW);
 
     expect(groups).toHaveLength(1);
-    expect(groups[0].label).toBe("이번 주");
+    expect(groups[0]?.label).toBe("이번 주");
   });
 
   it("7일 이상 전 알림을 '이전' 그룹에 분류한다", () => {
@@ -46,7 +46,7 @@ describe("groupNotificationsByDate", () => {
     const groups = groupNotificationsByDate(items, NOW);
 
     expect(groups).toHaveLength(1);
-    expect(groups[0].label).toBe("이전");
+    expect(groups[0]?.label).toBe("이전");
   });
 
   it("빈 배열은 빈 결과를 반환한다", () => {
@@ -87,6 +87,6 @@ describe("groupNotificationsByDate", () => {
     const groups = groupNotificationsByDate(items, NOW);
 
     expect(groups).toHaveLength(1);
-    expect(groups[0].items).toHaveLength(3);
+    expect(groups[0]?.items).toHaveLength(3);
   });
 });

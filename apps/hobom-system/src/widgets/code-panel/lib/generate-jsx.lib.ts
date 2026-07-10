@@ -85,7 +85,7 @@ const serializeNode = (node: DocumentNode, indent: string): string => {
 
   const [onlyChild] = node.children;
 
-  if (node.children.length === 1 && isTextNode(onlyChild)) {
+  if (node.children.length === 1 && onlyChild && isTextNode(onlyChild)) {
     return `${indent}<${tag}${attrString}>${onlyChild.value}</${tag}>`;
   }
 
@@ -106,7 +106,7 @@ const collectImports = (doc: StudioDocument): string[] => {
     const manifest = getManifest(node.type);
 
     if (manifest) {
-      const binding = manifest.import.access.split(".")[0];
+      const binding = manifest.import.access.split(".")[0] ?? manifest.import.access;
       const bindings = bindingsBySource.get(manifest.import.source) ?? new Set<string>();
 
       bindings.add(binding);

@@ -35,7 +35,7 @@ export const useVirtualList = <T>({ items, itemHeight, overscan = 5 }: UseVirtua
     if (!el) return;
 
     const observer = new ResizeObserver(([entry]) => {
-      setContainerHeight(entry.contentRect.height);
+      if (entry) setContainerHeight(entry.contentRect.height);
     });
 
     observer.observe(el);
@@ -72,8 +72,11 @@ export const useVirtualList = <T>({ items, itemHeight, overscan = 5 }: UseVirtua
     const result: VirtualItem<T>[] = [];
 
     for (let i = startIndex; i <= endIndex; i++) {
+      const item = items[i];
+
+      if (item === undefined) continue;
       result.push({
-        item: items[i],
+        item,
         index: i,
         offsetTop: i * itemHeight,
       });

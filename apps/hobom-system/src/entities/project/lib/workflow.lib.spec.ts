@@ -46,14 +46,14 @@ describe("buildStatusesFromColumns", () => {
 
     const result = buildStatusesFromColumns(columns);
 
-    expect(result[0].isDone).toBe(false);
-    expect(result[1].isDone).toBe(true);
+    expect(result[0]?.isDone).toBe(false);
+    expect(result[1]?.isDone).toBe(true);
   });
 
   it("단일 컬럼이면 isDone이 true다", () => {
     const result = buildStatusesFromColumns([{ statusId: "only", name: "Only", order: 0 }]);
 
-    expect(result[0].isDone).toBe(true);
+    expect(result[0]?.isDone).toBe(true);
   });
 
   it("빈 배열이면 빈 배열을 반환한다", () => {

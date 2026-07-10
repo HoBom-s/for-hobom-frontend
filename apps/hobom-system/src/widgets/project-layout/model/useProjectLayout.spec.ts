@@ -125,7 +125,7 @@ describe("useProjectLayout", () => {
     const { result } = renderHook(() => useProjectLayout());
 
     expect(result.current.projectCtx.statuses.length).toBe(2);
-    expect(result.current.projectCtx.statuses[0].id).toBe("todo");
+    expect(result.current.projectCtx.statuses[0]?.id).toBe("todo");
   });
 
   it("board, backlog, issues 탭에서 showIssueButton이 true이다", () => {
