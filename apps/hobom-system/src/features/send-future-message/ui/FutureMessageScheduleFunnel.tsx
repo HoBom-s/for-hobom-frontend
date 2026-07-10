@@ -86,16 +86,18 @@ export const FutureMessageScheduleFunnel = ({ onPrevStep }: Props) => {
                 },
                 (payload) => {
                   sendFutureMessageMutationHandler.mutate(payload, {
-                    onSuccess: async () => {
-                      await dataLot.invalidateQueries({
-                        queryKey: futureMessageQueries.futureMessages(),
-                      });
-                      openSuccessToast({
-                        message: "미래 메시지를 잘 예약했어요.",
-                      });
-                      navigate(`${RoutesConfig.MESSAGE.RESERVATION}?status=PENDING`, {
-                        replace: true,
-                      });
+                    onSuccess: () => {
+                      void (async () => {
+                        await dataLot.invalidateQueries({
+                          queryKey: futureMessageQueries.futureMessages(),
+                        });
+                        openSuccessToast({
+                          message: "미래 메시지를 잘 예약했어요.",
+                        });
+                        void navigate(`${RoutesConfig.MESSAGE.RESERVATION}?status=PENDING`, {
+                          replace: true,
+                        });
+                      })();
                     },
                     onError: () => {
                       openErrorToast({

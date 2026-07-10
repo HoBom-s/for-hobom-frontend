@@ -15,7 +15,9 @@ export const useNotificationCenter = () => {
   const handleScroll = useInfiniteScroll({
     hasNextPage,
     isFetchingNextPage,
-    fetchNextPage,
+    fetchNextPage: () => {
+      void fetchNextPage();
+    },
   });
 
   const handleMarkRead = (n: NotificationItemType) => {

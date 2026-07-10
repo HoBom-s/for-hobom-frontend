@@ -86,10 +86,10 @@ export const HeaderCell = ({
           transition: "background-color 0.15s",
         }}
         onPointerEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor = "var(--hb-color-accent)";
+          (e.currentTarget).style.backgroundColor = "var(--hb-color-accent)";
         }}
         onPointerLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+          (e.currentTarget).style.backgroundColor = "transparent";
         }}
         onPointerDown={(e) => {
           e.stopPropagation();

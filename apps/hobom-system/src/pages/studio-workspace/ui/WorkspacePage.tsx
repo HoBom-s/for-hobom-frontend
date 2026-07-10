@@ -115,7 +115,7 @@ export default function WorkspacePage() {
       return;
     }
 
-    openItem(createDesign(activeFolder.id, `디자인 ${items.length + 1}`));
+    void openItem(createDesign(activeFolder.id, `디자인 ${items.length + 1}`));
   };
 
   const handleDeleteFolder = (event: MouseEvent, id: FolderId) => {

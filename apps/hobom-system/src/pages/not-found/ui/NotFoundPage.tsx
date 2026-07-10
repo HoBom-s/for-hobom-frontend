@@ -37,7 +37,7 @@ export default function NotFoundPage() {
             variant="primary"
             size="small"
             onClick={() => {
-              navigate(-1);
+              void navigate(-1);
             }}
           >
             돌아가기

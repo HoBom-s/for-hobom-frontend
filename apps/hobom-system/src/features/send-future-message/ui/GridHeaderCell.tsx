@@ -44,10 +44,10 @@ export const GridHeaderCell = ({ colIndex, onStartResize }: Props) => {
             transition: "background-color 0.15s",
           }}
           onPointerEnter={(e) => {
-            (e.currentTarget as HTMLDivElement).style.backgroundColor = COLORS.resizeHandle;
+            (e.currentTarget).style.backgroundColor = COLORS.resizeHandle;
           }}
           onPointerLeave={(e) => {
-            (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+            (e.currentTarget).style.backgroundColor = "transparent";
           }}
           onPointerDown={(e) => {
             e.stopPropagation();

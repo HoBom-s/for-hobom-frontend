@@ -10,7 +10,7 @@ export const useRemoveMember = () => {
   return useMutation({
     ...projectMutations.removeMember(),
     onSuccess: (_, variables) => {
-      dataLot.invalidateQueries(projectQueries.detail(variables.projectId));
+      void dataLot.invalidateQueries(projectQueries.detail(variables.projectId));
       openSuccessToast({ message: "멤버를 제거했어요" });
     },
   });

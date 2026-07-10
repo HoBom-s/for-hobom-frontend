@@ -16,8 +16,8 @@ export type PropSpec =
   | { kind: "boolean"; default: boolean }
   | { kind: "slot"; accepts: readonly NodeKind[] };
 
-/** Document 노드가 가질 수 있는 종류. 컴포넌트 키이거나 원시 텍스트. */
-type NodeKind = ComponentKey | "text";
+/** Document 노드가 가질 수 있는 종류. 컴포넌트 키이거나 원시 텍스트(`"text"`). */
+type NodeKind = ComponentKey;
 
 /** 매니페스트가 식별하는 컴포넌트 키. 예: `"Hb.Button"`. */
 export type ComponentKey = string;

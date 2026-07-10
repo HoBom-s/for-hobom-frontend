@@ -27,4 +27,4 @@ export const toRawNote = (note: NoteItemType): RawNoteItemType =>
     color: { value: note.color },
     labels: note.labels.map((l) => ({ value: l })),
     members: note.members.map((m) => ({ value: m })),
-  }) as unknown as RawNoteItemType;
+  });

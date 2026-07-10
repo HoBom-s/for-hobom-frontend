@@ -56,7 +56,7 @@ const PrivacyLawLayoutPage = () => {
         onChange={(_, idx) => {
           const target = TABS[idx];
 
-          if (target) navigate(target.path);
+          if (target) void navigate(target.path);
         }}
         style={{
           borderBottom: 1,

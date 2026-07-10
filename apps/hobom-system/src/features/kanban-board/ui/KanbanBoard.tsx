@@ -5,13 +5,7 @@ import { getDescendantProgress, useCreateIssue, useTransitionIssue } from "@/ent
 import { IssueCard } from "@/entities/issue/ui";
 import { boardQueries, DEFAULT_BOARD_COLUMNS, type BoardColumn } from "@/entities/board";
 import { useProjectContext } from "@/entities/project";
-import {
-  Hb,
-  Sortable,
-  type DragEndEvent,
-  type DragStartEvent,
-  type DragOverEvent,
-} from "@/shared/ui";
+import { Hb, Sortable } from "@/shared/ui";
 import { useKanbanBoard } from "../model/useKanbanBoard";
 import { useKanbanDnd } from "../model/useKanbanDnd";
 import { useKanbanFilters } from "../model/useKanbanFilters";
@@ -68,9 +62,9 @@ export const KanbanBoard = ({ projectId, onIssueClick }: KanbanBoardProps) => {
   return (
     <KanbanContext.Provider value={contextValue}>
       <Sortable.Root
-        onDragStart={dnd.handleDragStart as (e: DragStartEvent) => void}
-        onDragOver={dnd.handleDragOver as (e: DragOverEvent) => void}
-        onDragEnd={dnd.handleDragEnd as (e: DragEndEvent) => void}
+        onDragStart={dnd.handleDragStart}
+        onDragOver={dnd.handleDragOver}
+        onDragEnd={dnd.handleDragEnd}
         onDragCancel={dnd.handleDragCancel}
         overlay={
           dnd.activeIssue ? (

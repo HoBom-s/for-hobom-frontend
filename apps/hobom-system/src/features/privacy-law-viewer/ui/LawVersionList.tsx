@@ -13,7 +13,7 @@ export const LawVersionList = () => {
   const fetchMutation = useMutation({
     ...privacyLawMutations.fetch(),
     onSuccess: () => {
-      dataLot.invalidateQueries({
+      void dataLot.invalidateQueries({
         queryKey: privacyLawQueries.all(),
       });
     },

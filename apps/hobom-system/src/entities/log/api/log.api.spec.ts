@@ -26,7 +26,7 @@ describe("fetchLogSearch", () => {
       size: 20,
     };
 
-    fetchLogSearch(params);
+    void fetchLogSearch(params);
 
     const url = mockGet.mock.calls[0]?.[0] as string;
 
@@ -42,7 +42,7 @@ describe("fetchLogSearch", () => {
   it("omits undefined optional params", () => {
     const params: LogSearchParams = { page: 0, size: 10 };
 
-    fetchLogSearch(params);
+    void fetchLogSearch(params);
 
     const url = mockGet.mock.calls[0]?.[0] as string;
 
@@ -61,7 +61,7 @@ describe("fetchLogSearch", () => {
       size: 10,
     };
 
-    fetchLogSearch(params);
+    void fetchLogSearch(params);
 
     const url = mockGet.mock.calls[0]?.[0] as string;
 
@@ -70,7 +70,7 @@ describe("fetchLogSearch", () => {
   });
 
   it("uses /logs base path", () => {
-    fetchLogSearch({ page: 0, size: 10 });
+    void fetchLogSearch({ page: 0, size: 10 });
 
     const url = mockGet.mock.calls[0]?.[0] as string;
 

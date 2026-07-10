@@ -19,7 +19,7 @@ const makeIssue = (id: string): IssueType =>
     priority: "MEDIUM",
     reporter: "user",
     labels: [],
-  }) as IssueType;
+  });
 
 const COLUMNS: ColumnMap = {
   todo: [makeIssue("i1"), makeIssue("i2")],

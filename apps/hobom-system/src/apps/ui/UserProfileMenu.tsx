@@ -45,7 +45,7 @@ export const UserProfileMenu = () => {
       setIsLoggingOut(false);
       setAnchorEl(null);
       dataLot.clear();
-      navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
+      void navigate(RoutesConfig.AUTH.LOGIN, { replace: true });
     }
   };
 
