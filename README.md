@@ -8,9 +8,9 @@
 
 - **React 19** + **TypeScript 5.9**
 - **Vite** — build & dev server
-- **MUI 7** — UI component library (Datta Able theme)
+- **StyleX** — styling for the in-house design system (`hobom-design-system`)
 - **React Router DOM** — client-side routing
-- **React Hook Form** + **Zod** — form management & validation
+- **React Hook Form** + **`hobom-schema`** — form management & validation
 - **Recharts** — data visualization
 - **Tiptap** — rich text editor
 
@@ -26,9 +26,14 @@ apps/
 
 packages/
   hobom-data/            # Data fetching library (custom React Query alternative)
+  hobom-schema/          # Runtime validation library (custom Zod alternative)
   hobom-utils/           # Functional utility library (pipe, map, filter, etc.)
   hobom-design-system/   # Shared UI components, icons, date pickers
 ```
+
+The in-house `hobom-data` and `hobom-schema` are a deliberate choice — see
+[ADR 0001](./docs/adr/0001-in-house-data-and-schema-libraries.md) for the
+rationale, costs, and the criteria for replacing them.
 
 ---
 
