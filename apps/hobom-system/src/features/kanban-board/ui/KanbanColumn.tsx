@@ -26,7 +26,7 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
       ref={setNodeRef}
       style={{
         flex: "0 0 296px",
-        minHeight: 400,
+        minHeight: 0,
         display: "flex",
         flexDirection: "column",
         backgroundColor: isOver ? `${config.color}14` : "action.hover",
@@ -85,6 +85,10 @@ export const KanbanColumn = ({ column, issues }: KanbanColumnProps) => {
             gap: 8,
             flex: 1,
             minHeight: 60,
+            overflowY: "auto",
+            overflowX: "hidden",
+            marginRight: -4,
+            paddingRight: 4,
           }}
         >
           {swimlaneGroups
