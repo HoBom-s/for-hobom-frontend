@@ -15,7 +15,7 @@ type StackDirection = "row" | "column" | "row-reverse" | "column-reverse";
 interface StackProps extends HTMLAttributes<HTMLElement> {
   /** Element to render. Defaults to `"div"`. */
   component?: ElementType;
-  /** Flex direction. Defaults to `"column"` (matching MUI). */
+  /** Flex direction. Defaults to `"column"`. */
   direction?: StackDirection;
   /** Gap between children, in 8px units (`spacing={2}` → 16px). */
   spacing?: number;
@@ -32,7 +32,7 @@ const styles = stylex.create({
 
 const SPACING_UNIT = 8;
 
-// Interleave `divider` between children, matching MUI's Stack behavior.
+// Interleave `divider` between children.
 const withDividers = (children: StackProps["children"], divider: ReactElement) =>
   Children.toArray(children)
     .filter((child) => child !== null && child !== undefined)

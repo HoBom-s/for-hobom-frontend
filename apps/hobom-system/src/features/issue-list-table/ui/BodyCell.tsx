@@ -64,7 +64,7 @@ export const BodyCell = memo(
               style={{
                 fontSize: 12,
                 fontWeight: 600,
-                color: "var(--mui-palette-text-disabled)",
+                color: "var(--hb-color-text-disabled)",
                 whiteSpace: "nowrap",
               }}
             >
@@ -170,7 +170,7 @@ export const BodyCell = memo(
               <span
                 style={{
                   fontSize: 12,
-                  color: "var(--mui-palette-text-disabled)",
+                  color: "var(--hb-color-text-disabled)",
                 }}
               >
                 -
@@ -201,7 +201,7 @@ export const BodyCell = memo(
                 );
               })
             ) : (
-              <span style={{ fontSize: 12, color: "var(--mui-palette-text-disabled)" }}>-</span>
+              <span style={{ fontSize: 12, color: "var(--hb-color-text-disabled)" }}>-</span>
             )}
           </div>
         );
@@ -221,7 +221,7 @@ export const BodyCell = memo(
             <span
               style={{
                 fontSize: 12,
-                color: isOverdue ? "var(--mui-palette-error-main)" : undefined,
+                color: isOverdue ? "var(--hb-color-danger)" : undefined,
                 fontWeight: isOverdue ? 600 : undefined,
               }}
             >

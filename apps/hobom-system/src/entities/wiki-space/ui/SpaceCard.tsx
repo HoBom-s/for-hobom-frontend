@@ -33,7 +33,7 @@ const styles = stylex.create({
     opacity: 0,
     transition: "opacity 0.15s ease",
     backgroundColor: "var(--hb-color-surface)",
-    // grey.100 has no design-token equivalent; MUI default #f5f5f5.
+    // A soft neutral surface tint with no exact design-token equivalent yet.
     ":hover": { backgroundColor: "#f5f5f5" },
   },
 });

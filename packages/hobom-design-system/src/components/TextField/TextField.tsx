@@ -16,7 +16,7 @@ interface InputSlotProps {
   style?: CSSProperties;
   startAdornment?: ReactNode;
   endAdornment?: ReactNode;
-  /** Accept (and ignore) other MUI input-slot props such as `disableUnderline`. */
+  /** Accept (and ignore) other input-slot props such as `disableUnderline`. */
   [key: string]: unknown;
 }
 

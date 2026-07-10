@@ -79,7 +79,7 @@ const Root = <T extends TabValue>({
 }: RootProps<T>) => {
   const sx = stylex.props(styles.root);
   // Give each Item its positional index so items without an explicit `value`
-  // fall back to it (matching MUI's index-based tab values).
+  // fall back to it (index-based tab values).
   let index = 0;
   const items = Children.map(children, (child) =>
     isValidElement(child) ? cloneElement(child as ReactElement<ItemProps>, { index: index++ }) : child,

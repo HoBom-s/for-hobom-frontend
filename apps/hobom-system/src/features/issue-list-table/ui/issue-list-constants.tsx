@@ -19,10 +19,10 @@ export const MIN_COL_WIDTH = 50;
 
 /* ── 색상 상수 (CSS 변수로 다크모드 대응) ── */
 
-export const HEADER_BG = "var(--mui-palette-action-hover)";
-export const HEADER_TEXT = "var(--mui-palette-text-secondary)";
-export const ROW_EVEN = "var(--mui-palette-background-paper)";
-export const ROW_ODD = "var(--mui-palette-action-hover)";
-export const BORDER_COLOR = "var(--mui-palette-divider)";
+export const HEADER_BG = "var(--hb-color-neutral)";
+export const HEADER_TEXT = "var(--hb-color-text-secondary)";
+export const ROW_EVEN = "var(--hb-color-surface)";
+export const ROW_ODD = "var(--hb-color-neutral)";
+export const BORDER_COLOR = "var(--hb-color-border)";
 
 export const COL_WIDTH_RATIOS = [0.08, 0.05, 0.28, 0.1, 0.1, 0.1, 0.12, 0.07, 0.1];
