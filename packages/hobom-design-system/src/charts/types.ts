@@ -10,16 +10,28 @@ export interface ChartMargin {
   left: number;
 }
 
+/** One measure drawn across the x axis. Multiple series share the same x. */
+export interface ChartSeries {
+  /** Field key for this series' value. */
+  key: string;
+  /** Legend/tooltip label; defaults to `key`. */
+  label?: string;
+  /** Series color; defaults to the palette. */
+  color?: string;
+}
+
 /**
  * External configuration injected per chart. Cartesian charts (line/area/bar)
- * read `x`/`y`; part-to-whole charts (donut) read `label`/`value`. Everything
- * else is optional styling.
+ * read `x` plus either `y` (single series) or `series` (multi); part-to-whole
+ * charts (donut) read `label`/`value`. Everything else is optional styling.
  */
 export interface ChartConfig {
   /** Field key for the x axis / category. */
   x?: string;
-  /** Field key for the y axis / measure. */
+  /** Field key for the y axis / measure (single series). */
   y?: string;
+  /** Multiple measures over the same x. Takes precedence over `y`. */
+  series?: readonly ChartSeries[];
   /** Field key for a slice's category (donut). */
   label?: string;
   /** Field key for a slice's measure (donut). */
@@ -36,14 +48,22 @@ export interface ChartConfig {
   formatX?: (value: string) => string;
 }
 
-/** The datum under the pointer, with the pixel anchor for its tooltip. */
+/** One row in the hover tooltip (a series/slice value at the hovered point). */
+export interface ChartHoverEntry {
+  label: string;
+  value: number;
+  color: string;
+}
+
+/** The point under the pointer: its pixel anchor and the values to show. */
 export interface ChartHover {
   index: number;
   /** SVG-pixel anchor point (tooltip is placed relative to it). */
   x: number;
   y: number;
-  label: string;
-  value: number;
+  /** Heading (usually the x category). */
+  title: string;
+  entries: readonly ChartHoverEntry[];
 }
 
 /** What the factory hands a renderer: the data, its box, and hover plumbing. */

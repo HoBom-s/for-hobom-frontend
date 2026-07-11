@@ -17,6 +17,20 @@ const SLICES = [
   { label: "Trashed", count: 7 },
 ];
 
+const MULTI = [
+  { month: "Jan", sent: 32, opened: 20 },
+  { month: "Feb", sent: 51, opened: 34 },
+  { month: "Mar", sent: 44, opened: 30 },
+  { month: "Apr", sent: 68, opened: 41 },
+  { month: "May", sent: 59, opened: 45 },
+  { month: "Jun", sent: 74, opened: 52 },
+];
+
+const SENT_OPENED = [
+  { key: "sent", label: "Sent" },
+  { key: "opened", label: "Opened" },
+];
+
 const meta = {
   title: "Charts/Chart",
   component: Chart,
@@ -74,6 +88,32 @@ export const Donut: Story = {
         config={{ label: "label", value: "count" }}
         height={220}
         ariaLabel="Note status breakdown"
+      />
+    </Frame>
+  ),
+};
+
+export const MultiSeriesLine: Story = {
+  render: () => (
+    <Frame>
+      <Chart
+        type="line"
+        data={MULTI}
+        config={{ x: "month", series: SENT_OPENED }}
+        ariaLabel="Sent vs opened over time"
+      />
+    </Frame>
+  ),
+};
+
+export const MultiSeriesBar: Story = {
+  render: () => (
+    <Frame>
+      <Chart
+        type="bar"
+        data={MULTI}
+        config={{ x: "month", series: SENT_OPENED }}
+        ariaLabel="Sent vs opened by month"
       />
     </Frame>
   ),
