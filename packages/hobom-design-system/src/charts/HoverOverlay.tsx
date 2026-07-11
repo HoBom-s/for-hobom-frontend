@@ -1,5 +1,5 @@
-import { nearestIndex } from "./chart-lib";
 import type { MouseEvent } from "react";
+import { nearestIndex } from "./chart-lib";
 import type { ChartHover, ChartMargin } from "./types";
 
 /** One hoverable datum, positioned in inner-plot coordinates. */
