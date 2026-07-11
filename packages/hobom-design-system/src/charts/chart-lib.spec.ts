@@ -1,12 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
+  colorFromDatum,
   formatCategory,
   formatNumber,
+  gradientId,
   legendItems,
   nearestIndex,
   num,
   resolveMargin,
   resolveSeries,
+  roundedRightRect,
   roundedTopRect,
   str,
 } from "./chart-lib";
@@ -58,6 +61,32 @@ describe("roundedTopRect", () => {
     expect(path.startsWith("M0,20")).toBe(true); // bottom-left
     expect(path.endsWith("Z")).toBe(true);
     expect((path.match(/Q/g) ?? []).length).toBe(2); // two rounded (top) corners
+  });
+});
+
+describe("roundedRightRect", () => {
+  it("starts at the top-left and only rounds the right corners", () => {
+    const path = roundedRightRect(0, 0, 20, 10, 2);
+
+    expect(path.startsWith("M0,0")).toBe(true); // top-left
+    expect(path.endsWith("Z")).toBe(true);
+    expect((path.match(/Q/g) ?? []).length).toBe(2); // two rounded (right) corners
+  });
+});
+
+describe("colorFromDatum", () => {
+  it("reads a per-datum color from colorKey, else null", () => {
+    expect(colorFromDatum({ fill: "#abc" }, { colorKey: "fill" })).toBe("#abc");
+    expect(colorFromDatum({ fill: "" }, { colorKey: "fill" })).toBeNull(); // empty ignored
+    expect(colorFromDatum({ fill: 123 }, { colorKey: "fill" })).toBeNull(); // non-string ignored
+    expect(colorFromDatum({ fill: "#abc" }, {})).toBeNull(); // no colorKey
+  });
+});
+
+describe("gradientId", () => {
+  it("builds a DOM-safe id, stripping non-alphanumerics", () => {
+    expect(gradientId("bar", "#4680ff")).toBe("hb-grad-bar-4680ff");
+    expect(gradientId("bar", "var(--hb-color-accent)")).toBe("hb-grad-bar-varhbcoloraccent");
   });
 });
 

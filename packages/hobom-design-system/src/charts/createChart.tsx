@@ -26,7 +26,7 @@ export const createChart = <R extends ChartRegistry>(registry: R) => {
     const [ref, width] = useMeasure();
     const [hover, setHover] = useState<ChartHover | null>(null);
     const renderer = registry[type];
-    const legend = legendItems(data, config);
+    const legend = config.legend === false ? [] : legendItems(data, config);
 
     return (
       <div ref={ref} className={className} style={{ position: "relative", width: "100%", ...style }}>
