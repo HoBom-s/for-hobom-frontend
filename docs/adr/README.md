@@ -8,6 +8,7 @@ the moment it was made.
 | --- | --- | --- |
 | [0001](./0001-in-house-data-and-schema-libraries.md) | In-house data-fetching and schema libraries | Accepted |
 | [0002](./0002-slice-public-api-and-import-boundaries.md) | Slice public API and import boundaries | Accepted |
+| [0003](./0003-build-tooling-references-and-turborepo.md) | TypeScript project references without composite; no Turborepo | Accepted |
 
 New ADRs are numbered sequentially and never edited once accepted — supersede
 them with a new record instead.
