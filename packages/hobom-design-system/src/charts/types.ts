@@ -36,12 +36,26 @@ export interface ChartConfig {
   formatX?: (value: string) => string;
 }
 
-/** What the factory hands a renderer: the data, its config, and the pixel box. */
+/** The datum under the pointer, with the pixel anchor for its tooltip. */
+export interface ChartHover {
+  index: number;
+  /** SVG-pixel anchor point (tooltip is placed relative to it). */
+  x: number;
+  y: number;
+  label: string;
+  value: number;
+}
+
+/** What the factory hands a renderer: the data, its box, and hover plumbing. */
 export interface ChartRenderContext {
   data: readonly ChartDatum[];
   config: ChartConfig;
   width: number;
   height: number;
+  /** The currently hovered datum, or null. */
+  hover: ChartHover | null;
+  /** Report (or clear) the hovered datum; the factory renders the tooltip. */
+  setHover: (hover: ChartHover | null) => void;
 }
 
 /** A chart type: a pure function from context to SVG children. */

@@ -39,3 +39,25 @@ export const formatNumber = (config: ChartConfig, value: number): string =>
 
 export const formatCategory = (config: ChartConfig, value: string): string =>
   config.formatX ? config.formatX(value) : value;
+
+/** SVG path for a rectangle with only its top two corners rounded. */
+export const roundedTopRect = (x: number, y: number, w: number, h: number, r: number): string =>
+  `M${x},${y + h} L${x},${y + r} Q${x},${y} ${x + r},${y} ` +
+  `L${x + w - r},${y} Q${x + w},${y} ${x + w},${y + r} L${x + w},${y + h} Z`;
+
+/** Index of the position closest to `cursor` (0 when the list is empty). */
+export const nearestIndex = (positions: readonly number[], cursor: number): number => {
+  let best = 0;
+  let bestDistance = Infinity;
+
+  positions.forEach((position, index) => {
+    const distance = Math.abs(position - cursor);
+
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = index;
+    }
+  });
+
+  return best;
+};

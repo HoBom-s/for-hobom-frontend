@@ -2,10 +2,11 @@ import { scaleLinear, scalePoint } from "d3-scale";
 import { curveMonotoneX, line as d3Line } from "d3-shape";
 import { max } from "d3-array";
 import { Axes } from "../Axes";
+import { HoverOverlay } from "../HoverOverlay";
 import { PRIMARY_COLOR, formatCategory, formatNumber, num, resolveMargin, str } from "../chart-lib";
 import type { ChartDatum, ChartRenderer } from "../types";
 
-export const lineChart: ChartRenderer = ({ data, config, width, height }) => {
+export const lineChart: ChartRenderer = ({ data, config, width, height, hover, setHover }) => {
   const margin = resolveMargin(config);
   const innerWidth = Math.max(0, width - margin.left - margin.right);
   const innerHeight = Math.max(0, height - margin.top - margin.bottom);
@@ -59,6 +60,20 @@ export const lineChart: ChartRenderer = ({ data, config, width, height }) => {
           />
         ))}
       </g>
+      <HoverOverlay
+        points={data.map((d) => ({
+          cx: xScale(str(d, config.x)) ?? 0,
+          anchorY: yScale(num(d, config.y)),
+          label: formatCategory(config, str(d, config.x)),
+          value: num(d, config.y),
+        }))}
+        margin={margin}
+        innerWidth={innerWidth}
+        innerHeight={innerHeight}
+        color={color}
+        hover={hover}
+        setHover={setHover}
+      />
     </>
   );
 };

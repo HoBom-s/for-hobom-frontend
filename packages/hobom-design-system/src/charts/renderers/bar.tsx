@@ -1,15 +1,19 @@
 import { scaleBand, scaleLinear } from "d3-scale";
 import { max } from "d3-array";
 import { Axes } from "../Axes";
-import { PRIMARY_COLOR, formatCategory, formatNumber, num, resolveMargin, str } from "../chart-lib";
+import { HoverOverlay } from "../HoverOverlay";
+import {
+  PRIMARY_COLOR,
+  formatCategory,
+  formatNumber,
+  num,
+  resolveMargin,
+  roundedTopRect,
+  str,
+} from "../chart-lib";
 import type { ChartRenderer } from "../types";
 
-/** A bar path with only its top two corners rounded. */
-const roundedTopRect = (x: number, y: number, w: number, h: number, r: number): string =>
-  `M${x},${y + h} L${x},${y + r} Q${x},${y} ${x + r},${y} ` +
-  `L${x + w - r},${y} Q${x + w},${y} ${x + w},${y + r} L${x + w},${y + h} Z`;
-
-export const barChart: ChartRenderer = ({ data, config, width, height }) => {
+export const barChart: ChartRenderer = ({ data, config, width, height, hover, setHover }) => {
   const margin = resolveMargin(config);
   const innerWidth = Math.max(0, width - margin.left - margin.right);
   const innerHeight = Math.max(0, height - margin.top - margin.bottom);
@@ -48,10 +52,33 @@ export const barChart: ChartRenderer = ({ data, config, width, height }) => {
           const w = xScale.bandwidth();
           const h = Math.max(0, innerHeight - barY);
           const r = Math.min(5, w / 2, h);
+          const dimmed = hover !== null && hover.index !== index;
 
-          return <path key={index} d={roundedTopRect(barX, barY, w, h, r)} fill={color} />;
+          return (
+            <path
+              key={index}
+              d={roundedTopRect(barX, barY, w, h, r)}
+              fill={color}
+              fillOpacity={dimmed ? 0.5 : 1}
+            />
+          );
         })}
       </g>
+      <HoverOverlay
+        points={data.map((d) => ({
+          cx: (xScale(str(d, config.x)) ?? 0) + xScale.bandwidth() / 2,
+          anchorY: yScale(num(d, config.y)),
+          label: formatCategory(config, str(d, config.x)),
+          value: num(d, config.y),
+        }))}
+        margin={margin}
+        innerWidth={innerWidth}
+        innerHeight={innerHeight}
+        color={color}
+        hover={hover}
+        setHover={setHover}
+        marker={false}
+      />
     </>
   );
 };
