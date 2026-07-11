@@ -47,7 +47,12 @@ export const Line: Story = {
 export const Area: Story = {
   render: () => (
     <Frame>
-      <Chart type="area" data={SERIES} config={{ x: "month", y: "value", color: "#60a5fa" }} />
+      <Chart
+        type="area"
+        data={SERIES}
+        config={{ x: "month", y: "value", color: "#60a5fa" }}
+        ariaLabel="Monthly value area"
+      />
     </Frame>
   ),
 };
@@ -55,7 +60,7 @@ export const Area: Story = {
 export const Bar: Story = {
   render: () => (
     <Frame>
-      <Chart type="bar" data={SERIES} config={{ x: "month", y: "value" }} />
+      <Chart type="bar" data={SERIES} config={{ x: "month", y: "value" }} ariaLabel="Monthly value bars" />
     </Frame>
   ),
 };
@@ -63,7 +68,13 @@ export const Bar: Story = {
 export const Donut: Story = {
   render: () => (
     <Frame>
-      <Chart type="donut" data={SLICES} config={{ label: "label", value: "count" }} height={220} />
+      <Chart
+        type="donut"
+        data={SLICES}
+        config={{ label: "label", value: "count" }}
+        height={220}
+        ariaLabel="Note status breakdown"
+      />
     </Frame>
   ),
 };
@@ -77,7 +88,12 @@ export const CustomFactory: Story = {
 
     return (
       <Frame>
-        <MyChart type="step" data={SERIES} config={{ x: "month", y: "value", color: "#4ade80" }} />
+        <MyChart
+          type="step"
+          data={SERIES}
+          config={{ x: "month", y: "value", color: "#4ade80" }}
+          ariaLabel="Custom step chart"
+        />
       </Frame>
     );
   },

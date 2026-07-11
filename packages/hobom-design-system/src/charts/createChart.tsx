@@ -33,8 +33,9 @@ export const createChart = <R extends ChartRegistry>(registry: R) => {
             width={width}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
-            role="img"
-            aria-label={ariaLabel}
+            // Only claim the img role when there's an accessible name to give it;
+            // an unlabeled role="img" is itself an a11y violation.
+            {...(ariaLabel ? { role: "img", "aria-label": ariaLabel } : {})}
             onMouseLeave={() => setHover(null)}
           >
             {renderer ? renderer({ data, config, width, height, hover, setHover }) : null}
