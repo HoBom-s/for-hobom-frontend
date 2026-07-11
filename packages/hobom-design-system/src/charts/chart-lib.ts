@@ -32,14 +32,20 @@ export const resolveMargin = (config: ChartConfig): ChartMargin => ({
 export const num = (datum: ChartDatum, key: string | undefined): number => {
   if (!key) return 0;
 
-  const value = Number(datum[key]);
+  const value: unknown = Reflect.get(datum, key);
+  const parsed = Number(value);
 
-  return Number.isFinite(value) ? value : 0;
+  return Number.isFinite(parsed) ? parsed : 0;
 };
 
 /** Coerce a datum field to a string. */
-export const str = (datum: ChartDatum, key: string | undefined): string =>
-  key && datum[key] != null ? String(datum[key]) : "";
+export const str = (datum: ChartDatum, key: string | undefined): string => {
+  if (!key) return "";
+
+  const value: unknown = Reflect.get(datum, key);
+
+  return value != null ? String(value) : "";
+};
 
 export const formatNumber = (config: ChartConfig, value: number): string =>
   config.formatValue ? config.formatValue(value) : String(value);
@@ -93,7 +99,7 @@ export const legendItems = (
 export const colorFromDatum = (datum: ChartDatum, config: ChartConfig): string | null => {
   if (!config.colorKey) return null;
 
-  const value = datum[config.colorKey];
+  const value: unknown = Reflect.get(datum, config.colorKey);
 
   return typeof value === "string" && value.length > 0 ? value : null;
 };

@@ -1,12 +1,4 @@
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { Chart } from "hobom-design-system/charts";
 import { Hb } from "@/shared/ui";
 
 interface CompletionRateLineChartProps {
@@ -25,25 +17,19 @@ export const CompletionRateLineChart = ({ data }: CompletionRateLineChartProps) 
       >
         일별 완료율 추이
       </Hb.Text>
-      <ResponsiveContainer width="100%" height={260}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={(v: string) => v.slice(5)} />
-          <YAxis
-            domain={[0, 1]}
-            tick={{ fontSize: 11 }}
-            tickFormatter={(v: number) => `${Math.round(v * 100)}%`}
-          />
-          <Tooltip formatter={(v) => [`${Math.round(Number(v) * 100)}%`, "완료율"]} />
-          <Line
-            type="monotone"
-            dataKey="completionRate"
-            stroke="#4680ff"
-            strokeWidth={2}
-            dot={{ r: 3 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      <Chart
+        type="line"
+        data={data}
+        config={{
+          x: "date",
+          y: "completionRate",
+          color: "#4680ff",
+          formatX: (v) => v.slice(5),
+          formatValue: (v) => `${Math.round(v * 100)}%`,
+        }}
+        height={260}
+        ariaLabel="일별 완료율 추이"
+      />
     </Hb.Box>
   );
 };

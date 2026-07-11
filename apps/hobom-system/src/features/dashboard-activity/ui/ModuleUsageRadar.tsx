@@ -1,11 +1,4 @@
-import {
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
-  ResponsiveContainer,
-} from "recharts";
+import { Chart } from "hobom-design-system/charts";
 import { Hb } from "@/shared/ui";
 
 interface ModuleUsageRadarProps {
@@ -37,14 +30,13 @@ export const ModuleUsageRadar = ({ data }: ModuleUsageRadarProps) => {
       >
         모듈별 활동 비중
       </Hb.Text>
-      <ResponsiveContainer width="100%" height={260}>
-        <RadarChart data={chartData}>
-          <PolarGrid />
-          <PolarAngleAxis dataKey="label" tick={{ fontSize: 12 }} />
-          <PolarRadiusAxis tick={false} axisLine={false} />
-          <Radar dataKey="percentage" stroke="#4680ff" fill="#4680ff" fillOpacity={0.3} />
-        </RadarChart>
-      </ResponsiveContainer>
+      <Chart
+        type="radar"
+        data={chartData}
+        config={{ x: "label", y: "percentage", color: "#4680ff" }}
+        height={260}
+        ariaLabel="모듈별 활동 비중"
+      />
     </Hb.Box>
   );
 };

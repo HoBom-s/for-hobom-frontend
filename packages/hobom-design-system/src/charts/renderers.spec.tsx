@@ -80,6 +80,18 @@ describe("bar renderer options", () => {
   });
 });
 
+describe("dense axis labels", () => {
+  it("thins x labels so a per-minute series does not render one label per point", () => {
+    const dense = Array.from({ length: 200 }, (_, i) => ({ t: String(i), v: i % 7 }));
+    const { container } = render(
+      <Chart type="area" data={dense} config={{ x: "t", y: "v" }} ariaLabel="dense" />,
+    );
+
+    // 200 points would smear; thinning keeps this to a readable handful.
+    expect(container.querySelectorAll("text").length).toBeLessThan(20);
+  });
+});
+
 describe("radar renderer", () => {
   it("renders a value polygon with a vertex per category", () => {
     const { container } = render(
