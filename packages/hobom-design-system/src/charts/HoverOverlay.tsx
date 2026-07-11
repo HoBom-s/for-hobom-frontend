@@ -1,63 +1,61 @@
 import type { MouseEvent } from "react";
 import { nearestIndex } from "./chart-lib";
-import type { ChartHover, ChartMargin } from "./types";
+import type { ChartHover, ChartHoverEntry, ChartMargin } from "./types";
 
-/** One hoverable datum, positioned in inner-plot coordinates. */
-export interface HitPoint {
+/** A hoverable x-category: its position, tooltip rows, and per-series markers. */
+export interface HoverColumn {
+  /** Inner-plot x of the category. */
   cx: number;
+  /** Inner-plot y the tooltip anchors to (usually the topmost point). */
   anchorY: number;
-  label: string;
-  value: number;
+  title: string;
+  entries: ChartHoverEntry[];
+  /** Per-series marker points (line/area); empty for bars. */
+  markers: readonly { cy: number; color: string }[];
 }
 
 interface HoverOverlayProps {
-  points: readonly HitPoint[];
+  columns: readonly HoverColumn[];
   margin: ChartMargin;
   innerWidth: number;
   innerHeight: number;
-  color: string;
   hover: ChartHover | null;
   setHover: (hover: ChartHover | null) => void;
-  /** Draw a point marker at the anchor (line/area). Off for bars. */
-  marker?: boolean;
 }
 
 /**
- * A transparent capture rect over the plot that snaps to the nearest datum on
- * move, plus the vertical guide + marker for the active point. Positions are
- * translated from inner-plot to root SVG coordinates.
+ * A transparent capture rect over the plot that snaps to the nearest x-category
+ * on move, drawing a vertical guide and per-series markers for the active one.
  */
 export const HoverOverlay = ({
-  points,
+  columns,
   margin,
   innerWidth,
   innerHeight,
-  color,
   hover,
   setHover,
-  marker = true,
 }: HoverOverlayProps) => {
   const handleMove = (event: MouseEvent<SVGRectElement>) => {
     const box = event.currentTarget.getBoundingClientRect();
     const cursorX = event.clientX - box.left;
-    const bestIndex = nearestIndex(
-      points.map((point) => point.cx),
+    const index = nearestIndex(
+      columns.map((column) => column.cx),
       cursorX,
     );
-    const point = points[bestIndex];
+    const column = columns[index];
 
-    if (!point) return;
+    if (!column) return;
 
     setHover({
-      index: bestIndex,
-      x: margin.left + point.cx,
-      y: margin.top + point.anchorY,
-      label: point.label,
-      value: point.value,
+      index,
+      x: margin.left + column.cx,
+      y: margin.top + column.anchorY,
+      title: column.title,
+      entries: column.entries,
     });
   };
 
-  const active = hover ? points[hover.index] : undefined;
+  const active = hover ? columns[hover.index] : undefined;
 
   return (
     <g>
@@ -70,16 +68,17 @@ export const HoverOverlay = ({
           stroke="var(--hb-color-border)"
         />
       )}
-      {active && marker && (
+      {active?.markers.map((marker, index) => (
         <circle
+          key={index}
           cx={margin.left + active.cx}
-          cy={margin.top + active.anchorY}
+          cy={margin.top + marker.cy}
           r={5}
-          fill={color}
+          fill={marker.color}
           stroke="var(--hb-color-surface)"
           strokeWidth={2}
         />
-      )}
+      ))}
       <rect
         x={margin.left}
         y={margin.top}

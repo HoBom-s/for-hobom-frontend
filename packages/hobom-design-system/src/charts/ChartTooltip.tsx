@@ -1,12 +1,15 @@
+import type { ChartHoverEntry } from "./types";
+
 interface ChartTooltipProps {
   x: number;
   y: number;
-  label: string;
-  value: string;
+  title: string;
+  entries: readonly ChartHoverEntry[];
+  format: (value: number) => string;
 }
 
-/** A small popover anchored above a hovered datum. */
-export const ChartTooltip = ({ x, y, label, value }: ChartTooltipProps) => (
+/** A popover anchored above a hovered point, listing each series' value. */
+export const ChartTooltip = ({ x, y, title, entries, format }: ChartTooltipProps) => (
   <div
     style={{
       position: "absolute",
@@ -25,7 +28,32 @@ export const ChartTooltip = ({ x, y, label, value }: ChartTooltipProps) => (
       zIndex: 1,
     }}
   >
-    <div style={{ color: "var(--hb-color-text-secondary)", fontSize: 11 }}>{label}</div>
-    <div style={{ fontSize: 13, fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>{value}</div>
+    {title && (
+      <div style={{ color: "var(--hb-color-text-secondary)", fontSize: 11, marginBottom: 2 }}>
+        {title}
+      </div>
+    )}
+    {entries.map((entry) => (
+      <div
+        key={entry.label}
+        style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, lineHeight: 1.5 }}
+      >
+        <span
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            backgroundColor: entry.color,
+            flexShrink: 0,
+          }}
+        />
+        {entries.length > 1 && (
+          <span style={{ color: "var(--hb-color-text-secondary)" }}>{entry.label}</span>
+        )}
+        <span style={{ marginLeft: "auto", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
+          {format(entry.value)}
+        </span>
+      </div>
+    ))}
   </div>
 );

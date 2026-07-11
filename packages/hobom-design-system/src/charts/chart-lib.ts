@@ -2,6 +2,13 @@ import type { ChartConfig, ChartDatum, ChartMargin } from "./types";
 
 const DEFAULT_MARGIN: ChartMargin = { top: 12, right: 16, bottom: 28, left: 44 };
 
+/** A series with all styling resolved (color/label filled in). */
+export interface ResolvedSeries {
+  key: string;
+  label: string;
+  color: string;
+}
+
 /** Default single-series color. */
 export const PRIMARY_COLOR = "var(--hb-color-accent)";
 
@@ -39,6 +46,48 @@ export const formatNumber = (config: ChartConfig, value: number): string =>
 
 export const formatCategory = (config: ChartConfig, value: string): string =>
   config.formatX ? config.formatX(value) : value;
+
+/**
+ * Normalize a config to a resolved series list: `config.series` when present,
+ * otherwise a single series from `config.y`. Colors fall back to the palette.
+ */
+export const resolveSeries = (config: ChartConfig): ResolvedSeries[] => {
+  const palette = config.colors ?? DEFAULT_PALETTE;
+
+  if (config.series && config.series.length > 0) {
+    return config.series.map((series, index) => ({
+      key: series.key,
+      label: series.label ?? series.key,
+      color: series.color ?? palette[index % palette.length] ?? PRIMARY_COLOR,
+    }));
+  }
+
+  const key = config.y ?? "";
+
+  return [{ key, label: key, color: config.color ?? PRIMARY_COLOR }];
+};
+
+/**
+ * Legend rows for a chart: one per slice for a donut (`value`+`label`), one per
+ * series for a multi-series cartesian chart, or none for a single series.
+ */
+export const legendItems = (
+  data: readonly ChartDatum[],
+  config: ChartConfig,
+): { label: string; color: string }[] => {
+  const palette = config.colors ?? DEFAULT_PALETTE;
+
+  if (config.value != null && config.label != null) {
+    return data.map((datum, index) => ({
+      label: str(datum, config.label),
+      color: palette[index % palette.length] ?? PRIMARY_COLOR,
+    }));
+  }
+
+  const series = resolveSeries(config);
+
+  return series.length > 1 ? series.map((s) => ({ label: s.label, color: s.color })) : [];
+};
 
 /** SVG path for a rectangle with only its top two corners rounded. */
 export const roundedTopRect = (x: number, y: number, w: number, h: number, r: number): string =>

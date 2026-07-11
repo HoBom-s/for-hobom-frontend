@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { ChartLegend } from "./ChartLegend";
 import { ChartTooltip } from "./ChartTooltip";
 import { useMeasure } from "./useMeasure";
-import { formatNumber } from "./chart-lib";
+import { formatNumber, legendItems } from "./chart-lib";
 import type { ChartHover, ChartProps, ChartRegistry } from "./types";
 
 /**
@@ -25,6 +26,7 @@ export const createChart = <R extends ChartRegistry>(registry: R) => {
     const [ref, width] = useMeasure();
     const [hover, setHover] = useState<ChartHover | null>(null);
     const renderer = registry[type];
+    const legend = legendItems(data, config);
 
     return (
       <div ref={ref} className={className} style={{ position: "relative", width: "100%", ...style }}>
@@ -41,12 +43,14 @@ export const createChart = <R extends ChartRegistry>(registry: R) => {
             {renderer ? renderer({ data, config, width, height, hover, setHover }) : null}
           </svg>
         )}
+        {legend.length > 0 && <ChartLegend items={legend} />}
         {hover && (
           <ChartTooltip
             x={hover.x}
             y={hover.y}
-            label={hover.label}
-            value={formatNumber(config, hover.value)}
+            title={hover.title}
+            entries={hover.entries}
+            format={(v) => formatNumber(config, v)}
           />
         )}
       </div>

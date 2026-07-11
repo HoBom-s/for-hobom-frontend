@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
   formatCategory,
   formatNumber,
+  legendItems,
   nearestIndex,
   num,
   resolveMargin,
+  resolveSeries,
   roundedTopRect,
   str,
 } from "./chart-lib";
@@ -56,6 +58,41 @@ describe("roundedTopRect", () => {
     expect(path.startsWith("M0,20")).toBe(true); // bottom-left
     expect(path.endsWith("Z")).toBe(true);
     expect((path.match(/Q/g) ?? []).length).toBe(2); // two rounded (top) corners
+  });
+});
+
+describe("resolveSeries", () => {
+  it("wraps a single `y` field as one series", () => {
+    expect(resolveSeries({ y: "value", color: "#111" })).toEqual([
+      { key: "value", label: "value", color: "#111" },
+    ]);
+  });
+
+  it("maps an explicit series list, filling label and color from the palette", () => {
+    const resolved = resolveSeries({ series: [{ key: "a" }, { key: "b", label: "Bee" }] });
+
+    expect(resolved).toHaveLength(2);
+    expect(resolved[0]).toMatchObject({ key: "a", label: "a" });
+    expect(resolved[1]).toMatchObject({ key: "b", label: "Bee" });
+    expect(resolved[0]?.color).not.toBe(resolved[1]?.color); // distinct palette entries
+  });
+});
+
+describe("legendItems", () => {
+  it("returns a slice per datum for a donut", () => {
+    const items = legendItems([{ k: "A" }, { k: "B" }], { label: "k", value: "v" });
+
+    expect(items.map((i) => i.label)).toEqual(["A", "B"]);
+  });
+
+  it("returns a row per series for multi-series", () => {
+    const items = legendItems([], { series: [{ key: "a", label: "A" }, { key: "b", label: "B" }] });
+
+    expect(items.map((i) => i.label)).toEqual(["A", "B"]);
+  });
+
+  it("is empty for a single series", () => {
+    expect(legendItems([], { y: "value" })).toEqual([]);
   });
 });
 

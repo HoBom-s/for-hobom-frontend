@@ -17,9 +17,12 @@ export { lineChart, areaChart, barChart, donutChart };
 export type {
   ChartConfig,
   ChartDatum,
+  ChartHover,
+  ChartHoverEntry,
   ChartMargin,
   ChartProps,
   ChartRegistry,
   ChartRenderContext,
   ChartRenderer,
+  ChartSeries,
 } from "./types";
