@@ -31,6 +31,39 @@ const SENT_OPENED = [
   { key: "opened", label: "Opened" },
 ];
 
+const CYCLE = [
+  { cycle: "Daily", completed: 18, incomplete: 6 },
+  { cycle: "Weekday", completed: 12, incomplete: 9 },
+  { cycle: "Weekend", completed: 7, incomplete: 4 },
+];
+
+const DONE_TODO = [
+  { key: "completed", label: "Done", color: "#2ca87f" },
+  { key: "incomplete", label: "Todo", color: "#e9ecef" },
+];
+
+const LABELS = [
+  { label: "Idea", count: 24 },
+  { label: "Bug", count: 18 },
+  { label: "Chore", count: 12 },
+  { label: "Docs", count: 6 },
+];
+
+const STATUS = [
+  { code: "200", count: 1840, fill: "#4ade80" },
+  { code: "301", count: 220, fill: "#60a5fa" },
+  { code: "404", count: 96, fill: "#fbbf24" },
+  { code: "500", count: 34, fill: "#f87171" },
+];
+
+const MODULES = [
+  { module: "Todo", pct: 34 },
+  { module: "Note", pct: 26 },
+  { module: "Message", pct: 18 },
+  { module: "Alarm", pct: 14 },
+  { module: "Menu", pct: 8 },
+];
+
 const meta = {
   title: "Charts/Chart",
   component: Chart,
@@ -114,6 +147,59 @@ export const MultiSeriesBar: Story = {
         data={MULTI}
         config={{ x: "month", series: SENT_OPENED }}
         ariaLabel="Sent vs opened by month"
+      />
+    </Frame>
+  ),
+};
+
+export const StackedBar: Story = {
+  render: () => (
+    <Frame>
+      <Chart
+        type="bar"
+        data={CYCLE}
+        config={{ x: "cycle", series: DONE_TODO, stacked: true }}
+        ariaLabel="Completed vs remaining todos by cycle"
+      />
+    </Frame>
+  ),
+};
+
+export const HorizontalBar: Story = {
+  render: () => (
+    <Frame>
+      <Chart
+        type="bar"
+        data={LABELS}
+        config={{ x: "label", y: "count", horizontal: true, margin: { left: 72 } }}
+        ariaLabel="Notes per label"
+      />
+    </Frame>
+  ),
+};
+
+export const PerBarColor: Story = {
+  render: () => (
+    <Frame>
+      <Chart
+        type="bar"
+        data={STATUS}
+        config={{ x: "code", y: "count", colorKey: "fill" }}
+        ariaLabel="Requests by status code"
+      />
+    </Frame>
+  ),
+};
+
+export const Radar: Story = {
+  render: () => (
+    <Frame>
+      <Chart
+        type="radar"
+        data={MODULES}
+        config={{ x: "module", y: "pct", color: "#4680ff" }}
+        height={280}
+        ariaLabel="Module activity share"
       />
     </Frame>
   ),

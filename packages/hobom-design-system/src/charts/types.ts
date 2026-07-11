@@ -40,6 +40,16 @@ export interface ChartConfig {
   color?: string;
   /** Palette for multi-slice/series charts. */
   colors?: readonly string[];
+  /** Field key for a per-datum color (bar/donut); overrides series/palette color. */
+  colorKey?: string;
+  /** Stack cartesian series instead of grouping them side by side (bar). */
+  stacked?: boolean;
+  /** Lay bars along the x axis with categories on the y axis (bar). */
+  horizontal?: boolean;
+  /** Fill bars with a subtle top-to-bottom gradient. Defaults to true. */
+  gradient?: boolean;
+  /** Render the built-in legend. Defaults to true; disable to supply your own. */
+  legend?: boolean;
   /** Override the default plot margins. */
   margin?: Partial<ChartMargin>;
   /** Format a value for axis ticks / labels. */

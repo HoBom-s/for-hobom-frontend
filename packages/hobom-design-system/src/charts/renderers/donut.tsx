@@ -1,5 +1,5 @@
 import { arc as d3Arc, pie as d3Pie, type PieArcDatum } from "d3-shape";
-import { DEFAULT_PALETTE, PRIMARY_COLOR, num, str } from "../chart-lib";
+import { DEFAULT_PALETTE, PRIMARY_COLOR, colorFromDatum, num, str } from "../chart-lib";
 import type { ChartDatum, ChartRenderer } from "../types";
 
 export const donutChart: ChartRenderer = ({ data, config, width, height, hover, setHover }) => {
@@ -26,7 +26,8 @@ export const donutChart: ChartRenderer = ({ data, config, width, height, hover, 
       {slices.map((slice, index) => {
         const [centroidX, centroidY] = arcGenerator.centroid(slice);
         const dimmed = hover !== null && hover.index !== index;
-        const color = palette[index % palette.length] ?? PRIMARY_COLOR;
+        const color =
+          colorFromDatum(slice.data, config) ?? palette[index % palette.length] ?? PRIMARY_COLOR;
         const label = str(slice.data, config.label);
 
         return (

@@ -80,7 +80,7 @@ export const legendItems = (
   if (config.value != null && config.label != null) {
     return data.map((datum, index) => ({
       label: str(datum, config.label),
-      color: palette[index % palette.length] ?? PRIMARY_COLOR,
+      color: colorFromDatum(datum, config) ?? palette[index % palette.length] ?? PRIMARY_COLOR,
     }));
   }
 
@@ -89,10 +89,28 @@ export const legendItems = (
   return series.length > 1 ? series.map((s) => ({ label: s.label, color: s.color })) : [];
 };
 
+/** A per-datum color read from `config.colorKey`, or null when unset/empty. */
+export const colorFromDatum = (datum: ChartDatum, config: ChartConfig): string | null => {
+  if (!config.colorKey) return null;
+
+  const value = datum[config.colorKey];
+
+  return typeof value === "string" && value.length > 0 ? value : null;
+};
+
+/** A DOM-safe `<linearGradient>` id derived from arbitrary string parts. */
+export const gradientId = (...parts: string[]): string =>
+  `hb-grad-${parts.map((part) => part.replace(/[^a-z0-9]/gi, "")).join("-")}`;
+
 /** SVG path for a rectangle with only its top two corners rounded. */
 export const roundedTopRect = (x: number, y: number, w: number, h: number, r: number): string =>
   `M${x},${y + h} L${x},${y + r} Q${x},${y} ${x + r},${y} ` +
   `L${x + w - r},${y} Q${x + w},${y} ${x + w},${y + r} L${x + w},${y + h} Z`;
+
+/** SVG path for a rectangle with only its right two corners rounded. */
+export const roundedRightRect = (x: number, y: number, w: number, h: number, r: number): string =>
+  `M${x},${y} L${x + w - r},${y} Q${x + w},${y} ${x + w},${y + r} ` +
+  `L${x + w},${y + h - r} Q${x + w},${y + h} ${x + w - r},${y + h} L${x},${y + h} Z`;
 
 /** Index of the position closest to `cursor` (0 when the list is empty). */
 export const nearestIndex = (positions: readonly number[], cursor: number): number => {
