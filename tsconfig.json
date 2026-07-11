@@ -4,6 +4,7 @@
     { "path": "apps/hobom-system" },
     { "path": "packages/hobom-design-system" },
     { "path": "packages/hobom-utils" },
-    { "path": "packages/hobom-data" }
+    { "path": "packages/hobom-data" },
+    { "path": "packages/hobom-schema" }
   ]
 }
