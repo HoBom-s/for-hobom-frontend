@@ -1,7 +1,12 @@
 import type { CSSProperties, ReactNode } from "react";
 
-/** A single datum. Renderers read fields by the keys named in `ChartConfig`. */
-export type ChartDatum = Record<string, unknown>;
+/**
+ * A single datum: any object. Renderers read fields by the keys named in
+ * `ChartConfig`, via the `num`/`str` helpers. Typed as `object` (not
+ * `Record<string, unknown>`) so `interface`-declared rows are accepted too —
+ * interfaces lack the implicit index signature `Record` requires.
+ */
+export type ChartDatum = object;
 
 export interface ChartMargin {
   top: number;

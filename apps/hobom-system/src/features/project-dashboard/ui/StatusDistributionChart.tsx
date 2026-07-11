@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { Chart } from "hobom-design-system/charts";
 import { CHART_COLORS } from "@/entities/dashboard";
 import type { ProjectIssueDashboardDto } from "@/entities/dashboard";
 import { Hb } from "@/shared/ui";
@@ -19,25 +19,13 @@ export const StatusDistributionChart = ({ data }: StatusDistributionChartProps) 
       >
         상태별 분포
       </Hb.Text>
-      <ResponsiveContainer width="100%" height={260}>
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="count"
-            nameKey="status"
-            cx="50%"
-            cy="50%"
-            innerRadius={50}
-            outerRadius={90}
-          >
-            {data.map((_, i) => (
-              <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+      <Chart
+        type="donut"
+        data={data}
+        config={{ label: "status", value: "count", colors: CHART_COLORS }}
+        height={260}
+        ariaLabel="상태별 분포"
+      />
     </Hb.Box>
   );
 };

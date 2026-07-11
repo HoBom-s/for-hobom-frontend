@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { Chart } from "hobom-design-system/charts";
 import { CHART_COLORS } from "@/entities/dashboard";
 import type { LogServiceCount } from "@/entities/log";
 import { Hb } from "@/shared/ui";
@@ -29,59 +29,21 @@ export const ServiceTrafficChart = ({ data }: ServiceTrafficChartProps) => {
           gap: 32,
         }}
       >
-        <ResponsiveContainer width={180} height={180}>
-          <PieChart>
-            <Pie
-              data={data}
-              dataKey="count"
-              nameKey="serviceType"
-              cx="50%"
-              cy="50%"
-              innerRadius={50}
-              outerRadius={80}
-              strokeWidth={2}
-              stroke="#fff"
-              animationBegin={0}
-              animationDuration={800}
-            >
-              {data.map((_, i) => (
-                <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip
-              // @ts-expect-error recharts formatter type mismatch
-              formatter={(value: number, name: string) => [
-                value.toLocaleString(),
-                SERVICE_LABEL_MAP[name] ?? name,
-              ]}
-              contentStyle={{
-                borderRadius: 8,
-                border: "none",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                fontSize: 13,
-                padding: "8px 12px",
-              }}
-            />
-            <text
-              x="50%"
-              y="48%"
-              textAnchor="middle"
-              dominantBaseline="central"
-              style={{ fontSize: 18, fontWeight: 700, fill: "#1d2630" }}
-            >
-              {total.toLocaleString()}
-            </text>
-            <text
-              x="50%"
-              y="62%"
-              textAnchor="middle"
-              dominantBaseline="central"
-              style={{ fontSize: 11, fill: "#8c8c8c" }}
-            >
-              전체 요청
-            </text>
-          </PieChart>
-        </ResponsiveContainer>
+        <Hb.Box style={{ width: 180, flexShrink: 0 }}>
+          <Chart
+            type="donut"
+            data={data}
+            config={{
+              label: "serviceType",
+              value: "count",
+              colors: CHART_COLORS,
+              legend: false,
+              formatValue: (v) => v.toLocaleString(),
+            }}
+            height={180}
+            ariaLabel="서비스별 트래픽"
+          />
+        </Hb.Box>
         <Hb.Box
           style={{
             flex: 1,

@@ -30,6 +30,14 @@ export const Axes = ({
 }: AxesProps) => {
   const yTicks = yScale.ticks(yTickCount);
 
+  // Thin x labels so dense series (e.g. per-minute) don't overlap into a smear:
+  // keep at most one label per ~56px, always including the first and last.
+  const maxXLabels = Math.max(2, Math.floor(innerWidth / 56));
+  const xStep = Math.max(1, Math.ceil(xTicks.length / maxXLabels));
+  const shownXTicks = xTicks.filter(
+    (_, index) => index % xStep === 0 || index === xTicks.length - 1,
+  );
+
   return (
     <g>
       {yTicks.map((tick) => {
@@ -61,7 +69,7 @@ export const Axes = ({
         );
       })}
 
-      {xTicks.map((tick, index) => (
+      {shownXTicks.map((tick, index) => (
         <text
           key={`${tick.label}-${index}`}
           x={tick.x}

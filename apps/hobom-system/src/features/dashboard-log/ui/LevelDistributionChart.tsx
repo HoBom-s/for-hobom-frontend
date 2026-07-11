@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { Chart } from "hobom-design-system/charts";
 import type { LogLevelCount } from "@/entities/log";
 import { Hb } from "@/shared/ui";
 
@@ -25,6 +25,7 @@ interface LevelDistributionChartProps {
 export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) => {
   const sorted = [...data].sort((a, b) => levelIndex(a.level) - levelIndex(b.level));
   const total = sorted.reduce((sum, d) => sum + d.count, 0);
+  const chartData = sorted.map((d) => ({ ...d, color: LEVEL_COLORS[d.level] ?? "#94baff" }));
 
   return (
     <Hb.Box>
@@ -44,56 +45,21 @@ export const LevelDistributionChart = ({ data }: LevelDistributionChartProps) =>
           gap: 32,
         }}
       >
-        <ResponsiveContainer width={180} height={180}>
-          <PieChart>
-            <Pie
-              data={sorted}
-              dataKey="count"
-              nameKey="level"
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              innerRadius={45}
-              strokeWidth={2}
-              stroke="#fff"
-              animationBegin={0}
-              animationDuration={800}
-            >
-              {sorted.map((entry) => (
-                <Cell key={entry.level} fill={LEVEL_COLORS[entry.level] ?? "#94baff"} />
-              ))}
-            </Pie>
-            <Tooltip
-              // @ts-expect-error recharts formatter type mismatch
-              formatter={(value: number, name: string) => [value.toLocaleString(), name]}
-              contentStyle={{
-                borderRadius: 8,
-                border: "none",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                fontSize: 13,
-                padding: "8px 12px",
-              }}
-            />
-            <text
-              x="50%"
-              y="48%"
-              textAnchor="middle"
-              dominantBaseline="central"
-              style={{ fontSize: 18, fontWeight: 700, fill: "#1d2630" }}
-            >
-              {total.toLocaleString()}
-            </text>
-            <text
-              x="50%"
-              y="62%"
-              textAnchor="middle"
-              dominantBaseline="central"
-              style={{ fontSize: 11, fill: "#8c8c8c" }}
-            >
-              전체
-            </text>
-          </PieChart>
-        </ResponsiveContainer>
+        <Hb.Box style={{ width: 180, flexShrink: 0 }}>
+          <Chart
+            type="donut"
+            data={chartData}
+            config={{
+              label: "level",
+              value: "count",
+              colorKey: "color",
+              legend: false,
+              formatValue: (v) => v.toLocaleString(),
+            }}
+            height={180}
+            ariaLabel="로그 레벨 분포"
+          />
+        </Hb.Box>
         <Hb.Box
           style={{
             flex: 1,
