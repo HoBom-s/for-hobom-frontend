@@ -21,5 +21,20 @@ hobomPipeline(
       '
     rm -f apps/hobom-system/.env
   ''' },
-  smokeCheckPath: '/healthz'
+  smokeCheckPath: '/healthz',
+  liveHostPort:   '13000',
+  livePreBuild:   { sh '''
+    set -eux
+    docker run --rm -v "$PWD":/app -w /app node:20 sh -c \
+      'rm -rf node_modules apps/*/node_modules apps/*/dist packages/*/node_modules packages/*/dist .pnpm-store'
+    git clean -fdx -e apps/hobom-system/.env
+    cp /etc/hobom-live/live-for-hobom-frontend/.env apps/hobom-system/.env
+    docker run --rm \
+      -v "$PWD":/app -w /app node:20 sh -c '
+        corepack enable &&
+        pnpm install --frozen-lockfile &&
+        pnpm build:hobom
+      '
+    rm -f apps/hobom-system/.env
+  ''' }
 )
