@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
+import { ROUTES } from "@/shared/config";
 import { PublicShell } from "@/shared/ui";
 import { NAV } from "../model/landing.fixtures";
 import { HeroSection } from "./HeroSection";
@@ -27,7 +28,7 @@ export const LandingPage = () => {
       brand={BRAND}
       nav={NAV}
       actions={
-        <Hb.Button variant="ghost" size="small" onClick={() => navigate("/login")}>
+        <Hb.Button variant="ghost" size="small" onClick={() => navigate(ROUTES.LOGIN)}>
           로그인
         </Hb.Button>
       }

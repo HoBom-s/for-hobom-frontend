@@ -1,17 +1,15 @@
 import { http, HttpResponse } from "msw";
-import { env } from "@/shared/config";
-
-const url = (path: string) => `${env.API_BASE_URL}${path}`;
+import { mockUrl } from "./mock-url";
 
 const TOKENS = { accessToken: "mock-access-token", refreshToken: "mock-refresh-token" };
 
 /**
- * Auth mock handlers — let signup and login run end to end without the live
- * backend. Reserved inputs exercise the error paths: email "taken@example.com"
- * or nickname "taken" → 409 on signup, password "wrongpass" → 401 on login.
+ * Auth domain mock handlers. Reserved inputs exercise the error paths: email
+ * "taken@example.com" or nickname "taken" → 409 on signup, password "wrongpass"
+ * → 401 on login.
  */
-export const handlers = [
-  http.post(url("/auth/signup"), async ({ request }) => {
+export const authHandlers = [
+  http.post(mockUrl("/auth/signup"), async ({ request }) => {
     const body = (await request.json()) as { email?: string; nickname?: string };
 
     if (body.email === "taken@example.com") {
@@ -25,7 +23,7 @@ export const handlers = [
     return HttpResponse.json({ userId: "mock-user-1", nickname: body.nickname ?? "봄이네", tokens: TOKENS });
   }),
 
-  http.post(url("/auth/login"), async ({ request }) => {
+  http.post(mockUrl("/auth/login"), async ({ request }) => {
     const body = (await request.json()) as { password?: string };
 
     if (body.password === "wrongpass") {
