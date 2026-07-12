@@ -1,0 +1,1 @@
+export { AnimalCard } from "./AnimalCard";
