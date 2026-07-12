@@ -6,6 +6,8 @@
   "scripts": {
     "dev:hobom": "pnpm --filter hobom-system dev",
     "build:hobom": "pnpm --filter hobom-system build",
+    "dev:angel": "pnpm --filter hobom-angel dev",
+    "build:angel": "pnpm --filter hobom-angel build",
     "typecheck": "pnpm -r --parallel typecheck",
     "lint": "pnpm -r --parallel lint",
     "lint:fix": "pnpm -r --parallel exec eslint --fix .",

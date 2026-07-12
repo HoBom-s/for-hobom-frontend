@@ -90,6 +90,46 @@ importers:
         specifier: '>=4.1.10'
         version: 4.1.10(@types/node@25.9.4)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(happy-dom@20.10.6)(jsdom@29.1.1)(msw@2.14.6(@types/node@25.9.4)(typescript@6.0.3))(vite@8.1.3(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0))
 
+  apps/hobom-angel:
+    dependencies:
+      '@stylexjs/stylex':
+        specifier: ^0.19.0
+        version: 0.19.0
+      hobom-data:
+        specifier: workspace:*
+        version: link:../../packages/hobom-data
+      hobom-design-system:
+        specifier: workspace:*
+        version: link:../../packages/hobom-design-system
+      hobom-schema:
+        specifier: workspace:*
+        version: link:../../packages/hobom-schema
+      hobom-utils:
+        specifier: workspace:*
+        version: link:../../packages/hobom-utils
+      react:
+        specifier: 19.2.7
+        version: 19.2.7
+      react-dom:
+        specifier: 19.2.7
+        version: 19.2.7(react@19.2.7)
+      react-router-dom:
+        specifier: '>=7.18.1'
+        version: 7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+    devDependencies:
+      '@stylexjs/unplugin':
+        specifier: ^0.19.0
+        version: 0.19.0(unplugin@2.3.11)
+      '@types/node':
+        specifier: ^25.5.0
+        version: 25.9.4
+      '@vitejs/plugin-react-swc':
+        specifier: ^4.3.0
+        version: 4.3.1(vite@8.1.3(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0))
+      vite:
+        specifier: '>=8.1.3'
+        version: 8.1.3(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0)
+
   apps/hobom-system:
     dependencies:
       '@hobom-grid/core':

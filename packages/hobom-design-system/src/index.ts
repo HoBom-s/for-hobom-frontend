@@ -7,6 +7,8 @@ export { ErrorBoundary } from "./patterns/ErrorBoundary";
 export { Funnel, Step } from "./patterns/Funnel";
 export type { FunnelProps, StepProps } from "./patterns/Funnel";
 export { OverlayProvider, OverlayContext } from "./patterns/OverlayProvider";
+export { PublicShell } from "./patterns/PublicShell";
+export type { PublicShellNavItem } from "./patterns/PublicShell";
 export { Sortable, arrayMove, useDroppable } from "./patterns/Sortable";
 export type { DragEndEvent, DragStartEvent, DragOverEvent } from "./patterns/Sortable";
 export { SuspenseLoader } from "./patterns/SuspenseLoader";
@@ -23,6 +25,10 @@ export {
   useColorScheme,
 } from "./foundations/color-scheme";
 export type { ColorSchemeMode } from "./foundations/color-scheme";
+
+export { ANGEL_BRAND_CSS, AngelBrandVars } from "./foundations/angel-brand";
+export { AngelButton } from "./components/AngelButton";
+export { AnimalCard } from "./components/AnimalCard";
 
 export { Hb } from "./components";
 

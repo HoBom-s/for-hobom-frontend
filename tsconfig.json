@@ -2,6 +2,7 @@
   "files": [],
   "references": [
     { "path": "apps/hobom-system" },
+    { "path": "apps/hobom-angel" },
     { "path": "packages/hobom-design-system" },
     { "path": "packages/hobom-utils" },
     { "path": "packages/hobom-data" },
