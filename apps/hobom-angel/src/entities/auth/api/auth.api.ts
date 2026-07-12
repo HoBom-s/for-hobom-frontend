@@ -1,11 +1,6 @@
 import { httpClient } from "@/shared/api";
+import { toSession } from "../lib/to-session.lib";
 import type { AuthSession, RawSignUpResponse, SignUpRequest } from "./auth.type";
-
-/** Anti-corruption: keep only what the UI needs; drop cookie-managed tokens. */
-const toSession = (raw: RawSignUpResponse): AuthSession => ({
-  userId: raw.userId,
-  nickname: raw.nickname,
-});
 
 /** Register a member (본인확인 receipt + profile) and open a session. */
 export const postSignup = async (request: SignUpRequest): Promise<AuthSession> => {
