@@ -1,3 +1,4 @@
+// @ts-ignore
 import process from "node:process";
 import { defineConfig, devices } from "@playwright/test";
 
