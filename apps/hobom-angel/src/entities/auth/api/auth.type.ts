@@ -4,11 +4,13 @@
  * set by the backend, so they are deliberately absent from the UI model.
  */
 
-/** `POST /auth/signup` body. `verificationToken` is the 본인확인 vendor receipt. */
+/** `POST /auth/signup` body. */
 export interface SignUpRequest {
-  verificationToken: string;
-  nickname: string;
   email: string;
+  password: string;
+  nickname: string;
+  realName: string;
+  phone: string;
 }
 
 /** `POST /auth/login` body. */

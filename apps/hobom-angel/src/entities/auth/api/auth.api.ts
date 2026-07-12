@@ -2,7 +2,7 @@ import { httpClient } from "@/shared/api";
 import { toSession } from "../lib/to-session.lib";
 import type { AuthSession, LoginRequest, RawSignUpResponse, SignUpRequest } from "./auth.type";
 
-/** Register a member (본인확인 receipt + profile) and open a session. */
+/** Register a member (email + password + profile) and open a session. */
 export const postSignup = async (request: SignUpRequest): Promise<AuthSession> => {
   const raw = await httpClient.post<RawSignUpResponse>("/auth/signup", request);
 

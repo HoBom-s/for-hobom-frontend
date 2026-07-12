@@ -3,7 +3,7 @@ import { HttpStatusModel } from "./http-status.api";
 import { applyCsrfHeader } from "./csrf.middleware";
 import type { Middleware } from "./middleware.type";
 
-const REFRESH_URL = `${env.VITE_APP_HOBOM_API_GATEWAY_URL}/auth/refresh`;
+const REFRESH_URL = `${env.API_BASE_URL}/auth/refresh`;
 const DEFAULT_TIMEOUT_MS = 30_000;
 
 export const UNAUTHORIZED_EVENT = "hobom:unauthorized";

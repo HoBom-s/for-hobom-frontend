@@ -13,6 +13,6 @@ const createConfiguredClient = (baseUrl: string) => {
 };
 
 // Angel talks to a single backend behind the gateway (hobom-angel).
-const httpClient = createConfiguredClient(env.VITE_APP_HOBOM_API_GATEWAY_URL);
+const httpClient = createConfiguredClient(env.API_BASE_URL);
 
 export { httpClient, UNAUTHORIZED_EVENT, resetUnauthorizedState };

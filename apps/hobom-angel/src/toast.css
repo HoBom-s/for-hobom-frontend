@@ -1,0 +1,20 @@
+/* Align react-toastify with the Angel design tokens (light theme, green accent). */
+:root {
+  --toastify-font-family: inherit;
+  --toastify-toast-bd-radius: 16px;
+  --toastify-color-success: var(--hb-color-accent);
+  --toastify-color-info: var(--hb-color-accent);
+  --toastify-color-error: var(--hb-color-danger, #d92d20);
+  --toastify-text-color-light: var(--hb-color-text-primary);
+}
+
+.Toastify__toast {
+  border: 1px solid var(--hb-color-border);
+  box-shadow: var(--hb-angel-shadow);
+  font-size: 0.9375rem;
+  padding: 14px 16px;
+}
+
+.Toastify__toast-body {
+  font-weight: 500;
+}
