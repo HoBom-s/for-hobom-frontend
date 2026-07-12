@@ -9,7 +9,7 @@ export interface LoginErrors {
 }
 
 // Intentionally lenient — the server is the source of truth; this is just an
-// instant client-side format check (spec §검증: 즉시 형식검증·서버 재검증).
+// instant client-side format check (the server re-validates).
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Validate the login form; returns a per-field error map (empty when valid). */

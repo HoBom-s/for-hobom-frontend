@@ -1,6 +1,7 @@
 /**
- * HTTP 응답 에러. `status`는 HTTP 상태 코드, `serverMessage`는 응답 body의 `message` 필드.
- * `Error.message`에 `serverMessage`가 있으면 그 값을, 없으면 `"HTTP error! status: {code}"`를 넣는다.
+ * An HTTP response error. `status` is the HTTP status code, `serverMessage` the
+ * response body's `message` field. `Error.message` uses `serverMessage` when
+ * present, otherwise `"HTTP error! status: {code}"`.
  */
 export class HttpError extends Error {
   readonly status: number;
