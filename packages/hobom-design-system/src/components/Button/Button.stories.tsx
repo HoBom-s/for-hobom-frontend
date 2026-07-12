@@ -14,6 +14,7 @@ const meta = {
   argTypes: {
     variant: { control: "inline-radio", options: ["primary", "secondary", "danger", "ghost"] },
     size: { control: "inline-radio", options: ["small", "medium"] },
+    shape: { control: "inline-radio", options: ["rounded", "pill"] },
   },
 } satisfies Meta<typeof Button>;
 
@@ -30,6 +31,15 @@ export const Variants: Story = {
       <Button variant="secondary">secondary</Button>
       <Button variant="danger">danger</Button>
       <Button variant="ghost">ghost</Button>
+    </div>
+  ),
+};
+
+export const Shapes: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+      <Button shape="rounded">rounded</Button>
+      <Button shape="pill">pill</Button>
     </div>
   ),
 };

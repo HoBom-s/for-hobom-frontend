@@ -5,9 +5,13 @@ type ButtonVariant = "primary" | "secondary" | "danger" | "ghost";
 
 type ButtonSize = "small" | "medium";
 
+type ButtonShape = "rounded" | "pill";
+
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  /** Corner style. `"pill"` fully rounds the ends. Defaults to `"rounded"`. */
+  shape?: ButtonShape;
   fullWidth?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
@@ -34,7 +38,8 @@ const styles = stylex.create({
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "transparent",
-    borderRadius: 8,
+    // Themeable control radius (defaults to 8; a product theme can retune it).
+    borderRadius: "var(--hb-radius-control, 8px)",
     fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",
     fontWeight: 500,
     lineHeight: 1.75,
@@ -62,6 +67,7 @@ const styles = stylex.create({
   },
   medium: { paddingBlock: 5, paddingInline: 15, fontSize: "0.875rem" },
   small: { paddingBlock: 3, paddingInline: 9, fontSize: "0.8125rem" },
+  pill: { borderRadius: 999 },
   fullWidth: { width: "100%" },
   primary: {
     backgroundColor: { default: "var(--hb-color-accent)", ":hover": "var(--hb-color-accent-dark)" },
@@ -124,6 +130,7 @@ const VARIANT_STYLE = {
 const ButtonBase = ({
   variant = "primary",
   size = "medium",
+  shape = "rounded",
   fullWidth = false,
   startIcon,
   endIcon,
@@ -139,6 +146,7 @@ const ButtonBase = ({
   const isDisabled = disabled || loading;
   const sx = stylex.props(
     styles.root,
+    shape === "pill" && styles.pill,
     styles.focusRing,
     size === "small" ? styles.small : styles.medium,
     VARIANT_STYLE[variant],
