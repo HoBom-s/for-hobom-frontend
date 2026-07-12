@@ -1,0 +1,6 @@
+# HoBom Angel — the public landing is indexable; auth-gated routes are not.
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /reset

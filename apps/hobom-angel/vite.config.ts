@@ -24,6 +24,8 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 600,
+    // Skip the gzip-size report — it's pure build-time overhead we don't read in CI.
+    reportCompressedSize: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
