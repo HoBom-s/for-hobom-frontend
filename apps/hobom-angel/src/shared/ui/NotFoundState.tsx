@@ -3,7 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { styles } from "./NotFoundState.styles";
 
-/** 404 route state — matches the design's "페이지를 찾을 수 없어요" card. */
+/** 404 route state matching the design's not-found card. */
 export const NotFoundState = () => {
   const navigate = useNavigate();
 

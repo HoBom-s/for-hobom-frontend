@@ -7,7 +7,7 @@ export type AnimalStatus = "입양가능" | "예약중";
 interface AnimalCardProps {
   name: string;
   status: AnimalStatus;
-  /** Attribute line, e.g. "강아지 · 2살 · 서울". */
+  /** Attribute line, e.g. "dog · 2yr · Seoul". */
   meta: string;
   imageUrl?: string;
 }

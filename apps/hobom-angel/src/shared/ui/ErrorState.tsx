@@ -7,7 +7,7 @@ interface ErrorStateProps {
   onRetry?: () => void;
 }
 
-/** Generic error state — matches the design's "일시적인 오류" recovery card. */
+/** Generic error state matching the design's error-recovery card. */
 export const ErrorState = ({ onRetry }: ErrorStateProps) => (
   <div {...stylex.props(styles.root)} role="alert">
     <span {...stylex.props(styles.icon)} aria-hidden="true">

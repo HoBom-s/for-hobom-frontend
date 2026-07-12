@@ -2,14 +2,15 @@ import { reportError } from "@/shared/lib/report-error.lib";
 import type { Schema } from "hobom-schema";
 
 /**
- * 응답 페이로드를 스키마로 검증하는 경계 파서.
+ * Boundary parser that validates a response payload against a schema.
  *
- * 불일치해도 throw하지 않는다 — `reportError`로 계약 위반을 보고하고 원본 데이터를
- * 그대로 통과시켜, 백엔드 드리프트가 화면을 깨뜨리지 않게 한다. 로깅된 불일치를
- * 근거로 스키마/타입을 점진적으로 실제 계약에 맞춰간다 (advisory validation).
+ * It never throws on a mismatch — it reports the contract violation via
+ * `reportError` and passes the raw data through, so backend drift doesn't break
+ * the screen. The logged mismatches guide bringing the schema/types in line
+ * with the real contract over time (advisory validation).
  *
- * @param schema  기대하는 페이로드 스키마
- * @param context 보고 메시지에 붙일 식별자 (예: `"GET /labels"`)
+ * @param schema  the expected payload schema
+ * @param context an identifier for the report message (e.g. `"GET /labels"`)
  */
 export const parseResponse =
   <T>(schema: Schema<T>, context: string) =>

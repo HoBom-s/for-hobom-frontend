@@ -10,6 +10,9 @@ const LandingPage = lazy(() =>
 const LoginPage = lazy(() =>
   import("@/pages/login").then((module) => ({ default: module.LoginPage })),
 );
+const SignupPage = lazy(() =>
+  import("@/pages/signup").then((module) => ({ default: module.SignupPage })),
+);
 
 /**
  * Public routing. Only the landing page is open to guests; the rest of the
@@ -20,6 +23,7 @@ export const AppRouter = () => (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
       <Route path="*" element={<NotFoundState />} />
     </Routes>
   </Suspense>
