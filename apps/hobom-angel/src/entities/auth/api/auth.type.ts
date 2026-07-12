@@ -11,6 +11,12 @@ export interface SignUpRequest {
   email: string;
 }
 
+/** `POST /auth/login` body. */
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
 interface RawTokenPair {
   accessToken: string;
   refreshToken: string;
