@@ -32,9 +32,7 @@ export const AnimalCard = ({ name, status, meta, imageUrl }: AnimalCardProps) =>
     <div {...stylex.props(styles.body)}>
       <div {...stylex.props(styles.nameRow)}>
         <h3 {...stylex.props(styles.name)}>{name}</h3>
-        <Hb.Chip size="small" variant="soft" color={STATUS_COLOR[status]}>
-          {status}
-        </Hb.Chip>
+        <Hb.Chip label={status} size="small" variant="soft" color={STATUS_COLOR[status]} />
       </div>
       <p {...stylex.props(styles.meta)}>{meta}</p>
     </div>

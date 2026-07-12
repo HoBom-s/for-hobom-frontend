@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "hobom-data";
+import { useMutation, useDataLot } from "hobom-data";
 import { authMutations } from "@/entities/auth";
+import { userQueries } from "@/entities/user";
 import { HttpError } from "@/shared/api";
 import { ROUTES } from "@/shared/config";
 import { useToast } from "@/shared/model";
@@ -8,6 +9,7 @@ import { useToast } from "@/shared/model";
 /** Login submission (email + password → session), with toast + redirect home. */
 export const useLogin = () => {
   const navigate = useNavigate();
+  const dataLot = useDataLot();
   const { openSuccessToast, openErrorToast } = useToast();
 
   return useMutation({
@@ -15,7 +17,10 @@ export const useLogin = () => {
     onSuccess: () => {
       openSuccessToast({ message: "로그인했어요." });
 
-      void navigate(ROUTES.HOME);
+      // Refresh the session so the app reflects the newly signed-in user.
+      void dataLot.invalidateQueries(userQueries.me());
+      // replace so Back doesn't return to the login form after signing in.
+      void navigate(ROUTES.HOME, { replace: true });
     },
     onError: (error) => {
       openErrorToast({

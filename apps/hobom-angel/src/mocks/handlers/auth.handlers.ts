@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { mockUrl } from "./mock-url";
+import { mockSession } from "./mock-session";
 
 const TOKENS = { accessToken: "mock-access-token", refreshToken: "mock-refresh-token" };
 
@@ -20,6 +21,8 @@ export const authHandlers = [
       return HttpResponse.json({ message: "이미 사용 중인 닉네임이에요." }, { status: 409 });
     }
 
+    mockSession.open();
+
     return HttpResponse.json({ userId: "mock-user-1", nickname: body.nickname ?? "봄이네", tokens: TOKENS });
   }),
 
@@ -31,6 +34,18 @@ export const authHandlers = [
         { message: "이메일 또는 비밀번호가 올바르지 않아요." },
         { status: 401 },
       );
+    }
+
+    mockSession.open();
+
+    return HttpResponse.json(TOKENS);
+  }),
+
+  // Token refresh — mirrors the cookie session so the auth middleware's
+  // refresh-on-401 resolves instantly instead of leaking to the real network.
+  http.post(mockUrl("/auth/refresh"), () => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "세션이 만료됐어요." }, { status: 401 });
     }
 
     return HttpResponse.json(TOKENS);
