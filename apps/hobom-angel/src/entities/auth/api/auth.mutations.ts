@@ -1,5 +1,5 @@
 import { mutationOptions } from "hobom-data";
-import { postSignup } from "./auth.api";
+import { postLogin, postSignup } from "./auth.api";
 
 export const authMutations = {
   all: () => ["auth"] as const,
@@ -8,5 +8,11 @@ export const authMutations = {
     mutationOptions({
       mutationKey: [...authMutations.all(), "signup"] as const,
       mutationFn: postSignup,
+    }),
+
+  login: () =>
+    mutationOptions({
+      mutationKey: [...authMutations.all(), "login"] as const,
+      mutationFn: postLogin,
     }),
 } as const;

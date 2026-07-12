@@ -84,7 +84,12 @@ export const styles = stylex.create({
   brandStat: { position: "relative", fontSize: "0.8125rem", color: "rgba(255,255,255,0.75)" },
 
   // ── Form panel ──────────────────────────────────────────
-  form: { paddingBlock: { default: 32, [DESKTOP]: 44 }, paddingInline: { default: 24, [DESKTOP]: 44 }, display: "flex", flexDirection: "column" },
+  form: {
+    paddingBlock: { default: 32, [DESKTOP]: 44 },
+    paddingInline: { default: 24, [DESKTOP]: 44 },
+    display: "flex",
+    flexDirection: "column",
+  },
   title: { margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "var(--hb-color-text-primary)" },
   subtitle: {
     margin: 0,
@@ -94,7 +99,12 @@ export const styles = stylex.create({
     color: "var(--hb-color-text-secondary)",
   },
   fields: { display: "flex", flexDirection: "column", gap: 16 },
-  pwLabelRow: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 },
+  pwLabelRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 6,
+  },
   labelText: { fontSize: "0.875rem", fontWeight: 600, color: "var(--hb-color-text-primary)" },
   link: { fontSize: "0.8125rem", fontWeight: 600, color: "var(--hb-color-accent-dark)" },
   toggle: {
@@ -114,6 +124,12 @@ export const styles = stylex.create({
     fontSize: "0.875rem",
     color: "var(--hb-color-text-secondary)",
     cursor: "pointer",
+  },
+  formError: {
+    margin: 0,
+    marginTop: 16,
+    fontSize: "0.875rem",
+    color: "var(--hb-color-danger, #d92d20)",
   },
   submit: { marginTop: 20 },
   divider: {
