@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ROUTES } from "@/shared/config";
 import { LoadingState, NotFoundState } from "@/shared/ui";
 
 // Route-level code splitting — each page ships as its own chunk, loaded on
@@ -21,9 +22,9 @@ const SignupPage = lazy(() =>
 export const AppRouter = () => (
   <Suspense fallback={<LoadingState fullScreen />}>
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+      <Route path={ROUTES.HOME} element={<LandingPage />} />
+      <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
       <Route path="*" element={<NotFoundState />} />
     </Routes>
   </Suspense>

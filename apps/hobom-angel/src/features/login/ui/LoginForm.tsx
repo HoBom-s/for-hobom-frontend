@@ -3,6 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
+import { ROUTES } from "@/shared/config";
 import { useLogin } from "../model/useLogin";
 import { styles } from "./LoginForm.styles";
 import { LoginBrandPanel } from "./LoginBrandPanel";
@@ -61,7 +62,7 @@ export const LoginForm = () => {
 
             <p {...stylex.props(styles.signup)}>
               아직 회원이 아니신가요?{" "}
-              <Link to="/signup" {...stylex.props(styles.signupLink)}>
+              <Link to={ROUTES.SIGNUP} {...stylex.props(styles.signupLink)}>
                 이메일로 가입하기
               </Link>
             </p>

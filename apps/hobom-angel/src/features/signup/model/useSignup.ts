@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "hobom-data";
 import { authMutations } from "@/entities/auth";
 import { HttpError } from "@/shared/api";
+import { ROUTES } from "@/shared/config";
 import { useToast } from "@/shared/model";
 
 /** Signup submission (email + password + profile → session), with toast + redirect home. */
@@ -14,7 +15,7 @@ export const useSignup = () => {
     onSuccess: () => {
       openSuccessToast({ message: "가입이 완료됐어요. 환영해요!" });
 
-      void navigate("/");
+      void navigate(ROUTES.HOME);
     },
     onError: (error) => {
       openErrorToast({
