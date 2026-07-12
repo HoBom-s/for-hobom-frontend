@@ -50,6 +50,11 @@ export * from "./packages/add/add";
 export * from "./packages/subtract/subtract";
 export * from "./packages/clamp/clamp";
 
+// String — masking (PII)
+export * from "./packages/maskName/maskName";
+export * from "./packages/maskPhone/maskPhone";
+export * from "./packages/maskEmail/maskEmail";
+
 // Type guards
 export * from "./packages/isArray/isArray";
 export * from "./packages/isDefined/isDefined";
