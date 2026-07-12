@@ -3,23 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
-      media="print"
-      onload="this.media = 'all'"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
     />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- SEO: the landing is the only public surface, so it's indexable; auth-gated
+         routes set noindex at runtime once they exist. -->
     <title>HoBom Angel</title>
+    <meta
+      name="description"
+      content="임시보호와 입양으로 한 생명에게 새로운 봄을. 전국 보호소의 강아지·고양이를 만나고, 봉사에 참여하세요."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HoBom Angel" />
+    <meta property="og:title" content="HoBom Angel — 유기동물 입양·임시보호 플랫폼" />
+    <meta
+      property="og:description"
+      content="임시보호와 입양으로 한 생명에게 새로운 봄을. 전국 보호소의 강아지·고양이를 만나고, 봉사에 참여하세요."
+    />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- TODO: add absolute og:url + og:image once the domain and OG asset are set. -->
   </head>
   <body>
     <div id="root"></div>

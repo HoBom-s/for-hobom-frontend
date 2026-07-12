@@ -12,7 +12,7 @@ body,
 
 body {
   min-height: 100vh;
-  font-family: "Inter", "Pretendard", system-ui, -apple-system, sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   color: var(--hb-angel-ink, #2c3830);
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
