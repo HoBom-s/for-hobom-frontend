@@ -48,14 +48,6 @@ export const styles = stylex.create({
 
   // ── Fields ──────────────────────────────────────────────
   fields: { display: "flex", flexDirection: "column", gap: 16 },
-  fieldLabel: {
-    display: "block",
-    marginBottom: 6,
-    fontSize: "0.875rem",
-    fontWeight: 600,
-    color: "var(--hb-color-text-primary)",
-  },
-  nickRow: { display: "flex", gap: 8, alignItems: "flex-start" },
   submit: { marginTop: 24 },
   hint: {
     margin: 0,
@@ -100,47 +92,6 @@ export const styles = stylex.create({
   agreeLabel: { flex: 1 },
   agreeView: { fontSize: "0.8125rem", color: "var(--hb-color-text-secondary)" },
   optionalTag: { color: "var(--hb-color-text-secondary)", fontWeight: 500 },
-
-  // ── Code boxes ──────────────────────────────────────────
-  codeWrap: { position: "relative", display: "flex", justifyContent: "center", gap: 8 },
-  codeInput: {
-    position: "absolute",
-    inset: 0,
-    width: "100%",
-    height: "100%",
-    opacity: 0,
-    cursor: "pointer",
-    borderWidth: 0,
-  },
-  codeBox: {
-    width: 44,
-    height: 54,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 12,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "var(--hb-color-border)",
-    fontSize: "1.375rem",
-    fontWeight: 700,
-    color: "var(--hb-color-text-primary)",
-  },
-  codeBoxActive: { borderColor: "var(--hb-color-accent)" },
-  codeMeta: {
-    marginTop: 16,
-    textAlign: "center",
-    fontSize: "0.8125rem",
-    color: "var(--hb-color-text-secondary)",
-  },
-  resend: {
-    borderWidth: 0,
-    borderStyle: "none",
-    backgroundColor: "transparent",
-    color: "var(--hb-color-accent-dark)",
-    fontWeight: 600,
-    cursor: "pointer",
-  },
 
   // ── Done ────────────────────────────────────────────────
   done: { textAlign: "center", paddingBlock: 12 },

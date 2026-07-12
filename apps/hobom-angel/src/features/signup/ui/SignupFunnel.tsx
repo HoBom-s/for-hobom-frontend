@@ -2,24 +2,21 @@ import * as stylex from "@stylexjs/stylex";
 import { useFunnel } from "@/shared/model";
 import { styles } from "./SignupFunnel.styles";
 import { AgreementStep } from "./AgreementStep";
-import { EmailStep } from "./EmailStep";
-import { CodeStep } from "./CodeStep";
+import { VerifyIdentityStep } from "./VerifyIdentityStep";
 import { ProfileStep } from "./ProfileStep";
 import { DoneStep } from "./DoneStep";
 
-const STEPS = ["agreement", "email", "code", "profile", "done"] as const;
+const STEPS = ["agreement", "verify", "profile", "done"] as const;
 
 interface SignupState extends Record<string, unknown> {
-  email: string;
-  nickname: string;
-  password: string;
+  verificationToken: string;
 }
 
-/** Email-verification signup funnel (§0.7): agreement → email → code → profile → done. */
+/** Signup funnel: agreement → 본인확인 → profile (nickname + email) → done. */
 export const SignupFunnel = () => {
-  const [Funnel, , setState] = useFunnel(STEPS, { initialStep: "agreement" }).withState<SignupState>(
-    { email: "", nickname: "", password: "" },
-  );
+  const [Funnel, state, setState] = useFunnel(STEPS, {
+    initialStep: "agreement",
+  }).withState<SignupState>({ verificationToken: "" });
 
   return (
     <div {...stylex.props(styles.page)}>
@@ -27,17 +24,17 @@ export const SignupFunnel = () => {
         <div {...stylex.props(styles.body)}>
           <Funnel>
             <Funnel.Step name="agreement">
-              <AgreementStep onNext={() => setState({ step: "email" })} />
+              <AgreementStep onNext={() => setState({ step: "verify" })} />
             </Funnel.Step>
-            <Funnel.Step name="email">
-              <EmailStep onNext={(email) => setState({ step: "code", email })} />
-            </Funnel.Step>
-            <Funnel.Step name="code">
-              <CodeStep onNext={() => setState({ step: "profile" })} />
+            <Funnel.Step name="verify">
+              <VerifyIdentityStep
+                onNext={(verificationToken) => setState({ step: "profile", verificationToken })}
+              />
             </Funnel.Step>
             <Funnel.Step name="profile">
               <ProfileStep
-                onNext={(nickname, password) => setState({ step: "done", nickname, password })}
+                verificationToken={state.verificationToken}
+                onDone={() => setState({ step: "done" })}
               />
             </Funnel.Step>
             <Funnel.Step name="done">
