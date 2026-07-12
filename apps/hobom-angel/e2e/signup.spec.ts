@@ -33,7 +33,24 @@ const fillFunnel = async (page: Page, over: ProfileInput = {}) => {
 test.describe("signup funnel", () => {
   test("completes the flow field by field and redirects home", async ({ page }) => {
     await fillFunnel(page);
-    await page.getByRole("button", { name: "가입 완료" }).click();
+
+    // The signup POST must reach the gateway path with the collected fields
+    // (the mock intercepts it) — assert the request the app actually sends.
+    const [request] = await Promise.all([
+      page.waitForRequest(
+        (r) =>
+          r.method() === "POST" &&
+          r.url().includes("/hobom-angel-backend/api/v1/auth/signup"),
+      ),
+      page.getByRole("button", { name: "가입 완료" }).click(),
+    ]);
+
+    expect(request.postDataJSON()).toMatchObject({
+      email: "hobom@example.com",
+      nickname: "봄이네",
+      realName: "김민수",
+      phone: "01012345678",
+    });
 
     await expect(page.getByText("가입이 완료됐어요. 환영해요!")).toBeVisible();
     await expect(page).toHaveURL(/\/hobom-angel\/$/);

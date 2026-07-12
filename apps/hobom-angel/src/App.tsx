@@ -1,5 +1,5 @@
 import { Hb, ColorSchemeVars, ErrorBoundary } from "hobom-design-system";
-import { ToastContainer } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 import { AngelThemeVars, ErrorState } from "@/shared/ui";
 import { reportError } from "@/shared/lib";
 import { AppProvider, AppRouter } from "@/apps/ui";
@@ -20,7 +20,12 @@ export default function App() {
         >
           <AppRouter />
         </ErrorBoundary>
-        <ToastContainer position="top-center" autoClose={3000} />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar
+          transition={Slide}
+        />
       </Hb.ColorSchemeProvider>
     </AppProvider>
   );

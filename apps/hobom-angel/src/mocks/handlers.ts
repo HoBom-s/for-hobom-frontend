@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { env } from "@/shared/config";
 
-const url = (path: string) => `${env.VITE_APP_HOBOM_API_GATEWAY_URL}${path}`;
+const url = (path: string) => `${env.API_BASE_URL}${path}`;
 
 const TOKENS = { accessToken: "mock-access-token", refreshToken: "mock-refresh-token" };
 
