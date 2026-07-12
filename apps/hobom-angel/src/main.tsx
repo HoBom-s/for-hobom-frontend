@@ -9,7 +9,8 @@ const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("root element not found");
 
 createRoot(rootElement).render(
-  <BrowserRouter>
+  // basename tracks Vite's `base` (/hobom-angel/) so routes work under the prefix.
+  <BrowserRouter basename={import.meta.env.BASE_URL}>
     <App />
   </BrowserRouter>,
 );
