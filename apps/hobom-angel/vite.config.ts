@@ -4,6 +4,9 @@ import react from "@vitejs/plugin-react-swc";
 import stylex from "@stylexjs/unplugin";
 
 export default defineConfig({
+  // Served under the `/hobom-angel/` path prefix, so assets must resolve there
+  // (a root base would 404). Keep this in sync with the router basename.
+  base: "/hobom-angel/",
   // StyleX must run before react to preserve Fast Refresh. `unstable_moduleResolution`
   // in ESM mode lets the plugin resolve StyleX vars imported from the workspace
   // design-system package.
