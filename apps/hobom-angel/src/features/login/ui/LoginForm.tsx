@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { HttpError } from "@/shared/api";
 import { useLogin } from "../model/useLogin";
 import { styles } from "./LoginForm.styles";
 import { LoginBrandPanel } from "./LoginBrandPanel";
@@ -12,32 +11,17 @@ import { PasswordField } from "./PasswordField";
 import type { LoginFormValues } from "../model/login-form.model";
 
 export const LoginForm = () => {
-  const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(true);
   const methods = useForm<LoginFormValues>({
     mode: "onChange",
     defaultValues: { email: "", password: "" },
   });
-  const { mutateAsync, isPending } = useLogin();
+  // Success (toast + redirect) and failure (toast) are handled inside useLogin.
+  const { mutate, isPending } = useLogin();
 
-  const submit = methods.handleSubmit(async ({ email, password }) => {
-    methods.clearErrors("root");
-
-    try {
-      await mutateAsync({ email: email.trim(), password });
-
-      void navigate("/");
-    } catch (error) {
-      const message =
-        error instanceof HttpError
-          ? error.message
-          : "로그인에 실패했어요. 잠시 후 다시 시도해주세요.";
-
-      methods.setError("root", { message });
-    }
+  const submit = methods.handleSubmit(({ email, password }) => {
+    mutate({ email: email.trim(), password });
   });
-
-  const rootError = methods.formState.errors.root?.message;
 
   return (
     <div {...stylex.props(styles.page)}>
@@ -58,8 +42,6 @@ export const LoginForm = () => {
               <Hb.Checkbox checked={rememberMe} onChange={() => setRememberMe((value) => !value)} />
               로그인 상태 유지
             </label>
-
-            {rootError && <p {...stylex.props(styles.formError)}>{rootError}</p>}
 
             <Hb.Button
               type="submit"

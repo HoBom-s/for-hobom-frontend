@@ -49,12 +49,14 @@ export const styles = stylex.create({
   // ── Fields ──────────────────────────────────────────────
   fields: { display: "flex", flexDirection: "column", gap: 16 },
   submit: { marginTop: 24 },
-  hint: {
-    margin: 0,
-    marginTop: 12,
+  toggle: {
+    borderWidth: 0,
+    borderStyle: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
     fontSize: "0.8125rem",
     color: "var(--hb-color-text-secondary)",
-    textAlign: "center",
+    paddingInline: 8,
   },
   footer: {
     margin: 0,
@@ -92,19 +94,4 @@ export const styles = stylex.create({
   agreeLabel: { flex: 1 },
   agreeView: { fontSize: "0.8125rem", color: "var(--hb-color-text-secondary)" },
   optionalTag: { color: "var(--hb-color-text-secondary)", fontWeight: 500 },
-
-  // ── Done ────────────────────────────────────────────────
-  done: { textAlign: "center", paddingBlock: 12 },
-  doneCheck: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 64,
-    height: 64,
-    borderRadius: "50%",
-    marginBottom: 20,
-    backgroundColor: "var(--hb-angel-green-tint)",
-    color: "var(--hb-color-accent)",
-    fontSize: "2rem",
-  },
 });
