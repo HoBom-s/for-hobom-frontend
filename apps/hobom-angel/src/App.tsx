@@ -1,11 +1,11 @@
 import { AngelBrandVars } from "hobom-design-system";
-import { AppRouter } from "@/apps/ui";
+import { AppProvider, AppRouter } from "@/apps/ui";
 
 export default function App() {
   return (
-    <>
+    <AppProvider>
       <AngelBrandVars />
       <AppRouter />
-    </>
+    </AppProvider>
   );
 }
