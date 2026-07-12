@@ -7,6 +7,9 @@ import { LoadingState, NotFoundState } from "@/shared/ui";
 const LandingPage = lazy(() =>
   import("@/pages/landing").then((module) => ({ default: module.LandingPage })),
 );
+const LoginPage = lazy(() =>
+  import("@/pages/login").then((module) => ({ default: module.LoginPage })),
+);
 
 /**
  * Public routing. Only the landing page is open to guests; the rest of the
@@ -16,6 +19,7 @@ export const AppRouter = () => (
   <Suspense fallback={<LoadingState fullScreen />}>
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFoundState />} />
     </Routes>
   </Suspense>
