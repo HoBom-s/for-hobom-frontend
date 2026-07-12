@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { PublicShell } from "@/shared/ui";
@@ -19,12 +20,14 @@ const BRAND = (
 );
 
 export const LandingPage = () => {
+  const navigate = useNavigate();
+
   return (
     <PublicShell
       brand={BRAND}
       nav={NAV}
       actions={
-        <Hb.Button variant="ghost" size="small">
+        <Hb.Button variant="ghost" size="small" onClick={() => navigate("/login")}>
           로그인
         </Hb.Button>
       }
