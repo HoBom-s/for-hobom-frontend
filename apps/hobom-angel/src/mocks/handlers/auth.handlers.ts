@@ -1,12 +1,12 @@
 import { http, HttpResponse } from "msw";
 import { mockUrl } from "./mock-url";
-
-const TOKENS = { accessToken: "mock-access-token", refreshToken: "mock-refresh-token" };
+import { mockSession } from "./mock-session";
+import { ok } from "./ok";
 
 /**
  * Auth domain mock handlers. Reserved inputs exercise the error paths: email
  * "taken@example.com" or nickname "taken" → 409 on signup, password "wrongpass"
- * → 401 on login.
+ * → 401 on login. Success opens the mock session (standing in for the cookie).
  */
 export const authHandlers = [
   http.post(mockUrl("/auth/signup"), async ({ request }) => {
@@ -20,7 +20,9 @@ export const authHandlers = [
       return HttpResponse.json({ message: "이미 사용 중인 닉네임이에요." }, { status: 409 });
     }
 
-    return HttpResponse.json({ userId: "mock-user-1", nickname: body.nickname ?? "봄이네", tokens: TOKENS });
+    mockSession.open();
+
+    return ok({ userId: "mock-user-1" });
   }),
 
   http.post(mockUrl("/auth/login"), async ({ request }) => {
@@ -33,6 +35,18 @@ export const authHandlers = [
       );
     }
 
-    return HttpResponse.json(TOKENS);
+    mockSession.open();
+
+    return ok({ userId: "mock-user-1" });
+  }),
+
+  // Token refresh — mirrors the cookie session so the auth middleware's
+  // refresh-on-401 resolves instantly instead of leaking to the real network.
+  http.post(mockUrl("/auth/refresh"), () => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "세션이 만료됐어요." }, { status: 401 });
+    }
+
+    return ok({ userId: "mock-user-1" });
   }),
 ];

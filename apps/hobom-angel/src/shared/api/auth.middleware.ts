@@ -64,6 +64,14 @@ export const authMiddleware: Middleware = {
         };
 
         ctx.response = await fetch(ctx.input, retryInit);
+
+        // Refresh ran but the retry is still 401 — the session is truly gone.
+        // Give up here so later 401s don't kick off another refresh+retry (which
+        // otherwise loops forever, since this flag is the only gate).
+        if (ctx.response.status === HttpStatusModel.UNAUTHORIZED) {
+          unauthorizedDispatched = true;
+          window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
+        }
       } finally {
         clearTimeout(timeoutId);
       }

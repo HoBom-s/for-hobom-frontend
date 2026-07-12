@@ -1,7 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
-import { Hb } from "hobom-design-system";
-import { ROUTES } from "@/shared/config";
+import { SessionAction } from "@/features/session";
 import { PublicShell } from "@/shared/ui";
 import { NAV } from "../model/landing.fixtures";
 import { HeroSection } from "./HeroSection";
@@ -20,24 +18,12 @@ const BRAND = (
   </>
 );
 
-export const LandingPage = () => {
-  const navigate = useNavigate();
-
-  return (
-    <PublicShell
-      brand={BRAND}
-      nav={NAV}
-      actions={
-        <Hb.Button variant="ghost" size="small" onClick={() => navigate(ROUTES.LOGIN)}>
-          로그인
-        </Hb.Button>
-      }
-    >
-      <HeroSection />
-      <StatsSection />
-      <AnimalsSection />
-      <HowItWorksSection />
-      <CtaSection />
-    </PublicShell>
-  );
-};
+export const LandingPage = () => (
+  <PublicShell brand={BRAND} nav={NAV} actions={<SessionAction />}>
+    <HeroSection />
+    <StatsSection />
+    <AnimalsSection />
+    <HowItWorksSection />
+    <CtaSection />
+  </PublicShell>
+);
