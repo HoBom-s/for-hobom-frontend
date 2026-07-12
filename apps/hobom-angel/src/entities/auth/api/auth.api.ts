@@ -1,15 +1,11 @@
-import { httpClient, parseResponse } from "@/shared/api";
-import { toSession } from "../lib/to-session.lib";
-import { signUpResponseSchema } from "./auth.schema";
-import type { AuthSession, LoginRequest, SignUpRequest } from "./auth.type";
+import { httpClient } from "@/shared/api";
+import type { LoginRequest, SignUpRequest } from "./auth.type";
 
-const parseSignUp = parseResponse(signUpResponseSchema, "POST /auth/signup");
+// Signup and login establish the session via httpOnly cookies; the response body
+// carries no tokens, so both resolve to void. The session is read separately via
+// GET /users/me.
+export const postSignup = (request: SignUpRequest): Promise<void> =>
+  httpClient.post("/auth/signup", request).then(() => undefined);
 
-/** Register a member (email + password + profile) and open a session. */
-export const postSignup = (request: SignUpRequest): Promise<AuthSession> =>
-  httpClient.post("/auth/signup", request).then(parseSignUp).then(toSession);
-
-/** Authenticate by email + password. The session lives in the cookies the
- *  backend sets, so the token-pair body is intentionally discarded. */
 export const postLogin = (request: LoginRequest): Promise<void> =>
   httpClient.post("/auth/login", request).then(() => undefined);

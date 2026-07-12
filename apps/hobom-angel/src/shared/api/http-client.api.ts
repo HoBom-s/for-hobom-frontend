@@ -118,10 +118,17 @@ export const createHttpClient = (baseUrl = ""): HttpClient => {
     }
   };
 
+  // The backend wraps every success payload in a uniform envelope
+  // ({ success, items, message, timestamp }); callers only want `items`.
+  const isEnvelope = (body: unknown): body is { items: unknown } =>
+    typeof body === "object" && body !== null && "success" in body && "items" in body;
+
   const parseJson = async <T>(res: Response): Promise<T> => {
     if (res.status === 204) return undefined as T;
 
-    return res.json();
+    const body: unknown = await res.json();
+
+    return (isEnvelope(body) ? body.items : body) as T;
   };
 
   return {
