@@ -1,1 +1,1 @@
-export { SessionAction } from "./ui/SessionAction";
+export { useLogout } from "./model/useLogout";

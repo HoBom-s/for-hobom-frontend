@@ -1,15 +1,7 @@
 import type { AnimalStatus } from "@/entities/animal";
-import type { PublicShellNavItem } from "@/shared/ui";
 
 // Static mockup data — copy is verbatim from the 2a landing design.
 // Swapped for real queries in a later phase.
-
-export const NAV: PublicShellNavItem[] = [
-  { label: "입양", href: "#adopt" },
-  { label: "임시보호", href: "#foster" },
-  { label: "봉사", href: "#volunteer" },
-  { label: "보호소", href: "#shelters" },
-];
 
 export const HERO = {
   badge: "오늘도 322마리가 기다리고 있어요",
