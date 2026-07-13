@@ -180,4 +180,16 @@ export const styles = stylex.create({
     textDecoration: "none",
   },
   tabActive: { color: "var(--hb-color-accent-dark)" },
+  tabIconWrap: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 44,
+    height: 26,
+    borderRadius: 999,
+    transitionProperty: "background-color",
+    transitionDuration: "0.15s",
+  },
+  // The active pill (Material-3 style) makes the selected tab unmistakable.
+  tabIconWrapActive: { backgroundColor: "var(--hb-angel-green-tint)" },
 });

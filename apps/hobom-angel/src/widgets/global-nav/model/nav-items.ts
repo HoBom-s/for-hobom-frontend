@@ -1,7 +1,7 @@
 import {
   AssignmentOutlined,
   DashboardOutlined,
-  Favorite,
+  FavoriteBorder,
   PersonOutline,
   SearchOutlined,
 } from "hobom-design-system/icons";
@@ -30,7 +30,7 @@ export const PRIMARY_NAV: NavItem[] = [
 export const BOTTOM_TABS: BottomTabItem[] = [
   { label: "홈", to: ROUTES.HOME, Icon: DashboardOutlined },
   { label: "탐색", to: ROUTES.ANIMALS, Icon: SearchOutlined },
-  { label: "관심", to: ROUTES.FAVORITES, Icon: Favorite },
+  { label: "관심", to: ROUTES.FAVORITES, Icon: FavoriteBorder },
   { label: "신청", to: ROUTES.APPLICATIONS, Icon: AssignmentOutlined },
   { label: "내정보", to: ROUTES.MY, Icon: PersonOutline },
 ];

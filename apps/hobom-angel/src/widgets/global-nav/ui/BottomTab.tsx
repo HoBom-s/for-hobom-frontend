@@ -15,8 +15,14 @@ export const BottomTab = () => (
         end={tab.to === ROUTES.HOME}
         {...activeLinkProps(styles.tab, styles.tabActive)}
       >
-        <tab.Icon fontSize="small" aria-hidden />
-        {tab.label}
+        {({ isActive }) => (
+          <>
+            <span {...stylex.props(styles.tabIconWrap, isActive && styles.tabIconWrapActive)}>
+              <tab.Icon fontSize="small" aria-hidden />
+            </span>
+            {tab.label}
+          </>
+        )}
       </NavLink>
     ))}
   </nav>
