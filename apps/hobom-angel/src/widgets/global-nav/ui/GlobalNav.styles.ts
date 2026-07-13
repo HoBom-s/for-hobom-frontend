@@ -170,15 +170,12 @@ export const styles = stylex.create({
   tab: {
     flex: 1,
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    gap: 2,
-    fontSize: "0.6875rem",
+    fontSize: "0.8125rem",
     fontWeight: 600,
     color: "var(--hb-color-text-secondary)",
     textDecoration: "none",
   },
   tabActive: { color: "var(--hb-color-accent-dark)" },
-  tabIcon: { fontSize: "1.15rem" },
 });

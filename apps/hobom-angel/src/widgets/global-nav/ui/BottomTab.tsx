@@ -5,7 +5,7 @@ import { BOTTOM_TABS } from "../model/nav-items";
 import { activeLinkProps } from "./nav-link-props";
 import { styles } from "./GlobalNav.styles";
 
-/** Mobile bottom tab bar (§0.5) — signed-in only. */
+/** Mobile bottom tab bar (§0.5) — signed-in only, text labels. */
 export const BottomTab = () => (
   <nav {...stylex.props(styles.bottomTab)} aria-label="하단 탭">
     {BOTTOM_TABS.map((tab) => (
@@ -15,9 +15,6 @@ export const BottomTab = () => (
         end={tab.to === ROUTES.HOME}
         {...activeLinkProps(styles.tab, styles.tabActive)}
       >
-        <span {...stylex.props(styles.tabIcon)} aria-hidden="true">
-          {tab.icon}
-        </span>
         {tab.label}
       </NavLink>
     ))}
