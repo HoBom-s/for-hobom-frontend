@@ -24,6 +24,9 @@ const AnimalsPage = lazy(() =>
 const AnimalDetailPage = lazy(() =>
   import("@/pages/animal-detail").then((module) => ({ default: module.AnimalDetailPage })),
 );
+const ApplyAdoptionPage = lazy(() =>
+  import("@/pages/apply-adoption").then((module) => ({ default: module.ApplyAdoptionPage })),
+);
 
 // Warm the auth route chunks during idle time so navigating to them is instant.
 const prefetchRoutes = () => {
@@ -60,6 +63,7 @@ export const AppRouter = () => {
             <Route element={<ProtectedRoute />}>
               <Route path={ROUTES.ANIMALS} element={<AnimalsPage />} />
             <Route path={ROUTES.ANIMAL_DETAIL} element={<AnimalDetailPage />} />
+            <Route path={ROUTES.APPLY} element={<ApplyAdoptionPage />} />
               {SECTION_ROUTES.map((path) => (
                 <Route key={path} path={path} element={<ComingSoonPage />} />
               ))}

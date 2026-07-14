@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { Favorite, FavoriteBorder } from "hobom-design-system/icons";
 import { SEX_LABEL, SIZE_LABEL, STATUS_LABEL, formatAge } from "@/entities/animal";
+import { applyPath } from "@/shared/config";
 import { useToast } from "@/shared/model";
 import type { AnimalDetail } from "@/entities/animal";
 import { applyCta } from "../lib/apply-cta.lib";
@@ -21,6 +23,7 @@ const COMING_SOON = "곧 제공될 예정이에요.";
 /** Sticky application panel with status-branched CTAs (§02). Apply/foster and
  *  inquiry are placeholders until the funnel and inquiry threads land. */
 export const ApplyCard = ({ animal }: { animal: AnimalDetail }) => {
+  const navigate = useNavigate();
   const { openWarnToast } = useToast();
   const [bookmarked, setBookmarked] = useState(false);
 
@@ -58,7 +61,12 @@ export const ApplyCard = ({ animal }: { animal: AnimalDetail }) => {
       )}
 
       <div {...stylex.props(styles.ctas)}>
-        <Hb.Button variant="primary" fullWidth disabled={!cta.primaryEnabled} onClick={notReady}>
+        <Hb.Button
+          variant="primary"
+          fullWidth
+          disabled={!cta.primaryEnabled}
+          onClick={() => navigate(applyPath(animal.id))}
+        >
           {cta.primaryLabel}
         </Hb.Button>
         {cta.showFoster && (

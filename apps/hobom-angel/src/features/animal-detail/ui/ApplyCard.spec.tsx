@@ -1,8 +1,16 @@
 // @vitest-environment jsdom
 import { fireEvent, render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import type { AnimalDetail } from "@/entities/animal";
 import { ApplyCard } from "./ApplyCard";
+
+const renderCard = (detail: AnimalDetail) =>
+  render(
+    <MemoryRouter>
+      <ApplyCard animal={detail} />
+    </MemoryRouter>,
+  );
 
 const animal = (status: AnimalDetail["status"]): AnimalDetail => ({
   id: "animal-1",
@@ -28,21 +36,21 @@ const button = (name: string) => screen.getByRole("button", { name });
 
 describe("ApplyCard", () => {
   it("offers apply + foster for an available animal", () => {
-    render(<ApplyCard animal={animal("AVAILABLE")} />);
+    renderCard(animal("AVAILABLE"));
 
     expect(button("입양 신청하기").hasAttribute("disabled")).toBe(false);
     expect(screen.queryByRole("button", { name: "임시보호 신청" })).not.toBeNull();
   });
 
   it("disables the CTA and hides foster once adopted", () => {
-    render(<ApplyCard animal={animal("ADOPTED")} />);
+    renderCard(animal("ADOPTED"));
 
     expect(button("입양 완료").hasAttribute("disabled")).toBe(true);
     expect(screen.queryByRole("button", { name: "임시보호 신청" })).toBeNull();
   });
 
   it("toggles the bookmark on click", () => {
-    render(<ApplyCard animal={animal("AVAILABLE")} />);
+    renderCard(animal("AVAILABLE"));
     const bookmark = button("관심 동물");
 
     expect(bookmark.getAttribute("aria-pressed")).toBe("false");

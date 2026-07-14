@@ -5,6 +5,7 @@ export const ROUTES = {
   // Consumer sections (behind auth — the landing is the only public surface).
   ANIMALS: "/animals",
   ANIMAL_DETAIL: "/animals/:animalId",
+  APPLY: "/apply/:animalId",
   FOSTER: "/foster",
   VOLUNTEER: "/volunteer",
   SHELTERS: "/shelters",
@@ -20,3 +21,6 @@ export const ROUTES = {
 
 /** Build the concrete path to an animal's detail page. */
 export const animalDetailPath = (animalId: string): string => `/animals/${animalId}`;
+
+/** Build the concrete path to an animal's adoption application funnel. */
+export const applyPath = (animalId: string): string => `/apply/${animalId}`;
