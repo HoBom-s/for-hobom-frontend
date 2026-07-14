@@ -19,17 +19,19 @@ export const filtersFromParams = (params: URLSearchParams): AnimalFilters => {
     species: species && SPECIES.has(species as AnimalSpecies) ? (species as AnimalSpecies) : undefined,
     keyword: keyword || undefined,
     status: params.get("status") === "all" ? undefined : "AVAILABLE",
+    sort: params.get("sort") === "OLDEST" ? "OLDEST" : "LATEST",
     limit: PAGE_SIZE,
   };
 };
 
-/** Encode filters back into a minimal query — defaults are omitted. */
+/** Encode filters back into a minimal query — defaults (AVAILABLE, LATEST) are omitted. */
 export const paramsFromFilters = (filters: AnimalFilters): URLSearchParams => {
   const params = new URLSearchParams();
 
   if (filters.species) params.set("species", filters.species);
   if (filters.keyword) params.set("q", filters.keyword);
   if (!filters.status) params.set("status", "all");
+  if (filters.sort === "OLDEST") params.set("sort", "OLDEST");
 
   return params;
 };

@@ -14,19 +14,29 @@ const ANIMALS = Array.from({ length: 42 }, (_, i) => ({
   shelterId: "shelter-1",
   name: `${NAMES[i % NAMES.length] ?? "친구"}${i >= NAMES.length ? ` ${Math.floor(i / NAMES.length) + 1}` : ""}`,
   species: SPECIES[i % SPECIES.length],
-  description: "사람을 좋아하는 순한 아이예요.",
+  description: "사람을 좋아하고 산책을 즐기는 아이예요. 실내 배변 교육이 되어 있어요.",
   status: STATUSES[i % STATUSES.length],
   traits: {
     sex: SEXES[i % SEXES.length],
     size: SIZES[i % SIZES.length],
     ageMonths: (i % 6) * 6 + 3,
+    weightKg: (i % 5) + 3,
     breed: "믹스",
-    color: "갈색",
-    personality: "활발",
+    color: "아이보리",
+    personality: "온순·사교적",
   },
-  health: {},
-  intake: {},
-  photos: [{ objectKey: `https://picsum.photos/seed/hobom${i + 1}/400/300` }],
+  health: {
+    neutered: i % 2 === 0,
+    vaccinated: i % 3 !== 0,
+    microchipId: i % 2 === 0 ? `410000000000${i}` : null,
+    notes: i % 4 === 0 ? "특이사항 없음" : null,
+  },
+  intake: {
+    intakeDate: `2026-0${(i % 9) + 1}-15`,
+    rescueStory: "유기 구조",
+    noticeNumber: `경기-2026-03${(i % 9) + 1}`,
+  },
+  photos: [1, 2, 3].map((n) => ({ objectKey: `https://picsum.photos/seed/hobom${i + 1}-${n}/600/450` })),
 }));
 
 /** Animal domain mock handlers — cursor-paginated /animals with filtering. */
@@ -40,10 +50,12 @@ export const animalHandlers = [
     const species = url.searchParams.get("species");
     const status = url.searchParams.get("status");
     const keyword = url.searchParams.get("keyword");
+    const sort = url.searchParams.get("sort");
     const limit = Number(url.searchParams.get("limit") ?? "20");
     const cursor = Number(url.searchParams.get("cursor") ?? "0");
 
-    let filtered = ANIMALS;
+    // ANIMALS is oldest-first; LATEST (default) shows newest first.
+    let filtered = sort === "OLDEST" ? ANIMALS : [...ANIMALS].reverse();
 
     if (species) filtered = filtered.filter((a) => a.species === species);
     if (status) filtered = filtered.filter((a) => a.status === status);
@@ -54,5 +66,19 @@ export const animalHandlers = [
     const hasNext = nextIndex < filtered.length;
 
     return ok({ items: page, nextCursor: hasNext ? String(nextIndex) : null, hasNext });
+  }),
+
+  http.get(mockUrl("/animals/:animalId"), ({ params }) => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+    }
+
+    const animal = ANIMALS.find((candidate) => candidate.id === params.animalId);
+
+    if (!animal) {
+      return HttpResponse.json({ message: "동물을 찾을 수 없어요." }, { status: 404 });
+    }
+
+    return ok(animal);
   }),
 ];

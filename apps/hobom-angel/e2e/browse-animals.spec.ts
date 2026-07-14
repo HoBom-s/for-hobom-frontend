@@ -53,6 +53,16 @@ test.describe("§01 browse animals", () => {
     await page.screenshot({ path: "e2e-artifacts/browse-cat.png", fullPage: true });
   });
 
+  test("sorts by oldest and reflects it in the URL", async ({ page }) => {
+    await login(page);
+    await page.getByRole("link", { name: "입양" }).click();
+    await expect(page).toHaveURL(/\/animals$/);
+
+    await page.getByRole("button", { name: "정렬" }).click();
+    await page.getByRole("menuitem", { name: "오래된순" }).click();
+    await expect(page).toHaveURL(/sort=OLDEST/);
+  });
+
   test("keyword search updates the query string", async ({ page }) => {
     await login(page);
     await page.getByRole("link", { name: "입양" }).click();

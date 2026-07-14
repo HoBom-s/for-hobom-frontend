@@ -14,6 +14,7 @@ describe("toAnimal", () => {
         sex: "MALE",
         size: "MEDIUM",
         ageMonths: 24,
+        weightKg: 6,
         breed: "믹스",
         color: "갈색",
         personality: "활발",
@@ -44,7 +45,15 @@ describe("toAnimal", () => {
       species: "CAT",
       description: "",
       status: "RESERVED",
-      traits: { sex: "FEMALE", size: "SMALL", ageMonths: null, breed: null, color: null, personality: null },
+      traits: {
+        sex: "FEMALE",
+        size: "SMALL",
+        ageMonths: null,
+        weightKg: null,
+        breed: null,
+        color: null,
+        personality: null,
+      },
       photos: [],
     });
 
