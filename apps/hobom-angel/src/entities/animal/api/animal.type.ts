@@ -1,9 +1,16 @@
-import type { AnimalSex, AnimalSize, AnimalSpecies, AnimalStatusCode } from "../model/animal.model";
+import type {
+  AnimalSex,
+  AnimalSize,
+  AnimalSort,
+  AnimalSpecies,
+  AnimalStatusCode,
+} from "../model/animal.model";
 
 interface RawAnimalTraits {
   sex: AnimalSex;
   size: AnimalSize;
   ageMonths: number | null;
+  weightKg: number | null;
   breed: string | null;
   color: string | null;
   personality: string | null;
@@ -21,6 +28,25 @@ export interface RawAnimal {
   photos: { objectKey: string; caption?: string }[];
 }
 
+interface RawAnimalHealth {
+  neutered: boolean;
+  vaccinated: boolean;
+  microchipId: string | null;
+  notes: string | null;
+}
+
+interface RawAnimalIntake {
+  intakeDate: string;
+  rescueStory: string | null;
+  noticeNumber: string | null;
+}
+
+/** `GET /animals/:id` — the list item plus health and intake history. */
+export interface RawAnimalDetail extends RawAnimal {
+  health: RawAnimalHealth;
+  intake: RawAnimalIntake;
+}
+
 /** Cursor page envelope for the animal list. */
 export interface AnimalPage {
   items: RawAnimal[];
@@ -34,6 +60,7 @@ export interface AnimalSearchParams {
   sex?: AnimalSex;
   status?: AnimalStatusCode;
   keyword?: string;
+  sort?: AnimalSort;
   cursor?: string;
   limit?: number;
 }

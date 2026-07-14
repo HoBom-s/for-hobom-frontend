@@ -4,6 +4,7 @@ import { Hb } from "hobom-design-system";
 import { SearchOutlined } from "hobom-design-system/icons";
 import { SPECIES_LABEL } from "@/entities/animal";
 import type { AnimalFilters as Filters, AnimalSpecies } from "@/entities/animal";
+import { SortSelect } from "./SortSelect";
 import { styles } from "./AnimalFilters.styles";
 
 const SPECIES: AnimalSpecies[] = ["DOG", "CAT", "OTHER"];
@@ -72,12 +73,12 @@ export const AnimalFilters = ({ filters, onChange }: AnimalFiltersProps) => {
           입양가능만{availableOnly ? " ✓" : ""}
         </Hb.ToggleButton>
 
-        {/* Sort + view-mode are placeholders per §01: the backend only returns
-            newest-first, and the map view lands with the shelter work. */}
         <div {...stylex.props(styles.right)}>
-          <Hb.Button variant="secondary" size="small">
-            최신순 ▾
-          </Hb.Button>
+          <SortSelect
+            value={filters.sort ?? "LATEST"}
+            onChange={(sort) => onChange({ ...filters, sort })}
+          />
+          {/* The grid/map toggle stays a placeholder until the map view lands. */}
           <Hb.ToggleButtonGroup variant="segmented" aria-label="보기 방식">
             <Hb.ToggleButton variant="segmented" value="grid" selected>
               그리드

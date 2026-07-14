@@ -1,5 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { AnimalCard, STATUS_LABEL, animalMeta } from "@/entities/animal";
+import { animalDetailPath } from "@/shared/config";
 import { useInfiniteScroll } from "@/shared/model";
 import type { Animal } from "@/entities/animal";
 import { styles } from "./AnimalGrid.styles";
@@ -35,6 +36,7 @@ export const AnimalGrid = ({
             status={STATUS_LABEL[animal.status]}
             meta={animalMeta(animal)}
             imageUrl={animal.photoUrl}
+            to={animalDetailPath(animal.id)}
           />
         ))}
       </div>

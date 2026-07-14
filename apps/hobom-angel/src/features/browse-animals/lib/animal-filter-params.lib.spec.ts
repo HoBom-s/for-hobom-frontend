@@ -2,22 +2,24 @@ import { describe, expect, it } from "vitest";
 import { filtersFromParams, paramsFromFilters } from "./animal-filter-params.lib";
 
 describe("filtersFromParams", () => {
-  it("defaults to the AVAILABLE view when the query is empty", () => {
+  it("defaults to the AVAILABLE + LATEST view when the query is empty", () => {
     expect(filtersFromParams(new URLSearchParams())).toEqual({
       species: undefined,
       keyword: undefined,
       status: "AVAILABLE",
+      sort: "LATEST",
       limit: 20,
     });
   });
 
-  it("reads species, keyword, and the explicit 'all' status", () => {
-    const params = new URLSearchParams("species=DOG&q=콩이&status=all");
+  it("reads species, keyword, the explicit 'all' status, and the sort order", () => {
+    const params = new URLSearchParams("species=DOG&q=콩이&status=all&sort=OLDEST");
 
     expect(filtersFromParams(params)).toEqual({
       species: "DOG",
       keyword: "콩이",
       status: undefined,
+      sort: "OLDEST",
       limit: 20,
     });
   });
@@ -32,8 +34,14 @@ describe("filtersFromParams", () => {
 });
 
 describe("paramsFromFilters", () => {
-  it("omits defaults for the AVAILABLE view", () => {
-    expect(paramsFromFilters({ status: "AVAILABLE", limit: 20 }).toString()).toBe("");
+  it("omits defaults for the AVAILABLE + LATEST view", () => {
+    expect(paramsFromFilters({ status: "AVAILABLE", sort: "LATEST", limit: 20 }).toString()).toBe("");
+  });
+
+  it("serializes a non-default sort order", () => {
+    expect(paramsFromFilters({ status: "AVAILABLE", sort: "OLDEST", limit: 20 }).get("sort")).toBe(
+      "OLDEST",
+    );
   });
 
   it("serializes species and keyword", () => {

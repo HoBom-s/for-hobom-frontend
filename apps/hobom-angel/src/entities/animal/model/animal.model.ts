@@ -2,6 +2,7 @@ export type AnimalSpecies = "DOG" | "CAT" | "OTHER";
 export type AnimalSex = "MALE" | "FEMALE" | "UNKNOWN";
 export type AnimalSize = "SMALL" | "MEDIUM" | "LARGE";
 export type AnimalStatusCode = "AVAILABLE" | "RESERVED" | "FOSTERED" | "ADOPTED" | "RETURNED";
+export type AnimalSort = "LATEST" | "OLDEST";
 
 /** The animal the UI renders — a flattened, display-ready view of the API model. */
 export interface Animal {
@@ -30,6 +31,17 @@ export const SIZE_LABEL: Record<AnimalSize, string> = {
   LARGE: "대형",
 };
 
+export const SEX_LABEL: Record<AnimalSex, string> = {
+  MALE: "수컷",
+  FEMALE: "암컷",
+  UNKNOWN: "미상",
+};
+
+export const SORT_LABEL: Record<AnimalSort, string> = {
+  LATEST: "최신순",
+  OLDEST: "오래된순",
+};
+
 /** Display label for a status; matches the AnimalCard chip labels. */
 export type AnimalStatusLabel = "입양가능" | "예약중" | "임보중" | "입양완료" | "반환";
 
@@ -40,6 +52,32 @@ export const STATUS_LABEL: Record<AnimalStatusCode, AnimalStatusLabel> = {
   ADOPTED: "입양완료",
   RETURNED: "반환",
 };
+
+/** Health record shown in the §02 detail attribute grid. */
+export interface AnimalHealth {
+  neutered: boolean;
+  vaccinated: boolean;
+  microchipId: string | null;
+  notes: string | null;
+}
+
+/** Rescue/intake history shown in the §02 detail attribute grid. */
+export interface AnimalIntake {
+  intakeDate: string;
+  rescueStory: string | null;
+  noticeNumber: string | null;
+}
+
+/** Full §02 detail view: the flattened card model plus the complete photo set,
+ *  health, intake, and the extra trait fields the list view omits. */
+export interface AnimalDetail extends Animal {
+  photos: string[];
+  weightKg: number | null;
+  color: string | null;
+  personality: string | null;
+  health: AnimalHealth;
+  intake: AnimalIntake;
+}
 
 /** Age in months → a friendly Korean label. */
 export const formatAge = (months: number | null): string => {

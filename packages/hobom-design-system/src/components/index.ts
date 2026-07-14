@@ -7,6 +7,7 @@ import { Text } from "./Text";
 import { Button } from "./Button";
 import { TextField } from "./TextField";
 import { Chip } from "./Chip";
+import { Image } from "./Image";
 import { Dialog } from "./Dialog";
 import { Card } from "./Card";
 // Batch 2 — passthrough
@@ -49,6 +50,7 @@ export const Hb = {
   Button,
   TextField,
   Chip,
+  Image,
   Dialog,
   Card,
   // Batch 2 — passthrough
