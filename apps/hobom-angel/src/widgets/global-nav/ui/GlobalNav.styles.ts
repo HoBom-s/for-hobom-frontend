@@ -3,11 +3,14 @@ import * as stylex from "@stylexjs/stylex";
 const DESKTOP = "@media (min-width: 1024px)";
 
 export const styles = stylex.create({
+  // App shell locked to the viewport: the top bar and (mobile) bottom tab stay
+  // fixed while only the content region scrolls.
   shell: {
-    minHeight: "100vh",
+    height: "100dvh",
+    overflow: "hidden",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "var(--hb-angel-surface-alt)",
+    backgroundColor: "var(--hb-color-surface)",
   },
 
   // ── Top bar (sticky) ────────────────────────────────────
@@ -153,7 +156,14 @@ export const styles = stylex.create({
   menuDivider: { height: 1, backgroundColor: "var(--hb-color-border)", marginBlock: 6 },
 
   // ── Content + mobile bottom tab ─────────────────────────
-  content: { flex: 1, paddingBottom: { default: 64, [DESKTOP]: 0 } },
+  // The only scroll region. `min-height: 0` lets it shrink inside the flex
+  // shell so its own overflow (not the body) scrolls.
+  content: {
+    flex: 1,
+    minHeight: 0,
+    overflowY: "auto",
+    paddingBottom: { default: 64, [DESKTOP]: 0 },
+  },
   bottomTab: {
     display: { default: "flex", [DESKTOP]: "none" },
     position: "fixed",
