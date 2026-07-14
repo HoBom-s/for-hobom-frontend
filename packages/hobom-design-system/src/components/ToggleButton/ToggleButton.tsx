@@ -15,6 +15,7 @@ const styles = stylex.create({
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "var(--hb-color-border)",
+    borderRadius: "var(--hb-radius-control, 8px)",
     backgroundColor: {
       default: "transparent",
       ":focus-visible": "color-mix(in srgb, var(--hb-color-accent) 8%, transparent)",
@@ -40,7 +41,23 @@ const styles = stylex.create({
     borderColor: "var(--hb-color-accent)",
     backgroundColor: "color-mix(in srgb, var(--hb-color-accent) 8%, transparent)",
   },
+  // "segmented": a borderless pill meant to sit inside a ToggleButtonGroup
+  // track. Selected paints a raised white pill over the recessed track.
+  segmented: {
+    borderWidth: 0,
+    borderStyle: "none",
+    borderRadius: 9,
+    color: "var(--hb-color-text-secondary)",
+    fontWeight: 600,
+  },
+  segmentedSelected: {
+    color: "var(--hb-color-text-primary)",
+    backgroundColor: "var(--hb-color-surface)",
+    boxShadow: "0 2px 6px -3px rgba(30,45,55,0.4)",
+  },
 });
+
+type ToggleButtonVariant = "outlined" | "segmented";
 
 interface ToggleButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange" | "value"> {
@@ -48,6 +65,7 @@ interface ToggleButtonProps
   selected?: boolean;
   onChange?: (event: MouseEvent<HTMLButtonElement>, value: string) => void;
   size?: "small" | "medium";
+  variant?: ToggleButtonVariant;
   children?: ReactNode;
 }
 
@@ -56,16 +74,20 @@ export const ToggleButton = ({
   selected = false,
   onChange,
   size = "medium",
+  variant = "outlined",
   className,
   style,
   children,
   ...rest
 }: ToggleButtonProps) => {
+  const segmented = variant === "segmented";
+
   const sx = stylex.props(
     styles.reset,
     styles.root,
     size === "small" ? styles.small : styles.medium,
-    selected && styles.selected,
+    segmented && styles.segmented,
+    selected && (segmented ? styles.segmentedSelected : styles.selected),
   );
 
   return (

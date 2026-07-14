@@ -24,7 +24,7 @@ import { Grid } from "./Grid";
 import { Collapse } from "./Collapse";
 import { InputBase } from "./InputBase";
 import { Drawer } from "./Drawer";
-import { ToggleButton } from "./ToggleButton";
+import { ToggleButton, ToggleButtonGroup } from "./ToggleButton";
 // Batch 2 — compound
 import { Progress } from "./Progress";
 import { Skeleton } from "./Skeleton";
@@ -67,6 +67,7 @@ export const Hb = {
   InputBase,
   Drawer,
   ToggleButton,
+  ToggleButtonGroup,
   // Batch 2 — compound
   Progress,
   Skeleton,

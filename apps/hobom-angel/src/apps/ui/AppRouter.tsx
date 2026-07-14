@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "@/shared/config";
 import { useRouteMeta } from "@/shared/model";
-import { LoadingState, NotFoundState } from "@/shared/ui";
+import { ErrorBoundary, LoadingState, NotFoundState } from "@/shared/ui";
 import { ComingSoonPage } from "@/pages/coming-soon";
 import { ConsumerShellLayout } from "./ConsumerShellLayout";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
@@ -18,6 +18,9 @@ const LoginPage = lazy(() =>
 const SignupPage = lazy(() =>
   import("@/pages/signup").then((module) => ({ default: module.SignupPage })),
 );
+const AnimalsPage = lazy(() =>
+  import("@/pages/animals").then((module) => ({ default: module.AnimalsPage })),
+);
 
 // Warm the auth route chunks during idle time so navigating to them is instant.
 const prefetchRoutes = () => {
@@ -25,9 +28,8 @@ const prefetchRoutes = () => {
   void import("@/pages/signup");
 };
 
-// Consumer sections share the ComingSoon placeholder until their screens land.
+// Sections still on the ComingSoon placeholder until their screens land.
 const SECTION_ROUTES = [
-  ROUTES.ANIMALS,
   ROUTES.FOSTER,
   ROUTES.VOLUNTEER,
   ROUTES.SHELTERS,
@@ -46,26 +48,29 @@ export const AppRouter = () => {
   }, []);
 
   return (
-    <Suspense fallback={<LoadingState fullScreen />}>
-      <Routes>
-        {/* Consumer screens render inside the global nav chrome. */}
-        <Route element={<ConsumerShellLayout />}>
-          <Route path={ROUTES.HOME} element={<LandingPage />} />
-          <Route element={<ProtectedRoute />}>
-            {SECTION_ROUTES.map((path) => (
-              <Route key={path} path={path} element={<ComingSoonPage />} />
-            ))}
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingState fullScreen />}>
+        <Routes>
+          {/* Consumer screens render inside the global nav chrome. */}
+          <Route element={<ConsumerShellLayout />}>
+            <Route path={ROUTES.HOME} element={<LandingPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path={ROUTES.ANIMALS} element={<AnimalsPage />} />
+              {SECTION_ROUTES.map((path) => (
+                <Route key={path} path={path} element={<ComingSoonPage />} />
+              ))}
+            </Route>
           </Route>
-        </Route>
 
-        {/* Auth screens have no nav chrome and are guest-only. */}
-        <Route element={<GuestOnlyRoute />}>
-          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-          <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
-        </Route>
+          {/* Auth screens have no nav chrome and are guest-only. */}
+          <Route element={<GuestOnlyRoute />}>
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
+          </Route>
 
-        <Route path="*" element={<NotFoundState />} />
-      </Routes>
-    </Suspense>
+          <Route path="*" element={<NotFoundState />} />
+        </Routes>
+      </Suspense>
+    </ErrorBoundary>
   );
 };

@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { ROUTES } from "@/shared/config";
 import { useCurrentUser } from "@/entities/user";
+import { RouteBoundary } from "@/shared/ui";
 
 /**
  * Guards guest-only routes (login/signup): a signed-in user is redirected home.
@@ -11,5 +12,11 @@ import { useCurrentUser } from "@/entities/user";
 export const GuestOnlyRoute = () => {
   const { isAuthenticated } = useCurrentUser();
 
-  return isAuthenticated ? <Navigate to={ROUTES.HOME} replace /> : <Outlet />;
+  if (isAuthenticated) return <Navigate to={ROUTES.HOME} replace />;
+
+  return (
+    <RouteBoundary>
+      <Outlet />
+    </RouteBoundary>
+  );
 };
