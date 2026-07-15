@@ -37,6 +37,13 @@ const ANIMALS = Array.from({ length: 42 }, (_, i) => ({
     noticeNumber: `경기-2026-03${(i % 9) + 1}`,
   },
   photos: [1, 2, 3].map((n) => ({ objectKey: `https://picsum.photos/seed/hobom${i + 1}-${n}/600/450` })),
+  shelter: {
+    id: "shelter-1",
+    slug: "haengbok-shelter",
+    name: "행복보호소",
+    region: "서울",
+    city: "강남구",
+  },
 }));
 
 /** Animal domain mock handlers — cursor-paginated /animals with filtering. */

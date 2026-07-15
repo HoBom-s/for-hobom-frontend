@@ -3,6 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { useCurrentUser } from "@/entities/user";
 import { TopNav } from "./TopNav";
 import { BottomTab } from "./BottomTab";
+import { GlobalFooter } from "./GlobalFooter";
 import { styles } from "./GlobalNav.styles";
 
 /**
@@ -15,7 +16,10 @@ export const GlobalNav = ({ children }: { children: ReactNode }) => {
   return (
     <div {...stylex.props(styles.shell)}>
       <TopNav user={user} isAuthenticated={isAuthenticated} />
-      <main {...stylex.props(styles.content)}>{children}</main>
+      <div {...stylex.props(styles.content)}>
+        <main>{children}</main>
+        <GlobalFooter />
+      </div>
       {isAuthenticated && <BottomTab />}
     </div>
   );

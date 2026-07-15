@@ -21,4 +21,13 @@ export const toAnimalDetail = (raw: RawAnimalDetail): AnimalDetail => ({
     rescueStory: raw.intake.rescueStory,
     noticeNumber: raw.intake.noticeNumber,
   },
+  shelter: raw.shelter
+    ? {
+        id: raw.shelter.id,
+        slug: raw.shelter.slug,
+        name: raw.shelter.name,
+        region: raw.shelter.region,
+        city: raw.shelter.city ?? null,
+      }
+    : null,
 });

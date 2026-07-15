@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { Favorite, FavoriteBorder } from "hobom-design-system/icons";
+import { ChevronRight, Favorite, FavoriteBorder, LocationOnOutlined } from "hobom-design-system/icons";
 import { SEX_LABEL, SIZE_LABEL, STATUS_LABEL, formatAge } from "@/entities/animal";
-import { applyPath } from "@/shared/config";
+import { applyPath, shelterPath } from "@/shared/config";
 import { useToast } from "@/shared/model";
 import type { AnimalDetail } from "@/entities/animal";
 import { applyCta } from "../lib/apply-cta.lib";
@@ -47,6 +47,15 @@ export const ApplyCard = ({ animal }: { animal: AnimalDetail }) => {
       <div {...stylex.props(styles.nameRow)}>
         <h1 {...stylex.props(styles.name)}>{animal.name}</h1>
         <Hb.Chip label={statusLabel} size="small" variant="soft" color={STATUS_COLOR[statusLabel]} />
+        <button
+          type="button"
+          aria-label="관심 동물"
+          aria-pressed={bookmarked}
+          {...stylex.props(styles.bookmark, bookmarked && styles.bookmarkOn)}
+          onClick={() => setBookmarked((on) => !on)}
+        >
+          {bookmarked ? <Favorite fontSize="small" /> : <FavoriteBorder fontSize="small" />}
+        </button>
       </div>
       <p {...stylex.props(styles.meta)}>{meta}</p>
 
@@ -58,6 +67,23 @@ export const ApplyCard = ({ animal }: { animal: AnimalDetail }) => {
             </span>
           ))}
         </div>
+      )}
+
+      {animal.shelter && (
+        <Link
+          to={shelterPath(animal.shelter.slug)}
+          {...stylex.props(styles.shelter)}
+          aria-label={`${animal.shelter.name} 보호소 프로필 보기`}
+        >
+          <LocationOnOutlined fontSize="small" {...stylex.props(styles.shelterPin)} />
+          <span {...stylex.props(styles.shelterInfo)}>
+            <span {...stylex.props(styles.shelterName)}>{animal.shelter.name}</span>
+            <span {...stylex.props(styles.shelterLoc)}>
+              {[animal.shelter.region, animal.shelter.city].filter(Boolean).join(" ")}
+            </span>
+          </span>
+          <ChevronRight fontSize="small" {...stylex.props(styles.shelterChevron)} />
+        </Link>
       )}
 
       <div {...stylex.props(styles.ctas)}>
@@ -74,22 +100,10 @@ export const ApplyCard = ({ animal }: { animal: AnimalDetail }) => {
             임시보호 신청
           </Hb.Button>
         )}
-
-        <div {...stylex.props(styles.secondaryRow)}>
-          <button
-            type="button"
-            aria-label="관심 동물"
-            aria-pressed={bookmarked}
-            {...stylex.props(styles.iconAction, bookmarked && styles.bookmarkOn)}
-            onClick={() => setBookmarked((on) => !on)}
-          >
-            {bookmarked ? <Favorite fontSize="small" /> : <FavoriteBorder fontSize="small" />}
-            관심
-          </button>
-          <button type="button" {...stylex.props(styles.inquiry)} onClick={notReady}>
-            보호소에 문의하기 →
-          </button>
-        </div>
+        <button type="button" {...stylex.props(styles.inquiry)} onClick={notReady}>
+          보호소에 문의하기
+          <ChevronRight fontSize="small" />
+        </button>
       </div>
     </aside>
   );

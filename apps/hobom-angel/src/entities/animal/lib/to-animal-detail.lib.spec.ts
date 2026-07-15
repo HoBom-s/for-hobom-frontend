@@ -20,6 +20,7 @@ const raw: RawAnimalDetail = {
   },
   health: { neutered: true, vaccinated: true, microchipId: "410", notes: null },
   intake: { intakeDate: "2026-03-15", rescueStory: "유기 구조", noticeNumber: "경기-2026-031" },
+  shelter: { id: "shelter-1", slug: "haengbok", name: "행복보호소", region: "서울", city: "강남구" },
   photos: [{ objectKey: "a.jpg" }, { objectKey: "b.jpg" }],
 };
 
@@ -38,7 +39,12 @@ describe("toAnimalDetail", () => {
       photos: ["a.jpg", "b.jpg"],
       health: { neutered: true, vaccinated: true, microchipId: "410", notes: null },
       intake: { intakeDate: "2026-03-15", rescueStory: "유기 구조", noticeNumber: "경기-2026-031" },
+      shelter: { id: "shelter-1", slug: "haengbok", name: "행복보호소", region: "서울", city: "강남구" },
     });
+  });
+
+  it("maps a missing shelter to null", () => {
+    expect(toAnimalDetail({ ...raw, shelter: undefined }).shelter).toBeNull();
   });
 
   it("carries the first photo through as the card thumbnail", () => {

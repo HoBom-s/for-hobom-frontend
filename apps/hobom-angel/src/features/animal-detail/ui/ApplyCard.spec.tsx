@@ -30,6 +30,7 @@ const animal = (status: AnimalDetail["status"]): AnimalDetail => ({
   personality: "온순",
   health: { neutered: true, vaccinated: true, microchipId: "410", notes: null },
   intake: { intakeDate: "2026-03-15", rescueStory: "유기 구조", noticeNumber: "경기-2026-031" },
+  shelter: { id: "shelter-1", slug: "haengbok", name: "행복보호소", region: "서울", city: "강남구" },
 });
 
 const button = (name: string) => screen.getByRole("button", { name });

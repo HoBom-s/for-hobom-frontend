@@ -12,7 +12,7 @@ const login = async (page: Page) => {
 test.describe("§01 browse animals", () => {
   test("renders the search bar, species filter, and result cards", async ({ page }) => {
     await login(page);
-    await page.getByRole("link", { name: "입양" }).click();
+    await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
     await expect(page).toHaveURL(/\/animals$/);
 
     await expect(page.getByPlaceholder("이름 · 품종 · 지역으로 검색")).toBeVisible();
@@ -28,7 +28,7 @@ test.describe("§01 browse animals", () => {
 
   test("stays on the animals page after a hard reload", async ({ page }) => {
     await login(page);
-    await page.getByRole("link", { name: "입양" }).click();
+    await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
     await expect(page).toHaveURL(/\/animals$/);
 
     // A reload re-probes the session; the protected route must wait for that
@@ -41,7 +41,7 @@ test.describe("§01 browse animals", () => {
 
   test("filters by species and reflects it in the URL", async ({ page }) => {
     await login(page);
-    await page.getByRole("link", { name: "입양" }).click();
+    await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
     await expect(page).toHaveURL(/\/animals$/);
 
     await page.getByRole("button", { name: "고양이" }).click();
@@ -55,7 +55,7 @@ test.describe("§01 browse animals", () => {
 
   test("sorts by oldest and reflects it in the URL", async ({ page }) => {
     await login(page);
-    await page.getByRole("link", { name: "입양" }).click();
+    await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
     await expect(page).toHaveURL(/\/animals$/);
 
     await page.getByRole("button", { name: "정렬" }).click();
@@ -65,7 +65,7 @@ test.describe("§01 browse animals", () => {
 
   test("keyword search updates the query string", async ({ page }) => {
     await login(page);
-    await page.getByRole("link", { name: "입양" }).click();
+    await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
     await expect(page).toHaveURL(/\/animals$/);
 
     await page.getByPlaceholder("이름 · 품종 · 지역으로 검색").fill("콩");

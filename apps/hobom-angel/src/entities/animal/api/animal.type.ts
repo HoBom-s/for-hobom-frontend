@@ -41,10 +41,19 @@ interface RawAnimalIntake {
   noticeNumber: string | null;
 }
 
-/** `GET /animals/:id` — the list item plus health and intake history. */
+interface RawShelterSummary {
+  id: string;
+  slug: string;
+  name: string;
+  region: string;
+  city?: string;
+}
+
+/** `GET /animals/:id` — the list item plus health, intake, and the shelter. */
 export interface RawAnimalDetail extends RawAnimal {
   health: RawAnimalHealth;
   intake: RawAnimalIntake;
+  shelter?: RawShelterSummary;
 }
 
 /** Cursor page envelope for the animal list. */

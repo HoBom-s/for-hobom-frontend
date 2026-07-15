@@ -9,6 +9,7 @@ export const ROUTES = {
   FOSTER: "/foster",
   VOLUNTEER: "/volunteer",
   SHELTERS: "/shelters",
+  SHELTER_DETAIL: "/shelters/:shelterSlug",
   FAVORITES: "/favorites",
   APPLICATIONS: "/applications",
   MY: "/my",
@@ -17,6 +18,10 @@ export const ROUTES = {
   LOGIN: "/login",
   SIGNUP: "/signup",
   PASSWORD_RESET: "/reset",
+
+  // Public info (footer).
+  TERMS: "/terms",
+  PRIVACY: "/privacy",
 } as const;
 
 /** Build the concrete path to an animal's detail page. */
@@ -24,3 +29,6 @@ export const animalDetailPath = (animalId: string): string => `/animals/${animal
 
 /** Build the concrete path to an animal's adoption application funnel. */
 export const applyPath = (animalId: string): string => `/apply/${animalId}`;
+
+/** Build the concrete path to a shelter's microsite (by slug). */
+export const shelterPath = (shelterSlug: string): string => `/shelters/${shelterSlug}`;
