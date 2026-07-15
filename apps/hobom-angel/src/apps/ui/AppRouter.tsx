@@ -31,18 +31,23 @@ const ApplyAdoptionPage = lazy(() =>
 const ShelterDetailPage = lazy(() =>
   import("@/pages/shelter-detail").then((module) => ({ default: module.ShelterDetailPage })),
 );
+const ShelterListPage = lazy(() =>
+  import("@/pages/shelters").then((module) => ({ default: module.ShelterListPage })),
+);
 
-// Warm the auth route chunks during idle time so navigating to them is instant.
+// Warm the common route chunks during idle time so navigating to them shows the
+// screen's own skeleton (data Suspense) rather than the chunk-load spinner.
 const prefetchRoutes = () => {
   void import("@/pages/login");
   void import("@/pages/signup");
+  void import("@/pages/animals");
+  void import("@/pages/shelters");
 };
 
 // Sections still on the ComingSoon placeholder until their screens land.
 const SECTION_ROUTES = [
   ROUTES.FOSTER,
   ROUTES.VOLUNTEER,
-  ROUTES.SHELTERS,
   ROUTES.FAVORITES,
   ROUTES.APPLICATIONS,
   ROUTES.MY,
@@ -69,6 +74,7 @@ export const AppRouter = () => {
               <Route path={ROUTES.ANIMALS} element={<AnimalsPage />} />
             <Route path={ROUTES.ANIMAL_DETAIL} element={<AnimalDetailPage />} />
             <Route path={ROUTES.APPLY} element={<ApplyAdoptionPage />} />
+            <Route path={ROUTES.SHELTERS} element={<ShelterListPage />} />
             <Route path={ROUTES.SHELTER_DETAIL} element={<ShelterDetailPage />} />
               {SECTION_ROUTES.map((path) => (
                 <Route key={path} path={path} element={<ComingSoonPage />} />

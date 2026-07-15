@@ -113,18 +113,68 @@ const ROSTER = NAMES.map((name, i) => ({
   photos: [{ objectKey: `https://picsum.photos/seed/shelter1-roster${i + 1}/600/450` }],
 }));
 
+// Verified-shelter directory (§3.5). Only VERIFIED shelters are listed.
+const DIRECTORY_NAMES = [
+  ["행복보호소", "haengbok-shelter", "서울", "A"],
+  ["행복한마음보호소", "haengbok-maeum", "서울", "B"],
+  ["댕댕이쉼터", "daengdaeng", "서울", null],
+  ["경기사랑보호소", "gg-sarang", "경기", "A"],
+  ["평택동물보호소", "pyeongtaek", "경기", "B"],
+  ["인천희망보호소", "ic-huimang", "인천", "A"],
+  ["부산해운대보호소", "bs-haeundae", "부산", "B"],
+  ["부산온기보호소", "bs-ongi", "부산", null],
+  ["대구포근보호소", "dg-pogeun", "대구", "A"],
+] as const;
+
+const DIRECTORY = DIRECTORY_NAMES.map(([name, slug, region, trustTier], i) => ({
+  id: `shelter-dir-${i + 1}`,
+  name,
+  slug,
+  region,
+  status: "VERIFIED",
+  trustTier,
+  coverImageKey: `https://picsum.photos/seed/shelter-dir-${i + 1}/800/450`,
+}));
+
 const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
 
 /** §04 shelter microsite mock handlers — profile, notices, FAQs, and roster. */
 export const shelterHandlers = [
+  http.get(mockUrl("/shelters"), ({ request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const url = new URL(request.url);
+    const region = url.searchParams.get("region");
+    const limit = Number(url.searchParams.get("limit") ?? "20");
+    const cursor = Number(url.searchParams.get("cursor") ?? "0");
+    const filtered = region ? DIRECTORY.filter((item) => item.region === region) : DIRECTORY;
+    const page = filtered.slice(cursor, cursor + limit);
+    const nextIndex = cursor + limit;
+    const hasNext = nextIndex < filtered.length;
+
+    return ok({ items: page, nextCursor: hasNext ? String(nextIndex) : null, hasNext });
+  }),
+
   http.get(mockUrl("/shelters/:slug"), ({ params }) => {
     if (!mockSession.isActive()) return unauthorized();
 
-    if (params.slug !== SHELTER.slug) {
+    if (params.slug === SHELTER.slug) return ok(SHELTER);
+
+    const dir = DIRECTORY.find((item) => item.slug === params.slug);
+
+    if (!dir) {
       return HttpResponse.json({ message: "보호소를 찾을 수 없어요." }, { status: 404 });
     }
 
-    return ok(SHELTER);
+    return ok({
+      ...SHELTER,
+      id: dir.id,
+      name: dir.name,
+      slug: dir.slug,
+      trustTier: dir.trustTier,
+      coverImageKey: dir.coverImageKey,
+      address: { ...SHELTER.address, region: dir.region },
+    });
   }),
 
   http.get(mockUrl("/shelters/:shelterId/announcements"), () => {

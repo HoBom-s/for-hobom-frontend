@@ -5,6 +5,9 @@ import { LoadingState } from "./LoadingState";
 
 interface RouteBoundaryProps {
   children: ReactNode;
+  /** Suspense fallback while a lazy chunk loads. Defaults to LoadingState; pass a
+   *  route-aware skeleton for a smoother list-screen load. */
+  fallback?: ReactNode;
 }
 
 /**
@@ -13,12 +16,12 @@ interface RouteBoundaryProps {
  * tearing down the whole app. Keyed by pathname so navigating away clears a
  * crashed screen.
  */
-export const RouteBoundary = ({ children }: RouteBoundaryProps) => {
+export const RouteBoundary = ({ children, fallback }: RouteBoundaryProps) => {
   const { pathname } = useLocation();
 
   return (
     <ErrorBoundary key={pathname}>
-      <Suspense fallback={<LoadingState />}>{children}</Suspense>
+      <Suspense fallback={fallback ?? <LoadingState />}>{children}</Suspense>
     </ErrorBoundary>
   );
 };

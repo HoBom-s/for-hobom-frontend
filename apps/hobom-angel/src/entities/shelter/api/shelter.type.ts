@@ -37,6 +37,30 @@ export interface RawShelter {
   coverImageKey: string | null;
 }
 
+/** `GET /shelters` list item — only VERIFIED shelters are returned. */
+export interface RawShelterListItem {
+  id: string;
+  name: string;
+  slug: string;
+  region: string;
+  status: ShelterStatus;
+  trustTier: TrustTier | null;
+  coverImageKey: string | null;
+}
+
+/** Cursor page envelope for the shelter directory. */
+export interface ShelterListPage {
+  items: RawShelterListItem[];
+  nextCursor: string | null;
+  hasNext: boolean;
+}
+
+export interface ShelterSearchParams {
+  region?: string;
+  cursor?: string;
+  limit?: number;
+}
+
 /** `GET /shelters/:shelterId/announcements` item. */
 export interface RawShelterAnnouncement {
   id: string;
