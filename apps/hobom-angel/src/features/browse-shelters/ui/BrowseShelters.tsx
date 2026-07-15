@@ -13,9 +13,7 @@ export const BrowseShelters = () => {
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
         <h1 {...stylex.props(styles.title)}>함께하는 보호소</h1>
-        <p {...stylex.props(styles.subtitle)}>
-          플랫폼이 서류 심사로 검증한 보호소만 노출됩니다.
-        </p>
+        <p {...stylex.props(styles.subtitle)}>플랫폼이 서류 심사로 검증한 보호소만 노출돼요.</p>
       </header>
 
       <ShelterRegionFilter region={region} onChange={setRegion} />
