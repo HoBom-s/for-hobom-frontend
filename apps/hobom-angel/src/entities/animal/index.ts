@@ -16,6 +16,7 @@ export type {
   AnimalDetail,
   AnimalHealth,
   AnimalIntake,
+  AnimalShelter,
   AnimalSpecies,
   AnimalSex,
   AnimalSize,

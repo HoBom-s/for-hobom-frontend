@@ -46,4 +46,11 @@ export const animalDetailSchema: Schema<RawAnimalDetail> = HoBomSchema.object({
     rescueStory: HoBomSchema.string().nullable(),
     noticeNumber: HoBomSchema.string().nullable(),
   }),
+  shelter: HoBomSchema.object({
+    id: HoBomSchema.string(),
+    slug: HoBomSchema.string(),
+    name: HoBomSchema.string(),
+    region: HoBomSchema.string(),
+    city: HoBomSchema.string().optional(),
+  }).optional(),
 });

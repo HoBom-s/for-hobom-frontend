@@ -68,8 +68,18 @@ export interface AnimalIntake {
   noticeNumber: string | null;
 }
 
+/** The owning shelter, summarized on the animal detail (region always public;
+ *  city follows the shelter's address disclosure policy). */
+export interface AnimalShelter {
+  id: string;
+  slug: string;
+  name: string;
+  region: string;
+  city: string | null;
+}
+
 /** Full §02 detail view: the flattened card model plus the complete photo set,
- *  health, intake, and the extra trait fields the list view omits. */
+ *  health, intake, the owning shelter, and the trait fields the list omits. */
 export interface AnimalDetail extends Animal {
   photos: string[];
   weightKg: number | null;
@@ -77,6 +87,7 @@ export interface AnimalDetail extends Animal {
   personality: string | null;
   health: AnimalHealth;
   intake: AnimalIntake;
+  shelter: AnimalShelter | null;
 }
 
 /** Age in months → a friendly Korean label. */

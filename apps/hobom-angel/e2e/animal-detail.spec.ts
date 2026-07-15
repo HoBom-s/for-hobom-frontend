@@ -12,7 +12,7 @@ const login = async (page: Page) => {
 test.describe("§02 animal detail", () => {
   test("opens from a browse card and shows the profile", async ({ page }) => {
     await login(page);
-    await page.getByRole("link", { name: "입양" }).click();
+    await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
     await expect(page).toHaveURL(/\/animals$/);
 
     await page.getByRole("link", { name: /상세 보기/ }).first().click();
@@ -20,6 +20,7 @@ test.describe("§02 animal detail", () => {
 
     await expect(page.getByRole("navigation", { name: "위치" })).toBeVisible();
     await expect(page.getByRole("button", { name: "입양 신청하기" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /보호소 프로필 보기/ })).toBeVisible();
     await expect(page.getByText("건강 정보")).toBeVisible();
     await expect(page.getByText("구조 이력")).toBeVisible();
 

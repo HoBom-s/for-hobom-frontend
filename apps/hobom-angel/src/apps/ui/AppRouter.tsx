@@ -40,6 +40,7 @@ const SECTION_ROUTES = [
   ROUTES.FOSTER,
   ROUTES.VOLUNTEER,
   ROUTES.SHELTERS,
+  ROUTES.SHELTER_DETAIL,
   ROUTES.FAVORITES,
   ROUTES.APPLICATIONS,
   ROUTES.MY,
@@ -57,6 +58,9 @@ export const AppRouter = () => {
           {/* Consumer screens render inside the global nav chrome. */}
           <Route element={<ConsumerShellLayout />}>
             <Route path={ROUTES.HOME} element={<LandingPage />} />
+            {/* Public info surfaces (footer links). */}
+            <Route path={ROUTES.TERMS} element={<ComingSoonPage />} />
+            <Route path={ROUTES.PRIVACY} element={<ComingSoonPage />} />
             <Route element={<ProtectedRoute />}>
               <Route path={ROUTES.ANIMALS} element={<AnimalsPage />} />
             <Route path={ROUTES.ANIMAL_DETAIL} element={<AnimalDetailPage />} />
