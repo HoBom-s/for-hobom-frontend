@@ -36,6 +36,13 @@ import { Form } from "./Form";
 import { Table } from "./Table";
 import { Radio } from "./Radio";
 import { Accordion } from "./Accordion";
+// Batch 3 — composition patterns
+import { SectionCard } from "./SectionCard";
+import { PageHeader } from "./PageHeader";
+import { Breadcrumb } from "./Breadcrumb";
+import { DescriptionList } from "./DescriptionList";
+import { StatGroup } from "./StatGroup";
+import { Gallery } from "./Gallery";
 // Batch 2 — infra
 import { CssBaseline, GlobalStyles } from "./Infra";
 import { ColorSchemeProvider } from "../foundations/color-scheme";
@@ -80,6 +87,13 @@ export const Hb = {
   Table,
   Radio,
   Accordion,
+  // Batch 3 — composition patterns
+  SectionCard,
+  PageHeader,
+  Breadcrumb,
+  DescriptionList,
+  StatGroup,
+  Gallery,
   // Batch 2 — infra
   CssBaseline,
   GlobalStyles,
