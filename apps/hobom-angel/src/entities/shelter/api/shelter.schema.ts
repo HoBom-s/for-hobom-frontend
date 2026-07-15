@@ -5,6 +5,7 @@ import type {
   RawShelterAnnouncement,
   RawShelterFaq,
   RawShelterStats,
+  ShelterListPage,
 } from "./shelter.type";
 
 /** `GET /shelters/:slug` — validates the wire contract at the boundary. */
@@ -35,6 +36,23 @@ export const shelterSchema: Schema<RawShelter> = HoBomSchema.object({
   visitGuide: HoBomSchema.string().nullable(),
   supportGuide: HoBomSchema.string().nullable(),
   coverImageKey: HoBomSchema.string().nullable(),
+});
+
+/** `GET /shelters` — validates the directory page contract at the boundary. */
+export const shelterListPageSchema: Schema<ShelterListPage> = HoBomSchema.object({
+  items: HoBomSchema.array(
+    HoBomSchema.object({
+      id: HoBomSchema.string(),
+      name: HoBomSchema.string(),
+      slug: HoBomSchema.string(),
+      region: HoBomSchema.string(),
+      status: HoBomSchema.enum(["PENDING_VERIFICATION", "VERIFIED", "REJECTED", "SUSPENDED"]),
+      trustTier: HoBomSchema.enum(["A", "B"]).nullable(),
+      coverImageKey: HoBomSchema.string().nullable(),
+    }),
+  ),
+  nextCursor: HoBomSchema.string().nullable(),
+  hasNext: HoBomSchema.boolean(),
 });
 
 /** `GET /shelters/:shelterId/announcements`. */

@@ -1,13 +1,22 @@
-import { queryOptions } from "hobom-data";
+import { infiniteQueryOptions, queryOptions } from "hobom-data";
 import {
   getShelterAnnouncements,
   getShelterBySlug,
   getShelterFaqs,
   getShelterStats,
+  searchShelters,
 } from "./shelter.api";
 
 export const shelterQueries = {
   all: () => ["shelters"] as const,
+
+  list: (region?: string) =>
+    infiniteQueryOptions({
+      queryKey: [...shelterQueries.all(), "list", region ?? null] as const,
+      queryFn: ({ pageParam, signal }) => searchShelters({ region, cursor: pageParam }, signal),
+      getNextPageParam: (last) => (last.hasNext ? (last.nextCursor ?? undefined) : undefined),
+      initialPageParam: undefined as string | undefined,
+    }),
 
   detail: (slug: string) =>
     queryOptions({

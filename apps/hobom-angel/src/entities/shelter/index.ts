@@ -1,3 +1,4 @@
+export { ShelterCard } from "./ui/ShelterCard";
 export { shelterQueries } from "./api/shelter.queries";
 export { toShelter } from "./lib/to-shelter.lib";
 export { formatShelterAddress } from "./lib/format-shelter-address.lib";
@@ -12,6 +13,7 @@ export type {
   ShelterAddress,
   ShelterAnnouncement,
   ShelterFaq,
+  ShelterListItem,
   ShelterStats,
   ShelterStatus,
   TrustTier,

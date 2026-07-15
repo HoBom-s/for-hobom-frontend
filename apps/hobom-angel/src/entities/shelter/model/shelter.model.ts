@@ -42,6 +42,17 @@ export interface Shelter {
   coverImageUrl: string | null;
 }
 
+/** A verified shelter as it appears in the directory grid (§3.5). */
+export interface ShelterListItem {
+  id: string;
+  name: string;
+  slug: string;
+  region: string;
+  status: ShelterStatus;
+  trustTier: TrustTier | null;
+  coverImageUrl: string | null;
+}
+
 /** A shelter notice/news post (공지·소식 tab). */
 export interface ShelterAnnouncement {
   id: string;
