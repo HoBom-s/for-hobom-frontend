@@ -144,4 +144,25 @@ const Item = ({
   );
 };
 
-export const Tabs = { Root, Item };
+interface PanelProps extends HTMLAttributes<HTMLDivElement> {
+  /** The tab value this panel belongs to; shown when it matches `Root`'s value. */
+  value: TabValue;
+  /** Keep the panel mounted (just hidden) when inactive. Defaults to false. */
+  keepMounted?: boolean;
+  children?: ReactNode;
+}
+
+const Panel = ({ value, keepMounted = false, className, style, children, ...rest }: PanelProps) => {
+  const ctx = useContext(TabsContext);
+  const active = ctx?.value === value;
+
+  if (!active && !keepMounted) return null;
+
+  return (
+    <div role="tabpanel" hidden={!active} className={className} style={style} {...rest}>
+      {active || keepMounted ? children : null}
+    </div>
+  );
+};
+
+export const Tabs = { Root, Item, Panel };
