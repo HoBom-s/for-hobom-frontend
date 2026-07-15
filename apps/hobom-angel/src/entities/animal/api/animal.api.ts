@@ -2,7 +2,7 @@ import { httpClient, parseResponse } from "@/shared/api";
 import { toQueryString } from "@/shared/lib";
 import { toAnimal } from "../lib/to-animal.lib";
 import { toAnimalDetail } from "../lib/to-animal-detail.lib";
-import { animalDetailSchema, animalPageSchema } from "./animal.schema";
+import { animalDetailSchema, animalListSchema, animalPageSchema } from "./animal.schema";
 import type { Animal, AnimalDetail } from "../model/animal.model";
 import type { AnimalSearchParams } from "./animal.type";
 
@@ -14,6 +14,7 @@ export interface AnimalPageResult {
 }
 
 const parsePage = parseResponse(animalPageSchema, "GET /animals");
+const parseList = parseResponse(animalListSchema, "GET /shelters/:id/animals");
 const parseDetail = parseResponse(animalDetailSchema, "GET /animals/:id");
 
 /** Search/browse animals (filters + cursor pagination). */
@@ -33,3 +34,10 @@ export const searchAnimals = (
 /** Fetch a single animal's full profile (§02). */
 export const getAnimal = (id: string, signal?: AbortSignal): Promise<AnimalDetail> =>
   httpClient.get(`/animals/${id}`, { signal }).then(parseDetail).then(toAnimalDetail);
+
+/** Fetch a shelter's animal roster (§04). The backend returns a plain array. */
+export const getShelterAnimals = (shelterId: string, signal?: AbortSignal): Promise<Animal[]> =>
+  httpClient
+    .get(`/shelters/${shelterId}/animals`, { signal })
+    .then(parseList)
+    .then((items) => items.map(toAnimal));

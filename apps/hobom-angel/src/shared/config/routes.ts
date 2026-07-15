@@ -22,6 +22,8 @@ export const ROUTES = {
   // Public info (footer).
   TERMS: "/terms",
   PRIVACY: "/privacy",
+  BUSINESS_INFO: "/business",
+  ANIMAL_LAW: "/animal-law-notice",
 } as const;
 
 /** Build the concrete path to an animal's detail page. */

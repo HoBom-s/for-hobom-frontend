@@ -38,3 +38,13 @@ export const Grid: Story = {
     </StatGroup.Root>
   ),
 };
+
+export const Cards: Story = {
+  render: () => (
+    <StatGroup.Root columns={3} variant="card" style={{ maxWidth: 480 }}>
+      <StatGroup.Item value="240" label="누적 입양" />
+      <StatGroup.Item value="32" label="보호 중" />
+      <StatGroup.Item value="11년" label="운영" />
+    </StatGroup.Root>
+  ),
+};

@@ -32,6 +32,9 @@ export const animalPageSchema: Schema<AnimalPage> = HoBomSchema.object({
   hasNext: HoBomSchema.boolean(),
 });
 
+/** `GET /shelters/:id/animals` — the shelter roster is a plain array, not a page. */
+export const animalListSchema: Schema<RawAnimal[]> = HoBomSchema.array(animalSchema);
+
 /** `GET /animals/:id` response schema — the list fields plus health and intake. */
 export const animalDetailSchema: Schema<RawAnimalDetail> = HoBomSchema.object({
   ...animalFields,

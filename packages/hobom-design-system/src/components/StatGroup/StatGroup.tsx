@@ -1,10 +1,16 @@
-import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import { createContext, useContext, type CSSProperties, type HTMLAttributes, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Text } from "../Text/Text";
+
+type StatGroupVariant = "plain" | "card";
+
+const StatGroupContext = createContext<StatGroupVariant>("plain");
 
 interface StatGroupRootProps extends HTMLAttributes<HTMLDListElement> {
   /** When set, lay out as a grid of this many equal columns; otherwise wrap in a flex row. */
   columns?: number;
+  /** `"plain"` (bare value/label column) or `"card"` (each stat in a bordered surface). Defaults to `"plain"`. */
+  variant?: StatGroupVariant;
   children?: ReactNode;
 }
 
@@ -31,9 +37,17 @@ const styles = stylex.create({
     flexDirection: "column",
     gap: 2,
   },
+  card: {
+    backgroundColor: "var(--hb-color-surface)",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "var(--hb-color-border)",
+    borderRadius: 14,
+    padding: 16,
+  },
 });
 
-const Root = ({ columns, className, style, children, ...rest }: StatGroupRootProps) => {
+const Root = ({ columns, variant = "plain", className, style, children, ...rest }: StatGroupRootProps) => {
   const sx = stylex.props(columns != null ? styles.grid : styles.root);
 
   const dynamic: CSSProperties = {
@@ -41,19 +55,24 @@ const Root = ({ columns, className, style, children, ...rest }: StatGroupRootPro
   };
 
   return (
-    <dl
-      {...rest}
-      className={[sx.className, className].filter(Boolean).join(" ") || undefined}
-      style={{ ...sx.style, ...dynamic, ...style }}
-    >
-      {children}
-    </dl>
+    <StatGroupContext.Provider value={variant}>
+      <dl
+        {...rest}
+        className={[sx.className, className].filter(Boolean).join(" ") || undefined}
+        style={{ ...sx.style, ...dynamic, ...style }}
+      >
+        {children}
+      </dl>
+    </StatGroupContext.Provider>
   );
 };
 
 const Item = ({ value, label }: StatGroupItemProps) => {
+  const variant = useContext(StatGroupContext);
+  const sx = stylex.props(styles.item, variant === "card" && styles.card);
+
   return (
-    <div {...stylex.props(styles.item)}>
+    <div {...sx}>
       <Text variant="h5" fontWeight={700} component="dd" color="primary" style={{ margin: 0 }}>
         {value}
       </Text>

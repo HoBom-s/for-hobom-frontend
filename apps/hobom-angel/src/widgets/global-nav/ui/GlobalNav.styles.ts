@@ -157,12 +157,19 @@ export const styles = stylex.create({
 
   // ── Content + mobile bottom tab ─────────────────────────
   // The only scroll region. `min-height: 0` lets it shrink inside the flex
-  // shell so its own overflow (not the body) scrolls.
+  // shell so its own overflow (not the body) scrolls. A column layout lets the
+  // main region grow so the footer sits at the bottom on short pages.
   content: {
     flex: 1,
     minHeight: 0,
     overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
     paddingBottom: { default: 64, [DESKTOP]: 0 },
+  },
+  // Grow to fill the content region so a short page still pushes the footer down.
+  main: {
+    flex: 1,
   },
   bottomTab: {
     display: { default: "flex", [DESKTOP]: "none" },

@@ -1,5 +1,5 @@
 import { infiniteQueryOptions, queryOptions } from "hobom-data";
-import { getAnimal, searchAnimals } from "./animal.api";
+import { getAnimal, getShelterAnimals, searchAnimals } from "./animal.api";
 import type { AnimalSearchParams } from "./animal.type";
 
 /** Everything except the cursor — the cursor is managed by the infinite query. */
@@ -21,5 +21,11 @@ export const animalQueries = {
     queryOptions({
       queryKey: [...animalQueries.all(), "detail", id] as const,
       queryFn: ({ signal }) => getAnimal(id, signal),
+    }),
+
+  byShelter: (shelterId: string) =>
+    queryOptions({
+      queryKey: [...animalQueries.all(), "byShelter", shelterId] as const,
+      queryFn: ({ signal }) => getShelterAnimals(shelterId, signal),
     }),
 } as const;

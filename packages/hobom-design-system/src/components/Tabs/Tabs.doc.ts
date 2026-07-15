@@ -5,8 +5,9 @@ export const docs: ComponentDoc = {
   description:
     "A controlled tab bar (Root + Item) with an optional matching Panel. Root holds the selected value; Items render the underlined triggers; Panels reveal content for the active value.",
   features: [
-    "Controlled: you own `value` and `onChange` on Root",
+    "Controlled: you own `value` and `onChange` (on Root standalone, or on Tabs.Provider)",
     "Index-based fallback — Items without an explicit `value` use their position",
+    "`Tabs.Provider` scopes Root + sibling `Tabs.Panel`s so they share the value",
     "`Tabs.Panel value` shows its children only when active; `keepMounted` keeps it in the DOM (hidden)",
     "Wired for a11y: role=tablist/tab/tabpanel with aria-selected/hidden",
   ],
@@ -42,16 +43,24 @@ export const docs: ComponentDoc = {
   ],
   examples: [
     {
-      label: "Tabs with panels",
+      label: "Standalone tab bar (no panels)",
+      code: `const [tab, setTab] = useState("board");
+<Hb.Tabs.Root value={tab} onChange={(_, v) => setTab(v)}>
+  <Hb.Tabs.Item value="board" label="보드" />
+  <Hb.Tabs.Item value="backlog" label="백로그" />
+</Hb.Tabs.Root>`,
+    },
+    {
+      label: "Tabs with panels — wrap Root + Panels in a Provider",
       code: `const [tab, setTab] = useState("about");
-<>
-  <Hb.Tabs.Root value={tab} onChange={(_, v) => setTab(v)}>
+<Hb.Tabs.Provider value={tab} onChange={(_, v) => setTab(v)}>
+  <Hb.Tabs.Root>
     <Hb.Tabs.Item value="about" label="소개" />
     <Hb.Tabs.Item value="animals" label="동물" />
   </Hb.Tabs.Root>
   <Hb.Tabs.Panel value="about"><AboutTab /></Hb.Tabs.Panel>
   <Hb.Tabs.Panel value="animals"><AnimalsTab /></Hb.Tabs.Panel>
-</>`,
+</Hb.Tabs.Provider>`,
     },
   ],
   accessibility: [
@@ -60,6 +69,8 @@ export const docs: ComponentDoc = {
   ],
   keyboard: "Items are buttons — Tab moves focus, Enter/Space activates. (No arrow-key roving yet.)",
   notes: [
+    "Panels must sit inside a Tabs.Provider (they read the value via context); a standalone Root only renders the bar.",
+    "In Provider mode, drop `value`/`onChange` from Root — it inherits them from the Provider.",
     "Controlled only; persist the value in URL state (e.g. useSearchParamsState) for deep-linkable tabs.",
   ],
 };

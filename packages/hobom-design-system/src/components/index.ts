@@ -43,6 +43,7 @@ import { Breadcrumb } from "./Breadcrumb";
 import { DescriptionList } from "./DescriptionList";
 import { StatGroup } from "./StatGroup";
 import { Gallery } from "./Gallery";
+import { Markdown } from "./Markdown";
 // Batch 2 — infra
 import { CssBaseline, GlobalStyles } from "./Infra";
 import { ColorSchemeProvider } from "../foundations/color-scheme";
@@ -94,6 +95,7 @@ export const Hb = {
   DescriptionList,
   StatGroup,
   Gallery,
+  Markdown,
   // Batch 2 — infra
   CssBaseline,
   GlobalStyles,

@@ -17,7 +17,7 @@ export const GlobalNav = ({ children }: { children: ReactNode }) => {
     <div {...stylex.props(styles.shell)}>
       <TopNav user={user} isAuthenticated={isAuthenticated} />
       <div {...stylex.props(styles.content)}>
-        <main>{children}</main>
+        <main {...stylex.props(styles.main)}>{children}</main>
         <GlobalFooter />
       </div>
       {isAuthenticated && <BottomTab />}
