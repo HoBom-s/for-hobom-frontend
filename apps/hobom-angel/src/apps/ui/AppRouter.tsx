@@ -35,10 +35,13 @@ const ShelterListPage = lazy(() =>
   import("@/pages/shelters").then((module) => ({ default: module.ShelterListPage })),
 );
 
-// Warm the auth route chunks during idle time so navigating to them is instant.
+// Warm the common route chunks during idle time so navigating to them shows the
+// screen's own skeleton (data Suspense) rather than the chunk-load spinner.
 const prefetchRoutes = () => {
   void import("@/pages/login");
   void import("@/pages/signup");
+  void import("@/pages/animals");
+  void import("@/pages/shelters");
 };
 
 // Sections still on the ComingSoon placeholder until their screens land.
