@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "@/shared/config";
+import { onIdle } from "@/shared/lib";
 import { useRouteMeta } from "@/shared/model";
 import { ErrorBoundary, LoadingState, NotFoundState } from "@/shared/ui";
 import { ComingSoonPage } from "@/pages/coming-soon";
@@ -47,11 +48,7 @@ const SECTION_ROUTES = [
 export const AppRouter = () => {
   useRouteMeta();
 
-  useEffect(() => {
-    const id = requestIdleCallback(prefetchRoutes);
-
-    return () => cancelIdleCallback(id);
-  }, []);
+  useEffect(() => onIdle(prefetchRoutes), []);
 
   return (
     <ErrorBoundary>
