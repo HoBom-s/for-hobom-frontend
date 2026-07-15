@@ -13,3 +13,8 @@ export interface RawVolunteerEvent {
   signedUpCount: number;
   status: VolunteerEventStatus;
 }
+
+/** `POST /volunteer-events/:eventId/signups` response. */
+export interface RawVolunteerSignup {
+  signupId: string;
+}

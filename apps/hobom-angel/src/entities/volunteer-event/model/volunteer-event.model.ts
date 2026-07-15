@@ -19,3 +19,11 @@ export const VOLUNTEER_STATUS_LABEL: Record<VolunteerEventStatus, string> = {
   CLOSED: "마감",
   CANCELLED: "취소됨",
 };
+
+/** Remaining open spots, floored at 0. */
+export const spotsLeft = (event: VolunteerEvent): number =>
+  Math.max(event.capacity - event.signedUpCount, 0);
+
+/** Whether the event is accepting signups (open and has room). */
+export const isSignUpOpen = (event: VolunteerEvent): boolean =>
+  event.status === "OPEN" && spotsLeft(event) > 0;
