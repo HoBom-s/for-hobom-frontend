@@ -28,7 +28,8 @@ export const AnimalResults = ({ filters, activeChips, onReset }: AnimalResultsPr
             key={chip.label}
             label={chip.label}
             size="small"
-            variant="outlined"
+            variant="soft"
+            color="primary"
             onDelete={chip.onRemove}
           />
         ))}

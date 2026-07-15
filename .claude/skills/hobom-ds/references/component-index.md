@@ -36,7 +36,7 @@ Icons: `import { IconName } from "hobom-design-system/icons"` (see
 
 ## Navigation
 
-- **`Hb.Tabs`** = `{ Root, Item, Panel }`. `Root.value` + `onChange` (controlled). `Item.value?` (falls back to index), `label`, `icon?`, `iconPosition?`, `disabled?`. `Panel.value` (shown when active), `keepMounted?`. role=tablist/tab/tabpanel.
+- **`Hb.Tabs`** = `{ Provider, Root, Item, Panel }`. Standalone bar: `Root.value` + `onChange` (controlled) + `Item`s. For panels, wrap `Root` + sibling `Panel`s in `Tabs.Provider value onChange` (Root then drops value/onChange and inherits). `Item.value?` (falls back to index), `label`, `icon?`, `iconPosition?`, `disabled?`. `Panel.value` (shown when active), `keepMounted?`. role=tablist/tab/tabpanel.
 - **`Hb.Menu`** = `{ Root, Item }`. `Root` controlled list (`Omit onChange`), `Item.onClick` via context. Popover-style menu.
 - **`Hb.List`** = `{ Root, Item, ItemText, ItemIcon, ItemButton, ItemAvatar, Subheader }`. Semantic `<ul>` list with rich rows.
 - **`Hb.Table`** = `{ Container, Root, Head, Body, Row, Cell }`. `Root.size?` `"small" | "medium"`, `Container.variant?`, `Cell.align?`. Semantic `<table>` scaffolding.

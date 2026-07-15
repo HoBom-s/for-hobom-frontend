@@ -51,7 +51,7 @@ will reach for most when laying out a screen:
 | Term/value attribute grid | `Hb.DescriptionList.Root` / `.Item term=` |
 | Stat row (240+ 입양 · 32 보호중) | `Hb.StatGroup.Root` / `.Item value= label=` |
 | Photo gallery (main + thumbs) | `Hb.Gallery images=` (composes `Hb.Image`) |
-| Tabbed content | `Hb.Tabs.Root` + `.Item` + `.Panel value=` |
+| Tabbed content | `Hb.Tabs.Provider` wrapping `.Root` + `.Item` + `.Panel value=` (Provider needed for panels) |
 | Vertical/horizontal spacing | `Hb.Stack spacing=` (× 8px), `direction` |
 | 12-col responsive layout | `Hb.Grid container spacing size={{ xs, md }}` |
 | Empty/error placeholder | `EmptyState` (from `hobom-design-system`) |

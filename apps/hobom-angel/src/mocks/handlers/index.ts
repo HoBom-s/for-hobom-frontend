@@ -1,6 +1,7 @@
 import { authHandlers } from "./auth.handlers";
 import { userHandlers } from "./user.handlers";
 import { animalHandlers } from "./animal.handlers";
+import { shelterHandlers } from "./shelter.handlers";
 import { questionnaireHandlers } from "./questionnaire.handlers";
 import { adoptionHandlers } from "./adoption.handlers";
 
@@ -9,6 +10,7 @@ export const handlers = [
   ...authHandlers,
   ...userHandlers,
   ...animalHandlers,
+  ...shelterHandlers,
   ...questionnaireHandlers,
   ...adoptionHandlers,
 ];

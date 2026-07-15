@@ -64,10 +64,14 @@ const styles = stylex.create({
 
 interface RootProps<T extends TabValue = TabValue>
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  value: T;
-  onChange: (event: SyntheticEvent, value: T) => void;
+  /** The selected tab value. Omit when a parent `Tabs.Provider` supplies it. */
+  value?: T;
+  /** Fires with the clicked tab's value. Omit when inside a `Tabs.Provider`. */
+  onChange?: (event: SyntheticEvent, value: T) => void;
   children?: ReactNode;
 }
+
+const noop = () => {};
 
 const Root = <T extends TabValue>({
   value,
@@ -85,16 +89,26 @@ const Root = <T extends TabValue>({
     isValidElement(child) ? cloneElement(child as ReactElement<ItemProps>, { index: index++ }) : child,
   );
 
+  const bar = (
+    <div
+      role="tablist"
+      {...rest}
+      className={[sx.className, className].filter(Boolean).join(" ") || undefined}
+      style={{ ...sx.style, ...style }}
+    >
+      {items}
+    </div>
+  );
+
+  // Inside a Tabs.Provider the context already exists (and reaches sibling
+  // Panels); a standalone Root owns its value and provides context to its Items.
+  if (value === undefined) return bar;
+
   return (
-    <TabsContext.Provider value={{ value, onChange: onChange as TabsContextValue["onChange"] }}>
-      <div
-        role="tablist"
-        {...rest}
-        className={[sx.className, className].filter(Boolean).join(" ") || undefined}
-        style={{ ...sx.style, ...style }}
-      >
-        {items}
-      </div>
+    <TabsContext.Provider
+      value={{ value, onChange: (onChange ?? noop) as TabsContextValue["onChange"] }}
+    >
+      {bar}
     </TabsContext.Provider>
   );
 };
@@ -165,4 +179,18 @@ const Panel = ({ value, keepMounted = false, className, style, children, ...rest
   );
 };
 
-export const Tabs = { Root, Item, Panel };
+interface ProviderProps<T extends TabValue = TabValue> {
+  value: T;
+  onChange: (event: SyntheticEvent, value: T) => void;
+  children?: ReactNode;
+}
+
+/** Scopes a tab group so `Tabs.Root`'s items and sibling `Tabs.Panel`s share the
+ *  selected value. Wrap Root + Panels in this when you render panels. */
+const Provider = <T extends TabValue>({ value, onChange, children }: ProviderProps<T>) => (
+  <TabsContext.Provider value={{ value, onChange: onChange as TabsContextValue["onChange"] }}>
+    {children}
+  </TabsContext.Provider>
+);
+
+export const Tabs = { Provider, Root, Item, Panel };
