@@ -1,0 +1,95 @@
+import * as stylex from "@stylexjs/stylex";
+import { ConfirmDialog, Hb } from "hobom-design-system";
+import { VERIFIED_CHANNEL_LABEL } from "@/entities/user";
+import { useOverlay } from "@/shared/model";
+import { useMyProfile } from "../model/useMyProfile";
+import { useWithdrawAccount } from "../model/useWithdrawAccount";
+import { NicknameDialog } from "./NicknameDialog";
+import { styles } from "./MyProfile.styles";
+
+interface MyProfileProps {
+  /** Session logout, injected by the page (session is a sibling feature). */
+  onLogout: () => void;
+}
+
+/** 마이페이지: profile summary with a nickname edit, plus logout and withdrawal. */
+export const MyProfile = ({ onLogout }: MyProfileProps) => {
+  const user = useMyProfile();
+  const overlay = useOverlay();
+  const withdraw = useWithdrawAccount();
+
+  const editNickname = () =>
+    overlay.open(({ close }) => <NicknameDialog current={user.nickname} onClose={close} />);
+
+  const confirmWithdraw = () =>
+    overlay.open(({ close }) => (
+      <ConfirmDialog
+        open
+        onClose={close}
+        title="정말 탈퇴하시겠어요?"
+        description="계정과 활동 내역이 삭제되며 되돌릴 수 없어요."
+        confirmLabel="탈퇴하기"
+        confirmColor="error"
+        isPending={withdraw.isPending}
+        onConfirm={() => withdraw.mutate()}
+      />
+    ));
+
+  return (
+    <div {...stylex.props(styles.root)}>
+      <header {...stylex.props(styles.header)}>
+        <h1 {...stylex.props(styles.title)}>마이페이지</h1>
+      </header>
+
+      <Hb.Card.Root
+        variant="outlined"
+        style={{ padding: 24, borderRadius: "var(--hb-angel-radius-card)" }}
+      >
+        <div {...stylex.props(styles.profile)}>
+          <Hb.Avatar
+            style={{
+              width: 64,
+              height: 64,
+              fontSize: "1.5rem",
+              backgroundColor: "var(--hb-color-accent)",
+              color: "var(--hb-color-accent-contrast)",
+            }}
+          >
+            {user.nickname.charAt(0)}
+          </Hb.Avatar>
+          <div {...stylex.props(styles.identity)}>
+            <div {...stylex.props(styles.nameRow)}>
+              <h2 {...stylex.props(styles.nickname)}>{user.nickname}</h2>
+              <Hb.Chip
+                label={`${VERIFIED_CHANNEL_LABEL[user.verifiedChannel]} 완료`}
+                size="small"
+                variant="soft"
+                color="success"
+              />
+            </div>
+            <p {...stylex.props(styles.email)}>{user.email}</p>
+          </div>
+          <Hb.Button variant="secondary" onClick={editNickname}>
+            닉네임 변경
+          </Hb.Button>
+        </div>
+      </Hb.Card.Root>
+
+      <section {...stylex.props(styles.section)}>
+        <h3 {...stylex.props(styles.sectionTitle)}>계정 관리</h3>
+        <div {...stylex.props(styles.actions)}>
+          <button type="button" {...stylex.props(styles.actionRow)} onClick={onLogout}>
+            로그아웃
+          </button>
+          <button
+            type="button"
+            {...stylex.props(styles.actionRow, styles.danger)}
+            onClick={confirmWithdraw}
+          >
+            회원 탈퇴
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+};
