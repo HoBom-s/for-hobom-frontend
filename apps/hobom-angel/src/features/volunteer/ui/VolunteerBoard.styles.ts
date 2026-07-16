@@ -21,6 +21,8 @@ export const styles = stylex.create({
     color: "var(--hb-color-text-primary)",
   },
   subtitle: { margin: 0, fontSize: "0.9375rem", color: "var(--hb-color-text-secondary)" },
+  controls: { display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" },
+  listView: { maxWidth: 680, width: "100%" },
   // Calendar on the left (wider), the selected day's events on the right.
   board: {
     display: "grid",

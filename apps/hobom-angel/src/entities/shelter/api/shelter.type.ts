@@ -48,6 +48,16 @@ export interface RawShelterListItem {
   coverImageKey: string | null;
 }
 
+/** `GET /shelters/map` item — a lightweight marker for the shelter map. */
+export interface RawShelterMarker {
+  id: string;
+  name: string;
+  slug: string;
+  region: string;
+  lat?: number;
+  lng?: number;
+}
+
 /** Cursor page envelope for the shelter directory. */
 export interface ShelterListPage {
   items: RawShelterListItem[];

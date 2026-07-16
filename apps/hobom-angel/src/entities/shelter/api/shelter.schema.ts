@@ -4,6 +4,7 @@ import type {
   RawShelter,
   RawShelterAnnouncement,
   RawShelterFaq,
+  RawShelterMarker,
   RawShelterStats,
   ShelterListPage,
 } from "./shelter.type";
@@ -54,6 +55,18 @@ export const shelterListPageSchema: Schema<ShelterListPage> = HoBomSchema.object
   nextCursor: HoBomSchema.string().nullable(),
   hasNext: HoBomSchema.boolean(),
 });
+
+/** `GET /shelters/map` — plain array of shelter markers. */
+export const shelterMarkersSchema: Schema<RawShelterMarker[]> = HoBomSchema.array(
+  HoBomSchema.object({
+    id: HoBomSchema.string(),
+    name: HoBomSchema.string(),
+    slug: HoBomSchema.string(),
+    region: HoBomSchema.string(),
+    lat: HoBomSchema.number().optional(),
+    lng: HoBomSchema.number().optional(),
+  }),
+);
 
 /** `GET /shelters/:shelterId/announcements`. */
 export const shelterAnnouncementsSchema: Schema<RawShelterAnnouncement[]> = HoBomSchema.array(

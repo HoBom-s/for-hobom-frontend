@@ -3,6 +3,7 @@ import {
   getShelterAnnouncements,
   getShelterBySlug,
   getShelterFaqs,
+  getShelterMarkers,
   getShelterStats,
   searchShelters,
 } from "./shelter.api";
@@ -16,6 +17,12 @@ export const shelterQueries = {
       queryFn: ({ pageParam, signal }) => searchShelters({ region, cursor: pageParam }, signal),
       getNextPageParam: (last) => (last.hasNext ? (last.nextCursor ?? undefined) : undefined),
       initialPageParam: undefined as string | undefined,
+    }),
+
+  markers: () =>
+    queryOptions({
+      queryKey: [...shelterQueries.all(), "markers"] as const,
+      queryFn: ({ signal }) => getShelterMarkers(signal),
     }),
 
   detail: (slug: string) =>

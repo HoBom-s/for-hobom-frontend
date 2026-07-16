@@ -1,4 +1,6 @@
-import type { VolunteerEvent } from "@/entities/volunteer-event";
+interface HasStart {
+  startAt: string;
+}
 
 const keyOf = (date: Date): string => {
   const year = date.getFullYear();
@@ -15,11 +17,12 @@ export const dayKey = (iso: string): string => keyOf(new Date(iso));
 export const dateKey = (date: Date): string => keyOf(date);
 
 /** The distinct local days that have at least one event (for calendar dots). */
-export const eventDayKeys = (events: VolunteerEvent[]): Set<string> =>
+export const eventDayKeys = (events: HasStart[]): Set<string> =>
   new Set(events.map((event) => dayKey(event.startAt)));
 
-/** Events whose start day matches the given date (local). */
-export const eventsOnDay = (events: VolunteerEvent[], date: Date): VolunteerEvent[] => {
+/** Events whose start day matches the given date (local). Generic so it keeps
+ *  the caller's element type (e.g. an enriched event). */
+export const eventsOnDay = <T extends HasStart>(events: T[], date: Date): T[] => {
   const key = dateKey(date);
 
   return events.filter((event) => dayKey(event.startAt) === key);
@@ -27,7 +30,7 @@ export const eventsOnDay = (events: VolunteerEvent[], date: Date): VolunteerEven
 
 /** Start Date of the earliest event, or null — opens the calendar on a day that
  *  actually has volunteering rather than an empty today. */
-export const firstEventDate = (events: VolunteerEvent[]): Date | null => {
+export const firstEventDate = (events: HasStart[]): Date | null => {
   if (events.length === 0) return null;
 
   const earliest = events.reduce((min, event) => (event.startAt < min.startAt ? event : min));

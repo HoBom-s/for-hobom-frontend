@@ -53,6 +53,16 @@ export interface ShelterListItem {
   coverImageUrl: string | null;
 }
 
+/** A shelter's map marker — resolves a shelterId to name/slug/region + coords. */
+export interface ShelterMarker {
+  id: string;
+  name: string;
+  slug: string;
+  region: string;
+  lat: number | null;
+  lng: number | null;
+}
+
 /** A shelter notice/news post (공지·소식 tab). */
 export interface ShelterAnnouncement {
   id: string;

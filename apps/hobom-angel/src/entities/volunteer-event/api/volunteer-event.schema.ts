@@ -2,10 +2,11 @@ import { HoBomSchema } from "hobom-schema";
 import type { Schema } from "hobom-schema";
 import type { RawVolunteerEvent, RawVolunteerSignup } from "./volunteer-event.type";
 
-/** A single volunteer event on the wire. shelterId is omitted; object() strips
- *  unknown keys. Reused for both the global list and single-event endpoints. */
+/** A single volunteer event on the wire — reused for the shelter list, global
+ *  list, and single-event reads (all viewer-aware). */
 export const volunteerEventSchema: Schema<RawVolunteerEvent> = HoBomSchema.object({
   id: HoBomSchema.string(),
+  shelterId: HoBomSchema.string(),
   title: HoBomSchema.string(),
   description: HoBomSchema.string(),
   startAt: HoBomSchema.string(),
@@ -13,6 +14,17 @@ export const volunteerEventSchema: Schema<RawVolunteerEvent> = HoBomSchema.objec
   capacity: HoBomSchema.number(),
   signedUpCount: HoBomSchema.number(),
   status: HoBomSchema.enum(["OPEN", "CLOSED", "CANCELLED"]),
+  type: HoBomSchema.enum(["GENERAL", "OVERSEAS"]),
+  transport: HoBomSchema.object({
+    departure: HoBomSchema.string(),
+    arrival: HoBomSchema.string(),
+    flightAt: HoBomSchema.string(),
+    animalIds: HoBomSchema.array(HoBomSchema.string()),
+    animalCount: HoBomSchema.number(),
+    qualification: HoBomSchema.string().nullable(),
+  }).nullable(),
+  mySignupId: HoBomSchema.string().nullable(),
+  mySignupStatus: HoBomSchema.enum(["PENDING", "APPROVED"]).nullable(),
 });
 
 /** `GET /shelters/:shelterId/volunteer-events` and `GET /volunteer-events` — a

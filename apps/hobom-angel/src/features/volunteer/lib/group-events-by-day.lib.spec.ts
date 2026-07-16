@@ -9,6 +9,7 @@ const at = (year: number, month: number, day: number, hour = 12): string =>
 
 const event = (id: string, startAt: string): VolunteerEvent => ({
   id,
+  shelterId: "shelter-1",
   title: "봉사",
   description: "",
   startAt,
@@ -16,6 +17,10 @@ const event = (id: string, startAt: string): VolunteerEvent => ({
   capacity: 10,
   signedUpCount: 0,
   status: "OPEN",
+  type: "GENERAL",
+  transport: null,
+  mySignupId: null,
+  mySignupStatus: null,
 });
 
 describe("group-events-by-day", () => {

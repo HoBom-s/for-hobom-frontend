@@ -14,6 +14,7 @@ export type {
   ShelterAnnouncement,
   ShelterFaq,
   ShelterListItem,
+  ShelterMarker,
   ShelterStats,
   ShelterStatus,
   TrustTier,

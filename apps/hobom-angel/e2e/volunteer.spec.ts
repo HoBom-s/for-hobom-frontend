@@ -22,8 +22,24 @@ test.describe("§05 volunteer", () => {
 
     await page.screenshot({ path: "e2e-artifacts/volunteer.png", fullPage: true });
 
+    // Signing up is a commitment, so it goes through a confirmation dialog.
     await page.getByRole("button", { name: "봉사 신청하기" }).click();
+    await expect(page.getByText("이 봉사에 신청할까요?")).toBeVisible();
+    await page.getByRole("button", { name: "신청하기", exact: true }).click();
+
+    // The button and count re-derive from the refetched, viewer-aware event.
     await expect(page.getByText("봉사 신청이 접수됐어요.")).toBeVisible();
     await expect(page.getByText(/모집 6\/12명/)).toBeVisible();
+    await expect(page.getByRole("button", { name: "신청 취소" })).toBeVisible();
+    await expect(page.getByText("승인 대기")).toBeVisible();
+
+    // Withdrawing flips everything back — again straight from the cache.
+    await page.getByRole("button", { name: "신청 취소" }).click();
+    await expect(page.getByText("신청을 취소할까요?")).toBeVisible();
+    await page.getByRole("button", { name: "취소하기", exact: true }).click();
+
+    await expect(page.getByText("신청을 취소했어요.")).toBeVisible();
+    await expect(page.getByText(/모집 5\/12명/)).toBeVisible();
+    await expect(page.getByRole("button", { name: "봉사 신청하기" })).toBeVisible();
   });
 });

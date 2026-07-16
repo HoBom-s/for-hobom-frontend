@@ -44,3 +44,7 @@ export const signUpForVolunteerEvent = (id: string): Promise<{ signupId: string 
   httpClient
     .post(`/volunteer-events/${id}/signups`, {})
     .then(parseResponse(volunteerSignupSchema, "POST /volunteer-events/:id/signups"));
+
+/** Withdraw a signup (by its id, from the signup response). */
+export const withdrawVolunteerSignup = (signupId: string): Promise<void> =>
+  httpClient.post(`/volunteer-signups/${signupId}/withdrawal`, {}).then(() => undefined);

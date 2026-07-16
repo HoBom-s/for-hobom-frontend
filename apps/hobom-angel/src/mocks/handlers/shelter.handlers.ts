@@ -44,6 +44,8 @@ const VOLUNTEER_EVENTS = [
     capacity: 10,
     signedUpCount: 6,
     status: "OPEN",
+    mySignupId: null,
+    mySignupStatus: null,
   },
   {
     id: "vol-2",
@@ -55,6 +57,8 @@ const VOLUNTEER_EVENTS = [
     capacity: 8,
     signedUpCount: 8,
     status: "CLOSED",
+    mySignupId: null,
+    mySignupStatus: null,
   },
 ];
 
@@ -136,10 +140,21 @@ const DIRECTORY = DIRECTORY_NAMES.map(([name, slug, region, trustTier], i) => ({
   coverImageKey: `https://picsum.photos/seed/shelter-dir-${i + 1}/800/450`,
 }));
 
+const MARKERS = [
+  { id: "shelter-1", name: "행복보호소", slug: "haengbok-shelter", region: "서울", lat: 37.5, lng: 127.0 },
+  { id: "shelter-2", name: "행복한마음보호소", slug: "haengbok-maeum", region: "경기", lat: 37.4, lng: 127.1 },
+];
+
 const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
 
 /** §04 shelter microsite mock handlers — profile, notices, FAQs, and roster. */
 export const shelterHandlers = [
+  http.get(mockUrl("/shelters/map"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    return ok(MARKERS);
+  }),
+
   http.get(mockUrl("/shelters"), ({ request }) => {
     if (!mockSession.isActive()) return unauthorized();
 

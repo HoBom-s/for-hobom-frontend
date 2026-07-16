@@ -1,3 +1,4 @@
+import { ko } from "date-fns/locale";
 import { Calendar } from "hobom-design-system/date-pickers";
 import { dateKey } from "../lib/group-events-by-day.lib";
 
@@ -13,6 +14,7 @@ export const VolunteerCalendar = ({ value, onSelect, eventDays }: VolunteerCalen
   <Calendar
     value={value}
     onSelect={onSelect}
+    locale={ko}
     labelFormat="yyyy년 M월"
     style={{ width: "100%" }}
     renderDay={(day) => <Calendar.DayButton {...day} dot={eventDays.has(dateKey(day.date))} />}
