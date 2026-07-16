@@ -34,6 +34,9 @@ const ShelterDetailPage = lazy(() =>
 const ShelterListPage = lazy(() =>
   import("@/pages/shelters").then((module) => ({ default: module.ShelterListPage })),
 );
+const VolunteerPage = lazy(() =>
+  import("@/pages/volunteer").then((module) => ({ default: module.VolunteerPage })),
+);
 
 // Warm the common route chunks during idle time so navigating to them shows the
 // screen's own skeleton (data Suspense) rather than the chunk-load spinner.
@@ -45,13 +48,7 @@ const prefetchRoutes = () => {
 };
 
 // Sections still on the ComingSoon placeholder until their screens land.
-const SECTION_ROUTES = [
-  ROUTES.FOSTER,
-  ROUTES.VOLUNTEER,
-  ROUTES.FAVORITES,
-  ROUTES.APPLICATIONS,
-  ROUTES.MY,
-];
+const SECTION_ROUTES = [ROUTES.FOSTER, ROUTES.FAVORITES, ROUTES.APPLICATIONS, ROUTES.MY];
 
 export const AppRouter = () => {
   useRouteMeta();
@@ -76,6 +73,7 @@ export const AppRouter = () => {
             <Route path={ROUTES.APPLY} element={<ApplyAdoptionPage />} />
             <Route path={ROUTES.SHELTERS} element={<ShelterListPage />} />
             <Route path={ROUTES.SHELTER_DETAIL} element={<ShelterDetailPage />} />
+            <Route path={ROUTES.VOLUNTEER} element={<VolunteerPage />} />
               {SECTION_ROUTES.map((path) => (
                 <Route key={path} path={path} element={<ComingSoonPage />} />
               ))}

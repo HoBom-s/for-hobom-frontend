@@ -2,10 +2,12 @@ import { httpClient, parseResponse } from "@/shared/api";
 import { toQueryString } from "@/shared/lib";
 import { toShelter, toShelterAnnouncement, toShelterFaq } from "../lib/to-shelter.lib";
 import { toShelterListItem } from "../lib/to-shelter-list-item.lib";
+import { toShelterMarker } from "../lib/to-shelter-marker.lib";
 import {
   shelterAnnouncementsSchema,
   shelterFaqsSchema,
   shelterListPageSchema,
+  shelterMarkersSchema,
   shelterSchema,
   shelterStatsSchema,
 } from "./shelter.schema";
@@ -14,6 +16,7 @@ import type {
   ShelterAnnouncement,
   ShelterFaq,
   ShelterListItem,
+  ShelterMarker,
   ShelterStats,
 } from "../model/shelter.model";
 import type { ShelterSearchParams } from "./shelter.type";
@@ -33,6 +36,7 @@ const parseAnnouncements = parseResponse(
 );
 const parseFaqs = parseResponse(shelterFaqsSchema, "GET /shelters/:id/faqs");
 const parseStats = parseResponse(shelterStatsSchema, "GET /shelters/:id/stats");
+const parseMarkers = parseResponse(shelterMarkersSchema, "GET /shelters/map");
 
 /** Browse verified shelters (region filter + cursor pagination) (§3.5). */
 export const searchShelters = (
@@ -47,6 +51,13 @@ export const searchShelters = (
       nextCursor: page.nextCursor,
       hasNext: page.hasNext,
     }));
+
+/** Fetch all shelter markers — resolves a shelterId to name/slug/region. */
+export const getShelterMarkers = (signal?: AbortSignal): Promise<ShelterMarker[]> =>
+  httpClient
+    .get("/shelters/map", { signal })
+    .then(parseMarkers)
+    .then((items) => items.map(toShelterMarker));
 
 /** Fetch a shelter's public microsite profile by slug (§04). */
 export const getShelterBySlug = (slug: string, signal?: AbortSignal): Promise<Shelter> =>
