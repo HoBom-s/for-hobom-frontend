@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { SPECIES_LABEL } from "@/entities/animal";
+import { useFavoriteToggle } from "@/entities/favorite";
 import { ROUTES } from "@/shared/config";
 import { useAnimalDetail } from "../model/useAnimalDetail";
 import { AnimalAttributes } from "./AnimalAttributes";
@@ -12,6 +13,7 @@ import { styles } from "./AnimalDetail.styles";
  *  health / traits / rescue attribute grids. */
 export const AnimalDetail = ({ animalId }: { animalId: string }) => {
   const animal = useAnimalDetail(animalId);
+  const favorites = useFavoriteToggle("ANIMAL");
 
   return (
     <div {...stylex.props(styles.root)}>
@@ -32,7 +34,11 @@ export const AnimalDetail = ({ animalId }: { animalId: string }) => {
 
       <div {...stylex.props(styles.topGrid)}>
         <AnimalGallery photos={animal.photos} name={animal.name} />
-        <ApplyCard animal={animal} />
+        <ApplyCard
+          animal={animal}
+          favorited={favorites.isFavorited(animal.id)}
+          onToggleFavorite={() => favorites.toggle(animal.id)}
+        />
       </div>
 
       {animal.description && (

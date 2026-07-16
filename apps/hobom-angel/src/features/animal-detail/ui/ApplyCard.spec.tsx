@@ -1,14 +1,18 @@
 // @vitest-environment jsdom
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { AnimalDetail } from "@/entities/animal";
 import { ApplyCard } from "./ApplyCard";
 
-const renderCard = (detail: AnimalDetail) =>
+const renderCard = (
+  detail: AnimalDetail,
+  favorited = false,
+  onToggleFavorite: () => void = vi.fn(),
+) =>
   render(
     <MemoryRouter>
-      <ApplyCard animal={detail} />
+      <ApplyCard animal={detail} favorited={favorited} onToggleFavorite={onToggleFavorite} />
     </MemoryRouter>,
   );
 
@@ -50,14 +54,22 @@ describe("ApplyCard", () => {
     expect(screen.queryByRole("button", { name: "임시보호 신청" })).toBeNull();
   });
 
-  it("toggles the bookmark on click", () => {
-    renderCard(animal("AVAILABLE"));
-    const bookmark = button("관심 동물");
+  it("reflects the favorited state and calls onToggleFavorite on click", () => {
+    const onToggleFavorite = vi.fn();
+
+    renderCard(animal("AVAILABLE"), false, onToggleFavorite);
+    const bookmark = button("콩이 찜하기");
 
     expect(bookmark.getAttribute("aria-pressed")).toBe("false");
 
     fireEvent.click(bookmark);
 
-    expect(bookmark.getAttribute("aria-pressed")).toBe("true");
+    expect(onToggleFavorite).toHaveBeenCalledOnce();
+  });
+
+  it("shows the filled heart when favorited", () => {
+    renderCard(animal("AVAILABLE"), true);
+
+    expect(button("콩이 찜하기").getAttribute("aria-pressed")).toBe("true");
   });
 });

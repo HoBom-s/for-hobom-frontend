@@ -27,15 +27,16 @@ test.describe("§02 animal detail", () => {
     await page.screenshot({ path: "e2e-artifacts/detail.png", fullPage: true });
   });
 
-  test("toggles the bookmark", async ({ page }) => {
+  test("toggles the favorite", async ({ page }) => {
     await login(page);
     await page.goto("animals/animal-1");
 
-    const bookmark = page.getByRole("button", { name: "관심 동물" });
-    await expect(bookmark).toHaveAttribute("aria-pressed", "false");
+    // animal-1 (콩이) is seeded as a favorite; unfavoriting flips it optimistically.
+    const heart = page.getByRole("button", { name: "콩이 찜하기" });
+    await expect(heart).toHaveAttribute("aria-pressed", "true");
 
-    await bookmark.click();
+    await heart.click();
 
-    await expect(bookmark).toHaveAttribute("aria-pressed", "true");
+    await expect(heart).toHaveAttribute("aria-pressed", "false");
   });
 });
