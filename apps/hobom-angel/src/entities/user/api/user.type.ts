@@ -1,3 +1,5 @@
+import type { VerifiedChannel } from "../model/user.model";
+
 /** `GET /users/me` response (the caller's own account). */
 export interface RawMyProfile {
   id: string;
@@ -14,4 +16,5 @@ export interface CurrentUser {
   id: string;
   nickname: string;
   email: string;
+  verifiedChannel: VerifiedChannel;
 }
