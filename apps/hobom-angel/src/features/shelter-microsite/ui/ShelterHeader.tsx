@@ -2,6 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { formatShelterAddress, isShelterVerified, TRUST_TIER_LABEL } from "@/entities/shelter";
 import type { AddressVisibility, Shelter } from "@/entities/shelter";
+import { FollowButton } from "./FollowButton";
 import { styles } from "./ShelterHeader.styles";
 
 const VISIBILITY_NOTE: Record<AddressVisibility, string> = {
@@ -48,6 +49,10 @@ export const ShelterHeader = ({ shelter }: { shelter: Shelter }) => {
             {addressLine}
           </Hb.Text>
         </Hb.Stack>
+
+        <span {...stylex.props(styles.follow)}>
+          <FollowButton shelterId={shelter.id} shelterName={shelter.name} />
+        </span>
       </div>
     </Hb.Stack>
   );

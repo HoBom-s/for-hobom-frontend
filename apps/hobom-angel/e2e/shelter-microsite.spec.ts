@@ -27,6 +27,16 @@ test.describe("§04 shelter microsite", () => {
     await page.screenshot({ path: "e2e-artifacts/shelter.png", fullPage: true });
   });
 
+  test("follows and unfollows the shelter", async ({ page }) => {
+    await login(page);
+    await page.goto("shelters/haengbok-shelter");
+
+    // shelter-1 is seeded as followed; unfollowing flips it optimistically.
+    await expect(page.getByRole("button", { name: "행복보호소 팔로잉" })).toBeVisible();
+    await page.getByRole("button", { name: "행복보호소 팔로잉" }).click();
+    await expect(page.getByRole("button", { name: "행복보호소 팔로우" })).toBeVisible();
+  });
+
   test("switches tabs and syncs the active tab to the URL", async ({ page }) => {
     await login(page);
     await page.goto("shelters/haengbok-shelter");

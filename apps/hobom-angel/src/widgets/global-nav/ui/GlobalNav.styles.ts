@@ -62,6 +62,7 @@ export const styles = stylex.create({
     backgroundColor: "var(--hb-angel-green-tint)",
   },
   spacer: { flex: 1 },
+  searchForm: { display: "contents" },
   search: {
     display: { default: "none", [DESKTOP]: "block" },
     width: 200,
