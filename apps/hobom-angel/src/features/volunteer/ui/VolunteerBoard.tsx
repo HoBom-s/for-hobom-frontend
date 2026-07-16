@@ -99,11 +99,13 @@ export const VolunteerBoard = () => {
 
           <div {...stylex.props(styles.listCol)}>
             <h2 {...stylex.props(styles.dayTitle)}>{showDay ? dayLabel : "다가오는 봉사"}</h2>
-            {showDay && <VolunteerFeed events={board.dayEvents} controls={controls} />}
-            {!showDay && board.upcoming.length > 0 && (
-              <VolunteerFeed events={board.upcoming} controls={controls} />
-            )}
-            {!showDay && board.upcoming.length === 0 && empty}
+            <div {...stylex.props(styles.scrollArea)}>
+              {showDay && <VolunteerFeed events={board.dayEvents} controls={controls} />}
+              {!showDay && board.upcoming.length > 0 && (
+                <VolunteerFeed events={board.upcoming} controls={controls} />
+              )}
+              {!showDay && board.upcoming.length === 0 && empty}
+            </div>
           </div>
         </div>
       ) : (

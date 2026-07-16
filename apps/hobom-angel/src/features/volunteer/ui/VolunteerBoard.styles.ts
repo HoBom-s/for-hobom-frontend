@@ -30,11 +30,22 @@ export const styles = stylex.create({
     gap: 24,
     alignItems: "start",
   },
-  listCol: { display: "flex", flexDirection: "column", gap: 12 },
+  listCol: { display: "flex", flexDirection: "column", gap: 12, minHeight: 0 },
   dayTitle: {
     margin: 0,
     fontSize: "1rem",
     fontWeight: 700,
     color: "var(--hb-color-text-primary)",
+  },
+  // Cap the day/upcoming feed so a long list scrolls in place instead of
+  // stretching the column past the calendar. Scrollbar hidden for a clean edge.
+  scrollArea: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 12,
+    maxHeight: 560,
+    overflowY: "auto",
+    scrollbarWidth: "none",
+    "::-webkit-scrollbar": { display: "none" },
   },
 });
