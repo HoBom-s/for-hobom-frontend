@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSuspenseQuery } from "hobom-data";
+import { useSuspenseQueries } from "hobom-data";
 import { shelterQueries } from "@/entities/shelter";
 import { isSignUpOpen, volunteerEventQueries } from "@/entities/volunteer-event";
 import type { VolunteerType } from "@/entities/volunteer-event";
@@ -12,8 +12,12 @@ export type VolunteerTypeFilter = "ALL" | VolunteerType;
 /** §05 board state: upcoming events joined with shelter names, the view mode,
  *  type / open-only filters, and the calendar's selected day. */
 export const useVolunteerBoard = () => {
-  const { data: events } = useSuspenseQuery(volunteerEventQueries.upcoming());
-  const { data: markers } = useSuspenseQuery(shelterQueries.markers());
+  // One suspense boundary over both reads so they fetch in parallel — two
+  // separate useSuspenseQuery calls would waterfall (the first suspends before
+  // the second can start).
+  const [{ data: events }, { data: markers }] = useSuspenseQueries({
+    queries: [volunteerEventQueries.upcoming(), shelterQueries.markers()],
+  });
 
   const [view, setView] = useState<VolunteerView>("calendar");
   const [typeFilter, setTypeFilter] = useState<VolunteerTypeFilter>("ALL");
