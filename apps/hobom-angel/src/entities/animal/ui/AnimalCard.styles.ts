@@ -11,6 +11,7 @@ export const styles = stylex.create({
     transform: { default: "none", ":hover": "translateY(-2px)" },
     boxShadow: { default: "none", ":hover": "var(--hb-angel-shadow)" },
   },
+  media: { position: "relative" },
   body: { paddingInline: 14, paddingTop: 12, paddingBottom: 14 },
   nameRow: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 },
   name: { margin: 0, fontSize: "1rem", fontWeight: 700, color: "var(--hb-color-text-primary)" },

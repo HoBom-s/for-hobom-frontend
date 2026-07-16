@@ -1,5 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { AnimalCard, STATUS_LABEL, animalMeta } from "@/entities/animal";
+import { FavoriteButton, useFavoriteToggle } from "@/entities/favorite";
 import { animalDetailPath } from "@/shared/config";
 import { useInfiniteScroll } from "@/shared/model";
 import type { Animal } from "@/entities/animal";
@@ -21,6 +22,7 @@ export const AnimalGrid = ({
   fetchNextPage,
 }: AnimalGridProps) => {
   const sentinelRef = useInfiniteScroll({ hasNextPage, isFetchingNextPage, fetchNextPage });
+  const favorites = useFavoriteToggle("ANIMAL");
 
   if (animals.length === 0) {
     return <p {...stylex.props(styles.empty)}>조건에 맞는 친구가 아직 없어요.</p>;
@@ -37,6 +39,14 @@ export const AnimalGrid = ({
             meta={animalMeta(animal)}
             imageUrl={animal.photoUrl}
             to={animalDetailPath(animal.id)}
+            action={
+              <FavoriteButton
+                favorited={favorites.isFavorited(animal.id)}
+                onToggle={() => favorites.toggle(animal.id)}
+                label={animal.name}
+                overlay
+              />
+            }
           />
         ))}
       </div>

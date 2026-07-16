@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
@@ -9,6 +8,13 @@ import { useToast } from "@/shared/model";
 import type { AnimalDetail } from "@/entities/animal";
 import { applyCta } from "../lib/apply-cta.lib";
 import { styles } from "./ApplyCard.styles";
+
+interface ApplyCardProps {
+  animal: AnimalDetail;
+  /** Whether the viewer has favorited this animal (owned by the container). */
+  favorited: boolean;
+  onToggleFavorite: () => void;
+}
 
 const STATUS_COLOR = {
   입양가능: "primary",
@@ -22,10 +28,9 @@ const COMING_SOON = "곧 제공될 예정이에요.";
 
 /** Sticky application panel with status-branched CTAs (§02). Apply/foster and
  *  inquiry are placeholders until the funnel and inquiry threads land. */
-export const ApplyCard = ({ animal }: { animal: AnimalDetail }) => {
+export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProps) => {
   const navigate = useNavigate();
   const { openWarnToast } = useToast();
-  const [bookmarked, setBookmarked] = useState(false);
 
   const cta = applyCta(animal.status);
   const statusLabel = STATUS_LABEL[animal.status];
@@ -49,12 +54,12 @@ export const ApplyCard = ({ animal }: { animal: AnimalDetail }) => {
         <Hb.Chip label={statusLabel} size="small" variant="soft" color={STATUS_COLOR[statusLabel]} />
         <button
           type="button"
-          aria-label="관심 동물"
-          aria-pressed={bookmarked}
-          {...stylex.props(styles.bookmark, bookmarked && styles.bookmarkOn)}
-          onClick={() => setBookmarked((on) => !on)}
+          aria-label={`${animal.name} 찜하기`}
+          aria-pressed={favorited}
+          {...stylex.props(styles.bookmark, favorited && styles.bookmarkOn)}
+          onClick={onToggleFavorite}
         >
-          {bookmarked ? <Favorite fontSize="small" /> : <FavoriteBorder fontSize="small" />}
+          {favorited ? <Favorite fontSize="small" /> : <FavoriteBorder fontSize="small" />}
         </button>
       </div>
       <p {...stylex.props(styles.meta)}>{meta}</p>
