@@ -6,6 +6,7 @@ import { ROUTES } from "@/shared/config";
 import type { CurrentUser } from "@/entities/user";
 import { PRIMARY_NAV } from "../model/nav-items";
 import { activeLinkProps } from "./nav-link-props";
+import { NavSearch } from "./NavSearch";
 import { ProfileMenu } from "./ProfileMenu";
 import { styles } from "./GlobalNav.styles";
 
@@ -42,7 +43,7 @@ export const TopNav = ({ user, isAuthenticated }: TopNavProps) => {
 
             <span {...stylex.props(styles.spacer)} />
 
-            <input {...stylex.props(styles.search)} placeholder="이름·품종·지역 검색" aria-label="검색" />
+            <NavSearch />
             <button type="button" {...stylex.props(styles.iconBtn)} aria-label="알림">
               <NotificationsNoneOutlined fontSize="small" />
             </button>

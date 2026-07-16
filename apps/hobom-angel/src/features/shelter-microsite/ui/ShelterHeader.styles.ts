@@ -6,6 +6,7 @@ export const styles = stylex.create({
     alignItems: "center",
     gap: 16,
   },
+  follow: { marginInlineStart: "auto", flexShrink: 0 },
   avatar: {
     width: 60,
     height: 60,
