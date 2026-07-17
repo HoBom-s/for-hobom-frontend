@@ -19,10 +19,10 @@ export const shelterQueries = {
       initialPageParam: undefined as string | undefined,
     }),
 
-  markers: () =>
+  markers: (region?: string) =>
     queryOptions({
-      queryKey: [...shelterQueries.all(), "markers"] as const,
-      queryFn: ({ signal }) => getShelterMarkers(signal),
+      queryKey: [...shelterQueries.all(), "markers", region ?? null] as const,
+      queryFn: ({ signal }) => getShelterMarkers(region, signal),
     }),
 
   detail: (slug: string) =>

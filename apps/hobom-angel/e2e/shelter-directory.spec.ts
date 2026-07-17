@@ -29,4 +29,21 @@ test.describe("§3.5 shelter directory", () => {
     await expect(page.getByRole("link", { name: /부산해운대보호소/ })).toBeVisible();
     await expect(page.getByRole("link", { name: /행복보호소/ })).toHaveCount(0);
   });
+
+  test("switches to the map and opens a shelter from its marker", async ({ page }) => {
+    await login(page);
+    await page.goto("shelters");
+
+    await page.getByRole("button", { name: "지도" }).click();
+    await expect(page).toHaveURL(/view=map/);
+
+    // Markers are drawn on the SVG map, each a routable button.
+    const marker = page.getByRole("button", { name: "행복보호소" });
+    await expect(marker).toBeVisible();
+
+    await page.screenshot({ path: "e2e-artifacts/shelter-map.png", fullPage: true });
+
+    await marker.click();
+    await expect(page).toHaveURL(/\/shelters\/haengbok-shelter$/);
+  });
 });

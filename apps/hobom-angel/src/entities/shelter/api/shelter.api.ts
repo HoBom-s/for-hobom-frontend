@@ -52,12 +52,18 @@ export const searchShelters = (
       hasNext: page.hasNext,
     }));
 
-/** Fetch all shelter markers — resolves a shelterId to name/slug/region. */
-export const getShelterMarkers = (signal?: AbortSignal): Promise<ShelterMarker[]> =>
-  httpClient
-    .get("/shelters/map", { signal })
+/** Fetch shelter markers for the map, optionally narrowed to one region. */
+export const getShelterMarkers = (
+  region?: string,
+  signal?: AbortSignal,
+): Promise<ShelterMarker[]> => {
+  const query = region ? `?region=${encodeURIComponent(region)}` : "";
+
+  return httpClient
+    .get(`/shelters/map${query}`, { signal })
     .then(parseMarkers)
     .then((items) => items.map(toShelterMarker));
+};
 
 /** Fetch a shelter's public microsite profile by slug (§04). */
 export const getShelterBySlug = (slug: string, signal?: AbortSignal): Promise<Shelter> =>

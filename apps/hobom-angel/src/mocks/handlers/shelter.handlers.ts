@@ -141,18 +141,24 @@ const DIRECTORY = DIRECTORY_NAMES.map(([name, slug, region, trustTier], i) => ({
 }));
 
 const MARKERS = [
-  { id: "shelter-1", name: "행복보호소", slug: "haengbok-shelter", region: "서울", lat: 37.5, lng: 127.0 },
-  { id: "shelter-2", name: "행복한마음보호소", slug: "haengbok-maeum", region: "경기", lat: 37.4, lng: 127.1 },
+  { id: "shelter-1", name: "행복보호소", slug: "haengbok-shelter", region: "서울", lat: 37.5665, lng: 126.978 },
+  { id: "shelter-2", name: "행복한마음보호소", slug: "haengbok-maeum", region: "경기", lat: 37.4138, lng: 127.5183 },
+  { id: "shelter-3", name: "인천반려동물보호소", slug: "incheon-anifriends", region: "인천", lat: 37.4563, lng: 126.7052 },
+  { id: "shelter-4", name: "부산해운대보호소", slug: "busan-haeundae", region: "부산", lat: 35.1631, lng: 129.1637 },
+  { id: "shelter-5", name: "대구동물사랑센터", slug: "daegu-animal-love", region: "대구", lat: 35.8714, lng: 128.6014 },
 ];
 
 const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
 
 /** §04 shelter microsite mock handlers — profile, notices, FAQs, and roster. */
 export const shelterHandlers = [
-  http.get(mockUrl("/shelters/map"), () => {
+  http.get(mockUrl("/shelters/map"), ({ request }) => {
     if (!mockSession.isActive()) return unauthorized();
 
-    return ok(MARKERS);
+    const region = new URL(request.url).searchParams.get("region");
+    const items = region ? MARKERS.filter((marker) => marker.region === region) : MARKERS;
+
+    return ok(items);
   }),
 
   http.get(mockUrl("/shelters"), ({ request }) => {
