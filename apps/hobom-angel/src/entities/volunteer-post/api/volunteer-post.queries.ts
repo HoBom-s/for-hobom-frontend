@@ -1,6 +1,6 @@
 import { infiniteQueryOptions } from "hobom-data";
 import { getComments } from "./comment.api";
-import { getVolunteerFeed } from "./volunteer-post.api";
+import { getMyBookmarks, getVolunteerFeed } from "./volunteer-post.api";
 
 const PAGE_SIZE = 20;
 
@@ -11,6 +11,15 @@ export const volunteerPostQueries = {
     infiniteQueryOptions({
       queryKey: [...volunteerPostQueries.all(), "feed"] as const,
       queryFn: ({ pageParam, signal }) => getVolunteerFeed(pageParam, PAGE_SIZE, signal),
+      getNextPageParam: (lastPage) =>
+        lastPage.hasNext ? (lastPage.nextCursor ?? undefined) : undefined,
+      initialPageParam: undefined as string | undefined,
+    }),
+
+  myBookmarks: () =>
+    infiniteQueryOptions({
+      queryKey: [...volunteerPostQueries.all(), "bookmarks"] as const,
+      queryFn: ({ pageParam, signal }) => getMyBookmarks(pageParam, PAGE_SIZE, signal),
       getNextPageParam: (lastPage) =>
         lastPage.hasNext ? (lastPage.nextCursor ?? undefined) : undefined,
       initialPageParam: undefined as string | undefined,

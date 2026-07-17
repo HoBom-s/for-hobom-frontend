@@ -50,4 +50,24 @@ test.describe("§05·부록 favorites", () => {
     await expect(page).toHaveURL(/\/favorites$/);
     await expect(page.getByText(name, { exact: true })).toBeVisible();
   });
+
+  test("browses saved reviews and opens one in the modal", async ({ page }) => {
+    await login(page);
+    await page.goto("./favorites");
+
+    // Bookmarked reviews live under the third tab, reusing the feed tile grid.
+    await page.getByRole("tab", { name: "저장한 후기" }).click();
+    const tile = page.getByRole("button", { name: "후기 상세 보기" }).first();
+    await expect(tile).toBeVisible();
+
+    await tile.click();
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+
+    // Unbookmarking flips optimistically inside the modal.
+    const bookmark = dialog.getByRole("button", { name: "저장" });
+    await expect(bookmark).toHaveAttribute("aria-pressed", "true");
+    await bookmark.click();
+    await expect(bookmark).toHaveAttribute("aria-pressed", "false");
+  });
 });
