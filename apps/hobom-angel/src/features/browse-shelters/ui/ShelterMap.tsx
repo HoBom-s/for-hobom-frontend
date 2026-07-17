@@ -62,8 +62,9 @@ export const ShelterMap = ({ markers, onSelect, activeRegion }: ShelterMapProps)
             onClick={select}
             onKeyDown={(event) => activate(event, select)}
           >
-            <circle cx={x} cy={y} r={6} {...stylex.props(styles.pin)} />
-            <text x={x} y={y - 11} textAnchor="middle" {...stylex.props(styles.label)}>
+            <circle cx={x} cy={y} r={13} {...stylex.props(styles.halo)} />
+            <circle cx={x} cy={y} r={7} {...stylex.props(styles.pin)} />
+            <text x={x} y={y - 13} textAnchor="middle" {...stylex.props(styles.label)}>
               {marker.name}
             </text>
           </g>
