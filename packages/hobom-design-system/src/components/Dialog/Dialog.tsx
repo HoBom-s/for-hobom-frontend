@@ -1,9 +1,11 @@
 import {
   useEffect,
   useRef,
+  useState,
   type CSSProperties,
   type HTMLAttributes,
   type KeyboardEvent,
+  type PointerEvent,
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
@@ -19,10 +21,16 @@ const FOCUSABLE =
 const focusable = (root: HTMLElement | null): HTMLElement[] =>
   root ? Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)) : [];
 
+const DESKTOP = "@media (min-width: 768px)";
+
 const fadeIn = stylex.keyframes({ from: { opacity: 0 }, to: { opacity: 1 } });
 const popIn = stylex.keyframes({
   from: { opacity: 0, transform: "translateY(8px) scale(0.98)" },
   to: { opacity: 1, transform: "translateY(0) scale(1)" },
+});
+const slideUp = stylex.keyframes({
+  from: { transform: "translateY(100%)" },
+  to: { transform: "translateY(0)" },
 });
 
 const styles = stylex.create({
@@ -54,6 +62,41 @@ const styles = stylex.create({
     animationName: popIn,
     animationDuration: "0.2s",
     animationTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+  },
+  // Bottom-sheet variant: on phones the paper rises from the bottom, full-width
+  // with a rounded top; on desktop it stays a centered dialog.
+  sheetBackdrop: {
+    alignItems: { default: "flex-end", [DESKTOP]: "center" },
+    padding: { default: 0, [DESKTOP]: 32 },
+  },
+  sheetPaper: {
+    position: "relative",
+    borderRadius: { default: "16px 16px 0 0", [DESKTOP]: 12 },
+    maxHeight: { default: "92vh", [DESKTOP]: "100%" },
+    animationName: { default: slideUp, [DESKTOP]: popIn },
+  },
+  // A floating grab handle over the top of the sheet — a drag-to-dismiss
+  // affordance shown only on phones.
+  handle: {
+    display: { default: "flex", [DESKTOP]: "none" },
+    position: "absolute",
+    insetBlockStart: 0,
+    insetInlineStart: 0,
+    insetInlineEnd: 0,
+    zIndex: 3,
+    alignItems: "center",
+    justifyContent: "center",
+    // A tall-enough strip so the grabber is easy to swipe (the bar itself is 4px).
+    paddingBlock: 12,
+    cursor: "grab",
+    touchAction: "none",
+  },
+  grabber: {
+    width: 40,
+    height: 4,
+    borderRadius: 999,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.35)",
   },
   title: {
     margin: 0,
@@ -99,13 +142,25 @@ interface RootProps {
   onClose?: () => void;
   /** Caps the paper width. Defaults to `"sm"`. */
   size?: DialogSize;
+  /** On phones, rise from the bottom as a sheet (centered dialog on desktop). */
+  bottomSheet?: boolean;
   className?: string;
   style?: CSSProperties;
   children?: ReactNode;
 }
 
-const Root = ({ open, onClose, size = "sm", className, style, children }: RootProps) => {
+const Root = ({
+  open,
+  onClose,
+  size = "sm",
+  bottomSheet = false,
+  className,
+  style,
+  children,
+}: RootProps) => {
   const paperRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef<number | null>(null);
+  const [dragY, setDragY] = useState(0);
 
   useEffect(() => {
     if (!open) return;
@@ -147,10 +202,28 @@ const Root = ({ open, onClose, size = "sm", className, style, children }: RootPr
     }
   };
 
-  const sx = stylex.props(styles.paper);
+  const sx = stylex.props(styles.paper, bottomSheet && styles.sheetPaper);
+
+  const onHandleDown = (event: PointerEvent<HTMLDivElement>) => {
+    dragStart.current = event.clientY;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const onHandleMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (dragStart.current !== null) setDragY(Math.max(0, event.clientY - dragStart.current));
+  };
+
+  const onHandleUp = () => {
+    if (dragY > 110) onClose?.();
+    dragStart.current = null;
+    setDragY(0);
+  };
 
   return createPortal(
-    <div {...stylex.props(styles.backdrop)} onMouseDown={onClose}>
+    <div
+      {...stylex.props(styles.backdrop, bottomSheet && styles.sheetBackdrop)}
+      onMouseDown={onClose}
+    >
       <div
         ref={paperRef}
         role="dialog"
@@ -159,8 +232,28 @@ const Root = ({ open, onClose, size = "sm", className, style, children }: RootPr
         onKeyDown={onKeyDown}
         onMouseDown={(event) => event.stopPropagation()}
         className={[sx.className, className].filter(Boolean).join(" ") || undefined}
-        style={{ ...sx.style, maxWidth: MAX_WIDTH[size], ...style }}
+        style={{
+          ...sx.style,
+          maxWidth: MAX_WIDTH[size],
+          ...style,
+          ...(dragY > 0
+            ? { transform: `translateY(${dragY}px)`, transition: "none" }
+            : dragStart.current === null && bottomSheet
+              ? { transition: "transform 0.2s ease" }
+              : {}),
+        }}
       >
+        {bottomSheet && (
+          <div
+            {...stylex.props(styles.handle)}
+            onPointerDown={onHandleDown}
+            onPointerMove={onHandleMove}
+            onPointerUp={onHandleUp}
+            onPointerCancel={onHandleUp}
+          >
+            <span {...stylex.props(styles.grabber)} />
+          </div>
+        )}
         {children}
       </div>
     </div>,
