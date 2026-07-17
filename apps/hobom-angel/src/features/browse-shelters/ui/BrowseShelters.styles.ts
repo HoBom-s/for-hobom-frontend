@@ -23,6 +23,15 @@ export const styles = stylex.create({
     fontSize: "0.9375rem",
     color: "var(--hb-color-text-secondary)",
   },
+  // Region filter on the left, the grid/map view toggle on the right; wraps on
+  // narrow screens so the toggle drops below the filter.
+  controls: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: 12,
+  },
   count: {
     fontSize: "0.9375rem",
     fontWeight: 700,
