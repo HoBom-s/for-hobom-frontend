@@ -12,13 +12,17 @@ import type { InfiniteData } from "hobom-data";
 
 type Feed = InfiniteData<VolunteerPostPage>;
 
-/** Like / bookmark posts, patched optimistically into the feed cache so the
- *  count flips instantly; rolls back on error. No refetch — the feed is long
- *  and a reaction shouldn't reload it. */
-export const usePostReactions = () => {
+type ReactionSource =
+  | ReturnType<typeof volunteerPostQueries.feed>
+  | ReturnType<typeof volunteerPostQueries.myBookmarks>;
+
+/** Like / bookmark posts, patched optimistically into a post-list cache so the
+ *  count flips instantly; rolls back on error. No refetch — the list is long
+ *  and a reaction shouldn't reload it. `options` selects which list to patch
+ *  (the feed by default, or the saved-reviews list). */
+export const usePostReactions = (options: ReactionSource = volunteerPostQueries.feed()) => {
   const dataLot = useDataLot();
   const { openErrorToast } = useToast();
-  const options = volunteerPostQueries.feed();
 
   const rollback = (previous: Feed | undefined) => {
     if (previous) dataLot.setQueryData(options.queryKey, previous);

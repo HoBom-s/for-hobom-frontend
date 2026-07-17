@@ -3,10 +3,10 @@ import { toVolunteerPost } from "../lib/to-volunteer-post.lib";
 import { volunteerPostPageSchema } from "./volunteer-post.schema";
 import type { VolunteerPostPage } from "../model/volunteer-post.model";
 
-const parseFeed = parseResponse(volunteerPostPageSchema, "GET /volunteer-posts");
-
-/** Fetch a page of the review feed (§05, newest first, cursor pagination). */
-export const getVolunteerFeed = (
+/** Fetch one cursor page from a feed-shaped endpoint (newest first). */
+const fetchPostPage = (
+  path: string,
+  context: string,
   cursor: string | undefined,
   limit: number,
   signal?: AbortSignal,
@@ -16,14 +16,28 @@ export const getVolunteerFeed = (
   if (cursor) query.set("cursor", cursor);
 
   return httpClient
-    .get(`/volunteer-posts?${query.toString()}`, { signal })
-    .then(parseFeed)
+    .get(`${path}?${query.toString()}`, { signal })
+    .then(parseResponse(volunteerPostPageSchema, context))
     .then((page) => ({
       posts: page.items.map(toVolunteerPost),
       nextCursor: page.nextCursor,
       hasNext: page.hasNext,
     }));
 };
+
+/** A page of the review feed (§05, newest first, cursor pagination). */
+export const getVolunteerFeed = (cursor: string | undefined, limit: number, signal?: AbortSignal) =>
+  fetchPostPage("/volunteer-posts", "GET /volunteer-posts", cursor, limit, signal);
+
+/** A page of the viewer's saved (bookmarked) reviews. */
+export const getMyBookmarks = (cursor: string | undefined, limit: number, signal?: AbortSignal) =>
+  fetchPostPage(
+    "/me/volunteer-post-bookmarks",
+    "GET /me/volunteer-post-bookmarks",
+    cursor,
+    limit,
+    signal,
+  );
 
 /** A content block to write — text for now (image blocks come with the presign
  *  flow). */

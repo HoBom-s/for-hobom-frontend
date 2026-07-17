@@ -33,7 +33,7 @@ const POSTS = [
     likeCount: 12,
     commentCount: 3,
     liked: false,
-    bookmarked: false,
+    bookmarked: true,
     createdAt: "2026-07-16T05:00:00.000Z",
   },
   {
@@ -115,6 +115,14 @@ export const volunteerPostHandlers = [
     if (!mockSession.isActive()) return unauthorized();
 
     return ok({ items: POSTS, nextCursor: null, hasNext: false });
+  }),
+
+  http.get(mockUrl("/me/volunteer-post-bookmarks"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const items = POSTS.filter((post) => post.bookmarked);
+
+    return ok({ items, nextCursor: null, hasNext: false });
   }),
 
   http.post(mockUrl("/volunteer-posts"), async ({ request }) => {

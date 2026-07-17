@@ -99,10 +99,6 @@ export const PostDetailModal = ({
       style={{ maxWidth: 820 }}
     >
       <div {...stylex.props(styles.pane)}>
-        <button type="button" aria-label="닫기" {...stylex.props(styles.close)} onClick={onClose}>
-          ×
-        </button>
-
         {images.length > 0 && (
           <div {...stylex.props(styles.media)}>
             <PostImages imageKeys={images} contain />
