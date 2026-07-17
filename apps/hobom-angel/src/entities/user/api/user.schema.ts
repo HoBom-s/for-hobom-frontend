@@ -1,6 +1,6 @@
 import { HoBomSchema } from "hobom-schema";
 import type { Schema } from "hobom-schema";
-import type { RawMyProfile } from "./user.type";
+import type { PublicProfile, RawMyProfile } from "./user.type";
 
 /** `GET /users/me` response schema — validates the wire contract at the boundary. */
 export const myProfileSchema: Schema<RawMyProfile> = HoBomSchema.object({
@@ -13,4 +13,10 @@ export const myProfileSchema: Schema<RawMyProfile> = HoBomSchema.object({
     HoBomSchema.object({ shelterId: HoBomSchema.string(), role: HoBomSchema.string() }),
   ),
   status: HoBomSchema.string(),
+});
+
+/** `GET /users/:userId` response schema. */
+export const publicProfileSchema: Schema<PublicProfile> = HoBomSchema.object({
+  id: HoBomSchema.string(),
+  nickname: HoBomSchema.string(),
 });

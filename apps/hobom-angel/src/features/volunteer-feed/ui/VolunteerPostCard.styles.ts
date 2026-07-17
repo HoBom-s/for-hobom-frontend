@@ -1,0 +1,73 @@
+import * as stylex from "@stylexjs/stylex";
+
+export const styles = stylex.create({
+  // Shared by PostAuthor (modal header + comments).
+  authorRow: { display: "flex", alignItems: "center", gap: 10 },
+  authorMeta: { display: "flex", flexDirection: "column", gap: 1, minWidth: 0 },
+  nickname: { fontSize: "0.9375rem", fontWeight: 600, color: "var(--hb-color-text-primary)" },
+  time: { fontSize: "0.75rem", color: "var(--hb-color-text-secondary)" },
+
+  // Feed grid tile — a square thumbnail (profile-style grid).
+  tile: {
+    position: "relative",
+    aspectRatio: "1 / 1",
+    overflow: "hidden",
+    borderRadius: 8,
+    borderWidth: 0,
+    borderStyle: "none",
+    padding: 0,
+    margin: 0,
+    cursor: "pointer",
+    backgroundColor: "var(--hb-color-canvas)",
+  },
+  tileImg: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
+  textTile: {
+    width: "100%",
+    height: "100%",
+    display: "-webkit-box",
+    WebkitLineClamp: 6,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    padding: 14,
+    boxSizing: "border-box",
+    textAlign: "start",
+    fontSize: "0.875rem",
+    lineHeight: 1.5,
+    color: "var(--hb-color-text-secondary)",
+    whiteSpace: "pre-line",
+  },
+  overlay: {
+    position: "absolute",
+    inset: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 18,
+    color: "#fff",
+    fontWeight: 700,
+    fontSize: "0.9375rem",
+    backgroundColor: "rgba(0, 0, 0, 0.38)",
+    opacity: { default: 0, ":hover": 1 },
+    transitionProperty: "opacity",
+    transitionDuration: "0.15s",
+  },
+  overlayItem: { display: "inline-flex", alignItems: "center", gap: 5 },
+
+  // Shared by PostActions (modal).
+  actions: { display: "flex", alignItems: "center", gap: 18, paddingTop: 4 },
+  action: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 5,
+    padding: 0,
+    borderWidth: 0,
+    borderStyle: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    fontSize: "0.8125rem",
+    color: "var(--hb-color-text-secondary)",
+  },
+  liked: { color: "var(--hb-color-error)" },
+  pushRight: { marginInlineStart: "auto" },
+  bookmarked: { color: "var(--hb-color-accent-dark)" },
+});

@@ -8,6 +8,7 @@ export const ROUTES = {
   APPLY: "/apply/:animalId",
   FOSTER: "/foster",
   VOLUNTEER: "/volunteer",
+  VOLUNTEER_WRITE: "/volunteer/posts/new",
   SHELTERS: "/shelters",
   SHELTER_DETAIL: "/shelters/:shelterSlug",
   FAVORITES: "/favorites",

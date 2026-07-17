@@ -15,6 +15,13 @@ const profile = {
   status: "ACTIVE",
 };
 
+// Public nicknames for other members (authored content hydrates from these).
+const PUBLIC_PROFILES: Record<string, string> = {
+  "mock-user-1": "봄이네",
+  "user-2": "초코대디",
+  "user-3": "나비집사",
+};
+
 const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
 const noContent = () => new HttpResponse(null, { status: 204 });
 
@@ -42,5 +49,14 @@ export const userHandlers = [
     mockSession.close();
 
     return noContent();
+  }),
+
+  // Registered after /users/me so the literal path wins over the :userId param.
+  http.get(mockUrl("/users/:userId"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const userId = params.userId as string;
+
+    return ok({ id: userId, nickname: PUBLIC_PROFILES[userId] ?? "봉사자" });
   }),
 ];

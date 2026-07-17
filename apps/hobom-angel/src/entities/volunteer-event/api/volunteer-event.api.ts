@@ -1,6 +1,7 @@
 import { httpClient, parseResponse } from "@/shared/api";
 import { toVolunteerEvent } from "../lib/to-volunteer-event.lib";
 import {
+  volunteerEventPageSchema,
   volunteerEventSchema,
   volunteerEventsSchema,
   volunteerSignupSchema,
@@ -31,6 +32,14 @@ export const getUpcomingVolunteerEvents = (
     .get(`/volunteer-events?limit=${limit}`, { signal })
     .then(parseResponse(volunteerEventsSchema, "GET /volunteer-events"))
     .then((items) => items.map(toVolunteerEvent));
+
+/** Fetch the viewer's signed-up events (first page) — used to tag a review with
+ *  the volunteer activity it's about. */
+export const getMyVolunteerSignups = (signal?: AbortSignal): Promise<VolunteerEvent[]> =>
+  httpClient
+    .get(`/volunteer-signups?limit=50`, { signal })
+    .then(parseResponse(volunteerEventPageSchema, "GET /volunteer-signups"))
+    .then((page) => page.items.map(toVolunteerEvent));
 
 /** Fetch a single volunteer event by id (§05 봉사활동 detail). */
 export const getVolunteerEvent = (id: string, signal?: AbortSignal): Promise<VolunteerEvent> =>

@@ -1,8 +1,16 @@
 import { queryOptions } from "hobom-data";
-import { getMe } from "./user.api";
+import { getMe, getPublicProfile } from "./user.api";
 
 export const userQueries = {
   all: () => ["user"] as const,
+
+  /** Another member's public profile — rarely changes, so cache it generously. */
+  publicProfile: (userId: string) =>
+    queryOptions({
+      queryKey: [...userQueries.all(), "public", userId] as const,
+      queryFn: ({ signal }) => getPublicProfile(userId, signal),
+      staleTime: 10 * 60 * 1000,
+    }),
 
   me: () =>
     queryOptions({

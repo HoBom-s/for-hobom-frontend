@@ -18,3 +18,9 @@ export interface CurrentUser {
   email: string;
   verifiedChannel: VerifiedChannel;
 }
+
+/** `GET /users/:userId` — another member's public profile. */
+export interface PublicProfile {
+  id: string;
+  nickname: string;
+}

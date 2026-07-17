@@ -1,5 +1,6 @@
 import { queryOptions } from "hobom-data";
 import {
+  getMyVolunteerSignups,
   getShelterVolunteerEvents,
   getUpcomingVolunteerEvents,
   getVolunteerEvent,
@@ -7,6 +8,12 @@ import {
 
 export const volunteerEventQueries = {
   all: () => ["volunteer-events"] as const,
+
+  mySignups: () =>
+    queryOptions({
+      queryKey: [...volunteerEventQueries.all(), "my-signups"] as const,
+      queryFn: ({ signal }) => getMyVolunteerSignups(signal),
+    }),
 
   byShelter: (shelterId: string) =>
     queryOptions({
