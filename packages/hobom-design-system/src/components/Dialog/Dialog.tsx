@@ -219,6 +219,16 @@ const Root = ({
     setDragY(0);
   };
 
+  const dragStyle: CSSProperties = {};
+
+  if (dragY > 0) {
+    dragStyle.transform = `translateY(${dragY}px)`;
+    dragStyle.transition = "none";
+  } else if (bottomSheet && dragStart.current === null) {
+    // Animate the snap back after a release that didn't dismiss.
+    dragStyle.transition = "transform 0.2s ease";
+  }
+
   return createPortal(
     <div
       {...stylex.props(styles.backdrop, bottomSheet && styles.sheetBackdrop)}
@@ -232,16 +242,7 @@ const Root = ({
         onKeyDown={onKeyDown}
         onMouseDown={(event) => event.stopPropagation()}
         className={[sx.className, className].filter(Boolean).join(" ") || undefined}
-        style={{
-          ...sx.style,
-          maxWidth: MAX_WIDTH[size],
-          ...style,
-          ...(dragY > 0
-            ? { transform: `translateY(${dragY}px)`, transition: "none" }
-            : dragStart.current === null && bottomSheet
-              ? { transition: "transform 0.2s ease" }
-              : {}),
-        }}
+        style={{ ...sx.style, maxWidth: MAX_WIDTH[size], ...style, ...dragStyle }}
       >
         {bottomSheet && (
           <div
