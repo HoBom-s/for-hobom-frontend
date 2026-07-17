@@ -22,24 +22,26 @@ export const BrowseShelters = () => {
       <div {...stylex.props(styles.controls)}>
         <ShelterRegionFilter region={region} onChange={setRegion} />
 
-        <Hb.ToggleButtonGroup variant="segmented" aria-label="보기 방식">
-          <Hb.ToggleButton
-            variant="segmented"
-            value="grid"
-            selected={view === "grid"}
-            onChange={() => setView("grid")}
-          >
-            목록
-          </Hb.ToggleButton>
-          <Hb.ToggleButton
-            variant="segmented"
-            value="map"
-            selected={view === "map"}
-            onChange={() => setView("map")}
-          >
-            지도
-          </Hb.ToggleButton>
-        </Hb.ToggleButtonGroup>
+        <span {...stylex.props(styles.viewToggle)}>
+          <Hb.ToggleButtonGroup variant="segmented" aria-label="보기 방식">
+            <Hb.ToggleButton
+              variant="segmented"
+              value="grid"
+              selected={view === "grid"}
+              onChange={() => setView("grid")}
+            >
+              목록
+            </Hb.ToggleButton>
+            <Hb.ToggleButton
+              variant="segmented"
+              value="map"
+              selected={view === "map"}
+              onChange={() => setView("map")}
+            >
+              지도
+            </Hb.ToggleButton>
+          </Hb.ToggleButtonGroup>
+        </span>
       </div>
 
       {view === "grid" ? (
