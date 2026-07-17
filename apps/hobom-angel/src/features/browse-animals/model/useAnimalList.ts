@@ -8,8 +8,9 @@ import type { Animal, AnimalFilters } from "@/entities/animal";
  * route ErrorBoundary — so this hook only ever deals with loaded data.
  */
 export const useAnimalList = (filters: AnimalFilters) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSuspenseInfiniteQuery(animalQueries.list(filters));
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(
+    animalQueries.list(filters),
+  );
 
   const animals: Animal[] = data.pages.flatMap((page) => page.animals);
 

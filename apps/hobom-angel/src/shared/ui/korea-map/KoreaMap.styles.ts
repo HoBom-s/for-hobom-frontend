@@ -4,6 +4,17 @@ export const styles = stylex.create({
   wrap: {
     position: "relative",
   },
+  overlay: {
+    position: "absolute",
+    insetInlineStart: "50%",
+    insetBlockStart: "50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 500,
+    padding: "16px 20px",
+    borderRadius: 12,
+    backgroundColor: "var(--hb-color-surface)",
+    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.16)",
+  },
   map: {
     display: "block",
     height: "min(68vh, 600px)",
@@ -64,6 +75,19 @@ export const styles = stylex.create({
     stroke: "#fff",
     strokeWidth: 3.5,
     strokeLinejoin: "round",
+  },
+  // A small count bubble that rides on the pin (e.g. the matching-animal count).
+  badge: {
+    fill: "var(--hb-color-accent-dark, var(--hb-color-accent))",
+    stroke: "#fff",
+    strokeWidth: 1.5,
+  },
+  badgeText: {
+    fill: "#fff",
+    fontSize: 10,
+    fontWeight: 700,
+    textAnchor: "middle",
+    dominantBaseline: "central",
   },
   zoom: {
     position: "absolute",
