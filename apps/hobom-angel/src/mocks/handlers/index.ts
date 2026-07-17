@@ -3,7 +3,9 @@ import { userHandlers } from "./user.handlers";
 import { animalHandlers } from "./animal.handlers";
 import { shelterHandlers } from "./shelter.handlers";
 import { volunteerHandlers } from "./volunteer.handlers";
+import { volunteerPostHandlers } from "./volunteer-post.handlers";
 import { favoriteHandlers } from "./favorite.handlers";
+import { mediaHandlers } from "./media.handlers";
 import { questionnaireHandlers } from "./questionnaire.handlers";
 import { adoptionHandlers } from "./adoption.handlers";
 
@@ -14,7 +16,9 @@ export const handlers = [
   ...animalHandlers,
   ...shelterHandlers,
   ...volunteerHandlers,
+  ...volunteerPostHandlers,
   ...favoriteHandlers,
+  ...mediaHandlers,
   ...questionnaireHandlers,
   ...adoptionHandlers,
 ];

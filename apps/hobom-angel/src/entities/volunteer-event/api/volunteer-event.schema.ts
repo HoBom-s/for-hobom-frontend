@@ -32,6 +32,13 @@ export const volunteerEventSchema: Schema<RawVolunteerEvent> = HoBomSchema.objec
 export const volunteerEventsSchema: Schema<RawVolunteerEvent[]> =
   HoBomSchema.array(volunteerEventSchema);
 
+/** `GET /volunteer-signups` — a cursor page of the viewer's signed-up events. */
+export const volunteerEventPageSchema = HoBomSchema.object({
+  items: volunteerEventsSchema,
+  nextCursor: HoBomSchema.string().nullable(),
+  hasNext: HoBomSchema.boolean(),
+});
+
 /** `POST /volunteer-events/:eventId/signups` — the created signup's id. */
 export const volunteerSignupSchema: Schema<RawVolunteerSignup> = HoBomSchema.object({
   signupId: HoBomSchema.string(),

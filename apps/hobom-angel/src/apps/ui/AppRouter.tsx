@@ -40,6 +40,9 @@ const VolunteerPage = lazy(() =>
 const FavoritesPage = lazy(() =>
   import("@/pages/favorites").then((module) => ({ default: module.FavoritesPage })),
 );
+const WriteReviewPage = lazy(() =>
+  import("@/pages/volunteer-write").then((module) => ({ default: module.WriteReviewPage })),
+);
 const MyPage = lazy(() => import("@/pages/my").then((module) => ({ default: module.MyPage })));
 
 // Warm the common route chunks during idle time so navigating to them shows the
@@ -78,6 +81,7 @@ export const AppRouter = () => {
             <Route path={ROUTES.SHELTERS} element={<ShelterListPage />} />
             <Route path={ROUTES.SHELTER_DETAIL} element={<ShelterDetailPage />} />
             <Route path={ROUTES.VOLUNTEER} element={<VolunteerPage />} />
+            <Route path={ROUTES.VOLUNTEER_WRITE} element={<WriteReviewPage />} />
             <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
             <Route path={ROUTES.MY} element={<MyPage />} />
               {SECTION_ROUTES.map((path) => (

@@ -69,8 +69,9 @@ const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요.
 
 /** The viewer's own live signups, keyed by eventId → signupId. The mock is
  *  single-user, so this stands in for the server-side per-user signup state that
- *  the viewer-aware event reads expose. */
-const mySignups = new Map<string, string>();
+ *  the viewer-aware event reads expose. Seeded with one past signup so the review
+ *  composer has an activity to tag. */
+const mySignups = new Map<string, string>([["vol-4", "signup-vol-4"]]);
 
 /** Attach the caller's own signup to an event, mirroring the backend's
  *  viewer-aware reads. Mock signups are always PENDING (no staff approval flow). */
@@ -86,6 +87,14 @@ export const volunteerHandlers = [
     if (!mockSession.isActive()) return unauthorized();
 
     return ok(EVENTS.map(withViewer));
+  }),
+
+  http.get(mockUrl("/volunteer-signups"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const items = EVENTS.filter((event) => mySignups.has(event.id)).map(withViewer);
+
+    return ok({ items, nextCursor: null, hasNext: false });
   }),
 
   http.get(mockUrl("/volunteer-events/:eventId"), ({ params }) => {
