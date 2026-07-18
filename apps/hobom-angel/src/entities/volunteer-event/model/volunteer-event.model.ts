@@ -6,6 +6,17 @@ export type VolunteerType = "GENERAL" | "OVERSEAS";
  *  (a rejected/withdrawn signup reads back as null). */
 export type VolunteerSignupStatus = "PENDING" | "APPROVED";
 
+/** An applicant's status as the console shows it — includes the terminal states
+ *  a staff member decides or the volunteer withdraws. */
+export type VolunteerApplicantStatus = "PENDING" | "APPROVED" | "REJECTED" | "WITHDRAWN";
+
+/** One person who signed up for an event (console 지원자 목록). */
+export interface VolunteerApplicant {
+  signupId: string;
+  volunteerId: string;
+  status: VolunteerApplicantStatus;
+}
+
 /** Flight/transport details, present only for OVERSEAS 이동봉사 events. */
 export interface VolunteerTransport {
   departure: string;
@@ -52,6 +63,13 @@ export const VOLUNTEER_TYPE_LABEL: Record<VolunteerType, string> = {
 export const VOLUNTEER_SIGNUP_STATUS_LABEL: Record<VolunteerSignupStatus, string> = {
   PENDING: "승인 대기",
   APPROVED: "참여 확정",
+};
+
+export const VOLUNTEER_APPLICANT_STATUS_LABEL: Record<VolunteerApplicantStatus, string> = {
+  PENDING: "승인 대기",
+  APPROVED: "승인됨",
+  REJECTED: "거절됨",
+  WITHDRAWN: "철회됨",
 };
 
 /** Remaining open spots, floored at 0. */

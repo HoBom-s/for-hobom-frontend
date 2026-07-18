@@ -10,8 +10,11 @@ const profile = {
   nickname: "봄이네",
   email: "hobom@example.com",
   verifiedChannel: "EMAIL",
-  roles: ["MEMBER"],
-  shelterRoles: [] as { shelterId: string; role: string }[],
+  roles: ["SHELTER_ADMIN"],
+  shelterRoles: [{ shelterId: "shelter-1", role: "SHELTER_ADMIN" }] as {
+    shelterId: string;
+    role: string;
+  }[],
   status: "ACTIVE",
 };
 

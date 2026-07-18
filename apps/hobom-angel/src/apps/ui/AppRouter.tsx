@@ -1,10 +1,12 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ROUTES } from "@/shared/config";
 import { onIdle } from "@/shared/lib";
 import { useRouteMeta } from "@/shared/model";
 import { ErrorBoundary, LoadingState, NotFoundState } from "@/shared/ui";
 import { ComingSoonPage } from "@/pages/coming-soon";
+import { ConsoleRoute } from "./ConsoleRoute";
+import { ConsoleShellLayout } from "./ConsoleShellLayout";
 import { ConsumerShellLayout } from "./ConsumerShellLayout";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -47,6 +49,9 @@ const WriteReviewPage = lazy(() =>
   import("@/pages/volunteer-write").then((module) => ({ default: module.WriteReviewPage })),
 );
 const MyPage = lazy(() => import("@/pages/my").then((module) => ({ default: module.MyPage })));
+const ConsoleVolunteerPage = lazy(() =>
+  import("@/pages/console-volunteer").then((module) => ({ default: module.ConsoleVolunteerPage })),
+);
 
 // Warm the common route chunks during idle time so navigating to them shows the
 // screen's own skeleton (data Suspense) rather than the chunk-load spinner.
@@ -91,6 +96,14 @@ export const AppRouter = () => {
               {SECTION_ROUTES.map((path) => (
                 <Route key={path} path={path} element={<ComingSoonPage />} />
               ))}
+            </Route>
+          </Route>
+
+          {/* Shelter staff console — its own chrome, gated on a shelter role. */}
+          <Route element={<ConsoleRoute />}>
+            <Route element={<ConsoleShellLayout />}>
+              <Route path={ROUTES.CONSOLE} element={<Navigate to={ROUTES.CONSOLE_VOLUNTEER} replace />} />
+              <Route path={ROUTES.CONSOLE_VOLUNTEER} element={<ConsoleVolunteerPage />} />
             </Route>
           </Route>
 
