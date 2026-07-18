@@ -15,9 +15,10 @@ test.describe("§07 shelter console — volunteer", () => {
   }) => {
     await login(page);
 
-    // Staff reach the console from the profile menu.
+    // Staff reach the console from the profile menu, then open 봉사 일정.
     await page.getByRole("button", { name: /봄이네님/ }).click();
     await page.getByRole("link", { name: "보호소 콘솔" }).click();
+    await page.getByRole("link", { name: /봉사 일정/ }).click();
     await expect(page).toHaveURL(/\/console\/volunteer$/);
 
     await expect(page.getByRole("heading", { name: "봉사 일정 관리" })).toBeVisible();

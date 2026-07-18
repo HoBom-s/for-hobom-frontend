@@ -73,3 +73,46 @@ export interface AnimalSearchParams {
   cursor?: string;
   limit?: number;
 }
+
+/** Traits payload for register/update (console, staff). */
+export interface AnimalTraitsInput {
+  sex: AnimalSex;
+  size: AnimalSize;
+  ageMonths?: number;
+  weightKg?: number;
+  breed?: string;
+  color?: string;
+  personality?: string;
+}
+
+export interface AnimalHealthInput {
+  neutered: boolean;
+  vaccinated: boolean;
+  microchipId?: string;
+  notes?: string;
+}
+
+/** `POST /shelters/:shelterId/animals` request (staff). */
+export interface RegisterAnimalInput {
+  name: string;
+  species: AnimalSpecies;
+  description?: string;
+  traits: AnimalTraitsInput;
+  health: AnimalHealthInput;
+  intake: { intakeDate: string; rescueStory?: string; noticeNumber?: string };
+  photos?: { objectKey: string; caption?: string }[];
+}
+
+/** `PATCH /animals/:animalId` request (staff) — profile only (no intake/photos). */
+export interface UpdateAnimalInput {
+  name: string;
+  species: AnimalSpecies;
+  description?: string;
+  traits: AnimalTraitsInput;
+  health: AnimalHealthInput;
+}
+
+/** `POST /shelters/:shelterId/animals` response. */
+export interface RegisterAnimalResult {
+  animalId: string;
+}

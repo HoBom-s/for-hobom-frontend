@@ -131,29 +131,6 @@ const FAQS = [
   },
 ];
 
-const NAMES = ["콩이", "보리", "초코", "나비", "깜냥", "단추"];
-const SPECIES = ["DOG", "CAT", "OTHER"] as const;
-const SIZES = ["SMALL", "MEDIUM", "LARGE"] as const;
-
-const ROSTER = NAMES.map((name, i) => ({
-  id: `shelter1-animal-${i + 1}`,
-  shelterId: "shelter-1",
-  name,
-  species: SPECIES[i % SPECIES.length],
-  description: "행복보호소에서 새 가족을 기다리는 아이예요.",
-  status: i % 4 === 3 ? "RESERVED" : "AVAILABLE",
-  traits: {
-    sex: i % 2 === 0 ? "FEMALE" : "MALE",
-    size: SIZES[i % SIZES.length],
-    ageMonths: (i % 5) * 6 + 4,
-    weightKg: (i % 4) + 3,
-    breed: "믹스",
-    color: "아이보리",
-    personality: "온순·사교적",
-  },
-  photos: [{ objectKey: `https://picsum.photos/seed/shelter1-roster${i + 1}/600/450` }],
-}));
-
 // Verified-shelter directory (§3.5). Only VERIFIED shelters are listed.
 const DIRECTORY_NAMES = [
   ["행복보호소", "haengbok-shelter", "서울", "A"],
@@ -245,12 +222,6 @@ export const shelterHandlers = [
     if (!mockSession.isActive()) return unauthorized();
 
     return ok(FAQS);
-  }),
-
-  http.get(mockUrl("/shelters/:shelterId/animals"), () => {
-    if (!mockSession.isActive()) return unauthorized();
-
-    return ok(ROSTER);
   }),
 
   http.get(mockUrl("/shelters/:shelterId/stats"), () => {

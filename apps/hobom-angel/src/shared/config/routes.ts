@@ -18,6 +18,7 @@ export const ROUTES = {
 
   // Shelter staff console.
   CONSOLE: "/console",
+  CONSOLE_ANIMALS: "/console/animals",
   CONSOLE_VOLUNTEER: "/console/volunteer",
 
   // Auth.
