@@ -1,6 +1,11 @@
 import { HoBomSchema } from "hobom-schema";
 import type { Schema } from "hobom-schema";
-import type { AnimalPage, RawAnimal, RawAnimalDetail } from "./animal.type";
+import type {
+  AnimalPage,
+  RawAnimal,
+  RawAnimalDetail,
+  RegisterAnimalResult,
+} from "./animal.type";
 
 const animalFields = {
   id: HoBomSchema.string(),
@@ -56,4 +61,9 @@ export const animalDetailSchema: Schema<RawAnimalDetail> = HoBomSchema.object({
     region: HoBomSchema.string(),
     city: HoBomSchema.string().optional(),
   }).optional(),
+});
+
+/** `POST /shelters/:shelterId/animals` — the created animal's id. */
+export const registerAnimalSchema: Schema<RegisterAnimalResult> = HoBomSchema.object({
+  animalId: HoBomSchema.string(),
 });

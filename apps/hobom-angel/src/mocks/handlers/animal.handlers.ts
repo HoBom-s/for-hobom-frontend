@@ -99,7 +99,35 @@ const ANIMALS = Array.from({ length: 42 }, (_, i) => {
   };
 });
 
-/** Animal domain mock handlers — cursor-paginated /animals with filtering. */
+interface AnimalRow {
+  id: string;
+  shelterId: string;
+  name: string;
+  species: string;
+  description: string;
+  status: string;
+  traits: {
+    sex: string;
+    size: string;
+    ageMonths: number | null;
+    weightKg: number | null;
+    breed: string | null;
+    color: string | null;
+    personality: string | null;
+  };
+  health: { neutered: boolean; vaccinated: boolean; microchipId: string | null; notes: string | null };
+  intake: { intakeDate: string; rescueStory: string | null; noticeNumber: string | null };
+  photos: { objectKey: string; caption?: string }[];
+  shelter: { id: string; slug: string; name: string; region: string; city: string };
+}
+
+let nextAnimalId = ANIMALS.length + 1;
+
+const requireSession = () =>
+  mockSession.isActive() ? null : HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+
+/** Animal domain mock handlers — search, detail, and the §07 console (roster,
+ *  register, edit) sharing one animal store. */
 export const animalHandlers = [
   http.get(mockUrl("/animals"), ({ request }) => {
     if (!mockSession.isActive()) {
@@ -140,5 +168,113 @@ export const animalHandlers = [
     }
 
     return ok(animal);
+  }),
+
+  // §07 console — a shelter's roster, register, and edit (same animal store).
+  http.get(mockUrl("/shelters/:shelterId/animals"), ({ params }) => {
+    const denied = requireSession();
+
+    if (denied) return denied;
+
+    return ok(ANIMALS.filter((animal) => animal.shelterId === params.shelterId));
+  }),
+
+  http.post(mockUrl("/shelters/:shelterId/animals"), async ({ params, request }) => {
+    const denied = requireSession();
+
+    if (denied) return denied;
+
+    const input = (await request.json()) as {
+      name: string;
+      species: string;
+      description?: string;
+      traits: {
+        sex: string;
+        size: string;
+        ageMonths?: number;
+        weightKg?: number;
+        breed?: string;
+        color?: string;
+        personality?: string;
+      };
+      health: { neutered: boolean; vaccinated: boolean; microchipId?: string; notes?: string };
+      intake: { intakeDate: string; rescueStory?: string; noticeNumber?: string };
+      photos?: { objectKey: string; caption?: string }[];
+    };
+    const shelterId = String(params.shelterId);
+    const shelter = SHELTERS.find((candidate) => candidate.id === shelterId);
+    const id = `animal-${nextAnimalId}`;
+
+    nextAnimalId += 1;
+
+    ANIMALS.unshift({
+      id,
+      shelterId,
+      name: input.name,
+      species: input.species,
+      description: input.description ?? "",
+      status: "AVAILABLE",
+      traits: {
+        sex: input.traits.sex,
+        size: input.traits.size,
+        ageMonths: input.traits.ageMonths ?? null,
+        weightKg: input.traits.weightKg ?? null,
+        breed: input.traits.breed ?? null,
+        color: input.traits.color ?? null,
+        personality: input.traits.personality ?? null,
+      },
+      health: {
+        neutered: input.health.neutered,
+        vaccinated: input.health.vaccinated,
+        microchipId: input.health.microchipId ?? null,
+        notes: input.health.notes ?? null,
+      },
+      intake: {
+        intakeDate: input.intake.intakeDate,
+        rescueStory: input.intake.rescueStory ?? null,
+        noticeNumber: input.intake.noticeNumber ?? null,
+      },
+      photos: (input.photos ?? []).map((photo) => ({ objectKey: photo.objectKey })),
+      shelter: {
+        id: shelter?.id ?? shelterId,
+        slug: shelter?.slug ?? "",
+        name: shelter?.name ?? "",
+        region: shelter?.region ?? "",
+        city: shelter?.city ?? "",
+      },
+    } as (typeof ANIMALS)[number]);
+
+    return ok({ animalId: id });
+  }),
+
+  http.patch(mockUrl("/animals/:animalId"), async ({ params, request }) => {
+    const denied = requireSession();
+
+    if (denied) return denied;
+
+    const input = (await request.json()) as {
+      name: string;
+      species: string;
+      description?: string;
+      traits: { sex: string; size: string; ageMonths?: number; breed?: string };
+      health: { neutered: boolean; vaccinated: boolean };
+    };
+    const animal = ANIMALS.find((candidate) => candidate.id === params.animalId) as
+      | AnimalRow
+      | undefined;
+
+    if (animal) {
+      animal.name = input.name;
+      animal.species = input.species;
+      animal.description = input.description ?? "";
+      animal.traits.sex = input.traits.sex;
+      animal.traits.size = input.traits.size;
+      animal.traits.ageMonths = input.traits.ageMonths ?? null;
+      animal.traits.breed = input.traits.breed ?? null;
+      animal.health.neutered = input.health.neutered;
+      animal.health.vaccinated = input.health.vaccinated;
+    }
+
+    return new HttpResponse(null, { status: 204 });
   }),
 ];

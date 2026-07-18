@@ -49,6 +49,9 @@ const WriteReviewPage = lazy(() =>
   import("@/pages/volunteer-write").then((module) => ({ default: module.WriteReviewPage })),
 );
 const MyPage = lazy(() => import("@/pages/my").then((module) => ({ default: module.MyPage })));
+const ConsoleAnimalsPage = lazy(() =>
+  import("@/pages/console-animals").then((module) => ({ default: module.ConsoleAnimalsPage })),
+);
 const ConsoleVolunteerPage = lazy(() =>
   import("@/pages/console-volunteer").then((module) => ({ default: module.ConsoleVolunteerPage })),
 );
@@ -102,7 +105,8 @@ export const AppRouter = () => {
           {/* Shelter staff console — its own chrome, gated on a shelter role. */}
           <Route element={<ConsoleRoute />}>
             <Route element={<ConsoleShellLayout />}>
-              <Route path={ROUTES.CONSOLE} element={<Navigate to={ROUTES.CONSOLE_VOLUNTEER} replace />} />
+              <Route path={ROUTES.CONSOLE} element={<Navigate to={ROUTES.CONSOLE_ANIMALS} replace />} />
+              <Route path={ROUTES.CONSOLE_ANIMALS} element={<ConsoleAnimalsPage />} />
               <Route path={ROUTES.CONSOLE_VOLUNTEER} element={<ConsoleVolunteerPage />} />
             </Route>
           </Route>

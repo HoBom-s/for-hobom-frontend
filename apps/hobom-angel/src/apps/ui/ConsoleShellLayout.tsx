@@ -8,7 +8,7 @@ import { styles } from "./ConsoleShellLayout.styles";
 /** The §07 console menu. Only 봉사 일정 is wired today; the rest are shown (per
  *  the design's 7-menu map) but disabled until their screens land. */
 const MENU: { label: string; hint: string; to: string | null }[] = [
-  { label: "동물 관리", hint: "등록·상태", to: null },
+  { label: "동물 관리", hint: "등록·상태", to: ROUTES.CONSOLE_ANIMALS },
   { label: "신청 처리", hint: "심사·문의", to: null },
   { label: "봉사 일정", hint: "모집·승인", to: ROUTES.CONSOLE_VOLUNTEER },
   { label: "콘텐츠", hint: "공지·FAQ", to: null },
