@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { mediaUrl } from "@/shared/lib";
 import { AnimalGallery } from "./AnimalGallery";
 
 const PHOTOS = ["one.jpg", "two.jpg", "three.jpg"];
@@ -8,10 +9,10 @@ const PHOTOS = ["one.jpg", "two.jpg", "three.jpg"];
 const heroSrc = () => screen.getByAltText("콩이 사진").getAttribute("src");
 
 describe("AnimalGallery", () => {
-  it("shows the first photo as the hero", () => {
+  it("shows the first photo (resolved to a media URL) as the hero", () => {
     render(<AnimalGallery photos={PHOTOS} name="콩이" />);
 
-    expect(heroSrc()).toBe("one.jpg");
+    expect(heroSrc()).toBe(mediaUrl("one.jpg"));
     expect(screen.getAllByRole("button")).toHaveLength(PHOTOS.length);
   });
 
@@ -20,7 +21,7 @@ describe("AnimalGallery", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "콩이 사진 3" }));
 
-    expect(heroSrc()).toBe("three.jpg");
+    expect(heroSrc()).toBe(mediaUrl("three.jpg"));
     expect(screen.getByRole("button", { name: "콩이 사진 3" }).getAttribute("aria-pressed")).toBe("true");
   });
 
