@@ -1,5 +1,7 @@
 export { ShelterCard } from "./ui/ShelterCard";
 export { shelterQueries } from "./api/shelter.queries";
+export { shelterMutations } from "./api/shelter.mutations";
+export type { AnnouncementInput } from "./api/shelter.type";
 export { toShelter } from "./lib/to-shelter.lib";
 export { formatShelterAddress } from "./lib/format-shelter-address.lib";
 export { operatingYears } from "./lib/operating-years.lib";

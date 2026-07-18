@@ -4,7 +4,7 @@ const WIDE = "@media (min-width: 1024px)";
 
 export const styles = stylex.create({
   root: {
-    maxWidth: 1080,
+    width: "100%",
   },
   title: {
     margin: 0,
@@ -37,7 +37,7 @@ export const styles = stylex.create({
   // Table on the left, register/edit form on the right (§7.1).
   layout: {
     display: "grid",
-    gridTemplateColumns: { default: "1fr", [WIDE]: "1.1fr 1fr" },
+    gridTemplateColumns: { default: "1fr", [WIDE]: "1fr 1fr" },
     alignItems: "start",
     gap: 20,
   },

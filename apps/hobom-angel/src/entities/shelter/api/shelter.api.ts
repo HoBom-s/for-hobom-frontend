@@ -4,6 +4,7 @@ import { toShelter, toShelterAnnouncement, toShelterFaq } from "../lib/to-shelte
 import { toShelterListItem } from "../lib/to-shelter-list-item.lib";
 import { toShelterMarker } from "../lib/to-shelter-marker.lib";
 import {
+  createdIdSchema,
   shelterAnnouncementsSchema,
   shelterFaqsSchema,
   shelterListPageSchema,
@@ -19,7 +20,7 @@ import type {
   ShelterMarker,
   ShelterStats,
 } from "../model/shelter.model";
-import type { ShelterSearchParams } from "./shelter.type";
+import type { AnnouncementInput, CreatedId, ShelterSearchParams } from "./shelter.type";
 
 /** A converted page of shelters plus the cursor to the next one. */
 export interface ShelterListResult {
@@ -82,6 +83,20 @@ export const getShelterAnnouncements = (
         .map(toShelterAnnouncement)
         .sort((a, b) => Number(b.pinned) - Number(a.pinned)),
     );
+
+/** Post a shelter announcement (§7.4 console, staff). */
+export const postAnnouncement = (shelterId: string, input: AnnouncementInput): Promise<CreatedId> =>
+  httpClient
+    .post(`/shelters/${shelterId}/announcements`, input)
+    .then(parseResponse(createdIdSchema, "POST /shelters/:id/announcements"));
+
+/** Edit an announcement (staff). */
+export const editAnnouncement = (id: string, input: AnnouncementInput): Promise<void> =>
+  httpClient.patch(`/announcements/${id}`, input).then(() => undefined);
+
+/** Delete an announcement (staff). */
+export const deleteAnnouncement = (id: string): Promise<void> =>
+  httpClient.delete(`/announcements/${id}`).then(() => undefined);
 
 /** Fetch a shelter's FAQ entries. */
 export const getShelterFaqs = (

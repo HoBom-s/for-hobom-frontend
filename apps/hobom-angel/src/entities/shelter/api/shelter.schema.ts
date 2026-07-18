@@ -1,6 +1,7 @@
 import { HoBomSchema } from "hobom-schema";
 import type { Schema } from "hobom-schema";
 import type {
+  CreatedId,
   RawShelter,
   RawShelterAnnouncement,
   RawShelterFaq,
@@ -93,4 +94,9 @@ export const shelterStatsSchema: Schema<RawShelterStats> = HoBomSchema.object({
   adoptedCount: HoBomSchema.number(),
   shelteredCount: HoBomSchema.number(),
   availableCount: HoBomSchema.number(),
+});
+
+/** Create responses returning just an id (announcement/faq). */
+export const createdIdSchema: Schema<CreatedId> = HoBomSchema.object({
+  id: HoBomSchema.string(),
 });

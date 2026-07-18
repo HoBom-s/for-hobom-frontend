@@ -116,6 +116,8 @@ const ANNOUNCEMENTS = [
   },
 ];
 
+let nextAnnouncement = ANNOUNCEMENTS.length + 1;
+
 const FAQS = [
   {
     id: "faq-1",
@@ -216,6 +218,50 @@ export const shelterHandlers = [
     if (!mockSession.isActive()) return unauthorized();
 
     return ok(ANNOUNCEMENTS);
+  }),
+
+  // §7.4 console — announcement CRUD.
+  http.post(mockUrl("/shelters/:shelterId/announcements"), async ({ request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const input = (await request.json()) as { title: string; body: string; pinned: boolean };
+    const id = `ann-${nextAnnouncement}`;
+
+    nextAnnouncement += 1;
+    ANNOUNCEMENTS.unshift({
+      id,
+      title: input.title,
+      body: input.body,
+      pinned: input.pinned,
+      createdAt: "2026-07-18T00:00:00.000Z",
+    });
+
+    return ok({ id });
+  }),
+
+  http.patch(mockUrl("/announcements/:id"), async ({ params, request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const input = (await request.json()) as { title: string; body: string; pinned: boolean };
+    const announcement = ANNOUNCEMENTS.find((item) => item.id === params.id);
+
+    if (announcement) {
+      announcement.title = input.title;
+      announcement.body = input.body;
+      announcement.pinned = input.pinned;
+    }
+
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.delete(mockUrl("/announcements/:id"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const index = ANNOUNCEMENTS.findIndex((item) => item.id === params.id);
+
+    if (index >= 0) ANNOUNCEMENTS.splice(index, 1);
+
+    return new HttpResponse(null, { status: 204 });
   }),
 
   http.get(mockUrl("/shelters/:shelterId/faqs"), () => {

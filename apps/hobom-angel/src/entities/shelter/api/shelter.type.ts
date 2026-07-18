@@ -93,3 +93,15 @@ export interface RawShelterStats {
   shelteredCount: number;
   availableCount: number;
 }
+
+/** `POST/PATCH` announcement request (staff). */
+export interface AnnouncementInput {
+  title: string;
+  body: string;
+  pinned: boolean;
+}
+
+/** Create responses that return just an id. */
+export interface CreatedId {
+  id: string;
+}

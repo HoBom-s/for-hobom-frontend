@@ -4,7 +4,7 @@ const WIDE = "@media (min-width: 1024px)";
 
 export const styles = stylex.create({
   root: {
-    maxWidth: 1080,
+    width: "100%",
   },
   header: {
     marginBottom: 20,
@@ -22,7 +22,7 @@ export const styles = stylex.create({
   },
   layout: {
     display: "grid",
-    gridTemplateColumns: { default: "1fr", [WIDE]: "360px 1fr" },
+    gridTemplateColumns: { default: "1fr", [WIDE]: "1fr 1fr" },
     alignItems: "start",
     gap: 20,
   },

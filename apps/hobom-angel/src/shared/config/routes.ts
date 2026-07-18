@@ -20,6 +20,7 @@ export const ROUTES = {
   CONSOLE: "/console",
   CONSOLE_ANIMALS: "/console/animals",
   CONSOLE_VOLUNTEER: "/console/volunteer",
+  CONSOLE_CONTENT: "/console/content",
 
   // Auth.
   LOGIN: "/login",

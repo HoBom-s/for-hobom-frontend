@@ -11,7 +11,7 @@ const MENU: { label: string; hint: string; to: string | null }[] = [
   { label: "동물 관리", hint: "등록·상태", to: ROUTES.CONSOLE_ANIMALS },
   { label: "신청 처리", hint: "심사·문의", to: null },
   { label: "봉사 일정", hint: "모집·승인", to: ROUTES.CONSOLE_VOLUNTEER },
-  { label: "콘텐츠", hint: "공지·FAQ", to: null },
+  { label: "콘텐츠", hint: "공지·FAQ", to: ROUTES.CONSOLE_CONTENT },
   { label: "설문 빌더", hint: "폼 정의", to: null },
   { label: "스태프 관리", hint: "승격·역할", to: null },
   { label: "통계", hint: "KPI", to: null },
@@ -34,26 +34,27 @@ export const ConsoleShellLayout = () => (
       <nav {...stylex.props(styles.nav)}>
         {MENU.map((item) =>
           item.to ? (
-            <NavLink
-              key={item.label}
-              to={item.to}
-              {...stylex.props(styles.item)}
-              style={({ isActive }) => (isActive ? activeStyle : undefined)}
-            >
-              <span {...stylex.props(styles.itemLabel)}>{item.label}</span>
-              <span {...stylex.props(styles.itemHint)}>{item.hint}</span>
+            <NavLink key={item.label} to={item.to} {...stylex.props(styles.itemLink)}>
+              {({ isActive }) => (
+                <span {...stylex.props(styles.item, isActive && styles.itemActive)}>
+                  <span {...stylex.props(styles.itemLabel)}>{item.label}</span>
+                  <span {...stylex.props(styles.itemHint)}>{item.hint}</span>
+                </span>
+              )}
             </NavLink>
           ) : (
-            <span key={item.label} {...stylex.props(styles.item, styles.itemDisabled)}>
-              <span {...stylex.props(styles.itemLabel)}>{item.label}</span>
-              <span {...stylex.props(styles.itemSoon)}>준비 중</span>
+            <span key={item.label} {...stylex.props(styles.itemLink)}>
+              <span {...stylex.props(styles.item, styles.itemDisabled)}>
+                <span {...stylex.props(styles.itemLabel)}>{item.label}</span>
+                <span {...stylex.props(styles.itemSoon)}>준비 중</span>
+              </span>
             </span>
           ),
         )}
       </nav>
 
       <div {...stylex.props(styles.foot)}>
-        <span {...stylex.props(styles.scope)}>소속 보호소 스코프</span>
+        <span {...stylex.props(styles.scope)}>우리 보호소 정보만 관리할 수 있어요</span>
         <Link to={ROUTES.HOME} {...stylex.props(styles.exit)}>
           ← 서비스로 나가기
         </Link>
@@ -67,9 +68,3 @@ export const ConsoleShellLayout = () => (
     </main>
   </div>
 );
-
-const activeStyle = {
-  backgroundColor: "var(--hb-color-surface)",
-  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-  color: "var(--hb-color-accent-dark, var(--hb-color-accent))",
-} as const;
