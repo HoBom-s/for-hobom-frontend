@@ -1,14 +1,22 @@
 import * as stylex from "@stylexjs/stylex";
-import { REVIEW_STEP, useApplyAdoption } from "../model/useApplyAdoption";
+import type { QuestionnairePurpose } from "@/entities/questionnaire";
+import { REVIEW_STEP, useApplyPlacement } from "../model/useApplyPlacement";
 import { ApplyHeader } from "./ApplyHeader";
 import { ApplyNav } from "./ApplyNav";
 import { QuestionField } from "./QuestionField";
 import { ReviewStep } from "./ReviewStep";
-import { styles } from "./ApplyAdoption.styles";
+import { styles } from "./ApplyPlacement.styles";
 
-/** §03 adoption funnel: one question per step (URL-synced) ending in a review,
- *  with a bottom action bar on mobile / inline nav on desktop. */
-export const ApplyAdoption = ({ animalId }: { animalId: string }) => {
+interface ApplyPlacementProps {
+  animalId: string;
+  /** ADOPTION drives the adoption funnel; FOSTER the 임시보호 funnel. */
+  purpose: QuestionnairePurpose;
+}
+
+/** §03 placement funnel: one question per step (URL-synced) ending in a review,
+ *  with a bottom action bar on mobile / inline nav on desktop. Shared by the
+ *  adoption and foster applications (they differ only in survey + endpoint). */
+export const ApplyPlacement = ({ animalId, purpose }: ApplyPlacementProps) => {
   const {
     animal,
     Funnel,
@@ -22,7 +30,7 @@ export const ApplyAdoption = ({ animalId }: { animalId: string }) => {
     onNext,
     onPrev,
     isSubmitting,
-  } = useApplyAdoption(animalId);
+  } = useApplyPlacement(animalId, purpose);
 
   return (
     <div {...stylex.props(styles.root)}>

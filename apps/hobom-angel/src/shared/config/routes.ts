@@ -7,6 +7,7 @@ export const ROUTES = {
   ANIMAL_DETAIL: "/animals/:animalId",
   APPLY: "/apply/:animalId",
   FOSTER: "/foster",
+  FOSTER_APPLY: "/foster/apply/:animalId",
   VOLUNTEER: "/volunteer",
   VOLUNTEER_WRITE: "/volunteer/posts/new",
   SHELTERS: "/shelters",
@@ -32,6 +33,7 @@ export const animalDetailPath = (animalId: string): string => `/animals/${animal
 
 /** Build the concrete path to an animal's adoption application funnel. */
 export const applyPath = (animalId: string): string => `/apply/${animalId}`;
+export const fosterApplyPath = (animalId: string): string => `/foster/apply/${animalId}`;
 
 /** Build the concrete path to a shelter's microsite (by slug). */
 export const shelterPath = (shelterSlug: string): string => `/shelters/${shelterSlug}`;

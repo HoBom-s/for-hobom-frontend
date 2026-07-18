@@ -4,7 +4,7 @@ import { BooleanAnswer } from "./fields/BooleanAnswer";
 import { MultiChoiceAnswer } from "./fields/MultiChoiceAnswer";
 import { SingleChoiceAnswer } from "./fields/SingleChoiceAnswer";
 import { TextAnswer } from "./fields/TextAnswer";
-import { styles } from "./ApplyAdoption.styles";
+import { styles } from "./ApplyPlacement.styles";
 
 interface QuestionFieldProps {
   question: Question;

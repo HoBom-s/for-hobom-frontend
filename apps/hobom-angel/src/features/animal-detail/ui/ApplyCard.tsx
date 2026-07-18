@@ -3,7 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { ChevronRight, Favorite, FavoriteBorder, LocationOnOutlined } from "hobom-design-system/icons";
 import { SEX_LABEL, SIZE_LABEL, STATUS_LABEL, formatAge } from "@/entities/animal";
-import { applyPath, shelterPath } from "@/shared/config";
+import { applyPath, fosterApplyPath, shelterPath } from "@/shared/config";
 import { useToast } from "@/shared/model";
 import type { AnimalDetail } from "@/entities/animal";
 import { applyCta } from "../lib/apply-cta.lib";
@@ -26,8 +26,8 @@ const STATUS_COLOR = {
 
 const COMING_SOON = "곧 제공될 예정이에요.";
 
-/** Sticky application panel with status-branched CTAs (§02). Apply/foster and
- *  inquiry are placeholders until the funnel and inquiry threads land. */
+/** Sticky application panel with status-branched CTAs (§02). Apply and foster
+ *  open their funnels; inquiry is a placeholder until inquiry threads land. */
 export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProps) => {
   const navigate = useNavigate();
   const { openWarnToast } = useToast();
@@ -101,7 +101,11 @@ export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProp
           {cta.primaryLabel}
         </Hb.Button>
         {cta.showFoster && (
-          <Hb.Button variant="secondary" fullWidth onClick={notReady}>
+          <Hb.Button
+            variant="secondary"
+            fullWidth
+            onClick={() => navigate(fosterApplyPath(animal.id))}
+          >
             임시보호 신청
           </Hb.Button>
         )}
