@@ -19,20 +19,24 @@ export const AnnouncementManager = ({ shelterId }: { shelterId: string }) => {
 
   return (
     <div {...stylex.props(styles.layout)}>
-      <AnnouncementForm
-        key={editing?.id ?? "new"}
-        editing={editing}
-        onCreate={createAnnouncement}
-        onUpdate={updateAnnouncement}
-        onCancel={clearEdit}
-        saving={saving}
-      />
-      <AnnouncementList
-        announcements={announcements}
-        editingId={editing?.id ?? null}
-        onEdit={edit}
-        onDelete={removeAnnouncement}
-      />
+      <div {...stylex.props(styles.col)}>
+        <AnnouncementForm
+          key={editing?.id ?? "new"}
+          editing={editing}
+          onCreate={createAnnouncement}
+          onUpdate={updateAnnouncement}
+          onCancel={clearEdit}
+          saving={saving}
+        />
+      </div>
+      <div {...stylex.props(styles.col)}>
+        <AnnouncementList
+          announcements={announcements}
+          editingId={editing?.id ?? null}
+          onEdit={edit}
+          onDelete={removeAnnouncement}
+        />
+      </div>
     </div>
   );
 };

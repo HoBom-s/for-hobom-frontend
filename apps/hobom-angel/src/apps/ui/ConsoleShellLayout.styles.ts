@@ -7,6 +7,10 @@ export const styles = stylex.create({
     display: "flex",
     flexDirection: { default: "column", [DESKTOP]: "row" },
     minHeight: "100dvh",
+    // On desktop the shell is a fixed viewport: the sidebar stays put and only
+    // the main content scrolls. On phones it falls back to normal page scroll.
+    height: { [DESKTOP]: "100dvh" },
+    overflow: { [DESKTOP]: "hidden" },
     // White content area; the sidebar keeps its own light-gray rail below.
     backgroundColor: "var(--hb-color-surface)",
   },
@@ -18,6 +22,7 @@ export const styles = stylex.create({
     boxSizing: "border-box",
     padding: 14,
     gap: 10,
+    overflowY: { [DESKTOP]: "auto" },
     borderInlineEndWidth: { default: 0, [DESKTOP]: 1 },
     borderInlineEndStyle: "solid",
     borderInlineEndColor: "var(--hb-color-border)",
@@ -133,6 +138,12 @@ export const styles = stylex.create({
   main: {
     flex: 1,
     minWidth: 0,
+    minHeight: 0,
+    // A fixed pane on desktop so each screen manages its own scroll regions;
+    // normal page scroll on phones.
+    display: "flex",
+    flexDirection: "column",
+    overflowY: { default: "visible", [DESKTOP]: "hidden" },
     padding: "clamp(16px, 4vw, 32px)",
   },
 });

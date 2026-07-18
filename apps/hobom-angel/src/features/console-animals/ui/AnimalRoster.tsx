@@ -1,7 +1,11 @@
 import * as stylex from "@stylexjs/stylex";
+import { Hb } from "hobom-design-system";
 import type { Animal } from "@/entities/animal";
 import { AnimalRosterRow } from "./AnimalRosterRow";
 import { styles } from "./AnimalRoster.styles";
+
+/** Green sticky header with white text (overrides the DS default surface bg). */
+const HEADER = { backgroundColor: "var(--hb-color-accent)", color: "#fff" } as const;
 
 interface AnimalRosterProps {
   animals: Animal[];
@@ -9,33 +13,39 @@ interface AnimalRosterProps {
   onEdit: (animalId: string) => void;
 }
 
-/** The shelter's animals as a table (§7.1) — thumbnail · 이름·품종 · 상태 · 신청.
- *  Selecting a row opens it in the edit form. */
+/** The shelter's animals as a DS table with a sticky header (§7.1). Selecting a
+ *  row opens it in the edit form. */
 export const AnimalRoster = ({ animals, editingId, onEdit }: AnimalRosterProps) => {
   if (animals.length === 0) {
-    return (
-      <div {...stylex.props(styles.table)}>
-        <p {...stylex.props(styles.empty)}>아직 등록한 동물이 없어요.</p>
-      </div>
-    );
+    return <p {...stylex.props(styles.empty)}>아직 등록한 동물이 없어요.</p>;
   }
 
   return (
-    <div {...stylex.props(styles.table)}>
-      <div {...stylex.props(styles.head)}>
-        <span />
-        <span>이름·품종</span>
-        <span>상태</span>
-        <span {...stylex.props(styles.count)}>신청</span>
-      </div>
-      {animals.map((animal) => (
-        <AnimalRosterRow
-          key={animal.id}
-          animal={animal}
-          active={animal.id === editingId}
-          onEdit={() => onEdit(animal.id)}
-        />
-      ))}
-    </div>
+    <Hb.Table.Root size="small" stickyHeader style={{ width: "100%" }}>
+      <Hb.Table.Head>
+        <Hb.Table.Row>
+          <Hb.Table.Cell scope="col" width={52} style={HEADER} />
+          <Hb.Table.Cell scope="col" style={HEADER}>
+            이름·품종
+          </Hb.Table.Cell>
+          <Hb.Table.Cell scope="col" style={HEADER}>
+            상태
+          </Hb.Table.Cell>
+          <Hb.Table.Cell scope="col" align="right" style={HEADER}>
+            신청
+          </Hb.Table.Cell>
+        </Hb.Table.Row>
+      </Hb.Table.Head>
+      <Hb.Table.Body>
+        {animals.map((animal) => (
+          <AnimalRosterRow
+            key={animal.id}
+            animal={animal}
+            active={animal.id === editingId}
+            onEdit={() => onEdit(animal.id)}
+          />
+        ))}
+      </Hb.Table.Body>
+    </Hb.Table.Root>
   );
 };

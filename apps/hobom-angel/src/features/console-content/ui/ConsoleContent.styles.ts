@@ -4,14 +4,26 @@ const WIDE = "@media (min-width: 1024px)";
 
 export const styles = stylex.create({
   root: {
+    display: "flex",
+    flexDirection: "column",
     width: "100%",
+    height: { [WIDE]: "100%" },
+    minHeight: 0,
   },
-  // Full-width body split 1:1 — form on the left, the list on the right.
+  // Full-width body split 1:1 — form on the left, the list on the right; each
+  // column scrolls on its own.
   layout: {
     display: "grid",
     gridTemplateColumns: { default: "1fr", [WIDE]: "1fr 1fr" },
     alignItems: "start",
     gap: 20,
+    flex: { [WIDE]: 1 },
+    minHeight: 0,
+  },
+  col: {
+    minHeight: 0,
+    height: { [WIDE]: "100%" },
+    overflowY: { [WIDE]: "auto" },
   },
   title: {
     margin: 0,
