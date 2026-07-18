@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import type { Question } from "@/entities/questionnaire";
 import { isAnswered } from "../lib/apply-steps.lib";
-import { styles } from "./ApplyAdoption.styles";
+import { styles } from "./ApplyPlacement.styles";
 import type { AnswerMap } from "../lib/apply-steps.lib";
 
 const BOOLEAN_LABELS: Record<string, string> = { true: "예", false: "아니오" };

@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { ApplyPlacement } from "@/features/apply-placement";
 import { NotFoundState } from "@/shared/ui";
 
-export const ApplyAdoptionPage = () => {
+export const ApplyFosterPage = () => {
   const { animalId } = useParams<{ animalId: string }>();
 
   if (!animalId) return <NotFoundState />;
 
-  return <ApplyPlacement animalId={animalId} purpose="ADOPTION" />;
+  return <ApplyPlacement animalId={animalId} purpose="FOSTER" />;
 };

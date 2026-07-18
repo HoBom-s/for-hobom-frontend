@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { styles } from "./ApplyAdoption.styles";
+import { styles } from "./ApplyPlacement.styles";
 
 interface ApplyNavProps {
   canPrev: boolean;

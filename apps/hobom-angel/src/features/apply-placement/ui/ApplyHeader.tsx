@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { animalDetailPath } from "@/shared/config";
-import { styles } from "./ApplyAdoption.styles";
+import { styles } from "./ApplyPlacement.styles";
 
 interface ApplyHeaderProps {
   animalId: string;
