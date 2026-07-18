@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import * as stylex from "@stylexjs/stylex";
+import { Hb } from "hobom-design-system";
 import { LoadingState } from "@/shared/ui";
 import { useConsoleAnimals } from "../model/useConsoleAnimals";
 import { AnimalRoster } from "./AnimalRoster";
@@ -7,20 +8,30 @@ import { EditForm } from "./EditForm";
 import { RegisterForm } from "./RegisterForm";
 import { styles } from "./ConsoleAnimals.styles";
 
-/** §07 동물 관리: register on the left, the shelter's roster on the right;
- *  selecting an animal swaps the form into edit mode. Scoped to the shelter. */
+/** §7.1 동물 관리: the shelter's roster as a table on the left, a register/edit
+ *  form on the right. Selecting a row edits it; "+ 동물 등록" returns to register. */
 export const ConsoleAnimals = ({ shelterId }: { shelterId: string }) => {
   const { animals, editingId, edit, clearEdit, registerAnimal, updateAnimal, saving } =
     useConsoleAnimals(shelterId);
 
   return (
     <div {...stylex.props(styles.root)}>
-      <header {...stylex.props(styles.header)}>
-        <h1 {...stylex.props(styles.title)}>동물 관리</h1>
-        <p {...stylex.props(styles.subtitle)}>우리 보호소 동물 {animals.length}마리 · 등록·수정</p>
-      </header>
+      <h1 {...stylex.props(styles.title)}>동물 관리</h1>
+      <p {...stylex.props(styles.subtitle)}>등록·수정 · 이미지 · 상태</p>
+
+      <div {...stylex.props(styles.toolbar)}>
+        <span {...stylex.props(styles.count)}>
+          우리 보호소 동물 <span {...stylex.props(styles.countNum)}>{animals.length}</span>
+        </span>
+        <span {...stylex.props(styles.spacer)} />
+        <Hb.Button variant="primary" size="small" disabled={!editingId} onClick={clearEdit}>
+          + 동물 등록
+        </Hb.Button>
+      </div>
 
       <div {...stylex.props(styles.layout)}>
+        <AnimalRoster animals={animals} editingId={editingId} onEdit={edit} />
+
         {editingId ? (
           <Suspense fallback={<LoadingState />}>
             <EditForm
@@ -34,8 +45,6 @@ export const ConsoleAnimals = ({ shelterId }: { shelterId: string }) => {
         ) : (
           <RegisterForm onRegister={registerAnimal} saving={saving} />
         )}
-
-        <AnimalRoster animals={animals} editingId={editingId} onEdit={edit} />
       </div>
     </div>
   );

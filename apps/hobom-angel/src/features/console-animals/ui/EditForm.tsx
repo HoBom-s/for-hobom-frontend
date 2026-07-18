@@ -3,10 +3,13 @@ import { useSuspenseQuery } from "hobom-data";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { animalQueries } from "@/entities/animal";
+import { mediaUrl } from "@/shared/lib";
 import type { UpdateAnimalInput } from "@/entities/animal";
 import { AnimalFields } from "./AnimalFields";
+import { PhotoStrip } from "./PhotoStrip";
 import { animalFormFromDetail, toUpdateInput } from "../lib/animal-form.lib";
 import { styles } from "./AnimalForm.styles";
+import { styles as fieldStyles } from "./AnimalFields.styles";
 
 interface EditFormProps {
   animalId: string;
@@ -33,6 +36,15 @@ export const EditForm = ({ animalId, onUpdate, onCancel, saving }: EditFormProps
       </div>
 
       <AnimalFields values={values} onChange={setValues} />
+
+      <div {...stylex.props(fieldStyles.field)}>
+        <span {...stylex.props(fieldStyles.label)}>사진</span>
+        <PhotoStrip
+          photos={detail.photos.map((key) => ({ key, url: mediaUrl(key) }))}
+          emptyText="등록된 사진이 없어요."
+        />
+        <span {...stylex.props(styles.note)}>사진은 동물 등록 시에만 추가할 수 있어요.</span>
+      </div>
 
       <div {...stylex.props(styles.actions)}>
         <Hb.Button variant="ghost" onClick={onCancel}>

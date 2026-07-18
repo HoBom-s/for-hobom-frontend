@@ -115,6 +115,16 @@ export const AnimalFields = ({ values, onChange }: AnimalFieldsProps) => (
     </div>
 
     <label {...stylex.props(styles.field)}>
+      <span {...stylex.props(styles.label)}>마이크로칩</span>
+      <input
+        {...stylex.props(styles.input)}
+        value={values.microchip}
+        placeholder="칩 번호 (선택)"
+        onChange={(event) => onChange({ ...values, microchip: event.target.value })}
+      />
+    </label>
+
+    <label {...stylex.props(styles.field)}>
       <span {...stylex.props(styles.label)}>소개</span>
       <textarea
         {...stylex.props(styles.input, styles.textarea)}

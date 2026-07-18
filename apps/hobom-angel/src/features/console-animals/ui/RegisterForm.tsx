@@ -3,6 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import type { RegisterAnimalInput } from "@/entities/animal";
 import { AnimalFields } from "./AnimalFields";
+import { PhotoStrip } from "./PhotoStrip";
 import { useAnimalPhotos } from "../model/useAnimalPhotos";
 import { EMPTY_ANIMAL_FORM, toRegisterInput } from "../lib/animal-form.lib";
 import { styles } from "./AnimalForm.styles";
@@ -49,36 +50,12 @@ export const RegisterForm = ({ onRegister, saving }: RegisterFormProps) => {
 
       <div {...stylex.props(fieldStyles.field)}>
         <span {...stylex.props(fieldStyles.label)}>사진</span>
-        <div {...stylex.props(styles.attach)}>
-          {photos.images.map((image) => (
-            <div key={image.objectKey} {...stylex.props(styles.thumb)}>
-              <img src={image.publicUrl} alt="" {...stylex.props(styles.thumbImg)} />
-              <button
-                type="button"
-                aria-label="사진 삭제"
-                {...stylex.props(styles.thumbRemove)}
-                onClick={() => photos.remove(image.objectKey)}
-              >
-                ×
-              </button>
-            </div>
-          ))}
-          <label {...stylex.props(styles.attachBtn)}>
-            {photos.uploading ? "업로드 중…" : "＋ 사진"}
-            <input
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              multiple
-              {...stylex.props(styles.hiddenInput)}
-              onChange={(event) => {
-                const input = event.currentTarget;
-
-                void photos.add(input.files);
-                input.value = "";
-              }}
-            />
-          </label>
-        </div>
+        <PhotoStrip
+          photos={photos.images.map((image) => ({ key: image.objectKey, url: image.publicUrl }))}
+          uploading={photos.uploading}
+          onAdd={(files) => void photos.add(files)}
+          onRemove={photos.remove}
+        />
       </div>
 
       <Hb.Button

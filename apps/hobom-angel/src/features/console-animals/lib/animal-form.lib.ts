@@ -18,6 +18,7 @@ export interface AnimalFormValues {
   ageMonths: string;
   neutered: boolean;
   vaccinated: boolean;
+  microchip: string;
   description: string;
 }
 
@@ -30,6 +31,7 @@ export const EMPTY_ANIMAL_FORM: AnimalFormValues = {
   ageMonths: "",
   neutered: false,
   vaccinated: false,
+  microchip: "",
   description: "",
 };
 
@@ -43,6 +45,7 @@ export const animalFormFromDetail = (animal: AnimalDetail): AnimalFormValues => 
   ageMonths: animal.ageMonths != null ? String(animal.ageMonths) : "",
   neutered: animal.health.neutered,
   vaccinated: animal.health.vaccinated,
+  microchip: animal.health.microchipId ?? "",
   description: animal.description,
 });
 
@@ -59,7 +62,11 @@ export const toUpdateInput = (values: AnimalFormValues): UpdateAnimalInput => ({
   species: values.species,
   description: values.description.trim() || undefined,
   traits: toTraits(values),
-  health: { neutered: values.neutered, vaccinated: values.vaccinated },
+  health: {
+    neutered: values.neutered,
+    vaccinated: values.vaccinated,
+    microchipId: values.microchip.trim() || undefined,
+  },
 });
 
 /** Build the register body, adding the intake date and any uploaded photos. */

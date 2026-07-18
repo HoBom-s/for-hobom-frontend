@@ -257,7 +257,7 @@ export const animalHandlers = [
       species: string;
       description?: string;
       traits: { sex: string; size: string; ageMonths?: number; breed?: string };
-      health: { neutered: boolean; vaccinated: boolean };
+      health: { neutered: boolean; vaccinated: boolean; microchipId?: string };
     };
     const animal = ANIMALS.find((candidate) => candidate.id === params.animalId) as
       | AnimalRow
@@ -273,6 +273,7 @@ export const animalHandlers = [
       animal.traits.breed = input.traits.breed ?? null;
       animal.health.neutered = input.health.neutered;
       animal.health.vaccinated = input.health.vaccinated;
+      animal.health.microchipId = input.health.microchipId ?? null;
     }
 
     return new HttpResponse(null, { status: 204 });
