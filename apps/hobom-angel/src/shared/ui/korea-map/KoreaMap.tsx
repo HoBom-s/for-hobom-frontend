@@ -1,9 +1,18 @@
 import { useRef, useState } from "react";
 import type { KeyboardEvent, PointerEvent, WheelEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { KOREA_MAP } from "../lib/korea-map.lib";
-import { styles } from "./ShelterMap.styles";
-import type { LocatedMarker } from "../lib/locatable-markers.lib";
+import { EmptyState } from "hobom-design-system";
+import { KOREA_MAP } from "./korea-map.lib";
+import { styles } from "./KoreaMap.styles";
+
+export interface KoreaMarker {
+  id: string;
+  lng: number;
+  lat: number;
+  label: string;
+  /** Optional count bubble riding on the pin (e.g. matching results). */
+  badge?: string;
+}
 
 type Box = [x: number, y: number, w: number, h: number];
 
@@ -20,19 +29,29 @@ const clampBox = (x: number, y: number, w: number, h: number): Box => {
   return [clamp(x, BX, BX + BW - cw), clamp(y, BY, BY + BH - ch), cw, ch];
 };
 
-interface ShelterMapProps {
-  markers: LocatedMarker[];
-  /** Route to the shelter microsite (SPA navigation). */
-  onSelect: (slug: string) => void;
+interface KoreaMapProps {
+  markers: KoreaMarker[];
+  /** Called with the selected marker's id. */
+  onSelect: (id: string) => void;
   /** The active region filter — its province is highlighted, if any. */
   activeRegion?: string;
+  /** Accessible name for the map. */
+  ariaLabel?: string;
+  /** Shown over the map when there are no plottable markers. */
+  emptyMessage?: string;
 }
 
-/** A hand-drawn South Korea map (§3.5) — province outlines with a shelter pin
- *  per located marker, each routing to its microsite. Pure SVG projected from
- *  vendored boundaries (no map SDK, tiles, or network), with wheel/pinch-free
- *  zoom and drag-to-pan driven by the view box. */
-export const ShelterMap = ({ markers, onSelect, activeRegion }: ShelterMapProps) => {
+/** A hand-drawn South Korea map — province outlines with a pin per located
+ *  marker (optionally badged), each selectable. Pure SVG projected from vendored
+ *  boundaries (no map SDK, tiles, or network), with wheel zoom and drag-to-pan
+ *  driven by the view box. Shared across the shelter and adoption directories. */
+export const KoreaMap = ({
+  markers,
+  onSelect,
+  activeRegion,
+  ariaLabel = "지도",
+  emptyMessage,
+}: KoreaMapProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const drag = useRef<{ x: number; y: number; box: Box } | null>(null);
   const [box, setBox] = useState<Box>([BX, BY, BW, BH]);
@@ -77,10 +96,10 @@ export const ShelterMap = ({ markers, onSelect, activeRegion }: ShelterMapProps)
     drag.current = null;
   };
 
-  const activateMarker = (event: KeyboardEvent<SVGGElement>, slug: string) => {
+  const activateMarker = (event: KeyboardEvent<SVGGElement>, id: string) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      onSelect(slug);
+      onSelect(id);
     }
   };
 
@@ -100,7 +119,7 @@ export const ShelterMap = ({ markers, onSelect, activeRegion }: ShelterMapProps)
         viewBox={box.join(" ")}
         preserveAspectRatio="xMidYMid meet"
         role="img"
-        aria-label="보호소 지도"
+        aria-label={ariaLabel}
         {...stylex.props(styles.map, !zoomedOut && styles.grabbing)}
         onWheel={onWheel}
         onPointerDown={onPointerDown}
@@ -129,14 +148,22 @@ export const ShelterMap = ({ markers, onSelect, activeRegion }: ShelterMapProps)
               key={marker.id}
               role="button"
               tabIndex={0}
-              aria-label={marker.name}
+              aria-label={marker.label}
               {...stylex.props(styles.pinGroup)}
               onPointerDown={(event) => event.stopPropagation()}
-              onClick={() => onSelect(marker.slug)}
-              onKeyDown={(event) => activateMarker(event, marker.slug)}
+              onClick={() => onSelect(marker.id)}
+              onKeyDown={(event) => activateMarker(event, marker.id)}
             >
               <circle cx={x} cy={y} r={13} {...stylex.props(styles.halo)} />
               <circle cx={x} cy={y} r={7} {...stylex.props(styles.pin)} />
+              {marker.badge !== undefined && (
+                <>
+                  <circle cx={x + 9} cy={y - 9} r={7} {...stylex.props(styles.badge)} />
+                  <text x={x + 9} y={y - 9} {...stylex.props(styles.badgeText)}>
+                    {marker.badge}
+                  </text>
+                </>
+              )}
             </g>
           ))}
         </g>
@@ -145,7 +172,7 @@ export const ShelterMap = ({ markers, onSelect, activeRegion }: ShelterMapProps)
         <g {...stylex.props(styles.labelLayer)}>
           {plotted.map(({ marker, x, y }) => (
             <text key={marker.id} x={x} y={y - 13} textAnchor="middle" {...stylex.props(styles.label)}>
-              {marker.name}
+              {marker.label}
             </text>
           ))}
         </g>
@@ -178,6 +205,12 @@ export const ShelterMap = ({ markers, onSelect, activeRegion }: ShelterMapProps)
           ⤢
         </button>
       </div>
+
+      {plotted.length === 0 && emptyMessage !== undefined && (
+        <div {...stylex.props(styles.overlay)}>
+          <EmptyState message={emptyMessage} />
+        </div>
+      )}
     </div>
   );
 };

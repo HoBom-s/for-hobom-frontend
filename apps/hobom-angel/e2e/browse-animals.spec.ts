@@ -72,4 +72,21 @@ test.describe("§01 browse animals", () => {
     await page.getByRole("button", { name: "검색" }).click();
     await expect(page).toHaveURL(/q=%EC%BD%A9/);
   });
+
+  test("switches to the map and opens a shelter from a badged marker", async ({ page }) => {
+    await login(page);
+    await page.goto("animals");
+
+    await page.getByRole("button", { name: "지도" }).click();
+    await expect(page).toHaveURL(/view=map/);
+
+    // Shelters holding matching animals are plotted as routable markers.
+    const marker = page.getByRole("button", { name: "행복보호소" });
+    await expect(marker).toBeVisible();
+
+    await page.screenshot({ path: "e2e-artifacts/animal-map.png", fullPage: true });
+
+    await marker.click();
+    await expect(page).toHaveURL(/\/shelters\/haengbok-shelter$/);
+  });
 });

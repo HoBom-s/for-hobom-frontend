@@ -6,20 +6,23 @@ import { SPECIES_LABEL } from "@/entities/animal";
 import type { AnimalFilters as Filters, AnimalSpecies } from "@/entities/animal";
 import { SortSelect } from "./SortSelect";
 import { styles } from "./AnimalFilters.styles";
+import type { AnimalView } from "../lib/animal-filter-params.lib";
 
 const SPECIES: AnimalSpecies[] = ["DOG", "CAT", "OTHER"];
 
 interface AnimalFiltersProps {
   filters: Filters;
   onChange: (next: Filters) => void;
+  view: AnimalView;
+  onViewChange: (view: AnimalView) => void;
 }
 
 /**
- * §01 filter bar: full-width keyword search, a species segmented control, and
- * the "입양가능만" toggle — all on design-system primitives. (지역·나이·크기
- * dropdowns, 정렬, 지도 토글 follow in later PRs.)
+ * §01 filter bar: full-width keyword search, a species segmented control, the
+ * "입양가능만" toggle, sort, and the grid/map view toggle — all on design-system
+ * primitives. (지역·나이·크기 dropdowns follow in later PRs.)
  */
-export const AnimalFilters = ({ filters, onChange }: AnimalFiltersProps) => {
+export const AnimalFilters = ({ filters, onChange, view, onViewChange }: AnimalFiltersProps) => {
   const [keyword, setKeyword] = useState(filters.keyword ?? "");
   const availableOnly = filters.status === "AVAILABLE";
 
@@ -78,12 +81,21 @@ export const AnimalFilters = ({ filters, onChange }: AnimalFiltersProps) => {
             value={filters.sort ?? "LATEST"}
             onChange={(sort) => onChange({ ...filters, sort })}
           />
-          {/* The grid/map toggle stays a placeholder until the map view lands. */}
           <Hb.ToggleButtonGroup variant="segmented" aria-label="보기 방식">
-            <Hb.ToggleButton variant="segmented" value="grid" selected>
+            <Hb.ToggleButton
+              variant="segmented"
+              value="grid"
+              selected={view === "grid"}
+              onChange={() => onViewChange("grid")}
+            >
               그리드
             </Hb.ToggleButton>
-            <Hb.ToggleButton variant="segmented" value="map">
+            <Hb.ToggleButton
+              variant="segmented"
+              value="map"
+              selected={view === "map"}
+              onChange={() => onViewChange("map")}
+            >
               지도
             </Hb.ToggleButton>
           </Hb.ToggleButtonGroup>

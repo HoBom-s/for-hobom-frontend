@@ -17,6 +17,14 @@ export const animalQueries = {
       initialPageParam: undefined as string | undefined,
     }),
 
+  /** A single larger page for the map view — enough matching animals to
+   *  aggregate by shelter without walking every cursor page. */
+  mapSample: (filters: AnimalFilters) =>
+    queryOptions({
+      queryKey: [...animalQueries.all(), "mapSample", filters] as const,
+      queryFn: ({ signal }) => searchAnimals({ ...filters, limit: 50 }, signal),
+    }),
+
   detail: (id: string) =>
     queryOptions({
       queryKey: [...animalQueries.all(), "detail", id] as const,
