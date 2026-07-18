@@ -1,12 +1,15 @@
 import { httpClient, parseResponse } from "@/shared/api";
 import { toVolunteerEvent } from "../lib/to-volunteer-event.lib";
 import {
+  createVolunteerEventSchema,
+  volunteerApplicantsSchema,
   volunteerEventPageSchema,
   volunteerEventSchema,
   volunteerEventsSchema,
   volunteerSignupSchema,
 } from "./volunteer-event.schema";
-import type { VolunteerEvent } from "../model/volunteer-event.model";
+import type { VolunteerApplicant, VolunteerEvent } from "../model/volunteer-event.model";
+import type { CreateVolunteerEventInput } from "./volunteer-event.type";
 
 const parseVolunteerEvents = parseResponse(
   volunteerEventsSchema,
@@ -57,3 +60,34 @@ export const signUpForVolunteerEvent = (id: string): Promise<{ signupId: string 
 /** Withdraw a signup (by its id, from the signup response). */
 export const withdrawVolunteerSignup = (signupId: string): Promise<void> =>
   httpClient.post(`/volunteer-signups/${signupId}/withdrawal`, {}).then(() => undefined);
+
+/** Create a volunteer event for a shelter (§07 console, staff). */
+export const createVolunteerEvent = (
+  shelterId: string,
+  input: CreateVolunteerEventInput,
+): Promise<{ eventId: string }> =>
+  httpClient
+    .post(`/shelters/${shelterId}/volunteer-events`, input)
+    .then(parseResponse(createVolunteerEventSchema, "POST /shelters/:id/volunteer-events"));
+
+/** Cancel a volunteer event (staff, no body). */
+export const cancelVolunteerEvent = (eventId: string): Promise<void> =>
+  httpClient.post(`/volunteer-events/${eventId}/cancellation`, {}).then(() => undefined);
+
+/** List an event's applicants (§07 console, staff). */
+export const getVolunteerApplicants = (
+  eventId: string,
+  signal?: AbortSignal,
+): Promise<VolunteerApplicant[]> =>
+  httpClient
+    .get(`/volunteer-events/${eventId}/signups`, { signal })
+    .then(parseResponse(volunteerApplicantsSchema, "GET /volunteer-events/:id/signups"));
+
+/** Approve or reject an applicant's signup (staff). */
+export const decideVolunteerSignup = (
+  signupId: string,
+  decision: "APPROVE" | "REJECT",
+): Promise<void> =>
+  httpClient
+    .post(`/volunteer-signups/${signupId}/decision`, { decision })
+    .then(() => undefined);

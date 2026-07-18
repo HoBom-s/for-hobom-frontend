@@ -1,4 +1,5 @@
 import type {
+  VolunteerApplicantStatus,
   VolunteerEventStatus,
   VolunteerSignupStatus,
   VolunteerType,
@@ -36,4 +37,27 @@ export interface RawVolunteerEvent {
 /** `POST /volunteer-events/:eventId/signups` response. */
 export interface RawVolunteerSignup {
   signupId: string;
+}
+
+/** `GET /volunteer-events/:eventId/signups` item (console applicant list). */
+export interface RawVolunteerApplicant {
+  signupId: string;
+  volunteerId: string;
+  status: VolunteerApplicantStatus;
+}
+
+/** `POST /shelters/:shelterId/volunteer-events` request (staff). Transport is
+ *  only sent for OVERSEAS events (not built yet — GENERAL only for now). */
+export interface CreateVolunteerEventInput {
+  title: string;
+  description?: string;
+  startAt: string;
+  endAt: string;
+  capacity: number;
+  type?: VolunteerType;
+}
+
+/** `POST /shelters/:shelterId/volunteer-events` response. */
+export interface RawCreateVolunteerEventResult {
+  eventId: string;
 }

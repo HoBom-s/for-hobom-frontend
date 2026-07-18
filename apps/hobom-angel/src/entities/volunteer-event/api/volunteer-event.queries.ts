@@ -3,6 +3,7 @@ import {
   getMyVolunteerSignups,
   getShelterVolunteerEvents,
   getUpcomingVolunteerEvents,
+  getVolunteerApplicants,
   getVolunteerEvent,
 } from "./volunteer-event.api";
 
@@ -31,5 +32,11 @@ export const volunteerEventQueries = {
     queryOptions({
       queryKey: [...volunteerEventQueries.all(), "detail", id] as const,
       queryFn: ({ signal }) => getVolunteerEvent(id, signal),
+    }),
+
+  applicants: (eventId: string) =>
+    queryOptions({
+      queryKey: [...volunteerEventQueries.all(), "applicants", eventId] as const,
+      queryFn: ({ signal }) => getVolunteerApplicants(eventId, signal),
     }),
 } as const;

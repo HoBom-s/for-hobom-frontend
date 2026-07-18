@@ -3,6 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";
 import { ROUTES } from "@/shared/config";
+import { managedShelter } from "@/entities/user";
 import type { CurrentUser } from "@/entities/user";
 import { PRIMARY_NAV } from "../model/nav-items";
 import { activeLinkProps } from "./nav-link-props";
@@ -47,7 +48,7 @@ export const TopNav = ({ user, isAuthenticated }: TopNavProps) => {
             <button type="button" {...stylex.props(styles.iconBtn)} aria-label="알림">
               <NotificationsNoneOutlined fontSize="small" />
             </button>
-            <ProfileMenu nickname={user.nickname} />
+            <ProfileMenu nickname={user.nickname} staff={managedShelter(user) !== null} />
           </>
         ) : (
           <>

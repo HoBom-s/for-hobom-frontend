@@ -16,6 +16,10 @@ export const ROUTES = {
   APPLICATIONS: "/applications",
   MY: "/my",
 
+  // Shelter staff console.
+  CONSOLE: "/console",
+  CONSOLE_VOLUNTEER: "/console/volunteer",
+
   // Auth.
   LOGIN: "/login",
   SIGNUP: "/signup",

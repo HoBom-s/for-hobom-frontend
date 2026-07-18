@@ -5,6 +5,7 @@ export {
   VOLUNTEER_STATUS_LABEL,
   VOLUNTEER_TYPE_LABEL,
   VOLUNTEER_SIGNUP_STATUS_LABEL,
+  VOLUNTEER_APPLICANT_STATUS_LABEL,
   spotsLeft,
   isSignUpOpen,
 } from "./model/volunteer-event.model";
@@ -14,4 +15,7 @@ export type {
   VolunteerType,
   VolunteerTransport,
   VolunteerSignupStatus,
+  VolunteerApplicant,
+  VolunteerApplicantStatus,
 } from "./model/volunteer-event.model";
+export type { CreateVolunteerEventInput } from "./api/volunteer-event.type";

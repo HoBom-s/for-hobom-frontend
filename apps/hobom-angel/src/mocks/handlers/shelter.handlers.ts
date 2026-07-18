@@ -33,7 +33,23 @@ const SHELTER = {
   coverImageKey: "https://picsum.photos/seed/shelter1-cover/1200/375",
 };
 
-const VOLUNTEER_EVENTS = [
+interface VolunteerEventRow {
+  id: string;
+  shelterId: string;
+  title: string;
+  description: string;
+  startAt: string;
+  endAt: string;
+  capacity: number;
+  signedUpCount: number;
+  status: string;
+  type: string;
+  transport: null;
+  mySignupId: string | null;
+  mySignupStatus: string | null;
+}
+
+const VOLUNTEER_EVENTS: VolunteerEventRow[] = [
   {
     id: "vol-1",
     shelterId: "shelter-1",
@@ -44,6 +60,8 @@ const VOLUNTEER_EVENTS = [
     capacity: 10,
     signedUpCount: 6,
     status: "OPEN",
+    type: "GENERAL",
+    transport: null,
     mySignupId: null,
     mySignupStatus: null,
   },
@@ -57,10 +75,29 @@ const VOLUNTEER_EVENTS = [
     capacity: 8,
     signedUpCount: 8,
     status: "CLOSED",
+    type: "GENERAL",
+    transport: null,
     mySignupId: null,
     mySignupStatus: null,
   },
 ];
+
+// Applicants per event for the console (§07 봉사 일정 → 지원자 승인/거절).
+const VOLUNTEER_APPLICANTS = new Map<
+  string,
+  { signupId: string; volunteerId: string; status: string }[]
+>([
+  [
+    "vol-1",
+    [
+      { signupId: "vsg-1", volunteerId: "user-2", status: "APPROVED" },
+      { signupId: "vsg-2", volunteerId: "user-3", status: "PENDING" },
+      { signupId: "vsg-3", volunteerId: "mock-user-1", status: "PENDING" },
+    ],
+  ],
+]);
+
+let nextVolunteerEvent = VOLUNTEER_EVENTS.length + 1;
 
 const ANNOUNCEMENTS = [
   {
@@ -226,5 +263,72 @@ export const shelterHandlers = [
     if (!mockSession.isActive()) return unauthorized();
 
     return ok(VOLUNTEER_EVENTS);
+  }),
+
+  // §07 console — create / cancel events and decide applicants.
+  http.post(mockUrl("/shelters/:shelterId/volunteer-events"), async ({ params, request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const input = (await request.json()) as {
+      title: string;
+      description?: string;
+      startAt: string;
+      endAt: string;
+      capacity: number;
+    };
+    const id = `vol-${nextVolunteerEvent}`;
+
+    nextVolunteerEvent += 1;
+
+    VOLUNTEER_EVENTS.unshift({
+      id,
+      shelterId: String(params.shelterId),
+      title: input.title,
+      description: input.description ?? "",
+      startAt: input.startAt,
+      endAt: input.endAt,
+      capacity: input.capacity,
+      signedUpCount: 0,
+      status: "OPEN",
+      type: "GENERAL",
+      transport: null,
+      mySignupId: null,
+      mySignupStatus: null,
+    });
+
+    return ok({ eventId: id });
+  }),
+
+  http.post(mockUrl("/volunteer-events/:eventId/cancellation"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const event = VOLUNTEER_EVENTS.find((candidate) => candidate.id === params.eventId);
+
+    if (event) event.status = "CANCELLED";
+
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.get(mockUrl("/volunteer-events/:eventId/signups"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    return ok(VOLUNTEER_APPLICANTS.get(String(params.eventId)) ?? []);
+  }),
+
+  http.post(mockUrl("/volunteer-signups/:signupId/decision"), async ({ params, request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const { decision } = (await request.json()) as { decision: "APPROVE" | "REJECT" };
+
+    for (const list of VOLUNTEER_APPLICANTS.values()) {
+      const applicant = list.find((candidate) => candidate.signupId === params.signupId);
+
+      if (applicant) {
+        applicant.status = decision === "APPROVE" ? "APPROVED" : "REJECTED";
+        break;
+      }
+    }
+
+    return new HttpResponse(null, { status: 204 });
   }),
 ];
