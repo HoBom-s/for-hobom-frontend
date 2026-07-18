@@ -87,6 +87,14 @@ export const styles = stylex.create({
   hiddenInput: {
     display: "none",
   },
+  emptyPhotos: {
+    fontSize: "0.8125rem",
+    color: "var(--hb-color-text-secondary)",
+  },
+  note: {
+    fontSize: "0.75rem",
+    color: "var(--hb-color-text-disabled)",
+  },
   actions: {
     display: "flex",
     gap: 8,
