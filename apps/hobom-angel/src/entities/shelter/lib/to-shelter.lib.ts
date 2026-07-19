@@ -46,4 +46,5 @@ export const toShelterFaq = (raw: RawShelterFaq): ShelterFaq => ({
   id: raw.id,
   question: raw.question,
   answer: raw.answer,
+  order: raw.order,
 });

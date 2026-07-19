@@ -1,6 +1,13 @@
 import { mutationOptions } from "hobom-data";
-import { deleteAnnouncement, editAnnouncement, postAnnouncement } from "./shelter.api";
-import type { AnnouncementInput } from "./shelter.type";
+import {
+  deleteAnnouncement,
+  deleteFaq,
+  editAnnouncement,
+  editFaq,
+  postAnnouncement,
+  postFaq,
+} from "./shelter.api";
+import type { AnnouncementInput, FaqInput } from "./shelter.type";
 
 export const shelterMutations = {
   createAnnouncement: (shelterId: string) =>
@@ -17,5 +24,20 @@ export const shelterMutations = {
   removeAnnouncement: () =>
     mutationOptions({
       mutationFn: (id: string) => deleteAnnouncement(id),
+    }),
+
+  createFaq: (shelterId: string) =>
+    mutationOptions({
+      mutationFn: (input: FaqInput) => postFaq(shelterId, input),
+    }),
+
+  updateFaq: () =>
+    mutationOptions({
+      mutationFn: (vars: { id: string; input: FaqInput }) => editFaq(vars.id, vars.input),
+    }),
+
+  removeFaq: () =>
+    mutationOptions({
+      mutationFn: (id: string) => deleteFaq(id),
     }),
 } as const;

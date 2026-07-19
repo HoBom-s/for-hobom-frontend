@@ -85,6 +85,7 @@ export interface RawShelterFaq {
   id: string;
   question: string;
   answer: string;
+  order: number;
 }
 
 /** `GET /shelters/:shelterId/stats` response. */
@@ -104,4 +105,11 @@ export interface AnnouncementInput {
 /** Create responses that return just an id. */
 export interface CreatedId {
   id: string;
+}
+
+/** `POST/PATCH` FAQ request (staff). */
+export interface FaqInput {
+  question: string;
+  answer: string;
+  order: number;
 }

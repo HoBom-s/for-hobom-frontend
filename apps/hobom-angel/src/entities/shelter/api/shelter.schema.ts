@@ -86,6 +86,7 @@ export const shelterFaqsSchema: Schema<RawShelterFaq[]> = HoBomSchema.array(
     id: HoBomSchema.string(),
     question: HoBomSchema.string(),
     answer: HoBomSchema.string(),
+    order: HoBomSchema.number(),
   }),
 );
 

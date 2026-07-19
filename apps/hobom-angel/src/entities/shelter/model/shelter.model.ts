@@ -77,6 +77,7 @@ export interface ShelterFaq {
   id: string;
   question: string;
   answer: string;
+  order: number;
 }
 
 /** Aggregate counts shown on the About tab (§04). */

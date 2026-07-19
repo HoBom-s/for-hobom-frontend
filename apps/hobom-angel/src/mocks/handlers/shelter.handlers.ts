@@ -133,6 +133,8 @@ const FAQS = [
   },
 ];
 
+let nextFaq = FAQS.length + 1;
+
 // Verified-shelter directory (§3.5). Only VERIFIED shelters are listed.
 const DIRECTORY_NAMES = [
   ["행복보호소", "haengbok-shelter", "서울", "A"],
@@ -268,6 +270,44 @@ export const shelterHandlers = [
     if (!mockSession.isActive()) return unauthorized();
 
     return ok(FAQS);
+  }),
+
+  // §7.4 console — FAQ CRUD.
+  http.post(mockUrl("/shelters/:shelterId/faqs"), async ({ request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const input = (await request.json()) as { question: string; answer: string; order: number };
+    const id = `faq-${nextFaq}`;
+
+    nextFaq += 1;
+    FAQS.push({ id, question: input.question, answer: input.answer, order: input.order });
+
+    return ok({ id });
+  }),
+
+  http.patch(mockUrl("/faqs/:id"), async ({ params, request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const input = (await request.json()) as { question: string; answer: string; order: number };
+    const faq = FAQS.find((item) => item.id === params.id);
+
+    if (faq) {
+      faq.question = input.question;
+      faq.answer = input.answer;
+      faq.order = input.order;
+    }
+
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.delete(mockUrl("/faqs/:id"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const index = FAQS.findIndex((item) => item.id === params.id);
+
+    if (index >= 0) FAQS.splice(index, 1);
+
+    return new HttpResponse(null, { status: 204 });
   }),
 
   http.get(mockUrl("/shelters/:shelterId/stats"), () => {
