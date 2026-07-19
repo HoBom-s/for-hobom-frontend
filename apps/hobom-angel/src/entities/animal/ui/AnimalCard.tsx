@@ -20,7 +20,7 @@ interface AnimalCardProps {
 
 const STATUS_COLOR = {
   입양가능: "primary",
-  예약중: "warning",
+  "입양 진행중": "warning",
   임보중: "secondary",
   입양완료: "success",
   반환: "default",

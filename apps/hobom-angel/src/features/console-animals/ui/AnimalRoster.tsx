@@ -4,8 +4,11 @@ import type { Animal } from "@/entities/animal";
 import { AnimalRosterRow } from "./AnimalRosterRow";
 import { styles } from "./AnimalRoster.styles";
 
-/** Green sticky header with white text (overrides the DS default surface bg). */
-const HEADER = { backgroundColor: "var(--hb-color-accent)", color: "#fff" } as const;
+/** Soft-green sticky header with dark-green text (overrides the DS surface bg). */
+const HEADER = {
+  backgroundColor: "oklch(0.93 0.045 155)",
+  color: "var(--hb-color-accent-dark, oklch(0.46 0.08 155))",
+} as const;
 
 interface AnimalRosterProps {
   animals: Animal[];

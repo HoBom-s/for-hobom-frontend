@@ -81,10 +81,13 @@ export const styles = stylex.create({
     color: "var(--hb-color-text-primary)",
     backgroundColor: { default: "transparent", ":hover": "var(--hb-color-surface)" },
   },
-  // Selected menu — filled with the brand green, label/hint go white.
+  // Selected menu — a soft green tint with dark-green text.
   itemActive: {
-    color: "#fff",
-    backgroundColor: { default: "var(--hb-color-accent)", ":hover": "var(--hb-color-accent)" },
+    color: "var(--hb-color-accent-dark, oklch(0.46 0.08 155))",
+    backgroundColor: {
+      default: "oklch(0.93 0.045 155)",
+      ":hover": "oklch(0.93 0.045 155)",
+    },
   },
   itemDisabled: {
     cursor: "default",
