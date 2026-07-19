@@ -4,6 +4,7 @@ import type {
   CreatedId,
   RawShelter,
   RawShelterAnnouncement,
+  RawShelterDashboard,
   RawShelterFaq,
   RawShelterMarker,
   RawShelterStats,
@@ -95,6 +96,23 @@ export const shelterStatsSchema: Schema<RawShelterStats> = HoBomSchema.object({
   adoptedCount: HoBomSchema.number(),
   shelteredCount: HoBomSchema.number(),
   availableCount: HoBomSchema.number(),
+});
+
+/** `GET /shelters/:shelterId/dashboard` — the §07 staff KPI payload. */
+export const shelterDashboardSchema: Schema<RawShelterDashboard> = HoBomSchema.object({
+  adoptedCount: HoBomSchema.number(),
+  shelteredCount: HoBomSchema.number(),
+  availableCount: HoBomSchema.number(),
+  adoptionRate: HoBomSchema.number(),
+  thisMonthAdoptions: HoBomSchema.number(),
+  lastMonthAdoptions: HoBomSchema.number(),
+  monthlyAdoptions: HoBomSchema.array(
+    HoBomSchema.object({
+      month: HoBomSchema.string(),
+      count: HoBomSchema.number(),
+    }),
+  ),
+  pendingApplications: HoBomSchema.number(),
 });
 
 /** Create responses returning just an id (announcement/faq). */

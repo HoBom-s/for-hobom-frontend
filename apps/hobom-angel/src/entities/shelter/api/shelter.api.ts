@@ -6,6 +6,7 @@ import { toShelterMarker } from "../lib/to-shelter-marker.lib";
 import {
   createdIdSchema,
   shelterAnnouncementsSchema,
+  shelterDashboardSchema,
   shelterFaqsSchema,
   shelterListPageSchema,
   shelterMarkersSchema,
@@ -15,6 +16,7 @@ import {
 import type {
   Shelter,
   ShelterAnnouncement,
+  ShelterDashboard,
   ShelterFaq,
   ShelterListItem,
   ShelterMarker,
@@ -37,6 +39,7 @@ const parseAnnouncements = parseResponse(
 );
 const parseFaqs = parseResponse(shelterFaqsSchema, "GET /shelters/:id/faqs");
 const parseStats = parseResponse(shelterStatsSchema, "GET /shelters/:id/stats");
+const parseDashboard = parseResponse(shelterDashboardSchema, "GET /shelters/:id/dashboard");
 const parseMarkers = parseResponse(shelterMarkersSchema, "GET /shelters/map");
 
 /** Browse verified shelters (region filter + cursor pagination) (§3.5). */
@@ -132,3 +135,10 @@ export const getShelterStats = (shelterId: string, signal?: AbortSignal): Promis
     .get(`/shelters/${shelterId}/stats`, { signal })
     .then(parseStats)
     .then((raw): ShelterStats => ({ ...EMPTY_STATS, ...raw }));
+
+/** Fetch a shelter's §07 management KPIs (staff-scoped dashboard). */
+export const getShelterDashboard = (
+  shelterId: string,
+  signal?: AbortSignal,
+): Promise<ShelterDashboard> =>
+  httpClient.get(`/shelters/${shelterId}/dashboard`, { signal }).then(parseDashboard);

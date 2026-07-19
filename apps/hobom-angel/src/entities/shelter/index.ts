@@ -14,6 +14,8 @@ export type {
   Shelter,
   ShelterAddress,
   ShelterAnnouncement,
+  ShelterDashboard,
+  MonthlyAdoptionPoint,
   ShelterFaq,
   ShelterListItem,
   ShelterMarker,

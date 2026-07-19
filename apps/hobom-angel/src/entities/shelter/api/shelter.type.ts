@@ -95,6 +95,23 @@ export interface RawShelterStats {
   availableCount: number;
 }
 
+export interface RawMonthlyAdoptionPoint {
+  month: string;
+  count: number;
+}
+
+/** `GET /shelters/:id/dashboard` — the §07 staff KPI payload. */
+export interface RawShelterDashboard {
+  adoptedCount: number;
+  shelteredCount: number;
+  availableCount: number;
+  adoptionRate: number;
+  thisMonthAdoptions: number;
+  lastMonthAdoptions: number;
+  monthlyAdoptions: RawMonthlyAdoptionPoint[];
+  pendingApplications: number;
+}
+
 /** `POST/PATCH` announcement request (staff). */
 export interface AnnouncementInput {
   title: string;

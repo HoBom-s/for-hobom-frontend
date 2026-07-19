@@ -316,6 +316,29 @@ export const shelterHandlers = [
     return ok({ adoptedCount: 240, shelteredCount: 32, availableCount: 18 });
   }),
 
+  // §07 console — staff KPI dashboard (input for the 통계 screen).
+  http.get(mockUrl("/shelters/:shelterId/dashboard"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    return ok({
+      adoptedCount: 240,
+      shelteredCount: 32,
+      availableCount: 18,
+      adoptionRate: 240 / (240 + 32),
+      thisMonthAdoptions: 18,
+      lastMonthAdoptions: 13,
+      monthlyAdoptions: [
+        { month: "2026-02", count: 7 },
+        { month: "2026-03", count: 11 },
+        { month: "2026-04", count: 9 },
+        { month: "2026-05", count: 14 },
+        { month: "2026-06", count: 13 },
+        { month: "2026-07", count: 18 },
+      ],
+      pendingApplications: 6,
+    });
+  }),
+
   http.get(mockUrl("/shelters/:shelterId/volunteer-events"), () => {
     if (!mockSession.isActive()) return unauthorized();
 

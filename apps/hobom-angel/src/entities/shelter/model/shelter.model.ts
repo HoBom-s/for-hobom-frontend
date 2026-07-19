@@ -87,6 +87,26 @@ export interface ShelterStats {
   availableCount: number;
 }
 
+/** One month of the adoption trend (KST `YYYY-MM`). */
+export interface MonthlyAdoptionPoint {
+  month: string;
+  count: number;
+}
+
+/** §07 management KPIs for a single shelter (staff-scoped dashboard). */
+export interface ShelterDashboard {
+  adoptedCount: number;
+  shelteredCount: number;
+  availableCount: number;
+  /** adopted / (adopted + sheltered), 0–1. */
+  adoptionRate: number;
+  thisMonthAdoptions: number;
+  lastMonthAdoptions: number;
+  /** Trailing six months, oldest first. */
+  monthlyAdoptions: MonthlyAdoptionPoint[];
+  pendingApplications: number;
+}
+
 /** Only VERIFIED shelters show the ✓ badge and get PII privileges. */
 export const isShelterVerified = (status: ShelterStatus): boolean => status === "VERIFIED";
 

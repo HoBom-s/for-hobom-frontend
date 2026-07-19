@@ -14,7 +14,7 @@ const MENU: { label: string; hint: string; to: string | null }[] = [
   { label: "콘텐츠", hint: "공지·FAQ", to: ROUTES.CONSOLE_CONTENT },
   { label: "설문 빌더", hint: "폼 정의", to: null },
   { label: "스태프 관리", hint: "승격·역할", to: null },
-  { label: "통계", hint: "KPI", to: null },
+  { label: "통계", hint: "KPI", to: ROUTES.CONSOLE_STATS },
 ];
 
 /** Shelter console chrome (§07): a shelter-branded sidebar (the menu map) beside

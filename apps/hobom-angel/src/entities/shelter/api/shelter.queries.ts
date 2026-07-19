@@ -2,6 +2,7 @@ import { infiniteQueryOptions, queryOptions } from "hobom-data";
 import {
   getShelterAnnouncements,
   getShelterBySlug,
+  getShelterDashboard,
   getShelterFaqs,
   getShelterMarkers,
   getShelterStats,
@@ -47,5 +48,11 @@ export const shelterQueries = {
     queryOptions({
       queryKey: [...shelterQueries.all(), shelterId, "stats"] as const,
       queryFn: ({ signal }) => getShelterStats(shelterId, signal),
+    }),
+
+  dashboard: (shelterId: string) =>
+    queryOptions({
+      queryKey: [...shelterQueries.all(), shelterId, "dashboard"] as const,
+      queryFn: ({ signal }) => getShelterDashboard(shelterId, signal),
     }),
 } as const;
