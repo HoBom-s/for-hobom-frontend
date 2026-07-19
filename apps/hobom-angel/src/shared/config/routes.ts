@@ -21,6 +21,7 @@ export const ROUTES = {
   CONSOLE_ANIMALS: "/console/animals",
   CONSOLE_VOLUNTEER: "/console/volunteer",
   CONSOLE_CONTENT: "/console/content",
+  CONSOLE_SURVEY: "/console/survey",
   CONSOLE_STATS: "/console/stats",
 
   // Auth.

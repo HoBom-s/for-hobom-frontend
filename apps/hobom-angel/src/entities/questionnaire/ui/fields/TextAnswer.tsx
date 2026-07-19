@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { styles } from "../ApplyPlacement.styles";
+import { styles } from "../QuestionField.styles";
 
 interface TextAnswerProps {
   id: string;

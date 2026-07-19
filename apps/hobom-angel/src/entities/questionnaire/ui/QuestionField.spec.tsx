@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import type { Question } from "@/entities/questionnaire";
 import { QuestionField } from "./QuestionField";
+import type { Question } from "../model/questionnaire.model";
 
 const question = (type: Question["type"], options: string[] = []): Question => ({
   id: "q1",

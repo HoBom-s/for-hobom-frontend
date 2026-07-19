@@ -1,10 +1,10 @@
 import * as stylex from "@stylexjs/stylex";
-import type { Question } from "@/entities/questionnaire";
 import { BooleanAnswer } from "./fields/BooleanAnswer";
 import { MultiChoiceAnswer } from "./fields/MultiChoiceAnswer";
 import { SingleChoiceAnswer } from "./fields/SingleChoiceAnswer";
 import { TextAnswer } from "./fields/TextAnswer";
-import { styles } from "./ApplyPlacement.styles";
+import { styles } from "./QuestionField.styles";
+import type { Question } from "../model/questionnaire.model";
 
 interface QuestionFieldProps {
   question: Question;
@@ -25,7 +25,8 @@ const renderAnswer = (question: Question, id: string, props: Omit<QuestionFieldP
   }
 };
 
-/** One survey question: the prompt plus the field for its type (§03). */
+/** One survey question: the prompt plus the field for its type. Shared by the
+ *  applicant funnel (§03) and the console survey builder's live preview (§7.5). */
 export const QuestionField = ({ question, values, onChange }: QuestionFieldProps) => {
   const id = `q-${question.id}`;
 

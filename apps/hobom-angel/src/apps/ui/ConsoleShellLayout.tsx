@@ -12,7 +12,7 @@ const MENU: { label: string; hint: string; to: string | null }[] = [
   { label: "신청 처리", hint: "심사·문의", to: null },
   { label: "봉사 일정", hint: "모집·승인", to: ROUTES.CONSOLE_VOLUNTEER },
   { label: "콘텐츠", hint: "공지·FAQ", to: ROUTES.CONSOLE_CONTENT },
-  { label: "설문 빌더", hint: "폼 정의", to: null },
+  { label: "설문 빌더", hint: "폼 정의", to: ROUTES.CONSOLE_SURVEY },
   { label: "스태프 관리", hint: "승격·역할", to: null },
   { label: "통계", hint: "KPI", to: ROUTES.CONSOLE_STATS },
 ];
