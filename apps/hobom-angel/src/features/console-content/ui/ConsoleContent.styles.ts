@@ -54,9 +54,9 @@ export const styles = stylex.create({
     backgroundColor: "var(--hb-color-surface)",
   },
   tabActive: {
-    color: "#fff",
-    borderColor: "var(--hb-color-accent)",
-    backgroundColor: "var(--hb-color-accent)",
+    color: "var(--hb-color-accent-dark, oklch(0.46 0.08 155))",
+    borderColor: "oklch(0.86 0.06 155)",
+    backgroundColor: "oklch(0.93 0.045 155)",
   },
   tabSoon: {
     opacity: 0.5,

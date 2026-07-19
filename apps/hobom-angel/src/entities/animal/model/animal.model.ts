@@ -43,11 +43,11 @@ export const SORT_LABEL: Record<AnimalSort, string> = {
 };
 
 /** Display label for a status; matches the AnimalCard chip labels. */
-export type AnimalStatusLabel = "입양가능" | "예약중" | "임보중" | "입양완료" | "반환";
+export type AnimalStatusLabel = "입양가능" | "입양 진행중" | "임보중" | "입양완료" | "반환";
 
 export const STATUS_LABEL: Record<AnimalStatusCode, AnimalStatusLabel> = {
   AVAILABLE: "입양가능",
-  RESERVED: "예약중",
+  RESERVED: "입양 진행중",
   FOSTERED: "임보중",
   ADOPTED: "입양완료",
   RETURNED: "반환",

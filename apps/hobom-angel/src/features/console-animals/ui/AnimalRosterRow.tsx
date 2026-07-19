@@ -10,7 +10,7 @@ const STATUS_COLOR: Record<
   "primary" | "warning" | "secondary" | "success" | "default"
 > = {
   입양가능: "primary",
-  예약중: "warning",
+  "입양 진행중": "warning",
   임보중: "secondary",
   입양완료: "success",
   반환: "default",
