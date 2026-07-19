@@ -18,10 +18,20 @@ const FOSTER_QUESTIONS = [
   { id: "f4", prompt: "임시보호를 신청하는 이유를 알려주세요.", type: "TEXT", options: [], required: true },
 ];
 
-const SURVEYS: Record<string, { id: string; questions: typeof ADOPTION_QUESTIONS }> = {
-  ADOPTION: { id: "questionnaire-1", questions: ADOPTION_QUESTIONS },
-  FOSTER: { id: "questionnaire-2", questions: FOSTER_QUESTIONS },
+interface QuestionRow {
+  id: string;
+  prompt: string;
+  type: string;
+  options: string[];
+  required: boolean;
+}
+
+const SURVEYS: Record<string, { id: string; version: number; questions: QuestionRow[] }> = {
+  ADOPTION: { id: "questionnaire-1", version: 1, questions: ADOPTION_QUESTIONS },
+  FOSTER: { id: "questionnaire-2", version: 1, questions: FOSTER_QUESTIONS },
 };
+
+let nextSurvey = Object.keys(SURVEYS).length + 1;
 
 /** Questionnaire domain mock — a shelter's survey per purpose (adoption / foster). */
 export const questionnaireHandlers = [
@@ -41,8 +51,29 @@ export const questionnaireHandlers = [
       id: survey.id,
       shelterId: String(params.shelterId),
       purpose,
-      version: 1,
+      version: survey.version,
       questions: survey.questions,
     });
+  }),
+
+  // §7.5 console — define / replace a survey; the server bumps the version.
+  http.put(mockUrl("/shelters/:shelterId/questionnaires/:purpose"), async ({ params, request }) => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+    }
+
+    const purpose = String(params.purpose);
+    const body = (await request.json()) as { questions: QuestionRow[] };
+    const existing = SURVEYS[purpose];
+
+    SURVEYS[purpose] = {
+      id: existing?.id ?? `questionnaire-${nextSurvey}`,
+      version: (existing?.version ?? 0) + 1,
+      questions: body.questions,
+    };
+
+    if (!existing) nextSurvey += 1;
+
+    return new HttpResponse(null, { status: 204 });
   }),
 ];

@@ -1,6 +1,10 @@
 import { HttpError, httpClient, parseResponse } from "@/shared/api";
 import { questionnaireSchema } from "./questionnaire.schema";
-import type { Questionnaire, QuestionnairePurpose } from "../model/questionnaire.model";
+import type {
+  DefineQuestionnaireInput,
+  Questionnaire,
+  QuestionnairePurpose,
+} from "../model/questionnaire.model";
 
 const parse = parseResponse(questionnaireSchema, "GET /shelters/:id/questionnaires/:purpose");
 
@@ -21,3 +25,14 @@ export const getQuestionnaire = (
 
       throw error;
     });
+
+/** Define or replace the shelter's survey for a purpose (staff). The server
+ *  bumps the version; a 204 comes back with no body. */
+export const defineQuestionnaire = (
+  shelterId: string,
+  purpose: QuestionnairePurpose,
+  input: DefineQuestionnaireInput,
+): Promise<void> =>
+  httpClient
+    .put(`/shelters/${shelterId}/questionnaires/${purpose}`, input)
+    .then(() => undefined);

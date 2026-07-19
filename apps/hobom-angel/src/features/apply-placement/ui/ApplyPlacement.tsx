@@ -1,9 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
-import type { QuestionnairePurpose } from "@/entities/questionnaire";
+import { QuestionField, type QuestionnairePurpose } from "@/entities/questionnaire";
 import { REVIEW_STEP, useApplyPlacement } from "../model/useApplyPlacement";
 import { ApplyHeader } from "./ApplyHeader";
 import { ApplyNav } from "./ApplyNav";
-import { QuestionField } from "./QuestionField";
 import { ReviewStep } from "./ReviewStep";
 import { styles } from "./ApplyPlacement.styles";
 
