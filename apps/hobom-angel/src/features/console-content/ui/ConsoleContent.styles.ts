@@ -50,8 +50,10 @@ export const styles = stylex.create({
     borderColor: "var(--hb-color-border)",
     fontSize: "0.875rem",
     fontWeight: 600,
+    fontFamily: "inherit",
     color: "var(--hb-color-text-secondary)",
     backgroundColor: "var(--hb-color-surface)",
+    cursor: "pointer",
   },
   tabActive: {
     color: "var(--hb-color-accent-dark, oklch(0.46 0.08 155))",
@@ -60,6 +62,7 @@ export const styles = stylex.create({
   },
   tabSoon: {
     opacity: 0.5,
+    cursor: "default",
   },
   // Form + list stacked.
   card: {

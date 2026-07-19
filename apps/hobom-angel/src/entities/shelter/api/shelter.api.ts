@@ -20,7 +20,7 @@ import type {
   ShelterMarker,
   ShelterStats,
 } from "../model/shelter.model";
-import type { AnnouncementInput, CreatedId, ShelterSearchParams } from "./shelter.type";
+import type { AnnouncementInput, CreatedId, FaqInput, ShelterSearchParams } from "./shelter.type";
 
 /** A converted page of shelters plus the cursor to the next one. */
 export interface ShelterListResult {
@@ -107,6 +107,20 @@ export const getShelterFaqs = (
     .get(`/shelters/${shelterId}/faqs`, { signal })
     .then(parseFaqs)
     .then((items) => items.map(toShelterFaq));
+
+/** Post a shelter FAQ (§7.4 console, staff). */
+export const postFaq = (shelterId: string, input: FaqInput): Promise<CreatedId> =>
+  httpClient
+    .post(`/shelters/${shelterId}/faqs`, input)
+    .then(parseResponse(createdIdSchema, "POST /shelters/:id/faqs"));
+
+/** Edit a FAQ (staff). */
+export const editFaq = (id: string, input: FaqInput): Promise<void> =>
+  httpClient.patch(`/faqs/${id}`, input).then(() => undefined);
+
+/** Delete a FAQ (staff). */
+export const deleteFaq = (id: string): Promise<void> =>
+  httpClient.delete(`/faqs/${id}`).then(() => undefined);
 
 const EMPTY_STATS: ShelterStats = { adoptedCount: 0, shelteredCount: 0, availableCount: 0 };
 

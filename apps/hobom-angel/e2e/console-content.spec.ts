@@ -45,4 +45,24 @@ test.describe("§7.4 shelter console — content", () => {
     await expect(page.getByText("공지를 삭제했어요.")).toBeVisible();
     await expect(page.getByText("여름 정기 봉사")).toHaveCount(0);
   });
+
+  test("manages FAQ under its tab", async ({ page }) => {
+    await login(page);
+    await page.goto("console/content");
+
+    await page.getByRole("button", { name: "FAQ", exact: true }).click();
+    await expect(page.getByText("입양 절차가 어떻게 되나요?")).toBeVisible();
+
+    await page.getByPlaceholder("질문").fill("주차 공간이 있나요?");
+    await page.getByPlaceholder("답변").fill("보호소 앞에 방문자 주차가 가능해요.");
+    await page.getByRole("button", { name: "추가" }).click();
+    await expect(page.getByText("FAQ를 추가했어요.")).toBeVisible();
+
+    const created = page.getByRole("article").filter({ hasText: "주차 공간이 있나요?" });
+    await expect(created).toBeVisible();
+
+    await created.getByRole("button", { name: "삭제" }).click();
+    await expect(page.getByText("FAQ를 삭제했어요.")).toBeVisible();
+    await expect(page.getByText("주차 공간이 있나요?")).toHaveCount(0);
+  });
 });
