@@ -55,6 +55,9 @@ const ConsoleAnimalsPage = lazy(() =>
 const ConsoleVolunteerPage = lazy(() =>
   import("@/pages/console-volunteer").then((module) => ({ default: module.ConsoleVolunteerPage })),
 );
+const ConsoleContentPage = lazy(() =>
+  import("@/pages/console-content").then((module) => ({ default: module.ConsoleContentPage })),
+);
 
 // Warm the common route chunks during idle time so navigating to them shows the
 // screen's own skeleton (data Suspense) rather than the chunk-load spinner.
@@ -108,6 +111,7 @@ export const AppRouter = () => {
               <Route path={ROUTES.CONSOLE} element={<Navigate to={ROUTES.CONSOLE_ANIMALS} replace />} />
               <Route path={ROUTES.CONSOLE_ANIMALS} element={<ConsoleAnimalsPage />} />
               <Route path={ROUTES.CONSOLE_VOLUNTEER} element={<ConsoleVolunteerPage />} />
+              <Route path={ROUTES.CONSOLE_CONTENT} element={<ConsoleContentPage />} />
             </Route>
           </Route>
 

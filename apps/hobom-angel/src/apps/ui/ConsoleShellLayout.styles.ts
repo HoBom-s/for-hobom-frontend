@@ -7,7 +7,12 @@ export const styles = stylex.create({
     display: "flex",
     flexDirection: { default: "column", [DESKTOP]: "row" },
     minHeight: "100dvh",
-    backgroundColor: "var(--hb-color-canvas)",
+    // On desktop the shell is a fixed viewport: the sidebar stays put and only
+    // the main content scrolls. On phones it falls back to normal page scroll.
+    height: { [DESKTOP]: "100dvh" },
+    overflow: { [DESKTOP]: "hidden" },
+    // White content area; the sidebar keeps its own light-gray rail below.
+    backgroundColor: "var(--hb-color-surface)",
   },
   sidebar: {
     display: "flex",
@@ -17,6 +22,7 @@ export const styles = stylex.create({
     boxSizing: "border-box",
     padding: 14,
     gap: 10,
+    overflowY: { [DESKTOP]: "auto" },
     borderInlineEndWidth: { default: 0, [DESKTOP]: 1 },
     borderInlineEndStyle: "solid",
     borderInlineEndColor: "var(--hb-color-border)",
@@ -61,15 +67,24 @@ export const styles = stylex.create({
     gap: 3,
     flex: 1,
   },
+  itemLink: {
+    display: "block",
+    borderRadius: 10,
+    textDecoration: "none",
+  },
   item: {
     display: "flex",
     flexDirection: "column",
     gap: 1,
     padding: "9px 12px",
     borderRadius: 10,
-    textDecoration: "none",
     color: "var(--hb-color-text-primary)",
     backgroundColor: { default: "transparent", ":hover": "var(--hb-color-surface)" },
+  },
+  // Selected menu — filled with the brand green, label/hint go white.
+  itemActive: {
+    color: "#fff",
+    backgroundColor: { default: "var(--hb-color-accent)", ":hover": "var(--hb-color-accent)" },
   },
   itemDisabled: {
     cursor: "default",
@@ -79,14 +94,17 @@ export const styles = stylex.create({
   itemLabel: {
     fontSize: "0.9375rem",
     fontWeight: 600,
+    color: "inherit",
   },
   itemHint: {
     fontSize: "0.75rem",
-    color: "var(--hb-color-text-secondary)",
+    color: "inherit",
+    opacity: 0.65,
   },
   itemSoon: {
     fontSize: "0.6875rem",
-    color: "var(--hb-color-text-disabled)",
+    color: "inherit",
+    opacity: 0.5,
   },
   foot: {
     display: "flex",
@@ -120,6 +138,12 @@ export const styles = stylex.create({
   main: {
     flex: 1,
     minWidth: 0,
+    minHeight: 0,
+    // A fixed pane on desktop so each screen manages its own scroll regions;
+    // normal page scroll on phones.
+    display: "flex",
+    flexDirection: "column",
+    overflowY: { default: "visible", [DESKTOP]: "hidden" },
     padding: "clamp(16px, 4vw, 32px)",
   },
 });

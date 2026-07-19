@@ -16,35 +16,41 @@ const STATUS_COLOR: Record<
   반환: "default",
 };
 
+const ACTIVE = { backgroundColor: "var(--hb-color-accent-subtle, oklch(0.95 0.03 155))" };
+
 interface AnimalRosterRowProps {
   animal: Animal;
   active: boolean;
   onEdit: () => void;
 }
 
-/** A table row — thumbnail, name·breed, status, and a signup-count slot (shown
- *  as — until the backend exposes counts). Selects the animal for editing. */
+/** A DS-table row — thumbnail, name·breed, status, and a signup-count slot.
+ *  Selecting it opens the animal in the edit form. */
 export const AnimalRosterRow = ({ animal, active, onEdit }: AnimalRosterRowProps) => {
   const statusLabel = STATUS_LABEL[animal.status];
 
   return (
-    <button type="button" {...stylex.props(styles.row, active && styles.rowActive)} onClick={onEdit}>
-      {animal.photoUrl ? (
-        <img src={mediaUrl(animal.photoUrl)} alt="" {...stylex.props(styles.thumb)} />
-      ) : (
-        <span {...stylex.props(styles.thumbEmpty)} />
-      )}
-      <span {...stylex.props(styles.nameCell)}>
-        <span {...stylex.props(styles.name)}>{animal.name}</span>
-        <span {...stylex.props(styles.breed)}>
-          {SPECIES_LABEL[animal.species]}
-          {animal.breed ? ` · ${animal.breed}` : ""}
+    <Hb.Table.Row hover selected={active} onClick={onEdit} style={{ cursor: "pointer", ...(active ? ACTIVE : {}) }}>
+      <Hb.Table.Cell>
+        {animal.photoUrl ? (
+          <img src={mediaUrl(animal.photoUrl)} alt="" {...stylex.props(styles.thumb)} />
+        ) : (
+          <span {...stylex.props(styles.thumbEmpty)} />
+        )}
+      </Hb.Table.Cell>
+      <Hb.Table.Cell>
+        <span {...stylex.props(styles.nameCell)}>
+          <span {...stylex.props(styles.name)}>{animal.name}</span>
+          <span {...stylex.props(styles.breed)}>
+            {SPECIES_LABEL[animal.species]}
+            {animal.breed ? ` · ${animal.breed}` : ""}
+          </span>
         </span>
-      </span>
-      <span>
+      </Hb.Table.Cell>
+      <Hb.Table.Cell>
         <Hb.Chip label={statusLabel} size="small" variant="soft" color={STATUS_COLOR[statusLabel]} />
-      </span>
-      <span {...stylex.props(styles.count)}>—</span>
-    </button>
+      </Hb.Table.Cell>
+      <Hb.Table.Cell align="right">—</Hb.Table.Cell>
+    </Hb.Table.Row>
   );
 };
