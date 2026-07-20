@@ -12,6 +12,7 @@ import { AboutTab } from "./tabs/AboutTab";
 import { AnimalsTab } from "./tabs/AnimalsTab";
 import { FaqTab } from "./tabs/FaqTab";
 import { NoticesTab } from "./tabs/NoticesTab";
+import { ReviewsTab } from "./tabs/ReviewsTab";
 import { VolunteerTab } from "./tabs/VolunteerTab";
 import { styles } from "./ShelterMicrosite.styles";
 
@@ -56,6 +57,11 @@ export const ShelterMicrosite = ({ slug }: { slug: string }) => {
           <Hb.Tabs.Panel value="volunteer" {...stylex.props(styles.panel)}>
             <Suspense fallback={<LoadingState />}>
               <VolunteerTab shelterId={shelter.id} />
+            </Suspense>
+          </Hb.Tabs.Panel>
+          <Hb.Tabs.Panel value="reviews" {...stylex.props(styles.panel)}>
+            <Suspense fallback={<LoadingState />}>
+              <ReviewsTab shelterId={shelter.id} />
             </Suspense>
           </Hb.Tabs.Panel>
           <Hb.Tabs.Panel value="faq" {...stylex.props(styles.panel)}>
