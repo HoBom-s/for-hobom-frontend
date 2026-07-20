@@ -58,6 +58,21 @@ test.describe("§04 shelter microsite", () => {
     await expect(page.getByText("입양 절차가 어떻게 되나요?")).toBeVisible();
   });
 
+  test("shows the reputation summary and reviews on the 후기 tab", async ({ page }) => {
+    await login(page);
+    await page.goto("shelters/haengbok-shelter");
+
+    await page.getByRole("tab", { name: "후기" }).click();
+    await expect(page).toHaveURL(/tab=reviews/);
+
+    // Reputation summary + a seeded review with its placement badge.
+    await expect(page.getByText(/후기 \d+개/)).toBeVisible();
+    await expect(page.getByText("입양자").first()).toBeVisible();
+    await expect(
+      page.getByText("상담부터 입양까지 정말 꼼꼼하게 챙겨주셨어요.", { exact: false }),
+    ).toBeVisible();
+  });
+
   test("deep-links straight to a tab from the URL", async ({ page }) => {
     await login(page);
     await page.goto("shelters/haengbok-shelter?tab=faq");
