@@ -9,5 +9,13 @@ export const favoriteSchema: Schema<RawFavorite> = HoBomSchema.object({
   favoritedAt: HoBomSchema.string().nullable(),
 });
 
-/** `GET /favorites` — a plain array of favorite references. */
-export const favoritesSchema: Schema<RawFavorite[]> = HoBomSchema.array(favoriteSchema);
+/** `GET /favorites` — a cursor page of favorite references. */
+export const favoritesPageSchema: Schema<{
+  items: RawFavorite[];
+  nextCursor: string | null;
+  hasNext: boolean;
+}> = HoBomSchema.object({
+  items: HoBomSchema.array(favoriteSchema),
+  nextCursor: HoBomSchema.string().nullable(),
+  hasNext: HoBomSchema.boolean(),
+});

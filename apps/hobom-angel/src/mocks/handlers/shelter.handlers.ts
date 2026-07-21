@@ -342,7 +342,7 @@ export const shelterHandlers = [
   http.get(mockUrl("/shelters/:shelterId/volunteer-events"), () => {
     if (!mockSession.isActive()) return unauthorized();
 
-    return ok(VOLUNTEER_EVENTS);
+    return ok({ items: VOLUNTEER_EVENTS, nextCursor: null, hasNext: false });
   }),
 
   // §07 console — create / cancel events and decide applicants.
