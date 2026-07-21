@@ -10,6 +10,7 @@ import { mediaHandlers } from "./media.handlers";
 import { questionnaireHandlers } from "./questionnaire.handlers";
 import { adoptionHandlers } from "./adoption.handlers";
 import { fosterHandlers } from "./foster.handlers";
+import { applicationHandlers } from "./application.handlers";
 
 /** All MSW request handlers, aggregated per domain. Add new domains here. */
 export const handlers = [
@@ -25,4 +26,5 @@ export const handlers = [
   ...questionnaireHandlers,
   ...adoptionHandlers,
   ...fosterHandlers,
+  ...applicationHandlers,
 ];
