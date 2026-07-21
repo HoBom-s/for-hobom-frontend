@@ -49,6 +49,9 @@ const WriteReviewPage = lazy(() =>
   import("@/pages/volunteer-write").then((module) => ({ default: module.WriteReviewPage })),
 );
 const MyPage = lazy(() => import("@/pages/my").then((module) => ({ default: module.MyPage })));
+const ApplicationsPage = lazy(() =>
+  import("@/pages/applications").then((module) => ({ default: module.ApplicationsPage })),
+);
 const ConsoleAnimalsPage = lazy(() =>
   import("@/pages/console-animals").then((module) => ({ default: module.ConsoleAnimalsPage })),
 );
@@ -80,7 +83,7 @@ const prefetchRoutes = () => {
 };
 
 // Sections still on the ComingSoon placeholder until their screens land.
-const SECTION_ROUTES = [ROUTES.FOSTER, ROUTES.APPLICATIONS];
+const SECTION_ROUTES = [ROUTES.FOSTER];
 
 export const AppRouter = () => {
   useRouteMeta();
@@ -109,6 +112,7 @@ export const AppRouter = () => {
             <Route path={ROUTES.VOLUNTEER} element={<VolunteerPage />} />
             <Route path={ROUTES.VOLUNTEER_WRITE} element={<WriteReviewPage />} />
             <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
+            <Route path={ROUTES.APPLICATIONS} element={<ApplicationsPage />} />
             <Route path={ROUTES.MY} element={<MyPage />} />
               {SECTION_ROUTES.map((path) => (
                 <Route key={path} path={path} element={<ComingSoonPage />} />

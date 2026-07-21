@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { ConfirmDialog, Hb } from "hobom-design-system";
 import { VERIFIED_CHANNEL_LABEL } from "@/entities/user";
+import { ROUTES } from "@/shared/config";
 import { useOverlay } from "@/shared/model";
 import { useMyProfile } from "../model/useMyProfile";
 import { useWithdrawAccount } from "../model/useWithdrawAccount";
@@ -74,6 +76,18 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
           </Hb.Button>
         </div>
       </Hb.Card.Root>
+
+      <section {...stylex.props(styles.section)}>
+        <h3 {...stylex.props(styles.sectionTitle)}>내 활동</h3>
+        <div {...stylex.props(styles.actions)}>
+          <Link to={ROUTES.APPLICATIONS} {...stylex.props(styles.actionRow)}>
+            내 신청 내역
+          </Link>
+          <Link to={ROUTES.FAVORITES} {...stylex.props(styles.actionRow)}>
+            찜한 동물·팔로우
+          </Link>
+        </div>
+      </section>
 
       <section {...stylex.props(styles.section)}>
         <h3 {...stylex.props(styles.sectionTitle)}>계정 관리</h3>
