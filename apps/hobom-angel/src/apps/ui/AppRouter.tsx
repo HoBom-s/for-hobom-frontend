@@ -55,6 +55,11 @@ const ConsoleAnimalsPage = lazy(() =>
 const ConsoleVolunteerPage = lazy(() =>
   import("@/pages/console-volunteer").then((module) => ({ default: module.ConsoleVolunteerPage })),
 );
+const ConsoleApplicationsPage = lazy(() =>
+  import("@/pages/console-applications").then((module) => ({
+    default: module.ConsoleApplicationsPage,
+  })),
+);
 const ConsoleContentPage = lazy(() =>
   import("@/pages/console-content").then((module) => ({ default: module.ConsoleContentPage })),
 );
@@ -116,6 +121,7 @@ export const AppRouter = () => {
             <Route element={<ConsoleShellLayout />}>
               <Route path={ROUTES.CONSOLE} element={<Navigate to={ROUTES.CONSOLE_ANIMALS} replace />} />
               <Route path={ROUTES.CONSOLE_ANIMALS} element={<ConsoleAnimalsPage />} />
+              <Route path={ROUTES.CONSOLE_APPLICATIONS} element={<ConsoleApplicationsPage />} />
               <Route path={ROUTES.CONSOLE_VOLUNTEER} element={<ConsoleVolunteerPage />} />
               <Route path={ROUTES.CONSOLE_CONTENT} element={<ConsoleContentPage />} />
               <Route path={ROUTES.CONSOLE_SURVEY} element={<ConsoleSurveyPage />} />

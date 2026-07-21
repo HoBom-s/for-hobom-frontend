@@ -9,7 +9,7 @@ import { styles } from "./ConsoleShellLayout.styles";
  *  the design's 7-menu map) but disabled until their screens land. */
 const MENU: { label: string; hint: string; to: string | null }[] = [
   { label: "동물 관리", hint: "등록·상태", to: ROUTES.CONSOLE_ANIMALS },
-  { label: "신청 처리", hint: "심사·문의", to: null },
+  { label: "신청 처리", hint: "심사·문의", to: ROUTES.CONSOLE_APPLICATIONS },
   { label: "봉사 일정", hint: "모집·승인", to: ROUTES.CONSOLE_VOLUNTEER },
   { label: "콘텐츠", hint: "공지·FAQ", to: ROUTES.CONSOLE_CONTENT },
   { label: "설문 빌더", hint: "폼 정의", to: ROUTES.CONSOLE_SURVEY },
