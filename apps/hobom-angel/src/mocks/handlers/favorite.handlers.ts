@@ -32,7 +32,7 @@ export const favoriteHandlers = [
       ? FAVORITES.filter((favorite) => favorite.targetType === targetType)
       : FAVORITES;
 
-    return ok(items);
+    return ok({ items, nextCursor: null, hasNext: false });
   }),
 
   http.post(mockUrl("/favorites"), async ({ request }) => {

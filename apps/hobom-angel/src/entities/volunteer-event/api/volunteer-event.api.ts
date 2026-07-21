@@ -11,20 +11,21 @@ import {
 import type { VolunteerApplicant, VolunteerEvent } from "../model/volunteer-event.model";
 import type { CreateVolunteerEventInput } from "./volunteer-event.type";
 
-const parseVolunteerEvents = parseResponse(
-  volunteerEventsSchema,
+const parseShelterVolunteerEvents = parseResponse(
+  volunteerEventPageSchema,
   "GET /shelters/:id/volunteer-events",
 );
 
-/** Fetch a shelter's volunteer events (§04 봉사 tab). */
+/** Fetch a shelter's volunteer events (§04 봉사 tab). Cursor-paginated upstream;
+ *  the tab shows the first page. */
 export const getShelterVolunteerEvents = (
   shelterId: string,
   signal?: AbortSignal,
 ): Promise<VolunteerEvent[]> =>
   httpClient
     .get(`/shelters/${shelterId}/volunteer-events`, { signal })
-    .then(parseVolunteerEvents)
-    .then((items) => items.map(toVolunteerEvent));
+    .then(parseShelterVolunteerEvents)
+    .then((page) => page.items.map(toVolunteerEvent));
 
 /** Fetch upcoming volunteer events across all shelters (§05 봉사활동). */
 export const getUpcomingVolunteerEvents = (
