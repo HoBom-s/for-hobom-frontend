@@ -1,0 +1,41 @@
+import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { Hb } from "hobom-design-system";
+import { styles } from "./ConsoleStaff.styles";
+
+interface StaffPromoteFormProps {
+  onPromote: (candidateUserId: string) => void;
+  pending: boolean;
+}
+
+/** Open a promotion request for a member by their id (대표 approves it). */
+export const StaffPromoteForm = ({ onPromote, pending }: StaffPromoteFormProps) => {
+  const [userId, setUserId] = useState("");
+  const canSubmit = userId.trim().length > 0 && !pending;
+
+  const submit = () => {
+    if (!canSubmit) return;
+
+    onPromote(userId.trim());
+    setUserId("");
+  };
+
+  return (
+    <section {...stylex.props(styles.card)}>
+      <h3 {...stylex.props(styles.cardTitle)}>스태프 승격 요청</h3>
+      <p {...stylex.props(styles.cardHint)}>
+        승격할 회원의 ID를 입력하면 대표에게 승인 요청이 열려요. 대표가 승인하면 스태프로 등록됩니다.
+      </p>
+      <Hb.TextField
+        value={userId}
+        placeholder="회원 ID"
+        onChange={(event) => setUserId(event.target.value)}
+      />
+      <div {...stylex.props(styles.actions)}>
+        <Hb.Button variant="primary" onClick={submit} disabled={!canSubmit} loading={pending}>
+          승격 요청
+        </Hb.Button>
+      </div>
+    </section>
+  );
+};

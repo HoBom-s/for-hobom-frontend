@@ -166,6 +166,16 @@ const MARKERS = [
   { id: "shelter-5", name: "대구동물사랑센터", slug: "daegu-animal-love", region: "대구", lat: 35.8714, lng: 128.6014 },
 ];
 
+// §7.6 staff roster — one 대표 (ADMIN) plus staff, scoped to this shelter.
+const STAFF = [
+  { id: "mock-user-1", nickname: "봄이네", roles: ["SHELTER_ADMIN"], status: "ACTIVE" },
+  { id: "user-2", nickname: "햇살", roles: ["SHELTER_STAFF"], status: "ACTIVE" },
+  { id: "user-3", nickname: "바다", roles: ["SHELTER_STAFF"], status: "ACTIVE" },
+  { id: "user-7", nickname: "구름", roles: ["SHELTER_STAFF"], status: "SUSPENDED" },
+];
+
+let nextApproval = 1;
+
 const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
 
 /** §04 shelter microsite mock handlers — profile, notices, FAQs, and roster. */
@@ -337,6 +347,24 @@ export const shelterHandlers = [
       ],
       pendingApplications: 6,
     });
+  }),
+
+  // §7.6 console — staff roster + open a promotion approval.
+  http.get(mockUrl("/shelters/:shelterId/staff"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    return ok(STAFF);
+  }),
+
+  http.post(mockUrl("/shelters/:shelterId/staff-promotions"), async ({ request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    await request.json();
+    const approvalId = `appr-${nextApproval}`;
+
+    nextApproval += 1;
+
+    return ok({ approvalId });
   }),
 
   http.get(mockUrl("/shelters/:shelterId/volunteer-events"), () => {

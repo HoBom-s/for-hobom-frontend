@@ -8,7 +8,9 @@ import type {
   RawShelterFaq,
   RawShelterMarker,
   RawShelterStats,
+  RawStaffMember,
   ShelterListPage,
+  StaffPromotionResult,
 } from "./shelter.type";
 
 /** `GET /shelters/:slug` — validates the wire contract at the boundary. */
@@ -116,6 +118,21 @@ export const shelterDashboardSchema: Schema<RawShelterDashboard> = HoBomSchema.o
 });
 
 /** Create responses returning just an id (announcement/faq). */
+/** `GET /shelters/:shelterId/staff` — the roster (bare array). */
+export const staffRosterSchema: Schema<RawStaffMember[]> = HoBomSchema.array(
+  HoBomSchema.object({
+    id: HoBomSchema.string(),
+    nickname: HoBomSchema.string(),
+    roles: HoBomSchema.array(HoBomSchema.enum(["SHELTER_ADMIN", "SHELTER_STAFF"])),
+    status: HoBomSchema.enum(["ACTIVE", "DORMANT", "SUSPENDED", "WITHDRAWN"]),
+  }),
+);
+
+/** `POST /shelters/:shelterId/staff-promotions` — the opened approval id. */
+export const staffPromotionSchema: Schema<StaffPromotionResult> = HoBomSchema.object({
+  approvalId: HoBomSchema.string(),
+});
+
 export const createdIdSchema: Schema<CreatedId> = HoBomSchema.object({
   id: HoBomSchema.string(),
 });

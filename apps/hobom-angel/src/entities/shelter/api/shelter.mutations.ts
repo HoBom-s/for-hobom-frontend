@@ -6,6 +6,7 @@ import {
   editFaq,
   postAnnouncement,
   postFaq,
+  requestStaffPromotion,
 } from "./shelter.api";
 import type { AnnouncementInput, FaqInput } from "./shelter.type";
 
@@ -39,5 +40,10 @@ export const shelterMutations = {
   removeFaq: () =>
     mutationOptions({
       mutationFn: (id: string) => deleteFaq(id),
+    }),
+
+  promoteStaff: (shelterId: string) =>
+    mutationOptions({
+      mutationFn: (candidateUserId: string) => requestStaffPromotion(shelterId, candidateUserId),
     }),
 } as const;

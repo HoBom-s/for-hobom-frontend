@@ -12,6 +12,8 @@ import {
   shelterMarkersSchema,
   shelterSchema,
   shelterStatsSchema,
+  staffPromotionSchema,
+  staffRosterSchema,
 } from "./shelter.schema";
 import type {
   Shelter,
@@ -20,9 +22,16 @@ import type {
   ShelterFaq,
   ShelterListItem,
   ShelterMarker,
+  ShelterStaffMember,
   ShelterStats,
 } from "../model/shelter.model";
-import type { AnnouncementInput, CreatedId, FaqInput, ShelterSearchParams } from "./shelter.type";
+import type {
+  AnnouncementInput,
+  CreatedId,
+  FaqInput,
+  ShelterSearchParams,
+  StaffPromotionResult,
+} from "./shelter.type";
 
 /** A converted page of shelters plus the cursor to the next one. */
 export interface ShelterListResult {
@@ -40,6 +49,8 @@ const parseAnnouncements = parseResponse(
 const parseFaqs = parseResponse(shelterFaqsSchema, "GET /shelters/:id/faqs");
 const parseStats = parseResponse(shelterStatsSchema, "GET /shelters/:id/stats");
 const parseDashboard = parseResponse(shelterDashboardSchema, "GET /shelters/:id/dashboard");
+const parseStaff = parseResponse(staffRosterSchema, "GET /shelters/:id/staff");
+const parsePromotion = parseResponse(staffPromotionSchema, "POST /shelters/:id/staff-promotions");
 const parseMarkers = parseResponse(shelterMarkersSchema, "GET /shelters/map");
 
 /** Browse verified shelters (region filter + cursor pagination) (§3.5). */
@@ -142,3 +153,22 @@ export const getShelterDashboard = (
   signal?: AbortSignal,
 ): Promise<ShelterDashboard> =>
   httpClient.get(`/shelters/${shelterId}/dashboard`, { signal }).then(parseDashboard);
+
+/** Fetch a shelter's staff roster (§7.6, 담당자) — members and their roles. */
+export const getShelterStaff = (
+  shelterId: string,
+  signal?: AbortSignal,
+): Promise<ShelterStaffMember[]> =>
+  httpClient
+    .get(`/shelters/${shelterId}/staff`, { signal })
+    .then(parseStaff)
+    .then((raw): ShelterStaffMember[] => raw);
+
+/** Open a STAFF_PROMOTION approval for a member (the representative decides it). */
+export const requestStaffPromotion = (
+  shelterId: string,
+  candidateUserId: string,
+): Promise<StaffPromotionResult> =>
+  httpClient
+    .post(`/shelters/${shelterId}/staff-promotions`, { candidateUserId })
+    .then(parsePromotion);

@@ -112,6 +112,19 @@ export interface RawShelterDashboard {
   pendingApplications: number;
 }
 
+/** `GET /shelters/:id/staff` — one roster member. */
+export interface RawStaffMember {
+  id: string;
+  nickname: string;
+  roles: ("SHELTER_ADMIN" | "SHELTER_STAFF")[];
+  status: "ACTIVE" | "DORMANT" | "SUSPENDED" | "WITHDRAWN";
+}
+
+/** `POST /shelters/:id/staff-promotions` — opens a promotion approval. */
+export interface StaffPromotionResult {
+  approvalId: string;
+}
+
 /** `POST/PATCH` announcement request (staff). */
 export interface AnnouncementInput {
   title: string;
