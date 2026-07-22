@@ -30,6 +30,22 @@ export const getShelterApplications = (
       hasNext: page.hasNext,
     }));
 
+/** The signed-in user's own applications of one kind (status filter, cursor). */
+export const getMyApplications = (
+  kind: ApplicationKind,
+  status?: ApplicationStatus,
+  cursor?: string,
+  signal?: AbortSignal,
+): Promise<ApplicationPage> =>
+  httpClient
+    .get(`/me/${pathFor(kind)}${toQueryString({ status, cursor, limit: 20 })}`, { signal })
+    .then(parsePage)
+    .then((page) => ({
+      applications: page.items.map((raw) => toSummary(raw, kind)),
+      nextCursor: page.nextCursor,
+      hasNext: page.hasNext,
+    }));
+
 /** One application with its submitted answers. */
 export const getApplicationDetail = (
   kind: ApplicationKind,

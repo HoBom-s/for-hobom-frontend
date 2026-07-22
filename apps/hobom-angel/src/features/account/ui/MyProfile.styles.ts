@@ -64,6 +64,7 @@ export const styles = stylex.create({
     borderBottomColor: "var(--hb-color-border)",
     color: "var(--hb-color-text-primary)",
     backgroundColor: { default: "transparent", ":hover": "var(--hb-color-canvas)" },
+    textDecoration: "none",
   },
   danger: { color: "var(--hb-color-error, #d32f2f)" },
 });

@@ -138,6 +138,23 @@ export const applicationHandlers = [
     return queue(FOSTER_APPLICATIONS, new URL(request.url).searchParams.get("status"));
   }),
 
+  // §05 consumer — the viewer's own applications (내 신청 내역).
+  http.get(mockUrl("/me/adoption-applications"), ({ request }) => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+    }
+
+    return queue(ADOPTION_APPLICATIONS, new URL(request.url).searchParams.get("status"));
+  }),
+
+  http.get(mockUrl("/me/foster-applications"), ({ request }) => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+    }
+
+    return queue(FOSTER_APPLICATIONS, new URL(request.url).searchParams.get("status"));
+  }),
+
   http.get(mockUrl("/adoption-applications/:id"), ({ params }) => {
     if (!mockSession.isActive()) {
       return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
