@@ -24,6 +24,8 @@ export type {
   ShelterStaffMember,
   ShelterStaffRole,
   StaffStatus,
+  StaffPromotionRequest,
+  ApprovalDecision,
   ShelterStats,
   ShelterStatus,
   TrustTier,

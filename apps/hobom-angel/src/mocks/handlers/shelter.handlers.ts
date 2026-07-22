@@ -176,6 +176,32 @@ const STAFF = [
 
 let nextApproval = 1;
 
+// §7.6 pending 승격 요청 queue — candidates awaiting the representative's call.
+interface PromotionRow {
+  approvalId: string;
+  candidateUserId: string;
+  candidateNickname: string;
+  candidateJoinedAt: string | null;
+  volunteerCount: number;
+}
+
+const PROMOTION_REQUESTS: PromotionRow[] = [
+  {
+    approvalId: "appr-1001",
+    candidateUserId: "user-21",
+    candidateNickname: "박자원",
+    candidateJoinedAt: "2025-11-20T00:00:00.000Z",
+    volunteerCount: 20,
+  },
+  {
+    approvalId: "appr-1002",
+    candidateUserId: "user-22",
+    candidateNickname: "이초록",
+    candidateJoinedAt: "2026-05-02T00:00:00.000Z",
+    volunteerCount: 5,
+  },
+];
+
 const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
 
 /** §04 shelter microsite mock handlers — profile, notices, FAQs, and roster. */
@@ -365,6 +391,23 @@ export const shelterHandlers = [
     nextApproval += 1;
 
     return ok({ approvalId });
+  }),
+
+  http.get(mockUrl("/shelters/:shelterId/staff-promotions"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    return ok(PROMOTION_REQUESTS);
+  }),
+
+  // Decide a promotion approval — drops it from the queue.
+  http.post(mockUrl("/approvals/:approvalId/decision"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const index = PROMOTION_REQUESTS.findIndex((row) => row.approvalId === params.approvalId);
+
+    if (index >= 0) PROMOTION_REQUESTS.splice(index, 1);
+
+    return new HttpResponse(null, { status: 204 });
   }),
 
   http.get(mockUrl("/shelters/:shelterId/volunteer-events"), () => {

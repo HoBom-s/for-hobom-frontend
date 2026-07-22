@@ -123,6 +123,18 @@ export const STAFF_ROLE_LABEL: Record<ShelterStaffRole, string> = {
   SHELTER_STAFF: "스태프",
 };
 
+export type ApprovalDecision = "APPROVE" | "REJECT";
+
+/** One pending 승격 요청: the candidate plus the approval to decide on. */
+export interface StaffPromotionRequest {
+  approvalId: string;
+  candidateUserId: string;
+  candidateNickname: string;
+  /** ISO join time, or null — drives the "가입 N개월" line. */
+  candidateJoinedAt: string | null;
+  volunteerCount: number;
+}
+
 /** The representative outranks staff — used for the roster badge and sort. */
 export const isShelterAdmin = (roles: readonly ShelterStaffRole[]): boolean =>
   roles.includes("SHELTER_ADMIN");

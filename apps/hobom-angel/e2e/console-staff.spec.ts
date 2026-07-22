@@ -10,26 +10,33 @@ const login = async (page: Page) => {
 };
 
 test.describe("§7.6 shelter console — staff", () => {
-  test("shows the roster and opens a promotion request", async ({ page }) => {
+  test("shows the roster and decides promotion requests", async ({ page }) => {
     await login(page);
     await page.goto("console/staff");
 
     await expect(page.getByRole("heading", { name: "스태프 관리" })).toBeVisible();
-    await expect(page.getByText(/스태프 4명/)).toBeVisible();
 
-    // Roster shows the representative and staff with role badges.
+    // Roster: representative first, staff with role subtitles, a suspended one.
+    await expect(page.getByText(/스태프 4명/)).toBeVisible();
     await expect(page.getByText("봄이네")).toBeVisible();
     await expect(page.getByText("대표", { exact: true })).toBeVisible();
-    await expect(page.getByText("스태프", { exact: true }).first()).toBeVisible();
     await expect(page.getByText("정지")).toBeVisible();
 
-    // Promotion request is disabled until a member id is entered.
-    const submit = page.getByRole("button", { name: "승격 요청" });
-    await expect(submit).toBeDisabled();
+    // Pending queue with candidate activity.
+    await expect(page.getByText("박자원")).toBeVisible();
+    await expect(page.getByText("봉사 20회 · 가입 8개월")).toBeVisible();
 
-    await page.getByPlaceholder("회원 ID").fill("user-42");
-    await submit.click();
-    await expect(page.getByText(/승격 요청을 보냈어요/)).toBeVisible();
+    // Approve the first request — it leaves the queue.
+    await page.getByRole("button", { name: "승인" }).first().click();
+    await expect(page.getByText("스태프로 승인했어요.")).toBeVisible();
+    await expect(page.getByText("박자원")).toHaveCount(0);
+
+    // Reject the remaining one via the reason dialog.
+    await page.getByRole("button", { name: "반려", exact: true }).first().click();
+    await expect(page.getByRole("heading", { name: "승격 요청 반려" })).toBeVisible();
+    await page.getByPlaceholder("반려 사유를 입력하세요").fill("봉사 경험을 더 쌓은 뒤 재신청 부탁드려요.");
+    await page.getByRole("button", { name: "반려하기" }).click();
+    await expect(page.getByText("승격 요청을 반려했어요.")).toBeVisible();
   });
 
   test("is reachable from the sidebar", async ({ page }) => {

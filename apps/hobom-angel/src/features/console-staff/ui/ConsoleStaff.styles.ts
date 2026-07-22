@@ -107,6 +107,31 @@ export const styles = stylex.create({
     color: "var(--hb-color-accent-dark, oklch(0.46 0.08 155))",
     fontWeight: 600,
   },
+  // Promotion request queue.
+  panelSubtitle: {
+    margin: "0 0 12px",
+    fontSize: "0.8125rem",
+    color: "var(--hb-color-text-secondary)",
+  },
+  requestMeta: {
+    fontSize: "0.75rem",
+    color: "var(--hb-color-text-secondary)",
+  },
+  requestActions: {
+    display: "flex",
+    gap: 6,
+    flexShrink: 0,
+  },
+  empty: {
+    padding: "28px 16px",
+    textAlign: "center",
+    color: "var(--hb-color-text-secondary)",
+    fontSize: "0.875rem",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: "var(--hb-color-border)",
+  },
   // Promotion request panel.
   card: {
     display: "flex",

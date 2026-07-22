@@ -125,6 +125,21 @@ export interface StaffPromotionResult {
   approvalId: string;
 }
 
+/** `GET /shelters/:id/staff-promotions` — one pending promotion request. */
+export interface RawStaffPromotionRequest {
+  approvalId: string;
+  candidateUserId: string;
+  candidateNickname: string;
+  candidateJoinedAt: string | null;
+  volunteerCount: number;
+}
+
+/** `POST /approvals/:id/decision` request. */
+export interface ApprovalDecisionInput {
+  decision: "APPROVE" | "REJECT";
+  reason?: string;
+}
+
 /** `POST/PATCH` announcement request (staff). */
 export interface AnnouncementInput {
   title: string;
