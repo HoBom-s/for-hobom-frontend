@@ -22,13 +22,12 @@ export const StaffPromoteForm = ({ onPromote, pending }: StaffPromoteFormProps) 
 
   return (
     <section {...stylex.props(styles.card)}>
-      <h3 {...stylex.props(styles.cardTitle)}>스태프 승격 요청</h3>
-      <p {...stylex.props(styles.cardHint)}>
-        승격할 회원의 ID를 입력하면 대표에게 승인 요청이 열려요. 대표가 승인하면 스태프로 등록됩니다.
-      </p>
+      <h3 {...stylex.props(styles.cardTitle)}>승격 요청</h3>
+      <p {...stylex.props(styles.cardSubtitle)}>일반회원 → 스태프 · 승인 주체: 보호소 대표</p>
+
       <Hb.TextField
         value={userId}
-        placeholder="회원 ID"
+        placeholder="승격할 회원 ID"
         onChange={(event) => setUserId(event.target.value)}
       />
       <div {...stylex.props(styles.actions)}>
@@ -36,6 +35,11 @@ export const StaffPromoteForm = ({ onPromote, pending }: StaffPromoteFormProps) 
           승격 요청
         </Hb.Button>
       </div>
+
+      <p {...stylex.props(styles.note)}>
+        신뢰 위임: 플랫폼이 대표를 문서 심사로 검증하고, 대표가 스태프를 승인해요. 별도 KYC 없이 권한이
+        부여됩니다.
+      </p>
     </section>
   );
 };

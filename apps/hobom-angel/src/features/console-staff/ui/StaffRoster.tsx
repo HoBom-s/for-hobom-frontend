@@ -5,27 +5,28 @@ import type { ShelterStaffMember } from "@/entities/shelter";
 import { primaryRoleLabel } from "../lib/staff.lib";
 import { styles } from "./ConsoleStaff.styles";
 
-const MemberRow = ({ member }: { member: ShelterStaffMember }) => (
-  <div {...stylex.props(styles.member)}>
-    <span {...stylex.props(styles.avatar)} aria-hidden>
-      {member.nickname.charAt(0)}
-    </span>
-    <span {...stylex.props(styles.memberMain)}>
-      <span {...stylex.props(styles.nickname)}>{member.nickname}</span>
-    </span>
-    <span {...stylex.props(styles.badges)}>
-      {member.status === "SUSPENDED" && (
-        <Hb.Chip label="정지" size="small" variant="soft" color="error" />
-      )}
-      <Hb.Chip
-        label={primaryRoleLabel(member)}
-        size="small"
-        variant="soft"
-        color={isShelterAdmin(member.roles) ? "primary" : "default"}
-      />
-    </span>
-  </div>
-);
+const MemberRow = ({ member }: { member: ShelterStaffMember }) => {
+  const admin = isShelterAdmin(member.roles);
+
+  return (
+    <div {...stylex.props(styles.member)}>
+      <span {...stylex.props(styles.avatar)} aria-hidden>
+        {member.nickname.charAt(0)}
+      </span>
+      <span {...stylex.props(styles.memberMain)}>
+        <span {...stylex.props(styles.nameRow)}>
+          <span {...stylex.props(styles.nickname)}>{member.nickname}</span>
+          {member.status === "SUSPENDED" && (
+            <Hb.Chip label="정지" size="small" variant="soft" color="error" />
+          )}
+        </span>
+        <span {...stylex.props(styles.role, admin && styles.roleAdmin)}>
+          {primaryRoleLabel(member)}
+        </span>
+      </span>
+    </div>
+  );
+};
 
 /** The shelter's staff roster — representative first, then staff. */
 export const StaffRoster = ({ members }: { members: ShelterStaffMember[] }) => (

@@ -80,9 +80,15 @@ export const styles = stylex.create({
   memberMain: {
     display: "flex",
     flexDirection: "column",
-    gap: 3,
+    gap: 2,
     minWidth: 0,
     flex: 1,
+  },
+  nameRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
+    minWidth: 0,
   },
   nickname: {
     fontSize: "0.9375rem",
@@ -92,12 +98,16 @@ export const styles = stylex.create({
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
-  badges: {
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
+  // The role line under the name — "대표" / "스태프".
+  role: {
+    fontSize: "0.75rem",
+    color: "var(--hb-color-text-secondary)",
   },
-  // Promotion form.
+  roleAdmin: {
+    color: "var(--hb-color-accent-dark, oklch(0.46 0.08 155))",
+    fontWeight: 600,
+  },
+  // Promotion request panel.
   card: {
     display: "flex",
     flexDirection: "column",
@@ -115,6 +125,11 @@ export const styles = stylex.create({
     fontWeight: 700,
     color: "var(--hb-color-text-primary)",
   },
+  cardSubtitle: {
+    margin: 0,
+    fontSize: "0.8125rem",
+    color: "var(--hb-color-text-secondary)",
+  },
   cardHint: {
     margin: 0,
     fontSize: "0.8125rem",
@@ -125,5 +140,16 @@ export const styles = stylex.create({
     display: "flex",
     justifyContent: "flex-end",
     paddingTop: 2,
+  },
+  // Trust-delegation footnote (§7.6): platform verifies the rep, the rep
+  // approves staff.
+  note: {
+    margin: 0,
+    padding: "10px 12px",
+    borderRadius: 10,
+    backgroundColor: "var(--hb-color-surface-subtle)",
+    fontSize: "0.75rem",
+    lineHeight: 1.5,
+    color: "var(--hb-color-text-secondary)",
   },
 });
