@@ -99,4 +99,15 @@ export const reviewHandlers = [
 
     return ok({ items, nextCursor: null, hasNext: false });
   }),
+
+  // §04 — write a review for a completed placement.
+  http.post(mockUrl("/shelters/:shelterId/reviews"), async ({ request }) => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+    }
+
+    await request.json();
+
+    return ok({ reviewId: `review-${REVIEWS.length + 1}` });
+  }),
 ];

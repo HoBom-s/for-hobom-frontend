@@ -1,11 +1,13 @@
 import { httpClient, parseResponse } from "@/shared/api";
 import { toQueryString } from "@/shared/lib";
-import { reputationSchema, reviewsPageSchema } from "./review.schema";
+import { createdReviewSchema, reputationSchema, reviewsPageSchema } from "./review.schema";
 import { toReputation, toReview } from "../lib/to-review.lib";
 import type { ReviewPage, ShelterReputation } from "../model/review.model";
+import type { SubmitReviewInput } from "./review.type";
 
 const parsePage = parseResponse(reviewsPageSchema, "GET /shelters/:id/reviews");
 const parseReputation = parseResponse(reputationSchema, "GET /shelters/:id/reviews/reputation");
+const parseCreated = parseResponse(createdReviewSchema, "POST /shelters/:id/reviews");
 
 /** A cursor page of a shelter's reviews (newest first). */
 export const getShelterReviews = (
@@ -31,3 +33,10 @@ export const getShelterReputation = (
     .get(`/shelters/${shelterId}/reviews/reputation`, { signal })
     .then(parseReputation)
     .then(toReputation);
+
+/** Write a review for a completed placement (완료된 입양/임보자만). */
+export const submitReview = (shelterId: string, input: SubmitReviewInput): Promise<string> =>
+  httpClient
+    .post(`/shelters/${shelterId}/reviews`, input)
+    .then(parseCreated)
+    .then((created) => created.reviewId);

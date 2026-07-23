@@ -22,3 +22,16 @@ export interface RawReputation {
   average: number;
   distribution: { "1": number; "2": number; "3": number; "4": number; "5": number };
 }
+
+/** `POST /shelters/:id/reviews` request — anchored to a completed placement. */
+export interface SubmitReviewInput {
+  placementType: PlacementType;
+  /** The completed adoption/foster application id. */
+  placementRef: string;
+  rating: number;
+  body: string;
+}
+
+export interface RawCreatedReview {
+  reviewId: string;
+}

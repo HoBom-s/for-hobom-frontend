@@ -1,14 +1,28 @@
 import * as stylex from "@stylexjs/stylex";
 import { EmptyState } from "hobom-design-system";
 import { ArticleOutlined } from "hobom-design-system/icons";
+import { useOverlay } from "@/shared/model";
+import type { ApplicationSummary } from "@/entities/application";
 import { useMyApplications } from "../model/useMyApplications";
 import { ApplicationCard } from "./ApplicationCard";
+import { ReviewComposeDialog } from "./ReviewComposeDialog";
 import { styles } from "./MyApplications.styles";
 
 /** 내 신청 내역 — the viewer's adoption + foster applications, newest first,
- *  laid out as an animal-card grid (matching 찜한 동물). */
+ *  laid out as an animal-card grid (matching 찜한 동물). Completed placements
+ *  can leave a review. */
 export const MyApplications = () => {
   const { applications, animal } = useMyApplications();
+  const overlay = useOverlay();
+
+  const compose = (application: ApplicationSummary) =>
+    overlay.open(({ close }) => (
+      <ReviewComposeDialog
+        application={application}
+        animalName={animal(application.animalId)?.name ?? "이 아이"}
+        onClose={close}
+      />
+    ));
 
   return (
     <div {...stylex.props(styles.root)}>
@@ -25,11 +39,18 @@ export const MyApplications = () => {
       ) : (
         <div {...stylex.props(styles.grid)}>
           {applications.map((application) => (
-            <ApplicationCard
-              key={application.id}
-              application={application}
-              animal={animal(application.animalId)}
-            />
+            <div key={application.id} {...stylex.props(styles.cell)}>
+              <ApplicationCard application={application} animal={animal(application.animalId)} />
+              {application.status === "APPROVED" && (
+                <button
+                  type="button"
+                  {...stylex.props(styles.reviewCta)}
+                  onClick={() => compose(application)}
+                >
+                  후기 남기기
+                </button>
+              )}
+            </div>
           ))}
         </div>
       )}
