@@ -23,6 +23,7 @@ export const ROUTES = {
   CONSOLE_VOLUNTEER: "/console/volunteer",
   CONSOLE_CONTENT: "/console/content",
   CONSOLE_SURVEY: "/console/survey",
+  CONSOLE_STAFF: "/console/staff",
   CONSOLE_STATS: "/console/stats",
 
   // Auth.

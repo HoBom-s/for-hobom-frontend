@@ -4,10 +4,12 @@ import {
   deleteFaq,
   editAnnouncement,
   editFaq,
+  decideApproval,
   postAnnouncement,
   postFaq,
+  requestStaffPromotion,
 } from "./shelter.api";
-import type { AnnouncementInput, FaqInput } from "./shelter.type";
+import type { AnnouncementInput, ApprovalDecisionInput, FaqInput } from "./shelter.type";
 
 export const shelterMutations = {
   createAnnouncement: (shelterId: string) =>
@@ -39,5 +41,16 @@ export const shelterMutations = {
   removeFaq: () =>
     mutationOptions({
       mutationFn: (id: string) => deleteFaq(id),
+    }),
+
+  promoteStaff: (shelterId: string) =>
+    mutationOptions({
+      mutationFn: (candidateUserId: string) => requestStaffPromotion(shelterId, candidateUserId),
+    }),
+
+  decidePromotion: () =>
+    mutationOptions({
+      mutationFn: (vars: { approvalId: string; input: ApprovalDecisionInput }) =>
+        decideApproval(vars.approvalId, vars.input),
     }),
 } as const;

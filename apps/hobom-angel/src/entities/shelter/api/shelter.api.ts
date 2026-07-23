@@ -12,6 +12,9 @@ import {
   shelterMarkersSchema,
   shelterSchema,
   shelterStatsSchema,
+  staffPromotionSchema,
+  staffPromotionsSchema,
+  staffRosterSchema,
 } from "./shelter.schema";
 import type {
   Shelter,
@@ -20,9 +23,18 @@ import type {
   ShelterFaq,
   ShelterListItem,
   ShelterMarker,
+  ShelterStaffMember,
   ShelterStats,
+  StaffPromotionRequest,
 } from "../model/shelter.model";
-import type { AnnouncementInput, CreatedId, FaqInput, ShelterSearchParams } from "./shelter.type";
+import type {
+  AnnouncementInput,
+  ApprovalDecisionInput,
+  CreatedId,
+  FaqInput,
+  ShelterSearchParams,
+  StaffPromotionResult,
+} from "./shelter.type";
 
 /** A converted page of shelters plus the cursor to the next one. */
 export interface ShelterListResult {
@@ -40,6 +52,9 @@ const parseAnnouncements = parseResponse(
 const parseFaqs = parseResponse(shelterFaqsSchema, "GET /shelters/:id/faqs");
 const parseStats = parseResponse(shelterStatsSchema, "GET /shelters/:id/stats");
 const parseDashboard = parseResponse(shelterDashboardSchema, "GET /shelters/:id/dashboard");
+const parseStaff = parseResponse(staffRosterSchema, "GET /shelters/:id/staff");
+const parsePromotion = parseResponse(staffPromotionSchema, "POST /shelters/:id/staff-promotions");
+const parsePromotions = parseResponse(staffPromotionsSchema, "GET /shelters/:id/staff-promotions");
 const parseMarkers = parseResponse(shelterMarkersSchema, "GET /shelters/map");
 
 /** Browse verified shelters (region filter + cursor pagination) (§3.5). */
@@ -142,3 +157,39 @@ export const getShelterDashboard = (
   signal?: AbortSignal,
 ): Promise<ShelterDashboard> =>
   httpClient.get(`/shelters/${shelterId}/dashboard`, { signal }).then(parseDashboard);
+
+/** Fetch a shelter's staff roster (§7.6, 담당자) — members and their roles. */
+export const getShelterStaff = (
+  shelterId: string,
+  signal?: AbortSignal,
+): Promise<ShelterStaffMember[]> =>
+  httpClient
+    .get(`/shelters/${shelterId}/staff`, { signal })
+    .then(parseStaff)
+    .then((raw): ShelterStaffMember[] => raw);
+
+/** Open a STAFF_PROMOTION approval for a member (the representative decides it). */
+export const requestStaffPromotion = (
+  shelterId: string,
+  candidateUserId: string,
+): Promise<StaffPromotionResult> =>
+  httpClient
+    .post(`/shelters/${shelterId}/staff-promotions`, { candidateUserId })
+    .then(parsePromotion);
+
+/** The shelter's pending 승격 요청 queue (§7.6) — candidate + activity. */
+export const getStaffPromotions = (
+  shelterId: string,
+  signal?: AbortSignal,
+): Promise<StaffPromotionRequest[]> =>
+  httpClient
+    .get(`/shelters/${shelterId}/staff-promotions`, { signal })
+    .then(parsePromotions)
+    .then((raw): StaffPromotionRequest[] => raw);
+
+/** Decide a promotion approval — approve, or reject with a reason. */
+export const decideApproval = (
+  approvalId: string,
+  input: ApprovalDecisionInput,
+): Promise<void> =>
+  httpClient.post(`/approvals/${approvalId}/decision`, input).then(() => undefined);

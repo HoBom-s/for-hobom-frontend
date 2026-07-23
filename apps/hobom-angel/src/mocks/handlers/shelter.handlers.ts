@@ -166,6 +166,42 @@ const MARKERS = [
   { id: "shelter-5", name: "대구동물사랑센터", slug: "daegu-animal-love", region: "대구", lat: 35.8714, lng: 128.6014 },
 ];
 
+// §7.6 staff roster — one 대표 (ADMIN) plus staff, scoped to this shelter.
+const STAFF = [
+  { id: "mock-user-1", nickname: "봄이네", roles: ["SHELTER_ADMIN"], status: "ACTIVE" },
+  { id: "user-2", nickname: "햇살", roles: ["SHELTER_STAFF"], status: "ACTIVE" },
+  { id: "user-3", nickname: "바다", roles: ["SHELTER_STAFF"], status: "ACTIVE" },
+  { id: "user-7", nickname: "구름", roles: ["SHELTER_STAFF"], status: "SUSPENDED" },
+];
+
+let nextApproval = 1;
+
+// §7.6 pending 승격 요청 queue — candidates awaiting the representative's call.
+interface PromotionRow {
+  approvalId: string;
+  candidateUserId: string;
+  candidateNickname: string;
+  candidateJoinedAt: string | null;
+  volunteerCount: number;
+}
+
+const PROMOTION_REQUESTS: PromotionRow[] = [
+  {
+    approvalId: "appr-1001",
+    candidateUserId: "user-21",
+    candidateNickname: "박자원",
+    candidateJoinedAt: "2025-11-20T00:00:00.000Z",
+    volunteerCount: 20,
+  },
+  {
+    approvalId: "appr-1002",
+    candidateUserId: "user-22",
+    candidateNickname: "이초록",
+    candidateJoinedAt: "2026-05-02T00:00:00.000Z",
+    volunteerCount: 5,
+  },
+];
+
 const unauthorized = () => HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
 
 /** §04 shelter microsite mock handlers — profile, notices, FAQs, and roster. */
@@ -337,6 +373,41 @@ export const shelterHandlers = [
       ],
       pendingApplications: 6,
     });
+  }),
+
+  // §7.6 console — staff roster + open a promotion approval.
+  http.get(mockUrl("/shelters/:shelterId/staff"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    return ok(STAFF);
+  }),
+
+  http.post(mockUrl("/shelters/:shelterId/staff-promotions"), async ({ request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    await request.json();
+    const approvalId = `appr-${nextApproval}`;
+
+    nextApproval += 1;
+
+    return ok({ approvalId });
+  }),
+
+  http.get(mockUrl("/shelters/:shelterId/staff-promotions"), () => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    return ok(PROMOTION_REQUESTS);
+  }),
+
+  // Decide a promotion approval — drops it from the queue.
+  http.post(mockUrl("/approvals/:approvalId/decision"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const index = PROMOTION_REQUESTS.findIndex((row) => row.approvalId === params.approvalId);
+
+    if (index >= 0) PROMOTION_REQUESTS.splice(index, 1);
+
+    return new HttpResponse(null, { status: 204 });
   }),
 
   http.get(mockUrl("/shelters/:shelterId/volunteer-events"), () => {

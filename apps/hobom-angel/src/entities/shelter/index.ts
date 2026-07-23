@@ -8,6 +8,8 @@ export { operatingYears } from "./lib/operating-years.lib";
 export {
   isShelterVerified,
   isPreciseAddress,
+  isShelterAdmin,
+  STAFF_ROLE_LABEL,
   TRUST_TIER_LABEL,
 } from "./model/shelter.model";
 export type {
@@ -19,6 +21,11 @@ export type {
   ShelterFaq,
   ShelterListItem,
   ShelterMarker,
+  ShelterStaffMember,
+  ShelterStaffRole,
+  StaffStatus,
+  StaffPromotionRequest,
+  ApprovalDecision,
   ShelterStats,
   ShelterStatus,
   TrustTier,
