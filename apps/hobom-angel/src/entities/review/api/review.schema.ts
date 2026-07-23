@@ -1,6 +1,11 @@
 import { HoBomSchema } from "hobom-schema";
 import type { Schema } from "hobom-schema";
-import type { RawReputation, RawReview, RawReviewsPage } from "./review.type";
+import type {
+  RawCreatedReview,
+  RawReputation,
+  RawReview,
+  RawReviewsPage,
+} from "./review.type";
 
 const reviewSchema: Schema<RawReview> = HoBomSchema.object({
   id: HoBomSchema.string(),
@@ -17,6 +22,11 @@ export const reviewsPageSchema: Schema<RawReviewsPage> = HoBomSchema.object({
   items: HoBomSchema.array(reviewSchema),
   nextCursor: HoBomSchema.string().nullable(),
   hasNext: HoBomSchema.boolean(),
+});
+
+/** `POST /shelters/:id/reviews` — the created review id. */
+export const createdReviewSchema: Schema<RawCreatedReview> = HoBomSchema.object({
+  reviewId: HoBomSchema.string(),
 });
 
 /** `GET /shelters/:id/reviews/reputation` — mean + star histogram. */
