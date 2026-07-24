@@ -3,6 +3,7 @@ import { userHandlers } from "./user.handlers";
 import { animalHandlers } from "./animal.handlers";
 import { shelterHandlers } from "./shelter.handlers";
 import { reviewHandlers } from "./review.handlers";
+import { reportHandlers } from "./report.handlers";
 import { volunteerHandlers } from "./volunteer.handlers";
 import { volunteerPostHandlers } from "./volunteer-post.handlers";
 import { favoriteHandlers } from "./favorite.handlers";
@@ -19,6 +20,7 @@ export const handlers = [
   ...animalHandlers,
   ...shelterHandlers,
   ...reviewHandlers,
+  ...reportHandlers,
   ...volunteerHandlers,
   ...volunteerPostHandlers,
   ...favoriteHandlers,

@@ -9,6 +9,7 @@ import { ConsoleRoute } from "./ConsoleRoute";
 import { ConsoleShellLayout } from "./ConsoleShellLayout";
 import { ConsumerShellLayout } from "./ConsumerShellLayout";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
+import { OperatorRoute } from "./OperatorRoute";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 // Route-level code splitting — each page ships as its own chunk, loaded on demand.
@@ -75,6 +76,11 @@ const ConsoleStaffPage = lazy(() =>
 const ConsoleStatsPage = lazy(() =>
   import("@/pages/console-stats").then((module) => ({ default: module.ConsoleStatsPage })),
 );
+const OperatorApprovalsPage = lazy(() =>
+  import("@/pages/operator-approvals").then((module) => ({
+    default: module.OperatorApprovalsPage,
+  })),
+);
 
 // Warm the common route chunks during idle time so navigating to them shows the
 // screen's own skeleton (data Suspense) rather than the chunk-load spinner.
@@ -135,6 +141,11 @@ export const AppRouter = () => {
               <Route path={ROUTES.CONSOLE_STAFF} element={<ConsoleStaffPage />} />
               <Route path={ROUTES.CONSOLE_STATS} element={<ConsoleStatsPage />} />
             </Route>
+          </Route>
+
+          {/* Operator (§09) — gated on the SYSTEM_ADMIN role, its own surface. */}
+          <Route element={<OperatorRoute />}>
+            <Route path={ROUTES.OPERATOR_APPROVALS} element={<OperatorApprovalsPage />} />
           </Route>
 
           {/* Auth screens have no nav chrome and are guest-only. */}

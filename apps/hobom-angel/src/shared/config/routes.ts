@@ -26,6 +26,9 @@ export const ROUTES = {
   CONSOLE_STAFF: "/console/staff",
   CONSOLE_STATS: "/console/stats",
 
+  // Operator (SYSTEM_ADMIN).
+  OPERATOR_APPROVALS: "/operator/approvals",
+
   // Auth.
   LOGIN: "/login",
   SIGNUP: "/signup",
