@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import * as stylex from "@stylexjs/stylex";
 import { ConfirmDialog, Hb } from "hobom-design-system";
-import { VERIFIED_CHANNEL_LABEL } from "@/entities/user";
+import { isOperator, VERIFIED_CHANNEL_LABEL } from "@/entities/user";
 import { ROUTES } from "@/shared/config";
 import { useOverlay } from "@/shared/model";
 import { useMyProfile } from "../model/useMyProfile";
@@ -86,6 +86,11 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
           <Link to={ROUTES.FAVORITES} {...stylex.props(styles.actionRow)}>
             찜한 동물·팔로우
           </Link>
+          {isOperator(user) && (
+            <Link to={ROUTES.OPERATOR_APPROVALS} {...stylex.props(styles.actionRow)}>
+              승인 큐 (운영자)
+            </Link>
+          )}
         </div>
       </section>
 
