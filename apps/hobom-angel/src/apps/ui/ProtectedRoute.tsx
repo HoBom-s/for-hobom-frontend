@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router";
 import { ROUTES } from "@/shared/config";
 import { useCurrentUser } from "@/entities/user";
 import { RouteFallback } from "./RouteFallback";

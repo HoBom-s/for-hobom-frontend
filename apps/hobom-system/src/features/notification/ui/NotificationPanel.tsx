@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";
 import type { NotificationItemType } from "@/entities/notification";
 import { NotificationItem } from "@/entities/notification/ui";

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { EmptyState, Hb } from "hobom-design-system";
 import { ChevronRight, FavoriteBorder, LocationOnOutlined } from "hobom-design-system/icons";

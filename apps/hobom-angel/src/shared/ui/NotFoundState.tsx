@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { ROUTES } from "@/shared/config";

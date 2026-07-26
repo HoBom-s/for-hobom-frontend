@@ -5,7 +5,7 @@ import {
   DeleteOutlined,
   LabelOutlined,
 } from "hobom-design-system/icons";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { usePageTree, PageTreeView, CreatePageDialog } from "@/features/wiki-page-tree";
 import { TrashPageList } from "@/features/wiki-page-trash";

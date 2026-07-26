@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Add } from "hobom-design-system/icons";
 import { RoutesConfig } from "@/shared/config";
 import { Hb } from "@/shared/ui";

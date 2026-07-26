@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
 import { ROUTES } from "@/shared/config";
 import { onIdle } from "@/shared/lib";
 import { useRouteMeta } from "@/shared/model";

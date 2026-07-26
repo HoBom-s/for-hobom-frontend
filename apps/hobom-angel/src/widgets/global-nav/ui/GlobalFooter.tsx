@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { ROUTES } from "@/shared/config";
 import { styles } from "./GlobalFooter.styles";

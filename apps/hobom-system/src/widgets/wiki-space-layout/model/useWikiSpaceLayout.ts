@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { useSuspenseQuery } from "hobom-data";
 import { wikiSpaceQueries } from "@/entities/wiki-space";
 import { useCreatePage } from "@/entities/wiki-page";

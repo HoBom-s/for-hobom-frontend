@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { NotificationsNoneOutlined } from "hobom-design-system/icons";

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useSuspenseQuery } from "hobom-data";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";

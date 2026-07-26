@@ -1,5 +1,5 @@
 import { type ReactNode, Suspense, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useQuery } from "hobom-data";
 import { menuQueries, useTodayMenuId } from "@/entities/menu-recommendation";
 import { RoutesConfig } from "@/shared/config";

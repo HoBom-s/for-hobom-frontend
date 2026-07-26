@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useFormContext } from "react-hook-form";
 import { useSuspenseQuery } from "hobom-data";
 import { authQueries } from "@/entities/auth";

@@ -6,7 +6,7 @@ const navigateMock = vi.fn();
 let mockSearch = "";
 let mockPathname = "/test";
 
-vi.mock("react-router-dom", () => ({
+vi.mock("react-router", () => ({
   useLocation: () => ({ search: mockSearch, pathname: mockPathname }),
   useNavigate: () => navigateMock,
 }));

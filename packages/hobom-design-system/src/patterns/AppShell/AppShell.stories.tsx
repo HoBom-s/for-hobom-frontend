@@ -1,4 +1,4 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { AppShell } from "./AppShell";
 import { MenuBookOutlined, SearchOutlined, NotificationsNoneOutlined } from "../../icons";
 import type { Meta, StoryObj } from "@storybook/react-vite";
