@@ -7,6 +7,8 @@ import { Text } from "./Text";
 import { Button } from "./Button";
 import { TextField } from "./TextField";
 import { Chip } from "./Chip";
+import { Image } from "./Image";
+import { Carousel } from "./Carousel";
 import { Dialog } from "./Dialog";
 import { Card } from "./Card";
 // Batch 2 — passthrough
@@ -24,7 +26,7 @@ import { Grid } from "./Grid";
 import { Collapse } from "./Collapse";
 import { InputBase } from "./InputBase";
 import { Drawer } from "./Drawer";
-import { ToggleButton } from "./ToggleButton";
+import { ToggleButton, ToggleButtonGroup } from "./ToggleButton";
 // Batch 2 — compound
 import { Progress } from "./Progress";
 import { Skeleton } from "./Skeleton";
@@ -35,6 +37,14 @@ import { Form } from "./Form";
 import { Table } from "./Table";
 import { Radio } from "./Radio";
 import { Accordion } from "./Accordion";
+// Batch 3 — composition patterns
+import { SectionCard } from "./SectionCard";
+import { PageHeader } from "./PageHeader";
+import { Breadcrumb } from "./Breadcrumb";
+import { DescriptionList } from "./DescriptionList";
+import { StatGroup } from "./StatGroup";
+import { Gallery } from "./Gallery";
+import { Markdown } from "./Markdown";
 // Batch 2 — infra
 import { CssBaseline, GlobalStyles } from "./Infra";
 import { ColorSchemeProvider } from "../foundations/color-scheme";
@@ -49,6 +59,8 @@ export const Hb = {
   Button,
   TextField,
   Chip,
+  Image,
+  Carousel,
   Dialog,
   Card,
   // Batch 2 — passthrough
@@ -67,6 +79,7 @@ export const Hb = {
   InputBase,
   Drawer,
   ToggleButton,
+  ToggleButtonGroup,
   // Batch 2 — compound
   Progress,
   Skeleton,
@@ -77,6 +90,14 @@ export const Hb = {
   Table,
   Radio,
   Accordion,
+  // Batch 3 — composition patterns
+  SectionCard,
+  PageHeader,
+  Breadcrumb,
+  DescriptionList,
+  StatGroup,
+  Gallery,
+  Markdown,
   // Batch 2 — infra
   CssBaseline,
   GlobalStyles,

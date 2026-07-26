@@ -1,15 +1,7 @@
-import type { AnimalStatus } from "@/entities/animal";
-import type { PublicShellNavItem } from "@/shared/ui";
+import type { AnimalStatusLabel } from "@/entities/animal";
 
 // Static mockup data — copy is verbatim from the 2a landing design.
 // Swapped for real queries in a later phase.
-
-export const NAV: PublicShellNavItem[] = [
-  { label: "입양", href: "#adopt" },
-  { label: "임시보호", href: "#foster" },
-  { label: "봉사", href: "#volunteer" },
-  { label: "보호소", href: "#shelters" },
-];
 
 export const HERO = {
   badge: "오늘도 322마리가 기다리고 있어요",
@@ -27,10 +19,10 @@ export const STATS = [
 
 export const ANIMAL_FILTERS = ["전체", "강아지", "고양이"];
 
-export const ANIMALS: { name: string; status: AnimalStatus; meta: string }[] = [
+export const ANIMALS: { name: string; status: AnimalStatusLabel; meta: string }[] = [
   { name: "콩이", status: "입양가능", meta: "강아지 · 2살 · 서울" },
   { name: "보리", status: "입양가능", meta: "고양이 · 1살 · 경기" },
-  { name: "초코", status: "예약중", meta: "강아지 · 4살 · 부산" },
+  { name: "초코", status: "입양 진행중", meta: "강아지 · 4살 · 부산" },
   { name: "나비", status: "입양가능", meta: "고양이 · 3살 · 인천" },
 ];
 

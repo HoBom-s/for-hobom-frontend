@@ -11,6 +11,9 @@ export { Sortable, arrayMove, useDroppable } from "./patterns/Sortable";
 export type { DragEndEvent, DragStartEvent, DragOverEvent } from "./patterns/Sortable";
 export { SuspenseLoader } from "./patterns/SuspenseLoader";
 
+export { Chart, createChart } from "./charts";
+export type { ChartConfig, ChartProps, ChartSeries, ChartDatum } from "./charts";
+
 import { SkeletonCard } from "./patterns/SkeletonCard";
 import { SkeletonList } from "./patterns/SkeletonList";
 export const HoBomSkeleton = { Card: SkeletonCard, List: SkeletonList };

@@ -41,5 +41,26 @@ const ValuesDemo = () => {
   );
 };
 
+// A Tabs.Provider scopes Root + sibling Panels so they share the selected value.
+const PanelsDemo = () => {
+  const [tab, setTab] = useState("about");
+
+  return (
+    <Tabs.Provider value={tab} onChange={(_, v) => setTab(String(v))}>
+      <Tabs.Root>
+        <Tabs.Item value="about" label="소개" />
+        <Tabs.Item value="animals" label="우리 아이들" />
+      </Tabs.Root>
+      <Tabs.Panel value="about" style={{ paddingTop: 16 }}>
+        소개 패널 내용입니다.
+      </Tabs.Panel>
+      <Tabs.Panel value="animals" style={{ paddingTop: 16 }}>
+        동물 목록 패널입니다.
+      </Tabs.Panel>
+    </Tabs.Provider>
+  );
+};
+
 export const Basic: Story = { render: () => <BasicDemo /> };
 export const WithValues: Story = { render: () => <ValuesDemo /> };
+export const WithPanels: Story = { render: () => <PanelsDemo /> };

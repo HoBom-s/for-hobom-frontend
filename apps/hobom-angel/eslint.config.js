@@ -6,6 +6,10 @@ import { baseIgnores, baseConfig } from "../../eslint.config.js";
 import * as fsdBoundariesRule from "./eslint-rules/fsd-boundaries.js";
 
 export default tseslint.config(baseIgnores, {
+  // Generated MSW service worker (vendored) + e2e sources, which run under the
+  // Playwright runner outside the app's TS build project.
+  ignores: ["public/mockServiceWorker.js", "e2e/**", "playwright.config.ts"],
+}, {
   ...baseConfig,
   // Type-aware linting (app only for now — the packages follow separately).
   extends: [...(baseConfig.extends ?? []), ...tseslint.configs.recommendedTypeChecked],

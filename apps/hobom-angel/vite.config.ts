@@ -24,6 +24,8 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 600,
+    // Skip the gzip-size report — it's pure build-time overhead we don't read in CI.
+    reportCompressedSize: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -41,9 +43,12 @@ export default defineConfig({
   },
   server: {
     port: 3001,
+    // Dev talks to the API through this same-origin proxy (the gateway env is
+    // forced to "/api" in dev), so the host-only SameSite=Lax session cookies are
+    // same-site and actually sent back — same shape as the hobom-system app.
     proxy: {
       "/api": {
-        target: "https://hobom-system.com/hobom-api-gateway/hobom-angel",
+        target: "https://dev.hobom-system.com/hobom-api-gateway/hobom-angel",
         changeOrigin: true,
         secure: true,
         rewrite: (p) => p.replace(/^\/api/, ""),

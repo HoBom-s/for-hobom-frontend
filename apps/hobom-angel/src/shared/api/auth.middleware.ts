@@ -3,7 +3,7 @@ import { HttpStatusModel } from "./http-status.api";
 import { applyCsrfHeader } from "./csrf.middleware";
 import type { Middleware } from "./middleware.type";
 
-const REFRESH_URL = `${env.VITE_APP_HOBOM_API_GATEWAY_URL}/auth/refresh`;
+const REFRESH_URL = `${env.API_BASE_URL}/auth/refresh`;
 const DEFAULT_TIMEOUT_MS = 30_000;
 
 export const UNAUTHORIZED_EVENT = "hobom:unauthorized";
@@ -64,6 +64,14 @@ export const authMiddleware: Middleware = {
         };
 
         ctx.response = await fetch(ctx.input, retryInit);
+
+        // Refresh ran but the retry is still 401 — the session is truly gone.
+        // Give up here so later 401s don't kick off another refresh+retry (which
+        // otherwise loops forever, since this flag is the only gate).
+        if (ctx.response.status === HttpStatusModel.UNAUTHORIZED) {
+          unauthorizedDispatched = true;
+          window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
+        }
       } finally {
         clearTimeout(timeoutId);
       }

@@ -1,6 +1,9 @@
 # Dependencies
 node_modules
 
+# This is a pnpm workspace — reject stray npm lockfiles.
+package-lock.json
+
 # Build
 dist
 coverage

@@ -15,13 +15,15 @@ interface HttpClient {
 }
 
 /**
- * 미들웨어 기반 HTTP 클라이언트 팩토리.
+ * Middleware-based HTTP client factory.
  *
- * - 모든 요청에 `Content-Type: application/json`, `X-Hobom-Api-Key`, `credentials: "include"` 자동 부여
- * - `timeout` 기본값 30초. 초과 시 `AbortError` 발생
- * - `retry` 옵션으로 실패 시 재시도 횟수 지정 가능
- * - 204 응답은 body 파싱 없이 `undefined` 반환
- * - 미들웨어 훅 실행 순서: `onRequest` → fetch → `onResponse` (또는 `onError`), 등록 순으로 순차 실행
+ * - Every request gets `Content-Type: application/json`, `X-Hobom-Api-Key`, and
+ *   `credentials: "include"` automatically.
+ * - `timeout` defaults to 30s; an `AbortError` is thrown when exceeded.
+ * - `retry` sets how many times to retry on failure.
+ * - A 204 response returns `undefined` without parsing a body.
+ * - Middleware hook order: `onRequest` → fetch → `onResponse` (or `onError`),
+ *   run sequentially in registration order.
  */
 export const createHttpClient = (baseUrl = ""): HttpClient => {
   const middlewares: Middleware[] = [];
@@ -116,10 +118,17 @@ export const createHttpClient = (baseUrl = ""): HttpClient => {
     }
   };
 
+  // The backend wraps every success payload in a uniform envelope
+  // ({ success, items, message, timestamp }); callers only want `items`.
+  const isEnvelope = (body: unknown): body is { items: unknown } =>
+    typeof body === "object" && body !== null && "success" in body && "items" in body;
+
   const parseJson = async <T>(res: Response): Promise<T> => {
     if (res.status === 204) return undefined as T;
 
-    return res.json();
+    const body: unknown = await res.json();
+
+    return (isEnvelope(body) ? body.items : body) as T;
   };
 
   return {

@@ -44,16 +44,6 @@ const pageImports = {
   dashboardLog: () => import("@/pages/dashboard-log"),
   errorMonitoring: () => import("@/pages/error-monitoring"),
   dlq: () => import("@/pages/dlq"),
-  privacyLawLayout: () => import("@/pages/privacy-law-layout"),
-  privacyLawVersions: () => import("@/pages/privacy-law-versions"),
-  privacyLawVersionDetail: () => import("@/pages/privacy-law-version-detail"),
-  privacyLawDiffs: () => import("@/pages/privacy-law-diffs"),
-  privacyLawDiffDetail: () => import("@/pages/privacy-law-diff-detail"),
-  privacyLawStudy: () => import("@/pages/privacy-law-study"),
-  privacyLawStudyDetail: () => import("@/pages/privacy-law-study-detail"),
-  privacyLawChat: () => import("@/pages/privacy-law-chat"),
-  privacyLawExams: () => import("@/pages/privacy-law-exams"),
-  privacyLawExamDetail: () => import("@/pages/privacy-law-exam-detail"),
 };
 
 const AuthLoginPage = lazy(pageImports.authLogin);
@@ -86,16 +76,6 @@ const WikiPageViewPage = lazy(pageImports.wikiPageView);
 const DashboardLogPage = lazy(pageImports.dashboardLog);
 const ErrorMonitoringPage = lazy(pageImports.errorMonitoring);
 const DlqPage = lazy(pageImports.dlq);
-const PrivacyLawLayoutPage = lazy(pageImports.privacyLawLayout);
-const PrivacyLawVersionsPage = lazy(pageImports.privacyLawVersions);
-const PrivacyLawVersionDetailPage = lazy(pageImports.privacyLawVersionDetail);
-const PrivacyLawDiffsPage = lazy(pageImports.privacyLawDiffs);
-const PrivacyLawDiffDetailPage = lazy(pageImports.privacyLawDiffDetail);
-const PrivacyLawStudyPage = lazy(pageImports.privacyLawStudy);
-const PrivacyLawStudyDetailPage = lazy(pageImports.privacyLawStudyDetail);
-const PrivacyLawChatPage = lazy(pageImports.privacyLawChat);
-const PrivacyLawExamsPage = lazy(pageImports.privacyLawExams);
-const PrivacyLawExamDetailPage = lazy(pageImports.privacyLawExamDetail);
 
 const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
   [RoutesConfig.MAIN.DAILY_TODO]: [pageImports.dailyTodo],
@@ -119,7 +99,6 @@ const PREFETCH_MAP: Record<string, (() => Promise<unknown>)[]> = {
     pageImports.wikiSpaceLayout,
     pageImports.wikiSpaceHome,
   ],
-  [RoutesConfig.PRIVACY_LAW.HOME]: [pageImports.privacyLawLayout, pageImports.privacyLawVersions],
 };
 
 const prefetchRoute = (path: string) => {
@@ -340,25 +319,6 @@ export const AppRouter = () => {
             </Shell>
           }
         />
-        <Route
-          path={RoutesConfig.PRIVACY_LAW.HOME}
-          element={
-            <Shell>
-              <PrivacyLawLayoutPage />
-            </Shell>
-          }
-        >
-          <Route index element={<Navigate to="versions" replace />} />
-          <Route path="versions" element={<PrivacyLawVersionsPage />} />
-          <Route path="versions/:versionId" element={<PrivacyLawVersionDetailPage />} />
-          <Route path="diffs" element={<PrivacyLawDiffsPage />} />
-          <Route path="diffs/:diffId" element={<PrivacyLawDiffDetailPage />} />
-          <Route path="study" element={<PrivacyLawStudyPage />} />
-          <Route path="study/:materialId" element={<PrivacyLawStudyDetailPage />} />
-          <Route path="chat" element={<PrivacyLawChatPage />} />
-          <Route path="exams" element={<PrivacyLawExamsPage />} />
-          <Route path="exams/:examId" element={<PrivacyLawExamDetailPage />} />
-        </Route>
         <Route
           path="/wiki/:spaceKey"
           element={

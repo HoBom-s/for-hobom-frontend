@@ -41,3 +41,6 @@ jobs:
 
       - name: Run lint
         run: pnpm lint
+
+      - name: Run e2e (hobom-angel)
+        run: pnpm --filter hobom-angel test:e2e

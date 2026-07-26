@@ -1,18 +1,17 @@
 import * as stylex from "@stylexjs/stylex";
 
 export const styles = stylex.create({
-  photo: {
-    position: "relative",
-    aspectRatio: "4 / 3",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "var(--hb-angel-green-tint)",
-    backgroundImage:
-      "repeating-linear-gradient(45deg, var(--hb-angel-green-tint), var(--hb-angel-green-tint) 10px, var(--hb-angel-green-tint-strong) 10px, var(--hb-angel-green-tint-strong) 20px)",
+  link: {
+    display: "block",
+    color: "inherit",
+    textDecoration: "none",
+    borderRadius: "var(--hb-angel-radius-card)",
+    transitionProperty: "transform, box-shadow",
+    transitionDuration: "0.15s",
+    transform: { default: "none", ":hover": "translateY(-2px)" },
+    boxShadow: { default: "none", ":hover": "var(--hb-angel-shadow)" },
   },
-  image: { width: "100%", height: "100%", objectFit: "cover" },
-  paw: { fontSize: "2rem", opacity: 0.5 },
+  media: { position: "relative" },
   body: { paddingInline: 14, paddingTop: 12, paddingBottom: 14 },
   nameRow: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 },
   name: { margin: 0, fontSize: "1rem", fontWeight: 700, color: "var(--hb-color-text-primary)" },
