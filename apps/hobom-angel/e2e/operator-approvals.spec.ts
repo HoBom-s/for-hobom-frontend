@@ -10,7 +10,7 @@ const login = async (page: Page) => {
 };
 
 test.describe("§09 operator — approval queue", () => {
-  test("processes a report and switches tabs", async ({ page }) => {
+  test("reviews the pending queue and moderates a report", async ({ page }) => {
     await login(page);
 
     // Reachable from 마이페이지 for an operator.
@@ -19,21 +19,27 @@ test.describe("§09 operator — approval queue", () => {
     await expect(page).toHaveURL(/\/operator\/approvals$/);
 
     await expect(page.getByRole("heading", { name: "승인 큐" })).toBeVisible();
-    await expect(page.getByRole("tab", { name: "신고 3" })).toBeVisible();
 
-    // A seeded report with its target/reason headline.
+    // Default tab: 보호소 검증 — its real pending queue with approve / reject.
+    await expect(page.getByRole("tab", { name: "보호소 검증 2" })).toBeVisible();
+    await expect(page.getByText("보호소 검증 요청").first()).toBeVisible();
+
+    // Approve one — the queue shrinks and the tab count drops.
+    await page
+      .getByRole("button", { name: "승인" })
+      .first()
+      .click();
+    await expect(page.getByText("승인했어요.")).toBeVisible();
+    await expect(page.getByRole("tab", { name: "보호소 검증 1" })).toBeVisible();
+
+    // The 신고 tab still moderates reports.
+    await page.getByRole("tab", { name: "신고 3" }).click();
     await expect(page.getByText("보호소 신고 · 허위 보호소")).toBeVisible();
-
-    // Dismiss it — the queue shrinks.
     await page
       .getByRole("button", { name: "기각" })
       .first()
       .click();
     await expect(page.getByText("신고를 처리했어요.")).toBeVisible();
     await expect(page.getByRole("tab", { name: "신고 2" })).toBeVisible();
-
-    // Other tabs await their backend endpoint.
-    await page.getByRole("tab", { name: "보호소 검증" }).click();
-    await expect(page.getByText(/대기 목록 엔드포인트/)).toBeVisible();
   });
 });
