@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { DEFAULT_META, ROUTE_META } from "@/shared/config";
 
 const setMetaTag = (name: string, content: string) => {

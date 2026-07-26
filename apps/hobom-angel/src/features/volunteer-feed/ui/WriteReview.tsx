@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useQuery } from "hobom-data";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";

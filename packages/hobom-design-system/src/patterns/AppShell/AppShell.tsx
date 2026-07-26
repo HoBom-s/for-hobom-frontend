@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Box } from "../../components/Box/Box";
 import { DRAWER_WIDTH, DRAWER_WIDTH_COLLAPSED, APPBAR_HEIGHT } from "../../foundations/layout";

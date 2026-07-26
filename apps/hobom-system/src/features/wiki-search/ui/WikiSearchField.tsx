@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { SearchOutlined } from "hobom-design-system/icons";
 import type { SearchResultType } from "@/entities/wiki-page";
 import { Hb } from "@/shared/ui";

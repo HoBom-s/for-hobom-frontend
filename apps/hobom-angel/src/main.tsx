@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { startMocks } from "@/mocks";
 import { warmApiOrigin } from "@/shared/lib";
 import App from "./App";

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 import { ProjectSettings } from "@/features/project-settings";
 

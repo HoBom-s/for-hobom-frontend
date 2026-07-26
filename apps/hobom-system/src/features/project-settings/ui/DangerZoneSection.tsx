@@ -1,5 +1,5 @@
 import { DeleteOutline } from "hobom-design-system/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useSuspenseQuery } from "hobom-data";
 import { useOverlay } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { render, screen, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { DataLotProvider, useDataLot } from "hobom-data";
-import { MemoryRouter, Route, Routes, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { MemoryRouter, Route, Routes, Outlet, useNavigate, useLocation } from "react-router";
 import { UNAUTHORIZED_EVENT } from "@/shared/api";
 import { RoutesConfig } from "@/shared/config";
 import { useToast } from "@/shared/model";

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { shelterPath } from "@/shared/config";
 import { KoreaMap } from "@/shared/ui";
 import type { AnimalFilters } from "@/entities/animal";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { type FieldValues, FormProvider, useForm } from "react-hook-form";
-import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router";
 import { useMutation, useDataLot } from "hobom-data";
 import { useToast } from "@/shared/model";
 import { RoutesConfig } from "@/shared/config";

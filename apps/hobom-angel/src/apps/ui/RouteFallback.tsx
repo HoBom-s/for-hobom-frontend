@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { ROUTES } from "@/shared/config";
 import { ListPageSkeleton, LoadingState } from "@/shared/ui";
 

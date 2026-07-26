@@ -1,5 +1,5 @@
 import { type JSX, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { Funnel, Step, type FunnelProps, type StepProps } from "hobom-design-system";
 import { assertCondition } from "@/shared/lib";
 import { useFunnelState } from "./useFunnelState";

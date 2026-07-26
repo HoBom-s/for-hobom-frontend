@@ -1,5 +1,5 @@
 import { type SetStateAction, useCallback, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { createFunnelStateId, createFunnelStorage, type FunnelStorage } from "@/shared/lib";
 
 export const useFunnelState = <T extends Record<string, unknown>>(

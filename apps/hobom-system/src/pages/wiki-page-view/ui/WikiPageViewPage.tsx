@@ -1,4 +1,4 @@
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router";
 import { WikiPageViewWorkspace } from "@/widgets/wiki-page-view-workspace";
 
 interface WikiSpaceContext {

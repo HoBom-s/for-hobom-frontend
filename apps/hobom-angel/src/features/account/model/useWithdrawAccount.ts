@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useDataLot, useMutation } from "hobom-data";
 import { userQueries, withdrawAccount } from "@/entities/user";
 import { ROUTES } from "@/shared/config";

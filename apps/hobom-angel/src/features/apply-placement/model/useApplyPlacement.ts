@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import { useMutation, useSuspenseQuery } from "hobom-data";
 import { animalQueries } from "@/entities/animal";
 import { adoptionMutations } from "@/entities/adoption";
