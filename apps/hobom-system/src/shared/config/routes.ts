@@ -34,18 +34,6 @@ export const RoutesConfig = {
     SPACE_HOME: "/wiki/:spaceKey",
     PAGE: "/wiki/:spaceKey/pages/:pageId",
   },
-  PRIVACY_LAW: {
-    HOME: "/privacy-law",
-    VERSIONS: "/privacy-law/versions",
-    VERSION_DETAIL: "/privacy-law/versions/:versionId",
-    DIFFS: "/privacy-law/diffs",
-    DIFF_DETAIL: "/privacy-law/diffs/:diffId",
-    STUDY: "/privacy-law/study",
-    STUDY_DETAIL: "/privacy-law/study/:materialId",
-    CHAT: "/privacy-law/chat",
-    EXAMS: "/privacy-law/exams",
-    EXAM_DETAIL: "/privacy-law/exams/:examId",
-  },
   STUDIO: {
     HOME: "/studio",
     EDITOR: "/studio/:itemId",
