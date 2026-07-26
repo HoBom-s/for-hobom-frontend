@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import { mockUrl } from "./mock-url";
 import { ok } from "./ok";
 import { mockSession } from "./mock-session";
+import { PENDING_APPROVALS } from "./approval.handlers";
 
 const SHELTER = {
   id: "shelter-1",
@@ -406,6 +407,13 @@ export const shelterHandlers = [
     const index = PROMOTION_REQUESTS.findIndex((row) => row.approvalId === params.approvalId);
 
     if (index >= 0) PROMOTION_REQUESTS.splice(index, 1);
+
+    // Same decision endpoint backs the operator queue — drop that row too.
+    const pendingIndex = PENDING_APPROVALS.findIndex(
+      (row) => row.approvalId === params.approvalId,
+    );
+
+    if (pendingIndex >= 0) PENDING_APPROVALS.splice(pendingIndex, 1);
 
     return new HttpResponse(null, { status: 204 });
   }),

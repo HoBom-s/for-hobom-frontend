@@ -72,16 +72,4 @@ export const styles = stylex.create({
     borderStyle: "dashed",
     borderColor: "var(--hb-color-border)",
   },
-  // Tabs whose data isn't wired yet (await backend list endpoints).
-  placeholder: {
-    padding: "44px 16px",
-    textAlign: "center",
-    color: "var(--hb-color-text-secondary)",
-    fontSize: "0.9375rem",
-    lineHeight: 1.6,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderColor: "var(--hb-color-border)",
-  },
 });

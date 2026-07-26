@@ -2,30 +2,28 @@ import { Suspense, useState } from "react";
 import { useSuspenseQuery } from "hobom-data";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
+import { APPROVAL_TYPE_LABEL, approvalQueries } from "@/entities/approval";
 import { reportQueries } from "@/entities/report";
 import { LoadingState } from "@/shared/ui";
+import type { ApprovalType } from "@/entities/approval";
+import { PendingApprovalQueue } from "./PendingApprovalQueue";
 import { ReportQueue } from "./ReportQueue";
 import { styles } from "./OperatorApprovals.styles";
 
-type ApprovalTab = "verification" | "promotion" | "placement" | "report";
+type Tab = ApprovalType | "REPORT";
 
-// Only the report tab is backed today; the rest await GET /approvals/pending.
-const PENDING_TABS: { value: ApprovalTab; label: string }[] = [
-  { value: "verification", label: "보호소 검증" },
-  { value: "promotion", label: "스태프 승격" },
-  { value: "placement", label: "입양·임보" },
+const APPROVAL_TABS: ApprovalType[] = [
+  "SHELTER_VERIFICATION",
+  "STAFF_PROMOTION",
+  "ADOPTION",
+  "FOSTER",
 ];
 
-const Placeholder = () => (
-  <p {...stylex.props(styles.placeholder)}>
-    대기 목록 엔드포인트(GET /approvals/pending)가 연결되면 여기에 표시돼요.
-  </p>
-);
-
-/** §09 운영자 승인 큐 — 보호소 검증 · 스태프 승격 · 입양/임보 · 신고 모더레이션.
- *  The 신고 tab is wired; the others await their backend list endpoint. */
+/** §09 운영자 승인 큐 — 보호소 검증 · 스태프 승격 · 입양 · 임보 · 신고 모더레이션.
+ *  Each tab loads its own pending list on demand; the badges show live counts. */
 export const OperatorApprovals = () => {
-  const [tab, setTab] = useState<ApprovalTab>("report");
+  const [tab, setTab] = useState<Tab>("SHELTER_VERIFICATION");
+  const { data: counts } = useSuspenseQuery(approvalQueries.counts());
   const { data: reports } = useSuspenseQuery(reportQueries.pending());
 
   return (
@@ -39,18 +37,26 @@ export const OperatorApprovals = () => {
 
       <Hb.Tabs.Provider value={tab} onChange={(_, value) => setTab(value)}>
         <Hb.Tabs.Root>
-          {PENDING_TABS.map((item) => (
-            <Hb.Tabs.Item key={item.value} value={item.value} label={item.label} />
+          {APPROVAL_TABS.map((type) => (
+            <Hb.Tabs.Item
+              key={type}
+              value={type}
+              label={`${APPROVAL_TYPE_LABEL[type]} ${counts[type]}`}
+            />
           ))}
-          <Hb.Tabs.Item value="report" label={`신고 ${reports.length}`} />
+          <Hb.Tabs.Item value="REPORT" label={`신고 ${reports.length}`} />
         </Hb.Tabs.Root>
 
-        {PENDING_TABS.map((item) => (
-          <Hb.Tabs.Panel key={item.value} value={item.value} {...stylex.props(styles.panel)}>
-            <Placeholder />
+        {APPROVAL_TABS.map((type) => (
+          <Hb.Tabs.Panel key={type} value={type} {...stylex.props(styles.panel)}>
+            {tab === type && (
+              <Suspense fallback={<LoadingState />}>
+                <PendingApprovalQueue type={type} />
+              </Suspense>
+            )}
           </Hb.Tabs.Panel>
         ))}
-        <Hb.Tabs.Panel value="report" {...stylex.props(styles.panel)}>
+        <Hb.Tabs.Panel value="REPORT" {...stylex.props(styles.panel)}>
           <Suspense fallback={<LoadingState />}>
             <ReportQueue />
           </Suspense>
