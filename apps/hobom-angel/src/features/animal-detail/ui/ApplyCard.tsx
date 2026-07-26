@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { ChevronRight, Favorite, FavoriteBorder, LocationOnOutlined } from "hobom-design-system/icons";

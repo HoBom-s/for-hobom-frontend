@@ -1,5 +1,5 @@
 import { Suspense, type ReactNode } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { LoadingState } from "./LoadingState";
 

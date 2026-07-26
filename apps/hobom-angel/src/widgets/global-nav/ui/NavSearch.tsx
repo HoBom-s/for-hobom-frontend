@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { ROUTES } from "@/shared/config";
 import { styles } from "./GlobalNav.styles";

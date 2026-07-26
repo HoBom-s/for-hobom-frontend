@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { ShelterMicrosite } from "@/features/shelter-microsite";
 import { NotFoundState, RouteBoundary } from "@/shared/ui";
 

@@ -6,7 +6,7 @@ const navigateMock = vi.fn();
 let mockParams: Record<string, string> = {};
 let mockPathname = "/projects/proj-1/board";
 
-vi.mock("react-router-dom", () => ({
+vi.mock("react-router", () => ({
   useParams: () => mockParams,
   useNavigate: () => navigateMock,
   useLocation: () => ({ pathname: mockPathname }),

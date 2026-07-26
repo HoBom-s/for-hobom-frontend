@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { ROUTES } from "@/shared/config";
 import { RouteBoundary } from "@/shared/ui";

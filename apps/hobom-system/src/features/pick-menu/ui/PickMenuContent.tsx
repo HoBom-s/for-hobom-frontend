@@ -1,5 +1,5 @@
 import { type ReactNode, Suspense } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { format } from "date-fns";
 import { Bom } from "hobom-utils";
 import { useAddCandidatesTodayMenu, validateTodayMenuInput } from "@/entities/menu-recommendation";

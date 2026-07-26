@@ -1,5 +1,5 @@
 import { FolderOutlined } from "hobom-design-system/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import type { ProjectType } from "@/entities/project";
 import { ProjectCard } from "@/entities/project/ui";
 import { Hb } from "@/shared/ui";

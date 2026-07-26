@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { ROUTES } from "@/shared/config";
 import { BOTTOM_TABS } from "../model/nav-items";

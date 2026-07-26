@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router";
 import { useSuspenseQueries } from "hobom-data";
 import {
   projectQueries,

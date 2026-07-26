@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 import { useSuspenseQuery } from "hobom-data";
 import { wikiSpaceQueries } from "@/entities/wiki-space";
 import { Hb, SuspenseLoader } from "@/shared/ui";

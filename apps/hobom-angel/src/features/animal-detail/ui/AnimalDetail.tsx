@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { SPECIES_LABEL } from "@/entities/animal";
 import { useFavoriteToggle } from "@/entities/favorite";

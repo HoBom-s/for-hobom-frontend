@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { useLogout } from "@/features/session";
 import { ROUTES } from "@/shared/config";

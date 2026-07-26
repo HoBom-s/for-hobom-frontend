@@ -7,7 +7,7 @@ import {
   ChevronRight,
   AddOutlined,
 } from "hobom-design-system/icons";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { ProjectContext } from "@/entities/project";
 import { CreateIssueDialog } from "@/features/create-issue";

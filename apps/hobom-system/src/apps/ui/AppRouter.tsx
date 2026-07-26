@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router";
 import { useDataLot } from "hobom-data";
 import { RoutesConfig } from "@/shared/config";
 import { AppShell, ErrorBoundary, SuspenseLoader } from "@/shared/ui";

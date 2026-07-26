@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { VolunteerBoard } from "@/features/volunteer";

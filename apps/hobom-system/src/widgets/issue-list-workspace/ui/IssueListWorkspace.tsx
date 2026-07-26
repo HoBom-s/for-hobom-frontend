@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router";
 import { IssueListTable } from "@/features/issue-list-table";
 import { ErrorBoundary, SuspenseLoader } from "@/shared/ui";
 

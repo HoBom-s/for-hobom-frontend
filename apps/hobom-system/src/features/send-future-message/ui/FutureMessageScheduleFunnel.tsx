@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { format } from "date-fns";
 import { useMutation, useDataLot } from "hobom-data";
 import { DatePicker } from "hobom-design-system/date-pickers";

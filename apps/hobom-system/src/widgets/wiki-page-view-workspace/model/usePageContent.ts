@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useSuspenseQueries } from "hobom-data";
 import { wikiPageQueries, useDeletePage, useMovePage, useCopyPage } from "@/entities/wiki-page";
 import { userQueries } from "@/entities/user";

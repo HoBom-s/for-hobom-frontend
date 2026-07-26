@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { ArrowBackOutlined } from "hobom-design-system/icons";
 import { Hb, EditableLabel } from "@/shared/ui";
 import { RoutesConfig } from "@/shared/config";
