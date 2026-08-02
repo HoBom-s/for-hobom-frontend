@@ -1,7 +1,8 @@
-import type { AnimalFilters, AnimalSpecies } from "@/entities/animal";
+import type { AnimalFilters, AnimalSpecies, PlacementType } from "@/entities/animal";
 import type { SearchParamsCodec } from "@/shared/model";
 
 const SPECIES = new Set<AnimalSpecies>(["DOG", "CAT", "OTHER"]);
+const PLACEMENTS = new Set<PlacementType>(["ADOPTION", "FOSTER"]);
 const PAGE_SIZE = 20;
 
 export type AnimalView = "grid" | "map";
@@ -19,11 +20,16 @@ export type AnimalBrowseState = AnimalFilters & { view: AnimalView };
  */
 export const filtersFromParams = (params: URLSearchParams): AnimalBrowseState => {
   const species = params.get("species");
+  const placement = params.get("placement");
   const keyword = params.get("q")?.trim();
 
   return {
     species:
       species && SPECIES.has(species as AnimalSpecies) ? (species as AnimalSpecies) : undefined,
+    placement:
+      placement && PLACEMENTS.has(placement as PlacementType)
+        ? (placement as PlacementType)
+        : undefined,
     keyword: keyword || undefined,
     status: params.get("status") === "all" ? undefined : "AVAILABLE",
     sort: params.get("sort") === "OLDEST" ? "OLDEST" : "LATEST",
@@ -37,6 +43,7 @@ export const paramsFromFilters = (state: AnimalBrowseState): URLSearchParams => 
   const params = new URLSearchParams();
 
   if (state.species) params.set("species", state.species);
+  if (state.placement) params.set("placement", state.placement);
   if (state.keyword) params.set("q", state.keyword);
   if (!state.status) params.set("status", "all");
   if (state.sort === "OLDEST") params.set("sort", "OLDEST");

@@ -10,6 +10,7 @@ describe("toAnimal", () => {
       species: "DOG",
       description: "사람을 좋아해요",
       status: "AVAILABLE",
+      eligiblePlacements: ["ADOPTION", "FOSTER"],
       traits: {
         sex: "MALE",
         size: "MEDIUM",
@@ -28,6 +29,7 @@ describe("toAnimal", () => {
       name: "콩이",
       species: "DOG",
       status: "AVAILABLE",
+      eligiblePlacements: ["ADOPTION", "FOSTER"],
       sex: "MALE",
       size: "MEDIUM",
       ageMonths: 24,
@@ -45,6 +47,7 @@ describe("toAnimal", () => {
       species: "CAT",
       description: "",
       status: "RESERVED",
+      eligiblePlacements: ["ADOPTION"],
       traits: {
         sex: "FEMALE",
         size: "SMALL",

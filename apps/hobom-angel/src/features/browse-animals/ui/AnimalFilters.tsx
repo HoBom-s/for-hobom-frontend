@@ -2,13 +2,14 @@ import { useState, type FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { SearchOutlined } from "hobom-design-system/icons";
-import { SPECIES_LABEL } from "@/entities/animal";
-import type { AnimalFilters as Filters, AnimalSpecies } from "@/entities/animal";
+import { PLACEMENT_LABEL, SPECIES_LABEL } from "@/entities/animal";
+import type { AnimalFilters as Filters, AnimalSpecies, PlacementType } from "@/entities/animal";
 import { SortSelect } from "./SortSelect";
 import { styles } from "./AnimalFilters.styles";
 import type { AnimalView } from "../lib/animal-filter-params.lib";
 
 const SPECIES: AnimalSpecies[] = ["DOG", "CAT", "OTHER"];
+const PLACEMENTS: PlacementType[] = ["ADOPTION", "FOSTER"];
 
 interface AnimalFiltersProps {
   filters: Filters;
@@ -61,6 +62,28 @@ export const AnimalFilters = ({ filters, onChange, view, onViewChange }: AnimalF
                 onChange={() => onChange({ ...filters, species: selected ? undefined : species })}
               >
                 {SPECIES_LABEL[species]}
+              </Hb.ToggleButton>
+            );
+          })}
+        </Hb.ToggleButtonGroup>
+
+        <Hb.Divider orientation="vertical" style={{ height: 24, alignSelf: "center" }} />
+
+        <Hb.ToggleButtonGroup variant="segmented" aria-label="신청 유형">
+          {PLACEMENTS.map((placement) => {
+            const selected = filters.placement === placement;
+
+            return (
+              <Hb.ToggleButton
+                key={placement}
+                variant="segmented"
+                value={placement}
+                selected={selected}
+                onChange={() =>
+                  onChange({ ...filters, placement: selected ? undefined : placement })
+                }
+              >
+                {PLACEMENT_LABEL[placement]}
               </Hb.ToggleButton>
             );
           })}

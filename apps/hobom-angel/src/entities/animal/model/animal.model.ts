@@ -3,6 +3,8 @@ export type AnimalSex = "MALE" | "FEMALE" | "UNKNOWN";
 export type AnimalSize = "SMALL" | "MEDIUM" | "LARGE";
 export type AnimalStatusCode = "AVAILABLE" | "RESERVED" | "FOSTERED" | "ADOPTED" | "RETURNED";
 export type AnimalSort = "LATEST" | "OLDEST";
+/** The application types an animal accepts — 입양(permanent) / 임보(temporary). */
+export type PlacementType = "ADOPTION" | "FOSTER";
 
 /** The animal the UI renders — a flattened, display-ready view of the API model. */
 export interface Animal {
@@ -11,6 +13,7 @@ export interface Animal {
   name: string;
   species: AnimalSpecies;
   status: AnimalStatusCode;
+  eligiblePlacements: PlacementType[];
   sex: AnimalSex;
   size: AnimalSize;
   ageMonths: number | null;
@@ -18,6 +21,11 @@ export interface Animal {
   description: string;
   photoUrl?: string;
 }
+
+export const PLACEMENT_LABEL: Record<PlacementType, string> = {
+  ADOPTION: "입양",
+  FOSTER: "임보",
+};
 
 export const SPECIES_LABEL: Record<AnimalSpecies, string> = {
   DOG: "강아지",

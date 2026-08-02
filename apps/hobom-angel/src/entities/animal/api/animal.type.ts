@@ -4,6 +4,7 @@ import type {
   AnimalSort,
   AnimalSpecies,
   AnimalStatusCode,
+  PlacementType,
 } from "../model/animal.model";
 
 interface RawAnimalTraits {
@@ -24,6 +25,7 @@ export interface RawAnimal {
   species: AnimalSpecies;
   description: string;
   status: AnimalStatusCode;
+  eligiblePlacements: PlacementType[];
   traits: RawAnimalTraits;
   photos: { objectKey: string; caption?: string }[];
 }
@@ -68,6 +70,7 @@ export interface AnimalSearchParams {
   size?: AnimalSize;
   sex?: AnimalSex;
   status?: AnimalStatusCode;
+  placement?: PlacementType;
   keyword?: string;
   sort?: AnimalSort;
   cursor?: string;

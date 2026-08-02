@@ -32,7 +32,7 @@ export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProp
   const navigate = useNavigate();
   const { openWarnToast } = useToast();
 
-  const cta = applyCta(animal.status);
+  const cta = applyCta(animal.status, animal.eligiblePlacements);
   const statusLabel = STATUS_LABEL[animal.status];
   const age = animal.ageMonths != null ? `${formatAge(animal.ageMonths)}(추정)` : "나이 미상";
   const meta = [animal.breed, age, SIZE_LABEL[animal.size], SEX_LABEL[animal.sex]]
@@ -96,7 +96,11 @@ export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProp
           variant="primary"
           fullWidth
           disabled={!cta.primaryEnabled}
-          onClick={() => navigate(applyPath(animal.id))}
+          onClick={() =>
+            navigate(
+              cta.primaryKind === "FOSTER" ? fosterApplyPath(animal.id) : applyPath(animal.id),
+            )
+          }
         >
           {cta.primaryLabel}
         </Hb.Button>
