@@ -22,9 +22,10 @@ test.describe("§7.6 shelter console — staff", () => {
     await expect(page.getByText("대표", { exact: true })).toBeVisible();
     await expect(page.getByText("정지")).toBeVisible();
 
-    // Pending queue with candidate activity.
+    // Pending queue with candidate activity. The membership months are relative
+    // to today, so match the format rather than a fixed count.
     await expect(page.getByText("박자원")).toBeVisible();
-    await expect(page.getByText("봉사 20회 · 가입 8개월")).toBeVisible();
+    await expect(page.getByText(/봉사 20회 · 가입 \d+개월/)).toBeVisible();
 
     // Approve the first request — it leaves the queue.
     await page.getByRole("button", { name: "승인" }).first().click();
