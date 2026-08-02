@@ -16,4 +16,23 @@ test.describe("landing", () => {
     await expect(page.getByRole("button", { name: "로그인" })).toBeVisible();
     await expect(page.getByText("일시적인 오류가 발생했어요")).toHaveCount(0);
   });
+
+  test("hero and cta buttons route to the animal list", async ({ page }) => {
+    await page.goto("./");
+    await page.getByRole("button", { name: "로그인" }).click();
+    await page.getByPlaceholder("hobom@example.com").fill("hobom@example.com");
+    await page.getByPlaceholder("••••••••").fill("secret123");
+    await page.getByRole("button", { name: "로그인" }).click();
+    await expect(page.getByText("봄이네님")).toBeVisible();
+
+    // Back on the landing, the primary CTA follows through to the animal list.
+    await page.goto("./");
+    await page.getByRole("button", { name: "우리 가족 찾기" }).click();
+    await expect(page).toHaveURL(/\/animals$/);
+
+    // The closing CTA lands on the same place.
+    await page.goto("./");
+    await page.getByRole("button", { name: "우리 가족 만나러 가기" }).click();
+    await expect(page).toHaveURL(/\/animals$/);
+  });
 });
