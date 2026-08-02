@@ -16,6 +16,9 @@ import { ProtectedRoute } from "./ProtectedRoute";
 const LandingPage = lazy(() =>
   import("@/pages/landing").then((module) => ({ default: module.LandingPage })),
 );
+const FosterPage = lazy(() =>
+  import("@/pages/foster").then((module) => ({ default: module.FosterPage })),
+);
 const LoginPage = lazy(() =>
   import("@/pages/login").then((module) => ({ default: module.LoginPage })),
 );
@@ -91,9 +94,6 @@ const prefetchRoutes = () => {
   void import("@/pages/shelters");
 };
 
-// Sections still on the ComingSoon placeholder until their screens land.
-const SECTION_ROUTES = [ROUTES.FOSTER];
-
 export const AppRouter = () => {
   useRouteMeta();
 
@@ -106,6 +106,9 @@ export const AppRouter = () => {
           {/* Consumer screens render inside the global nav chrome. */}
           <Route element={<ConsumerShellLayout />}>
             <Route path={ROUTES.HOME} element={<LandingPage />} />
+            {/* Public 임시보호 explainer — foster is applied per-animal, so this
+                informs and hands off to the (gated) animal list. */}
+            <Route path={ROUTES.FOSTER} element={<FosterPage />} />
             {/* Public info surfaces (footer links). */}
             <Route path={ROUTES.TERMS} element={<ComingSoonPage />} />
             <Route path={ROUTES.PRIVACY} element={<ComingSoonPage />} />
@@ -123,9 +126,6 @@ export const AppRouter = () => {
             <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
             <Route path={ROUTES.APPLICATIONS} element={<ApplicationsPage />} />
             <Route path={ROUTES.MY} element={<MyPage />} />
-              {SECTION_ROUTES.map((path) => (
-                <Route key={path} path={path} element={<ComingSoonPage />} />
-              ))}
             </Route>
           </Route>
 
