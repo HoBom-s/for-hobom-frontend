@@ -5,6 +5,7 @@ import { toShelterListItem } from "../lib/to-shelter-list-item.lib";
 import { toShelterMarker } from "../lib/to-shelter-marker.lib";
 import {
   createdIdSchema,
+  registerShelterResultSchema,
   shelterAnnouncementsSchema,
   shelterDashboardSchema,
   shelterFaqsSchema,
@@ -32,6 +33,8 @@ import type {
   ApprovalDecisionInput,
   CreatedId,
   FaqInput,
+  RegisterShelterInput,
+  RegisterShelterResult,
   ShelterSearchParams,
   StaffPromotionResult,
 } from "./shelter.type";
@@ -87,6 +90,12 @@ export const getShelterMarkers = (
 /** Fetch a shelter's public microsite profile by slug (§04). */
 export const getShelterBySlug = (slug: string, signal?: AbortSignal): Promise<Shelter> =>
   httpClient.get(`/shelters/${slug}`, { signal }).then(parseShelter).then(toShelter);
+
+/** Register a shelter — the caller becomes 대표 and a verification opens. */
+export const registerShelter = (input: RegisterShelterInput): Promise<RegisterShelterResult> =>
+  httpClient
+    .post("/shelters", input)
+    .then(parseResponse(registerShelterResultSchema, "POST /shelters"));
 
 /** Fetch a shelter's notices/news, pinned first. */
 export const getShelterAnnouncements = (

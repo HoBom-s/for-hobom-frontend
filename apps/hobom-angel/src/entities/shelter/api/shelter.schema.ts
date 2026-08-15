@@ -10,6 +10,7 @@ import type {
   RawShelterStats,
   RawStaffMember,
   RawStaffPromotionRequest,
+  RegisterShelterResult,
   ShelterListPage,
   StaffPromotionResult,
 } from "./shelter.type";
@@ -147,4 +148,9 @@ export const staffPromotionsSchema: Schema<RawStaffPromotionRequest[]> = HoBomSc
 
 export const createdIdSchema: Schema<CreatedId> = HoBomSchema.object({
   id: HoBomSchema.string(),
+});
+
+export const registerShelterResultSchema: Schema<RegisterShelterResult> = HoBomSchema.object({
+  shelterId: HoBomSchema.string(),
+  approvalId: HoBomSchema.string(),
 });

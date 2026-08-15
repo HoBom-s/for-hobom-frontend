@@ -43,6 +43,9 @@ const ShelterDetailPage = lazy(() =>
 const ShelterListPage = lazy(() =>
   import("@/pages/shelters").then((module) => ({ default: module.ShelterListPage })),
 );
+const RegisterShelterPage = lazy(() =>
+  import("@/pages/register-shelter").then((module) => ({ default: module.RegisterShelterPage })),
+);
 const VolunteerPage = lazy(() =>
   import("@/pages/volunteer").then((module) => ({ default: module.VolunteerPage })),
 );
@@ -120,6 +123,7 @@ export const AppRouter = () => {
             <Route path={ROUTES.APPLY} element={<ApplyAdoptionPage />} />
             <Route path={ROUTES.FOSTER_APPLY} element={<ApplyFosterPage />} />
             <Route path={ROUTES.SHELTERS} element={<ShelterListPage />} />
+            <Route path={ROUTES.SHELTER_REGISTER} element={<RegisterShelterPage />} />
             <Route path={ROUTES.SHELTER_DETAIL} element={<ShelterDetailPage />} />
             <Route path={ROUTES.VOLUNTEER} element={<VolunteerPage />} />
             <Route path={ROUTES.VOLUNTEER_WRITE} element={<WriteReviewPage />} />

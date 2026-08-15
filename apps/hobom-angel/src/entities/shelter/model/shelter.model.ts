@@ -145,6 +145,19 @@ export const isShelterVerified = (status: ShelterStatus): boolean => status === 
 /** The precise road address is only shown when the policy is FULL. */
 export const isPreciseAddress = (visibility: AddressVisibility): boolean => visibility === "FULL";
 
+export const ADDRESS_VISIBILITY_LABEL: Record<AddressVisibility, string> = {
+  FULL: "전체 공개",
+  PARTIAL: "부분 공개",
+  HIDDEN: "비공개",
+};
+
+/** A one-line hint for what each disclosure level shows on the map/profile. */
+export const ADDRESS_VISIBILITY_HINT: Record<AddressVisibility, string> = {
+  FULL: "도로명 주소와 정확한 위치를 공개해요.",
+  PARTIAL: "시·군·구까지만, 지도에는 대략 위치로 표시돼요.",
+  HIDDEN: "지역만 공개하고 지도에는 표시하지 않아요.",
+};
+
 export const TRUST_TIER_LABEL: Record<TrustTier, string> = {
   A: "인증 단체",
   B: "인증 활동가",
