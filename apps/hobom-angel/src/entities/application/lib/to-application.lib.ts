@@ -21,4 +21,5 @@ export const toSummary = (raw: RawApplicationSummary, kind: ApplicationKind): Ap
 export const toDetail = (raw: RawApplicationDetail, kind: ApplicationKind): ApplicationDetail => ({
   ...toSummary(raw, kind),
   answers: raw.answers.map((answer) => ({ questionId: answer.questionId, values: answer.values })),
+  decidedReason: raw.decidedReason ?? null,
 });
