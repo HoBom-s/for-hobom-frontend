@@ -57,9 +57,10 @@ const SHELTERS = [
 ];
 
 // A mix across the roster: mostly both, with some foster-only and adoption-only.
+// animal-1 (i=0) stays "both" so it remains a valid adoption/foster fixture.
 const placementsFor = (i: number): string[] => {
-  if (i % 5 === 0) return ["FOSTER"];
-  if (i % 5 === 1) return ["ADOPTION"];
+  if (i % 5 === 2) return ["FOSTER"];
+  if (i % 5 === 3) return ["ADOPTION"];
 
   return ["ADOPTION", "FOSTER"];
 };

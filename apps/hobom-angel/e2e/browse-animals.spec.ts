@@ -53,6 +53,16 @@ test.describe("§01 browse animals", () => {
     await page.screenshot({ path: "e2e-artifacts/browse-cat.png", fullPage: true });
   });
 
+  test("filters by placement (입양/임보) and reflects it in the URL", async ({ page }) => {
+    await login(page);
+    await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
+    await expect(page).toHaveURL(/\/animals$/);
+
+    await page.getByRole("button", { name: "임보", exact: true }).click();
+    await expect(page).toHaveURL(/placement=FOSTER/);
+    await expect(page.getByText(/\d+마리/)).toBeVisible();
+  });
+
   test("sorts by oldest and reflects it in the URL", async ({ page }) => {
     await login(page);
     await page.getByRole("banner").getByRole("link", { name: "입양" }).click();
