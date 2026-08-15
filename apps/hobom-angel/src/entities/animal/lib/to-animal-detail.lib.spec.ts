@@ -9,6 +9,7 @@ const raw: RawAnimalDetail = {
   species: "DOG",
   description: "순한 아이",
   status: "AVAILABLE",
+  eligiblePlacements: ["ADOPTION", "FOSTER"],
   traits: {
     sex: "FEMALE",
     size: "SMALL",

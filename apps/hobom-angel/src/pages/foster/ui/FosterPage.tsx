@@ -98,7 +98,7 @@ export const FosterPage = () => {
           <p {...stylex.props(styles.ctaLead)}>{FOSTER_CTA.lead}</p>
           <Hb.Button
             style={{ backgroundColor: "#ffffff", color: "var(--hb-color-accent-dark)" }}
-            onClick={() => navigate(ROUTES.ANIMALS)}
+            onClick={() => navigate(`${ROUTES.ANIMALS}?placement=FOSTER`)}
           >
             {FOSTER_CTA.button}
           </Hb.Button>

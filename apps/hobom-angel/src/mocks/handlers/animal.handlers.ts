@@ -56,6 +56,15 @@ const SHELTERS = [
   },
 ];
 
+// A mix across the roster: mostly both, with some foster-only and adoption-only.
+// animal-1 (i=0) stays "both" so it remains a valid adoption/foster fixture.
+const placementsFor = (i: number): string[] => {
+  if (i % 5 === 2) return ["FOSTER"];
+  if (i % 5 === 3) return ["ADOPTION"];
+
+  return ["ADOPTION", "FOSTER"];
+};
+
 const ANIMALS = Array.from({ length: 42 }, (_, i) => {
   const shelter = SHELTERS[i % SHELTERS.length] as (typeof SHELTERS)[number];
 
@@ -66,6 +75,7 @@ const ANIMALS = Array.from({ length: 42 }, (_, i) => {
     species: SPECIES[i % SPECIES.length],
     description: "사람을 좋아하고 산책을 즐기는 아이예요. 실내 배변 교육이 되어 있어요.",
     status: STATUSES[i % STATUSES.length],
+    eligiblePlacements: placementsFor(i),
     traits: {
       sex: SEXES[i % SEXES.length],
       size: SIZES[i % SIZES.length],
@@ -106,6 +116,7 @@ interface AnimalRow {
   species: string;
   description: string;
   status: string;
+  eligiblePlacements: string[];
   traits: {
     sex: string;
     size: string;
@@ -137,6 +148,7 @@ export const animalHandlers = [
     const url = new URL(request.url);
     const species = url.searchParams.get("species");
     const status = url.searchParams.get("status");
+    const placement = url.searchParams.get("placement");
     const keyword = url.searchParams.get("keyword");
     const sort = url.searchParams.get("sort");
     const limit = Number(url.searchParams.get("limit") ?? "20");
@@ -147,6 +159,7 @@ export const animalHandlers = [
 
     if (species) filtered = filtered.filter((a) => a.species === species);
     if (status) filtered = filtered.filter((a) => a.status === status);
+    if (placement) filtered = filtered.filter((a) => a.eligiblePlacements.includes(placement));
     if (keyword) filtered = filtered.filter((a) => a.name.includes(keyword));
 
     const page = filtered.slice(cursor, cursor + limit);

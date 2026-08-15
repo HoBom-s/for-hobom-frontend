@@ -8,6 +8,7 @@ export const toAnimal = (raw: RawAnimal): Animal => ({
   name: raw.name,
   species: raw.species,
   status: raw.status,
+  eligiblePlacements: raw.eligiblePlacements,
   sex: raw.traits.sex,
   size: raw.traits.size,
   ageMonths: raw.traits.ageMonths,

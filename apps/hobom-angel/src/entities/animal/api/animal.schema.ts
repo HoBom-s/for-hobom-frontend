@@ -14,6 +14,7 @@ const animalFields = {
   species: HoBomSchema.enum(["DOG", "CAT", "OTHER"]),
   description: HoBomSchema.string(),
   status: HoBomSchema.enum(["AVAILABLE", "RESERVED", "FOSTERED", "ADOPTED", "RETURNED"]),
+  eligiblePlacements: HoBomSchema.array(HoBomSchema.enum(["ADOPTION", "FOSTER"])),
   traits: HoBomSchema.object({
     sex: HoBomSchema.enum(["MALE", "FEMALE", "UNKNOWN"]),
     size: HoBomSchema.enum(["SMALL", "MEDIUM", "LARGE"]),

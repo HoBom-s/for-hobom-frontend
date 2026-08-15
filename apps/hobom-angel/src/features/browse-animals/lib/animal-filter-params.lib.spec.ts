@@ -35,6 +35,12 @@ describe("filtersFromParams", () => {
     expect(filtersFromParams(new URLSearchParams("species=DINOSAUR")).species).toBeUndefined();
   });
 
+  it("reads a valid placement and ignores an unknown one", () => {
+    expect(filtersFromParams(new URLSearchParams("placement=FOSTER")).placement).toBe("FOSTER");
+    expect(filtersFromParams(new URLSearchParams("placement=ADOPTION")).placement).toBe("ADOPTION");
+    expect(filtersFromParams(new URLSearchParams("placement=RENT")).placement).toBeUndefined();
+  });
+
   it("treats a blank keyword as absent", () => {
     expect(filtersFromParams(new URLSearchParams("q=%20%20")).keyword).toBeUndefined();
   });
@@ -75,6 +81,14 @@ describe("paramsFromFilters", () => {
 
   it("marks the off state as status=all", () => {
     expect(paramsFromFilters({ limit: 20, view: "grid" }).get("status")).toBe("all");
+  });
+
+  it("serializes the placement filter", () => {
+    expect(
+      paramsFromFilters({ placement: "FOSTER", status: "AVAILABLE", limit: 20, view: "grid" }).get(
+        "placement",
+      ),
+    ).toBe("FOSTER");
   });
 
   it("serializes the map view and omits it for the grid", () => {

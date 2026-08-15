@@ -15,6 +15,7 @@ export {
   SEX_LABEL,
   STATUS_LABEL,
   SORT_LABEL,
+  PLACEMENT_LABEL,
   formatAge,
   animalMeta,
 } from "./model/animal.model";
@@ -30,4 +31,5 @@ export type {
   AnimalSort,
   AnimalStatusCode,
   AnimalStatusLabel,
+  PlacementType,
 } from "./model/animal.model";

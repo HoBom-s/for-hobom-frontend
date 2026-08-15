@@ -2,7 +2,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { describe, expect, it, vi } from "vitest";
-import type { AnimalDetail } from "@/entities/animal";
+import type { AnimalDetail, PlacementType } from "@/entities/animal";
 import { ApplyCard } from "./ApplyCard";
 
 const renderCard = (
@@ -16,12 +16,16 @@ const renderCard = (
     </MemoryRouter>,
   );
 
-const animal = (status: AnimalDetail["status"]): AnimalDetail => ({
+const animal = (
+  status: AnimalDetail["status"],
+  eligiblePlacements: PlacementType[] = ["ADOPTION", "FOSTER"],
+): AnimalDetail => ({
   id: "animal-1",
   shelterId: "shelter-1",
   name: "콩이",
   species: "DOG",
   status,
+  eligiblePlacements,
   sex: "FEMALE",
   size: "SMALL",
   ageMonths: 24,
@@ -51,6 +55,14 @@ describe("ApplyCard", () => {
     renderCard(animal("ADOPTED"));
 
     expect(button("입양 완료").hasAttribute("disabled")).toBe(true);
+    expect(screen.queryByRole("button", { name: "임시보호 신청" })).toBeNull();
+  });
+
+  it("makes 임보 the primary action for a foster-only animal", () => {
+    renderCard(animal("AVAILABLE", ["FOSTER"]));
+
+    expect(button("임시보호 신청하기").hasAttribute("disabled")).toBe(false);
+    expect(screen.queryByRole("button", { name: "입양 신청하기" })).toBeNull();
     expect(screen.queryByRole("button", { name: "임시보호 신청" })).toBeNull();
   });
 
