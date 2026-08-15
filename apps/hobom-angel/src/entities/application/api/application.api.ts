@@ -2,6 +2,7 @@ import { httpClient, parseResponse } from "@/shared/api";
 import { toQueryString } from "@/shared/lib";
 import { applicationDetailSchema, applicationsPageSchema } from "./application.schema";
 import { toDetail, toSummary } from "../lib/to-application.lib";
+import type { DecideApplicationInput } from "./application.type";
 import type { ApplicationDetail, ApplicationKind, ApplicationPage, ApplicationStatus } from "../model/application.model";
 
 const parsePage = parseResponse(applicationsPageSchema, "GET /shelters/:id/:kind-applications");
@@ -56,3 +57,11 @@ export const getApplicationDetail = (
     .get(`/${pathFor(kind)}/${id}`, { signal })
     .then(parseDetail)
     .then((raw) => toDetail(raw, kind));
+
+/** A shelter approves or rejects a pending application (§7.2 심사). */
+export const decideApplication = (
+  kind: ApplicationKind,
+  id: string,
+  input: DecideApplicationInput,
+): Promise<void> =>
+  httpClient.post(`/${pathFor(kind)}/${id}/decision`, input).then(() => undefined);

@@ -31,4 +31,5 @@ export const applicationDetailSchema: Schema<RawApplicationDetail> = HoBomSchema
       values: HoBomSchema.array(HoBomSchema.string()),
     }),
   ),
+  decidedReason: HoBomSchema.string().nullable().optional(),
 });

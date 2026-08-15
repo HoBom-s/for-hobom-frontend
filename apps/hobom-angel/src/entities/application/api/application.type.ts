@@ -24,4 +24,11 @@ export interface RawAnswer {
 
 export interface RawApplicationDetail extends RawApplicationSummary {
   answers: RawAnswer[];
+  decidedReason?: string | null;
+}
+
+/** `POST /:kind-applications/:id/decision` — a shelter's approve/reject. */
+export interface DecideApplicationInput {
+  decision: "APPROVE" | "REJECT";
+  reason?: string;
 }

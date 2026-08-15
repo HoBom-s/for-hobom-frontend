@@ -17,6 +17,7 @@ interface ApplicationRow {
   questionnaireVersion: number;
   plannedEndDate?: string | null;
   createdAt: string | null;
+  decidedReason?: string | null;
   answers: AnswerRow[];
 }
 
@@ -120,6 +121,32 @@ const detail = (rows: ApplicationRow[], id: string | readonly string[] | undefin
   return ok(row);
 };
 
+/** Apply a shelter's decision to a pending row, mirroring the approval engine:
+ *  APPROVE → APPROVED, REJECT → REJECTED (with the reason). 404 when already
+ *  decided (no PENDING approval to resolve). */
+const decide = async (
+  rows: ApplicationRow[],
+  id: string | readonly string[] | undefined,
+  request: Request,
+) => {
+  if (!mockSession.isActive()) {
+    return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+  }
+
+  const row = rows.find((candidate) => candidate.id === id);
+
+  if (!row || row.status !== "PENDING") {
+    return HttpResponse.json({ message: "대기 중인 신청이 없어요." }, { status: 404 });
+  }
+
+  const body = (await request.json()) as { decision: "APPROVE" | "REJECT"; reason?: string };
+
+  row.status = body.decision === "APPROVE" ? "APPROVED" : "REJECTED";
+  row.decidedReason = body.decision === "REJECT" ? (body.reason ?? null) : null;
+
+  return new HttpResponse(null, { status: 204 });
+};
+
 /** §7.2 console — adoption / foster application read endpoints (queue + detail). */
 export const applicationHandlers = [
   http.get(mockUrl("/shelters/:shelterId/adoption-applications"), ({ request }) => {
@@ -170,4 +197,13 @@ export const applicationHandlers = [
 
     return detail(FOSTER_APPLICATIONS, params.id);
   }),
+
+  // §7.2 심사 — a shelter approves / rejects a pending application.
+  http.post(mockUrl("/adoption-applications/:id/decision"), ({ params, request }) =>
+    decide(ADOPTION_APPLICATIONS, params.id, request),
+  ),
+
+  http.post(mockUrl("/foster-applications/:id/decision"), ({ params, request }) =>
+    decide(FOSTER_APPLICATIONS, params.id, request),
+  ),
 ];

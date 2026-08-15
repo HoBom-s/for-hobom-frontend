@@ -26,6 +26,8 @@ export interface ApplicationAnswer {
 /** Single-application projection: the summary plus the submitted answers. */
 export interface ApplicationDetail extends ApplicationSummary {
   answers: ApplicationAnswer[];
+  /** The shelter's reject reason, present once REJECTED. */
+  decidedReason: string | null;
 }
 
 /** A cursor page of a shelter's applications. */

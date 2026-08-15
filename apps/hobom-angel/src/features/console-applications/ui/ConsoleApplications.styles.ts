@@ -190,4 +190,21 @@ export const styles = stylex.create({
     borderStyle: "dashed",
     borderColor: "var(--hb-color-border)",
   },
+  decisionBar: {
+    display: "flex",
+    gap: 8,
+    marginTop: 4,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopStyle: "solid",
+    borderTopColor: "var(--hb-color-border)",
+  },
+  rejectReason: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 4,
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: "var(--hb-angel-surface-alt)",
+  },
 });

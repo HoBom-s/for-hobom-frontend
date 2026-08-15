@@ -33,4 +33,26 @@ test.describe("§7.2 shelter console — applications", () => {
     await page.getByRole("button", { name: "임시보호", exact: true }).click();
     await expect(page.getByRole("button", { name: /단추/ })).toBeVisible();
   });
+
+  test("rejects a pending application with a reason", async ({ page }) => {
+    await login(page);
+    await page.goto("console/applications");
+
+    // Open a pending adoption application — the decision bar shows for PENDING.
+    await page.getByRole("button", { name: /콩이/ }).click();
+    await page.getByRole("button", { name: "반려하기" }).click();
+
+    // The dialog requires a reason before it can submit.
+    await page.getByLabel("반려 사유").fill("보호 환경 확인이 더 필요해요");
+    await page
+      .getByRole("button", { name: "반려하기" })
+      .last()
+      .click();
+
+    await expect(page.getByText("신청을 반려했어요.")).toBeVisible();
+
+    // The application now reads as 반려 with the reason, and the bar is gone.
+    await expect(page.getByText("보호 환경 확인이 더 필요해요")).toBeVisible();
+    await expect(page.getByRole("button", { name: "승인하기" })).toHaveCount(0);
+  });
 });
