@@ -11,6 +11,7 @@ export const ROUTES = {
   VOLUNTEER: "/volunteer",
   VOLUNTEER_WRITE: "/volunteer/posts/new",
   SHELTERS: "/shelters",
+  SHELTER_REGISTER: "/shelters/register",
   SHELTER_DETAIL: "/shelters/:shelterSlug",
   FAVORITES: "/favorites",
   APPLICATIONS: "/applications",

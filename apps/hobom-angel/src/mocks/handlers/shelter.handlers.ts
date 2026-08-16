@@ -231,6 +231,19 @@ export const shelterHandlers = [
     return ok({ items: page, nextCursor: hasNext ? String(nextIndex) : null, hasNext });
   }),
 
+  http.post(mockUrl("/shelters"), async ({ request }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const body = (await request.json()) as { slug: string };
+
+    // Slug is the public identifier — reject a collision with an existing one.
+    if (body.slug === SHELTER.slug || DIRECTORY.some((item) => item.slug === body.slug)) {
+      return HttpResponse.json({ message: "이미 사용 중인 주소예요." }, { status: 409 });
+    }
+
+    return ok({ shelterId: "shelter-new", approvalId: "approval-new" });
+  }),
+
   http.get(mockUrl("/shelters/:slug"), ({ params }) => {
     if (!mockSession.isActive()) return unauthorized();
 

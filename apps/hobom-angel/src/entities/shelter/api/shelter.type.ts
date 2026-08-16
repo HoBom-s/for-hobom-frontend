@@ -158,3 +158,24 @@ export interface FaqInput {
   answer: string;
   order: number;
 }
+
+/** `POST /shelters` request — the registrant becomes the 대표 and a
+ *  SHELTER_VERIFICATION approval opens for the operator to review. */
+export interface RegisterShelterInput {
+  name: string;
+  slug: string;
+  address: {
+    region: string;
+    city: string;
+    roadAddress: string;
+    visibility: AddressVisibility;
+  };
+  registrationNumber?: string;
+  businessNumber?: string;
+}
+
+/** `POST /shelters` response — the new shelter and its open verification. */
+export interface RegisterShelterResult {
+  shelterId: string;
+  approvalId: string;
+}

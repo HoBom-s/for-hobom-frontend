@@ -7,11 +7,22 @@ import {
   decideApproval,
   postAnnouncement,
   postFaq,
+  registerShelter,
   requestStaffPromotion,
 } from "./shelter.api";
-import type { AnnouncementInput, ApprovalDecisionInput, FaqInput } from "./shelter.type";
+import type {
+  AnnouncementInput,
+  ApprovalDecisionInput,
+  FaqInput,
+  RegisterShelterInput,
+} from "./shelter.type";
 
 export const shelterMutations = {
+  register: () =>
+    mutationOptions({
+      mutationFn: (input: RegisterShelterInput) => registerShelter(input),
+    }),
+
   createAnnouncement: (shelterId: string) =>
     mutationOptions({
       mutationFn: (input: AnnouncementInput) => postAnnouncement(shelterId, input),

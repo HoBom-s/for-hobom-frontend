@@ -33,7 +33,11 @@ const COLUMNS: { heading: string; links: FooterLink[] }[] = [
   },
   {
     heading: "보호소·기관",
-    links: [{ label: "보호소 등록 신청" }, { label: "관리 콘솔" }, { label: "운영 정책" }],
+    links: [
+      { label: "보호소 등록 신청", to: ROUTES.SHELTER_REGISTER },
+      { label: "관리 콘솔", to: ROUTES.CONSOLE },
+      { label: "운영 정책" },
+    ],
   },
 ];
 
