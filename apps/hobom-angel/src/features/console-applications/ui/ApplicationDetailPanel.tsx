@@ -34,13 +34,16 @@ export const ApplicationDetailPanel = ({ shelterId, kind, id }: ApplicationDetai
   return (
     <div {...stylex.props(styles.detail)}>
       <div {...stylex.props(styles.detailHead)}>
-        <h2 {...stylex.props(styles.detailTitle)}>{animalName(detail.animalId)}</h2>
-        <Hb.Chip
-          label={STATUS_LABEL[detail.status]}
-          color={STATUS_COLOR[detail.status]}
-          variant="soft"
-          size="small"
-        />
+        <span {...stylex.props(styles.kicker)}>신청 상세</span>
+        <div {...stylex.props(styles.detailHeadRow)}>
+          <h2 {...stylex.props(styles.detailTitle)}>{animalName(detail.animalId)}</h2>
+          <Hb.Chip
+            label={STATUS_LABEL[detail.status]}
+            color={STATUS_COLOR[detail.status]}
+            variant="soft"
+            size="small"
+          />
+        </div>
       </div>
 
       <div {...stylex.props(styles.detailMeta)}>
@@ -52,7 +55,7 @@ export const ApplicationDetailPanel = ({ shelterId, kind, id }: ApplicationDetai
 
       {detail.status === "REJECTED" && detail.decidedReason && (
         <div {...stylex.props(styles.rejectReason)}>
-          <span {...stylex.props(styles.answerPrompt)}>반려 사유</span>
+          <span {...stylex.props(styles.rejectReasonLabel)}>반려 사유</span>
           <span {...stylex.props(styles.answerText)}>{detail.decidedReason}</span>
         </div>
       )}

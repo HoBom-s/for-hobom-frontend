@@ -34,21 +34,21 @@ export const AnimalFilters = ({ filters, onChange, view, onViewChange }: AnimalF
 
   return (
     <div {...stylex.props(styles.root)}>
-      <form {...stylex.props(styles.searchRow)} onSubmit={submitKeyword} role="search">
-        <Hb.TextField
-          fullWidth
-          placeholder="이름 · 품종 · 지역으로 검색"
-          aria-label="검색"
-          value={keyword}
-          onChange={(event) => setKeyword(event.target.value)}
-          slotProps={{ input: { startAdornment: <SearchOutlined fontSize="small" /> } }}
-        />
-        <Hb.Button type="submit" variant="primary">
-          검색
-        </Hb.Button>
-      </form>
-
       <div {...stylex.props(styles.bar)}>
+        <form {...stylex.props(styles.search)} onSubmit={submitKeyword} role="search">
+          <Hb.TextField
+            {...stylex.props(styles.searchField)}
+            placeholder="이름 · 품종 · 지역으로 검색"
+            aria-label="검색"
+            value={keyword}
+            onChange={(event) => setKeyword(event.target.value)}
+            slotProps={{ input: { startAdornment: <SearchOutlined fontSize="small" /> } }}
+          />
+          <Hb.Button type="submit" variant="primary">
+            검색
+          </Hb.Button>
+        </form>
+
         <Hb.ToggleButtonGroup variant="segmented" aria-label="종">
           {SPECIES.map((species) => {
             const selected = filters.species === species;
@@ -66,8 +66,6 @@ export const AnimalFilters = ({ filters, onChange, view, onViewChange }: AnimalF
             );
           })}
         </Hb.ToggleButtonGroup>
-
-        <Hb.Divider orientation="vertical" style={{ height: 24, alignSelf: "center" }} />
 
         <Hb.ToggleButtonGroup variant="segmented" aria-label="신청 유형">
           {PLACEMENTS.map((placement) => {
@@ -89,14 +87,12 @@ export const AnimalFilters = ({ filters, onChange, view, onViewChange }: AnimalF
           })}
         </Hb.ToggleButtonGroup>
 
-        <Hb.Divider orientation="vertical" style={{ height: 24, alignSelf: "center" }} />
-
         <Hb.ToggleButton
           value="available"
           selected={availableOnly}
           onChange={() => onChange({ ...filters, status: availableOnly ? undefined : "AVAILABLE" })}
         >
-          입양가능만{availableOnly ? " ✓" : ""}
+          입양가능만
         </Hb.ToggleButton>
 
         <div {...stylex.props(styles.right)}>

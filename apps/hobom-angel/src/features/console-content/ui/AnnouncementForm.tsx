@@ -45,16 +45,19 @@ export const AnnouncementForm = ({
 
   return (
     <section {...stylex.props(styles.card)}>
-      <h3 {...stylex.props(styles.heading)}>{editing ? "공지 수정" : "새 공지"}</h3>
+      <div {...stylex.props(styles.headingGroup)}>
+        <span {...stylex.props(styles.headingKicker)}>공지사항</span>
+        <h3 {...stylex.props(styles.heading)}>{editing ? "공지 수정" : "새 공지"}</h3>
+      </div>
 
       <input
-        {...stylex.props(styles.input)}
+        {...stylex.props(styles.input, styles.inputFocus)}
         value={title}
         placeholder="공지 제목"
         onChange={(event) => setTitle(event.target.value)}
       />
       <textarea
-        {...stylex.props(styles.input, styles.textarea)}
+        {...stylex.props(styles.input, styles.inputFocus, styles.textarea)}
         value={body}
         placeholder="내용을 입력하세요."
         onChange={(event) => setBody(event.target.value)}

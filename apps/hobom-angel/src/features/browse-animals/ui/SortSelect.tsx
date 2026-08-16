@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
+import { KeyboardArrowDownOutlined } from "hobom-design-system/icons";
 import { SORT_LABEL } from "@/entities/animal";
 import type { AnimalSort } from "@/entities/animal";
 import { styles } from "./AnimalFilters.styles";
@@ -30,9 +31,11 @@ export const SortSelect = ({ value, onChange }: SortSelectProps) => {
         onClick={() => setOpen((prev) => !prev)}
       >
         {SORT_LABEL[value]}
-        <span {...stylex.props(styles.sortCaret)} aria-hidden="true">
-          ▾
-        </span>
+        <KeyboardArrowDownOutlined
+          {...stylex.props(styles.sortCaret)}
+          fontSize="small"
+          aria-hidden="true"
+        />
       </button>
 
       <Hb.Menu.Root open={open} anchorEl={anchorRef.current} onClose={() => setOpen(false)}>

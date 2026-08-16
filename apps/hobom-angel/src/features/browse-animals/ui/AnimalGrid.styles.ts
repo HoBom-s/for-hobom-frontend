@@ -14,12 +14,39 @@ export const styles = stylex.create({
     },
     gap: { default: 12, [DESKTOP]: 16 },
   },
+
+  // Branded empty state — a green-tint → warm-tint tile, never bare grey.
   empty: {
-    paddingBlock: 64,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     textAlign: "center",
-    color: "var(--hb-color-text-secondary)",
-    fontSize: "0.9375rem",
+    gap: 8,
+    paddingBlock: "clamp(48px, 8vw, 72px)",
+    paddingInline: 24,
+    borderRadius: "var(--hb-angel-radius-card)",
+    backgroundImage:
+      "linear-gradient(140deg, var(--hb-angel-green-tint) 0%, var(--hb-angel-warm-tint) 100%)",
   },
+  emptyGlyph: {
+    fontSize: "2rem",
+    lineHeight: 1,
+  },
+  emptyTitle: {
+    margin: 0,
+    fontSize: "1.0625rem",
+    fontWeight: 700,
+    letterSpacing: "-0.01em",
+    color: "var(--hb-color-text-primary)",
+  },
+  emptyText: {
+    margin: 0,
+    fontSize: "0.9375rem",
+    lineHeight: 1.6,
+    color: "var(--hb-color-text-secondary)",
+  },
+
   more: {
     paddingBlock: 20,
     textAlign: "center",

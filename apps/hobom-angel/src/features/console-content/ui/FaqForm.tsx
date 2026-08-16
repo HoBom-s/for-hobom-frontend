@@ -38,16 +38,19 @@ export const FaqForm = ({ editing, onCreate, onUpdate, onCancel, saving }: FaqFo
 
   return (
     <section {...stylex.props(styles.card)}>
-      <h3 {...stylex.props(styles.heading)}>{editing ? "FAQ 수정" : "새 FAQ"}</h3>
+      <div {...stylex.props(styles.headingGroup)}>
+        <span {...stylex.props(styles.headingKicker)}>FAQ</span>
+        <h3 {...stylex.props(styles.heading)}>{editing ? "FAQ 수정" : "새 FAQ"}</h3>
+      </div>
 
       <input
-        {...stylex.props(styles.input)}
+        {...stylex.props(styles.input, styles.inputFocus)}
         value={question}
         placeholder="질문"
         onChange={(event) => setQuestion(event.target.value)}
       />
       <textarea
-        {...stylex.props(styles.input, styles.textarea)}
+        {...stylex.props(styles.input, styles.inputFocus, styles.textarea)}
         value={answer}
         placeholder="답변"
         onChange={(event) => setAnswer(event.target.value)}

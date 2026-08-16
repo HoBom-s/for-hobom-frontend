@@ -6,6 +6,7 @@ import { styles } from "./VolunteerCertificates.styles";
 /** One issued certificate: its number, totals, and the participation lines. */
 export const CertificateCard = ({ certificate }: { certificate: VolunteerCertificate }) => (
   <article {...stylex.props(styles.card)}>
+    <span {...stylex.props(styles.accentBar)} aria-hidden="true" />
     <div {...stylex.props(styles.cardHead)}>
       <span {...stylex.props(styles.certNo)}>{certificate.certificateNo}</span>
       <span {...stylex.props(styles.spacer)} />

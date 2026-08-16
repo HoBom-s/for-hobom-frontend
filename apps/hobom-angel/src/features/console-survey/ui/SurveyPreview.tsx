@@ -12,9 +12,10 @@ export const SurveyPreview = ({ questions }: { questions: Question[] }) => {
   if (questions.length === 0) {
     return (
       <div {...stylex.props(styles.preview)}>
-        <p {...stylex.props(styles.previewEmpty)}>
-          질문을 추가하면 신청자 화면 미리보기가 여기 표시돼요.
-        </p>
+        <div {...stylex.props(styles.previewEmpty)}>
+          <span {...stylex.props(styles.previewEmptyKicker)}>미리보기 없음</span>
+          <span>질문을 추가하면 신청자 화면 미리보기가 여기 표시돼요.</span>
+        </div>
       </div>
     );
   }

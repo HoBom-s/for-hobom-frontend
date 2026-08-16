@@ -16,8 +16,6 @@ const STATUS_COLOR: Record<
   반환: "default",
 };
 
-const ACTIVE = { backgroundColor: "var(--hb-color-accent-subtle, oklch(0.95 0.03 155))" };
-
 interface AnimalRosterRowProps {
   animal: Animal;
   active: boolean;
@@ -30,12 +28,19 @@ export const AnimalRosterRow = ({ animal, active, onEdit }: AnimalRosterRowProps
   const statusLabel = STATUS_LABEL[animal.status];
 
   return (
-    <Hb.Table.Row hover selected={active} onClick={onEdit} style={{ cursor: "pointer", ...(active ? ACTIVE : {}) }}>
+    <Hb.Table.Row
+      hover
+      selected={active}
+      onClick={onEdit}
+      className={stylex.props(styles.row, active && styles.rowActive).className}
+    >
       <Hb.Table.Cell>
         {animal.photoUrl ? (
           <img src={mediaUrl(animal.photoUrl)} alt="" {...stylex.props(styles.thumb)} />
         ) : (
-          <span {...stylex.props(styles.thumbEmpty)} />
+          <span {...stylex.props(styles.thumbEmpty)} aria-hidden>
+            <span {...stylex.props(styles.thumbGlyph)}>{animal.name.charAt(0)}</span>
+          </span>
         )}
       </Hb.Table.Cell>
       <Hb.Table.Cell>
@@ -50,7 +55,9 @@ export const AnimalRosterRow = ({ animal, active, onEdit }: AnimalRosterRowProps
       <Hb.Table.Cell>
         <Hb.Chip label={statusLabel} size="small" variant="soft" color={STATUS_COLOR[statusLabel]} />
       </Hb.Table.Cell>
-      <Hb.Table.Cell align="right">—</Hb.Table.Cell>
+      <Hb.Table.Cell align="right" className={stylex.props(styles.countCol).className}>
+        —
+      </Hb.Table.Cell>
     </Hb.Table.Row>
   );
 };

@@ -26,6 +26,7 @@ export const FieldStep = ({ title, subtitle, name, cta, onNext, loading, childre
 
   return (
     <div {...stylex.props(styles.step)}>
+      <span {...stylex.props(styles.overline)}>JOIN HOBOM ANGEL</span>
       <h2 {...stylex.props(styles.title)}>{title}</h2>
       <p {...stylex.props(styles.subtitle)}>{subtitle}</p>
 

@@ -14,8 +14,11 @@ export const ConsoleContent = ({ shelterId }: { shelterId: string }) => {
 
   return (
     <div {...stylex.props(styles.root)}>
-      <h1 {...stylex.props(styles.title)}>콘텐츠</h1>
-      <p {...stylex.props(styles.subtitle)}>공지·소개·FAQ를 직접 관리해요</p>
+      <header {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>셀프서비스 CMS</span>
+        <h1 {...stylex.props(styles.title)}>콘텐츠</h1>
+        <p {...stylex.props(styles.subtitle)}>공지·소개·FAQ를 직접 관리해요</p>
+      </header>
 
       <div {...stylex.props(styles.subtabs)}>
         <button

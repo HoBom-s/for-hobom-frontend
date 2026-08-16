@@ -14,6 +14,7 @@ export const CtaSection = () => {
         <h2 {...stylex.props(styles.title)}>{CTA.title}</h2>
         <p {...stylex.props(styles.lead)}>{CTA.lead}</p>
         <Hb.Button
+          size="large"
           style={{ backgroundColor: "#ffffff", color: "var(--hb-color-accent-dark)" }}
           onClick={() => navigate(ROUTES.ANIMALS)}
         >

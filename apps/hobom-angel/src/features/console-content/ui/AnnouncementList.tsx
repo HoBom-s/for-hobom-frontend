@@ -18,7 +18,12 @@ export const AnnouncementList = ({
   onDelete,
 }: AnnouncementListProps) => {
   if (announcements.length === 0) {
-    return <p {...stylex.props(styles.empty)}>아직 등록한 공지가 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)}>
+        <span {...stylex.props(styles.emptyKicker)}>공지사항</span>
+        <p {...stylex.props(styles.emptyText)}>아직 등록한 공지가 없어요.</p>
+      </div>
+    );
   }
 
   return (
@@ -38,7 +43,7 @@ export const AnnouncementList = ({
               <Hb.Button variant="ghost" size="small" onClick={() => onEdit(announcement)}>
                 수정
               </Hb.Button>
-              <Hb.Button variant="ghost" size="small" onClick={() => onDelete(announcement.id)}>
+              <Hb.Button variant="danger" size="small" onClick={() => onDelete(announcement.id)}>
                 삭제
               </Hb.Button>
             </div>

@@ -41,22 +41,24 @@ export const ApplyPlacement = ({ animalId, purpose }: ApplyPlacementProps) => {
       />
 
       <div {...stylex.props(styles.funnelArea)}>
-        <Funnel>
-          {[
-            ...questions.map((question) => (
-              <Funnel.Step key={question.id} name={question.id}>
-                <QuestionField
-                  question={question}
-                  values={answers[question.id] ?? []}
-                  onChange={(values) => setAnswer(question.id, values)}
-                />
-              </Funnel.Step>
-            )),
-            <Funnel.Step key={REVIEW_STEP} name={REVIEW_STEP}>
-              <ReviewStep questions={questions} answers={answers} />
-            </Funnel.Step>,
-          ]}
-        </Funnel>
+        <div {...stylex.props(styles.funnelCard)}>
+          <Funnel>
+            {[
+              ...questions.map((question) => (
+                <Funnel.Step key={question.id} name={question.id}>
+                  <QuestionField
+                    question={question}
+                    values={answers[question.id] ?? []}
+                    onChange={(values) => setAnswer(question.id, values)}
+                  />
+                </Funnel.Step>
+              )),
+              <Funnel.Step key={REVIEW_STEP} name={REVIEW_STEP}>
+                <ReviewStep questions={questions} answers={answers} />
+              </Funnel.Step>,
+            ]}
+          </Funnel>
+        </div>
       </div>
 
       <ApplyNav

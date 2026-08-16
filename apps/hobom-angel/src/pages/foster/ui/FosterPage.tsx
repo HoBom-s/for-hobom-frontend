@@ -22,7 +22,10 @@ export const FosterPage = () => {
     <>
       <section {...stylex.props(styles.hero)}>
         <div {...stylex.props(styles.heroInner)}>
-          <span {...stylex.props(styles.badge)}>{FOSTER_HERO.badge}</span>
+          <span {...stylex.props(styles.badge)}>
+            <span {...stylex.props(styles.badgeDot)} aria-hidden="true" />
+            {FOSTER_HERO.badge}
+          </span>
           <h1 {...stylex.props(styles.title)}>
             {FOSTER_HERO.title.map((line, index) => (
               <Fragment key={line}>
@@ -38,6 +41,7 @@ export const FosterPage = () => {
       <section {...stylex.props(styles.section, styles.altSection)}>
         <div {...stylex.props(styles.inner)}>
           <header {...stylex.props(styles.head)}>
+            <span {...stylex.props(styles.kicker)}>FOSTER VS ADOPT</span>
             <h2 {...stylex.props(styles.sectionTitle)}>입양과 무엇이 다를까요</h2>
             <p {...stylex.props(styles.sectionSub)}>
               임시보호는 짧게 머무는 돌봄, 입양은 평생의 약속이에요.
@@ -58,6 +62,7 @@ export const FosterPage = () => {
       <section {...stylex.props(styles.section)}>
         <div {...stylex.props(styles.inner)}>
           <header {...stylex.props(styles.head)}>
+            <span {...stylex.props(styles.kicker)}>HOW IT WORKS</span>
             <h2 {...stylex.props(styles.sectionTitle)}>이렇게 진행돼요</h2>
             <p {...stylex.props(styles.sectionSub)}>신청부터 임보 시작까지, 한 걸음씩 안내할게요.</p>
           </header>
@@ -76,6 +81,7 @@ export const FosterPage = () => {
       <section {...stylex.props(styles.section, styles.altSection)}>
         <div {...stylex.props(styles.inner)}>
           <header {...stylex.props(styles.head)}>
+            <span {...stylex.props(styles.kicker)}>FOSTER TERMS</span>
             <h2 {...stylex.props(styles.sectionTitle)}>기간은 어떻게 정하나요</h2>
             <p {...stylex.props(styles.sectionSub)}>
               상황에 맞게 유연하게, 종료 전에는 미리 알려드려요.
@@ -97,7 +103,7 @@ export const FosterPage = () => {
           <h2 {...stylex.props(styles.ctaTitle)}>{FOSTER_CTA.title}</h2>
           <p {...stylex.props(styles.ctaLead)}>{FOSTER_CTA.lead}</p>
           <Hb.Button
-            style={{ backgroundColor: "#ffffff", color: "var(--hb-color-accent-dark)" }}
+            className={stylex.props(styles.ctaButton).className}
             onClick={() => navigate(`${ROUTES.ANIMALS}?placement=FOSTER`)}
           >
             {FOSTER_CTA.button}

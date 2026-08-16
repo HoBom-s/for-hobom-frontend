@@ -84,26 +84,23 @@ export const VolunteerEventDialog = ({ event, controls, onClose }: VolunteerEven
           </Hb.Stack>
 
           {event.type === "OVERSEAS" && event.transport && (
-            <>
-              <Hb.Divider />
-              <Hb.Stack spacing={1}>
-                <Hb.Text variant="subtitle2">이동봉사 정보</Hb.Text>
+            <div {...stylex.props(styles.transport)}>
+              <span {...stylex.props(styles.transportTitle)}>이동봉사 정보</span>
+              <Hb.Text variant="body2" color="text.secondary">
+                {event.transport.departure} → {event.transport.arrival}
+              </Hb.Text>
+              <Hb.Text variant="body2" color="text.secondary">
+                {formatFlightAt(event.transport.flightAt)}
+              </Hb.Text>
+              <Hb.Text variant="body2" color="text.secondary">
+                동반 동물 {event.transport.animalCount}마리
+              </Hb.Text>
+              {event.transport.qualification && (
                 <Hb.Text variant="body2" color="text.secondary">
-                  {event.transport.departure} → {event.transport.arrival}
+                  자격: {event.transport.qualification}
                 </Hb.Text>
-                <Hb.Text variant="body2" color="text.secondary">
-                  {formatFlightAt(event.transport.flightAt)}
-                </Hb.Text>
-                <Hb.Text variant="body2" color="text.secondary">
-                  동반 동물 {event.transport.animalCount}마리
-                </Hb.Text>
-                {event.transport.qualification && (
-                  <Hb.Text variant="body2" color="text.secondary">
-                    자격: {event.transport.qualification}
-                  </Hb.Text>
-                )}
-              </Hb.Stack>
-            </>
+              )}
+            </div>
           )}
         </Hb.Stack>
       </Hb.Dialog.Content>

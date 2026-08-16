@@ -24,8 +24,14 @@ export const ConsoleStaff = ({ shelterId }: { shelterId: string }) => {
 
   return (
     <div {...stylex.props(styles.root)}>
-      <h1 {...stylex.props(styles.title)}>스태프 관리</h1>
-      <p {...stylex.props(styles.subtitle)}>일반회원 승격 요청·승인(승인 주체=보호소 대표) · 역할</p>
+      <header {...stylex.props(styles.header)}>
+        <p {...stylex.props(styles.kicker)}>
+          <span {...stylex.props(styles.kickerRule)} aria-hidden />
+          보호소 콘솔
+        </p>
+        <h1 {...stylex.props(styles.title)}>스태프 관리</h1>
+        <p {...stylex.props(styles.subtitle)}>일반회원 승격 요청·승인(승인 주체=보호소 대표) · 역할</p>
+      </header>
 
       <div {...stylex.props(styles.layout)}>
         <div {...stylex.props(styles.col)}>

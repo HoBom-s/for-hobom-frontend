@@ -9,13 +9,18 @@ export const ReportQueue = () => {
   const { reports, resolve, resolving } = useReportQueue();
 
   if (reports.length === 0) {
-    return <p {...stylex.props(styles.empty)}>대기 중인 신고가 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)}>
+        <span {...stylex.props(styles.emptyKicker)}>ALL CLEAR</span>
+        <p {...stylex.props(styles.emptyText)}>대기 중인 신고가 없어요.</p>
+      </div>
+    );
   }
 
   return (
     <div {...stylex.props(styles.list)}>
       {reports.map((report) => (
-        <article key={report.id} {...stylex.props(styles.card)}>
+        <article key={report.id} {...stylex.props(styles.card, styles.reportCard)}>
           <div {...stylex.props(styles.cardHead)}>
             <span {...stylex.props(styles.headline)}>{reportHeadline(report)}</span>
             <span {...stylex.props(styles.spacer)} />

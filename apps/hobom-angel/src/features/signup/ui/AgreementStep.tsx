@@ -38,6 +38,7 @@ export const AgreementStep = ({ onNext }: AgreementStepProps) => {
 
   return (
     <div {...stylex.props(styles.step)}>
+      <span {...stylex.props(styles.overline)}>JOIN HOBOM ANGEL</span>
       <h2 {...stylex.props(styles.title)}>환영해요</h2>
       <p {...stylex.props(styles.subtitle)}>시작하기 전에 약관에 동의해주세요.</p>
 

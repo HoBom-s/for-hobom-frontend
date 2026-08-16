@@ -6,6 +6,7 @@ export const HowItWorksSection = () => (
   <section {...stylex.props(styles.section)} id="how">
     <div {...stylex.props(styles.inner)}>
       <header {...stylex.props(styles.head)}>
+        <span {...stylex.props(styles.kicker)}>HOW IT WORKS</span>
         <h2 {...stylex.props(styles.title)}>이렇게 진행돼요</h2>
         <p {...stylex.props(styles.sub)}>복잡해 보이는 절차, 한 걸음씩 함께 안내할게요.</p>
       </header>

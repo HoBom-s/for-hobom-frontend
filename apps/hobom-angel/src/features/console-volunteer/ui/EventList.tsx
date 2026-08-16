@@ -12,7 +12,12 @@ interface EventListProps {
  *  its applicants. */
 export const EventList = ({ events, onCancel }: EventListProps) => {
   if (events.length === 0) {
-    return <p {...stylex.props(styles.empty)}>아직 등록한 봉사 일정이 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)}>
+        <span {...stylex.props(styles.emptyKicker)}>봉사 일정</span>
+        아직 등록한 봉사 일정이 없어요.
+      </div>
+    );
   }
 
   return (

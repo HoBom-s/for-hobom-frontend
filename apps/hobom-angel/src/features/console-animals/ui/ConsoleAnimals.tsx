@@ -16,15 +16,24 @@ export const ConsoleAnimals = ({ shelterId }: { shelterId: string }) => {
 
   return (
     <div {...stylex.props(styles.root)}>
-      <h1 {...stylex.props(styles.title)}>동물 관리</h1>
-      <p {...stylex.props(styles.subtitle)}>우리 보호소 동물 등록·수정</p>
+      <div {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>보호소 콘솔</span>
+        <h1 {...stylex.props(styles.title)}>동물 관리</h1>
+        <p {...stylex.props(styles.subtitle)}>우리 보호소 동물 등록·수정</p>
+      </div>
 
       <div {...stylex.props(styles.toolbar)}>
         <span {...stylex.props(styles.count)}>
           우리 보호소 동물 <span {...stylex.props(styles.countNum)}>{animals.length}</span>
         </span>
         <span {...stylex.props(styles.spacer)} />
-        <Hb.Button variant="primary" size="small" disabled={!editingId} onClick={clearEdit}>
+        <Hb.Button
+          variant="primary"
+          size="small"
+          disabled={!editingId}
+          onClick={clearEdit}
+          className={stylex.props(styles.registerAction).className}
+        >
           + 동물 등록
         </Hb.Button>
       </div>

@@ -15,7 +15,7 @@ export const ShelterResults = ({ region }: ShelterResultsProps) => {
   return (
     <>
       <p {...stylex.props(styles.count)}>
-        {shelters.length}곳{hasNextPage ? "+" : ""}
+        검증된 보호소 {shelters.length}곳{hasNextPage ? "+" : ""}
       </p>
 
       <ShelterGrid

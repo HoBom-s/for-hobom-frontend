@@ -68,7 +68,7 @@ export const ReviewsTab = ({ shelterId }: { shelterId: string }) => {
   const { reviews, fetchNextPage, hasNextPage, isFetchingNextPage } = useShelterReviews(shelterId);
 
   return (
-    <Hb.Stack spacing={2}>
+    <div {...stylex.props(styles.stack)}>
       <ReputationSummary reputation={reputation} />
 
       {reviews.length === 0 ? (
@@ -88,6 +88,6 @@ export const ReviewsTab = ({ shelterId }: { shelterId: string }) => {
           </Hb.Button>
         </div>
       )}
-    </Hb.Stack>
+    </div>
   );
 };

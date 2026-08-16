@@ -12,6 +12,7 @@ export const ConsoleVolunteer = ({ shelterId }: { shelterId: string }) => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>봉사 콘솔</span>
         <h1 {...stylex.props(styles.title)}>봉사 일정 관리</h1>
         <p {...stylex.props(styles.subtitle)}>일정 생성 · 정원/모집 · 지원자 승인</p>
       </header>

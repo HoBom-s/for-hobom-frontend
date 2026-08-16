@@ -25,7 +25,15 @@ export const AnimalGrid = ({
   const favorites = useFavoriteToggle("ANIMAL");
 
   if (animals.length === 0) {
-    return <p {...stylex.props(styles.empty)}>조건에 맞는 친구가 아직 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)} role="status">
+        <span {...stylex.props(styles.emptyGlyph)} aria-hidden="true">
+          🐾
+        </span>
+        <p {...stylex.props(styles.emptyTitle)}>조건에 맞는 친구가 아직 없어요.</p>
+        <p {...stylex.props(styles.emptyText)}>필터를 조금 바꿔서 다시 찾아보세요.</p>
+      </div>
+    );
   }
 
   return (

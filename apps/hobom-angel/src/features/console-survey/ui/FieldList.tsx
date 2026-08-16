@@ -24,7 +24,12 @@ export const FieldList = ({
   onRemove,
 }: FieldListProps) => {
   if (questions.length === 0) {
-    return <p {...stylex.props(styles.emptyList)}>아래에서 필드를 추가해 설문을 시작하세요.</p>;
+    return (
+      <div {...stylex.props(styles.emptyList)}>
+        <span {...stylex.props(styles.emptyKicker)}>필드 없음</span>
+        <span>아래에서 필드를 추가해 설문을 시작하세요.</span>
+      </div>
+    );
   }
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -42,6 +47,7 @@ export const FieldList = ({
               <div
                 {...stylex.props(
                   styles.fieldRow,
+                  styles.fieldRowFocus,
                   question.id === selectedId && styles.fieldRowActive,
                   invalidIds.has(question.id) && styles.fieldRowInvalid,
                 )}

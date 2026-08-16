@@ -3,14 +3,19 @@ import * as stylex from "@stylexjs/stylex";
 const TABLET = "@media (min-width: 640px)";
 
 export const styles = stylex.create({
-  section: { paddingBlock: 20, paddingInline: "clamp(16px, 4vw, 40px)" },
+  section: {
+    paddingBlock: "clamp(24px, 4vw, 40px)",
+    paddingInline: "clamp(16px, 4vw, 40px)",
+    marginTop: -32,
+  },
   card: {
-    maxWidth: 1120,
+    maxWidth: 1000,
     marginInline: "auto",
-    backgroundColor: "var(--hb-angel-surface-alt)",
+    backgroundColor: "var(--hb-color-surface)",
     borderRadius: "var(--hb-angel-radius-card)",
-    paddingBlock: { default: 24, [TABLET]: 28 },
-    paddingInline: 16,
+    boxShadow: "var(--hb-angel-shadow-md)",
+    paddingBlock: { default: 24, [TABLET]: 32 },
+    paddingInline: { default: 16, [TABLET]: 32 },
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
   },
@@ -22,8 +27,9 @@ export const styles = stylex.create({
   },
   itemFirst: { borderLeftWidth: 0 },
   value: {
-    fontSize: { default: "1.5rem", [TABLET]: "1.875rem" },
+    fontSize: { default: "1.75rem", [TABLET]: "2.5rem" },
     fontWeight: 800,
+    letterSpacing: "-0.02em",
     color: "var(--hb-color-accent-dark)",
     fontVariantNumeric: "tabular-nums",
   },

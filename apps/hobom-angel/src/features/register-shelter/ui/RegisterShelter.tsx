@@ -23,14 +23,23 @@ export const RegisterShelter = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
-        <h1 {...stylex.props(styles.title)}>보호소 등록 신청</h1>
+        <span {...stylex.props(styles.kicker)}>
+          <span {...stylex.props(styles.kickerDot)} aria-hidden />
+          보호소 등록
+        </span>
+        <div {...stylex.props(styles.titleRow)}>
+          <span {...stylex.props(styles.rule)} aria-hidden />
+          <h1 {...stylex.props(styles.title)}>보호소 등록 신청</h1>
+        </div>
         <p {...stylex.props(styles.subtitle)}>
           신청하면 운영자의 검증을 거쳐 승인돼요. 승인되면 신청자가 이 보호소 대표가 돼요.
         </p>
         <div {...stylex.props(styles.steps)}>
-          {FLOW.map((step) => (
+          {FLOW.map((step, index) => (
             <div key={step.n} {...stylex.props(styles.step)}>
-              <span {...stylex.props(styles.stepNum)}>{step.n}</span>
+              <span {...stylex.props(styles.stepNum, index === 0 && styles.stepNumActive)}>
+                {step.n}
+              </span>
               <span {...stylex.props(styles.stepLabel)}>{step.label}</span>
               <span {...stylex.props(styles.stepDesc)}>{step.desc}</span>
             </div>
@@ -38,8 +47,10 @@ export const RegisterShelter = () => {
         </div>
       </header>
 
+      <div {...stylex.props(styles.card)}>
       <section {...stylex.props(styles.section)}>
         <div {...stylex.props(styles.sectionHead)}>
+          <span {...stylex.props(styles.sectionKicker)}>Step 1</span>
           <h2 {...stylex.props(styles.sectionTitle)}>기본 정보</h2>
         </div>
         <Hb.TextField
@@ -66,10 +77,9 @@ export const RegisterShelter = () => {
         </div>
       </section>
 
-      <hr {...stylex.props(styles.divider)} />
-
       <section {...stylex.props(styles.section)}>
         <div {...stylex.props(styles.sectionHead)}>
+          <span {...stylex.props(styles.sectionKicker)}>Step 2</span>
           <h2 {...stylex.props(styles.sectionTitle)}>주소</h2>
         </div>
         <div {...stylex.props(styles.row)}>
@@ -114,10 +124,9 @@ export const RegisterShelter = () => {
         </div>
       </section>
 
-      <hr {...stylex.props(styles.divider)} />
-
       <section {...stylex.props(styles.section)}>
         <div {...stylex.props(styles.sectionHead)}>
+          <span {...stylex.props(styles.sectionKicker)}>Step 3</span>
           <h2 {...stylex.props(styles.sectionTitle)}>인증 정보</h2>
           <p {...stylex.props(styles.sectionNote)}>
             선택이지만, 입력하면 검증이 더 빠르게 진행돼요.
@@ -148,6 +157,7 @@ export const RegisterShelter = () => {
       >
         등록 신청하기
       </Hb.Button>
+      </div>
     </div>
   );
 };

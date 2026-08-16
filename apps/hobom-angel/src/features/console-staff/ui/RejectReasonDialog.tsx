@@ -1,5 +1,7 @@
 import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
+import { styles } from "./ConsoleStaff.styles";
 
 interface RejectReasonDialogProps {
   candidateNickname: string;
@@ -24,7 +26,7 @@ export const RejectReasonDialog = ({
   };
 
   return (
-    <Hb.Dialog.Root open onClose={onClose} size="xs">
+    <Hb.Dialog.Root open onClose={onClose} size="xs" className={stylex.props(styles.dialogPaper).className}>
       <Hb.Dialog.Title>승격 요청 반려</Hb.Dialog.Title>
       <Hb.Dialog.Content dividers>
         <Hb.TextField

@@ -22,7 +22,11 @@ export const OperatorApprovals = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
-        <h1 {...stylex.props(styles.title)}>검증 · 신고 관리</h1>
+        <span {...stylex.props(styles.kicker)}>OPERATOR CONSOLE</span>
+        <div {...stylex.props(styles.titleRow)}>
+          <span {...stylex.props(styles.rule)} aria-hidden />
+          <h1 {...stylex.props(styles.title)}>검증 · 신고 관리</h1>
+        </div>
         <p {...stylex.props(styles.subtitle)}>
           보호소 등록을 검증하고, 접수된 신고를 처리해요.
         </p>

@@ -15,6 +15,7 @@ export const BrowseShelters = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>VERIFIED SHELTERS</span>
         <h1 {...stylex.props(styles.title)}>함께하는 보호소</h1>
         <p {...stylex.props(styles.subtitle)}>플랫폼이 서류 심사로 검증한 보호소만 노출돼요.</p>
       </header>

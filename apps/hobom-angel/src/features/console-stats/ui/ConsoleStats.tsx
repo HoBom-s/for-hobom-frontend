@@ -44,6 +44,10 @@ export const ConsoleStats = ({ shelterId }: { shelterId: string }) => {
 
   return (
     <div {...stylex.props(styles.root)}>
+      <span {...stylex.props(styles.kicker)}>
+        <span {...stylex.props(styles.kickerRule)} aria-hidden />
+        Console
+      </span>
       <h1 {...stylex.props(styles.title)}>통계</h1>
       <p {...stylex.props(styles.subtitle)}>입양율 · 보호 현황 · 신청 처리</p>
 
@@ -69,13 +73,15 @@ export const ConsoleStats = ({ shelterId }: { shelterId: string }) => {
 
       <section {...stylex.props(styles.chartCard)}>
         <h2 {...stylex.props(styles.chartTitle)}>월별 입양 추이</h2>
-        <Chart
-          type="bar"
-          data={bars}
-          config={{ x: "label", y: "count", colorKey: "fill", legend: false }}
-          height={180}
-          ariaLabel="최근 6개월 월별 입양 추이"
-        />
+        <div {...stylex.props(styles.chartScroll)}>
+          <Chart
+            type="bar"
+            data={bars}
+            config={{ x: "label", y: "count", colorKey: "fill", legend: false }}
+            height={180}
+            ariaLabel="최근 6개월 월별 입양 추이"
+          />
+        </div>
       </section>
     </div>
   );
