@@ -55,6 +55,11 @@ const FavoritesPage = lazy(() =>
 const WriteReviewPage = lazy(() =>
   import("@/pages/volunteer-write").then((module) => ({ default: module.WriteReviewPage })),
 );
+const VolunteerCertificatesPage = lazy(() =>
+  import("@/pages/volunteer-certificates").then((module) => ({
+    default: module.VolunteerCertificatesPage,
+  })),
+);
 const MyPage = lazy(() => import("@/pages/my").then((module) => ({ default: module.MyPage })));
 const ApplicationsPage = lazy(() =>
   import("@/pages/applications").then((module) => ({ default: module.ApplicationsPage })),
@@ -127,6 +132,7 @@ export const AppRouter = () => {
             <Route path={ROUTES.SHELTER_DETAIL} element={<ShelterDetailPage />} />
             <Route path={ROUTES.VOLUNTEER} element={<VolunteerPage />} />
             <Route path={ROUTES.VOLUNTEER_WRITE} element={<WriteReviewPage />} />
+            <Route path={ROUTES.VOLUNTEER_CERTIFICATES} element={<VolunteerCertificatesPage />} />
             <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
             <Route path={ROUTES.APPLICATIONS} element={<ApplicationsPage />} />
             <Route path={ROUTES.MY} element={<MyPage />} />

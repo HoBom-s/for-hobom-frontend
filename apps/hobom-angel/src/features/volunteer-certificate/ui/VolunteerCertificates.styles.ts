@@ -1,0 +1,88 @@
+import * as stylex from "@stylexjs/stylex";
+
+export const styles = stylex.create({
+  root: {
+    maxWidth: 720,
+    marginInline: "auto",
+    paddingInline: "clamp(16px, 4vw, 32px)",
+    paddingTop: 16,
+    paddingBottom: 48,
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+  },
+  header: {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: 12,
+  },
+  headings: { display: "flex", flexDirection: "column", gap: 6, flex: 1 },
+  title: {
+    margin: 0,
+    fontSize: "1.5rem",
+    fontWeight: 800,
+    letterSpacing: "-0.02em",
+    color: "var(--hb-color-text-primary)",
+  },
+  subtitle: { margin: 0, fontSize: "0.9375rem", color: "var(--hb-color-text-secondary)" },
+  list: { display: "flex", flexDirection: "column", gap: 14 },
+
+  // Certificate card
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 14,
+    padding: 20,
+    borderRadius: "var(--hb-angel-radius-card)",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "var(--hb-color-border)",
+    backgroundColor: "var(--hb-color-surface)",
+  },
+  cardHead: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    flexWrap: "wrap",
+  },
+  certNo: {
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontSize: "0.8125rem",
+    fontWeight: 600,
+    color: "var(--hb-color-accent-dark)",
+    backgroundColor: "var(--hb-angel-green-tint)",
+    paddingBlock: 4,
+    paddingInline: 10,
+    borderRadius: 8,
+  },
+  issuedAt: { fontSize: "0.8125rem", color: "var(--hb-color-text-secondary)" },
+  spacer: { flex: 1 },
+  totals: {
+    display: "flex",
+    gap: 20,
+    padding: 14,
+    borderRadius: 12,
+    backgroundColor: "var(--hb-angel-surface-alt)",
+  },
+  total: { display: "flex", flexDirection: "column", gap: 2 },
+  totalValue: {
+    fontSize: "1.25rem",
+    fontWeight: 800,
+    color: "var(--hb-color-text-primary)",
+  },
+  totalLabel: { fontSize: "0.75rem", color: "var(--hb-color-text-secondary)" },
+  items: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+  },
+  item: {
+    display: "flex",
+    alignItems: "baseline",
+    gap: 8,
+    fontSize: "0.875rem",
+  },
+  itemTitle: { fontWeight: 600, color: "var(--hb-color-text-primary)" },
+  itemMeta: { color: "var(--hb-color-text-secondary)" },
+  itemSpacer: { flex: 1 },
+});
