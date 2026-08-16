@@ -11,9 +11,9 @@ import { styles } from "./OperatorApprovals.styles";
 
 type Tab = "SHELTER_VERIFICATION" | "REPORT";
 
-/** §09 운영자 승인 큐 — the platform operator decides 보호소 검증 and moderates
- *  신고. Staff-promotion / adoption / foster are decided by the owning shelter's
- *  manager (in the shelter console), not here, so they are not surfaced. */
+/** §09 운영자 검증·신고 관리 — the platform operator verifies shelters and
+ *  moderates 신고. Staff-promotion / adoption / foster are decided by the owning
+ *  shelter's manager (in the shelter console), not here, so they aren't shown. */
 export const OperatorApprovals = () => {
   const [tab, setTab] = useState<Tab>("SHELTER_VERIFICATION");
   const { data: counts } = useSuspenseQuery(approvalQueries.counts());
@@ -22,8 +22,10 @@ export const OperatorApprovals = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
-        <h1 {...stylex.props(styles.title)}>승인 큐</h1>
-        <p {...stylex.props(styles.subtitle)}>보호소 검증과 신고를 처리해요.</p>
+        <h1 {...stylex.props(styles.title)}>검증 · 신고 관리</h1>
+        <p {...stylex.props(styles.subtitle)}>
+          보호소 등록을 검증하고, 접수된 신고를 처리해요.
+        </p>
       </header>
 
       <Hb.Tabs.Provider value={tab} onChange={(_, value) => setTab(value)}>

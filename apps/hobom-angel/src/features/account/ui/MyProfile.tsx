@@ -91,7 +91,7 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
           </Link>
           {isOperator(user) && (
             <Link to={ROUTES.OPERATOR_APPROVALS} {...stylex.props(styles.actionRow)}>
-              승인 큐 (운영자)
+              운영자 콘솔
             </Link>
           )}
         </div>

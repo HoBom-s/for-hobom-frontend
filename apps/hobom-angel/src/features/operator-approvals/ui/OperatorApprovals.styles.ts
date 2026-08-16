@@ -36,6 +36,14 @@ export const styles = stylex.create({
     borderColor: "var(--hb-color-border)",
     backgroundColor: "var(--hb-color-surface)",
   },
+  cardSkeleton: {
+    height: 74,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "var(--hb-color-border)",
+    backgroundColor: "var(--hb-angel-surface-alt)",
+  },
   cardHead: {
     display: "flex",
     alignItems: "center",

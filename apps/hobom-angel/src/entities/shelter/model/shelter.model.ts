@@ -142,6 +142,58 @@ export const isShelterAdmin = (roles: readonly ShelterStaffRole[]): boolean =>
 /** Only VERIFIED shelters show the ✓ badge and get PII privileges. */
 export const isShelterVerified = (status: ShelterStatus): boolean => status === "VERIFIED";
 
+/** Outcome of an automated verification check (operator dossier). */
+export type SignalStatus = "PASS" | "FAIL" | "UNKNOWN";
+
+export interface VerificationSignal {
+  key: string;
+  status: SignalStatus;
+}
+
+/** §09 operator review — the submitted registration for a shelter awaiting
+ *  verification: the identity + address, the ID numbers, the registrant, the
+ *  facility photos, and the automated check badges. */
+export interface ShelterVerification {
+  shelterId: string;
+  name: string;
+  slug: string;
+  status: ShelterStatus;
+  address: ShelterAddress;
+  addressVisibility: AddressVisibility;
+  registrationNumber: string | null;
+  businessNumber: string | null;
+  registrant: { id: string; nickname: string } | null;
+  facilityPhotos: FacilityPhoto[];
+  verificationSignals: VerificationSignal[] | null;
+  signalsCheckedAt: string | null;
+  rejectionReason: string | null;
+}
+
+export const SIGNAL_LABEL: Record<string, string> = {
+  registryMatch: "등록번호 대조",
+  businessValid: "사업자 확인",
+  nameMatch: "명의 일치",
+};
+
+export const SIGNAL_STATUS_LABEL: Record<SignalStatus, string> = {
+  PASS: "통과",
+  FAIL: "불일치",
+  UNKNOWN: "확인 필요",
+};
+
+/** Maps a signal outcome to an `Hb.Chip` color. */
+export const SIGNAL_STATUS_COLOR: Record<SignalStatus, "success" | "error" | "default"> = {
+  PASS: "success",
+  FAIL: "error",
+  UNKNOWN: "default",
+};
+
+export const FACILITY_PHOTO_KIND_LABEL: Record<FacilityPhotoKind, string> = {
+  EXTERIOR: "외부",
+  INTERIOR: "내부",
+  OTHER: "기타",
+};
+
 /** The precise road address is only shown when the policy is FULL. */
 export const isPreciseAddress = (visibility: AddressVisibility): boolean => visibility === "FULL";
 

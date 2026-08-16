@@ -179,3 +179,24 @@ export interface RegisterShelterResult {
   shelterId: string;
   approvalId: string;
 }
+
+/** `GET /shelters/:shelterId/verification` response (operator dossier). */
+export interface RawShelterVerification {
+  shelterId: string;
+  name: string;
+  slug: string;
+  status: ShelterStatus;
+  address: {
+    region: string;
+    city?: string | null;
+    roadAddress?: string | null;
+    visibility: AddressVisibility;
+  };
+  registrationNumber: string | null;
+  businessNumber: string | null;
+  registrant: { id: string; nickname: string } | null;
+  facilityPhotos: { objectKey: string; kind: FacilityPhotoKind; caption?: string | null }[];
+  verificationSignals: { key: string; status: "PASS" | "FAIL" | "UNKNOWN" }[] | null;
+  signalsCheckedAt: string | null;
+  rejectionReason: string | null;
+}
