@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { LocationOnOutlined } from "hobom-design-system/icons";
+import { LocationOnOutlined, Schedule } from "hobom-design-system/icons";
 import {
   VOLUNTEER_SIGNUP_STATUS_LABEL,
   VOLUNTEER_STATUS_LABEL,
@@ -38,10 +38,11 @@ export const VolunteerEventCard = ({ event, controls }: VolunteerEventCardProps)
     ));
 
   return (
-    <Hb.SectionCard
-      title={event.title}
-      action={
-        <Hb.Stack direction="row" spacing={0.5}>
+    <div {...stylex.props(styles.card)}>
+      {/* Branded green→warm tint header carries the WHITE title on a scrim. */}
+      <div {...stylex.props(styles.media)}>
+        <span {...stylex.props(styles.mediaScrim)} aria-hidden />
+        <div {...stylex.props(styles.mediaChips)}>
           {event.mySignupStatus && (
             <Hb.Chip
               label={VOLUNTEER_SIGNUP_STATUS_LABEL[event.mySignupStatus]}
@@ -56,36 +57,39 @@ export const VolunteerEventCard = ({ event, controls }: VolunteerEventCardProps)
             variant="soft"
             color={STATUS_COLOR[event.status]}
           />
-        </Hb.Stack>
-      }
-    >
-      <Hb.Stack spacing={1}>
-        <div {...stylex.props(styles.metaRow)}>
-          <Hb.Chip
-            label={VOLUNTEER_TYPE_LABEL[event.type]}
-            size="small"
-            variant="soft"
-            color={event.type === "OVERSEAS" ? "primary" : "default"}
-          />
-          {event.shelter && (
-            <Link to={shelterPath(event.shelter.slug)} {...stylex.props(styles.shelterLink)}>
-              <LocationOnOutlined fontSize="small" />
-              <Hb.Text variant="caption" color="text.secondary">
-                {event.shelter.name} · {event.shelter.region}
-              </Hb.Text>
-            </Link>
-          )}
         </div>
 
-        <Hb.Text variant="body2" color="text.secondary">
+        <div {...stylex.props(styles.titleWrap)}>
+          <span {...stylex.props(styles.typeChip)}>
+            <Hb.Chip
+              label={VOLUNTEER_TYPE_LABEL[event.type]}
+              size="small"
+              variant="soft"
+              color={event.type === "OVERSEAS" ? "primary" : "default"}
+            />
+          </span>
+          <h3 {...stylex.props(styles.title)}>{event.title}</h3>
+        </div>
+      </div>
+
+      <div {...stylex.props(styles.body)}>
+        {event.shelter && (
+          <Link to={shelterPath(event.shelter.slug)} {...stylex.props(styles.shelterLink)}>
+            <LocationOnOutlined fontSize="small" />
+            <Hb.Text variant="caption" color="text.secondary">
+              {event.shelter.name} · {event.shelter.region}
+            </Hb.Text>
+          </Link>
+        )}
+
+        <span {...stylex.props(styles.metaRow)}>
+          <Schedule fontSize="small" />
           {formatEventPeriod(event.startAt, event.endAt)}
-        </Hb.Text>
+        </span>
 
         {event.description && (
           <>
-            <Hb.Text variant="body2" color="text.secondary" {...stylex.props(styles.clamp)}>
-              {event.description}
-            </Hb.Text>
+            <p {...stylex.props(styles.clamp)}>{event.description}</p>
             <button type="button" {...stylex.props(styles.more)} onClick={openDetail}>
               자세히 ›
             </button>
@@ -94,16 +98,16 @@ export const VolunteerEventCard = ({ event, controls }: VolunteerEventCardProps)
 
         <Hb.Progress.Linear variant="determinate" value={progress} />
         <div {...stylex.props(styles.captionRow)}>
-          <Hb.Text variant="caption" color="text.secondary">
+          <span {...stylex.props(styles.caption)}>
             모집 {event.signedUpCount}/{event.capacity}명 · 남은 자리 {remaining}
-          </Hb.Text>
+          </span>
           {isSignUpOpen(event) && remaining <= 3 && (
-            <Hb.Chip label="마감 임박" size="small" variant="soft" color="warning" />
+            <Hb.Chip label="마감 임박" size="small" variant="soft" color="error" />
           )}
         </div>
 
         <SignUpButton event={event} controls={controls} fullWidth />
-      </Hb.Stack>
-    </Hb.SectionCard>
+      </div>
+    </div>
   );
 };

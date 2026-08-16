@@ -6,8 +6,8 @@ export const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
-    width: 34,
-    height: 34,
+    width: 40,
+    height: 40,
     padding: 0,
     borderRadius: 999,
     borderWidth: 0,
@@ -18,15 +18,18 @@ export const styles = stylex.create({
     transitionProperty: "color, background-color",
     transitionDuration: "0.15s",
   },
-  // Floats over card media, so it needs a legible backdrop.
+  // Floats over card media — a light frosted disc, not an opaque white blob.
   overlay: {
-    position: "absolute",
-    top: 10,
-    insetInlineEnd: 10,
-    backgroundColor: { default: "rgba(255, 255, 255, 0.92)", ":hover": "rgba(255, 255, 255, 1)" },
-    boxShadow: "var(--hb-angel-shadow)",
+    color: "var(--hb-angel-on-photo)",
+    backgroundColor: {
+      default: "var(--hb-angel-disc-scrim)",
+      ":hover": "var(--hb-angel-disc-scrim-strong)",
+    },
+    backdropFilter: "blur(8px)",
+    WebkitBackdropFilter: "blur(8px)",
   },
+  // Favorited — the warm (marigold) heart; reads on both surface and photo.
   on: {
-    color: "var(--hb-color-accent-dark)",
+    color: "var(--hb-angel-accent-warm-dark)",
   },
 });

@@ -37,7 +37,11 @@ export const VolunteerBoard = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
-        <h1 {...stylex.props(styles.title)}>봉사활동</h1>
+        <span {...stylex.props(styles.kicker)}>함께하는 손길</span>
+        <div {...stylex.props(styles.titleRow)}>
+          <span {...stylex.props(styles.rule)} aria-hidden />
+          <h1 {...stylex.props(styles.title)}>봉사활동</h1>
+        </div>
         <p {...stylex.props(styles.subtitle)}>캘린더에서 봉사 일정을 확인하고 신청하세요.</p>
       </header>
 
@@ -86,19 +90,19 @@ export const VolunteerBoard = () => {
 
       {board.view === "calendar" ? (
         <div {...stylex.props(styles.board)}>
-          <Hb.Card.Root
-            variant="outlined"
-            style={{ padding: 20, borderRadius: "var(--hb-angel-radius-card)" }}
-          >
+          <div {...stylex.props(styles.calendarCard)}>
             <VolunteerCalendar
               value={board.selected}
               onSelect={board.setSelected}
               eventDays={board.eventDays}
             />
-          </Hb.Card.Root>
+          </div>
 
           <div {...stylex.props(styles.listCol)}>
-            <h2 {...stylex.props(styles.dayTitle)}>{showDay ? dayLabel : "다가오는 봉사"}</h2>
+            <h2 {...stylex.props(styles.dayTitle)}>
+              <span {...stylex.props(styles.rule)} aria-hidden />
+              {showDay ? dayLabel : "다가오는 봉사"}
+            </h2>
             <div {...stylex.props(styles.scrollArea)}>
               {showDay && <VolunteerFeed events={board.dayEvents} controls={controls} />}
               {!showDay && board.upcoming.length > 0 && (

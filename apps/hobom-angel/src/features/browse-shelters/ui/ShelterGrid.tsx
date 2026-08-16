@@ -22,7 +22,14 @@ export const ShelterGrid = ({
   const sentinelRef = useInfiniteScroll({ hasNextPage, isFetchingNextPage, fetchNextPage });
 
   if (shelters.length === 0) {
-    return <p {...stylex.props(styles.empty)}>조건에 맞는 보호소가 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)}>
+        <span {...stylex.props(styles.emptyIcon)} aria-hidden="true">
+          🐾
+        </span>
+        <p {...stylex.props(styles.emptyText)}>조건에 맞는 보호소가 없어요.</p>
+      </div>
+    );
   }
 
   return (

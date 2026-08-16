@@ -9,6 +9,7 @@ const styles = stylex.create({
   contain: {
     display: "block",
     width: "100%",
+    height: "auto",
     objectFit: "contain",
     maxHeight: { default: "42vh", [DESKTOP]: "74vh" },
   },

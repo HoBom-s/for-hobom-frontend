@@ -27,6 +27,7 @@ export const MyApplications = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>MY APPLICATIONS</span>
         <h1 {...stylex.props(styles.title)}>내 신청 내역</h1>
         <p {...stylex.props(styles.subtitle)}>입양·임시보호 신청 현황을 확인해요.</p>
       </header>

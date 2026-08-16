@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router";
 import { useSuspenseQuery } from "hobom-data";
 import * as stylex from "@stylexjs/stylex";
@@ -7,6 +8,35 @@ import { formatShelterAddress, operatingYears } from "@/entities/shelter";
 import { ROUTES, animalDetailPath } from "@/shared/config";
 import type { Shelter, ShelterStats } from "@/entities/shelter";
 import { styles } from "./AboutTab.styles";
+
+/** Floating section shell with the signature overline + accent left-rule header. */
+const Section = ({
+  kicker,
+  title,
+  action,
+  children,
+  sidebar,
+}: {
+  kicker: string;
+  title: string;
+  action?: ReactNode;
+  children: ReactNode;
+  sidebar?: boolean;
+}) => (
+  <section {...stylex.props(styles.card, sidebar && styles.sidebar)}>
+    <div {...stylex.props(styles.head)}>
+      <div {...stylex.props(styles.headText)}>
+        <span {...stylex.props(styles.kicker)}>{kicker}</span>
+        <h2 {...stylex.props(styles.title)}>
+          <span {...stylex.props(styles.rule)} aria-hidden="true" />
+          {title}
+        </h2>
+      </div>
+      {action}
+    </div>
+    {children}
+  </section>
+);
 
 /** 소개 tab — greeting, stat cards, and an animal preview on the left; visit /
  *  support guidance and a volunteer CTA in the sidebar. Matches the §04 design. */
@@ -23,7 +53,7 @@ export const AboutTab = ({ shelter, stats }: { shelter: Shelter; stats: ShelterS
 
   return (
     <div {...stylex.props(styles.grid)}>
-      <Hb.Stack spacing={3}>
+      <div {...stylex.props(styles.main)}>
         {shelter.facilityPhotos.length > 0 && (
           <Hb.Gallery
             images={shelter.facilityPhotos.map((photo) => ({
@@ -36,9 +66,9 @@ export const AboutTab = ({ shelter, stats }: { shelter: Shelter; stats: ShelterS
         )}
 
         {shelter.intro && (
-          <Hb.SectionCard title="인사말">
+          <Section kicker="Our Story" title="인사말">
             <Hb.Markdown>{shelter.intro}</Hb.Markdown>
-          </Hb.SectionCard>
+          </Section>
         )}
 
         <Hb.StatGroup.Root columns={statItems.length} variant="card">
@@ -48,7 +78,8 @@ export const AboutTab = ({ shelter, stats }: { shelter: Shelter; stats: ShelterS
         </Hb.StatGroup.Root>
 
         {preview.length > 0 && (
-          <Hb.SectionCard
+          <Section
+            kicker="Meet Them"
             title="우리 보호소 아이들"
             action={
               <Link to="?tab=animals" style={{ color: "inherit" }}>
@@ -70,25 +101,31 @@ export const AboutTab = ({ shelter, stats }: { shelter: Shelter; stats: ShelterS
                 />
               ))}
             </div>
-          </Hb.SectionCard>
+          </Section>
         )}
-      </Hb.Stack>
+      </div>
 
-      <Hb.SectionCard title="방문·후원 안내">
+      <Section kicker="Visit & Support" title="방문·후원 안내" sidebar>
         <Hb.DescriptionList.Root layout="stacked">
           <Hb.DescriptionList.Item term="지역">
             {formatShelterAddress(shelter.address)}
           </Hb.DescriptionList.Item>
           <Hb.DescriptionList.Item term="문의">사이트 메시지로 연락</Hb.DescriptionList.Item>
         </Hb.DescriptionList.Root>
-        {shelter.visitGuide && <Hb.Markdown>{shelter.visitGuide}</Hb.Markdown>}
-        {shelter.supportGuide && <Hb.Markdown>{shelter.supportGuide}</Hb.Markdown>}
-        <Link to={ROUTES.VOLUNTEER} style={{ textDecoration: "none" }}>
-          <Hb.Button variant="primary" fullWidth>
-            봉사 신청하기
-          </Hb.Button>
-        </Link>
-      </Hb.SectionCard>
+        {(shelter.visitGuide || shelter.supportGuide) && (
+          <div {...stylex.props(styles.sidebarGuides)}>
+            {shelter.visitGuide && <Hb.Markdown>{shelter.visitGuide}</Hb.Markdown>}
+            {shelter.supportGuide && <Hb.Markdown>{shelter.supportGuide}</Hb.Markdown>}
+          </div>
+        )}
+        <div {...stylex.props(styles.cta)}>
+          <Link to={ROUTES.VOLUNTEER} style={{ textDecoration: "none" }}>
+            <Hb.Button variant="primary" fullWidth>
+              봉사 신청하기
+            </Hb.Button>
+          </Link>
+        </div>
+      </Section>
     </div>
   );
 };

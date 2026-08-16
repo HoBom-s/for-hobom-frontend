@@ -19,21 +19,36 @@ export const ShelterCard = ({ shelter }: ShelterCardProps) => {
     <Link to={shelterPath(slug)} {...stylex.props(styles.link)} aria-label={`${name} 보호소 보기`}>
       <Hb.Card.Root
         variant="outlined"
-        style={{ overflow: "hidden", borderRadius: "var(--hb-angel-radius-card)", height: "100%" }}
+        style={{
+          overflow: "hidden",
+          border: "none",
+          borderRadius: "var(--hb-angel-radius-card)",
+          height: "100%",
+          backgroundColor: "var(--hb-color-surface)",
+        }}
       >
-        <Hb.Image src={coverImageUrl ?? undefined} alt={name} ratio="16 / 9" />
-        <div {...stylex.props(styles.body)}>
-          <span {...stylex.props(styles.avatar)} aria-hidden="true">
-            {name.slice(0, 1)}
-          </span>
-
-          <div {...stylex.props(styles.nameRow)}>
-            <h3 {...stylex.props(styles.name)}>{name}</h3>
+        {/* Photo-first: full-bleed media with a scrim carrying the name + status. */}
+        <div {...stylex.props(styles.media)}>
+          <Hb.Image
+            src={coverImageUrl ?? undefined}
+            alt={name}
+            ratio="16 / 9"
+            fallback={
+              <span {...stylex.props(styles.emptyTile)} aria-hidden="true">
+                🐾
+              </span>
+            }
+          />
+          <span {...stylex.props(styles.scrim)} aria-hidden="true" />
+          <div {...stylex.props(styles.overlay)}>
+            <h3 {...stylex.props(styles.overlayName)}>{name}</h3>
             {isShelterVerified(status) && (
-              <Hb.Chip label="인증" color="success" variant="soft" size="small" />
+              <span {...stylex.props(styles.statusChip)}>인증</span>
             )}
           </div>
+        </div>
 
+        <div {...stylex.props(styles.body)}>
           <p {...stylex.props(styles.region)}>
             {region}
             {trustTier ? ` · ${TRUST_TIER_LABEL[trustTier]}` : ""}

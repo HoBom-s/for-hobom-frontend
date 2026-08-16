@@ -3,7 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 
 type ButtonVariant = "primary" | "secondary" | "danger" | "ghost";
 
-type ButtonSize = "small" | "medium";
+type ButtonSize = "small" | "medium" | "large";
 
 type ButtonShape = "rounded" | "pill";
 
@@ -65,6 +65,7 @@ const styles = stylex.create({
     opacity: 0.5,
     boxShadow: "none",
   },
+  large: { paddingBlock: 11, paddingInline: 24, fontSize: "1rem" },
   medium: { paddingBlock: 5, paddingInline: 15, fontSize: "0.875rem" },
   small: { paddingBlock: 3, paddingInline: 9, fontSize: "0.8125rem" },
   pill: { borderRadius: 999 },
@@ -148,7 +149,7 @@ const ButtonBase = ({
     styles.root,
     shape === "pill" && styles.pill,
     styles.focusRing,
-    size === "small" ? styles.small : styles.medium,
+    styles[size],
     VARIANT_STYLE[variant],
     fullWidth && styles.fullWidth,
     disableElevation && styles.flat,

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { ConfirmDialog, Hb } from "hobom-design-system";
+import { ChevronRight } from "hobom-design-system/icons";
 import { isOperator, VERIFIED_CHANNEL_LABEL } from "@/entities/user";
 import { ROUTES } from "@/shared/config";
 import { useOverlay } from "@/shared/model";
@@ -40,65 +41,71 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>MY PAGE</span>
         <h1 {...stylex.props(styles.title)}>마이페이지</h1>
       </header>
 
-      <Hb.Card.Root
-        variant="outlined"
-        style={{ padding: 24, borderRadius: "var(--hb-angel-radius-card)" }}
-      >
-        <div {...stylex.props(styles.profile)}>
-          <Hb.Avatar
-            style={{
-              width: 64,
-              height: 64,
-              fontSize: "1.5rem",
-              backgroundColor: "var(--hb-color-accent)",
-              color: "var(--hb-color-accent-contrast)",
-            }}
-          >
-            {user.nickname.charAt(0)}
-          </Hb.Avatar>
-          <div {...stylex.props(styles.identity)}>
-            <div {...stylex.props(styles.nameRow)}>
-              <h2 {...stylex.props(styles.nickname)}>{user.nickname}</h2>
-              <Hb.Chip
-                label={`${VERIFIED_CHANNEL_LABEL[user.verifiedChannel]} 완료`}
-                size="small"
-                variant="soft"
-                color="success"
-              />
-            </div>
-            <p {...stylex.props(styles.email)}>{user.email}</p>
+      <div {...stylex.props(styles.profileCard)}>
+        <Hb.Avatar
+          style={{
+            width: 64,
+            height: 64,
+            fontSize: "1.5rem",
+            backgroundColor: "var(--hb-color-accent)",
+            color: "var(--hb-color-accent-contrast)",
+          }}
+        >
+          {user.nickname.charAt(0)}
+        </Hb.Avatar>
+        <div {...stylex.props(styles.identity)}>
+          <div {...stylex.props(styles.nameRow)}>
+            <h2 {...stylex.props(styles.nickname)}>{user.nickname}</h2>
+            <Hb.Chip
+              label={`${VERIFIED_CHANNEL_LABEL[user.verifiedChannel]} 완료`}
+              size="small"
+              variant="soft"
+              color="success"
+            />
           </div>
-          <Hb.Button variant="secondary" onClick={editNickname}>
-            닉네임 변경
-          </Hb.Button>
+          <p {...stylex.props(styles.email)}>{user.email}</p>
         </div>
-      </Hb.Card.Root>
+        <Hb.Button variant="secondary" onClick={editNickname}>
+          닉네임 변경
+        </Hb.Button>
+      </div>
 
       <section {...stylex.props(styles.section)}>
-        <h3 {...stylex.props(styles.sectionTitle)}>내 활동</h3>
+        <div {...stylex.props(styles.sectionHead)}>
+          <span {...stylex.props(styles.accentRule)} aria-hidden="true" />
+          <h3 {...stylex.props(styles.sectionTitle)}>내 활동</h3>
+        </div>
         <div {...stylex.props(styles.actions)}>
           <Link to={ROUTES.APPLICATIONS} {...stylex.props(styles.actionRow)}>
             내 신청 내역
+            <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
           </Link>
           <Link to={ROUTES.FAVORITES} {...stylex.props(styles.actionRow)}>
             찜한 동물·팔로우
+            <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
           </Link>
           <Link to={ROUTES.VOLUNTEER_CERTIFICATES} {...stylex.props(styles.actionRow)}>
             봉사 확인서
+            <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
           </Link>
           {isOperator(user) && (
             <Link to={ROUTES.OPERATOR_APPROVALS} {...stylex.props(styles.actionRow)}>
               운영자 콘솔
+              <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
             </Link>
           )}
         </div>
       </section>
 
       <section {...stylex.props(styles.section)}>
-        <h3 {...stylex.props(styles.sectionTitle)}>계정 관리</h3>
+        <div {...stylex.props(styles.sectionHead)}>
+          <span {...stylex.props(styles.accentRule)} aria-hidden="true" />
+          <h3 {...stylex.props(styles.sectionTitle)}>계정 관리</h3>
+        </div>
         <div {...stylex.props(styles.actions)}>
           <button type="button" {...stylex.props(styles.actionRow)} onClick={onLogout}>
             로그아웃

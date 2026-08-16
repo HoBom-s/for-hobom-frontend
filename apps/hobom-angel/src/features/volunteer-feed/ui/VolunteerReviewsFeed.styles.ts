@@ -28,10 +28,10 @@ export const styles = stylex.create({
       [TABLET]: "repeat(3, 1fr)",
       [DESKTOP]: "repeat(4, 1fr)",
     },
-    gap: 8,
+    gap: { default: 12, [TABLET]: 16 },
   },
   more: {
-    paddingBlock: 20,
+    paddingBlock: 24,
     textAlign: "center",
     color: "var(--hb-color-text-secondary)",
     fontSize: "0.875rem",

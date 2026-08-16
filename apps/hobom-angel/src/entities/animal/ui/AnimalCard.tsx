@@ -26,25 +26,23 @@ const STATUS_COLOR = {
   반환: "default",
 } as const;
 
-/** A shelter animal preview card — used on the landing, list, and shelter pages. */
+/** A shelter animal preview card — the canonical photo-first floating card used
+ *  on the list and shelter pages. Full-bleed media carries the name on a scrim
+ *  and the favorite action; the attribute line + status chip sit below. */
 export const AnimalCard = ({ name, status, meta, imageUrl, to, action }: AnimalCardProps) => {
   const card = (
-    <Hb.Card.Root
-      variant="outlined"
-      style={{ overflow: "hidden", borderRadius: "var(--hb-angel-radius-card)", height: "100%" }}
-    >
+    <div {...stylex.props(styles.card, Boolean(to) && styles.cardHoverable)}>
       <div {...stylex.props(styles.media)}>
         <AnimalPhoto src={imageUrl} alt={name} ratio="4 / 3" />
-        {action}
+        <div {...stylex.props(styles.scrim)} aria-hidden="true" />
+        {action && <div {...stylex.props(styles.action)}>{action}</div>}
+        <h3 {...stylex.props(styles.name)}>{name}</h3>
       </div>
       <div {...stylex.props(styles.body)}>
-        <div {...stylex.props(styles.nameRow)}>
-          <h3 {...stylex.props(styles.name)}>{name}</h3>
-          <Hb.Chip label={status} size="small" variant="soft" color={STATUS_COLOR[status]} />
-        </div>
         <p {...stylex.props(styles.meta)}>{meta}</p>
+        <Hb.Chip label={status} size="small" variant="soft" color={STATUS_COLOR[status]} />
       </div>
-    </Hb.Card.Root>
+    </div>
   );
 
   if (!to) return card;

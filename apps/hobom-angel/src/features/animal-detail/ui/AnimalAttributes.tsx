@@ -9,6 +9,7 @@ interface Attribute {
 }
 
 interface Section {
+  kicker: string;
   title: string;
   items: Attribute[];
 }
@@ -21,6 +22,7 @@ const formatDate = (iso: string): string => (iso ? iso.slice(0, 10).replaceAll("
 
 const buildSections = (animal: AnimalDetail): Section[] => [
   {
+    kicker: "Health",
     title: "건강 정보",
     items: [
       { label: "중성화", value: animal.health.neutered ? "완료" : "미완료" },
@@ -30,6 +32,7 @@ const buildSections = (animal: AnimalDetail): Section[] => [
     ],
   },
   {
+    kicker: "Traits",
     title: "특성",
     items: [
       { label: "성격", value: animal.personality ?? "정보 없음" },
@@ -45,6 +48,7 @@ const buildSections = (animal: AnimalDetail): Section[] => [
     ],
   },
   {
+    kicker: "Rescue",
     title: "구조 이력",
     items: [
       { label: "입소일", value: formatDate(animal.intake.intakeDate) },
@@ -59,7 +63,10 @@ export const AnimalAttributes = ({ animal }: { animal: AnimalDetail }) => (
   <div {...stylex.props(styles.root)}>
     {buildSections(animal).map((section) => (
       <section key={section.title} {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.title)}>{section.title}</h2>
+        <div {...stylex.props(styles.head)}>
+          <span {...stylex.props(styles.kicker)}>{section.kicker}</span>
+          <h2 {...stylex.props(styles.title)}>{section.title}</h2>
+        </div>
         <div {...stylex.props(styles.list)}>
           {section.items.map((item) => (
             <div key={item.label} {...stylex.props(styles.item)}>

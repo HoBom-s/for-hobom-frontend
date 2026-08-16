@@ -31,6 +31,7 @@ export const LoginForm = () => {
 
         <FormProvider {...methods}>
           <form {...stylex.props(styles.form)} onSubmit={submit} noValidate>
+            <span {...stylex.props(styles.overline)}>WELCOME BACK</span>
             <h2 {...stylex.props(styles.title)}>다시 오셨네요</h2>
             <p {...stylex.props(styles.subtitle)}>이메일로 로그인해주세요.</p>
 

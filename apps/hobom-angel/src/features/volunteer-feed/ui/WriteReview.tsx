@@ -42,7 +42,13 @@ export const WriteReview = () => {
 
   return (
     <div {...stylex.props(styles.root)}>
-      <h1 {...stylex.props(styles.title)}>봉사 후기 작성</h1>
+      <header {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>당신의 이야기</span>
+        <div {...stylex.props(styles.titleRow)}>
+          <span {...stylex.props(styles.rule)} aria-hidden />
+          <h1 {...stylex.props(styles.title)}>봉사 후기 작성</h1>
+        </div>
+      </header>
 
       <div {...stylex.props(styles.field)}>
         <span {...stylex.props(styles.label)}>어떤 봉사에 대한 후기인가요?</span>

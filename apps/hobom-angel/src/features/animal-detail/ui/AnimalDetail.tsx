@@ -43,7 +43,10 @@ export const AnimalDetail = ({ animalId }: { animalId: string }) => {
 
       {animal.description && (
         <section {...stylex.props(styles.intro)}>
-          <h2 {...stylex.props(styles.introTitle)}>소개</h2>
+          <div {...stylex.props(styles.introHead)}>
+            <span {...stylex.props(styles.kicker)}>Meet the story</span>
+            <h2 {...stylex.props(styles.introTitle)}>소개</h2>
+          </div>
           <p {...stylex.props(styles.introBody)}>{animal.description}</p>
         </section>
       )}

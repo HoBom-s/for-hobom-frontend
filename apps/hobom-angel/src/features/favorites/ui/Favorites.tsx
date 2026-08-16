@@ -30,6 +30,7 @@ export const Favorites = ({ savedReviews }: FavoritesProps) => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>MY FAVORITES</span>
         <h1 {...stylex.props(styles.title)}>찜</h1>
         <p {...stylex.props(styles.subtitle)}>관심 있는 동물과 보호소, 저장한 후기를 모아봤어요.</p>
       </header>
