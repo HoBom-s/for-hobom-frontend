@@ -14,6 +14,14 @@ interface ReviewRow {
 
 const REVIEWS: ReviewRow[] = [
   {
+    id: "review-mine",
+    authorId: "mock-user-1",
+    placementType: "ADOPTION",
+    rating: 5,
+    body: "저희 아이 입양하면서 정말 큰 도움을 받았어요. 근황도 종종 여쭤봐 주셔서 감사했습니다.",
+    createdAt: "2026-07-02T05:00:00.000Z",
+  },
+  {
     id: "review-1",
     authorId: "user-11",
     placementType: "ADOPTION",
@@ -109,5 +117,35 @@ export const reviewHandlers = [
     await request.json();
 
     return ok({ reviewId: `review-${REVIEWS.length + 1}` });
+  }),
+
+  // §04 — the author edits their own review (rating + body).
+  http.patch(mockUrl("/reviews/:reviewId"), async ({ params, request }) => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+    }
+
+    const row = REVIEWS.find((review) => review.id === params.reviewId);
+    const body = (await request.json()) as { rating: number; body: string };
+
+    if (row) {
+      row.rating = body.rating;
+      row.body = body.body;
+    }
+
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  // §04 — delete a review (author or operator).
+  http.delete(mockUrl("/reviews/:reviewId"), ({ params }) => {
+    if (!mockSession.isActive()) {
+      return HttpResponse.json({ message: "인증이 필요해요." }, { status: 401 });
+    }
+
+    const index = REVIEWS.findIndex((review) => review.id === params.reviewId);
+
+    if (index >= 0) REVIEWS.splice(index, 1);
+
+    return new HttpResponse(null, { status: 204 });
   }),
 ];

@@ -80,4 +80,30 @@ test.describe("§04 shelter microsite", () => {
     await expect(page.getByRole("tab", { name: "FAQ" })).toHaveAttribute("aria-selected", "true");
     await expect(page.getByText("임시보호도 신청할 수 있나요?")).toBeVisible();
   });
+
+  test("edits and deletes the viewer's own review", async ({ page }) => {
+    await login(page);
+    await page.goto("shelters/haengbok-shelter?tab=reviews");
+
+    // Only the viewer's own review card carries 수정 / 삭제.
+    const card = page.locator("article").filter({ hasText: "저희 아이 입양하면서" });
+    await expect(card).toBeVisible();
+
+    // Edit — the dialog is prefilled; change the body and save.
+    await card.getByRole("button", { name: "수정" }).click();
+    await expect(page.getByRole("heading", { name: "후기 수정" })).toBeVisible();
+    await page
+      .getByRole("textbox", { name: "후기" })
+      .fill("수정한 후기예요. 아이가 정말 잘 지내고 있어요.");
+    await page.getByRole("button", { name: "저장" }).click();
+    await expect(page.getByText("후기를 수정했어요.")).toBeVisible();
+    await expect(page.getByText("수정한 후기예요.", { exact: false })).toBeVisible();
+
+    // Delete — confirm removes it from the list.
+    const edited = page.locator("article").filter({ hasText: "수정한 후기예요." });
+    await edited.getByRole("button", { name: "삭제" }).click();
+    await page.getByRole("button", { name: "삭제하기" }).click();
+    await expect(page.getByText("후기를 삭제했어요.")).toBeVisible();
+    await expect(page.getByText("수정한 후기예요.", { exact: false })).toHaveCount(0);
+  });
 });

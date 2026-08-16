@@ -8,4 +8,4 @@ export type {
   PlacementType,
   StarRating,
 } from "./model/review.model";
-export type { SubmitReviewInput } from "./api/review.type";
+export type { SubmitReviewInput, ReviseReviewInput } from "./api/review.type";
