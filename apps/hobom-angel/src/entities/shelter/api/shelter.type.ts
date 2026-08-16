@@ -172,6 +172,7 @@ export interface RegisterShelterInput {
   };
   registrationNumber?: string;
   businessNumber?: string;
+  facilityPhotos?: { objectKey: string; kind: FacilityPhotoKind }[];
 }
 
 /** `POST /shelters` response — the new shelter and its open verification. */

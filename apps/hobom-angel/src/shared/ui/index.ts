@@ -7,3 +7,4 @@ export { ErrorBoundary } from "./ErrorBoundary";
 export { RouteBoundary } from "./RouteBoundary";
 export { KoreaMap } from "./korea-map/KoreaMap";
 export type { KoreaMarker } from "./korea-map/KoreaMap";
+export { ImageUploader } from "./ImageUploader";

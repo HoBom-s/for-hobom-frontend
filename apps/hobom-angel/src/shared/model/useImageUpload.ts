@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { uploadImage } from "@/shared/api";
-import { useToast } from "@/shared/model";
 import type { UploadPurpose, UploadedImage } from "@/shared/api";
+import { useToast } from "./useToast";
 
 /** Attach images through the presign flow, keeping each public URL for preview.
  *  The caller passes the upload purpose (object-key prefix). */

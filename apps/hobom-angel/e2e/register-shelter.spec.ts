@@ -26,6 +26,16 @@ test.describe("보호소 등록 신청", () => {
     await page.getByLabel("시·군·구").fill("마포구");
     await page.getByLabel("도로명 주소").fill("월드컵로 100");
 
+    // Attach a facility photo through the presign uploader — a thumbnail appears.
+    const png = Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "base64",
+    );
+    await page
+      .locator('input[type="file"]')
+      .setInputFiles({ name: "facility.png", mimeType: "image/png", buffer: png });
+    await expect(page.getByRole("button", { name: "사진 삭제" })).toBeVisible();
+
     await page.screenshot({ path: "e2e-artifacts/register-shelter.png", fullPage: true });
 
     await expect(submit).toBeEnabled();
