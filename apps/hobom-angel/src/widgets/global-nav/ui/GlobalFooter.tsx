@@ -44,7 +44,6 @@ const COLUMNS: { heading: string; links: FooterLink[] }[] = [
 const LEGAL: FooterLink[] = [
   { label: "이용약관", to: ROUTES.TERMS },
   { label: "개인정보처리방침", to: ROUTES.PRIVACY },
-  { label: "사업자 정보", to: ROUTES.BUSINESS_INFO },
   { label: "동물보호법 고지", to: ROUTES.ANIMAL_LAW },
 ];
 
