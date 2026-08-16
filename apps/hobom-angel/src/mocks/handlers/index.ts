@@ -13,6 +13,7 @@ import { adoptionHandlers } from "./adoption.handlers";
 import { fosterHandlers } from "./foster.handlers";
 import { applicationHandlers } from "./application.handlers";
 import { approvalHandlers } from "./approval.handlers";
+import { volunteerCertificateHandlers } from "./volunteer-certificate.handlers";
 
 /** All MSW request handlers, aggregated per domain. Add new domains here. */
 export const handlers = [
@@ -31,4 +32,5 @@ export const handlers = [
   ...fosterHandlers,
   ...applicationHandlers,
   ...approvalHandlers,
+  ...volunteerCertificateHandlers,
 ];

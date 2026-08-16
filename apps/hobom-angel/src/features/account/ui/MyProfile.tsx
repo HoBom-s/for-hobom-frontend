@@ -86,6 +86,9 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
           <Link to={ROUTES.FAVORITES} {...stylex.props(styles.actionRow)}>
             찜한 동물·팔로우
           </Link>
+          <Link to={ROUTES.VOLUNTEER_CERTIFICATES} {...stylex.props(styles.actionRow)}>
+            봉사 확인서
+          </Link>
           {isOperator(user) && (
             <Link to={ROUTES.OPERATOR_APPROVALS} {...stylex.props(styles.actionRow)}>
               승인 큐 (운영자)

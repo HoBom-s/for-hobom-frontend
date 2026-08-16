@@ -10,6 +10,7 @@ export const ROUTES = {
   FOSTER_APPLY: "/foster/apply/:animalId",
   VOLUNTEER: "/volunteer",
   VOLUNTEER_WRITE: "/volunteer/posts/new",
+  VOLUNTEER_CERTIFICATES: "/volunteer/certificates",
   SHELTERS: "/shelters",
   SHELTER_REGISTER: "/shelters/register",
   SHELTER_DETAIL: "/shelters/:shelterSlug",
