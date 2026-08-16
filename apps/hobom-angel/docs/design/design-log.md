@@ -56,3 +56,11 @@
 - **랜딩 리워크:** Hero(비대칭 스플릿+포토 콜라주+proof chip+오버라인 키커+디스플레이 타입+그래디언트 CTA), Stats(떠있는 엘리베이션 카드+큰 숫자), HowItWorks(키커+카드 depth+hover-lift+journey num ring), Cta(cta-gradient+glow).
 - **미리보기 검증:** before/after 스크린샷 — 평평한 MVP → 따뜻하고 제품스러운 히어로. 동물 목록은 색만 전파됨(카드 컴포지션은 다음 단계).
 - **확정 대기:** 사용자 승인 후 전 소비자 화면(animals·detail·shelters·microsite·volunteer·account·auth) 카드/히어로/섹션 확산.
+
+### 2026-08-16 · 전 앱 롤아웃 완료
+- **Milestone 1:** 토큰 시스템 + 랜딩 + 1차 소비자 9화면(공용 카드 포함) + animals 재검수(뱃지 body·프로스티드 하트·radius 16·필터 컴팩트). e2e 61 통과.
+- **Milestone 2 (2차-A):** 소비자 잔여 7화면(신청 퍼널·foster·register·certificate·my-applications·volunteer-feed·coming-soon) — 4-패널 전원 통과.
+- **Milestone 3 (2차-B):** 스태프 폴리시 — 콘솔 7종 + 양 셸 + 운영자. (워크플로 리뷰 단계는 stall로 실패했으나 구현 단계는 성공, main이 육안+typecheck/lint/build/e2e로 검증.) 별점 input을 radiogroup(radio role)로 접근성 개선 → my-applications e2e 갱신.
+- **검증:** typecheck·lint·build·e2e(61) 전부 통과. 랜딩·animals(데/모)·login/signup(데/모)·console-stats·operator(데) 육안 확인.
+- **에이전트 규모:** 방향 9 + 1차 24 + animals 재검수 3 + 2차-A 19 + 2차-B 16 = 약 71 에이전트.
+- **auth:** 1차 패널 미달 flag였으나 육안상 프로덕트급(브랜드 스플릿 로그인 + 오버라인 가입 퍼널) — 수용.
