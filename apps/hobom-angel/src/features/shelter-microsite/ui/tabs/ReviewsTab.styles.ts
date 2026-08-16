@@ -127,6 +127,38 @@ export const styles = stylex.create({
     color: "var(--hb-color-text-primary)",
     whiteSpace: "pre-line",
   },
+  // Owner actions (수정 / 삭제) on the viewer's own review.
+  ownerActions: {
+    display: "flex",
+    gap: 4,
+    marginTop: 10,
+  },
+  ownerButton: {
+    appearance: "none",
+    border: "none",
+    background: "none",
+    cursor: "pointer",
+    padding: "4px 8px",
+    borderRadius: "var(--hb-angel-radius-sm)",
+    fontSize: "0.8125rem",
+    fontWeight: 600,
+    color: "var(--hb-color-text-secondary)",
+    backgroundColor: { default: "transparent", ":hover": "var(--hb-angel-surface-alt)" },
+  },
+  ownerDanger: { color: "var(--hb-angel-urgent)" },
+  // Edit-dialog star input.
+  editStars: { display: "flex", gap: 4, marginBottom: 16 },
+  editStar: {
+    appearance: "none",
+    border: "none",
+    background: "none",
+    cursor: "pointer",
+    padding: 0,
+    fontSize: "1.75rem",
+    lineHeight: 1,
+    color: "var(--hb-color-border)",
+  },
+  editStarOn: { color: "var(--hb-angel-accent-warm)" },
   more: {
     display: "flex",
     justifyContent: "center",

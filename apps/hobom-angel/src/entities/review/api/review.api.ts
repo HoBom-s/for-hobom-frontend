@@ -3,7 +3,7 @@ import { toQueryString } from "@/shared/lib";
 import { createdReviewSchema, reputationSchema, reviewsPageSchema } from "./review.schema";
 import { toReputation, toReview } from "../lib/to-review.lib";
 import type { ReviewPage, ShelterReputation } from "../model/review.model";
-import type { SubmitReviewInput } from "./review.type";
+import type { ReviseReviewInput, SubmitReviewInput } from "./review.type";
 
 const parsePage = parseResponse(reviewsPageSchema, "GET /shelters/:id/reviews");
 const parseReputation = parseResponse(reputationSchema, "GET /shelters/:id/reviews/reputation");
@@ -40,3 +40,11 @@ export const submitReview = (shelterId: string, input: SubmitReviewInput): Promi
     .post(`/shelters/${shelterId}/reviews`, input)
     .then(parseCreated)
     .then((created) => created.reviewId);
+
+/** Edit one of the viewer's own reviews (작성자만). */
+export const reviseReview = (reviewId: string, input: ReviseReviewInput): Promise<void> =>
+  httpClient.patch(`/reviews/${reviewId}`, input).then(() => undefined);
+
+/** Delete a review (작성자 또는 운영자). */
+export const deleteReview = (reviewId: string): Promise<void> =>
+  httpClient.delete(`/reviews/${reviewId}`).then(() => undefined);

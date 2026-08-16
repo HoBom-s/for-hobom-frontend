@@ -35,3 +35,9 @@ export interface SubmitReviewInput {
 export interface RawCreatedReview {
   reviewId: string;
 }
+
+/** `PATCH /reviews/:reviewId` request — the author edits rating + body. */
+export interface ReviseReviewInput {
+  rating: number;
+  body: string;
+}

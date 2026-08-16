@@ -20,7 +20,8 @@ export const styles = stylex.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "var(--hb-angel-green-deep)",
+    // Black letterbox behind contained photos, like a standard image viewer.
+    backgroundColor: "#000000",
     minWidth: 0,
     minHeight: 0,
     overflow: "hidden",
