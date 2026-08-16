@@ -244,6 +244,44 @@ export const shelterHandlers = [
     return ok({ shelterId: "shelter-new", approvalId: "approval-new" });
   }),
 
+  // §09 operator — the verification dossier for a pending shelter (심사).
+  http.get(mockUrl("/shelters/:shelterId/verification"), ({ params }) => {
+    if (!mockSession.isActive()) return unauthorized();
+
+    const shelterId = params.shelterId as string;
+    const seed = shelterId === "shelter-12" ? 12 : 9;
+
+    return ok({
+      shelterId,
+      name: seed === 12 ? "온기 동물보호소" : "새봄 유기견 보호소",
+      slug: seed === 12 ? "onki-shelter" : "saebom-shelter",
+      status: "PENDING_VERIFICATION",
+      address: {
+        region: seed === 12 ? "경기" : "서울",
+        city: seed === 12 ? "고양시" : "은평구",
+        roadAddress: seed === 12 ? "일산로 55" : "통일로 120",
+        visibility: "PARTIAL",
+      },
+      registrationNumber: seed === 12 ? "경기-2026-0042" : null,
+      businessNumber: seed === 12 ? "2208600088" : "1138600123",
+      registrant: { id: `user-${seed === 12 ? 44 : 31}`, nickname: seed === 12 ? "온기지기" : "새봄" },
+      facilityPhotos: [
+        { objectKey: `https://picsum.photos/seed/shelter${seed}-ext/400/400`, kind: "EXTERIOR" },
+        { objectKey: `https://picsum.photos/seed/shelter${seed}-int/400/400`, kind: "INTERIOR" },
+      ],
+      verificationSignals:
+        seed === 12
+          ? [
+              { key: "registryMatch", status: "PASS" },
+              { key: "businessValid", status: "PASS" },
+              { key: "nameMatch", status: "UNKNOWN" },
+            ]
+          : null,
+      signalsCheckedAt: seed === 12 ? "2026-08-15T09:00:00.000Z" : null,
+      rejectionReason: null,
+    });
+  }),
+
   http.get(mockUrl("/shelters/:slug"), ({ params }) => {
     if (!mockSession.isActive()) return unauthorized();
 

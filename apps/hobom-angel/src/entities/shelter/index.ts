@@ -18,6 +18,10 @@ export {
   TRUST_TIER_LABEL,
   ADDRESS_VISIBILITY_LABEL,
   ADDRESS_VISIBILITY_HINT,
+  SIGNAL_LABEL,
+  SIGNAL_STATUS_LABEL,
+  SIGNAL_STATUS_COLOR,
+  FACILITY_PHOTO_KIND_LABEL,
 } from "./model/shelter.model";
 export type {
   Shelter,
@@ -39,4 +43,7 @@ export type {
   AddressVisibility,
   FacilityPhoto,
   FacilityPhotoKind,
+  ShelterVerification,
+  VerificationSignal,
+  SignalStatus,
 } from "./model/shelter.model";

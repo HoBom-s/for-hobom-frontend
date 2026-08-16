@@ -7,6 +7,7 @@ import {
   getShelterMarkers,
   getShelterStaff,
   getShelterStats,
+  getShelterVerification,
   getStaffPromotions,
   searchShelters,
 } from "./shelter.api";
@@ -32,6 +33,12 @@ export const shelterQueries = {
     queryOptions({
       queryKey: [...shelterQueries.all(), "detail", slug] as const,
       queryFn: ({ signal }) => getShelterBySlug(slug, signal),
+    }),
+
+  verification: (shelterId: string) =>
+    queryOptions({
+      queryKey: [...shelterQueries.all(), shelterId, "verification"] as const,
+      queryFn: ({ signal }) => getShelterVerification(shelterId, signal),
     }),
 
   announcements: (shelterId: string) =>

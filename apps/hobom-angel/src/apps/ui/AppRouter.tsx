@@ -10,6 +10,7 @@ import { ConsoleShellLayout } from "./ConsoleShellLayout";
 import { ConsumerShellLayout } from "./ConsumerShellLayout";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
 import { OperatorRoute } from "./OperatorRoute";
+import { OperatorShellLayout } from "./OperatorShellLayout";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 // Route-level code splitting — each page ships as its own chunk, loaded on demand.
@@ -153,9 +154,11 @@ export const AppRouter = () => {
             </Route>
           </Route>
 
-          {/* Operator (§09) — gated on the SYSTEM_ADMIN role, its own surface. */}
+          {/* Operator (§09) — gated on the SYSTEM_ADMIN role, its own chrome. */}
           <Route element={<OperatorRoute />}>
-            <Route path={ROUTES.OPERATOR_APPROVALS} element={<OperatorApprovalsPage />} />
+            <Route element={<OperatorShellLayout />}>
+              <Route path={ROUTES.OPERATOR_APPROVALS} element={<OperatorApprovalsPage />} />
+            </Route>
           </Route>
 
           {/* Auth screens have no nav chrome and are guest-only. */}

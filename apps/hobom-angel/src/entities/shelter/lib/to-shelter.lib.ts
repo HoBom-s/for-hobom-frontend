@@ -2,8 +2,14 @@ import type {
   RawShelter,
   RawShelterAnnouncement,
   RawShelterFaq,
+  RawShelterVerification,
 } from "../api/shelter.type";
-import type { Shelter, ShelterAnnouncement, ShelterFaq } from "../model/shelter.model";
+import type {
+  Shelter,
+  ShelterAnnouncement,
+  ShelterFaq,
+  ShelterVerification,
+} from "../model/shelter.model";
 
 /** Anti-corruption: flatten the API shelter (optional address parts, objectKey
  *  photos) into the UI model, normalizing absent fields to null. */
@@ -47,4 +53,32 @@ export const toShelterFaq = (raw: RawShelterFaq): ShelterFaq => ({
   question: raw.question,
   answer: raw.answer,
   order: raw.order,
+});
+
+/** Anti-corruption: the operator verification dossier, flattening the address
+ *  (visibility lifted out) and the objectKey photos. */
+export const toShelterVerification = (raw: RawShelterVerification): ShelterVerification => ({
+  shelterId: raw.shelterId,
+  name: raw.name,
+  slug: raw.slug,
+  status: raw.status,
+  address: {
+    region: raw.address.region,
+    city: raw.address.city ?? null,
+    roadAddress: raw.address.roadAddress ?? null,
+    lat: null,
+    lng: null,
+  },
+  addressVisibility: raw.address.visibility,
+  registrationNumber: raw.registrationNumber,
+  businessNumber: raw.businessNumber,
+  registrant: raw.registrant,
+  facilityPhotos: raw.facilityPhotos.map((photo) => ({
+    url: photo.objectKey,
+    kind: photo.kind,
+    caption: photo.caption ?? null,
+  })),
+  verificationSignals: raw.verificationSignals,
+  signalsCheckedAt: raw.signalsCheckedAt,
+  rejectionReason: raw.rejectionReason,
 });

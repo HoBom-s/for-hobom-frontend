@@ -1,11 +1,17 @@
 import { httpClient, parseResponse } from "@/shared/api";
 import { toQueryString } from "@/shared/lib";
-import { toShelter, toShelterAnnouncement, toShelterFaq } from "../lib/to-shelter.lib";
+import {
+  toShelter,
+  toShelterAnnouncement,
+  toShelterFaq,
+  toShelterVerification,
+} from "../lib/to-shelter.lib";
 import { toShelterListItem } from "../lib/to-shelter-list-item.lib";
 import { toShelterMarker } from "../lib/to-shelter-marker.lib";
 import {
   createdIdSchema,
   registerShelterResultSchema,
+  shelterVerificationSchema,
   shelterAnnouncementsSchema,
   shelterDashboardSchema,
   shelterFaqsSchema,
@@ -26,6 +32,7 @@ import type {
   ShelterMarker,
   ShelterStaffMember,
   ShelterStats,
+  ShelterVerification,
   StaffPromotionRequest,
 } from "../model/shelter.model";
 import type {
@@ -96,6 +103,16 @@ export const registerShelter = (input: RegisterShelterInput): Promise<RegisterSh
   httpClient
     .post("/shelters", input)
     .then(parseResponse(registerShelterResultSchema, "POST /shelters"));
+
+/** The operator's verification dossier for a pending shelter (§09 심사). */
+export const getShelterVerification = (
+  shelterId: string,
+  signal?: AbortSignal,
+): Promise<ShelterVerification> =>
+  httpClient
+    .get(`/shelters/${shelterId}/verification`, { signal })
+    .then(parseResponse(shelterVerificationSchema, "GET /shelters/:id/verification"))
+    .then(toShelterVerification);
 
 /** Fetch a shelter's notices/news, pinned first. */
 export const getShelterAnnouncements = (

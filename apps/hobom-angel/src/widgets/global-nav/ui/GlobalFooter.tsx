@@ -64,17 +64,11 @@ export const GlobalFooter = () => (
     <div {...stylex.props(styles.top)}>
       <div {...stylex.props(styles.brand)}>
         <div {...stylex.props(styles.brandRow)}>
-          <span {...stylex.props(styles.logo)} aria-hidden="true" />
           <span {...stylex.props(styles.brandName)}>호봄엔젤</span>
         </div>
         <p {...stylex.props(styles.brandDesc)}>
           유기동물의 새로운 시작을 잇는 따뜻한 다리. 입양·임시보호·봉사로 함께해요.
         </p>
-        <div {...stylex.props(styles.socials)} aria-hidden="true">
-          <span {...stylex.props(styles.social)} />
-          <span {...stylex.props(styles.social)} />
-          <span {...stylex.props(styles.social)} />
-        </div>
       </div>
 
       {COLUMNS.map((column) => (

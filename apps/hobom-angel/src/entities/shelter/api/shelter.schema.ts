@@ -8,6 +8,7 @@ import type {
   RawShelterFaq,
   RawShelterMarker,
   RawShelterStats,
+  RawShelterVerification,
   RawStaffMember,
   RawStaffPromotionRequest,
   RegisterShelterResult,
@@ -153,4 +154,38 @@ export const createdIdSchema: Schema<CreatedId> = HoBomSchema.object({
 export const registerShelterResultSchema: Schema<RegisterShelterResult> = HoBomSchema.object({
   shelterId: HoBomSchema.string(),
   approvalId: HoBomSchema.string(),
+});
+
+export const shelterVerificationSchema: Schema<RawShelterVerification> = HoBomSchema.object({
+  shelterId: HoBomSchema.string(),
+  name: HoBomSchema.string(),
+  slug: HoBomSchema.string(),
+  status: HoBomSchema.enum(["PENDING_VERIFICATION", "VERIFIED", "REJECTED", "SUSPENDED"]),
+  address: HoBomSchema.object({
+    region: HoBomSchema.string(),
+    city: HoBomSchema.string().nullable().optional(),
+    roadAddress: HoBomSchema.string().nullable().optional(),
+    visibility: HoBomSchema.enum(["FULL", "PARTIAL", "HIDDEN"]),
+  }),
+  registrationNumber: HoBomSchema.string().nullable(),
+  businessNumber: HoBomSchema.string().nullable(),
+  registrant: HoBomSchema.object({
+    id: HoBomSchema.string(),
+    nickname: HoBomSchema.string(),
+  }).nullable(),
+  facilityPhotos: HoBomSchema.array(
+    HoBomSchema.object({
+      objectKey: HoBomSchema.string(),
+      kind: HoBomSchema.enum(["EXTERIOR", "INTERIOR", "OTHER"]),
+      caption: HoBomSchema.string().nullable().optional(),
+    }),
+  ),
+  verificationSignals: HoBomSchema.array(
+    HoBomSchema.object({
+      key: HoBomSchema.string(),
+      status: HoBomSchema.enum(["PASS", "FAIL", "UNKNOWN"]),
+    }),
+  ).nullable(),
+  signalsCheckedAt: HoBomSchema.string().nullable(),
+  rejectionReason: HoBomSchema.string().nullable(),
 });
