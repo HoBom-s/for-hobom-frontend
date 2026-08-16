@@ -18,19 +18,30 @@ export const ReviewStep = ({ questions, answers }: ReviewStepProps) => {
 
   return (
     <div {...stylex.props(styles.step)}>
-      <h2 {...stylex.props(styles.reviewTitle)}>입력한 내용을 확인해주세요</h2>
+      <div {...stylex.props(styles.reviewHeader)}>
+        <span {...stylex.props(styles.kicker)}>
+          <span {...stylex.props(styles.kickerDot)} aria-hidden="true" />
+          확인
+        </span>
+        <div {...stylex.props(styles.titleRow)}>
+          <span {...stylex.props(styles.rule)} aria-hidden="true" />
+          <h2 {...stylex.props(styles.reviewTitle)}>입력한 내용을 확인해주세요</h2>
+        </div>
+      </div>
 
       {reviewed.length === 0 ? (
         <p {...stylex.props(styles.emptyNote)}>추가 질문 없이 바로 신청할 수 있어요.</p>
       ) : (
-        reviewed.map((question) => (
-          <div key={question.id} {...stylex.props(styles.reviewItem)}>
-            <span {...stylex.props(styles.reviewPrompt)}>{question.prompt}</span>
-            <span {...stylex.props(styles.reviewAnswer)}>
-              {(answers[question.id] ?? []).map(readable).join(", ")}
-            </span>
-          </div>
-        ))
+        <div {...stylex.props(styles.reviewList)}>
+          {reviewed.map((question) => (
+            <div key={question.id} {...stylex.props(styles.reviewItem)}>
+              <span {...stylex.props(styles.reviewPrompt)}>{question.prompt}</span>
+              <span {...stylex.props(styles.reviewAnswer)}>
+                {(answers[question.id] ?? []).map(readable).join(", ")}
+              </span>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

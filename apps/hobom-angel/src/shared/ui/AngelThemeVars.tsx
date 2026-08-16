@@ -68,6 +68,9 @@ export const ANGEL_THEME_CSS = `:root{` +
   `--hb-angel-cta-gradient:linear-gradient(135deg, oklch(0.62 0.15 152) 0%, oklch(0.52 0.15 148) 55%, oklch(0.60 0.15 62) 130%);` +
   `--hb-angel-hero-wash:radial-gradient(120% 120% at 15% 10%, oklch(0.96 0.035 68) 0%, oklch(0.97 0.02 90) 45%, oklch(0.965 0.014 92) 100%);` +
   `--hb-angel-photo-scrim:linear-gradient(to top, oklch(0.20 0.04 152 / 0.72) 0%, oklch(0.20 0.04 152 / 0.10) 45%, transparent 70%);` +
+  // Uniform full-media scrim: darkens an entire thumbnail so centered on-photo
+  // counts read on hover (the bottom-anchored photo-scrim can't cover center).
+  `--hb-angel-media-scrim:linear-gradient(to top, oklch(0.20 0.04 152 / 0.62) 0%, oklch(0.20 0.04 152 / 0.30) 100%);` +
   // Diagonal brand-hero scrim: keeps overlaid brand copy legible over the auth photo.
   `--hb-angel-photo-scrim-brand:linear-gradient(155deg, oklch(0.40 0.10 152 / 0.78) 0%, oklch(0.40 0.10 152 / 0.30) 55%, oklch(0.20 0.04 152 / 0.72) 100%);` +
 

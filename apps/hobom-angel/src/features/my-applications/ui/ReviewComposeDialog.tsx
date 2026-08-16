@@ -13,8 +13,9 @@ const StarInput = ({ value, onChange }: { value: number; onChange: (rating: numb
         type="button"
         {...stylex.props(styles.star, n <= value && styles.starOn)}
         onClick={() => onChange(n)}
+        role="radio"
         aria-label={`${n}점`}
-        aria-pressed={value === n}
+        aria-checked={value === n}
       >
         ★
       </button>

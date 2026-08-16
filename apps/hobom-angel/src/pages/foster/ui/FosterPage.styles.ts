@@ -2,42 +2,63 @@ import * as stylex from "@stylexjs/stylex";
 
 const TABLET = "@media (min-width: 640px)";
 const DESKTOP = "@media (min-width: 1024px)";
+const REDUCE = "@media (prefers-reduced-motion: reduce)";
+
+const floatUp = stylex.keyframes({
+  from: { opacity: 0, transform: "translateY(16px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
 
 export const styles = stylex.create({
-  // Hero
+  // Hero — marigold->neutral radial wash, matching the landing hero.
   hero: {
     paddingBlock: { default: "48px 40px", [DESKTOP]: "72px 56px" },
     paddingInline: "clamp(16px, 4vw, 40px)",
-    backgroundColor: "var(--hb-color-surface)",
+    backgroundImage: "var(--hb-angel-hero-wash)",
     textAlign: "center",
   },
-  heroInner: { maxWidth: 720, marginInline: "auto" },
+  heroInner: {
+    maxWidth: 720,
+    marginInline: "auto",
+    animationName: floatUp,
+    animationDuration: "var(--hb-angel-dur-slow)",
+    animationTimingFunction: "var(--hb-angel-ease)",
+    animationFillMode: "both",
+    [REDUCE]: { animationName: "none" },
+  },
+  // The surface's one HOPE cue: overline kicker + marigold dot.
   badge: {
-    display: "inline-block",
-    paddingBlock: 8,
-    paddingInline: 16,
-    borderRadius: 999,
-    backgroundColor: "var(--hb-angel-green-tint)",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
+    fontSize: "0.6875rem",
+    fontWeight: 700,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
     color: "var(--hb-color-accent-dark)",
-    fontSize: "0.8125rem",
-    fontWeight: 600,
+  },
+  badgeDot: {
+    width: 6,
+    height: 6,
+    borderRadius: "50%",
+    backgroundColor: "var(--hb-angel-accent-warm)",
   },
   title: {
     margin: 0,
-    marginTop: 24,
+    marginTop: 18,
     fontSize: { default: "30px", [TABLET]: "40px", [DESKTOP]: "48px" },
-    lineHeight: 1.25,
-    fontWeight: 800,
-    letterSpacing: "-0.02em",
+    lineHeight: 1.15,
+    fontWeight: 700,
+    letterSpacing: "-0.025em",
     color: "var(--hb-color-text-primary)",
   },
   lead: {
     margin: 0,
-    marginTop: 20,
+    marginTop: 18,
     marginInline: "auto",
-    maxWidth: 560,
-    fontSize: "1rem",
-    lineHeight: 1.7,
+    maxWidth: "var(--hb-angel-measure)",
+    fontSize: "1.0625rem",
+    lineHeight: 1.6,
     color: "var(--hb-color-text-secondary)",
   },
 
@@ -48,18 +69,34 @@ export const styles = stylex.create({
   },
   altSection: { backgroundColor: "var(--hb-angel-surface-alt)" },
   inner: { maxWidth: 1120, marginInline: "auto" },
-  head: { textAlign: "center", marginBottom: 36 },
+  head: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    marginBottom: 40,
+  },
+  kicker: {
+    fontSize: "0.6875rem",
+    fontWeight: 700,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "var(--hb-color-accent-dark)",
+    marginBottom: 12,
+  },
   sectionTitle: {
     margin: 0,
     fontSize: { default: "1.375rem", [DESKTOP]: "1.625rem" },
-    fontWeight: 800,
-    letterSpacing: "-0.02em",
+    fontWeight: 700,
+    letterSpacing: "-0.015em",
     color: "var(--hb-color-text-primary)",
   },
   sectionSub: {
     margin: 0,
     marginTop: 10,
-    fontSize: "0.9375rem",
+    maxWidth: "var(--hb-angel-measure)",
+    fontSize: "1.0625rem",
+    lineHeight: 1.6,
     color: "var(--hb-color-text-secondary)",
   },
 
@@ -77,20 +114,25 @@ export const styles = stylex.create({
     gridTemplateColumns: { default: "1fr", [TABLET]: "repeat(2, 1fr)", [DESKTOP]: "repeat(4, 1fr)" },
     gap: 16,
   },
+  // Floating card — flat border retired for elevation.
   card: {
+    position: "relative",
     backgroundColor: "var(--hb-color-surface)",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "var(--hb-color-border)",
     borderRadius: "var(--hb-angel-radius-card)",
+    boxShadow: "var(--hb-angel-shadow-sm)",
     padding: "28px 24px",
     textAlign: "center",
+    transitionProperty: "transform, box-shadow",
+    transitionDuration: "var(--hb-angel-dur)",
+    transitionTimingFunction: "var(--hb-angel-ease)",
+    ":hover": { transform: "translateY(-3px)", boxShadow: "var(--hb-angel-shadow-md)" },
+    [REDUCE]: { transitionProperty: "none", ":hover": { transform: "none" } },
   },
   tag: {
     display: "inline-block",
     paddingBlock: 4,
     paddingInline: 12,
-    borderRadius: 999,
+    borderRadius: "var(--hb-angel-radius-pill)",
     backgroundColor: "var(--hb-angel-green-tint)",
     color: "var(--hb-color-accent-dark)",
     fontSize: "0.75rem",
@@ -107,6 +149,8 @@ export const styles = stylex.create({
     color: "var(--hb-color-accent-dark)",
     fontSize: "1.125rem",
     fontWeight: 800,
+    fontVariantNumeric: "tabular-nums",
+    boxShadow: "0 0 0 6px var(--hb-color-surface), 0 0 0 8px var(--hb-angel-warm-tint)",
   },
   cardTitle: {
     margin: 0,
@@ -123,16 +167,16 @@ export const styles = stylex.create({
     color: "var(--hb-color-text-secondary)",
   },
 
-  // CTA band
+  // CTA band — the one emotional gradient, floated off the warm canvas.
   ctaInner: {
     maxWidth: 1120,
     marginInline: "auto",
     padding: { default: "40px 24px", [DESKTOP]: "56px 40px" },
-    borderRadius: 24,
-    backgroundImage:
-      "linear-gradient(135deg, var(--hb-color-accent) 0%, var(--hb-angel-green-deep) 100%)",
+    borderRadius: "var(--hb-angel-radius-card)",
+    backgroundImage: "var(--hb-angel-cta-gradient)",
+    boxShadow: "var(--hb-angel-shadow-md)",
     textAlign: "center",
-    color: "#ffffff",
+    color: "var(--hb-angel-on-photo)",
   },
   ctaTitle: {
     margin: 0,
@@ -145,6 +189,16 @@ export const styles = stylex.create({
     marginTop: 10,
     marginBottom: 24,
     fontSize: "0.9375rem",
-    color: "rgba(255,255,255,0.85)",
+    color: "var(--hb-angel-on-photo-muted)",
+  },
+  // The one emotional CTA on the dark gradient: on-photo (white) fill reading as
+  // accent-dark ink. A subtle warm shift on hover keeps a visible press/hover
+  // affordance, mirroring the card hover-lift elsewhere on the page.
+  ctaButton: {
+    backgroundColor: {
+      default: "var(--hb-angel-on-photo)",
+      ":hover": "color-mix(in srgb, var(--hb-angel-on-photo) 92%, var(--hb-color-accent))",
+    },
+    color: "var(--hb-color-accent-dark)",
   },
 });

@@ -13,12 +13,19 @@ export const VolunteerCertificates = () => {
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
         <div {...stylex.props(styles.headings)}>
-          <h1 {...stylex.props(styles.title)}>봉사 확인서</h1>
+          <span {...stylex.props(styles.kicker)}>
+            <span {...stylex.props(styles.kickerDot)} aria-hidden="true" />
+            MY VOLUNTEERING
+          </span>
+          <h1 {...stylex.props(styles.title)}>
+            <span {...stylex.props(styles.rule)} aria-hidden="true" />
+            봉사 확인서
+          </h1>
           <p {...stylex.props(styles.subtitle)}>
             완료한 봉사 이력으로 확인서를 발급하고, 확인서 번호로 인증할 수 있어요.
           </p>
         </div>
-        <Hb.Button variant="primary" onClick={issue} loading={issuing}>
+        <Hb.Button variant="primary" onClick={issue} loading={issuing} {...stylex.props(styles.issue)}>
           확인서 발급
         </Hb.Button>
       </header>

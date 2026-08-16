@@ -11,7 +11,12 @@ interface ApplyHeaderProps {
 }
 
 /** Back link, title, and the step progress bar. */
-export const ApplyHeader = ({ animalId, animalName, currentIndex, totalSteps }: ApplyHeaderProps) => {
+export const ApplyHeader = ({
+  animalId,
+  animalName,
+  currentIndex,
+  totalSteps,
+}: ApplyHeaderProps) => {
   const progress = Math.round(((currentIndex + 1) / totalSteps) * 100);
 
   return (
@@ -20,12 +25,21 @@ export const ApplyHeader = ({ animalId, animalName, currentIndex, totalSteps }: 
         <Link to={animalDetailPath(animalId)} {...stylex.props(styles.back)} aria-label="뒤로">
           ←
         </Link>
-        <h1 {...stylex.props(styles.title)}>{animalName} 입양 신청</h1>
+        <div {...stylex.props(styles.titleBlock)}>
+          <span {...stylex.props(styles.kicker)}>
+            <span {...stylex.props(styles.kickerDot)} aria-hidden="true" />
+            입양 신청
+          </span>
+          <div {...stylex.props(styles.titleRow)}>
+            <span {...stylex.props(styles.rule)} aria-hidden="true" />
+            <h1 {...stylex.props(styles.title)}>{animalName} 입양 신청</h1>
+          </div>
+        </div>
       </div>
 
       <div {...stylex.props(styles.progressRow)}>
         <span {...stylex.props(styles.stepLabel)}>
-          {currentIndex + 1} / {totalSteps} 단계
+          <span {...stylex.props(styles.stepNum)}>{currentIndex + 1}</span> / {totalSteps} 단계
         </span>
         <div {...stylex.props(styles.progressTrack)}>
           <div {...stylex.props(styles.progressBar)} style={{ width: `${progress}%` }} />

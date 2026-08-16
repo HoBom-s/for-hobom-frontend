@@ -72,6 +72,8 @@ export const styles = stylex.create({
   },
   // Favorite / action button, overlaid top-right of the media.
   action: { position: "absolute", top: 10, right: 10, zIndex: 1 },
+  // Chip / badge overlay, anchored to the media's top-left.
+  overlayStart: { position: "absolute", insetBlockStart: 10, insetInlineStart: 10, zIndex: 1 },
 
   // Body: attribute line on the left, status chip pinned right on the surface.
   body: {

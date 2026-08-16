@@ -4,15 +4,17 @@ export const styles = stylex.create({
   field: {
     display: "flex",
     flexDirection: "column",
-    gap: 10,
+    gap: 12,
   },
   prompt: {
-    fontSize: "0.9375rem",
-    fontWeight: 600,
+    fontSize: "1.0625rem",
+    lineHeight: 1.5,
+    fontWeight: 700,
+    letterSpacing: "-0.01em",
     color: "var(--hb-color-text-primary)",
   },
   required: {
-    color: "var(--hb-color-accent-dark)",
+    color: "var(--hb-angel-accent-warm-dark)",
   },
   options: {
     display: "flex",
@@ -22,6 +24,7 @@ export const styles = stylex.create({
   counter: {
     alignSelf: "flex-end",
     fontSize: "0.75rem",
+    fontVariantNumeric: "tabular-nums",
     color: "var(--hb-color-text-secondary)",
   },
 });

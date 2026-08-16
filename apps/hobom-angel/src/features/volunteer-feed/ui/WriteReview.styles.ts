@@ -147,7 +147,7 @@ export const styles = stylex.create({
     borderStyle: "none",
     cursor: "pointer",
     backgroundColor: "var(--hb-angel-green-deep)",
-    color: "#ffffff",
+    color: "var(--hb-angel-on-photo)",
     fontSize: "0.8125rem",
     lineHeight: 1,
     boxShadow: "var(--hb-angel-shadow-sm)",

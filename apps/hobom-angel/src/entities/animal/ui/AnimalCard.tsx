@@ -16,6 +16,8 @@ interface AnimalCardProps {
   to?: string;
   /** Overlaid on the photo's top-right — e.g. a favorite button. */
   action?: ReactNode;
+  /** Overlaid on the photo's top-left — e.g. a status/kind chip. */
+  overlayStart?: ReactNode;
 }
 
 const STATUS_COLOR = {
@@ -29,12 +31,21 @@ const STATUS_COLOR = {
 /** A shelter animal preview card — the canonical photo-first floating card used
  *  on the list and shelter pages. Full-bleed media carries the name on a scrim
  *  and the favorite action; the attribute line + status chip sit below. */
-export const AnimalCard = ({ name, status, meta, imageUrl, to, action }: AnimalCardProps) => {
+export const AnimalCard = ({
+  name,
+  status,
+  meta,
+  imageUrl,
+  to,
+  action,
+  overlayStart,
+}: AnimalCardProps) => {
   const card = (
     <div {...stylex.props(styles.card, Boolean(to) && styles.cardHoverable)}>
       <div {...stylex.props(styles.media)}>
         <AnimalPhoto src={imageUrl} alt={name} ratio="4 / 3" />
         <div {...stylex.props(styles.scrim)} aria-hidden="true" />
+        {overlayStart && <div {...stylex.props(styles.overlayStart)}>{overlayStart}</div>}
         {action && <div {...stylex.props(styles.action)}>{action}</div>}
         <h3 {...stylex.props(styles.name)}>{name}</h3>
       </div>

@@ -27,11 +27,20 @@ export const styles = stylex.create({
   },
   header: { display: "flex", flexDirection: "column", gap: 8 },
   kicker: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
     fontSize: "0.6875rem",
     fontWeight: 700,
     letterSpacing: "0.14em",
     textTransform: "uppercase",
     color: "var(--hb-color-accent-dark)",
+  },
+  kickerDot: {
+    width: 6,
+    height: 6,
+    borderRadius: "50%",
+    backgroundColor: "var(--hb-angel-accent-warm)",
   },
   title: {
     margin: 0,
@@ -55,13 +64,6 @@ export const styles = stylex.create({
       [DESKTOP]: "repeat(4, 1fr)",
     },
     gap: { default: 12, [DESKTOP]: 16 },
-  },
-  // Application kind · status, overlaid on the card photo (top-left).
-  badge: {
-    position: "absolute",
-    insetBlockStart: 10,
-    insetInlineStart: 10,
-    zIndex: 1,
   },
   // A grid cell: the card plus an optional "후기 남기기" action beneath it.
   cell: {
@@ -110,6 +112,11 @@ export const styles = stylex.create({
     marginBottom: 16,
   },
   star: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: 40,
+    minHeight: 40,
     padding: 2,
     border: "none",
     background: "none",
