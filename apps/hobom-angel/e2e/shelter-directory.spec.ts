@@ -20,6 +20,11 @@ test.describe("§3.5 shelter directory", () => {
     await expect(page.getByRole("link", { name: /부산해운대보호소/ })).toBeVisible();
 
     await page.screenshot({ path: "e2e-artifacts/shelters.png", fullPage: true });
+
+    // The operator CTA banner routes to the registration form.
+    await page.getByRole("main").getByRole("link", { name: "보호소 등록 신청" }).click();
+    await expect(page).toHaveURL(/\/shelters\/register$/);
+    await expect(page.getByRole("heading", { name: "보호소 등록 신청" })).toBeVisible();
   });
 
   test("filters by region via the URL", async ({ page }) => {

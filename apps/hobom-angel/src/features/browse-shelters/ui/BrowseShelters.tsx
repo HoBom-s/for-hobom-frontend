@@ -1,6 +1,8 @@
 import { Suspense } from "react";
+import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
+import { ROUTES } from "@/shared/config";
 import { LoadingState } from "@/shared/ui";
 import { useBrowseShelters } from "../model/useBrowseShelters";
 import { ShelterGridSkeleton } from "./ShelterGridSkeleton";
@@ -19,6 +21,18 @@ export const BrowseShelters = () => {
         <h1 {...stylex.props(styles.title)}>함께하는 보호소</h1>
         <p {...stylex.props(styles.subtitle)}>플랫폼이 서류 심사로 검증한 보호소만 노출돼요.</p>
       </header>
+
+      <div {...stylex.props(styles.registerBanner)}>
+        <div {...stylex.props(styles.registerCopy)}>
+          <span {...stylex.props(styles.registerKicker)}>보호소를 운영하세요?</span>
+          <p {...stylex.props(styles.registerText)}>
+            서류 심사를 거쳐 검증 보호소로 등록하고, 입양·봉사 활동을 시작하세요.
+          </p>
+        </div>
+        <Link to={ROUTES.SHELTER_REGISTER} {...stylex.props(styles.registerCta)}>
+          보호소 등록 신청
+        </Link>
+      </div>
 
       <div {...stylex.props(styles.controls)}>
         <ShelterRegionFilter region={region} onChange={setRegion} />

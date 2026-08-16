@@ -92,6 +92,10 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
             봉사 확인서
             <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
           </Link>
+          <Link to={ROUTES.SHELTER_REGISTER} {...stylex.props(styles.actionRow)}>
+            보호소 등록 신청
+            <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
+          </Link>
           {isOperator(user) && (
             <Link to={ROUTES.OPERATOR_APPROVALS} {...stylex.props(styles.actionRow)}>
               운영자 콘솔
