@@ -20,9 +20,11 @@ const MemberRow = ({ member }: { member: ShelterStaffMember }) => {
             <Hb.Chip label="정지" size="small" variant="soft" color="error" />
           )}
         </span>
-        <span {...stylex.props(styles.role, admin && styles.roleAdmin)}>
-          {primaryRoleLabel(member)}
-        </span>
+        {admin ? (
+          <span {...stylex.props(styles.roleChip)}>{primaryRoleLabel(member)}</span>
+        ) : (
+          <span {...stylex.props(styles.role)}>{primaryRoleLabel(member)}</span>
+        )}
       </span>
     </div>
   );
@@ -31,9 +33,12 @@ const MemberRow = ({ member }: { member: ShelterStaffMember }) => {
 /** The shelter's staff roster — representative first, then staff. */
 export const StaffRoster = ({ members }: { members: ShelterStaffMember[] }) => (
   <div>
-    <h2 {...stylex.props(styles.count)}>
-      스태프 <span {...stylex.props(styles.countNum)}>{members.length}명</span>
-    </h2>
+    <div {...stylex.props(styles.colHeader)}>
+      <p {...stylex.props(styles.overline)}>스태프</p>
+      <h2 {...stylex.props(styles.count)}>
+        스태프 <span {...stylex.props(styles.countNum)}>{members.length}명</span>
+      </h2>
+    </div>
     <div {...stylex.props(styles.list)}>
       {members.map((member) => (
         <MemberRow key={member.id} member={member} />

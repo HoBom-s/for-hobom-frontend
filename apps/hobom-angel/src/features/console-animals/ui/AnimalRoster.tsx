@@ -4,10 +4,12 @@ import type { Animal } from "@/entities/animal";
 import { AnimalRosterRow } from "./AnimalRosterRow";
 import { styles } from "./AnimalRoster.styles";
 
-/** Soft-green sticky header with dark-green text (overrides the DS surface bg). */
+/** Soft-green sticky header (green=status/trust) that floats a soft shadow so it
+ *  reads as elevated when the list scrolls beneath it. */
 const HEADER = {
-  backgroundColor: "oklch(0.93 0.045 155)",
-  color: "var(--hb-color-accent-dark, oklch(0.46 0.08 155))",
+  backgroundColor: "var(--hb-angel-green-tint)",
+  color: "var(--hb-color-accent-dark)",
+  boxShadow: "var(--hb-angel-shadow-sm)",
 } as const;
 
 interface AnimalRosterProps {
@@ -20,7 +22,13 @@ interface AnimalRosterProps {
  *  row opens it in the edit form. */
 export const AnimalRoster = ({ animals, editingId, onEdit }: AnimalRosterProps) => {
   if (animals.length === 0) {
-    return <p {...stylex.props(styles.empty)}>아직 등록한 동물이 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)}>
+        <span {...stylex.props(styles.emptyKicker)}>동물</span>
+        <p {...stylex.props(styles.emptyText)}>아직 등록한 동물이 없어요.</p>
+        <p {...stylex.props(styles.emptyMeta)}>우리 보호소 동물을 등록해 보세요.</p>
+      </div>
+    );
   }
 
   return (
@@ -34,7 +42,12 @@ export const AnimalRoster = ({ animals, editingId, onEdit }: AnimalRosterProps) 
           <Hb.Table.Cell scope="col" style={HEADER}>
             상태
           </Hb.Table.Cell>
-          <Hb.Table.Cell scope="col" align="right" style={HEADER}>
+          <Hb.Table.Cell
+            scope="col"
+            align="right"
+            style={HEADER}
+            className={stylex.props(styles.countCol).className}
+          >
             신청
           </Hb.Table.Cell>
         </Hb.Table.Row>

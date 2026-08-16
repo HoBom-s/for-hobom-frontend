@@ -13,11 +13,25 @@ export const styles = stylex.create({
   header: {
     marginBottom: 20,
     flexShrink: 0,
+    paddingLeft: 14,
+    borderLeftWidth: 3,
+    borderLeftStyle: "solid",
+    borderLeftColor: "var(--hb-color-accent)",
+  },
+  kicker: {
+    display: "block",
+    marginBottom: 6,
+    fontSize: "11px",
+    fontWeight: 700,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "var(--hb-color-accent-dark)",
   },
   title: {
     margin: 0,
     fontSize: "1.5rem",
     fontWeight: 700,
+    letterSpacing: "-0.015em",
     color: "var(--hb-color-text-primary)",
   },
   subtitle: {

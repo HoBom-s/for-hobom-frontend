@@ -23,13 +23,19 @@ export const StaffPromotionQueue = ({
 
   return (
     <div>
-      <h2 {...stylex.props(styles.count)}>
-        승격 요청 <span {...stylex.props(styles.countNum)}>{pending.length}</span>
-      </h2>
+      <div {...stylex.props(styles.colHeader)}>
+        <p {...stylex.props(styles.overline)}>승격 요청</p>
+        <h2 {...stylex.props(styles.count)}>
+          승격 요청 <span {...stylex.props(styles.countNum)}>{pending.length}</span>
+        </h2>
+      </div>
       <p {...stylex.props(styles.panelSubtitle)}>일반회원 → 스태프 · 승인 주체: 보호소 대표</p>
 
       {pending.length === 0 ? (
-        <p {...stylex.props(styles.empty)}>대기 중인 승격 요청이 없어요.</p>
+        <div {...stylex.props(styles.empty)}>
+          <span {...stylex.props(styles.emptyKicker)}>승격 요청</span>
+          <p {...stylex.props(styles.emptyText)}>대기 중인 승격 요청이 없어요.</p>
+        </div>
       ) : (
         <div {...stylex.props(styles.list)}>
           {pending.map((request) => (
@@ -45,6 +51,7 @@ export const StaffPromotionQueue = ({
                 <Hb.Button
                   variant="primary"
                   size="small"
+                  className={stylex.props(styles.requestButton).className}
                   onClick={() => onApprove(request.approvalId)}
                   disabled={deciding}
                 >
@@ -53,6 +60,7 @@ export const StaffPromotionQueue = ({
                 <Hb.Button
                   variant="ghost"
                   size="small"
+                  className={stylex.props(styles.requestButton).className}
                   onClick={() => onReject(request)}
                   disabled={deciding}
                 >

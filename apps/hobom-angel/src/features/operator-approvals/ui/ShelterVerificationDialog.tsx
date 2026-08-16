@@ -51,7 +51,7 @@ const Dossier = ({ shelterId }: { shelterId: string }) => {
 
       <div {...stylex.props(styles.section)}>
         <span {...stylex.props(styles.sectionLabel)}>제출 정보</span>
-        <div {...stylex.props(styles.rows)}>
+        <div {...stylex.props(styles.panel, styles.rows)}>
           <Row label="주소" value={address} />
           <Row label="공개 범위" value={ADDRESS_VISIBILITY_LABEL[data.addressVisibility]} />
           <Row label="등록번호" value={data.registrationNumber ?? "미입력"} />
@@ -63,7 +63,7 @@ const Dossier = ({ shelterId }: { shelterId: string }) => {
       <div {...stylex.props(styles.section)}>
         <span {...stylex.props(styles.sectionLabel)}>자동 검증</span>
         {data.verificationSignals && data.verificationSignals.length > 0 ? (
-          <div {...stylex.props(styles.signals)}>
+          <div {...stylex.props(styles.panel, styles.signals)}>
             {data.verificationSignals.map((signal) => (
               <span key={signal.key} {...stylex.props(styles.signal)}>
                 <span {...stylex.props(styles.signalKey)}>
@@ -127,7 +127,15 @@ export const ShelterVerificationDialog = ({
   const canReject = reason.trim().length > 0;
 
   return (
-    <Hb.Dialog.Root open onClose={onClose} size="sm">
+    <Hb.Dialog.Root
+      open
+      onClose={onClose}
+      size="sm"
+      style={{
+        borderRadius: "var(--hb-angel-radius-card)",
+        boxShadow: "var(--hb-angel-shadow-lg)",
+      }}
+    >
       <Hb.Dialog.Title>보호소 검증 심사</Hb.Dialog.Title>
       <Hb.Dialog.Content dividers>
         <ErrorBoundary

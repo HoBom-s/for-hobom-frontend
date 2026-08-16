@@ -13,7 +13,12 @@ interface FaqListProps {
 /** The shelter's FAQ entries, each with edit / delete. */
 export const FaqList = ({ faqs, editingId, onEdit, onDelete }: FaqListProps) => {
   if (faqs.length === 0) {
-    return <p {...stylex.props(styles.empty)}>아직 등록한 FAQ가 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)}>
+        <span {...stylex.props(styles.emptyKicker)}>FAQ</span>
+        <p {...stylex.props(styles.emptyText)}>아직 등록한 FAQ가 없어요.</p>
+      </div>
+    );
   }
 
   return (
@@ -30,7 +35,7 @@ export const FaqList = ({ faqs, editingId, onEdit, onDelete }: FaqListProps) => 
               <Hb.Button variant="ghost" size="small" onClick={() => onEdit(faq)}>
                 수정
               </Hb.Button>
-              <Hb.Button variant="ghost" size="small" onClick={() => onDelete(faq.id)}>
+              <Hb.Button variant="danger" size="small" onClick={() => onDelete(faq.id)}>
                 삭제
               </Hb.Button>
             </div>

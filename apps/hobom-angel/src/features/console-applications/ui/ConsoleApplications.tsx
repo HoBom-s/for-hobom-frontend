@@ -34,8 +34,14 @@ export const ConsoleApplications = ({ shelterId }: { shelterId: string }) => {
 
   return (
     <div {...stylex.props(styles.root)}>
-      <h1 {...stylex.props(styles.title)}>신청 처리</h1>
-      <p {...stylex.props(styles.subtitle)}>우리 보호소에 들어온 입양·임시보호 신청을 확인해요</p>
+      <div {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>
+          <span {...stylex.props(styles.kickerRule)} aria-hidden />
+          신청 관리
+        </span>
+        <h1 {...stylex.props(styles.title)}>신청 처리</h1>
+        <p {...stylex.props(styles.subtitle)}>우리 보호소에 들어온 입양·임시보호 신청을 확인해요</p>
+      </div>
 
       <div {...stylex.props(styles.toolbar)}>
         <Hb.ToggleButtonGroup variant="segmented">
@@ -86,9 +92,12 @@ export const ConsoleApplications = ({ shelterId }: { shelterId: string }) => {
               <ApplicationDetailPanel shelterId={shelterId} kind={kind} id={selectedId} />
             </Suspense>
           ) : (
-            <p {...stylex.props(styles.hint)}>
-              왼쪽에서 신청을 선택하면 제출한 답변을 볼 수 있어요.
-            </p>
+            <div {...stylex.props(styles.hint)}>
+              <span {...stylex.props(styles.kicker)}>신청 상세</span>
+              <p {...stylex.props(styles.hintText)}>
+                왼쪽에서 신청을 선택하면 제출한 답변을 볼 수 있어요.
+              </p>
+            </div>
           )}
         </div>
       </div>

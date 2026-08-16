@@ -33,7 +33,12 @@ export const PendingApprovalQueue = ({ type }: { type: ApprovalType }) => {
     ));
 
   if (approvals.length === 0) {
-    return <p {...stylex.props(styles.empty)}>대기 중인 요청이 없어요.</p>;
+    return (
+      <div {...stylex.props(styles.empty)}>
+        <span {...stylex.props(styles.emptyKicker)}>ALL CLEAR</span>
+        <p {...stylex.props(styles.emptyText)}>대기 중인 요청이 없어요.</p>
+      </div>
+    );
   }
 
   return (

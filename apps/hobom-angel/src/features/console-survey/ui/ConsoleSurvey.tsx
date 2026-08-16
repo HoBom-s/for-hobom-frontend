@@ -15,10 +15,13 @@ export const ConsoleSurvey = ({ shelterId }: { shelterId: string }) => {
 
   return (
     <div {...stylex.props(styles.root)}>
-      <h1 {...stylex.props(styles.title)}>설문 빌더</h1>
-      <p {...stylex.props(styles.subtitle)}>
-        왼쪽에서 필드를 만들고, 오른쪽 미리보기로 신청자 화면을 확인한 뒤 저장하면 새 버전으로 반영돼요
-      </p>
+      <div {...stylex.props(styles.header)}>
+        <span {...stylex.props(styles.kicker)}>설문 관리</span>
+        <h1 {...stylex.props(styles.title)}>설문 빌더</h1>
+        <p {...stylex.props(styles.subtitle)}>
+          왼쪽에서 필드를 만들고, 오른쪽 미리보기로 신청자 화면을 확인한 뒤 저장하면 새 버전으로 반영돼요
+        </p>
+      </div>
 
       <div {...stylex.props(styles.purposeTabs)}>
         {PURPOSES.map((item) => (
