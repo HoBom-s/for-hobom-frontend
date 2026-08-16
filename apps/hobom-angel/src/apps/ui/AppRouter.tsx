@@ -4,7 +4,6 @@ import { ROUTES } from "@/shared/config";
 import { onIdle } from "@/shared/lib";
 import { useRouteMeta } from "@/shared/model";
 import { ErrorBoundary, LoadingState, NotFoundState } from "@/shared/ui";
-import { ComingSoonPage } from "@/pages/coming-soon";
 import { ConsoleRoute } from "./ConsoleRoute";
 import { ConsoleShellLayout } from "./ConsoleShellLayout";
 import { ConsumerShellLayout } from "./ConsumerShellLayout";
@@ -19,6 +18,15 @@ const LandingPage = lazy(() =>
 );
 const FosterPage = lazy(() =>
   import("@/pages/foster").then((module) => ({ default: module.FosterPage })),
+);
+const TermsPage = lazy(() =>
+  import("@/pages/legal").then((module) => ({ default: module.TermsPage })),
+);
+const PrivacyPage = lazy(() =>
+  import("@/pages/legal").then((module) => ({ default: module.PrivacyPage })),
+);
+const AnimalLawPage = lazy(() =>
+  import("@/pages/legal").then((module) => ({ default: module.AnimalLawPage })),
 );
 const LoginPage = lazy(() =>
   import("@/pages/login").then((module) => ({ default: module.LoginPage })),
@@ -119,10 +127,9 @@ export const AppRouter = () => {
                 informs and hands off to the (gated) animal list. */}
             <Route path={ROUTES.FOSTER} element={<FosterPage />} />
             {/* Public info surfaces (footer links). */}
-            <Route path={ROUTES.TERMS} element={<ComingSoonPage />} />
-            <Route path={ROUTES.PRIVACY} element={<ComingSoonPage />} />
-            <Route path={ROUTES.BUSINESS_INFO} element={<ComingSoonPage />} />
-            <Route path={ROUTES.ANIMAL_LAW} element={<ComingSoonPage />} />
+            <Route path={ROUTES.TERMS} element={<TermsPage />} />
+            <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
+            <Route path={ROUTES.ANIMAL_LAW} element={<AnimalLawPage />} />
             <Route element={<ProtectedRoute />}>
               <Route path={ROUTES.ANIMALS} element={<AnimalsPage />} />
             <Route path={ROUTES.ANIMAL_DETAIL} element={<AnimalDetailPage />} />
