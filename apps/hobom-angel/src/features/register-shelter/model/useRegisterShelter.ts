@@ -2,17 +2,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useMutation } from "hobom-data";
 import { shelterMutations } from "@/entities/shelter";
+import { UploadPurpose } from "@/shared/api";
 import { ROUTES } from "@/shared/config";
-import { useToast } from "@/shared/model";
+import { useImageUpload, useToast } from "@/shared/model";
 import { EMPTY_FORM, canSubmit, toRegisterInput } from "../lib/register-shelter.lib";
 import type { RegisterShelterForm } from "../lib/register-shelter.lib";
 
-/** Drives the shelter-registration form: local field state, validation, and the
- *  submit that opens the verification and returns the applicant to their page. */
+/** Drives the shelter-registration form: local field state, facility-photo
+ *  uploads, validation, and the submit that opens the verification and returns
+ *  the applicant to their page. */
 export const useRegisterShelter = () => {
   const navigate = useNavigate();
   const { openSuccessToast, openErrorToast } = useToast();
   const [form, setForm] = useState<RegisterShelterForm>(EMPTY_FORM);
+  const photos = useImageUpload(UploadPurpose.SHELTER);
 
   const { mutate, isPending } = useMutation({
     ...shelterMutations.register(),
@@ -27,10 +30,28 @@ export const useRegisterShelter = () => {
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const submit = () => {
-    if (!canSubmit(form)) return;
+    if (!canSubmit(form) || photos.uploading) return;
 
-    mutate(toRegisterInput(form));
+    const facilityPhotos = photos.images.map((image) => ({
+      objectKey: image.objectKey,
+      kind: "EXTERIOR" as const,
+    }));
+
+    mutate({
+      ...toRegisterInput(form),
+      facilityPhotos: facilityPhotos.length > 0 ? facilityPhotos : undefined,
+    });
   };
 
-  return { form, setField, submit, submitting: isPending, canSubmit: canSubmit(form) };
+  return {
+    form,
+    setField,
+    submit,
+    submitting: isPending,
+    canSubmit: canSubmit(form) && !photos.uploading,
+    photos: photos.images,
+    addPhotos: photos.add,
+    removePhoto: photos.remove,
+    uploadingPhotos: photos.uploading,
+  };
 };

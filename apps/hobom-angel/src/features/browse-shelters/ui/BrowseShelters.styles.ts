@@ -60,6 +60,64 @@ export const styles = stylex.create({
     lineHeight: 1.6,
     color: "var(--hb-color-text-secondary)",
   },
+  // Operator entry point: a soft brand-wash CTA banner inviting shelter owners
+  // to open a verification. Row on tablet+, stacked (CTA full-width) on phones.
+  registerBanner: {
+    display: "flex",
+    flexDirection: { default: "column", [TABLET]: "row" },
+    alignItems: { default: "stretch", [TABLET]: "center" },
+    justifyContent: "space-between",
+    gap: 16,
+    marginBottom: 20,
+    padding: "clamp(16px, 3vw, 22px)",
+    borderRadius: "var(--hb-angel-radius-card)",
+    backgroundImage: "var(--hb-angel-hero-wash)",
+    border: "1px solid var(--hb-angel-green-tint)",
+  },
+  registerCopy: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 4,
+  },
+  registerKicker: {
+    fontSize: "1.0625rem",
+    fontWeight: 700,
+    letterSpacing: "-0.01em",
+    color: "var(--hb-color-text-primary)",
+  },
+  registerText: {
+    margin: 0,
+    maxWidth: "var(--hb-angel-measure)",
+    fontSize: "0.9375rem",
+    lineHeight: 1.55,
+    color: "var(--hb-color-text-secondary)",
+  },
+  // Link styled as a primary CTA — full-width on phones, hugs content on tablet+.
+  registerCta: {
+    flexShrink: 0,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    textDecoration: "none",
+    paddingInline: 20,
+    paddingBlock: 12,
+    borderRadius: "var(--hb-radius-control)",
+    color: "var(--hb-color-accent-contrast)",
+    fontSize: "0.9375rem",
+    fontWeight: 700,
+    whiteSpace: "nowrap",
+    boxShadow: "var(--hb-angel-shadow-sm)",
+    transitionProperty: "background-color, transform",
+    transitionDuration: "var(--hb-angel-dur-fast)",
+    transitionTimingFunction: "var(--hb-angel-ease)",
+    backgroundColor: {
+      default: "var(--hb-color-accent)",
+      ":hover": "var(--hb-color-accent-dark)",
+    },
+    transform: { default: "none", ":active": "translateY(1px)" },
+    [REDUCE]: { transitionProperty: "none" },
+  },
   // Region filter and the grid/map toggle: side by side on tablet+, stacked on
   // phones (filter scrolls horizontally, toggle pinned to the right).
   controls: {

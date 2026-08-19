@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
 import { ADDRESS_VISIBILITY_HINT, ADDRESS_VISIBILITY_LABEL } from "@/entities/shelter";
+import { ImageUploader } from "@/shared/ui";
 import type { AddressVisibility } from "@/entities/shelter";
 import { useRegisterShelter } from "../model/useRegisterShelter";
 import { isValidSlug } from "../lib/register-shelter.lib";
@@ -17,7 +18,17 @@ const FLOW = [
 /** 보호소 등록 신청 — a light, guided form that opens a verification the operator
  *  reviews. The registrant becomes the shelter's 대표 on approval. */
 export const RegisterShelter = () => {
-  const { form, setField, submit, submitting, canSubmit } = useRegisterShelter();
+  const {
+    form,
+    setField,
+    submit,
+    submitting,
+    canSubmit,
+    photos,
+    addPhotos,
+    removePhoto,
+    uploadingPhotos,
+  } = useRegisterShelter();
   const slugInvalid = form.slug.length > 0 && !isValidSlug(form.slug);
 
   return (
@@ -145,6 +156,23 @@ export const RegisterShelter = () => {
           value={form.businessNumber}
           onChange={(event) => setField("businessNumber", event.target.value.replace(/\D/g, ""))}
           fullWidth
+        />
+      </section>
+
+      <section {...stylex.props(styles.section)}>
+        <div {...stylex.props(styles.sectionHead)}>
+          <span {...stylex.props(styles.sectionKicker)}>Step 4</span>
+          <h2 {...stylex.props(styles.sectionTitle)}>시설 사진</h2>
+          <p {...stylex.props(styles.sectionNote)}>
+            선택이지만, 보호소 외부·내부 사진을 올리면 검증이 더 빠르게 진행돼요.
+          </p>
+        </div>
+        <ImageUploader
+          images={photos}
+          onAdd={addPhotos}
+          onRemove={removePhoto}
+          uploading={uploadingPhotos}
+          max={8}
         />
       </section>
 

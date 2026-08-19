@@ -6,9 +6,9 @@ import { Hb } from "hobom-design-system";
 import { volunteerEventQueries } from "@/entities/volunteer-event";
 import { UploadPurpose } from "@/shared/api";
 import { ROUTES } from "@/shared/config";
+import { useImageUpload } from "@/shared/model";
 import type { PostBlockInput } from "@/entities/volunteer-post";
 import { useCreatePost } from "../model/useCreatePost";
-import { useImageUpload } from "../model/useImageUpload";
 import { styles } from "./WriteReview.styles";
 
 /** Full-page review composer. A review is shelter-scoped, so it's tied to one of
