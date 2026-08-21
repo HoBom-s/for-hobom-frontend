@@ -4,9 +4,10 @@ import { Hb } from "hobom-design-system";
 import { ChevronRight, Favorite, FavoriteBorder, LocationOnOutlined } from "hobom-design-system/icons";
 import { SEX_LABEL, SIZE_LABEL, STATUS_LABEL, formatAge } from "@/entities/animal";
 import { applyPath, fosterApplyPath, shelterPath } from "@/shared/config";
-import { useToast } from "@/shared/model";
+import { useOverlay } from "@/shared/model";
 import type { AnimalDetail } from "@/entities/animal";
 import { applyCta } from "../lib/apply-cta.lib";
+import { InquiryDialog } from "./InquiryDialog";
 import { styles } from "./ApplyCard.styles";
 
 interface ApplyCardProps {
@@ -24,13 +25,11 @@ const STATUS_COLOR = {
   반환: "default",
 } as const;
 
-const COMING_SOON = "곧 제공될 예정이에요.";
-
 /** Sticky application panel with status-branched CTAs (§02). Apply and foster
- *  open their funnels; inquiry is a placeholder until inquiry threads land. */
+ *  open their funnels; inquiry opens a shelter message thread. */
 export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProps) => {
   const navigate = useNavigate();
-  const { openWarnToast } = useToast();
+  const overlay = useOverlay();
 
   const cta = applyCta(animal.status, animal.eligiblePlacements);
   const statusLabel = STATUS_LABEL[animal.status];
@@ -45,7 +44,10 @@ export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProp
     animal.health.microchipId ? "마이크로칩" : null,
   ].filter((badge): badge is string => badge !== null);
 
-  const notReady = () => openWarnToast({ message: COMING_SOON });
+  const openInquiry = () =>
+    overlay.open(({ close }) => (
+      <InquiryDialog animalId={animal.id} animalName={animal.name} onClose={close} />
+    ));
 
   return (
     <aside {...stylex.props(styles.root)}>
@@ -113,7 +115,7 @@ export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProp
             임시보호 신청
           </Hb.Button>
         )}
-        <button type="button" {...stylex.props(styles.inquiry)} onClick={notReady}>
+        <button type="button" {...stylex.props(styles.inquiry)} onClick={openInquiry}>
           보호소에 문의하기
           <ChevronRight fontSize="small" />
         </button>

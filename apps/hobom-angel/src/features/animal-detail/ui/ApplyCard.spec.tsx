@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import { fireEvent, render, screen } from "@testing-library/react";
+import { OverlayProvider } from "hobom-design-system";
 import { MemoryRouter } from "react-router";
 import { describe, expect, it, vi } from "vitest";
 import type { AnimalDetail, PlacementType } from "@/entities/animal";
@@ -12,7 +13,9 @@ const renderCard = (
 ) =>
   render(
     <MemoryRouter>
-      <ApplyCard animal={detail} favorited={favorited} onToggleFavorite={onToggleFavorite} />
+      <OverlayProvider>
+        <ApplyCard animal={detail} favorited={favorited} onToggleFavorite={onToggleFavorite} />
+      </OverlayProvider>
     </MemoryRouter>,
   );
 
