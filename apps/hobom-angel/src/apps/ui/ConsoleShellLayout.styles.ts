@@ -14,7 +14,7 @@ export const styles = stylex.create({
     height: { [DESKTOP]: "100dvh" },
     overflow: { [DESKTOP]: "hidden" },
     // White content area; the sidebar keeps its own light rail beside it.
-    backgroundColor: "var(--hb-color-surface)",
+    backgroundColor: "#F7F2E9",
   },
   sidebar: {
     display: "flex",
@@ -22,17 +22,17 @@ export const styles = stylex.create({
     flexWrap: { default: "wrap", [DESKTOP]: "nowrap" },
     alignItems: { default: "center", [TABLET]: "flex-start", [DESKTOP]: "stretch" },
     flexShrink: 0,
-    width: { default: "100%", [DESKTOP]: 240 },
+    width: { default: "100%", [DESKTOP]: 252 },
     boxSizing: "border-box",
-    padding: 14,
-    gap: { default: 8, [DESKTOP]: 10 },
+    padding: { default: 14, [DESKTOP]: "24px 20px" },
+    gap: { default: 8, [DESKTOP]: 22 },
     overflowY: { [DESKTOP]: "auto" },
     // Retire the flat 1px seams: a soft float edge instead of a fenced hairline.
     // Below desktop the rail is a top strip — the shadow reads underneath it;
     // on desktop it hugs the inline-end so the white pane floats beside the rail.
-    boxShadow: { default: "var(--hb-angel-shadow-sm)", [DESKTOP]: "var(--hb-angel-shadow-sm)" },
-    // Light warm rail so the active (tinted) item reads as raised.
-    backgroundColor: "var(--hb-angel-surface-alt)",
+    boxShadow: "none",
+    backgroundImage: "linear-gradient(180deg,#25573F,#1B4433)",
+    color: "#F2F7F2",
   },
   brand: {
     display: "flex",
@@ -46,8 +46,8 @@ export const styles = stylex.create({
     height: 28,
     flexShrink: 0,
     borderRadius: "var(--hb-angel-radius-sm)",
-    backgroundColor: "var(--hb-color-accent)",
-    boxShadow: "var(--hb-angel-shadow-sm)",
+    backgroundColor: "rgba(242,247,242,0.16)",
+    boxShadow: "none",
   },
   brandText: {
     display: "flex",
@@ -60,7 +60,7 @@ export const styles = stylex.create({
     fontSize: "1rem",
     fontWeight: 700,
     letterSpacing: "-0.015em",
-    color: "var(--hb-color-text-primary)",
+    color: "#F2F7F2",
   },
   // 관리자 — a green trust/status chip (matches the operator OPERATOR chip).
   brandRole: {
@@ -71,14 +71,14 @@ export const styles = stylex.create({
     fontSize: "0.6875rem",
     fontWeight: 700,
     letterSpacing: "0.06em",
-    color: "var(--hb-color-accent-dark)",
-    backgroundColor: "var(--hb-angel-green-tint)",
+    color: "rgba(242,247,242,0.60)",
+    backgroundColor: "transparent",
   },
   nav: {
     display: "flex",
     flexDirection: { default: "row", [DESKTOP]: "column" },
     flexWrap: { default: "wrap", [DESKTOP]: "nowrap" },
-    gap: { default: 6, [DESKTOP]: 3 },
+    gap: 3,
     flex: 1,
     width: { default: "100%", [DESKTOP]: "auto" },
   },
@@ -100,20 +100,20 @@ export const styles = stylex.create({
     justifyContent: "center",
     padding: "9px 12px",
     borderRadius: "var(--hb-angel-radius-control)",
-    color: "var(--hb-color-text-primary)",
-    backgroundColor: { default: "transparent", ":hover": "var(--hb-color-surface)" },
+    color: "rgba(242,247,242,0.72)",
+    backgroundColor: { default: "transparent", ":hover": "rgba(242,247,242,0.10)" },
     transitionProperty: { default: "background-color, box-shadow", [REDUCED_MOTION]: "none" },
     transitionDuration: { default: "var(--hb-angel-dur)", [REDUCED_MOTION]: "0ms" },
     transitionTimingFunction: "var(--hb-angel-ease)",
   },
   // Selected menu — a soft green tint, dark-green text, brand left accent-rule.
   itemActive: {
-    color: "var(--hb-color-accent-dark)",
+    color: "var(--hb-color-text-primary)",
     backgroundColor: {
-      default: "var(--hb-angel-green-tint)",
-      ":hover": "var(--hb-angel-green-tint)",
+      default: "var(--hb-color-surface)",
+      ":hover": "var(--hb-color-surface)",
     },
-    boxShadow: "inset 3px 0 0 var(--hb-color-accent)",
+    boxShadow: "none",
   },
   itemDisabled: {
     cursor: "default",
@@ -153,8 +153,8 @@ export const styles = stylex.create({
     borderRadius: "var(--hb-angel-radius-sm)",
     fontSize: "0.6875rem",
     lineHeight: 1.4,
-    color: "var(--hb-color-text-secondary)",
-    backgroundColor: "var(--hb-angel-green-tint)",
+    color: "rgba(242,247,242,0.72)",
+    backgroundColor: "rgba(242,247,242,0.10)",
   },
   // A clear, soft-elevated way back to the consumer app.
   exit: {
@@ -167,12 +167,12 @@ export const styles = stylex.create({
     fontSize: "0.875rem",
     fontWeight: 600,
     textDecoration: "none",
-    color: "var(--hb-color-text-primary)",
-    backgroundColor: "var(--hb-color-surface)",
+    color: "rgba(242,247,242,0.82)",
+    backgroundColor: "transparent",
     outline: "none",
     boxShadow: {
-      default: "var(--hb-angel-shadow-sm)",
-      ":hover": "var(--hb-angel-shadow-md)",
+      default: "none",
+      ":hover": "none",
       ":focus-visible": "var(--hb-angel-focus-ring)",
     },
     transitionProperty: { default: "box-shadow", [REDUCED_MOTION]: "none" },
@@ -188,6 +188,7 @@ export const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     overflowY: { default: "visible", [DESKTOP]: "hidden" },
-    padding: "clamp(16px, 4vw, 32px)",
+    padding: { default: 16, [DESKTOP]: "34px 40px 60px" },
+    backgroundColor: "#F7F2E9",
   },
 });

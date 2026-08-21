@@ -63,7 +63,7 @@ export const styles = stylex.create({
     gap: 2,
     padding: { default: 16, [NARROW]: 14 },
     borderRadius: "var(--hb-angel-radius-card)",
-    backgroundColor: "var(--hb-color-surface)",
+    backgroundColor: "var(--hb-angel-card)",
     boxShadow: "var(--hb-angel-shadow-sm)",
   },
   // Korean label kept as-is; kicker color/tracking marks it as a section label.
@@ -98,7 +98,7 @@ export const styles = stylex.create({
   chartCard: {
     padding: 18,
     borderRadius: "var(--hb-angel-radius-card)",
-    backgroundColor: "var(--hb-color-surface)",
+    backgroundColor: "var(--hb-angel-card)",
     boxShadow: "var(--hb-angel-shadow-sm)",
   },
   chartTitle: {

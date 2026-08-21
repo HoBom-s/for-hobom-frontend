@@ -60,7 +60,7 @@ export const styles = stylex.create({
     paddingBlock: 8,
     paddingInline: 12,
     flexShrink: 0,
-    backgroundColor: "var(--hb-color-surface)",
+    backgroundColor: "var(--hb-angel-card)",
     borderRadius: "var(--hb-angel-radius-md)",
     boxShadow: "var(--hb-angel-shadow-sm)",
   },
