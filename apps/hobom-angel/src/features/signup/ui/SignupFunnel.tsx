@@ -1,5 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
+import { Link, useSearchParams } from "react-router";
 import * as stylex from "@stylexjs/stylex";
+import { ROUTES } from "@/shared/config";
 import { useFunnel } from "@/shared/model";
 import { useSignup } from "../model/useSignup";
 import { styles } from "./SignupFunnel.styles";
@@ -10,6 +12,7 @@ import { PasswordField } from "./PasswordField";
 import { NicknameField } from "./NicknameField";
 import { RealNameField } from "./RealNameField";
 import { PhoneField } from "./PhoneField";
+import { SignupBrandPanel } from "./SignupBrandPanel";
 import type { SignupFormValues } from "../model/signup-form.model";
 
 const STEPS = ["agreement", "email", "password", "nickname", "realName", "phone"] as const;
@@ -26,6 +29,12 @@ export const SignupFunnel = () => {
   });
   const { mutate, isPending } = useSignup();
   const [Funnel, setStep] = useFunnel(STEPS, { initialStep: "agreement" });
+  const [searchParams] = useSearchParams();
+  const currentStep = searchParams.get("funnel-step");
+  const currentIndex = Math.max(
+    0,
+    STEPS.findIndex((step) => step === currentStep),
+  );
 
   const submit = methods.handleSubmit((values) => {
     mutate({
@@ -40,7 +49,23 @@ export const SignupFunnel = () => {
   return (
     <div {...stylex.props(styles.page)}>
       <div {...stylex.props(styles.card)}>
+        <SignupBrandPanel />
         <div {...stylex.props(styles.body)}>
+          <div {...stylex.props(styles.progressHead)}>
+            <span>회원가입</span>
+            <span>
+              {currentIndex + 1} / {STEPS.length}
+            </span>
+          </div>
+          <div {...stylex.props(styles.progress)} aria-hidden="true">
+            {STEPS.map((step, index) => (
+              <span
+                key={step}
+                {...stylex.props(styles.progressBar, index <= currentIndex && styles.progressBarOn)}
+              />
+            ))}
+          </div>
+
           <FormProvider {...methods}>
             <Funnel>
               <Funnel.Step name="agreement">
@@ -104,6 +129,13 @@ export const SignupFunnel = () => {
               </Funnel.Step>
             </Funnel>
           </FormProvider>
+
+          <p {...stylex.props(styles.footer)}>
+            이미 계정이 있으신가요?{" "}
+            <Link to={ROUTES.LOGIN} {...stylex.props(styles.footerLink)}>
+              로그인
+            </Link>
+          </p>
         </div>
       </div>
     </div>
