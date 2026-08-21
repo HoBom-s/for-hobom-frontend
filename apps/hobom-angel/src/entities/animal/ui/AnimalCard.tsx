@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
-import { Hb } from "hobom-design-system";
 import { AnimalPhoto } from "./AnimalPhoto";
 import { styles } from "./AnimalCard.styles";
 import type { AnimalStatusLabel } from "../model/animal.model";
@@ -20,17 +19,9 @@ interface AnimalCardProps {
   overlayStart?: ReactNode;
 }
 
-const STATUS_COLOR = {
-  입양가능: "primary",
-  "입양 진행중": "warning",
-  임보중: "secondary",
-  입양완료: "success",
-  반환: "default",
-} as const;
-
 /** A shelter animal preview card — the canonical photo-first floating card used
- *  on the list and shelter pages. Full-bleed media carries the name on a scrim
- *  and the favorite action; the attribute line + status chip sit below. */
+ *  on the list and shelter pages. Status and favorite actions sit over the
+ *  image while the name and attributes remain on the white information body. */
 export const AnimalCard = ({
   name,
   status,
@@ -44,14 +35,18 @@ export const AnimalCard = ({
     <div {...stylex.props(styles.card, Boolean(to) && styles.cardHoverable)}>
       <div {...stylex.props(styles.media)}>
         <AnimalPhoto src={imageUrl} alt={name} ratio="4 / 3" />
-        <div {...stylex.props(styles.scrim)} aria-hidden="true" />
-        {overlayStart && <div {...stylex.props(styles.overlayStart)}>{overlayStart}</div>}
+        {overlayStart ? (
+          <div {...stylex.props(styles.overlayStart)}>{overlayStart}</div>
+        ) : (
+          <span {...stylex.props(styles.status, status === "입양 진행중" && styles.statusReserved)}>
+            {status}
+          </span>
+        )}
         {action && <div {...stylex.props(styles.action)}>{action}</div>}
-        <h3 {...stylex.props(styles.name)}>{name}</h3>
       </div>
       <div {...stylex.props(styles.body)}>
+        <h3 {...stylex.props(styles.name)}>{name}</h3>
         <p {...stylex.props(styles.meta)}>{meta}</p>
-        <Hb.Chip label={status} size="small" variant="soft" color={STATUS_COLOR[status]} />
       </div>
     </div>
   );

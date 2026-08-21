@@ -36,6 +36,7 @@ export const ApplyPlacement = ({ animalId, purpose }: ApplyPlacementProps) => {
       <ApplyHeader
         animalId={animalId}
         animalName={animal.name}
+        shelterName={animal.shelter?.name}
         currentIndex={currentIndex}
         totalSteps={totalSteps}
       />

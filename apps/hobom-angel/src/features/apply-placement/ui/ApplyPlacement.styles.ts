@@ -11,16 +11,16 @@ const fadeUp = stylex.keyframes({
 export const styles = stylex.create({
   root: {
     minHeight: "100%",
-    maxWidth: 640,
+    maxWidth: 712,
     marginInline: "auto",
     paddingInline: "clamp(16px, 4vw, 32px)",
-    paddingTop: 16,
-    paddingBottom: { default: 16, [DESKTOP]: 40 },
+    paddingTop: { default: 22, [DESKTOP]: 34 },
+    paddingBottom: { default: 16, [DESKTOP]: 60 },
     display: "flex",
     flexDirection: "column",
     gap: 20,
     // Warm-neutral canvas so the floating question card reads as elevated.
-    backgroundColor: "var(--hb-color-bg)",
+    backgroundColor: "var(--hb-color-surface)",
   },
   // Grows on mobile so the nav sits at the screen bottom; natural height on
   // desktop so the nav sits just below the question.
@@ -30,10 +30,10 @@ export const styles = stylex.create({
   // Resting floating panel wrapping the survey step — no hover lift (not
   // interactive). Fades up once on mount.
   funnelCard: {
-    backgroundColor: "var(--hb-color-surface)",
-    borderRadius: "var(--hb-angel-radius-card)",
-    boxShadow: "var(--hb-angel-shadow-sm)",
-    padding: { default: "clamp(20px, 4vw, 28px)", "@media (min-width: 768px)": 24 },
+    backgroundColor: "var(--hb-angel-card)",
+    borderRadius: 26,
+    boxShadow: "0 1px 2px rgba(34,49,42,0.05),0 20px 50px -34px rgba(34,49,42,0.35)",
+    padding: { default: "26px 22px", "@media (min-width: 768px)": "34px 36px" },
     animationName: fadeUp,
     animationDuration: "var(--hb-angel-dur-slow)",
     animationTimingFunction: "var(--hb-angel-ease)",
@@ -51,26 +51,17 @@ export const styles = stylex.create({
   titleBlock: {
     display: "flex",
     flexDirection: "column",
-    gap: 8,
+    gap: 3,
     flex: 1,
     minWidth: 0,
   },
   kicker: {
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    fontSize: "0.6875rem",
-    fontWeight: 700,
-    letterSpacing: "0.14em",
-    textTransform: "uppercase",
-    color: "var(--hb-color-accent-dark)",
+    fontSize: "0.78125rem",
+    fontWeight: 400,
+    letterSpacing: 0,
+    color: "#8A9187",
   },
-  kickerDot: {
-    width: 6,
-    height: 6,
-    borderRadius: "var(--hb-angel-radius-pill)",
-    backgroundColor: "var(--hb-angel-accent-warm)",
-  },
+  kickerDot: { display: "none" },
   titleRow: { display: "flex", alignItems: "center", gap: 12 },
   rule: {
     flexShrink: 0,
@@ -84,11 +75,12 @@ export const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
-    width: 32,
-    height: 32,
+    width: 38,
+    height: 38,
     borderRadius: "var(--hb-angel-radius-pill)",
     color: "var(--hb-color-text-primary)",
-    backgroundColor: { default: "transparent", ":hover": "var(--hb-angel-surface-alt)" },
+    backgroundColor: { default: "var(--hb-angel-card)", ":hover": "var(--hb-angel-surface-alt)" },
+    boxShadow: "var(--hb-angel-shadow-sm)",
     textDecoration: "none",
     transitionProperty: "background-color",
     transitionDuration: "var(--hb-angel-dur-fast)",
@@ -98,9 +90,9 @@ export const styles = stylex.create({
   },
   title: {
     margin: 0,
-    fontSize: "1.25rem",
-    fontWeight: 700,
-    letterSpacing: "-0.015em",
+    fontFamily: "var(--hb-font-body)",
+    fontSize: "1rem",
+    fontWeight: 600,
     color: "var(--hb-color-text-primary)",
   },
 
@@ -108,11 +100,11 @@ export const styles = stylex.create({
   progressRow: {
     display: "flex",
     flexDirection: "column",
-    gap: 8,
+    gap: 10,
   },
   stepLabel: {
     fontSize: "0.8125rem",
-    fontWeight: 600,
+    fontWeight: 400,
     color: "var(--hb-color-text-secondary)",
   },
   stepNum: {
@@ -120,21 +112,17 @@ export const styles = stylex.create({
   },
   progressTrack: {
     width: "100%",
-    height: 6,
-    borderRadius: "var(--hb-angel-radius-pill)",
-    backgroundColor: "var(--hb-angel-green-tint)",
-    overflow: "hidden",
+    height: 5,
+    display: "flex",
+    gap: 5,
   },
   progressBar: {
+    flex: 1,
     height: "100%",
     borderRadius: "var(--hb-angel-radius-pill)",
-    backgroundColor: "var(--hb-color-accent)",
-    boxShadow: "var(--hb-angel-glow-accent)",
-    transitionProperty: "width",
-    transitionDuration: "var(--hb-angel-dur)",
-    transitionTimingFunction: "var(--hb-angel-ease)",
-    [REDUCE]: { transitionProperty: "none" },
+    backgroundColor: "var(--hb-color-border)",
   },
+  progressBarOn: { backgroundColor: "var(--hb-color-accent)" },
 
   // ── Step / fields ───────────────────────────────────────
   step: {

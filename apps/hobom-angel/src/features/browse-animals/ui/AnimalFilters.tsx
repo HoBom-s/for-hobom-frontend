@@ -34,21 +34,21 @@ export const AnimalFilters = ({ filters, onChange, view, onViewChange }: AnimalF
 
   return (
     <div {...stylex.props(styles.root)}>
-      <div {...stylex.props(styles.bar)}>
-        <form {...stylex.props(styles.search)} onSubmit={submitKeyword} role="search">
-          <Hb.TextField
-            {...stylex.props(styles.searchField)}
-            placeholder="이름 · 품종 · 지역으로 검색"
-            aria-label="검색"
-            value={keyword}
-            onChange={(event) => setKeyword(event.target.value)}
-            slotProps={{ input: { startAdornment: <SearchOutlined fontSize="small" /> } }}
-          />
-          <Hb.Button type="submit" variant="primary">
-            검색
-          </Hb.Button>
-        </form>
+      <form {...stylex.props(styles.search)} onSubmit={submitKeyword} role="search">
+        <Hb.TextField
+          {...stylex.props(styles.searchField)}
+          placeholder="이름 · 품종 · 지역으로 검색"
+          aria-label="검색"
+          value={keyword}
+          onChange={(event) => setKeyword(event.target.value)}
+          slotProps={{ input: { startAdornment: <SearchOutlined fontSize="small" /> } }}
+        />
+        <Hb.Button type="submit" variant="primary" shape="pill">
+          검색
+        </Hb.Button>
+      </form>
 
+      <div {...stylex.props(styles.bar)}>
         <Hb.ToggleButtonGroup variant="segmented" aria-label="종">
           {SPECIES.map((species) => {
             const selected = filters.species === species;

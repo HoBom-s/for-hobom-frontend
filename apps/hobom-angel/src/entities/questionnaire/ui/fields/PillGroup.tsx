@@ -1,5 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import { Hb } from "hobom-design-system";
 import { styles } from "../QuestionField.styles";
 
 export interface Option {
@@ -20,20 +19,27 @@ export const PillGroup = ({ id, options, values, multiple, onChange }: PillGroup
   const select = (value: string) => {
     if (!multiple) return onChange([value]);
 
-    return onChange(values.includes(value) ? values.filter((v) => v !== value) : [...values, value]);
+    return onChange(
+      values.includes(value) ? values.filter((v) => v !== value) : [...values, value],
+    );
   };
 
   return (
     <div {...stylex.props(styles.options)} role="group" aria-labelledby={id}>
       {options.map((option) => (
-        <Hb.ToggleButton
+        <button
           key={option.value}
-          value={option.value}
-          selected={values.includes(option.value)}
-          onChange={() => select(option.value)}
+          type="button"
+          aria-pressed={values.includes(option.value)}
+          {...stylex.props(styles.option, values.includes(option.value) && styles.optionSelected)}
+          onClick={() => select(option.value)}
         >
+          <span
+            {...stylex.props(styles.optionDot, values.includes(option.value) && styles.optionDotOn)}
+            aria-hidden="true"
+          />
           {option.label}
-        </Hb.ToggleButton>
+        </button>
       ))}
     </div>
   );

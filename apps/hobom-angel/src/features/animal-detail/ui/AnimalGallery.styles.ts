@@ -10,9 +10,9 @@ export const styles = stylex.create({
   },
   // Floating hero photo — resting elevation lifts the media off the canvas.
   hero: {
-    borderRadius: "var(--hb-angel-radius-card)",
+    borderRadius: 26,
     overflow: "hidden",
-    boxShadow: "var(--hb-angel-shadow-md)",
+    boxShadow: "none",
   },
   thumbs: {
     display: "flex",
@@ -21,13 +21,13 @@ export const styles = stylex.create({
   },
   // Touch target >= 40px; borderless resting → accent ring on hover/active.
   thumb: {
-    width: 64,
+    width: 84,
     height: 64,
     padding: 0,
     borderWidth: 2,
     borderStyle: "solid",
     borderColor: { default: "transparent", ":hover": "var(--hb-angel-green-tint-strong)" },
-    borderRadius: "var(--hb-angel-radius-sm)",
+    borderRadius: 16,
     overflow: "hidden",
     backgroundColor: "var(--hb-color-surface)",
     boxShadow: "var(--hb-angel-shadow-sm)",

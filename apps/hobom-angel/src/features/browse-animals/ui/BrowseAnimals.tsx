@@ -14,14 +14,8 @@ export const BrowseAnimals = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
-        <span {...stylex.props(styles.kicker)}>MEET YOUR MATCH</span>
-        <h1 {...stylex.props(styles.title)}>
-          <span {...stylex.props(styles.rule)} aria-hidden="true" />
-          가족을 기다리는 친구들
-        </h1>
-        <p {...stylex.props(styles.lead)}>
-          지금 새로운 가족을 기다리고 있어요. 조건을 골라 마음이 맞는 친구를 만나보세요.
-        </p>
+        <h1 {...stylex.props(styles.title)}>가족을 기다리는 친구들</h1>
+        <p {...stylex.props(styles.lead)}>조건을 골라 마음이 맞는 친구를 만나보세요.</p>
       </header>
 
       <AnimalFilters filters={filters} onChange={setFilters} view={view} onViewChange={setView} />
