@@ -71,15 +71,6 @@ export const HeroSection = () => {
               {...stylex.props(styles.photo)}
             />
           </div>
-          <div
-            {...stylex.props(styles.proofChip)}
-            aria-label={`${HERO.waitingCount.toLocaleString()}마리 대기 중`}
-          >
-            <strong {...stylex.props(styles.proofValue)}>
-              {HERO.waitingCount.toLocaleString()}
-            </strong>
-            <span {...stylex.props(styles.proofLabel)}>마리 대기 중</span>
-          </div>
         </figure>
       </div>
     </section>

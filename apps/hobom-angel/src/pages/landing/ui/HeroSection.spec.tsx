@@ -34,7 +34,7 @@ describe("HeroSection", () => {
     expect(screen.getByRole("button", { name: HERO.secondary })).not.toBeNull();
   });
 
-  it("renders the waiting count as UI data instead of baking it into the image", () => {
+  it("renders the waiting count in the text badge without repeating it over the image", () => {
     render(
       <MemoryRouter>
         <HeroSection />
@@ -42,8 +42,11 @@ describe("HeroSection", () => {
     );
 
     expect(
-      screen.getByLabelText(`${HERO.waitingCount.toLocaleString()}마리 대기 중`),
+      screen.getByText(new RegExp(HERO.waitingCount.toLocaleString())),
     ).not.toBeNull();
+    expect(
+      screen.queryByLabelText(`${HERO.waitingCount.toLocaleString()}마리 대기 중`),
+    ).toBeNull();
     expect(screen.getByRole("img", { name: HERO.imageAlt }).getAttribute("alt")).not.toContain(
       String(HERO.waitingCount),
     );
