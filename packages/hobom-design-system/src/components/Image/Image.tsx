@@ -7,6 +7,8 @@ const shimmer = stylex.keyframes({
   "100%": { backgroundPosition: "420px 0" },
 });
 
+const REDUCE = "@media (prefers-reduced-motion: reduce)";
+
 const styles = stylex.create({
   frame: {
     position: "relative",
@@ -26,6 +28,7 @@ const styles = stylex.create({
     animationDuration: "1.5s",
     animationTimingFunction: "ease-in-out",
     animationIterationCount: "infinite",
+    [REDUCE]: { animationName: "none" },
   },
   image: {
     width: "100%",
@@ -36,6 +39,7 @@ const styles = stylex.create({
     transitionProperty: "opacity",
     transitionDuration: "0.4s",
     transitionTimingFunction: "ease",
+    [REDUCE]: { transitionDuration: "0ms" },
   },
   loaded: { opacity: 1 },
   cover: { objectFit: "cover" },

@@ -18,6 +18,8 @@ const pulse = stylex.keyframes({
   "100%": { opacity: 1 },
 });
 
+const REDUCE = "@media (prefers-reduced-motion: reduce)";
+
 const styles = stylex.create({
   root: {
     display: "block",
@@ -29,6 +31,7 @@ const styles = stylex.create({
     animationDuration: "1.5s",
     animationIterationCount: "infinite",
     animationTimingFunction: "ease-in-out",
+    [REDUCE]: { animationName: "none" },
   },
   text: { height: "1.2em", borderRadius: 4, transformOrigin: "0 55%", transform: "scale(1, 0.6)" },
   circular: { borderRadius: "50%" },
@@ -55,7 +58,11 @@ export const Skeleton = ({
   children,
   ...rest
 }: SkeletonProps) => {
-  const sx = stylex.props(styles.root, VARIANT_STYLE[variant], animation !== false && styles.animated);
+  const sx = stylex.props(
+    styles.root,
+    VARIANT_STYLE[variant],
+    animation !== false && styles.animated,
+  );
   const dynamic: CSSProperties = {};
 
   if (width != null) dynamic.width = width;
