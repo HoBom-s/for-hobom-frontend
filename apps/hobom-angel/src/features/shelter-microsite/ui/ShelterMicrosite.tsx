@@ -29,12 +29,30 @@ export const ShelterMicrosite = ({ slug }: { slug: string }) => {
         <ShelterHeader shelter={shelter} />
 
         <Hb.Tabs.Provider value={tab} onChange={(_, value) => setTab(value)}>
-          <Hb.Tabs.Root>
+          <Hb.Tabs.Root
+            style={{
+              gap: 3,
+              padding: 4,
+              overflowX: "auto",
+              border: "none",
+              borderRadius: 999,
+              backgroundColor: "var(--hb-color-border)",
+            }}
+          >
             {SHELTER_TABS.map((item) => (
               <Hb.Tabs.Item
                 key={item.value}
                 value={item.value}
                 label={item.value === "animals" ? `동물 ${stats.shelteredCount}` : item.label}
+                style={{
+                  minHeight: 40,
+                  margin: 0,
+                  border: "none",
+                  borderRadius: 999,
+                  backgroundColor: tab === item.value ? "var(--hb-color-surface)" : "transparent",
+                  color:
+                    tab === item.value ? "var(--hb-color-text-primary)" : "var(--hb-color-neutral)",
+                }}
               />
             ))}
           </Hb.Tabs.Root>

@@ -37,12 +37,8 @@ export const VolunteerBoard = () => {
   return (
     <div {...stylex.props(styles.root)}>
       <header {...stylex.props(styles.header)}>
-        <span {...stylex.props(styles.kicker)}>함께하는 손길</span>
-        <div {...stylex.props(styles.titleRow)}>
-          <span {...stylex.props(styles.rule)} aria-hidden />
-          <h1 {...stylex.props(styles.title)}>봉사활동</h1>
-        </div>
-        <p {...stylex.props(styles.subtitle)}>캘린더에서 봉사 일정을 확인하고 신청하세요.</p>
+        <h1 {...stylex.props(styles.title)}>함께할 봉사 일정</h1>
+        <p {...stylex.props(styles.subtitle)}>한 번의 참여도 아이들에게는 큰 하루가 됩니다.</p>
       </header>
 
       <div {...stylex.props(styles.controls)}>

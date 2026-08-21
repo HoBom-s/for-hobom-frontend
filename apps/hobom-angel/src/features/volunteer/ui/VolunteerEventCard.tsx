@@ -1,3 +1,4 @@
+// Claude Design의 흰색 일정 카드에 봉사 상태·일시·모집률을 구성하는 컴포넌트
 import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
@@ -25,89 +26,74 @@ interface VolunteerEventCardProps {
   controls: VolunteerSignupControls;
 }
 
-/** One volunteer event: schedule, shelter, scarcity, and a sign-up CTA. Opens
- *  the full detail in an overlay (§05). */
 export const VolunteerEventCard = ({ event, controls }: VolunteerEventCardProps) => {
   const overlay = useOverlay();
   const remaining = spotsLeft(event);
-  const progress = event.capacity > 0 ? Math.round((event.signedUpCount / event.capacity) * 100) : 0;
-
+  const progress =
+    event.capacity > 0 ? Math.round((event.signedUpCount / event.capacity) * 100) : 0;
   const openDetail = () =>
     overlay.open(({ close }) => (
       <VolunteerEventDialog event={event} controls={controls} onClose={close} />
     ));
 
   return (
-    <div {...stylex.props(styles.card)}>
-      {/* Branded green→warm tint header carries the WHITE title on a scrim. */}
-      <div {...stylex.props(styles.media)}>
-        <span {...stylex.props(styles.mediaScrim)} aria-hidden />
-        <div {...stylex.props(styles.mediaChips)}>
-          {event.mySignupStatus && (
-            <Hb.Chip
-              label={VOLUNTEER_SIGNUP_STATUS_LABEL[event.mySignupStatus]}
-              size="small"
-              variant="soft"
-              color={event.mySignupStatus === "APPROVED" ? "success" : "warning"}
-            />
-          )}
+    <article {...stylex.props(styles.card)}>
+      <div {...stylex.props(styles.chips)}>
+        {event.mySignupStatus && (
           <Hb.Chip
-            label={VOLUNTEER_STATUS_LABEL[event.status]}
+            label={VOLUNTEER_SIGNUP_STATUS_LABEL[event.mySignupStatus]}
             size="small"
             variant="soft"
-            color={STATUS_COLOR[event.status]}
+            color={event.mySignupStatus === "APPROVED" ? "success" : "warning"}
           />
-        </div>
-
-        <div {...stylex.props(styles.titleWrap)}>
-          <span {...stylex.props(styles.typeChip)}>
-            <Hb.Chip
-              label={VOLUNTEER_TYPE_LABEL[event.type]}
-              size="small"
-              variant="soft"
-              color={event.type === "OVERSEAS" ? "primary" : "default"}
-            />
-          </span>
-          <h3 {...stylex.props(styles.title)}>{event.title}</h3>
-        </div>
+        )}
+        <Hb.Chip
+          label={VOLUNTEER_STATUS_LABEL[event.status]}
+          size="small"
+          variant="soft"
+          color={STATUS_COLOR[event.status]}
+        />
+        <Hb.Chip
+          label={VOLUNTEER_TYPE_LABEL[event.type]}
+          size="small"
+          variant="soft"
+          color={event.type === "OVERSEAS" ? "primary" : "default"}
+        />
       </div>
 
-      <div {...stylex.props(styles.body)}>
-        {event.shelter && (
-          <Link to={shelterPath(event.shelter.slug)} {...stylex.props(styles.shelterLink)}>
-            <LocationOnOutlined fontSize="small" />
-            <Hb.Text variant="caption" color="text.secondary">
-              {event.shelter.name} · {event.shelter.region}
-            </Hb.Text>
-          </Link>
-        )}
+      <h3 {...stylex.props(styles.title)}>{event.title}</h3>
+      <span {...stylex.props(styles.metaRow)}>
+        <Schedule fontSize="small" />
+        {formatEventPeriod(event.startAt, event.endAt)}
+      </span>
 
-        <span {...stylex.props(styles.metaRow)}>
-          <Schedule fontSize="small" />
-          {formatEventPeriod(event.startAt, event.endAt)}
-        </span>
+      {event.shelter && (
+        <Link to={shelterPath(event.shelter.slug)} {...stylex.props(styles.shelterLink)}>
+          <LocationOnOutlined fontSize="small" />
+          {event.shelter.name} · {event.shelter.region}
+        </Link>
+      )}
 
-        {event.description && (
-          <>
-            <p {...stylex.props(styles.clamp)}>{event.description}</p>
-            <button type="button" {...stylex.props(styles.more)} onClick={openDetail}>
-              자세히 ›
-            </button>
-          </>
-        )}
+      {event.description && (
+        <button type="button" {...stylex.props(styles.description)} onClick={openDetail}>
+          {event.description}
+        </button>
+      )}
 
-        <Hb.Progress.Linear variant="determinate" value={progress} />
+      <div {...stylex.props(styles.progressBlock)}>
         <div {...stylex.props(styles.captionRow)}>
-          <span {...stylex.props(styles.caption)}>
-            모집 {event.signedUpCount}/{event.capacity}명 · 남은 자리 {remaining}
-          </span>
-          {isSignUpOpen(event) && remaining <= 3 && (
-            <Hb.Chip label="마감 임박" size="small" variant="soft" color="error" />
-          )}
+          <span>모집 인원</span>
+          <strong>
+            {event.signedUpCount} / {event.capacity}명
+          </strong>
         </div>
-
-        <SignUpButton event={event} controls={controls} fullWidth />
+        <Hb.Progress.Linear variant="determinate" value={progress} />
+        {isSignUpOpen(event) && remaining <= 3 && (
+          <span {...stylex.props(styles.urgent)}>남은 자리 {remaining}</span>
+        )}
       </div>
-    </div>
+
+      <SignUpButton event={event} controls={controls} fullWidth />
+    </article>
   );
 };

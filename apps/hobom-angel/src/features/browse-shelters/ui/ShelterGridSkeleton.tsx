@@ -13,12 +13,12 @@ const styles = stylex.create({
     boxShadow: "var(--hb-angel-shadow-sm)",
   },
   body: {
-    minHeight: 91,
+    minHeight: 76,
     paddingInline: 16,
     paddingTop: 14,
     paddingBottom: 16,
   },
-  cta: { marginTop: 14 },
+  region: { marginTop: 10 },
 });
 
 /** Directory loading state whose count, media ratio, and body match a shelter card. */
@@ -43,8 +43,8 @@ export const ShelterGridSkeleton = () => (
           />
           <div {...stylex.props(styles.body)}>
             <Hb.Skeleton variant="rectangular" width="45%" height={14} />
-            <div {...stylex.props(styles.cta)}>
-              <Hb.Skeleton variant="rectangular" width="100%" height={40} />
+            <div {...stylex.props(styles.region)}>
+              <Hb.Skeleton variant="rectangular" width="32%" height={12} />
             </div>
           </div>
         </div>
