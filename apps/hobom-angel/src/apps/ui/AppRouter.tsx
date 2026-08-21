@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
+import { LandingPage } from "@/pages/landing";
 import { ROUTES } from "@/shared/config";
 import { onIdle } from "@/shared/lib";
 import { useRouteMeta } from "@/shared/model";
@@ -12,10 +13,9 @@ import { OperatorRoute } from "./OperatorRoute";
 import { OperatorShellLayout } from "./OperatorShellLayout";
 import { ProtectedRoute } from "./ProtectedRoute";
 
-// Route-level code splitting — each page ships as its own chunk, loaded on demand.
-const LandingPage = lazy(() =>
-  import("@/pages/landing").then((module) => ({ default: module.LandingPage })),
-);
+// The public landing is static and owns the first impression, so render it with
+// the app shell instead of flashing the global lazy-route fallback on startup.
+// Data-heavy and authenticated pages remain split by route below.
 const FosterPage = lazy(() =>
   import("@/pages/foster").then((module) => ({ default: module.FosterPage })),
 );
