@@ -16,6 +16,8 @@ export const ROUTES = {
   SHELTER_DETAIL: "/shelters/:shelterSlug",
   FAVORITES: "/favorites",
   APPLICATIONS: "/applications",
+  INQUIRIES: "/inquiries",
+  INQUIRY_DETAIL: "/inquiries/:inquiryId",
   MY: "/my",
 
   // Shelter staff console.
@@ -51,3 +53,6 @@ export const fosterApplyPath = (animalId: string): string => `/foster/apply/${an
 
 /** Build the concrete path to a shelter's microsite (by slug). */
 export const shelterPath = (shelterSlug: string): string => `/shelters/${shelterSlug}`;
+
+/** Build the concrete path to an inquiry's message thread. */
+export const inquiryPath = (inquiryId: string): string => `/inquiries/${inquiryId}`;
