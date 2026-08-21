@@ -39,10 +39,18 @@ export const LoginForm = () => {
               <PasswordField />
             </div>
 
-            <label {...stylex.props(styles.remember)}>
-              <Hb.Checkbox checked={rememberMe} onChange={() => setRememberMe((value) => !value)} />
-              로그인 상태 유지
-            </label>
+            <div {...stylex.props(styles.optionsRow)}>
+              <label {...stylex.props(styles.remember)}>
+                <Hb.Checkbox
+                  checked={rememberMe}
+                  onChange={() => setRememberMe((value) => !value)}
+                />
+                로그인 상태 유지
+              </label>
+              <Link to={ROUTES.PASSWORD_RESET} {...stylex.props(styles.link)}>
+                비밀번호 찾기
+              </Link>
+            </div>
 
             <Hb.Button
               type="submit"

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { ROUTES } from "@/shared/config";
 import { styles } from "./LoginForm.styles";
 import type { LoginFormValues } from "../model/login-form.model";
 
@@ -44,11 +42,6 @@ export const PasswordField = () => {
           />
         )}
       />
-      <div {...stylex.props(styles.pwActionRow)}>
-        <Link to={ROUTES.PASSWORD_RESET} {...stylex.props(styles.link)}>
-          비밀번호 찾기
-        </Link>
-      </div>
     </div>
   );
 };

@@ -211,13 +211,15 @@ export const styles = stylex.create({
     marginBottom: 6,
   },
   labelText: { fontSize: "0.875rem", fontWeight: 600, color: "var(--hb-color-text-primary)" },
-  pwActionRow: {
+  optionsRow: {
     display: "flex",
-    justifyContent: "flex-end",
-    marginTop: 4,
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+    marginTop: 10,
   },
   link: {
-    minHeight: 32,
+    minHeight: 40,
     display: "inline-flex",
     alignItems: "center",
     fontSize: "0.8125rem",
@@ -235,7 +237,6 @@ export const styles = stylex.create({
     paddingInline: 8,
   },
   remember: {
-    marginTop: 10,
     display: "flex",
     alignItems: "center",
     gap: 8,
