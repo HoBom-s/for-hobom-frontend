@@ -1,13 +1,14 @@
 // Static landing content — aggregate values are swapped for real queries in a later phase.
 
 export const HERO = {
-  badge: "오늘 322마리가 가족을 기다려요",
+  badgePrefix: "오늘",
+  badgeSuffix: "마리가 가족을 기다려요",
   title: ["기다림 끝에,", "가족을 만나는 일."],
   lead: "보호소에서 가족을 기다리는 동물을 기록하고 연결합니다. 충분히 살펴보고, 묻고, 만난 뒤 새로운 관계를 시작하세요.",
   primary: "입양 동물 보기",
   secondary: "임시보호 안내",
   imageAlt: "햇살이 드는 보호소에서 함께 쉬고 있는 구조견과 고양이",
-  waitingCount: "322",
+  waitingCount: 322,
 };
 
 export const STATS = [

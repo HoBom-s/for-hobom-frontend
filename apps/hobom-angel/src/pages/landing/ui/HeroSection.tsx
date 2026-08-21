@@ -7,7 +7,8 @@ import { ArrowForwardOutlined } from "hobom-design-system/icons";
 import { ROUTES } from "@/shared/config";
 import { HERO } from "../model/landing.fixtures";
 import { styles } from "./HeroSection.styles";
-import heroAdoptionFamily from "./assets/hero-adoption-family.png";
+import heroShelterGarden720 from "./assets/hero-shelter-garden-720.jpg";
+import heroShelterGarden1200 from "./assets/hero-shelter-garden-1200.jpg";
 
 export const HeroSection = () => {
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ export const HeroSection = () => {
         <div {...stylex.props(styles.copy)}>
           <span {...stylex.props(styles.kicker)}>
             <span {...stylex.props(styles.kickerDot)} aria-hidden="true" />
-            {HERO.badge}
+            {HERO.badgePrefix} {HERO.waitingCount.toLocaleString()}
+            {HERO.badgeSuffix}
           </span>
           <h1 {...stylex.props(styles.title)}>
             {HERO.title.map((line, index) => (
@@ -57,15 +59,26 @@ export const HeroSection = () => {
         <figure {...stylex.props(styles.visual)}>
           <div {...stylex.props(styles.photoFrame)}>
             <img
-              src={heroAdoptionFamily}
-              width={558}
-              height={482}
+              src={heroShelterGarden720}
+              srcSet={`${heroShelterGarden720} 720w, ${heroShelterGarden1200} 1200w`}
+              sizes="(min-width: 960px) 500px, calc(100vw - 40px)"
+              width={1200}
+              height={900}
               alt={HERO.imageAlt}
               loading="eager"
               fetchPriority="high"
               decoding="async"
               {...stylex.props(styles.photo)}
             />
+          </div>
+          <div
+            {...stylex.props(styles.proofChip)}
+            aria-label={`${HERO.waitingCount.toLocaleString()}마리 대기 중`}
+          >
+            <strong {...stylex.props(styles.proofValue)}>
+              {HERO.waitingCount.toLocaleString()}
+            </strong>
+            <span {...stylex.props(styles.proofLabel)}>마리 대기 중</span>
           </div>
         </figure>
       </div>

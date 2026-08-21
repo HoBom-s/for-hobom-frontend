@@ -16,9 +16,10 @@ describe("HeroSection", () => {
 
     const image = screen.getByRole("img", { name: HERO.imageAlt });
 
-    expect(image.getAttribute("width")).toBe("558");
-    expect(image.getAttribute("height")).toBe("482");
-    expect(image.getAttribute("srcset")).toBeNull();
+    expect(image.getAttribute("width")).toBe("1200");
+    expect(image.getAttribute("height")).toBe("900");
+    expect(image.getAttribute("srcset")).toContain("720w");
+    expect(image.getAttribute("srcset")).toContain("1200w");
     expect(image.getAttribute("fetchpriority")).toBe("high");
   });
 
@@ -31,5 +32,20 @@ describe("HeroSection", () => {
 
     expect(screen.getByRole("button", { name: HERO.primary })).not.toBeNull();
     expect(screen.getByRole("button", { name: HERO.secondary })).not.toBeNull();
+  });
+
+  it("renders the waiting count as UI data instead of baking it into the image", () => {
+    render(
+      <MemoryRouter>
+        <HeroSection />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByLabelText(`${HERO.waitingCount.toLocaleString()}마리 대기 중`),
+    ).not.toBeNull();
+    expect(screen.getByRole("img", { name: HERO.imageAlt }).getAttribute("alt")).not.toContain(
+      String(HERO.waitingCount),
+    );
   });
 });
