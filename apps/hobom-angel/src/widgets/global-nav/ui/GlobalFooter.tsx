@@ -56,8 +56,8 @@ const FooterItem = ({ label, to }: FooterLink) =>
     <span {...stylex.props(styles.link)}>{label}</span>
   );
 
-/** Desktop-only global footer (§0.5) — a dark, four-column footer with a brand
- *  block and a legal bar. Hidden on mobile, where the bottom tab navigates. */
+/** Desktop-only global footer (§0.5) — existing content arranged on the warm
+ *  paper surface from Claude Design. Mobile continues to use the bottom tab. */
 export const GlobalFooter = () => (
   <footer {...stylex.props(styles.root)}>
     <div {...stylex.props(styles.top)}>

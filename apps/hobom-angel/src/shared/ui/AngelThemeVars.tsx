@@ -34,6 +34,8 @@ export const ANGEL_THEME_CSS =
   `--hb-angel-urgent-tint:#F6E4E0;` +
   `--hb-angel-surface-alt:#F4EFE6;` +
   `--hb-angel-card:#FFFFFF;` +
+  `--hb-angel-footer:#EFE8DC;` +
+  `--hb-angel-footer-border:#D9CFBE;` +
   `--hb-angel-on-photo:#FBF7F0;` +
   `--hb-angel-on-photo-strong:rgba(251,247,240,0.92);` +
   `--hb-angel-on-photo-muted:rgba(251,247,240,0.78);` +
