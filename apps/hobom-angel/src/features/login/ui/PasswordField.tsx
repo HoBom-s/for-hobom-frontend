@@ -15,9 +15,6 @@ export const PasswordField = () => {
     <div>
       <div {...stylex.props(styles.pwLabelRow)}>
         <span {...stylex.props(styles.labelText)}>비밀번호</span>
-        <Link to={ROUTES.PASSWORD_RESET} {...stylex.props(styles.link)}>
-          비밀번호 찾기
-        </Link>
       </div>
       <Controller
         control={control}
@@ -47,6 +44,11 @@ export const PasswordField = () => {
           />
         )}
       />
+      <div {...stylex.props(styles.pwActionRow)}>
+        <Link to={ROUTES.PASSWORD_RESET} {...stylex.props(styles.link)}>
+          비밀번호 찾기
+        </Link>
+      </div>
     </div>
   );
 };

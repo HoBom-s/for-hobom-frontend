@@ -208,11 +208,22 @@ export const styles = stylex.create({
   pwLabelRow: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
     marginBottom: 6,
   },
   labelText: { fontSize: "0.875rem", fontWeight: 600, color: "var(--hb-color-text-primary)" },
-  link: { fontSize: "0.8125rem", fontWeight: 600, color: "var(--hb-color-accent-dark)" },
+  pwActionRow: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: 4,
+  },
+  link: {
+    minHeight: 32,
+    display: "inline-flex",
+    alignItems: "center",
+    fontSize: "0.8125rem",
+    fontWeight: 600,
+    color: "var(--hb-color-accent-dark)",
+  },
   toggle: {
     minHeight: 40,
     borderWidth: 0,
@@ -224,7 +235,7 @@ export const styles = stylex.create({
     paddingInline: 8,
   },
   remember: {
-    marginTop: 18,
+    marginTop: 10,
     display: "flex",
     alignItems: "center",
     gap: 8,
