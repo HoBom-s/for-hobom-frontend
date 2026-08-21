@@ -1,4 +1,4 @@
-// 보호소 기록지 스타일의 랜딩 히어로를 구성하는 섹션
+// Claude Design의 홈 히어로를 프로젝트 라우팅과 로컬 이미지로 구현하는 섹션
 import { Fragment } from "react";
 import { useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
@@ -16,71 +16,65 @@ export const HeroSection = () => {
   return (
     <section {...stylex.props(styles.section)} id="top">
       <div {...stylex.props(styles.inner)}>
-        <div {...stylex.props(styles.meta)} aria-label="호봄엔젤 저널 정보">
-          <span>{HERO.issue}</span>
-          <span>{HERO.edition}</span>
-        </div>
-
-        <div {...stylex.props(styles.heroGrid)}>
-          <div {...stylex.props(styles.copy)}>
-            <h1 {...stylex.props(styles.title)}>
-              {HERO.title.map((line, index) => (
-                <Fragment key={line}>
-                  {index > 0 && <br />}
-                  <span {...stylex.props(index > 0 && styles.titleAccent)}>{line}</span>
-                </Fragment>
-              ))}
-            </h1>
-            <p {...stylex.props(styles.lead)}>{HERO.lead}</p>
-            <div {...stylex.props(styles.cta)}>
-              <Hb.Button
-                size="large"
-                endIcon={<ArrowForwardOutlined style={{ fontSize: 19 }} />}
-                style={{
-                  borderRadius: 0,
-                  backgroundColor: "var(--hb-color-text-primary)",
-                  color: "var(--hb-color-surface)",
-                }}
-                onClick={() => navigate(ROUTES.ANIMALS)}
-              >
-                {HERO.primary}
-              </Hb.Button>
-              <Hb.Button
-                variant="ghost"
-                size="large"
-                style={{ borderRadius: 0 }}
-                onClick={() => navigate(ROUTES.FOSTER)}
-              >
-                {HERO.secondary}
-              </Hb.Button>
-            </div>
+        <div {...stylex.props(styles.copy)}>
+          <span {...stylex.props(styles.kicker)}>
+            <span {...stylex.props(styles.kickerDot)} aria-hidden="true" />
+            {HERO.badge}
+          </span>
+          <h1 {...stylex.props(styles.title)}>
+            {HERO.title.map((line, index) => (
+              <Fragment key={line}>
+                {index > 0 && <br />}
+                <span {...stylex.props(index > 0 && styles.titleAccent)}>{line}</span>
+              </Fragment>
+            ))}
+          </h1>
+          <p {...stylex.props(styles.lead)}>{HERO.lead}</p>
+          <div {...stylex.props(styles.cta)}>
+            <Hb.Button
+              shape="pill"
+              size="large"
+              endIcon={<ArrowForwardOutlined style={{ fontSize: 19 }} />}
+              onClick={() => navigate(ROUTES.ANIMALS)}
+            >
+              {HERO.primary}
+            </Hb.Button>
+            <Hb.Button
+              variant="ghost"
+              shape="pill"
+              size="large"
+              style={{
+                backgroundColor: "var(--hb-angel-card)",
+                color: "var(--hb-color-text-primary)",
+                boxShadow: "var(--hb-angel-shadow-sm)",
+              }}
+              onClick={() => navigate(ROUTES.FOSTER)}
+            >
+              {HERO.secondary}
+            </Hb.Button>
           </div>
-
-          <figure {...stylex.props(styles.visual)}>
-            <div {...stylex.props(styles.photoFrame)}>
-              <img
-                src={heroAnimals720}
-                srcSet={`${heroAnimals720} 720w, ${heroAnimals1200} 1200w`}
-                sizes="(min-width: 960px) 440px, calc(100vw - 32px)"
-                width={1200}
-                height={900}
-                alt={HERO.imageAlt}
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                {...stylex.props(styles.photo)}
-              />
-              <div
-                {...stylex.props(styles.countBlock)}
-                aria-label={`${HERO.waitingCount}마리 대기 중`}
-              >
-                <strong {...stylex.props(styles.countValue)}>{HERO.waitingCount}</strong>
-                <span {...stylex.props(styles.countLabel)}>마리 대기 중</span>
-              </div>
-            </div>
-            <figcaption {...stylex.props(styles.caption)}>{HERO.imageCaption}</figcaption>
-          </figure>
         </div>
+
+        <figure {...stylex.props(styles.visual)}>
+          <div {...stylex.props(styles.photoFrame)}>
+            <img
+              src={heroAnimals720}
+              srcSet={`${heroAnimals720} 720w, ${heroAnimals1200} 1200w`}
+              sizes="(min-width: 960px) 500px, calc(100vw - 40px)"
+              width={1200}
+              height={900}
+              alt={HERO.imageAlt}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              {...stylex.props(styles.photo)}
+            />
+          </div>
+          <div {...stylex.props(styles.proofChip)} aria-label={`${HERO.waitingCount}마리 대기 중`}>
+            <strong {...stylex.props(styles.proofValue)}>{HERO.waitingCount}</strong>
+            <span {...stylex.props(styles.proofLabel)}>마리 대기 중</span>
+          </div>
+        </figure>
       </div>
     </section>
   );

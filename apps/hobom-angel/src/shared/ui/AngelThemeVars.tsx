@@ -1,90 +1,71 @@
-/**
- * Angel brand theme — "Meadow & Marigold".
- *
- * Angel doesn't fork the design system — it *themes* it. This overrides the core
- * `--hb-color-*` tokens and adds a brand token layer the consumer surface needs:
- * a two-hue system (meadow green = trust, marigold = hope), a 3-tier elevation
- * ramp, a warm-neutral canvas, a real type scale, and motion tokens. Every value
- * is WCAG-AA credible. Mount once after the DS `ColorSchemeVars`.
- */
-export const ANGEL_THEME_CSS = `:root{` +
-  // ── Core retheme: meadow green as the trust primary ──
-  `--hb-color-accent:oklch(0.62 0.15 152);` +
-  `--hb-color-accent-dark:oklch(0.46 0.13 152);` +
-  `--hb-color-accent-contrast:oklch(0.99 0.004 95);` +
-  // Warm-neutral canvas (not clinical grey).
-  `--hb-color-surface:oklch(0.995 0.004 95);` +
-  `--hb-color-bg:oklch(0.965 0.014 92);` +
-  // Control radius per the Angel spec.
-  `--hb-radius-control:12px;` +
-
-  // ── Green family (trust / status) ──
-  `--hb-angel-green-deep:oklch(0.40 0.10 152);` +
-  `--hb-angel-green-tint:oklch(0.95 0.045 152);` +
-  `--hb-angel-green-tint-strong:oklch(0.90 0.07 152);` +
-
-  // ── On-photo / on-accent foregrounds (text over the brand hero photo) ──
-  `--hb-angel-on-photo:oklch(1 0 0);` +
-  `--hb-angel-on-photo-strong:oklch(1 0 0 / 0.92);` +
-  `--hb-angel-on-photo-muted:oklch(1 0 0 / 0.88);` +
-  `--hb-angel-on-photo-fill:oklch(1 0 0 / 0.22);` +
-  // Text shadow keeping the on-photo name legible over the media scrim.
-  `--hb-angel-on-photo-shadow:0 1px 6px oklch(0.20 0.04 152 / 0.45);` +
-  // Frosted disc behind an action floating over photo media (resting / hover).
-  `--hb-angel-disc-scrim:oklch(0.20 0.04 152 / 0.28);` +
-  `--hb-angel-disc-scrim-strong:oklch(0.20 0.04 152 / 0.44);` +
-
-  // ── Warm marigold-apricot family (HOPE / one emotional CTA per surface) ──
-  `--hb-angel-accent-warm:oklch(0.78 0.16 62);` +
-  `--hb-angel-accent-warm-dark:oklch(0.60 0.15 55);` +
-  `--hb-angel-accent-warm-contrast:oklch(0.28 0.06 55);` +
-  `--hb-angel-warm-tint:oklch(0.96 0.035 68);` +
-  `--hb-angel-warm-tint-strong:oklch(0.92 0.06 66);` +
-
-  // ── Urgency (마감 임박 — distinct from warm) ──
-  `--hb-angel-urgent:oklch(0.64 0.19 32);` +
-  `--hb-angel-urgent-tint:oklch(0.95 0.04 40);` +
-
-  // ── Surfaces ──
-  `--hb-angel-surface-alt:oklch(0.975 0.012 90);` +
-
-  // ── Radii (refined — less bubbly than the first pass) ──
-  `--hb-angel-radius-card:16px;` +
-  `--hb-angel-radius-md:14px;` +
-  `--hb-angel-radius-sm:12px;` +
-  `--hb-angel-radius-control:12px;` +
+// Claude Design의 종이색·녹색 기반 브랜드 토큰을 앱 전역에 제공하는 테마
+export const ANGEL_THEME_CSS =
+  `:root{` +
+  `--hb-color-canvas:#F3EDE3;` +
+  `--hb-color-surface:#FBF7F0;` +
+  `--hb-color-bg:#F3EDE3;` +
+  `--hb-color-border:#E7DFD1;` +
+  `--hb-color-text-primary:#22312A;` +
+  `--hb-color-text-secondary:#5C6A61;` +
+  `--hb-color-text-disabled:#9AA096;` +
+  `--hb-color-neutral:#7C8A80;` +
+  `--hb-color-accent:#2E6B4E;` +
+  `--hb-color-accent-dark:#1F4C37;` +
+  `--hb-color-accent-contrast:#FBF7F0;` +
+  `--hb-color-danger:#8A3F2E;` +
+  `--hb-color-success:#3C8060;` +
+  `--hb-color-success-subtle:#E7F0E7;` +
+  `--hb-color-warning:#B4763A;` +
+  `--hb-color-warning-subtle:#FBEEDF;` +
+  `--hb-color-chrome:#FBF7F0;` +
+  `--hb-radius-control:18px;` +
+  `--hb-font-display:'Gowun Batang',serif;` +
+  `--hb-font-body:'IBM Plex Sans KR',system-ui,sans-serif;` +
+  `--hb-font-mono:ui-monospace,SFMono-Regular,Menlo,monospace;` +
+  `--hb-angel-green-deep:#1F4C37;` +
+  `--hb-angel-green-tint:#E7F0E7;` +
+  `--hb-angel-green-tint-strong:#D5E6D8;` +
+  `--hb-angel-accent-warm:#F6C89A;` +
+  `--hb-angel-accent-warm-dark:#B4763A;` +
+  `--hb-angel-accent-warm-contrast:#3A2A18;` +
+  `--hb-angel-warm-tint:#FBEEDF;` +
+  `--hb-angel-warm-tint-strong:#F4DFC8;` +
+  `--hb-angel-urgent:#8A3F2E;` +
+  `--hb-angel-urgent-tint:#F6E4E0;` +
+  `--hb-angel-surface-alt:#F4EFE6;` +
+  `--hb-angel-card:#FFFFFF;` +
+  `--hb-angel-on-photo:#FBF7F0;` +
+  `--hb-angel-on-photo-strong:rgba(251,247,240,0.92);` +
+  `--hb-angel-on-photo-muted:rgba(251,247,240,0.78);` +
+  `--hb-angel-on-photo-fill:rgba(251,247,240,0.18);` +
+  `--hb-angel-on-photo-shadow:0 1px 6px rgba(34,49,42,0.45);` +
+  `--hb-angel-disc-scrim:rgba(34,49,42,0.28);` +
+  `--hb-angel-disc-scrim-strong:rgba(34,49,42,0.44);` +
+  `--hb-angel-radius-card:22px;` +
+  `--hb-angel-radius-md:18px;` +
+  `--hb-angel-radius-sm:16px;` +
+  `--hb-angel-radius-control:18px;` +
   `--hb-angel-radius-pill:999px;` +
-
-  // ── Elevation (3-tier resting ramp; -md aliased to the legacy name) ──
-  `--hb-angel-shadow-sm:0 1px 2px rgba(28,45,38,0.05), 0 2px 8px -4px rgba(28,45,38,0.10);` +
-  `--hb-angel-shadow-md:0 4px 12px -4px rgba(28,45,38,0.10), 0 10px 26px -14px rgba(28,45,38,0.18);` +
-  `--hb-angel-shadow-lg:0 12px 30px -12px rgba(28,45,38,0.20), 0 30px 60px -28px rgba(28,45,38,0.28);` +
-  `--hb-angel-shadow:0 4px 12px -4px rgba(28,45,38,0.10), 0 10px 26px -14px rgba(28,45,38,0.18);` +
-  `--hb-angel-glow-accent:0 6px 20px -6px oklch(0.62 0.15 152 / 0.40);` +
-  `--hb-angel-glow-warm:0 6px 20px -6px oklch(0.78 0.16 62 / 0.45);` +
-  `--hb-angel-focus-ring:0 0 0 3px oklch(0.62 0.15 152 / 0.35);` +
-
-  // ── Gradients / washes ──
-  `--hb-angel-cta-gradient:linear-gradient(135deg, oklch(0.62 0.15 152) 0%, oklch(0.52 0.15 148) 55%, oklch(0.60 0.15 62) 130%);` +
-  `--hb-angel-hero-wash:radial-gradient(120% 120% at 15% 10%, oklch(0.96 0.035 68) 0%, oklch(0.97 0.02 90) 45%, oklch(0.965 0.014 92) 100%);` +
-  `--hb-angel-photo-scrim:linear-gradient(to top, oklch(0.20 0.04 152 / 0.72) 0%, oklch(0.20 0.04 152 / 0.10) 45%, transparent 70%);` +
-  // Uniform full-media scrim: darkens an entire thumbnail so centered on-photo
-  // counts read on hover (the bottom-anchored photo-scrim can't cover center).
-  `--hb-angel-media-scrim:linear-gradient(to top, oklch(0.20 0.04 152 / 0.62) 0%, oklch(0.20 0.04 152 / 0.30) 100%);` +
-  // Diagonal brand-hero scrim: keeps overlaid brand copy legible over the auth photo.
-  `--hb-angel-photo-scrim-brand:linear-gradient(155deg, oklch(0.40 0.10 152 / 0.78) 0%, oklch(0.40 0.10 152 / 0.30) 55%, oklch(0.20 0.04 152 / 0.72) 100%);` +
-
-  // ── Editorial rhythm (grafted from Warm Ledger) ──
-  `--hb-angel-space-section:clamp(56px, 7vw, 96px);` +
-  `--hb-angel-space-header:28px;` +
+  `--hb-angel-shadow-sm:0 1px 2px rgba(34,49,42,0.05);` +
+  `--hb-angel-shadow-md:0 1px 2px rgba(34,49,42,0.05),0 10px 24px -18px rgba(34,49,42,0.25);` +
+  `--hb-angel-shadow-lg:0 2px 4px rgba(34,49,42,0.05),0 30px 70px -40px rgba(34,49,42,0.35);` +
+  `--hb-angel-shadow:0 1px 2px rgba(34,49,42,0.05),0 10px 24px -18px rgba(34,49,42,0.25);` +
+  `--hb-angel-glow-accent:0 10px 24px -12px rgba(46,107,78,0.70);` +
+  `--hb-angel-glow-warm:0 10px 24px -12px rgba(180,118,58,0.42);` +
+  `--hb-angel-focus-ring:0 0 0 3px rgba(46,107,78,0.24);` +
+  `--hb-angel-cta-gradient:linear-gradient(150deg,#2E6B4E,#1F4C37);` +
+  `--hb-angel-hero-wash:linear-gradient(180deg,#FBF7F0 0%,#F8F3EA 100%);` +
+  `--hb-angel-photo-scrim:linear-gradient(to top,rgba(34,49,42,0.68),rgba(34,49,42,0.08) 58%,transparent);` +
+  `--hb-angel-media-scrim:linear-gradient(to top,rgba(34,49,42,0.58),rgba(34,49,42,0.22));` +
+  `--hb-angel-photo-scrim-brand:linear-gradient(155deg,rgba(46,107,78,0.76),rgba(31,76,55,0.34) 55%,rgba(34,49,42,0.68));` +
+  `--hb-angel-space-section:clamp(44px,6vw,72px);` +
+  `--hb-angel-space-header:22px;` +
   `--hb-angel-measure:34rem;` +
-
-  // ── Motion ──
-  `--hb-angel-dur-fast:120ms;` +
+  `--hb-angel-dur-fast:140ms;` +
   `--hb-angel-dur:180ms;` +
-  `--hb-angel-dur-slow:320ms;` +
-  `--hb-angel-ease:cubic-bezier(0.22, 0.61, 0.36, 1);` +
-  `--hb-angel-ease-spring:cubic-bezier(0.34, 1.56, 0.64, 1);` +
+  `--hb-angel-dur-slow:300ms;` +
+  `--hb-angel-ease:cubic-bezier(0.22,0.61,0.36,1);` +
+  `--hb-angel-ease-spring:cubic-bezier(0.34,1.3,0.64,1);` +
   `}`;
 
 export const AngelThemeVars = () => <style>{ANGEL_THEME_CSS}</style>;

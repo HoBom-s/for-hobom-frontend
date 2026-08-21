@@ -12,10 +12,12 @@ body,
 
 body {
   min-height: 100vh;
-  font-family: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  color: var(--hb-angel-ink, #2c3830);
-  background: #ffffff;
+  font-family: "IBM Plex Sans KR", system-ui, sans-serif;
+  color: var(--hb-color-text-primary, #22312a);
+  background: var(--hb-color-canvas, #f3ede3);
   -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 * {
@@ -25,4 +27,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Gowun Batang", serif;
 }

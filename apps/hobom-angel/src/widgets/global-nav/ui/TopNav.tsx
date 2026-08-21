@@ -56,24 +56,10 @@ export const TopNav = ({ user, isAuthenticated }: TopNavProps) => {
           <>
             <span {...stylex.props(styles.spacer)} />
             <div {...stylex.props(styles.actions)}>
-              <Hb.Button
-                variant="ghost"
-                size="small"
-                style={{ borderRadius: 0 }}
-                onClick={() => navigate(ROUTES.LOGIN)}
-              >
+              <Hb.Button variant="ghost" size="small" onClick={() => navigate(ROUTES.LOGIN)}>
                 로그인
               </Hb.Button>
-              <Hb.Button
-                variant="primary"
-                size="small"
-                style={{
-                  borderRadius: 0,
-                  backgroundColor: "var(--hb-color-text-primary)",
-                  color: "var(--hb-color-surface)",
-                }}
-                onClick={() => navigate(ROUTES.SIGNUP)}
-              >
+              <Hb.Button variant="primary" size="small" onClick={() => navigate(ROUTES.SIGNUP)}>
                 회원가입
               </Hb.Button>
             </div>

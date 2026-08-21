@@ -1,46 +1,46 @@
-// 누적 성과를 잉크색 기록 띠로 표현하는 통계 섹션 스타일
+// Claude Design의 흰색 3열 누적 성과 카드 스타일
 import * as stylex from "@stylexjs/stylex";
 
 const TABLET = "@media (min-width: 640px)";
 
 export const styles = stylex.create({
   section: {
-    paddingInline: "clamp(16px, 5vw, 64px)",
-    backgroundColor: "var(--hb-color-text-primary)",
+    paddingInline: { default: 20, [TABLET]: 40 },
+    paddingBottom: 8,
+    backgroundColor: "var(--hb-color-surface)",
   },
   card: {
-    maxWidth: 1200,
+    maxWidth: 1120,
     margin: 0,
     marginInline: "auto",
-    paddingBlock: { default: 28, [TABLET]: 38 },
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
+    gridTemplateColumns: { default: "1fr", [TABLET]: "repeat(3,1fr)" },
+    gap: 12,
   },
   item: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-    borderLeftWidth: 1,
-    borderLeftStyle: "solid",
-    borderLeftColor: "var(--hb-color-text-disabled)",
+    paddingBlock: 24,
+    paddingInline: 26,
+    borderRadius: "var(--hb-angel-radius-card)",
+    backgroundColor: "var(--hb-angel-card)",
+    boxShadow: "var(--hb-angel-shadow-sm)",
   },
-  itemFirst: { borderLeftWidth: 0 },
+  itemFirst: {},
   value: {
     order: 1,
     margin: 0,
-    fontFamily: "var(--hb-font-mono, ui-monospace, monospace)",
-    fontSize: { default: "1.6rem", [TABLET]: "2.4rem" },
-    fontWeight: 800,
-    letterSpacing: "-0.03em",
-    color: "var(--hb-color-surface)",
+    fontFamily: "var(--hb-font-display)",
+    fontSize: "2rem",
+    fontWeight: 700,
+    letterSpacing: "-0.02em",
+    color: "var(--hb-color-text-primary)",
     fontVariantNumeric: "tabular-nums",
   },
   label: {
     order: 2,
-    marginTop: 7,
-    fontSize: { default: "0.6875rem", [TABLET]: "0.8125rem" },
-    fontWeight: 600,
-    color: "var(--hb-color-text-disabled)",
+    marginTop: 6,
+    fontSize: "0.84375rem",
+    color: "var(--hb-color-neutral)",
   },
 });

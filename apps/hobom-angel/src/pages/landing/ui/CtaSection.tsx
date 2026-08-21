@@ -1,8 +1,7 @@
-// 입양 여정의 다음 행동을 편집형 문장과 단일 버튼으로 제안하는 섹션
+// Claude Design의 녹색 그라디언트와 따뜻한 행동 버튼을 구현하는 홈 CTA
 import { useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { ArrowForwardOutlined } from "hobom-design-system/icons";
 import { ROUTES } from "@/shared/config";
 import { CTA } from "../model/landing.fixtures";
 import { styles } from "./CtaSection.styles";
@@ -13,20 +12,17 @@ export const CtaSection = () => {
   return (
     <section {...stylex.props(styles.section)} aria-labelledby="landing-cta-title">
       <div {...stylex.props(styles.inner)}>
-        <div {...stylex.props(styles.copy)}>
-          <span {...stylex.props(styles.kicker)}>03 / 다음 장</span>
-          <h2 id="landing-cta-title" {...stylex.props(styles.title)}>
-            {CTA.title}
-          </h2>
-          <p {...stylex.props(styles.lead)}>{CTA.lead}</p>
-        </div>
+        <h2 id="landing-cta-title" {...stylex.props(styles.title)}>
+          {CTA.title}
+        </h2>
+        <p {...stylex.props(styles.lead)}>{CTA.lead}</p>
         <Hb.Button
+          shape="pill"
           size="large"
-          endIcon={<ArrowForwardOutlined style={{ fontSize: 19 }} />}
           style={{
-            borderRadius: 0,
-            backgroundColor: "var(--hb-color-text-primary)",
-            color: "var(--hb-color-surface)",
+            marginTop: 26,
+            backgroundColor: "var(--hb-angel-accent-warm)",
+            color: "var(--hb-angel-accent-warm-contrast)",
           }}
           onClick={() => navigate(ROUTES.ANIMALS)}
         >
