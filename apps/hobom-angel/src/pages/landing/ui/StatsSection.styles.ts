@@ -1,41 +1,46 @@
+// 누적 성과를 잉크색 기록 띠로 표현하는 통계 섹션 스타일
 import * as stylex from "@stylexjs/stylex";
 
 const TABLET = "@media (min-width: 640px)";
 
 export const styles = stylex.create({
   section: {
-    paddingBlock: "clamp(24px, 4vw, 40px)",
-    paddingInline: "clamp(16px, 4vw, 40px)",
-    marginTop: -32,
+    paddingInline: "clamp(16px, 5vw, 64px)",
+    backgroundColor: "var(--hb-color-text-primary)",
   },
   card: {
-    maxWidth: 1000,
+    maxWidth: 1200,
+    margin: 0,
     marginInline: "auto",
-    backgroundColor: "var(--hb-color-surface)",
-    borderRadius: "var(--hb-angel-radius-card)",
-    boxShadow: "var(--hb-angel-shadow-md)",
-    paddingBlock: { default: 24, [TABLET]: 32 },
-    paddingInline: { default: 16, [TABLET]: 32 },
+    paddingBlock: { default: 28, [TABLET]: 38 },
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
   },
   item: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     textAlign: "center",
-    borderLeftWidth: { default: 0, [TABLET]: 1 },
+    borderLeftWidth: 1,
     borderLeftStyle: "solid",
-    borderLeftColor: "var(--hb-color-border)",
+    borderLeftColor: "var(--hb-color-text-disabled)",
   },
   itemFirst: { borderLeftWidth: 0 },
   value: {
-    fontSize: { default: "1.75rem", [TABLET]: "2.5rem" },
+    order: 1,
+    margin: 0,
+    fontFamily: "var(--hb-font-mono, ui-monospace, monospace)",
+    fontSize: { default: "1.6rem", [TABLET]: "2.4rem" },
     fontWeight: 800,
-    letterSpacing: "-0.02em",
-    color: "var(--hb-color-accent-dark)",
+    letterSpacing: "-0.03em",
+    color: "var(--hb-color-surface)",
     fontVariantNumeric: "tabular-nums",
   },
   label: {
-    marginTop: 6,
-    fontSize: { default: "0.75rem", [TABLET]: "0.875rem" },
-    color: "var(--hb-color-text-secondary)",
+    order: 2,
+    marginTop: 7,
+    fontSize: { default: "0.6875rem", [TABLET]: "0.8125rem" },
+    fontWeight: 600,
+    color: "var(--hb-color-text-disabled)",
   },
 });

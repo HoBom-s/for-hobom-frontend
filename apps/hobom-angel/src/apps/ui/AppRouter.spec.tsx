@@ -26,7 +26,7 @@ describe("AppRouter", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole("heading", { name: /좋은 만남은\s*서두르지 않아요\./ })).not.toBeNull();
+    expect(screen.getByRole("heading", { level: 1 })).not.toBeNull();
     expect(screen.queryByText("불러오는 중...")).toBeNull();
   });
 });

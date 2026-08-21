@@ -7,6 +7,7 @@ import { managedShelter } from "@/entities/user";
 import type { CurrentUser } from "@/entities/user";
 import { PRIMARY_NAV } from "../model/nav-items";
 import { activeLinkProps } from "./nav-link-props";
+import { BrandMark } from "./BrandMark";
 import { NavSearch } from "./NavSearch";
 import { ProfileMenu } from "./ProfileMenu";
 import { styles } from "./GlobalNav.styles";
@@ -25,7 +26,8 @@ export const TopNav = ({ user, isAuthenticated }: TopNavProps) => {
     <header {...stylex.props(styles.topbar)}>
       <div {...stylex.props(styles.topInner)}>
         <Link to={ROUTES.HOME} {...stylex.props(styles.brand)}>
-          🐾 호봄엔젤
+          <BrandMark />
+          호봄엔젤
         </Link>
 
         {isAuthenticated && user ? (
@@ -54,10 +56,24 @@ export const TopNav = ({ user, isAuthenticated }: TopNavProps) => {
           <>
             <span {...stylex.props(styles.spacer)} />
             <div {...stylex.props(styles.actions)}>
-              <Hb.Button variant="ghost" size="small" onClick={() => navigate(ROUTES.LOGIN)}>
+              <Hb.Button
+                variant="ghost"
+                size="small"
+                style={{ borderRadius: 0 }}
+                onClick={() => navigate(ROUTES.LOGIN)}
+              >
                 로그인
               </Hb.Button>
-              <Hb.Button variant="primary" size="small" onClick={() => navigate(ROUTES.SIGNUP)}>
+              <Hb.Button
+                variant="primary"
+                size="small"
+                style={{
+                  borderRadius: 0,
+                  backgroundColor: "var(--hb-color-text-primary)",
+                  color: "var(--hb-color-surface)",
+                }}
+                onClick={() => navigate(ROUTES.SIGNUP)}
+              >
                 회원가입
               </Hb.Button>
             </div>

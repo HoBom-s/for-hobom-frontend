@@ -3,14 +3,14 @@ import { STATS } from "../model/landing.fixtures";
 import { styles } from "./StatsSection.styles";
 
 export const StatsSection = () => (
-  <section {...stylex.props(styles.section)}>
-    <div {...stylex.props(styles.card)}>
+  <section {...stylex.props(styles.section)} aria-label="호봄엔젤 누적 성과">
+    <dl {...stylex.props(styles.card)}>
       {STATS.map((stat, index) => (
         <div key={stat.label} {...stylex.props(styles.item, index === 0 && styles.itemFirst)}>
-          <div {...stylex.props(styles.value)}>{stat.value}</div>
-          <div {...stylex.props(styles.label)}>{stat.label}</div>
+          <dt {...stylex.props(styles.label)}>{stat.label}</dt>
+          <dd {...stylex.props(styles.value)}>{stat.value}</dd>
         </div>
       ))}
-    </div>
+    </dl>
   </section>
 );
