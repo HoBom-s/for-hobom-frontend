@@ -191,14 +191,4 @@ export const styles = stylex.create({
     fontSize: "0.9375rem",
     color: "var(--hb-angel-on-photo-muted)",
   },
-  // The one emotional CTA on the dark gradient: on-photo (white) fill reading as
-  // accent-dark ink. A subtle warm shift on hover keeps a visible press/hover
-  // affordance, mirroring the card hover-lift elsewhere on the page.
-  ctaButton: {
-    backgroundColor: {
-      default: "var(--hb-angel-on-photo)",
-      ":hover": "color-mix(in srgb, var(--hb-angel-on-photo) 92%, var(--hb-color-accent))",
-    },
-    color: "var(--hb-color-accent-dark)",
-  },
 });
