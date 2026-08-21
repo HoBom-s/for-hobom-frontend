@@ -16,10 +16,9 @@ describe("HeroSection", () => {
 
     const image = screen.getByRole("img", { name: HERO.imageAlt });
 
-    expect(image.getAttribute("width")).toBe("1200");
-    expect(image.getAttribute("height")).toBe("900");
-    expect(image.getAttribute("srcset")).toContain("720w");
-    expect(image.getAttribute("srcset")).toContain("1200w");
+    expect(image.getAttribute("width")).toBe("558");
+    expect(image.getAttribute("height")).toBe("482");
+    expect(image.getAttribute("srcset")).toBeNull();
     expect(image.getAttribute("fetchpriority")).toBe("high");
   });
 
