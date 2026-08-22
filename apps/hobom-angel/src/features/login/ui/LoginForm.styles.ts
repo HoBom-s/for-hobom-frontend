@@ -226,15 +226,32 @@ export const styles = stylex.create({
     fontWeight: 600,
     color: "var(--hb-color-accent-dark)",
   },
+  // Icon button: a 32px square keeps the password field the same height as the
+  // email field (the old 40px text button pushed it taller) and stops the field
+  // from reflowing when the label swaps between show and hide.
   toggle: {
-    minHeight: 40,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    width: 32,
+    height: 32,
+    // Keep a 32px hit target without growing the row: the negative block margin
+    // lets the button lay out at the input's own line height.
+    marginBlock: -6,
+    marginRight: -4,
+    padding: 0,
     borderWidth: 0,
     borderStyle: "none",
-    backgroundColor: "transparent",
-    cursor: "pointer",
-    fontSize: "0.8125rem",
+    borderRadius: "50%",
+    backgroundColor: {
+      default: "transparent",
+      ":hover": "var(--hb-angel-green-tint)",
+    },
     color: "var(--hb-color-text-secondary)",
-    paddingInline: 8,
+    cursor: "pointer",
+    outline: { ":focus-visible": "none" },
+    boxShadow: { ":focus-visible": "var(--hb-angel-focus-ring)" },
   },
   remember: {
     display: "flex",
