@@ -11,16 +11,11 @@ export const styles = stylex.create({
     borderRadius: 24,
     backgroundColor: "var(--hb-angel-surface-alt)",
   },
-  coverEmpty: {
+  fallbackImage: {
     width: "100%",
     height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundImage: "repeating-linear-gradient(135deg,#E7DDCC 0 10px,#F0E9DD 10px 20px)",
-    color: "#A79C8B",
-    fontFamily: "var(--hb-font-display)",
-    fontSize: "2.5rem",
+    display: "block",
+    objectFit: "cover",
   },
   profile: {
     position: "relative",

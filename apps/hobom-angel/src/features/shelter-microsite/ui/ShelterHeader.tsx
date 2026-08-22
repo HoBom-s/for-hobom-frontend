@@ -1,7 +1,12 @@
 // Claude Design의 커버 사진과 겹쳐지는 보호소 프로필 카드를 구현하는 헤더
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { formatShelterAddress, isShelterVerified, operatingYears } from "@/entities/shelter";
+import {
+  formatShelterAddress,
+  isShelterVerified,
+  operatingYears,
+  shelterFallbackImage,
+} from "@/entities/shelter";
 import type { AddressVisibility, Shelter } from "@/entities/shelter";
 import { FollowButton } from "./FollowButton";
 import { styles } from "./ShelterHeader.styles";
@@ -21,18 +26,16 @@ export const ShelterHeader = ({ shelter }: { shelter: Shelter }) => {
   return (
     <header {...stylex.props(styles.root)}>
       <div {...stylex.props(styles.cover)}>
-        {shelter.coverImageUrl ? (
-          <Hb.Image
-            src={shelter.coverImageUrl}
-            alt={`${shelter.name} 커버 이미지`}
-            ratio="16 / 5"
-            priority
-          />
-        ) : (
-          <span {...stylex.props(styles.coverEmpty)} aria-hidden="true">
-            {shelter.name.slice(0, 1)}
-          </span>
-        )}
+        <Hb.Image
+          src={shelter.coverImageUrl ?? shelterFallbackImage}
+          alt={shelter.coverImageUrl ? `${shelter.name} 커버 이미지` : ""}
+          ratio="16 / 5"
+          priority
+          style={{ height: "100%" }}
+          fallback={
+            <img src={shelterFallbackImage} alt="" {...stylex.props(styles.fallbackImage)} />
+          }
+        />
       </div>
 
       <div {...stylex.props(styles.profile)}>

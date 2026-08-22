@@ -1,4 +1,5 @@
 export { ShelterCard } from "./ui/ShelterCard";
+export { default as shelterFallbackImage } from "./ui/assets/shelter-fallback.jpg";
 export { shelterQueries } from "./api/shelter.queries";
 export { shelterMutations } from "./api/shelter.mutations";
 export type {
