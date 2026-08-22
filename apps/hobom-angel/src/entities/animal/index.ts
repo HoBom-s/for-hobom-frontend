@@ -18,6 +18,8 @@ export {
   PLACEMENT_LABEL,
   formatAge,
   animalMeta,
+  animalBadges,
+  careDaysLabel,
 } from "./model/animal.model";
 export type {
   Animal,

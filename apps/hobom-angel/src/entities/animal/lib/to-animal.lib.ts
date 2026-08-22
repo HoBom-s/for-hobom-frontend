@@ -13,6 +13,9 @@ export const toAnimal = (raw: RawAnimal): Animal => ({
   size: raw.traits.size,
   ageMonths: raw.traits.ageMonths,
   breed: raw.traits.breed,
+  personality: raw.traits.personality,
   description: raw.description,
+  health: raw.health,
+  intake: raw.intake,
   photoUrl: raw.photos[0]?.objectKey,
 });
