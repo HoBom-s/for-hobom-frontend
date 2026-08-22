@@ -17,37 +17,6 @@ export const STATS = [
   { value: "4,200", label: "봉사 참여" },
 ];
 
-export const FEATURED = [
-  {
-    id: "animal-42",
-    name: "콩이",
-    status: "입양가능",
-    meta: "믹스 · 1년 3개월 · 소형 · 수컷",
-    where: "서울 강남구 · 행복보호소",
-  },
-  {
-    id: "animal-41",
-    name: "보리",
-    status: "입양가능",
-    meta: "믹스 · 9개월 · 중형 · 암컷",
-    where: "경기 성남시 · 행복한마음보호소",
-  },
-  {
-    id: "animal-39",
-    name: "초코",
-    status: "입양가능",
-    meta: "믹스 · 2년 3개월 · 대형 · 미상",
-    where: "인천 미추홀구 · 인천반려동물보호소",
-  },
-  {
-    id: "animal-38",
-    name: "나비",
-    status: "입양 진행중",
-    meta: "믹스 · 1년 9개월 · 소형 · 수컷",
-    where: "부산 해운대구 · 부산해운대보호소",
-  },
-];
-
 export const STEPS = [
   { n: "1", title: "친구 찾기", desc: "종·지역·성향으로 나에게 맞는 아이를 만나요." },
   { n: "2", title: "신청·설문", desc: "보호소가 준비한 설문에 차분히 답하며 마음을 나눠요." },
