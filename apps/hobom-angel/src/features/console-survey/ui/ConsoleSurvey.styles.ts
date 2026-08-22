@@ -166,6 +166,12 @@ export const styles = stylex.create({
     gap: 12,
     minHeight: 0,
     overflowY: { [WIDE]: "auto" },
+    // `overflow-y: auto` computes overflow-x to auto as well, so this column is a
+    // scroll container that clips at its edges — shaving the cards' hover shadow
+    // and selected ring. Pad the scroll box, then pull the padding back out so
+    // the cards stay exactly where they were.
+    padding: { default: 0, [WIDE]: 8 },
+    margin: { default: 0, [WIDE]: -8 },
   },
   paneHeading: {
     display: "flex",
