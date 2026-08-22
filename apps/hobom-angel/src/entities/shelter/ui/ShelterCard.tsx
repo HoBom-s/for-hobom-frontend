@@ -5,6 +5,7 @@ import { Hb } from "hobom-design-system";
 import { LocationOnOutlined } from "hobom-design-system/icons";
 import { shelterPath } from "@/shared/config";
 import { styles } from "./ShelterCard.styles";
+import shelterFallback from "./assets/shelter-fallback.jpg";
 import type { ShelterListItem } from "../model/shelter.model";
 
 interface ShelterCardProps {
@@ -18,13 +19,11 @@ export const ShelterCard = ({ shelter }: ShelterCardProps) => {
     <Link to={shelterPath(slug)} {...stylex.props(styles.link)} aria-label={`${name} 보호소 보기`}>
       <div {...stylex.props(styles.card)}>
         <Hb.Image
-          src={coverImageUrl ?? undefined}
-          alt={name}
+          src={coverImageUrl ?? shelterFallback}
+          alt={coverImageUrl ? name : ""}
           ratio="16 / 8"
           fallback={
-            <span {...stylex.props(styles.emptyTile)} aria-hidden="true">
-              {name.slice(0, 1)}
-            </span>
+            <img src={shelterFallback} alt="" {...stylex.props(styles.fallbackImage)} />
           }
         />
         <div {...stylex.props(styles.body)}>
