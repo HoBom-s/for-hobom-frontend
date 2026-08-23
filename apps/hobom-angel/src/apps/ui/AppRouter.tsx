@@ -73,6 +73,12 @@ const MyPage = lazy(() => import("@/pages/my").then((module) => ({ default: modu
 const ApplicationsPage = lazy(() =>
   import("@/pages/applications").then((module) => ({ default: module.ApplicationsPage })),
 );
+const InquiriesPage = lazy(() =>
+  import("@/pages/inquiries").then((module) => ({ default: module.InquiriesPage })),
+);
+const InquiryThreadPage = lazy(() =>
+  import("@/pages/inquiry-thread").then((module) => ({ default: module.InquiryThreadPage })),
+);
 const ConsoleAnimalsPage = lazy(() =>
   import("@/pages/console-animals").then((module) => ({ default: module.ConsoleAnimalsPage })),
 );
@@ -143,6 +149,8 @@ export const AppRouter = () => {
             <Route path={ROUTES.VOLUNTEER_CERTIFICATES} element={<VolunteerCertificatesPage />} />
             <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
             <Route path={ROUTES.APPLICATIONS} element={<ApplicationsPage />} />
+            <Route path={ROUTES.INQUIRIES} element={<InquiriesPage />} />
+            <Route path={ROUTES.INQUIRY_DETAIL} element={<InquiryThreadPage />} />
             <Route path={ROUTES.MY} element={<MyPage />} />
             </Route>
           </Route>

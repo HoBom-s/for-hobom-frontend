@@ -28,7 +28,7 @@ const COLUMNS: { heading: string; links: FooterLink[] }[] = [
       { label: "공지사항" },
       { label: "자주 묻는 질문" },
       { label: "구조·학대 제보" },
-      { label: "1:1 문의" },
+      { label: "1:1 문의", to: ROUTES.INQUIRIES },
     ],
   },
   {

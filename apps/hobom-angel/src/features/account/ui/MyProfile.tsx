@@ -93,6 +93,10 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
             찜한 동물·팔로우
             <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
           </Link>
+          <Link to={ROUTES.INQUIRIES} {...stylex.props(styles.actionRow)}>
+            내 문의
+            <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
+          </Link>
           <Link to={ROUTES.VOLUNTEER_CERTIFICATES} {...stylex.props(styles.actionRow)}>
             봉사 확인서
             <ChevronRight fontSize="small" {...stylex.props(styles.chevron)} />
