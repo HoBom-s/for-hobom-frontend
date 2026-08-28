@@ -24,7 +24,7 @@ export const ProfileMenu = ({ nickname, staff = false }: ProfileMenuProps) => {
         <span {...stylex.props(styles.profileAvatar)} aria-hidden="true">
           {nickname.slice(0, 1)}
         </span>
-        {nickname}
+        {nickname}님
       </button>
 
       {open && (
