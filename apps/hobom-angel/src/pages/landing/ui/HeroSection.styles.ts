@@ -1,19 +1,20 @@
+// Claude Design 홈 히어로의 타이포그래피·사진·배지 레이아웃
 import * as stylex from "@stylexjs/stylex";
 
 const TABLET = "@media (min-width: 640px)";
 const DESKTOP = "@media (min-width: 960px)";
 const REDUCE = "@media (prefers-reduced-motion: reduce)";
 
-const floatUp = stylex.keyframes({
-  from: { opacity: 0, transform: "translateY(16px)" },
+const enter = stylex.keyframes({
+  from: { opacity: 0, transform: "translateY(10px)" },
   to: { opacity: 1, transform: "translateY(0)" },
 });
 
 export const styles = stylex.create({
   section: {
-    backgroundImage: "var(--hb-angel-hero-wash)",
-    paddingBlock: { default: "40px 48px", [DESKTOP]: "72px 88px" },
-    paddingInline: "clamp(16px, 4vw, 40px)",
+    paddingBlock: { default: "22px 30px", [DESKTOP]: "40px 46px" },
+    paddingInline: { default: 20, [DESKTOP]: 40 },
+    backgroundColor: "var(--hb-color-surface)",
   },
   inner: {
     maxWidth: 1120,
@@ -21,16 +22,10 @@ export const styles = stylex.create({
     display: "grid",
     gridTemplateColumns: { default: "1fr", [DESKTOP]: "1.05fr 0.95fr" },
     alignItems: "center",
-    gap: { default: 40, [DESKTOP]: 56 },
+    gap: 34,
   },
-
-  // ── Copy column ──
   copy: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: { default: "center", [DESKTOP]: "flex-start" },
-    textAlign: { default: "center", [DESKTOP]: "left" },
-    animationName: floatUp,
+    animationName: enter,
     animationDuration: "var(--hb-angel-dur-slow)",
     animationTimingFunction: "var(--hb-angel-ease)",
     animationFillMode: "both",
@@ -39,91 +34,69 @@ export const styles = stylex.create({
   kicker: {
     display: "inline-flex",
     alignItems: "center",
-    gap: 8,
-    fontSize: "0.6875rem",
-    fontWeight: 700,
-    letterSpacing: "0.14em",
-    textTransform: "uppercase",
-    color: "var(--hb-color-accent-dark)",
+    gap: 7,
+    paddingBlock: 6,
+    paddingInline: "8px 13px",
+    borderRadius: "var(--hb-angel-radius-pill)",
+    backgroundColor: "var(--hb-angel-green-tint)",
+    color: "var(--hb-color-accent)",
+    fontSize: "0.78125rem",
+    fontWeight: 500,
   },
   kickerDot: {
     width: 6,
     height: 6,
     borderRadius: "50%",
-    backgroundColor: "var(--hb-angel-accent-warm)",
+    backgroundColor: "var(--hb-color-success)",
   },
   title: {
     margin: 0,
-    marginTop: 18,
-    fontSize: { default: "34px", [TABLET]: "44px", [DESKTOP]: "50px" },
-    lineHeight: 1.1,
+    marginTop: 20,
+    fontFamily: "var(--hb-font-display)",
+    fontSize: { default: "2.125rem", [TABLET]: "2.75rem", [DESKTOP]: "3.125rem" },
+    lineHeight: 1.22,
     fontWeight: 700,
-    letterSpacing: "-0.025em",
+    letterSpacing: "-0.02em",
     color: "var(--hb-color-text-primary)",
+    textWrap: "pretty",
   },
+  titleAccent: { color: "var(--hb-color-accent)" },
   lead: {
     margin: 0,
-    marginTop: 18,
-    maxWidth: "var(--hb-angel-measure)",
-    fontSize: "1.0625rem",
-    lineHeight: 1.6,
+    marginTop: 20,
+    maxWidth: "34rem",
+    fontSize: "1rem",
+    lineHeight: 1.75,
     color: "var(--hb-color-text-secondary)",
+    textWrap: "pretty",
   },
   cta: {
     display: "flex",
     flexWrap: "wrap",
-    gap: 12,
+    gap: 10,
     marginTop: 28,
-    justifyContent: { default: "center", [DESKTOP]: "flex-start" },
   },
-
-  // ── Photo column ──
-  gallery: {
+  visual: {
     position: "relative",
-    display: { default: "none", [DESKTOP]: "block" },
-    aspectRatio: "4 / 3",
-    animationName: floatUp,
+    margin: 0,
+    width: "100%",
+    animationName: enter,
     animationDuration: "var(--hb-angel-dur-slow)",
     animationTimingFunction: "var(--hb-angel-ease)",
-    animationDelay: "80ms",
+    animationDelay: "70ms",
     animationFillMode: "both",
     [REDUCE]: { animationName: "none" },
   },
+  photoFrame: {
+    overflow: "hidden",
+    aspectRatio: "20 / 17",
+    borderRadius: 26,
+    backgroundColor: "var(--hb-angel-surface-alt)",
+  },
   photo: {
-    position: "absolute",
-    borderRadius: "var(--hb-angel-radius-card)",
+    display: "block",
+    width: "100%",
+    height: "100%",
     objectFit: "cover",
-    boxShadow: "var(--hb-angel-shadow-md)",
-    outlineWidth: 4,
-    outlineStyle: "solid",
-    outlineColor: "var(--hb-color-surface)",
   },
-  photoMain: { inset: "0 0 12% 20%", width: "80%", height: "88%" },
-  photoBack: {
-    top: "6%",
-    left: 0,
-    width: "46%",
-    height: "52%",
-    boxShadow: "var(--hb-angel-shadow-sm)",
-  },
-  proofChip: {
-    position: "absolute",
-    left: "2%",
-    bottom: "4%",
-    display: "flex",
-    flexDirection: "column",
-    gap: 2,
-    paddingBlock: 12,
-    paddingInline: 16,
-    borderRadius: "var(--hb-angel-radius-md)",
-    backgroundColor: "var(--hb-color-surface)",
-    boxShadow: "var(--hb-angel-shadow-lg)",
-  },
-  proofValue: {
-    fontSize: "1.375rem",
-    fontWeight: 800,
-    fontVariantNumeric: "tabular-nums",
-    color: "var(--hb-color-accent-dark)",
-  },
-  proofLabel: { fontSize: "0.75rem", color: "var(--hb-color-text-secondary)" },
 });

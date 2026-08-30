@@ -12,7 +12,7 @@ export const styles = stylex.create({
       [TABLET]: "repeat(3, 1fr)",
       [DESKTOP]: "repeat(4, 1fr)",
     },
-    gap: { default: 12, [DESKTOP]: 16 },
+    gap: 14,
   },
 
   // Branded empty state — a green-tint → warm-tint tile, never bare grey.

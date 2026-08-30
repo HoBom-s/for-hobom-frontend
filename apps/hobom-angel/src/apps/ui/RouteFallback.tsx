@@ -1,8 +1,8 @@
 import { useLocation } from "react-router";
+import { BrowseAnimalsSkeleton } from "@/features/browse-animals";
+import { BrowseSheltersSkeleton } from "@/features/browse-shelters";
 import { ROUTES } from "@/shared/config";
-import { ListPageSkeleton, LoadingState } from "@/shared/ui";
-
-const LIST_ROUTES = new Set<string>([ROUTES.ANIMALS, ROUTES.SHELTERS]);
+import { LoadingState } from "@/shared/ui";
 
 /** Route-aware loading fallback: the list screens get a list skeleton, so a chunk
  *  or session probe resolves into a skeleton rather than a spinner; everything
@@ -10,7 +10,8 @@ const LIST_ROUTES = new Set<string>([ROUTES.ANIMALS, ROUTES.SHELTERS]);
 export const RouteFallback = () => {
   const { pathname } = useLocation();
 
-  if (LIST_ROUTES.has(pathname)) return <ListPageSkeleton />;
+  if (pathname === ROUTES.ANIMALS) return <BrowseAnimalsSkeleton />;
+  if (pathname === ROUTES.SHELTERS) return <BrowseSheltersSkeleton />;
 
   return <LoadingState />;
 };

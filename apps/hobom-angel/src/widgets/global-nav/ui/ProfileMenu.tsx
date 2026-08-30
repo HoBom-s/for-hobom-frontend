@@ -21,7 +21,10 @@ export const ProfileMenu = ({ nickname, staff = false }: ProfileMenuProps) => {
   return (
     <div {...stylex.props(styles.profileWrap)}>
       <button type="button" {...stylex.props(styles.profileBtn)} onClick={() => setOpen((v) => !v)}>
-        {nickname}님 ▾
+        <span {...stylex.props(styles.profileAvatar)} aria-hidden="true">
+          {nickname.slice(0, 1)}
+        </span>
+        {nickname}님
       </button>
 
       {open && (

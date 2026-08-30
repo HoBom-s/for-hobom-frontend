@@ -18,12 +18,12 @@ export const styles = stylex.create({
     transitionProperty: "color, background-color",
     transitionDuration: "0.15s",
   },
-  // Floats over card media — a light frosted disc, not an opaque white blob.
+  // Claude Design card media uses a warm white translucent favorite disc.
   overlay: {
-    color: "var(--hb-angel-on-photo)",
+    color: "var(--hb-color-text-secondary)",
     backgroundColor: {
-      default: "var(--hb-angel-disc-scrim)",
-      ":hover": "var(--hb-angel-disc-scrim-strong)",
+      default: "rgba(251,247,240,0.85)",
+      ":hover": "var(--hb-color-surface)",
     },
     backdropFilter: "blur(8px)",
     WebkitBackdropFilter: "blur(8px)",

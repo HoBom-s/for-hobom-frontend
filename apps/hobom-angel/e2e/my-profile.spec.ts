@@ -18,7 +18,6 @@ test.describe("마이페이지", () => {
     await page.getByRole("link", { name: "마이페이지" }).click();
     await expect(page).toHaveURL(/\/my$/);
 
-    await expect(page.getByRole("heading", { name: "마이페이지", level: 1 })).toBeVisible();
     await expect(page.getByRole("heading", { name: "봄이네", level: 2 })).toBeVisible();
     await expect(page.getByText("hobom@example.com")).toBeVisible();
     await expect(page.getByText("이메일 인증 완료")).toBeVisible();

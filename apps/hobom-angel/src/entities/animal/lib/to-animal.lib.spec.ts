@@ -20,6 +20,8 @@ describe("toAnimal", () => {
         color: "갈색",
         personality: "활발",
       },
+      health: { neutered: true, vaccinated: true, microchipId: null, notes: null },
+      intake: { intakeDate: "2026-05-01", rescueStory: null, noticeNumber: null },
       photos: [{ objectKey: "cover.jpg" }, { objectKey: "second.jpg" }],
     });
 
@@ -34,8 +36,11 @@ describe("toAnimal", () => {
       size: "MEDIUM",
       ageMonths: 24,
       breed: "믹스",
+      personality: "활발",
       description: "사람을 좋아해요",
       photoUrl: "cover.jpg",
+      health: { neutered: true, vaccinated: true, microchipId: null, notes: null },
+      intake: { intakeDate: "2026-05-01", rescueStory: null, noticeNumber: null },
     });
   });
 

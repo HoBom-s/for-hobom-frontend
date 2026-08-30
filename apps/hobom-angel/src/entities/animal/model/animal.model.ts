@@ -18,8 +18,12 @@ export interface Animal {
   size: AnimalSize;
   ageMonths: number | null;
   breed: string | null;
+  personality: string | null;
   description: string;
   photoUrl?: string;
+  /** Present on the list too, so cards can show health/care badges. */
+  health?: AnimalHealth;
+  intake?: AnimalIntake;
 }
 
 export const PLACEMENT_LABEL: Record<PlacementType, string> = {
@@ -92,7 +96,6 @@ export interface AnimalDetail extends Animal {
   photos: string[];
   weightKg: number | null;
   color: string | null;
-  personality: string | null;
   health: AnimalHealth;
   intake: AnimalIntake;
   shelter: AnimalShelter | null;
@@ -112,3 +115,29 @@ export const animalMeta = (animal: Animal): string =>
   [animal.breed, formatAge(animal.ageMonths), SIZE_LABEL[animal.size]]
     .filter(Boolean)
     .join(" · ");
+
+/** The card's short trust badges — 중성화 / 접종 / 임보 가능. */
+export const animalBadges = (animal: Animal): string[] => {
+  const badges: string[] = [];
+
+  if (animal.health?.neutered) badges.push("중성화 완료");
+  if (animal.health?.vaccinated) badges.push("접종 완료");
+  if (animal.eligiblePlacements.includes("FOSTER")) badges.push("임보 가능");
+
+  return badges;
+};
+
+const DAY_MS = 86_400_000;
+
+/** Days since intake as a card footnote, e.g. "보호 113일째". */
+export const careDaysLabel = (intakeDate?: string): string | undefined => {
+  if (!intakeDate) return undefined;
+
+  const startedAt = new Date(intakeDate).getTime();
+
+  if (Number.isNaN(startedAt)) return undefined;
+
+  const days = Math.floor((Date.now() - startedAt) / DAY_MS) + 1;
+
+  return days > 0 ? `보호 ${days}일째` : undefined;
+};

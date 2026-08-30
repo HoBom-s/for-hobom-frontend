@@ -1,13 +1,14 @@
+// Claude Design의 홈 히어로를 프로젝트 라우팅과 로컬 이미지로 구현하는 섹션
 import { Fragment } from "react";
 import { useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
+import { ArrowForwardOutlined } from "hobom-design-system/icons";
 import { ROUTES } from "@/shared/config";
 import { HERO } from "../model/landing.fixtures";
 import { styles } from "./HeroSection.styles";
-
-const PHOTO_MAIN = "https://picsum.photos/seed/hobom-hero-1/720/620";
-const PHOTO_BACK = "https://picsum.photos/seed/hobom-hero-2/420/360";
+import heroShelterGarden720 from "./assets/hero-shelter-garden-720.jpg";
+import heroShelterGarden1200 from "./assets/hero-shelter-garden-1200.jpg";
 
 export const HeroSection = () => {
   const navigate = useNavigate();
@@ -17,36 +18,60 @@ export const HeroSection = () => {
       <div {...stylex.props(styles.inner)}>
         <div {...stylex.props(styles.copy)}>
           <span {...stylex.props(styles.kicker)}>
-            <span {...stylex.props(styles.kickerDot)} aria-hidden />
-            {HERO.badge}
+            <span {...stylex.props(styles.kickerDot)} aria-hidden="true" />
+            {HERO.badgePrefix} {HERO.waitingCount.toLocaleString()}
+            {HERO.badgeSuffix}
           </span>
           <h1 {...stylex.props(styles.title)}>
             {HERO.title.map((line, index) => (
               <Fragment key={line}>
                 {index > 0 && <br />}
-                {line}
+                <span {...stylex.props(index > 0 && styles.titleAccent)}>{line}</span>
               </Fragment>
             ))}
           </h1>
           <p {...stylex.props(styles.lead)}>{HERO.lead}</p>
           <div {...stylex.props(styles.cta)}>
-            <Hb.Button variant="primary" size="large" onClick={() => navigate(ROUTES.ANIMALS)}>
+            <Hb.Button
+              shape="pill"
+              size="large"
+              endIcon={<ArrowForwardOutlined style={{ fontSize: 19 }} />}
+              onClick={() => navigate(ROUTES.ANIMALS)}
+            >
               {HERO.primary}
             </Hb.Button>
-            <Hb.Button variant="secondary" size="large" onClick={() => navigate(ROUTES.FOSTER)}>
+            <Hb.Button
+              variant="ghost"
+              shape="pill"
+              size="large"
+              style={{
+                backgroundColor: "var(--hb-angel-card)",
+                color: "var(--hb-color-text-primary)",
+                boxShadow: "var(--hb-angel-shadow-sm)",
+              }}
+              onClick={() => navigate(ROUTES.FOSTER)}
+            >
               {HERO.secondary}
             </Hb.Button>
           </div>
         </div>
 
-        <div {...stylex.props(styles.gallery)} aria-hidden>
-          <img src={PHOTO_BACK} alt="" {...stylex.props(styles.photo, styles.photoBack)} />
-          <img src={PHOTO_MAIN} alt="" {...stylex.props(styles.photo, styles.photoMain)} />
-          <div {...stylex.props(styles.proofChip)}>
-            <span {...stylex.props(styles.proofValue)}>1,840</span>
-            <span {...stylex.props(styles.proofLabel)}>가족을 찾았어요</span>
+        <figure {...stylex.props(styles.visual)}>
+          <div {...stylex.props(styles.photoFrame)}>
+            <img
+              src={heroShelterGarden720}
+              srcSet={`${heroShelterGarden720} 720w, ${heroShelterGarden1200} 1200w`}
+              sizes="(min-width: 960px) 500px, calc(100vw - 40px)"
+              width={1200}
+              height={900}
+              alt={HERO.imageAlt}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              {...stylex.props(styles.photo)}
+            />
           </div>
-        </div>
+        </figure>
       </div>
     </section>
   );

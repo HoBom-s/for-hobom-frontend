@@ -19,7 +19,7 @@ export const useVolunteerBoard = () => {
     queries: [volunteerEventQueries.upcoming(), shelterQueries.markers()],
   });
 
-  const [view, setView] = useState<VolunteerView>("calendar");
+  const [view, setView] = useState<VolunteerView>("list");
   const [typeFilter, setTypeFilter] = useState<VolunteerTypeFilter>("ALL");
   const [openOnly, setOpenOnly] = useState(false);
   const [selected, setSelected] = useState<Date>(() => firstEventDate(events) ?? new Date());

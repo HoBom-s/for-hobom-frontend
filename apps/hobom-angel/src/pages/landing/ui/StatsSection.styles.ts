@@ -1,41 +1,46 @@
+// Claude Design의 흰색 3열 누적 성과 카드 스타일
 import * as stylex from "@stylexjs/stylex";
 
 const TABLET = "@media (min-width: 640px)";
 
 export const styles = stylex.create({
   section: {
-    paddingBlock: "clamp(24px, 4vw, 40px)",
-    paddingInline: "clamp(16px, 4vw, 40px)",
-    marginTop: -32,
+    paddingInline: { default: 20, [TABLET]: 40 },
+    paddingBottom: 8,
+    backgroundColor: "var(--hb-color-surface)",
   },
   card: {
-    maxWidth: 1000,
+    maxWidth: 1120,
+    margin: 0,
     marginInline: "auto",
-    backgroundColor: "var(--hb-color-surface)",
-    borderRadius: "var(--hb-angel-radius-card)",
-    boxShadow: "var(--hb-angel-shadow-md)",
-    paddingBlock: { default: 24, [TABLET]: 32 },
-    paddingInline: { default: 16, [TABLET]: 32 },
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
+    gridTemplateColumns: { default: "1fr", [TABLET]: "repeat(3,1fr)" },
+    gap: 12,
   },
   item: {
-    textAlign: "center",
-    borderLeftWidth: { default: 0, [TABLET]: 1 },
-    borderLeftStyle: "solid",
-    borderLeftColor: "var(--hb-color-border)",
+    display: "flex",
+    flexDirection: "column",
+    paddingBlock: 24,
+    paddingInline: 26,
+    borderRadius: "var(--hb-angel-radius-card)",
+    backgroundColor: "var(--hb-angel-card)",
+    boxShadow: "var(--hb-angel-shadow-sm)",
   },
-  itemFirst: { borderLeftWidth: 0 },
+  itemFirst: {},
   value: {
-    fontSize: { default: "1.75rem", [TABLET]: "2.5rem" },
-    fontWeight: 800,
+    order: 1,
+    margin: 0,
+    fontFamily: "var(--hb-font-display)",
+    fontSize: "2rem",
+    fontWeight: 700,
     letterSpacing: "-0.02em",
-    color: "var(--hb-color-accent-dark)",
+    color: "var(--hb-color-text-primary)",
     fontVariantNumeric: "tabular-nums",
   },
   label: {
+    order: 2,
     marginTop: 6,
-    fontSize: { default: "0.75rem", [TABLET]: "0.875rem" },
-    color: "var(--hb-color-text-secondary)",
+    fontSize: "0.84375rem",
+    color: "var(--hb-color-neutral)",
   },
 });

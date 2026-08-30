@@ -1,5 +1,11 @@
 import * as stylex from "@stylexjs/stylex";
-import { AnimalCard, STATUS_LABEL, animalMeta } from "@/entities/animal";
+import {
+  AnimalCard,
+  STATUS_LABEL,
+  animalBadges,
+  animalMeta,
+  careDaysLabel,
+} from "@/entities/animal";
 import { FavoriteButton, useFavoriteToggle } from "@/entities/favorite";
 import { animalDetailPath } from "@/shared/config";
 import { useInfiniteScroll } from "@/shared/model";
@@ -45,6 +51,10 @@ export const AnimalGrid = ({
             name={animal.name}
             status={STATUS_LABEL[animal.status]}
             meta={animalMeta(animal)}
+            sex={animal.sex}
+            personality={animal.personality}
+            badges={animalBadges(animal)}
+            footnote={careDaysLabel(animal.intake?.intakeDate)}
             imageUrl={animal.photoUrl}
             to={animalDetailPath(animal.id)}
             action={

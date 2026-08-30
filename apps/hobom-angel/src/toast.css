@@ -1,20 +1,115 @@
 /* Align react-toastify with the Angel design tokens (light theme, green accent). */
 :root {
-  --toastify-font-family: inherit;
-  --toastify-toast-bd-radius: 16px;
-  --toastify-color-success: var(--hb-color-accent);
-  --toastify-color-info: var(--hb-color-accent);
-  --toastify-color-error: var(--hb-color-danger, #d92d20);
+  --toastify-font-family: var(--hb-font-body);
+  --toastify-toast-width: min(380px, calc(100vw - 32px));
+  --toastify-toast-min-height: 0;
+  --toastify-toast-padding: 13px 15px;
+  --toastify-toast-bd-radius: var(--hb-angel-radius-md);
+  --toastify-toast-background: var(--hb-angel-card);
+  --toastify-toast-shadow: var(--hb-angel-shadow-lg);
+  /* Clear the sticky top bar (58px) so top-center toasts sit under it. */
+  --toastify-toast-top: 74px;
   --toastify-text-color-light: var(--hb-color-text-primary);
+  --toastify-color-info: var(--hb-color-accent);
+  --toastify-color-success: var(--hb-color-accent);
+  --toastify-color-warning: var(--hb-color-warning);
+  --toastify-color-error: var(--hb-color-danger);
 }
 
 .Toastify__toast {
+  align-items: center;
   border: 1px solid var(--hb-color-border);
-  box-shadow: var(--hb-angel-shadow);
-  font-size: 0.9375rem;
-  padding: 14px 16px;
+  /* Room for the close button, which the library positions absolutely. */
+  padding-inline-end: 42px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
 }
 
-.Toastify__toast-body {
-  font-weight: 500;
+/* The icon becomes a tinted chip, matching the status pills on cards. */
+.Toastify__toast-icon {
+  width: 26px;
+  height: 26px;
+  margin-inline-end: 11px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--hb-angel-radius-pill);
+  background-color: var(--hb-angel-green-tint);
+}
+
+.Toastify__toast-icon > svg {
+  width: 15px;
+  height: 15px;
+}
+
+.Toastify__toast--warning .Toastify__toast-icon {
+  background-color: var(--hb-angel-warm-tint);
+}
+
+.Toastify__toast--error .Toastify__toast-icon {
+  background-color: var(--hb-angel-urgent-tint);
+}
+
+.Toastify__close-button {
+  top: 50%;
+  right: 11px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--hb-angel-radius-pill);
+  color: var(--hb-color-neutral);
+  opacity: 1;
+  transition:
+    background-color var(--hb-angel-dur) var(--hb-angel-ease),
+    color var(--hb-angel-dur) var(--hb-angel-ease);
+}
+
+.Toastify__close-button > svg {
+  width: 11px;
+  height: 12px;
+}
+
+.Toastify__close-button:hover {
+  background-color: var(--hb-angel-surface-alt);
+  color: var(--hb-color-text-primary);
+}
+
+.Toastify__close-button:focus-visible {
+  outline: none;
+  box-shadow: var(--hb-angel-focus-ring);
+}
+
+.Toastify--animate {
+  animation-duration: var(--hb-angel-dur-slow);
+  animation-timing-function: var(--hb-angel-ease);
+}
+
+/* Keep the rounded floating card on phones (the library squares it off). */
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    padding-inline: 14px;
+  }
+
+  .Toastify__toast-container--top-left,
+  .Toastify__toast-container--top-center,
+  .Toastify__toast-container--top-right {
+    top: var(--toastify-toast-top);
+  }
+
+  .Toastify__toast {
+    margin-bottom: 10px;
+    border-radius: var(--hb-angel-radius-md);
+  }
+}
+
+/* Shorten rather than remove: the exit animation drives toast removal. */
+@media (prefers-reduced-motion: reduce) {
+  .Toastify--animate,
+  .Toastify--animate-icon {
+    animation-duration: 1ms;
+  }
 }

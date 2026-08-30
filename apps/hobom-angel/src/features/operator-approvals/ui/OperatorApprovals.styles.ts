@@ -4,14 +4,15 @@ const REDUCE = "@media (prefers-reduced-motion: reduce)";
 
 export const styles = stylex.create({
   root: {
-    maxWidth: 900,
+    maxWidth: 1200,
     marginInline: "auto",
     paddingInline: "clamp(16px, 4vw, 32px)",
-    paddingTop: 16,
-    paddingBottom: 40,
+    paddingTop: 34,
+    paddingBottom: 60,
     display: "flex",
     flexDirection: "column",
-    gap: 12,
+    gap: 16,
+    backgroundColor: "#F7F2E9",
   },
 
   // Page header: overline kicker + 3px×24px accent left-rule above the title.
@@ -34,7 +35,8 @@ export const styles = stylex.create({
   },
   title: {
     margin: 0,
-    fontSize: "1.5rem",
+    fontFamily: "var(--hb-font-display)",
+    fontSize: "1.75rem",
     fontWeight: 700,
     letterSpacing: "-0.015em",
     color: "var(--hb-color-text-primary)",
@@ -55,7 +57,7 @@ export const styles = stylex.create({
     gap: 8,
     padding: 16,
     borderRadius: "var(--hb-angel-radius-card)",
-    backgroundColor: "var(--hb-color-surface)",
+    backgroundColor: "var(--hb-angel-card)",
     boxShadow: "var(--hb-angel-shadow-sm)",
     transitionProperty: "background-color",
     transitionDuration: "var(--hb-angel-dur)",

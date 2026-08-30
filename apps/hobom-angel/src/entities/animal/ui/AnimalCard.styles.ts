@@ -1,33 +1,30 @@
+// Claude Design의 사진 위 상태와 흰색 정보 본문을 재현하는 동물 카드 스타일
 import * as stylex from "@stylexjs/stylex";
 
 const REDUCE = "@media (prefers-reduced-motion: reduce)";
 
 const fadeUp = stylex.keyframes({
-  from: { opacity: 0, transform: "translateY(12px)" },
+  from: { opacity: 0, transform: "translateY(8px)" },
   to: { opacity: 1, transform: "translateY(0)" },
 });
 
 export const styles = stylex.create({
-  // Transparent block wrapper so the whole card is one link target; the focus
-  // ring lives here since it's the focusable node.
   link: {
     display: "block",
+    height: "100%",
     color: "inherit",
     textDecoration: "none",
     borderRadius: "var(--hb-angel-radius-card)",
     ":focus-visible": { outline: "none", boxShadow: "var(--hb-angel-focus-ring)" },
   },
-
-  // Borderless floating card — resting shadow-sm, hover lifts to shadow-md.
   card: {
-    position: "relative",
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    borderRadius: "var(--hb-angel-radius-card)",
-    backgroundColor: "var(--hb-color-surface)",
-    boxShadow: "var(--hb-angel-shadow-sm)",
     overflow: "hidden",
+    borderRadius: "var(--hb-angel-radius-card)",
+    backgroundColor: "var(--hb-angel-card)",
+    boxShadow: "var(--hb-angel-shadow-md)",
     animationName: fadeUp,
     animationDuration: "var(--hb-angel-dur-slow)",
     animationTimingFunction: "var(--hb-angel-ease)",
@@ -35,61 +32,112 @@ export const styles = stylex.create({
     transitionProperty: "transform, box-shadow",
     transitionDuration: "var(--hb-angel-dur)",
     transitionTimingFunction: "var(--hb-angel-ease)",
-    [REDUCE]: {
-      animationName: "none",
-      transitionProperty: "none",
-      transform: { default: "none", ":hover": "none" },
-    },
+    [REDUCE]: { animationName: "none", transitionProperty: "none" },
   },
-  // Interactive cards (those wrapped in a link) lift on hover.
   cardHoverable: {
-    transform: { default: "none", ":hover": "translateY(-3px)" },
-    boxShadow: { default: "var(--hb-angel-shadow-sm)", ":hover": "var(--hb-angel-shadow-md)" },
+    transform: { default: "none", ":hover": "translateY(-2px)" },
+    boxShadow: { default: "var(--hb-angel-shadow-md)", ":hover": "var(--hb-angel-shadow-lg)" },
+    [REDUCE]: { transform: { default: "none", ":hover": "none" } },
   },
-
-  // Full-bleed rounded media; the name rides a scrim at the bottom.
   media: { position: "relative", lineHeight: 0 },
-  scrim: {
+  status: {
     position: "absolute",
-    insetInline: 0,
-    bottom: 0,
-    height: "55%",
-    backgroundImage: "var(--hb-angel-photo-scrim)",
-    pointerEvents: "none",
+    top: 11,
+    left: 11,
+    paddingBlock: 5,
+    paddingInline: 11,
+    borderRadius: "var(--hb-angel-radius-pill)",
+    backgroundColor: "var(--hb-angel-green-tint)",
+    color: "var(--hb-color-accent)",
+    fontSize: "0.71875rem",
+    fontWeight: 600,
+    lineHeight: 1.2,
   },
-  // WHITE name reads against the scrim, bottom-left of the photo.
-  name: {
-    position: "absolute",
-    insetInline: 0,
-    bottom: 0,
-    margin: 0,
-    padding: 14,
-    fontSize: "1.125rem",
-    fontWeight: 700,
-    letterSpacing: "-0.01em",
-    color: "var(--hb-angel-on-photo)",
-    textShadow: "var(--hb-angel-on-photo-shadow)",
+  statusReserved: {
+    backgroundColor: "var(--hb-angel-warm-tint)",
+    color: "#6B4A24",
   },
-  // Favorite / action button, overlaid top-right of the media.
-  action: { position: "absolute", top: 10, right: 10, zIndex: 1 },
-  // Chip / badge overlay, anchored to the media's top-left.
-  overlayStart: { position: "absolute", insetBlockStart: 10, insetInlineStart: 10, zIndex: 1 },
-
-  // Body: attribute line on the left, status chip pinned right on the surface.
+  action: { position: "absolute", top: 9, right: 9, zIndex: 1 },
+  overlayStart: { position: "absolute", top: 10, left: 10, zIndex: 1 },
   body: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    padding: "15px 17px 17px",
+  },
+  nameRow: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
-    gap: 8,
-    paddingInline: 14,
-    paddingTop: 12,
-    paddingBottom: 14,
+    gap: 6,
+    minWidth: 0,
+  },
+  name: {
+    margin: 0,
+    fontFamily: "var(--hb-font-body)",
+    fontSize: "1rem",
+    fontWeight: 600,
+    lineHeight: 1.45,
+    letterSpacing: "-0.01em",
+    color: "var(--hb-color-text-primary)",
+  },
+  sex: {
+    flexShrink: 0,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 18,
+    height: 18,
+    borderRadius: "var(--hb-angel-radius-pill)",
+    backgroundColor: "var(--hb-angel-green-tint)",
+    color: "var(--hb-color-accent)",
+    fontSize: "0.75rem",
+    lineHeight: 1,
+  },
+  sexFemale: {
+    backgroundColor: "var(--hb-angel-warm-tint)",
+    color: "var(--hb-angel-accent-warm-dark)",
   },
   meta: {
     margin: 0,
+    marginTop: 5,
     minWidth: 0,
-    fontSize: "0.875rem",
+    fontSize: "0.78125rem",
     lineHeight: 1.5,
+    color: "var(--hb-color-neutral)",
+  },
+  personality: {
+    margin: 0,
+    marginTop: 7,
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 2,
+    overflow: "hidden",
+    fontSize: "0.8125rem",
+    lineHeight: 1.55,
     color: "var(--hb-color-text-secondary)",
+  },
+  badges: {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: 5,
+    marginTop: "auto",
+    paddingTop: 11,
+  },
+  badge: {
+    paddingBlock: 3,
+    paddingInline: 8,
+    borderRadius: "var(--hb-angel-radius-pill)",
+    backgroundColor: "var(--hb-angel-surface-alt)",
+    color: "var(--hb-color-text-secondary)",
+    fontSize: "0.6875rem",
+    fontWeight: 500,
+    lineHeight: 1.3,
+  },
+  footnote: {
+    marginInlineStart: "auto",
+    fontSize: "0.6875rem",
+    lineHeight: 1.3,
+    color: "var(--hb-color-text-disabled)",
   },
 });

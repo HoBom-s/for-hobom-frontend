@@ -9,7 +9,6 @@ export const toAnimalDetail = (raw: RawAnimalDetail): AnimalDetail => ({
   photos: raw.photos.map((photo) => photo.objectKey),
   weightKg: raw.traits.weightKg,
   color: raw.traits.color,
-  personality: raw.traits.personality,
   health: {
     neutered: raw.health.neutered,
     vaccinated: raw.health.vaccinated,

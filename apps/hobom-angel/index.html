@@ -3,15 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      as="style"
-      crossorigin
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+      href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#1f9d55" />
+    <meta name="theme-color" content="#F3EDE3" />
 
     <!-- SEO: the landing is the only public surface, so it's indexable; auth-gated
          routes set noindex at runtime (see useRouteMeta). -->
@@ -41,44 +40,9 @@
         "description": "임시보호와 입양으로 한 생명에게 새로운 봄을. 전국 보호소의 강아지·고양이를 만나고, 봉사에 참여하세요."
       }
     </script>
-
-    <!-- First-paint fallback: shown before the app JS mounts so CSR never flashes
-         a blank screen. React replaces #root once it renders. -->
-    <style>
-      #app-splash {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f6f8f5;
-      }
-      #app-splash .spinner {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 3px solid rgba(31, 157, 85, 0.2);
-        border-top-color: #1f9d55;
-        animation: app-splash-spin 0.7s linear infinite;
-      }
-      @keyframes app-splash-spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        #app-splash .spinner {
-          animation-duration: 2s;
-        }
-      }
-    </style>
   </head>
   <body>
-    <div id="root">
-      <div id="app-splash" aria-hidden="true">
-        <div class="spinner"></div>
-      </div>
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

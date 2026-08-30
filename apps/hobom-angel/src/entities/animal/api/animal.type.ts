@@ -27,6 +27,9 @@ export interface RawAnimal {
   status: AnimalStatusCode;
   eligiblePlacements: PlacementType[];
   traits: RawAnimalTraits;
+  /** The list also carries these; the detail endpoint always fills them. */
+  health?: RawAnimalHealth;
+  intake?: RawAnimalIntake;
   photos: { objectKey: string; caption?: string }[];
 }
 

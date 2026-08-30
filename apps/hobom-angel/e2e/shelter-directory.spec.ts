@@ -15,7 +15,7 @@ test.describe("§3.5 shelter directory", () => {
     await page.getByRole("banner").getByRole("link", { name: "보호소" }).click();
     await expect(page).toHaveURL(/\/shelters$/);
 
-    await expect(page.getByText("함께하는 보호소")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "검증된 보호소", level: 1 })).toBeVisible();
     await expect(page.getByRole("link", { name: /행복보호소/ })).toBeVisible();
     await expect(page.getByRole("link", { name: /부산해운대보호소/ })).toBeVisible();
 

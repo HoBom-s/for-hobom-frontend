@@ -10,14 +10,13 @@ const fadeUp = stylex.keyframes({
 
 export const styles = stylex.create({
   root: {
-    maxWidth: 1120,
+    maxWidth: 1200,
     marginInline: "auto",
-    paddingInline: "clamp(16px, 4vw, 32px)",
-    paddingTop: 20,
-    paddingBottom: 48,
+    padding: { default: "22px 18px 40px", "@media (min-width: 1024px)": "34px 40px 60px" },
     display: "flex",
     flexDirection: "column",
-    gap: 24,
+    gap: 22,
+    backgroundColor: "var(--hb-color-surface)",
     animationName: fadeUp,
     animationDuration: "var(--hb-angel-dur-slow)",
     animationTimingFunction: "var(--hb-angel-ease)",
@@ -26,7 +25,7 @@ export const styles = stylex.create({
   },
 
   // Section header: overline kicker + a 3px×24px accent left-rule under the title.
-  header: { display: "flex", flexDirection: "column", gap: 10 },
+  header: { display: "flex", flexDirection: "column" },
   kicker: {
     fontSize: "0.6875rem",
     fontWeight: 700,
@@ -44,21 +43,23 @@ export const styles = stylex.create({
   },
   title: {
     margin: 0,
-    fontSize: "1.625rem",
+    fontFamily: "var(--hb-font-display)",
+    fontSize: "1.875rem",
     fontWeight: 700,
-    letterSpacing: "-0.015em",
+    letterSpacing: "-0.02em",
     color: "var(--hb-color-text-primary)",
   },
   subtitle: {
     margin: 0,
+    marginTop: 10,
     maxWidth: "var(--hb-angel-measure)",
-    fontSize: "1.0625rem",
+    fontSize: "0.9375rem",
     lineHeight: 1.6,
-    color: "var(--hb-color-text-secondary)",
+    color: "var(--hb-color-neutral)",
   },
 
   controls: { display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" },
-  listView: { maxWidth: 680, width: "100%" },
+  listView: { width: "100%" },
 
   // Calendar on the left (wider), the selected day's events on the right.
   board: {
@@ -71,7 +72,7 @@ export const styles = stylex.create({
   calendarCard: {
     padding: 20,
     borderRadius: "var(--hb-angel-radius-card)",
-    backgroundColor: "var(--hb-color-surface)",
+    backgroundColor: "var(--hb-angel-card)",
     boxShadow: "var(--hb-angel-shadow-sm)",
   },
   listCol: { display: "flex", flexDirection: "column", gap: 14, minHeight: 0 },

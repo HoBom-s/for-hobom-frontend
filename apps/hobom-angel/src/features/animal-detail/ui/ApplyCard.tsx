@@ -1,7 +1,12 @@
 import { Link, useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
-import { ChevronRight, Favorite, FavoriteBorder, LocationOnOutlined } from "hobom-design-system/icons";
+import {
+  ChevronRight,
+  Favorite,
+  FavoriteBorder,
+  LocationOnOutlined,
+} from "hobom-design-system/icons";
 import { SEX_LABEL, SIZE_LABEL, STATUS_LABEL, formatAge } from "@/entities/animal";
 import { applyPath, fosterApplyPath, shelterPath } from "@/shared/config";
 import { useOverlay } from "@/shared/model";
@@ -53,7 +58,12 @@ export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProp
     <aside {...stylex.props(styles.root)}>
       <div {...stylex.props(styles.nameRow)}>
         <h1 {...stylex.props(styles.name)}>{animal.name}</h1>
-        <Hb.Chip label={statusLabel} size="small" variant="soft" color={STATUS_COLOR[statusLabel]} />
+        <Hb.Chip
+          label={statusLabel}
+          size="small"
+          variant="soft"
+          color={STATUS_COLOR[statusLabel]}
+        />
         <button
           type="button"
           aria-label={`${animal.name} 찜하기`}
@@ -110,6 +120,11 @@ export const ApplyCard = ({ animal, favorited, onToggleFavorite }: ApplyCardProp
           <Hb.Button
             variant="secondary"
             fullWidth
+            style={{
+              borderColor: "transparent",
+              backgroundColor: "var(--hb-angel-warm-tint)",
+              color: "#6B4A24",
+            }}
             onClick={() => navigate(fosterApplyPath(animal.id))}
           >
             임시보호 신청

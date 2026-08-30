@@ -1,12 +1,14 @@
-// Static mockup data — copy is verbatim from the 2a landing design.
-// Swapped for real queries in a later phase.
+// Static landing content — aggregate values are swapped for real queries in a later phase.
 
 export const HERO = {
-  badge: "오늘도 322마리가 기다리고 있어요",
-  title: ["좋은 만남은", "서두르지 않아요."],
-  lead: "검증된 보호소의 아이들을 만나고, 마음을 담아 신청하세요. 새 가족이 되는 과정을 곁에서 함께 도울게요.",
-  primary: "우리 가족 찾기",
-  secondary: "임시보호 알아보기",
+  badgePrefix: "오늘",
+  badgeSuffix: "마리가 가족을 기다려요",
+  title: ["기다림 끝에,", "가족을 만나는 일."],
+  lead: "보호소에서 가족을 기다리는 동물을 기록하고 연결합니다. 충분히 살펴보고, 묻고, 만난 뒤 새로운 관계를 시작하세요.",
+  primary: "입양 동물 보기",
+  secondary: "임시보호 안내",
+  imageAlt: "햇살이 드는 보호소에서 함께 쉬고 있는 구조견과 고양이",
+  waitingCount: 322,
 };
 
 export const STATS = [
@@ -22,7 +24,7 @@ export const STEPS = [
 ];
 
 export const CTA = {
-  title: "오늘, 한 생명의 봄이 되어주세요",
-  lead: "몇 번의 클릭이면 새 가족과 만나요",
-  button: "우리 가족 만나러 가기",
+  title: "한 생명의 다음 장을 함께 써주세요.",
+  lead: "입양이 아직 어렵다면 임시보호와 봉사부터 시작할 수 있습니다.",
+  button: "기다리는 동물 만나기",
 };

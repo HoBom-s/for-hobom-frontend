@@ -1,5 +1,6 @@
 import { HeroSection } from "./HeroSection";
 import { StatsSection } from "./StatsSection";
+import { FeaturedSheltersSection } from "./FeaturedSheltersSection";
 import { HowItWorksSection } from "./HowItWorksSection";
 import { CtaSection } from "./CtaSection";
 
@@ -9,6 +10,7 @@ export const LandingPage = () => (
   <>
     <HeroSection />
     <StatsSection />
+    <FeaturedSheltersSection />
     <HowItWorksSection />
     <CtaSection />
   </>

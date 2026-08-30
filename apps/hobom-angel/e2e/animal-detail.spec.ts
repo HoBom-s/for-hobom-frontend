@@ -21,8 +21,9 @@ test.describe("§02 animal detail", () => {
     await expect(page.getByRole("navigation", { name: "위치" })).toBeVisible();
     await expect(page.getByRole("button", { name: "입양 신청하기" })).toBeVisible();
     await expect(page.getByRole("link", { name: /보호소 프로필 보기/ })).toBeVisible();
-    await expect(page.getByText("건강 정보")).toBeVisible();
-    await expect(page.getByText("구조 이력")).toBeVisible();
+    // The attribute cards are headed by their overline kicker in the new design.
+    await expect(page.getByText("Health")).toBeVisible();
+    await expect(page.getByText("Rescue")).toBeVisible();
 
     await page.screenshot({ path: "e2e-artifacts/detail.png", fullPage: true });
   });

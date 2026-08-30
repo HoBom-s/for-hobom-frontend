@@ -15,7 +15,7 @@ test.describe("§04 shelter microsite", () => {
     await page.goto("shelters/haengbok-shelter");
 
     await expect(page.getByRole("heading", { name: "행복보호소", level: 1 })).toBeVisible();
-    await expect(page.getByText("인증 보호소")).toBeVisible();
+    await expect(page.getByText(/신뢰등급|검증 완료/)).toBeVisible();
     await expect(page.getByRole("tab", { name: /동물 \d+/ })).toBeVisible();
     await expect(page.getByText("인사말")).toBeVisible();
     await expect(page.getByText("누적 입양")).toBeVisible();

@@ -15,7 +15,12 @@ export const ApplyNav = ({ canPrev, isReview, isSubmitting, onPrev, onNext }: Ap
   <div {...stylex.props(styles.nav)}>
     {canPrev && (
       <div {...stylex.props(styles.navGrow)}>
-        <Hb.Button variant="secondary" fullWidth onClick={onPrev}>
+        <Hb.Button
+          variant="ghost"
+          fullWidth
+          style={{ backgroundColor: "var(--hb-angel-surface-alt)" }}
+          onClick={onPrev}
+        >
           이전
         </Hb.Button>
       </div>

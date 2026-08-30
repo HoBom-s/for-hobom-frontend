@@ -27,12 +27,12 @@ test.describe("landing", () => {
 
     // Back on the landing, the primary CTA follows through to the animal list.
     await page.goto("./");
-    await page.getByRole("button", { name: "우리 가족 찾기" }).click();
+    await page.getByRole("button", { name: "입양 동물 보기" }).click();
     await expect(page).toHaveURL(/\/animals$/);
 
     // The closing CTA lands on the same place.
     await page.goto("./");
-    await page.getByRole("button", { name: "우리 가족 만나러 가기" }).click();
+    await page.getByRole("button", { name: "기다리는 동물 만나기" }).click();
     await expect(page).toHaveURL(/\/animals$/);
   });
 });

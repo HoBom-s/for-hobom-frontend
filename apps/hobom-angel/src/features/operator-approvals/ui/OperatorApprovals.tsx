@@ -27,18 +27,48 @@ export const OperatorApprovals = () => {
           <span {...stylex.props(styles.rule)} aria-hidden />
           <h1 {...stylex.props(styles.title)}>검증 · 신고 관리</h1>
         </div>
-        <p {...stylex.props(styles.subtitle)}>
-          보호소 등록을 검증하고, 접수된 신고를 처리해요.
-        </p>
+        <p {...stylex.props(styles.subtitle)}>보호소 등록을 검증하고, 접수된 신고를 처리해요.</p>
       </header>
 
       <Hb.Tabs.Provider value={tab} onChange={(_, value) => setTab(value)}>
-        <Hb.Tabs.Root>
+        <Hb.Tabs.Root
+          style={{
+            width: "fit-content",
+            gap: 3,
+            padding: 4,
+            border: "none",
+            borderRadius: 999,
+            backgroundColor: "var(--hb-color-border)",
+          }}
+        >
           <Hb.Tabs.Item
             value="SHELTER_VERIFICATION"
             label={`${APPROVAL_TYPE_LABEL.SHELTER_VERIFICATION} ${counts.SHELTER_VERIFICATION}`}
+            style={{
+              minHeight: 40,
+              margin: 0,
+              border: "none",
+              borderRadius: 999,
+              backgroundColor:
+                tab === "SHELTER_VERIFICATION" ? "var(--hb-color-surface)" : "transparent",
+              color:
+                tab === "SHELTER_VERIFICATION"
+                  ? "var(--hb-color-text-primary)"
+                  : "var(--hb-color-neutral)",
+            }}
           />
-          <Hb.Tabs.Item value="REPORT" label={`신고 ${reports.length}`} />
+          <Hb.Tabs.Item
+            value="REPORT"
+            label={`신고 ${reports.length}`}
+            style={{
+              minHeight: 40,
+              margin: 0,
+              border: "none",
+              borderRadius: 999,
+              backgroundColor: tab === "REPORT" ? "var(--hb-color-surface)" : "transparent",
+              color: tab === "REPORT" ? "var(--hb-color-text-primary)" : "var(--hb-color-neutral)",
+            }}
+          />
         </Hb.Tabs.Root>
 
         <Hb.Tabs.Panel value="SHELTER_VERIFICATION" {...stylex.props(styles.panel)}>

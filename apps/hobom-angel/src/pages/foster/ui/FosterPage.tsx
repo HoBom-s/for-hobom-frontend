@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { useNavigate } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Hb } from "hobom-design-system";
@@ -103,7 +103,15 @@ export const FosterPage = () => {
           <h2 {...stylex.props(styles.ctaTitle)}>{FOSTER_CTA.title}</h2>
           <p {...stylex.props(styles.ctaLead)}>{FOSTER_CTA.lead}</p>
           <Hb.Button
-            className={stylex.props(styles.ctaButton).className}
+            size="large"
+            shape="pill"
+            style={
+              {
+                "--hb-color-accent": "var(--hb-angel-on-photo)",
+                "--hb-color-accent-dark": "var(--hb-angel-warm-tint)",
+                "--hb-color-accent-contrast": "var(--hb-angel-green-deep)",
+              } as CSSProperties
+            }
             onClick={() => navigate(`${ROUTES.ANIMALS}?placement=FOSTER`)}
           >
             {FOSTER_CTA.button}

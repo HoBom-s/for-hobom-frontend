@@ -51,7 +51,7 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
             width: 64,
             height: 64,
             fontSize: "1.5rem",
-            backgroundColor: "var(--hb-color-accent)",
+            backgroundColor: "rgba(242,247,242,0.18)",
             color: "var(--hb-color-accent-contrast)",
           }}
         >
@@ -65,11 +65,16 @@ export const MyProfile = ({ onLogout }: MyProfileProps) => {
               size="small"
               variant="soft"
               color="success"
+              style={{ backgroundColor: "rgba(242,247,242,0.18)", color: "#F2F7F2" }}
             />
           </div>
           <p {...stylex.props(styles.email)}>{user.email}</p>
         </div>
-        <Hb.Button variant="secondary" onClick={editNickname}>
+        <Hb.Button
+          variant="ghost"
+          style={{ backgroundColor: "rgba(242,247,242,0.16)", color: "#F2F7F2" }}
+          onClick={editNickname}
+        >
           닉네임 변경
         </Hb.Button>
       </div>

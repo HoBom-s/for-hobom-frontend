@@ -7,6 +7,19 @@ import type {
   RegisterAnimalResult,
 } from "./animal.type";
 
+const healthFields = {
+  neutered: HoBomSchema.boolean(),
+  vaccinated: HoBomSchema.boolean(),
+  microchipId: HoBomSchema.string().nullable(),
+  notes: HoBomSchema.string().nullable(),
+} as const;
+
+const intakeFields = {
+  intakeDate: HoBomSchema.string(),
+  rescueStory: HoBomSchema.string().nullable(),
+  noticeNumber: HoBomSchema.string().nullable(),
+} as const;
+
 const animalFields = {
   id: HoBomSchema.string(),
   shelterId: HoBomSchema.string(),
@@ -24,6 +37,8 @@ const animalFields = {
     color: HoBomSchema.string().nullable(),
     personality: HoBomSchema.string().nullable(),
   }),
+  health: HoBomSchema.object(healthFields).optional(),
+  intake: HoBomSchema.object(intakeFields).optional(),
   photos: HoBomSchema.array(
     HoBomSchema.object({ objectKey: HoBomSchema.string(), caption: HoBomSchema.string().optional() }),
   ),
@@ -44,17 +59,8 @@ export const animalListSchema: Schema<RawAnimal[]> = HoBomSchema.array(animalSch
 /** `GET /animals/:id` response schema — the list fields plus health and intake. */
 export const animalDetailSchema: Schema<RawAnimalDetail> = HoBomSchema.object({
   ...animalFields,
-  health: HoBomSchema.object({
-    neutered: HoBomSchema.boolean(),
-    vaccinated: HoBomSchema.boolean(),
-    microchipId: HoBomSchema.string().nullable(),
-    notes: HoBomSchema.string().nullable(),
-  }),
-  intake: HoBomSchema.object({
-    intakeDate: HoBomSchema.string(),
-    rescueStory: HoBomSchema.string().nullable(),
-    noticeNumber: HoBomSchema.string().nullable(),
-  }),
+  health: HoBomSchema.object(healthFields),
+  intake: HoBomSchema.object(intakeFields),
   shelter: HoBomSchema.object({
     id: HoBomSchema.string(),
     slug: HoBomSchema.string(),

@@ -7,6 +7,7 @@ import { managedShelter } from "@/entities/user";
 import type { CurrentUser } from "@/entities/user";
 import { PRIMARY_NAV } from "../model/nav-items";
 import { activeLinkProps } from "./nav-link-props";
+import { BrandMark } from "./BrandMark";
 import { NavSearch } from "./NavSearch";
 import { ProfileMenu } from "./ProfileMenu";
 import { styles } from "./GlobalNav.styles";
@@ -25,7 +26,8 @@ export const TopNav = ({ user, isAuthenticated }: TopNavProps) => {
     <header {...stylex.props(styles.topbar)}>
       <div {...stylex.props(styles.topInner)}>
         <Link to={ROUTES.HOME} {...stylex.props(styles.brand)}>
-          🐾 호봄엔젤
+          <BrandMark />
+          호봄엔젤
         </Link>
 
         {isAuthenticated && user ? (

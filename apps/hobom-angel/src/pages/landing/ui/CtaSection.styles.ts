@@ -1,33 +1,38 @@
+// Claude Design 홈 CTA의 녹색 그라디언트·여백·텍스트 스타일
 import * as stylex from "@stylexjs/stylex";
 
 const DESKTOP = "@media (min-width: 1024px)";
 
 export const styles = stylex.create({
   section: {
-    paddingBlock: "var(--hb-angel-space-section)",
-    paddingInline: "clamp(16px, 4vw, 40px)",
+    maxWidth: 1200,
+    marginInline: "auto",
+    paddingTop: 44,
+    paddingInline: { default: 20, [DESKTOP]: 40 },
+    backgroundColor: "var(--hb-color-surface)",
   },
   inner: {
-    maxWidth: 1120,
-    marginInline: "auto",
-    padding: { default: "44px 24px", [DESKTOP]: "64px 40px" },
-    borderRadius: "var(--hb-angel-radius-card)",
+    overflow: "hidden",
+    padding: { default: "30px 24px", [DESKTOP]: "48px 46px" },
+    borderRadius: 26,
     backgroundImage: "var(--hb-angel-cta-gradient)",
-    boxShadow: "var(--hb-angel-glow-accent)",
-    textAlign: "center",
-    color: "#ffffff",
+    color: "var(--hb-color-accent-contrast)",
   },
   title: {
     margin: 0,
-    fontSize: { default: "1.625rem", [DESKTOP]: "2rem" },
-    fontWeight: 800,
-    letterSpacing: "-0.02em",
+    maxWidth: "26rem",
+    fontFamily: "var(--hb-font-display)",
+    fontSize: { default: "1.5rem", [DESKTOP]: "1.9375rem" },
+    lineHeight: 1.35,
+    fontWeight: 700,
+    color: "#F2F7F2",
   },
   lead: {
     margin: 0,
-    marginTop: 12,
-    marginBottom: 28,
-    fontSize: "1.0625rem",
-    color: "rgba(255,255,255,0.9)",
+    marginTop: 14,
+    maxWidth: "30rem",
+    fontSize: "0.9375rem",
+    lineHeight: 1.7,
+    color: "rgba(242,247,242,0.82)",
   },
 });

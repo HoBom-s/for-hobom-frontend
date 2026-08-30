@@ -31,19 +31,26 @@ export const LoginForm = () => {
 
         <FormProvider {...methods}>
           <form {...stylex.props(styles.form)} onSubmit={submit} noValidate>
-            <span {...stylex.props(styles.overline)}>WELCOME BACK</span>
             <h2 {...stylex.props(styles.title)}>다시 오셨네요</h2>
-            <p {...stylex.props(styles.subtitle)}>이메일로 로그인해주세요.</p>
+            <p {...stylex.props(styles.subtitle)}>이메일로 로그인해 주세요.</p>
 
             <div {...stylex.props(styles.fields)}>
               <EmailField />
               <PasswordField />
             </div>
 
-            <label {...stylex.props(styles.remember)}>
-              <Hb.Checkbox checked={rememberMe} onChange={() => setRememberMe((value) => !value)} />
-              로그인 상태 유지
-            </label>
+            <div {...stylex.props(styles.optionsRow)}>
+              <label {...stylex.props(styles.remember)}>
+                <Hb.Checkbox
+                  checked={rememberMe}
+                  onChange={() => setRememberMe((value) => !value)}
+                />
+                로그인 상태 유지
+              </label>
+              <Link to={ROUTES.PASSWORD_RESET} {...stylex.props(styles.link)}>
+                비밀번호 찾기
+              </Link>
+            </div>
 
             <Hb.Button
               type="submit"
